@@ -1,0 +1,30 @@
+#UIComponents
+
+  -Checkbox
+    ☐ Create 
+  -Slider
+    ✔ Create @done (8/22/2019, 10:19:49 PM)
+    ☐ Add text/label to slider
+  -TextInput
+    ☐ Create
+  -Curve
+    ☐ Create
+  -LeafGenerator
+    ☐ Create
+  -Button
+    ☐ Create
+  -Group
+    ☐ Create
+
+CodeComponent
+
+  -Stage
+    ✔ Create @done (8/22/2019, 10:20:21 PM)
+  -Render/Scene
+    ☐ Create
+  -Generator
+    ☐ Create
+
+  -Import/Export
+    -Download/Upload
+    -CRUD from Localstorage
