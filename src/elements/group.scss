@@ -1,0 +1,51 @@
+.group-wrapper {
+  padding-left: 20px;
+  display: none;
+
+  > ::after {
+    position: absolute;
+    content: "";
+    opacity: 0.1;
+    background-color: gray;
+    width: 1px;
+    height: 100%;
+    left: 0;
+    top: 0;
+  }
+
+  &.group-open {
+    display: block;
+  }
+
+  .ui-element-wrapper:last-child {
+    border-bottom: none;
+  }
+}
+
+.stage-wrapper {
+  > .group-toppart {
+    padding-left: 10px;
+  }
+
+  > .group-wrapper {
+    padding-left: 30px;
+  }
+}
+
+.group-toppart {
+  cursor: pointer;
+  > h3 {
+    user-select: none;
+    padding-left: 20px;
+  }
+  > span {
+    float: left;
+    transform: rotate(-45deg) translateY(0.25em);
+    transition: transform 0.3s ease;
+    font-size: 0.8em;
+    user-select: none;
+  }
+  &.group-open > span {
+    transform: rotate(45deg) translateY(-0.1em);
+  }
+}
