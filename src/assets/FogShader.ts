@@ -52,10 +52,10 @@ const fragment: string = `
         tex = mix(tex, uFogColor, fog);
         
         // add some fog along the height of each tree to simulate low-lying fog 
-        tex = mix(tex, uFogColor, smoothstep(1.0, -1.8, vPos.y)); 
+        tex = mix(tex, uFogColor, smoothstep(0.3, -1.8, vPos.y)); 
         
         gl_FragColor.rgb = tex;
-        gl_FragColor.a = 1.0;
+        gl_FragColor.a = 0.5;
     }
 `;
 

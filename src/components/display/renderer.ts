@@ -1,24 +1,28 @@
-import {
-  Renderer,
-  Camera,
-  Orbit,
-  Vec3,
-  Transform,
-  Texture,
-  Program,
-  Color,
-  Geometry,
-  Mesh
-} from "ogl";
+import { Renderer, Camera, Orbit, Vec3, Transform, Texture, Program, Color, Geometry, Mesh } from "ogl";
 
 import ResizeObserver from "resize-observer-polyfill";
 import debounce from "../../helpers/debounce";
 import FogShader from "../../assets/FogShader";
+import BasicShader from "../../assets/BasicShader";
+
+function convertFromThree(model: any) {
+  if ("data" in model && "attributes" in model.data) {
+    const data: any = {};
+    const { attributes } = model.data;
+    Object.keys(attributes).forEach(k => {
+      data[k] = attributes[k].array;
+    });
+    return data;
+  } else {
+    return model;
+  }
+}
+
+const msCounter = <HTMLElement>document.getElementById("ms-counter");
 
 export default function(canvas: HTMLCanvasElement) {
   const resize = debounce(
     () => {
-      console.log("resizing");
       const b = canvas.parentElement.getBoundingClientRect();
       renderer.setSize(b.width, b.height);
       camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
@@ -34,6 +38,7 @@ export default function(canvas: HTMLCanvasElement) {
 
   const renderer = new Renderer({
     width: b.width,
+    antialias: true,
     height: b.height,
     canvas: canvas
   });
@@ -46,17 +51,22 @@ export default function(canvas: HTMLCanvasElement) {
 
   const controls = new Orbit(camera, {
     target: new Vec3(0, 0.2, 0),
+    maxPolarAngle: 1.6,
+    minDistance: 1,
+    maxDistance: 15,
     enablePan: false,
     element: canvas
   });
 
   const scene = new Transform();
-  const texture = new Texture(gl);
-  texture.wrapS = 1024;
-  texture.wrapT = 1024;
+  const texture = new Texture(gl, {
+    wrapS: 1024,
+    wrapT: 1024
+  });
   const img = new Image();
   img.onload = () => (texture.image = img);
   img.src = "assets/rocky_dirt1-albedo.png";
+
   const program = new Program(gl, {
     vertex: FogShader.vertex,
     fragment: FogShader.fragment,
@@ -70,35 +80,53 @@ export default function(canvas: HTMLCanvasElement) {
     }
   });
 
-  let mesh;
+  const basicProgram = new Program(gl, {
+    vertex: BasicShader.vertex,
+    fragment: BasicShader.fragment,
+    uniforms: {
+      uTime: { value: 0 },
+      tMap: { value: texture },
+      // Pass relevant uniforms for fog
+      uFogColor: { value: new Color("#ffffff") },
+      uFogNear: { value: 10 },
+      uFogFar: { value: 30 }
+    }
+  });
+
   loadModel();
   async function loadModel() {
-    const model = await (await fetch(`assets/ground2.json`)).json();
-    let data: any = {};
-
-    if ("data" in model && "attributes" in model.data) {
-      const { attributes } = model.data;
-      Object.keys(attributes).forEach(k => {
-        data[k] = attributes[k].array;
-      });
-    } else {
-      data = model;
-    }
-
-    const geometry = new Geometry(gl, {
-      position: { size: 3, data: new Float32Array(data.position) },
-      uv: { size: 2, data: new Float32Array(data.uv) }
+    const plant = convertFromThree(await (await fetch(`assets/plant.json`)).json());
+    const plantGeometry = new Geometry(gl, {
+      position: { size: 3, data: new Float32Array(plant.position) },
+      normal: { size: 3, data: new Float32Array(plant.normal) },
+      uv: { size: 2, data: new Float32Array(plant.uv) }
     });
-    mesh = new Mesh(gl, { geometry, program });
-    window["mesh"] = mesh;
+    const plantMesh = new Mesh(gl, {
+      geometry: plantGeometry,
+      program: basicProgram
+    });
+    plantMesh.setParent(scene);
+    plantMesh.geometry.computeBoundingBox();
+    controls.target[1] = plantMesh.geometry.bounds.max[2] / 2;
+    console.log(controls.target);
+    console.log(controls);
+    const ground = convertFromThree(await (await fetch(`assets/ground2.json`)).json());
+    const geometry = new Geometry(gl, {
+      position: { size: 3, data: new Float32Array(ground.position) },
+      uv: { size: 2, data: new Float32Array(ground.uv) }
+    });
+    const mesh = new Mesh(gl, { geometry, program });
     mesh.setParent(scene);
   }
   requestAnimationFrame(update);
 
+  let start = 0;
   function update(t: number) {
+    msCounter.innerHTML = Math.floor((performance.now() - start) * 10) / 10 + "ms";
     requestAnimationFrame(update);
     program.uniforms.uTime.value = t * 0.001;
     controls.update();
     renderer.render({ scene, camera });
+    start = performance.now();
   }
 }
