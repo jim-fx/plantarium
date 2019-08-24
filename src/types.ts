@@ -38,6 +38,12 @@ interface plantDescription {
   leaves: leafDescription;
 }
 
+interface point {
+  x: number;
+  y: number;
+  locked?: boolean;
+}
+
 interface Stage {
   plantDescription: plantDescription;
   title: string;
