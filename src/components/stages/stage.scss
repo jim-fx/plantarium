@@ -1,7 +1,14 @@
 .stage-wrapper {
-  display: none;
+  position: absolute;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
 }
 
 .stage-wrapper-visible {
-  display: block;
+  position: relative;
+  transform: translateX(0px);
+  pointer-events: all;
+  opacity: 1;
 }
