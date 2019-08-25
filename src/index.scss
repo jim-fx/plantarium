@@ -12,10 +12,11 @@ body {
   color: white;
   background-color: $dark-gray;
   margin: 0px;
+  overflow: hidden;
   padding: 0px;
   box-sizing: border-box;
-  font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+    "Helvetica Neue", sans-serif;
 }
 
 .component {
@@ -73,7 +74,10 @@ button:focus {
 #sidebar {
   z-index: 2;
   padding-right: 30px;
+  padding-left: 30px;
   padding-top: 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 table {
@@ -104,4 +108,10 @@ table {
   display: block;
   visibility: hidden;
   height: 0px;
+}
+
+pre {
+  position: absolute;
+  font-size: 10px;
+  color: rgba(0, 0, 0, 0.7);
 }

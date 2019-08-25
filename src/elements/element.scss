@@ -3,3 +3,6 @@
   padding: 15px 0px;
   border-bottom: solid thin rgba(128, 128, 128, 0.226);
 }
+.stage-wrapper > .ui-element-wrapper:last-child {
+  border: none;
+}
