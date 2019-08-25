@@ -8,15 +8,10 @@ interface Vector {
   y: number;
 }
 
-interface curveOutput {
-  points: Vector[];
-}
-
 interface parameter {
-  value: number;
-  min?: number;
-  max?: number;
-  curve?: curveOutput;
+  value?: number;
+  variation?: number;
+  curve?: point[];
 }
 
 interface stemDescription {
@@ -45,7 +40,7 @@ interface point {
 }
 
 interface Stage {
-  plantDescription: plantDescription;
+  pd: plantDescription | undefined;
   title: string;
   wrapper: HTMLDivElement;
   config: stageConfig;
@@ -57,12 +52,12 @@ interface Stage {
 interface UIConfig {
   title: string;
   type: string;
+  default: number;
   onUpdate?: Function;
   children?: UIConfig[];
 }
 
 interface Button {
   wrapper: HTMLElement;
-  active: boolean;
   onClick(cb: Function): void;
 }
