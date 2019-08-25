@@ -2,8 +2,262 @@ import "./curve.scss";
 import UIElement from "./element";
 import ResizeObserver from "resize-observer-polyfill";
 import debounce from "../helpers/debounce";
-import drawCurve from "../helpers/drawCurve";
+import throttle from "../helpers/throttle";
 const hoverDistance = 0.1;
+
+function plotCBez(
+  ptCount: number,
+  pxTolerance: number,
+  Ax: number,
+  Ay: number,
+  Bx: number,
+  By: number,
+  Cx: number,
+  Cy: number,
+  Dx: number,
+  Dy: number
+) {
+  let deltaBAx = Bx - Ax;
+  let deltaCBx = Cx - Bx;
+  let deltaDCx = Dx - Cx;
+  let deltaBAy = By - Ay;
+  let deltaCBy = Cy - By;
+  let deltaDCy = Dy - Cy;
+  let ax, ay, bx, by;
+  let lastX = -10000;
+  let lastY = -10000;
+  let pts = [{ x: Ax, y: Ay }];
+  for (let i = 1; i < ptCount; i++) {
+    let t = i / ptCount;
+    let ax = Ax + deltaBAx * t;
+    let bx = Bx + deltaCBx * t;
+    let cx = Cx + deltaDCx * t;
+    ax += (bx - ax) * t;
+    bx += (cx - bx) * t;
+    //
+    ay = Ay + deltaBAy * t;
+    by = By + deltaCBy * t;
+    let cy = Cy + deltaDCy * t;
+    ay += (by - ay) * t;
+    by += (cy - by) * t;
+    let x = ax + (bx - ax) * t;
+    let y = ay + (by - ay) * t;
+    let dx = x - lastX;
+    let dy = y - lastY;
+    if (dx * dx + dy * dy > pxTolerance) {
+      pts.push({ x: x, y: y });
+      lastX = x;
+      lastY = y;
+    }
+  }
+  pts.push({ x: Dx, y: Dy });
+  return pts;
+}
+
+class Curve {
+  ctx?: CanvasRenderingContext2D;
+  private _points: point[];
+  private _controlPoints: any[];
+  private _normalizedPoints: point[];
+  constructor(ctx?: CanvasRenderingContext2D) {
+    this.ctx = ctx;
+    this._points = [];
+    this._controlPoints = [];
+    this._normalizedPoints = [];
+  }
+
+  static arrayFromPoints(pts: point[]) {
+    const c = new this();
+    c.points = pts;
+    return c.array;
+  }
+
+  get array() {
+    const length = this.points.length - 1;
+    const seen = {};
+    return this.points
+      .map((p, i, a) => {
+        if (i < length) {
+          const length = this._normalizedPoints[i + 1].x - this._normalizedPoints[i].x;
+          return plotCBez(
+            length * 20,
+            0,
+            p.x,
+            p.y,
+            this._controlPoints[i].rx,
+            this._controlPoints[i].ry,
+            this._controlPoints[i + 1].lx,
+            this._controlPoints[i + 1].ly,
+            a[i + 1].x,
+            a[i + 1].y
+          );
+        } else {
+          return undefined;
+        }
+      })
+      .filter(t => !!t)
+      .flat()
+      .filter((p: point) => {
+        const id = p.x.toString();
+        if (id in seen) {
+          return false;
+        } else {
+          seen[id] = true;
+          return true;
+        }
+      });
+  }
+
+  set points(pts) {
+    if (this.ctx) {
+      const w = this.ctx.canvas.width;
+      const h = this.ctx.canvas.height;
+      this._normalizedPoints = pts;
+      this._points = pts
+        .sort((a, b) => (a.x < b.x ? -1 : 1))
+        .map(p => {
+          return {
+            x: p.x * w,
+            y: (1 - p.y) * h
+          };
+        });
+      this.computeControlPoints();
+
+      this.draw(this.ctx);
+    } else {
+      this._points = pts.sort((a, b) => (a.x < b.x ? -1 : 1));
+      this._normalizedPoints = this._points;
+      this.computeControlPoints();
+    }
+  }
+
+  get points() {
+    return this._points;
+  }
+
+  computeControlPoints() {
+    const tension = 0.4;
+    const length = this.points.length - 1;
+    this._controlPoints = this.points.map((p, i, a) => {
+      if (i === 0) {
+        //First point
+        return {
+          rx: a[i + 1].x * tension * 0,
+          ry: p.y + (a[i + 1].y - p.y) * tension * 0
+        };
+      } else if (i === length) {
+        //Last point
+        return {
+          lx: a[i - 1].x + (p.x - a[i - 1].x) * tension * 2,
+          ly: a[i - 1].y + (p.y - a[i - 1].y) * tension * 2
+        };
+      } else {
+        //Middle points
+        let isExtremPoint = (p.y > a[i + 1].y && p.y > a[i - 1].y) || (p.y < a[i + 1].y && p.y < a[i - 1].y);
+        if (isExtremPoint) {
+          return {
+            lx: a[i - 1].x + (p.x - a[i - 1].x) * tension,
+            ly: p.y,
+            rx: p.x + (a[i + 1].x - p.x) * tension,
+            ry: p.y
+          };
+        } else {
+          //Create vector from before and after point
+          const vec = {
+            x: a[i - 1].x - a[i + 1].x,
+            y: a[i - 1].y - a[i + 1].y
+          };
+          const vecLength = Math.sqrt(Math.pow(vec.x, 2) + Math.pow(vec.y, 2));
+          vec.x /= vecLength;
+          vec.y /= vecLength;
+
+          let lRight = a[i + 1].x - p.x;
+          let lLeft = p.x - a[i - 1].x;
+
+          //let _lRight = Math.sqrt(Math.pow(p.x - a[i + 1].x, 2) + Math.pow(p.y - a[i + 1].y, 2));
+          //let _lLeft = Math.sqrt(Math.pow(p.x - a[i - 1].x, 2) + Math.pow(p.y - a[i - 1].y, 2));
+
+          return {
+            lx: p.x + vec.x * lLeft * tension,
+            ly: p.y + vec.y * lLeft * tension,
+            rx: p.x - vec.x * lRight * tension,
+            ry: p.y - vec.y * lRight * tension
+          };
+        }
+      }
+    });
+  }
+
+  drawLinear(ctx: CanvasRenderingContext2D) {
+    ctx.save();
+    this._points.forEach((p, i, a) => {
+      if (i < a.length - 1) {
+        ctx.strokeStyle = "gray";
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(a[i + 1].x, a[i + 1].y);
+        ctx.stroke();
+      }
+    });
+    ctx.restore();
+  }
+
+  drawControlPoints(ctx: CanvasRenderingContext2D) {
+    this._controlPoints.forEach((p, i) => {
+      if ("rx" in p && "ry" in p) {
+        ctx.fillRect(p.rx - 1, p.ry - 1, 2, 2);
+        ctx.beginPath();
+        ctx.moveTo(this.points[i].x, this.points[i].y);
+        ctx.lineTo(p.rx, p.ry);
+        ctx.stroke();
+      }
+      if ("lx" in p && "ly" in p) {
+        ctx.fillRect(p.lx - 1, p.ly - 1, 2, 2);
+        ctx.beginPath();
+        ctx.moveTo(this.points[i].x, this.points[i].y);
+        ctx.lineTo(p.lx, p.ly);
+        ctx.stroke();
+      }
+    });
+  }
+
+  drawCurve(ctx: CanvasRenderingContext2D) {
+    this._points.forEach((p, i, a) => {
+      if (i < a.length - 1) {
+        ctx.moveTo(p.x, p.y);
+        ctx.bezierCurveTo(
+          this._controlPoints[i].rx,
+          this._controlPoints[i].ry,
+          this._controlPoints[i + 1].lx,
+          this._controlPoints[i + 1].ly,
+          a[i + 1].x,
+          a[i + 1].y
+        );
+        ctx.stroke();
+      }
+    });
+  }
+
+  drawSamplePoints(ctx: CanvasRenderingContext2D) {
+    ctx.save();
+    ctx.fillStyle = "red";
+    this.array.forEach((p: point) => {
+      ctx.fillRect(p.x - 1, p.y - 1, 2, 2);
+    });
+    ctx.restore();
+  }
+
+  draw(ctx: CanvasRenderingContext2D) {
+    const w = ctx.canvas.width;
+    const h = ctx.canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    //this.drawLinear(ctx);
+    this.drawCurve(ctx);
+    //this.drawControlPoints(ctx);
+    //this.drawSamplePoints(ctx);
+  }
+}
 
 export default class UICurve extends UIElement {
   points: point[] = [
@@ -11,21 +265,6 @@ export default class UICurve extends UIElement {
       x: 0,
       y: 0,
       locked: true
-    },
-    {
-      x: 0.25,
-      y: 0.25,
-      locked: false
-    },
-    {
-      x: 0.5,
-      y: 0.5,
-      locked: false
-    },
-    {
-      x: 0.75,
-      y: 0.75,
-      locked: false
     },
     {
       x: 1,
@@ -53,6 +292,8 @@ export default class UICurve extends UIElement {
   private width: number = 0;
   private height: number = 0;
 
+  private curve: Curve;
+
   constructor(stage: Stage, wrapper: HTMLElement, config: UIConfig) {
     super(stage, wrapper, config);
 
@@ -64,7 +305,19 @@ export default class UICurve extends UIElement {
     canvas.width = 200;
     canvas.height = 200;
 
+    const update = throttle(() => {
+      this.update({
+        curve: this.points.map(p => {
+          return {
+            x: p.x,
+            y: p.y
+          };
+        })
+      });
+    }, 100);
+
     this.ctx = <CanvasRenderingContext2D>canvas.getContext("2d");
+    this.curve = new Curve(this.ctx);
 
     const canvasWrapper = document.createElement("div");
     canvasWrapper.addEventListener("mouseover", () => {
@@ -84,6 +337,7 @@ export default class UICurve extends UIElement {
         if (this.activePoint) {
           this.activePoint.x = this.pointDownPos.x + (this.mousePos.x - this.mouseDownPos.x);
           this.activePoint.y = this.pointDownPos.y + (this.mousePos.y - this.mouseDownPos.y);
+          update();
         }
       }
     });
@@ -122,8 +376,9 @@ export default class UICurve extends UIElement {
           this.points.push(point);
         }
       }
-    });
 
+      update();
+    });
     document.addEventListener("mouseup", () => {
       setTimeout(() => {
         this.activePoint = undefined;
@@ -134,26 +389,25 @@ export default class UICurve extends UIElement {
     canvasWrapper.append(canvas);
     this.wrapper.append(canvasWrapper);
 
-    const resize = debounce(
-      () => {
-        const b = canvasWrapper.getBoundingClientRect();
-        this.width = b.width;
-        this.height = b.height;
-        canvas.width = b.width;
-        canvas.height = b.height;
-        this.draw();
-      },
-      200,
-      false
+    const resizeObserver = new ResizeObserver(
+      debounce(
+        () => {
+          const b = canvasWrapper.getBoundingClientRect();
+          this.width = b.width;
+          this.height = b.height;
+          canvas.width = b.width;
+          canvas.height = b.height;
+          this.draw();
+        },
+        200,
+        false
+      )
     );
-    const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(<HTMLElement>this.wrapper);
-    resize();
 
     this.wrapper.classList.add("curve-wrapper");
 
     this.draw();
-    window["curve"] = this;
   }
 
   private render = () => {
@@ -169,17 +423,7 @@ export default class UICurve extends UIElement {
     this.ctx.strokeStyle = "white";
     this.ctx.fillStyle = "white";
 
-    //this.ctx.moveTo(this.points[0].x * this.width, (1 - this.points[0].y) * this.height);
-
-    drawCurve(
-      this.ctx,
-      this.points.map(p => {
-        return {
-          x: Math.floor(this.width * p.x),
-          y: Math.floor(this.height * (1 - p.y))
-        };
-      })
-    );
+    this.curve.points = this.points;
 
     if (this.isHovered) {
       this.points.forEach((p: point) => {
