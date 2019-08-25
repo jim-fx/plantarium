@@ -23,9 +23,9 @@ export default class UIElement {
   update(v: parameter) {
     if (this.config.onUpdate) {
       this.config.onUpdate(
-        this.stage.plantDescription,
         v,
-        (newState: plantDescription) => (this.stage.plantDescription = newState)
+        Object.assign(this.stage.pd, {}),
+        (newState: plantDescription) => (this.stage.pd = newState)
       );
     }
   }
