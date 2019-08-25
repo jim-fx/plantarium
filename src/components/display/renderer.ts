@@ -20,6 +20,37 @@ function convertFromThree(model: any) {
 
 const msCounter = <HTMLElement>document.getElementById("ms-counter");
 
+function customControls(canvas: HTMLCanvasElement, vec: any, max: any, min: any) {
+  let mouseDown: boolean = false;
+  const downVec = {
+    x: 0,
+    y: 0
+  };
+  let downY = vec[1];
+
+  let h = canvas.height;
+
+  canvas.addEventListener("mousedown", ev => {
+    if (ev.button == 2) {
+      downY = vec[1];
+      h = canvas.height;
+      downVec.x = ev.pageX;
+      downVec.y = ev.pageY;
+      mouseDown = !mouseDown;
+    }
+  });
+
+  canvas.addEventListener("mouseup", ev => {
+    mouseDown = false;
+  });
+
+  canvas.addEventListener("mousemove", ev => {
+    if (mouseDown) {
+      vec[1] = Math.max(Math.min(downY + ((downVec.y - ev.pageY) / h) * 10, max[1]), min[1]);
+    }
+  });
+}
+
 export default function(canvas: HTMLCanvasElement) {
   const resize = debounce(
     () => {
@@ -55,13 +86,14 @@ export default function(canvas: HTMLCanvasElement) {
     minDistance: 1,
     maxDistance: 15,
     enablePan: false,
+    //enableZoom: false,
     element: canvas
   });
 
   const scene = new Transform();
   const texture = new Texture(gl, {
-    wrapS: 1024,
-    wrapT: 1024
+    wrapS: gl.REPEAT,
+    wrapT: gl.REPEAT
   });
   const img = new Image();
   img.onload = () => (texture.image = img);
@@ -108,8 +140,9 @@ export default function(canvas: HTMLCanvasElement) {
     plantMesh.setParent(scene);
     plantMesh.geometry.computeBoundingBox();
     controls.target[1] = plantMesh.geometry.bounds.max[2] / 2;
-    console.log(controls.target);
-    console.log(controls);
+
+    customControls(canvas, controls.target, plantMesh.geometry.bounds.max, plantMesh.geometry.bounds.min);
+
     const ground = convertFromThree(await (await fetch(`assets/ground2.json`)).json());
     const geometry = new Geometry(gl, {
       position: { size: 3, data: new Float32Array(ground.position) },
