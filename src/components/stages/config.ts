@@ -2,39 +2,69 @@ const stemStage = {
   title: "stem",
   children: [
     {
-      title: "Basic Settings",
+      title: "Diameter",
       type: "group",
       children: [
         {
           type: "Slider",
-          title: "Stem Diameter",
-          onUpdate: (
-            output: parameter,
-            originalState: plantDescription,
-            updateState: Function
-          ) => {
-            originalState.branches.diameter = output;
-
+          title: "Diameter",
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+            originalState.stem.diameter.value = output.value;
             updateState(originalState);
           }
         },
         {
           type: "Slider",
-          title: "Stem Diameter"
+          default: 0,
+          title: "Diameter Variation",
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+            if (output.value === 0) {
+              delete originalState.stem.diameter.variation;
+            } else {
+              originalState.stem.diameter.variation = output.value;
+            }
+            updateState(originalState);
+          }
         },
         {
-          type: "Checkbox",
-          title: "Use Random"
+          type: "Curve",
+          title: "Stem Diameter",
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+            if (output.curve.length <= 2) {
+              delete originalState.stem.diameter.curve;
+            } else {
+              originalState.stem.diameter.curve = output.curve;
+            }
+            console.log(originalState.stem.diameter);
+            updateState(originalState);
+          }
         }
       ]
     },
     {
       type: "group",
-      title: "Curves",
+      title: "Height",
       children: [
         {
-          type: "Curve",
-          title: "Stem Diameter"
+          type: "Slider",
+          title: "Height",
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+            originalState.stem.height.value = output.value;
+            updateState(originalState);
+          }
+        },
+        {
+          type: "Slider",
+          default: 0,
+          title: "Height Variation",
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+            if (output.value === 0) {
+              delete originalState.stem.height.variation;
+            } else {
+              originalState.stem.height.variation = output.value;
+            }
+            updateState(originalState);
+          }
         }
       ]
     }
@@ -51,11 +81,7 @@ const branchStage = {
         {
           type: "Slider",
           title: "Stem Diameter",
-          onUpdate: (
-            output: parameter,
-            originalState: plantDescription,
-            updateState: Function
-          ) => {
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
             originalState.branches.diameter = output;
 
             updateState(originalState);
@@ -76,11 +102,7 @@ const leafStage = {
         {
           type: "Slider",
           title: "Stem Diameter",
-          onUpdate: (
-            output: parameter,
-            originalState: plantDescription,
-            updateState: Function
-          ) => {
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
             originalState.stem.diameter = output;
 
             updateState(originalState);
@@ -91,6 +113,16 @@ const leafStage = {
   ]
 };
 
-const stages: stageConfig[] = [stemStage, branchStage, leafStage];
+const IOStage = {
+  title: "import/export",
+  children: [
+    {
+      type: "Button",
+      title: "Stem Diameter"
+    }
+  ]
+};
+
+const stages: stageConfig[] = [stemStage, branchStage, leafStage, IOStage];
 
 export default stages;
