@@ -18,3 +18,28 @@
   bottom: 50px;
   color: gray;
 }
+
+#overlay-wrapper {
+  * {
+    position: absolute;
+    font-size: 10px;
+    user-select: none;
+    pointer-events: none;
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  pre {
+    right: 0;
+    padding-right: 20px;
+    padding-top: 20px;
+    box-sizing: border-box;
+    padding-bottom: 40px;
+    overflow-y: auto;
+    height: 100%;
+    pointer-events: all;
+  }
+
+  > canvas {
+    position: absolute;
+  }
+}
