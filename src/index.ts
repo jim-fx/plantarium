@@ -4,32 +4,28 @@ import "babel-polyfill";
 import resizeTables from "./helpers/resizeTable";
 
 import Stage from "./components/stages/stageClass";
-import StageHandler from "./components/stages/stageHandler";
-import stagesConfig from "./components/stages/config";
+import { stemConfig, branchConfig, leafConfig, IOConfig } from "./config";
 
 import display from "./components/display";
 import { importer, exporter } from "./components/io";
 
 import defaultPD from "./assets/defaultPlantDefinition";
 
-const stages: Stage[] = stagesConfig.map(stageConfig => new Stage(stageConfig));
+const importerStage = importer;
+const stemStage = new Stage(stemConfig);
+const branchStage = new Stage(branchConfig);
+const leafStage = new Stage(leafConfig);
+const IOStage = new Stage(IOConfig);
+const displayStage = display;
+const exporterStage = exporter;
 
-stages.forEach((_stage: Stage) => StageHandler.registerStage(_stage));
+importerStage.connect(stemStage);
+stemStage.connect(branchStage);
+branchStage.connect(leafStage);
+leafStage.connect(displayStage);
+displayStage.connect(IOStage);
+IOStage.connect(exporterStage);
 
-stages.unshift(importer);
-
-stages.push(display);
-
-stages.push(exporter);
-
-stages.forEach((stage: Stage, i: number) => {
-  if (i < stages.length - 1) {
-    stage.connect(stages[i + 1]);
-  }
-});
-
-console.log(stages);
-
-importer.pd = defaultPD;
+importer.init("pd" in localStorage ? JSON.parse(localStorage.pd) : defaultPD);
 
 resizeTables(<HTMLTableElement>document.querySelector("table"));
