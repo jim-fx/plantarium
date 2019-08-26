@@ -190,15 +190,15 @@ class Curve {
 
   drawLinear(ctx: CanvasRenderingContext2D) {
     ctx.save();
+    ctx.beginPath();
     this._points.forEach((p, i, a) => {
       if (i < a.length - 1) {
         ctx.strokeStyle = "gray";
-        ctx.beginPath();
         ctx.moveTo(p.x, p.y);
         ctx.lineTo(a[i + 1].x, a[i + 1].y);
-        ctx.stroke();
       }
     });
+    ctx.stroke();
     ctx.restore();
   }
 
@@ -309,8 +309,8 @@ export default class UICurve extends UIElement {
       this.update({
         curve: this.points.map(p => {
           return {
-            x: p.x,
-            y: p.y
+            x: Math.floor(p.x * 1000) / 1000,
+            y: Math.floor(p.y * 1000) / 1000
           };
         })
       });
@@ -408,6 +408,15 @@ export default class UICurve extends UIElement {
     this.wrapper.classList.add("curve-wrapper");
 
     this.draw();
+  }
+
+  init(pd: plantDescription) {
+    if (this.config.init) {
+      const initValue = this.config.init(pd);
+      if (initValue) {
+        this.points = <point[]>initValue;
+      }
+    }
   }
 
   private render = () => {

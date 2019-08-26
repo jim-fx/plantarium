@@ -15,7 +15,9 @@ export default class UIButton extends UIElement implements Button {
     this.element.addEventListener(
       "click",
       () => {
-        this.listeners.forEach(cb => cb());
+        if (config.onClick) {
+          config.onClick();
+        }
       },
       false
     );

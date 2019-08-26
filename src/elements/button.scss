@@ -1,18 +1,21 @@
 button {
   position: relative;
   border-radius: 2px;
-  margin: 6px 3px;
+  margin: 0;
   padding: 8px 12px;
-  background-color: transparent;
   border: none;
-  color: white;
+  color: $light-gray;
   text-transform: lowercase;
-  background-color: $light-gray;
+  background-color: $light-green;
   cursor: pointer;
 }
 
 #topbar button {
   background-color: transparent;
+}
+
+#sidebar button {
+  margin: 0;
 }
 
 button:focus {
@@ -26,5 +29,5 @@ button:focus {
   height: 38px;
   transition: top 0.3s cubic-bezier(0.8, 0.2, 0.2, 0.8), left 0.3s cubic-bezier(0.8, 0.2, 0.2, 0.8),
     width 0.3s cubic-bezier(0.8, 0.2, 0.2, 0.8);
-  background-image: linear-gradient(45deg, #337150, #65e2a0);
+  background-image: linear-gradient(45deg, $dark-green, $light-green);
 }

@@ -3,8 +3,7 @@ export default class UIElement {
   stage: Stage;
   wrapper: HTMLElement;
   config: UIConfig;
-  _enabled: boolean = true;
-
+  private _enabled: boolean = true;
   constructor(stage: Stage, wrapper: HTMLElement, config: UIConfig) {
     this.stage = stage;
     this.wrapper = document.createElement("div");
@@ -19,6 +18,8 @@ export default class UIElement {
   set enabled(v) {
     this._enabled = v;
   }
+
+  init(pd: plantDescription) {}
 
   update(v: parameter) {
     if (this.config.onUpdate) {

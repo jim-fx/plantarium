@@ -1,0 +1,17 @@
+.leaf-creator-wrapper {
+  > .canvas-wrapper {
+    &:hover {
+      box-shadow: $shadow;
+    }
+    max-height: 200px;
+    height: 200px;
+    border-radius: 2px;
+    overflow: hidden;
+    background-color: $light-gray;
+
+    > canvas {
+      width: 50%;
+      height: 100%;
+    }
+  }
+}

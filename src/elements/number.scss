@@ -1,0 +1,53 @@
+.ui-number-button-wrapper {
+  background-color: $light-gray;
+  position: relative;
+  width: fit-content;
+  border-radius: 2px;
+  pointer-events: none;
+
+  &:hover {
+    box-shadow: $shadow;
+  }
+
+  > input {
+    z-index: 2;
+    padding: 6px 25px;
+    margin: 0;
+    text-align: center;
+    background-color: transparent;
+    color: white;
+    font-family: "Nunito Sans";
+    font-weight: 400;
+    border: none;
+    pointer-events: all;
+    width: fit-content;
+    &:focus {
+      outline: none !important;
+    }
+  }
+  > button {
+    pointer-events: all;
+    font-weight: bolder;
+    position: absolute;
+    margin: 0;
+    padding: 5px 8px;
+    padding-top: 5px;
+    background-color: transparent;
+    color: white;
+  }
+  > button:nth-child(2) {
+    right: 0;
+  }
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+  margin: 0;
+}

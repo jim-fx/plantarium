@@ -16,7 +16,7 @@ input[type="range"] {
     border-radius: 25px;
   }
   &:hover::-webkit-slider-thumb {
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7), 0px 0px 0px rgba(13, 13, 13, 0.7);
+    box-shadow: $shadow;
   }
   &::-webkit-slider-thumb {
     height: 16px;
@@ -36,7 +36,7 @@ input[type="range"] {
     border-radius: 25px;
   }
   &:hover::-moz-range-thumb {
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7), 0px 0px 0px rgba(13, 13, 13, 0.7);
+    box-shadow: $shadow;
   }
   &::-moz-range-thumb {
     height: 16px;

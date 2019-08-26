@@ -1,0 +1,23 @@
+.ui-project-meta-wrapper {
+  table {
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    tr {
+      td:first-child {
+        user-select: none;
+      }
+    }
+  }
+  input[type="text"] {
+    background-color: transparent;
+    color: white;
+    border: none;
+    margin: 0;
+    padding: 0;
+    margin-left: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: bolder;
+  }
+}
