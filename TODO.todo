@@ -5,12 +5,18 @@
   -Slider
     ✔ Create @done (8/22/2019, 10:19:49 PM)
     ☐ Add text/label to slider
+  - Search Bar
+    ☐ Create
+  - Number(Integer input)
+    ✔ create @done (8/26/2019, 10:39:07 PM)
   -TextInput
     ☐ Create
   -Curve
     ✔ Create @done (8/25/2019, 11:45:18 PM)
+    ✔ sampling of Curve @done (8/26/2019, 7:45:12 PM)
+    ☐ function to interpolate sampled array
   -LeafGenerator
-    ☐ Create
+    ✔ Create @done (8/26/2019, 9:20:33 PM)
   -Button
     ✔ Create @done (8/25/2019, 11:45:23 PM)
   -Group
