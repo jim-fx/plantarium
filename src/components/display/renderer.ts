@@ -4,6 +4,7 @@ import ResizeObserver from "resize-observer-polyfill";
 import debounce from "../../helpers/debounce";
 import FogShader from "../../assets/FogShader";
 import BasicShader from "../../assets/BasicShader";
+import overlay from "./overlay";
 
 function convertFromThree(model: any) {
   if ("data" in model && "attributes" in model.data) {
@@ -17,8 +18,6 @@ function convertFromThree(model: any) {
     return model;
   }
 }
-
-const msCounter = <HTMLElement>document.getElementById("ms-counter");
 
 function customControls(canvas: HTMLCanvasElement, vec: any, max: any, min: any) {
   let mouseDown: boolean = false;
@@ -40,7 +39,7 @@ function customControls(canvas: HTMLCanvasElement, vec: any, max: any, min: any)
     }
   });
 
-  canvas.addEventListener("mouseup", ev => {
+  canvas.addEventListener("mouseup", () => {
     mouseDown = false;
   });
 
@@ -86,7 +85,6 @@ export default function(canvas: HTMLCanvasElement) {
     minDistance: 1,
     maxDistance: 15,
     enablePan: false,
-    //enableZoom: false,
     element: canvas
   });
 
@@ -155,7 +153,7 @@ export default function(canvas: HTMLCanvasElement) {
 
   let start = 0;
   function update(t: number) {
-    msCounter.innerHTML = Math.floor((performance.now() - start) * 10) / 10 + "ms";
+    overlay.ms(Math.floor((performance.now() - start) * 10) / 10);
     requestAnimationFrame(update);
     program.uniforms.uTime.value = t * 0.001;
     controls.update();
