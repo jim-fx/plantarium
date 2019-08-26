@@ -12,6 +12,9 @@ let activeButtonBackground = document.createElement("div");
 activeButtonBackground.classList.add("button-background");
 topbar.append(activeButtonBackground);
 
+const activeStageTitle = localStorage.activeStageTitle || "stem";
+log("default active stage: " + activeStageTitle, 3);
+
 export default {
   registerStage: (stage: Stage) => {
     const button = document.createElement("button");
@@ -24,6 +27,7 @@ export default {
 
           activeStage.hide();
           activeStage = stage;
+          localStorage.activeStageTitle = stage.title;
           activeStage.show();
 
           activeButton.classList.remove("button-active");
@@ -38,7 +42,7 @@ export default {
       false
     );
 
-    if (!activeStage) {
+    if (stage.title === activeStageTitle) {
       activeStage = stage;
       activeButton = button;
       activeButton.classList.add("button-active");
