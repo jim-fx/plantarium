@@ -9,6 +9,11 @@ export default {
   set pd(_pd: plantDescription) {
     nextStage.pd = _pd;
   },
+  init: (_pd: plantDescription) => {
+    if (nextStage) {
+      nextStage.init(_pd);
+    }
+  },
   connect: (stage: Stage) => {
     nextStage = stage;
   }
