@@ -227,7 +227,7 @@ export default class UICurve extends UIElement {
     this.lctx.lineTo(_points[0].x, _points[0].y);
     _points.forEach((p: point, i, a) => {
       if (i < a.length - 1) {
-        this.lctx.lineTo(a[i + 1].x, a[i + 1].y);
+        this.lctx.lineTo(p.x, p.y);
       }
     });
     this.lctx.lineTo(_points[_points.length - 1].x, _points[_points.length - 1].y);

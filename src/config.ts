@@ -1,7 +1,7 @@
 import importer from "./components/io/importer";
 import defaultPD from "./assets/defaultPlantDefinition";
 
-const stemConfig = {
+const stemConfig: stageConfig = {
   title: "stem",
   children: [
     {
@@ -105,7 +105,7 @@ const stemConfig = {
   ]
 };
 
-const branchConfig = {
+const branchConfig: stageConfig = {
   title: "branch",
   children: [
     {
@@ -159,7 +159,7 @@ const branchConfig = {
   ]
 };
 
-const leafConfig = {
+const leafConfig: stageConfig = {
   title: "leaf",
   children: [
     {
@@ -199,11 +199,12 @@ const leafConfig = {
   ]
 };
 
-const IOConfig = {
+const IOConfig: stageConfig = {
   title: "import/export",
   children: [
     {
       type: "ProjectMeta",
+      title: "Project Meta",
       identifiers: ["name", "author", "latinName", "class", "family"],
       init: (pd: plantDescription) => {
         return pd.meta;

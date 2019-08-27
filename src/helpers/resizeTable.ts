@@ -62,7 +62,7 @@ export default function(table: HTMLTableElement) {
       }
     });
 
-    document.addEventListener("mouseup", function(e) {
+    document.addEventListener("mouseup", () => {
       mouseDown = false;
       hide(div);
     });

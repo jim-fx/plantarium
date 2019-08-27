@@ -46,7 +46,7 @@ export default class Stage implements Stage {
     }
   }
 
-  connect(stage: Stage) {
+  connect(stage: Stage | any) {
     this._nextStage = stage;
   }
 

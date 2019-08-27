@@ -3,26 +3,12 @@
   "version": "1.0.0",
   "description": "A sample setup using Rollup and Babel to build TypeScript code, and using TypeScript for type-checking.",
   "scripts": {
-    "type-check": "tsc --noEmit",
-    "type-check:watch": "npm run type-check -- --watch",
-    "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "rollup -c",
-    "dev": "rollup -c -w",
-    "build": "npm run build:types && npm run build:js"
-  },
-  "main": "dist/rollup-plugin-babel.cjs.js",
-  "module": "dist/rollup-plugin-babel.esm.js",
-  "browser": "dist/rollup-plugin-babel.iife.js",
-  "types": "dist/types/index.d.ts",
-  "author": {
-    "name": "Alexander T.",
-    "email": "alexander.tarasyuk@outlook.com"
+    "dev": "rollup -c -w ",
+    "build": "NODE_ENV=production rollup -c"
   },
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "7.5.5",
-    "@babel/plugin-proposal-class-properties": "7.5.5",
-    "@babel/plugin-proposal-object-rest-spread": "7.5.5",
     "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "7.3.3",
@@ -31,10 +17,19 @@
     "resize-observer-polyfill": "^1.5.1",
     "rollup": "1.20.0",
     "rollup-plugin-babel": "4.3.3",
+    "rollup-plugin-babel-minify": "^9.0.0",
+    "rollup-plugin-buble": "^0.19.8",
     "rollup-plugin-commonjs": "10.0.2",
+    "rollup-plugin-filesize": "^6.2.0",
     "rollup-plugin-live-server": "^1.0.3",
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-scss": "^1.0.2",
+    "rollup-plugin-sizes": "^0.5.1",
+    "rollup-plugin-terser": "^5.1.1",
+    "rollup-plugin-uglify": "^6.0.2",
     "typescript": "3.5.3"
+  },
+  "dependencies": {
+    "rollup-plugin-uglify-es": "0.0.1"
   }
 }

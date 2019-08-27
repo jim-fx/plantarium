@@ -3,7 +3,7 @@ import logger from "../logger";
 import UIElement from "./element";
 const log = logger("create elements from config");
 
-function loopThroughChildren(stage: Stage, wrapper: HTMLElement, config: UIConfig): UIElement[] {
+function loopThroughChildren(stage: Stage, wrapper: HTMLElement, config: UIConfig | stageConfig): UIElement[] {
   const array: UIElement[] = [];
 
   if (typeof config.children === "object") {

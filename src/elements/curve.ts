@@ -23,6 +23,7 @@ function plotCBez(
   let deltaBAy = By - Ay;
   let deltaCBy = Cy - By;
   let deltaDCy = Dy - Cy;
+  //@ts-ignore
   let ax, ay, bx, by;
   let lastX = -10000;
   let lastY = -10000;
@@ -95,13 +96,14 @@ class Curve {
           return undefined;
         }
       })
-      .filter(t => !!t)
       .flat()
       .filter((p: point) => {
+        console.log(p);
         const id = p.x.toString();
         if (id in seen) {
           return false;
         } else {
+          //@ts-ignore
           seen[id] = true;
           return true;
         }

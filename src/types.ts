@@ -66,12 +66,12 @@ interface Stage {
 interface UIConfig {
   title: string;
   type: string;
-  identifiers: string[];
+  identifiers?: string[];
   default?: number;
   max?: number;
   min?: number;
   onClick?: Function;
   onUpdate?: Function;
   children?: UIConfig[];
-  init(pd: plantDescription): number | string | point[];
+  init?(pd: plantDescription): any;
 }

@@ -2,7 +2,7 @@ import "./button.scss";
 
 import UIElement from "./element";
 
-export default class UIButton extends UIElement implements Button {
+export default class UIButton extends UIElement {
   private listeners: Function[];
   private element: HTMLButtonElement;
 

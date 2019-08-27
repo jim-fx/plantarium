@@ -2,7 +2,7 @@ import UIElement from "./element";
 import "./projectMeta.scss";
 
 export default class UIProjectMeta extends UIElement {
-  rows: Map<string, HTMLElement> = new Map();
+  rows: Map<string, HTMLInputElement> = new Map();
 
   constructor(stage: Stage, wrapper: HTMLElement, config: UIConfig) {
     super(stage, wrapper, config);
@@ -60,10 +60,9 @@ export default class UIProjectMeta extends UIElement {
     if (this.config.init) {
       const initValue: object = this.config.init(pd);
 
-      console.log(initValue);
-
       this.rows.forEach((p, k) => {
         if (k in initValue) {
+          //@ts-ignore
           p.value = initValue[k];
         } else {
           p.value = "?";

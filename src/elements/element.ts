@@ -19,7 +19,7 @@ export default class UIElement {
     this._enabled = v;
   }
 
-  init(pd: plantDescription) {}
+  init(_pd: plantDescription) {}
 
   update(v: parameter) {
     if (this.config.onUpdate) {

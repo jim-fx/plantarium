@@ -1,3 +1,4 @@
+//@ts-ignore
 import { Renderer, Camera, Orbit, Vec3, Transform, Texture, Program, Color, Geometry, Mesh } from "ogl";
 
 import ResizeObserver from "resize-observer-polyfill";
@@ -53,7 +54,8 @@ function customControls(canvas: HTMLCanvasElement, vec: any, max: any, min: any)
 export default function(canvas: HTMLCanvasElement) {
   const resize = debounce(
     () => {
-      const b = canvas.parentElement.getBoundingClientRect();
+      const wrapper = <HTMLElement>canvas.parentElement;
+      const b = wrapper.getBoundingClientRect();
       renderer.setSize(b.width, b.height);
       camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
     },

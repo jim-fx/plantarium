@@ -8,17 +8,13 @@
     "esModuleInterop": true,
     "noUnusedLocals": true,
     "noImplicitAny": true,
-    "declarationDir": "dist/types",
+    "declarationDir": "build/types",
     "declaration": true,
     "target": "es2015",
     "module": "es2015",
+    "lib": ["dom", "es2019"],
     "strict": true
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
