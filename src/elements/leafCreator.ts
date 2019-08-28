@@ -3,6 +3,7 @@ import UIElement from "./element";
 import ResizeObserver from "resize-observer-polyfill";
 import debounce from "../helpers/debounce";
 import throttle from "../helpers/throttle";
+import { Vec2 } from "ogl";
 const hoverDistance = 0.1;
 
 export default class UICurve extends UIElement {
@@ -40,18 +41,9 @@ export default class UICurve extends UIElement {
   private grd: CanvasGradient;
   private isRendering: boolean = false;
   private activePoint: point | undefined;
-  private mousePos: Vector = {
-    x: 0,
-    y: 0
-  };
-  private mouseDownPos: Vector = {
-    x: 0,
-    y: 0
-  };
-  private pointDownPos: Vector = {
-    x: 0,
-    y: 0
-  };
+  private mousePos: Vec2 = new Vec2(0, 0);
+  private mouseDownPos: Vec2 = new Vec2(0, 0);
+  private pointDownPos: Vec2 = new Vec2(0, 0);
   private width: number = 0;
   private height: number = 0;
 
@@ -189,7 +181,6 @@ export default class UICurve extends UIElement {
 
   init(pd: plantDescription) {
     if (this.config.init) {
-      console.log("init " + this.config.type + " | " + this.config.title);
       this.points = <point[]>this.config.init(pd);
     }
   }
@@ -237,8 +228,7 @@ export default class UICurve extends UIElement {
     if (this.isHovered) {
       _points.forEach((p: point, i: number) => {
         //Need to get the normalized position to get distance from mousePos
-        const mouseDistance =
-          Math.abs(this.points[i].x - this.mousePos.x) + Math.abs(this.points[i].y - this.mousePos.y);
+        const mouseDistance = Math.abs(this.points[i].x - this.mousePos.x) + Math.abs(this.points[i].y - this.mousePos.y);
         this.lctx.beginPath();
 
         if (!p.locked) {
