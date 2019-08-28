@@ -1,0 +1,79 @@
+.ui-project-list-wrapper {
+  .ui-project-list-scroll-wrapper {
+    max-height: 150px;
+    overflow-y: scroll;
+    overflow-x: visible;
+    border-radius: $border-radius $border-radius 0 0;
+
+    /* width */
+    &::-webkit-scrollbar {
+      position: absolute;
+      right: -10px;
+      margin-right: -10px;
+      width: 5px;
+      transform: translateX(-10px);
+      margin-left: 5px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: white;
+      border-radius: $border-radius;
+    }
+  }
+
+  table {
+    background-color: $light-gray;
+    border-spacing: 0;
+    width: 100%;
+    border-collapse: separate;
+
+    > tr {
+      width: 100%;
+      background-color: transparent;
+      transition: background-color 0.2s ease, color 0.2s ease, opacity 0.5s ease;
+      cursor: pointer;
+      > td {
+        border-bottom: solid thin white;
+        p {
+          padding-left: 10px;
+        }
+        button {
+          background-color: transparent;
+          color: white;
+          padding: 0.2em;
+        }
+      }
+      &.ui-project-list-row-active {
+        background-color: white;
+        border-right: solid 5px white;
+        color: $light-gray;
+        button {
+          color: $light-gray;
+        }
+      }
+      &:last-child > td {
+        border: none !important;
+      }
+    }
+
+    &:hover {
+      box-shadow: $shadow;
+    }
+  }
+  > button {
+    width: calc(100% - 5px);
+    padding: 3px 12px;
+    border-radius: 0 0 $border-radius $border-radius;
+  }
+}
+
+.ui-row-deleted {
+  background-color: $light-red !important;
+  opacity: 0;
+}

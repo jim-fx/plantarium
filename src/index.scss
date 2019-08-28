@@ -2,6 +2,8 @@ $dark-gray: #303030;
 $light-gray: #4b4b4b;
 $dark-green: #337150;
 $light-green: #65e2a0;
+$light-red: #e26565;
+$border-radius: 2px;
 $shadow: 0px 0px 2px rgba(0, 0, 0, 0.7);
 
 html,
@@ -26,7 +28,6 @@ body {
   background-color: $dark-gray;
   outline: solid #212121 1px;
   height: 100%;
-  margin: 1px;
 }
 
 a {
@@ -79,17 +80,19 @@ button:focus {
 }
 
 #sidebar {
-  z-index: 2;
   padding: 30px;
+  height: 100%;
   padding-top: 10px;
+  margin-top: 1px;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 body > table {
   width: 100%;
   height: calc(100vh - 50px);
   margin: 0;
+  background-color: white;
   border-collapse: collapse;
   position: relative;
 
@@ -100,18 +103,21 @@ body > table {
     height: 100%;
     overflow: hidden;
   }
-
-  tr > td:last-child {
-    width: 200px;
-    z-index: 2;
-    max-width: 500px;
-  }
 }
 
-.clearfix:after {
-  content: ".";
-  clear: both;
-  display: block;
-  visibility: hidden;
-  height: 0px;
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  margin-right: 5px;
+  background: $light-gray;
+  border-radius: $border-radius;
 }
