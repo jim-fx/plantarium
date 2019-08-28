@@ -3,14 +3,14 @@ import logger from "../logger";
 import UIElement from "./element";
 const log = logger("create elements from config");
 
-function loopThroughChildren(stage: Stage, wrapper: HTMLElement, config: UIConfig | stageConfig): UIElement[] {
+function loopThroughChildren(stage: Stage, wrapper: HTMLElement, config: UIConfig): UIElement[] {
   const array: UIElement[] = [];
 
   if (typeof config.children === "object") {
     config.children.forEach(child => {
       //If child is a group, create it and loop again
       if (child.type === "group") {
-        const group = new elements.Group(wrapper, child.title);
+        const group = new elements.Group(wrapper, child);
         if ("children" in child) {
           array.push(...loopThroughChildren(stage, group.wrapper, child));
         }
