@@ -16,6 +16,15 @@ class UISlider extends UIElement {
 
     this.element = document.createElement("input");
     this.element.type = "range";
+
+    if ("min" in config) {
+      this.element.min = config.min * 100;
+    }
+
+    if ("max" in config) {
+      this.element.max = config.max * 100;
+    }
+
     if (config.default !== undefined) this.element.value = "" + config.default * 100;
 
     this.element.addEventListener(
@@ -24,7 +33,7 @@ class UISlider extends UIElement {
         this.update({
           value: parseInt(this.element.value) / 100
         });
-      }, 100),
+      }, 20),
       false
     );
 

@@ -32,7 +32,7 @@ export default class UINumber extends UIElement {
 
     this.element = document.createElement("input");
     this.element.type = "number";
-    this.element.value = config.default !== undefined ? config.default.toString() : "1";
+    this.element.value = config.default !== undefined ? this.minMax(config.default) : this.minMax(1);
     this._value = parseInt(this.element.value);
     this.element.max = config.max !== undefined ? config.max.toString() : "10";
     this.element.min = config.min !== undefined ? config.min.toString() : "0";
@@ -47,9 +47,9 @@ export default class UINumber extends UIElement {
 
   init(pd: plantDescription) {
     if (this.config.init) {
-      const initValue: number = <number>this.config.init(pd);
+      const initValue: number = <number>this.config.init.bind(this)(pd);
       if (initValue !== undefined) {
-        this.value = initValue;
+        this._value = initValue;
       }
     }
   }
@@ -58,8 +58,12 @@ export default class UINumber extends UIElement {
     return this._value;
   }
 
+  private minMax(v) {
+    return Math.max(Math.min(v, this.config.max || 10), this.config.min || 0);
+  }
+
   set value(v) {
-    let _v = Math.max(Math.min(v, this.config.max || 10), this.config.min || 0);
+    let _v = this.minMax(v);
     if (!isNaN(_v)) {
       this._value = _v;
       this.element.value = _v.toString();
