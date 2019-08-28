@@ -9,6 +9,8 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
     "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "7.3.3",
@@ -17,19 +19,17 @@
     "resize-observer-polyfill": "^1.5.1",
     "rollup": "1.20.0",
     "rollup-plugin-babel": "4.3.3",
-    "rollup-plugin-babel-minify": "^9.0.0",
-    "rollup-plugin-buble": "^0.19.8",
     "rollup-plugin-commonjs": "10.0.2",
-    "rollup-plugin-filesize": "^6.2.0",
+    "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-live-server": "^1.0.3",
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-scss": "^1.0.2",
     "rollup-plugin-sizes": "^0.5.1",
-    "rollup-plugin-terser": "^5.1.1",
     "rollup-plugin-uglify": "^6.0.2",
     "typescript": "3.5.3"
   },
   "dependencies": {
-    "rollup-plugin-uglify-es": "0.0.1"
+    "comlink": "^4.0.2",
+    "open-simplex-noise": "^1.6.0"
   }
 }
