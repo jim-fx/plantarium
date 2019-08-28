@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "name": "default",
+    "author": "jimfx"
+  },
+  "stem": {
+    "diameter": {
+      "value": 0.2,
+      "type": "float"
+    },
+    "height": {
+      "value": 1,
+      "type": "float"
+    },
+    "amount": {
+      "value": 1,
+      "type": "integer"
+    }
+  },
+  "branches": {
+    "diameter": {
+      "value": 1,
+      "type": "float"
+    }
+  },
+  "leaves": {
+    "diameter": {
+      "value": 1,
+      "type": "float"
+    },
+    "size": {
+      "value": 1,
+      "type": "float"
+    },
+    "shape": [{ "x": 0, "y": 0 }, { "x": 0.3, "y": 0.4 }, { "x": 0.3, "y": 0.6 }, { "x": 0, "y": 1 }]
+  }
+}
