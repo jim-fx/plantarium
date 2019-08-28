@@ -3,20 +3,10 @@ import UIElement from "./element";
 import ResizeObserver from "resize-observer-polyfill";
 import debounce from "../helpers/debounce";
 import throttle from "../helpers/throttle";
+import { Vec2 } from "ogl";
 const hoverDistance = 0.1;
 
-function plotCBez(
-  ptCount: number,
-  pxTolerance: number,
-  Ax: number,
-  Ay: number,
-  Bx: number,
-  By: number,
-  Cx: number,
-  Cy: number,
-  Dx: number,
-  Dy: number
-) {
+function plotCBez(ptCount: number, pxTolerance: number, Ax: number, Ay: number, Bx: number, By: number, Cx: number, Cy: number, Dx: number, Dy: number) {
   let deltaBAx = Bx - Ax;
   let deltaCBx = Cx - Bx;
   let deltaDCx = Dx - Cx;
@@ -80,18 +70,7 @@ class Curve {
       .map((p, i, a) => {
         if (i < length) {
           const length = this._normalizedPoints[i + 1].x - this._normalizedPoints[i].x;
-          return plotCBez(
-            length * 20,
-            0,
-            p.x,
-            p.y,
-            this._controlPoints[i].rx,
-            this._controlPoints[i].ry,
-            this._controlPoints[i + 1].lx,
-            this._controlPoints[i + 1].ly,
-            a[i + 1].x,
-            a[i + 1].y
-          );
+          return plotCBez(length * 20, 0, p.x, p.y, this._controlPoints[i].rx, this._controlPoints[i].ry, this._controlPoints[i + 1].lx, this._controlPoints[i + 1].ly, a[i + 1].x, a[i + 1].y);
         } else {
           return undefined;
         }
@@ -227,14 +206,7 @@ class Curve {
     this._points.forEach((p, i, a) => {
       if (i < a.length - 1) {
         ctx.moveTo(p.x, p.y);
-        ctx.bezierCurveTo(
-          this._controlPoints[i].rx,
-          this._controlPoints[i].ry,
-          this._controlPoints[i + 1].lx,
-          this._controlPoints[i + 1].ly,
-          a[i + 1].x,
-          a[i + 1].y
-        );
+        ctx.bezierCurveTo(this._controlPoints[i].rx, this._controlPoints[i].ry, this._controlPoints[i + 1].lx, this._controlPoints[i + 1].ly, a[i + 1].x, a[i + 1].y);
         ctx.stroke();
       }
     });
@@ -279,18 +251,9 @@ export default class UICurve extends UIElement {
   private isHovered: boolean = false;
   private isRendering: boolean = false;
   private activePoint: point | undefined;
-  private mousePos: Vector = {
-    x: 0,
-    y: 0
-  };
-  private mouseDownPos: Vector = {
-    x: 0,
-    y: 0
-  };
-  private pointDownPos: Vector = {
-    x: 0,
-    y: 0
-  };
+  private mousePos: Vec2 = new Vec2(0, 0);
+  private mouseDownPos: Vec2 = new Vec2(0, 0);
+  private pointDownPos: Vec2 = new Vec2(0, 0);
   private width: number = 0;
   private height: number = 0;
 
