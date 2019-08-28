@@ -1,8 +1,17 @@
-import importer from "./components/io/importer";
-import defaultPD from "./assets/defaultPlantDefinition";
+import projectManager from "./components/project-manager";
+import settings from "./components/settings";
 
-const stemConfig: stageConfig = {
+function getSeed(seed: number | undefined) {
+  if (typeof seed === "number") {
+    return seed;
+  } else {
+    return Math.floor(Math.random() * 100000);
+  }
+}
+
+const stemConfig: UIConfig = {
   title: "stem",
+  type: "stage",
   children: [
     {
       title: "Amount",
@@ -99,14 +108,29 @@ const stemConfig: stageConfig = {
             }
             updateState(originalState);
           }
+        },
+        {
+          type: "Slider",
+          default: 1,
+          title: "Noise Scale",
+          min: 0.1,
+          max: 10,
+          init: (pd: plantDescription) => {
+            return pd.stem.noiseScale;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+            originalState.stem.noiseScale = output.value;
+            updateState(originalState);
+          }
         }
       ]
     }
   ]
 };
 
-const branchConfig: stageConfig = {
+const branchConfig: UIConfig = {
   title: "branch",
+  type: "stage",
   children: [
     {
       title: "Diameter",
@@ -159,8 +183,9 @@ const branchConfig: stageConfig = {
   ]
 };
 
-const leafConfig: stageConfig = {
+const leafConfig: UIConfig = {
   title: "leaf",
+  type: "stage",
   children: [
     {
       title: "Basic Settings",
@@ -199,9 +224,15 @@ const leafConfig: stageConfig = {
   ]
 };
 
-const IOConfig: stageConfig = {
+const IOConfig: UIConfig = {
   title: "import/export",
+  type: "stage",
   children: [
+    {
+      type: "Button",
+      title: "remove all",
+      onClick: () => projectManager.removeAllProjects()
+    },
     {
       type: "ProjectMeta",
       title: "Project Meta",
@@ -209,34 +240,18 @@ const IOConfig: stageConfig = {
       init: (pd: plantDescription) => {
         return pd.meta;
       },
-      onUpdate: (output: plantMetaInfo, originalState: plantDescription, updateState: Function) => {
-        originalState.meta = output;
-        updateState(originalState);
+      onUpdate: (output: plantMetaInfo, originalState: plantDescription) => {
+        projectManager.updateMeta(originalState.meta, output);
       }
     },
     {
       type: "group",
       title: "Projects",
+      open: true,
       children: [
         {
-          type: "Button",
-          title: "Stem Diameter",
-          onClick: () => {
-            importer.init(defaultPD);
-          }
-        }
-      ]
-    },
-    {
-      type: "group",
-      title: "Import",
-      children: [
-        {
-          type: "Button",
-          title: "Stem Diameter",
-          onClick: () => {
-            importer.init(defaultPD);
-          }
+          type: "ProjectList",
+          title: "Project List"
         }
       ]
     },
@@ -248,26 +263,111 @@ const IOConfig: stageConfig = {
           type: "Number",
           title: "amount",
           default: 10,
-          onUpdate: () => {}
+          init: () => {
+            return settings.get("exp_amount");
+          },
+          onUpdate: (v, s, f) => {
+            settings.set("exp_amount", v.value);
+          }
         },
         {
           type: "Checkbox",
-          title: "use seed",
-          onUpdate: () => {}
+          title: "use random seed",
+          init: () => {
+            return settings.get("exp_useRandomSeed");
+          },
+          onUpdate: v => {
+            settings.set("exp_useRandomSeed", v.enabled);
+          }
         },
         {
           type: "Number",
           title: "seed",
           min: 0,
           max: 100000,
-          default: Math.floor(Math.random() * 100000),
-          onUpdate: () => {}
+          default: getSeed(settings.get("exp_seed")),
+          init: function() {
+            if (settings.get("exp_useRandomSeed")) {
+              this.enabled = false;
+              const s = Math.floor(Math.random() * 100000);
+              this.element.value = s;
+              return s;
+            } else {
+              this.enabled = true;
+              return settings.get("exp_seed");
+            }
+          },
+          onUpdate: v => {
+            settings.set("exp_seed", v.value);
+          }
         },
         {
           type: "Button",
           title: "download models",
-          onClick: () => {
-            importer.init(defaultPD);
+          onClick: () => {}
+        }
+      ]
+    }
+  ]
+};
+
+const settingsConfig: UIConfig = {
+  title: "settings",
+  type: "stage",
+  children: [
+    {
+      type: "Checkbox",
+      title: "use random seed",
+      init: () => {
+        return settings.get("useRandomSeed");
+      },
+      onUpdate: v => {
+        settings.set("useRandomSeed", v.enabled);
+      }
+    },
+    {
+      type: "Number",
+      title: "seed",
+      min: 0,
+      max: 100000,
+      default: getSeed(settings.get("seed")),
+      init: function() {
+        if (settings.get("useRandomSeed")) {
+          this.enabled = false;
+          const s = Math.floor(Math.random() * 100000);
+          this.element.value = s;
+          return s;
+        } else {
+          this.enabled = true;
+          return settings.get("seed");
+        }
+      },
+      onUpdate: v => {
+        settings.set("seed", v.value);
+      }
+    },
+    {
+      type: "group",
+      title: "Resolution",
+      children: [
+        {
+          type: "Number",
+          title: "Stem X Resolution",
+          min: 3,
+          max: 24,
+          default: settings.get("stemResX"),
+          onUpdate: v => {
+            settings.set("stemResX", v.value);
+          }
+        },
+        {
+          type: "Number",
+          title: "Stem Y Resolution",
+          min: 3,
+          max: 32,
+          default: settings.get("stemResY"),
+          onUpdate: v => {
+            settings.set("stemResY", v.value);
           }
         }
       ]
@@ -275,4 +375,4 @@ const IOConfig: stageConfig = {
   ]
 };
 
-export { stemConfig, branchConfig, leafConfig, IOConfig };
+export { stemConfig, branchConfig, leafConfig, IOConfig, settingsConfig };
