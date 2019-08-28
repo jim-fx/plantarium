@@ -22,7 +22,8 @@ interface stemDescription {
   amount: parameter;
   diameter: parameter;
   height: parameter;
-  noiseScale: number;
+  randomness: number;
+  gravity: number;
 }
 
 interface branchDescription {

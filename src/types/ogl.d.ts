@@ -1,5 +1,23 @@
 declare module "ogl" {
-  export class Vec2 {
+  export class Euler extends Array {
+    constructor(x?: number, y?: number, z?: number, order?: string);
+
+    x: number;
+    y: number;
+    z: number;
+
+    set: (x: number, y?: number, z?: number) => this;
+
+    copy: (v: Vec3) => this;
+
+    reorder: (order: string) => this;
+
+    fromRotationMatrix: (m: Mat3, order?: string) => this;
+
+    fromQuaternion: (q: Quat, order?: string) => this;
+  }
+
+  export class Vec2 extends Array {
     constructor(x: number, y: number);
 
     x: number;
@@ -32,12 +50,14 @@ declare module "ogl" {
     transformDirection: (mat4: Mat4) => Vec2;
   }
 
-  export class Vec3 {
+  export class Vec3 extends Array {
     constructor(x?: number, y?: number, z?: number);
 
     x: number;
     y: number;
     z: number;
+
+    set: (x: number, y?: number, z?: number) => this;
 
     copy: () => Vec3;
     add: (va: Vec3, vb?: Vec3) => Vec3;
@@ -64,7 +84,7 @@ declare module "ogl" {
     transformDirection: (mat4: Mat4) => Vec3;
   }
 
-  export class Mat3 {
+  export class Mat3 extends Array {
     constructor(m00: number, m01: number, m02: number, m10: number, m11: number, m12: number, m20: number, m21: number, m22: number);
 
     set: (m00: number, m01: number, m02: number, m10: number, m11: number, m12: number, m20: number, m21: number, m22: number) => Mat3;
@@ -92,7 +112,7 @@ declare module "ogl" {
     getNormalMatrix: (m: Mat3) => Mat3;
   }
 
-  export class Mat4 {
+  export class Mat4 extends Array {
     constructor(
       m00: number,
       m01: number,
@@ -137,10 +157,52 @@ declare module "ogl" {
     ) => Mat4;
   }
 
+  export class Quat extends Array {
+    constructor(x?: number, y?: number, z?: number, w?: number);
+
+    x: number;
+    y: number;
+    z: number;
+    w: number;
+
+    identity: () => this;
+    set: (x: number, y: number, z: number, w: number) => this;
+
+    rotateX: (a: number) => this;
+    rotateY: (a: number) => this;
+    rotateZ: (a: number) => this;
+
+    inverse: (q?: Quat) => this;
+
+    conjugate: (q?: Quat) => this;
+    copy: (q: Quat) => this;
+
+    normalize: (q?: Quat) => this;
+
+    multiply: (qA: Quat, qB: Quat) => this;
+
+    dot: (v: Vec3) => number;
+
+    fromMatrix3: (matrix3: Mat3) => this;
+
+    fromEuler: (euler: number) => this;
+
+    fromArray: (a: number[], offset?: number) => this;
+    toArray: (a?: [], offset?: number) => number[];
+  }
+
   export class Geometry {
     constructor(gl: WebGL2RenderingContext, attributes: any);
 
     gl: WebGL2RenderingContext;
+
+    bounds: {
+      min: Vec3;
+      max: Vec3;
+      center: Vec3;
+      scale: Vec3;
+      radius: number;
+    };
 
     addAttribute: (key: string, attribute: any) => void;
 
@@ -148,11 +210,67 @@ declare module "ogl" {
 
     remove: () => void;
   }
-}
 
-interface transferGeometry {
-  uv: Float32Array;
-  position: Float32Array;
-  index: Uint16Array;
-  normal: Float32Array;
+  export class Camera extends Transform {
+    constructor(gl: WebGL2RenderingContext, object: { near?: number; far?: number; fov?: number; aspect?: number });
+
+    perspective: (object: { near?: number; far?: number; fov?: number; aspect?: number }) => Camera;
+    orthographic: (object: { near?: number; far?: number; fov?: number; aspect?: number }) => Camera;
+
+    updateMatrixWorld: () => Camera;
+
+    lookAt: (target: Vec3) => Camera;
+
+    project: (v: Vec3) => Camera;
+    unproject: (v: Vec3) => Camera;
+
+    updateFrustum: () => void;
+
+    frustumIntersectsMesh: () => void;
+
+    frustumIntersectsSphere: () => void;
+  }
+
+  export class Transform {
+    position: Vec3;
+    quaternion: Quat;
+    scale: Vec3;
+    rotation: Euler;
+    up: Vec3;
+
+    setParent: (parent: Transform, notifyParent?: boolean) => void;
+    setChild: (parent: Transform, notifyChild?: boolean) => void;
+    removeChild: (parent: Transform, notifyChild?: boolean) => void;
+
+    updateMatrixWorld: (force?: boolean) => void;
+    updateMatrix: () => void;
+    traverse: (callback: Function) => void;
+    decompose: () => void;
+    lookAt: (target: Vec3) => void;
+  }
+
+  export class Program {
+    constructor(
+      gl: WebGL2RenderingContext,
+      config: {
+        vertex: String;
+        fragment: String;
+        uniforms?: object;
+      }
+    );
+
+    uniforms: any;
+
+    setBlendFunc: () => void;
+    setBlendEquation: () => void;
+    applyState: () => void;
+  }
+
+  export class Mesh extends Transform {
+    constructor(gl: WebGL2RenderingContext, object: { geometry: Geometry; program: Program });
+
+    geometry: Geometry;
+
+    draw: (camera: Camera) => void;
+  }
 }
