@@ -16,6 +16,7 @@ export default class UIElement {
     return this._enabled;
   }
   set enabled(v) {
+    v ? this.wrapper.classList.remove("ui-element-disabled") : this.wrapper.classList.add("ui-element-disabled");
     this._enabled = v;
   }
 
@@ -23,11 +24,7 @@ export default class UIElement {
 
   update(v: parameter) {
     if (this.config.onUpdate) {
-      this.config.onUpdate(
-        v,
-        Object.assign(this.stage.pd, {}),
-        (newState: plantDescription) => (this.stage.pd = newState)
-      );
+      this.config.onUpdate(v, Object.assign(this.stage.pd, {}), (newState: plantDescription) => (this.stage.pd = newState));
     }
   }
 }

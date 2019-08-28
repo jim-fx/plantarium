@@ -6,3 +6,8 @@
 .stage-wrapper > .ui-element-wrapper:last-child {
   border: none;
 }
+
+.ui-element-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
