@@ -23,7 +23,7 @@ export default {
       "click",
       () => {
         if (activeStage !== stage) {
-          log("activating stage " + stage.title, 2);
+          log("activating stage " + stage.title, 3);
 
           activeStage.hide();
           activeStage = stage;

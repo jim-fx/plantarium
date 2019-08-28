@@ -2,12 +2,11 @@ import "./stage.scss";
 import createFromConfig from "../../elements/createFromConfig";
 import StageHandler from "./stageHandler";
 import UIElement from "../../elements/element";
-
 const sidebar = <HTMLElement>document.getElementById("sidebar");
 
 export default class Stage implements Stage {
   title: string;
-  config: stageConfig;
+  config: UIConfig;
   wrapper: HTMLDivElement;
 
   private _listeners: Function[] = [];
@@ -15,14 +14,14 @@ export default class Stage implements Stage {
   private _pd: plantDescription | undefined;
   private _elements: UIElement[] = [];
 
-  constructor(config: stageConfig) {
+  constructor(config: UIConfig) {
     this.title = config.title;
     this.config = config;
     this.wrapper = document.createElement("div");
     this.wrapper.classList.add("stage-wrapper");
 
     //Create all the elements (sliders, curves...)
-    this._elements.push(...createFromConfig(this));
+    this._elements = createFromConfig(this);
 
     sidebar.append(this.wrapper);
     StageHandler.registerStage(this);
@@ -38,9 +37,7 @@ export default class Stage implements Stage {
 
   init(pd: plantDescription) {
     this._pd = pd;
-
     this._elements.forEach(el => el.init(pd));
-
     if (this._nextStage) {
       this._nextStage.init(pd);
     }
