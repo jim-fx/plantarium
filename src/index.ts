@@ -4,12 +4,11 @@ import "babel-polyfill";
 import resizeTables from "./helpers/resizeTable";
 
 import Stage from "./components/stages/stageClass";
-import { stemConfig, branchConfig, leafConfig, IOConfig } from "./config";
+import { stemConfig, branchConfig, leafConfig, IOConfig, settingsConfig } from "./config";
 
 import display from "./components/display";
 import { importer, exporter } from "./components/io";
-
-import defaultPD from "./assets/defaultPlantDefinition";
+import projectManager from "./components/project-manager";
 
 const importerStage = importer;
 const stemStage = new Stage(stemConfig);
@@ -19,13 +18,17 @@ const IOStage = new Stage(IOConfig);
 const displayStage = display;
 const exporterStage = exporter;
 
+const settingsStage = new Stage(settingsConfig);
+settingsStage.pd = {};
+
 importerStage.connect(stemStage);
 stemStage.connect(branchStage);
 branchStage.connect(leafStage);
 leafStage.connect(displayStage);
 displayStage.connect(IOStage);
 IOStage.connect(exporterStage);
+exporterStage.connect(settingsStage);
 
-importer.init("pd" in localStorage ? JSON.parse(localStorage.pd) : defaultPD);
+projectManager.init();
 
 resizeTables(<HTMLTableElement>document.querySelector("table"));
