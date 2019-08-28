@@ -6,5 +6,6 @@ import Checkbox from "./checkbox";
 import LeafCreator from "./leafCreator";
 import Number from "./number";
 import ProjectMeta from "./projectMeta";
+import ProjectList from "./projectList";
 
-export { Curve, Button, Slider, Group, Checkbox, LeafCreator, Number, ProjectMeta };
+export { Curve, Button, Slider, Group, Checkbox, LeafCreator, Number, ProjectMeta, ProjectList };
