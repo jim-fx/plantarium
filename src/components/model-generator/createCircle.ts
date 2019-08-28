@@ -1,0 +1,49 @@
+import calculateNormals from "./calculateNormals";
+import noise from "./noise";
+
+export default function(radius: number, resolution: number = 3, heightVariation: number = 0, noiseScale: number = 0) {
+  const positionAmount = (resolution + 1) * 3;
+  const position = new Float32Array(positionAmount);
+  const uv = new Float32Array(resolution * 2);
+  const index = new Uint16Array(resolution * 3);
+
+  const angle = (360 * (Math.PI / 180)) / resolution; // Convert to radians
+
+  const startPoint = [0, 0, radius];
+  const origin = [0, 0, 0];
+
+  position[0] = origin[0];
+  position[1] = origin[1];
+  position[2] = origin[2];
+
+  for (let i = 1; i < positionAmount; i++) {
+    const _angle = angle * i;
+
+    const x = Math.cos(_angle) * (startPoint[0] - origin[0]) - Math.sin(_angle) * (startPoint[2] - origin[2]) + origin[0];
+    const z = Math.sin(_angle) * (startPoint[0] - origin[0]) + Math.cos(_angle) * (startPoint[2] - origin[2]) + origin[2];
+    const y = noise.n2d(x * noiseScale, z * noiseScale) * heightVariation;
+
+    position[i * 3 + 0] = x;
+    position[i * 3 + 1] = y;
+    position[i * 3 + 2] = z;
+  }
+
+  for (let i = 0; i < resolution; i++) {
+    if (i < resolution - 1) {
+      index[i * 3 + 0] = 0;
+      index[i * 3 + 1] = i + 2;
+      index[i * 3 + 2] = i + 1;
+    } else {
+      index[i * 3 + 0] = 0;
+      index[i * 3 + 1] = 1;
+      index[i * 3 + 2] = i + 1;
+    }
+  }
+
+  return {
+    position: position,
+    normal: calculateNormals(position, index),
+    uv: uv,
+    index: index
+  };
+}

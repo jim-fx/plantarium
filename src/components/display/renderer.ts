@@ -1,5 +1,5 @@
 //@ts-ignore
-import { Renderer, Camera, Orbit, Vec3, Transform, Texture, Program, Color, Geometry, Mesh } from "ogl";
+import { Renderer, Camera, Orbit, Vec3, Transform, Texture, Program, Color, Geometry, Mesh, Sphere } from "ogl";
 
 import ResizeObserver from "resize-observer-polyfill";
 import debounce from "../../helpers/debounce";
@@ -125,15 +125,18 @@ export default function(canvas: HTMLCanvasElement) {
     }
   });
 
+  let plantMesh;
+
   loadModel();
   async function loadModel() {
     const plant = convertFromThree(await (await fetch(`assets/plant.json`)).json());
+
     const plantGeometry = new Geometry(gl, {
       position: { size: 3, data: new Float32Array(plant.position) },
       normal: { size: 3, data: new Float32Array(plant.normal) },
       uv: { size: 2, data: new Float32Array(plant.uv) }
     });
-    const plantMesh = new Mesh(gl, {
+    plantMesh = new Mesh(gl, {
       geometry: plantGeometry,
       program: basicProgram
     });
@@ -141,25 +144,59 @@ export default function(canvas: HTMLCanvasElement) {
     plantMesh.geometry.computeBoundingBox();
     controls.target[1] = plantMesh.geometry.bounds.max[2] / 2;
 
+    const s = new Sphere(gl, {
+      radius: 0.2,
+      widthSegments: 4,
+      heightSegments: 4
+    });
+
+    window.gl = gl;
+
+    const mesh = new Mesh(gl, { geometry: s, program: basicProgram });
+    mesh.setParent(scene);
+
     customControls(canvas, controls.target, plantMesh.geometry.bounds.max, plantMesh.geometry.bounds.min);
 
-    const ground = convertFromThree(await (await fetch(`assets/ground2.json`)).json());
+    /*const ground = convertFromThree(await (await fetch(`assets/ground2.json`)).json());
     const geometry = new Geometry(gl, {
       position: { size: 3, data: new Float32Array(ground.position) },
       uv: { size: 2, data: new Float32Array(ground.uv) }
-    });
-    const mesh = new Mesh(gl, { geometry, program });
-    mesh.setParent(scene);
+    });*/
+    //const mesh = new Mesh(gl, { geometry, program });
+    //mesh.setParent(scene);
   }
   requestAnimationFrame(update);
 
   let start = 0;
   function update(t: number) {
-    overlay.ms(Math.floor((performance.now() - start) * 10) / 10);
+    overlay.ms(performance.now() - start);
     requestAnimationFrame(update);
     program.uniforms.uTime.value = t * 0.001;
     controls.update();
     renderer.render({ scene, camera });
     start = performance.now();
   }
+
+  return {
+    render: (model: transferGeometry) => {
+      let geo: any = {
+        position: { size: 3, data: new Float32Array(model.position) }
+      };
+
+      if ("normal" in model) {
+        geo.normal = { size: 3, data: new Float32Array(model.normal) };
+      }
+
+      if ("uv" in model) {
+        geo.uv = { size: 2, data: new Float32Array(model.uv) };
+      }
+      if ("index" in model) {
+        geo.index = { size: 1, data: new Uint16Array(model.index) };
+      }
+
+      if (plantMesh) {
+        plantMesh.geometry = new Geometry(gl, geo);
+      }
+    }
+  };
 }
