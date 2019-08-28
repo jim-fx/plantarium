@@ -20,12 +20,12 @@ export default class UIProjectMeta extends UIElement {
         const tdV = document.createElement("td");
         const text = document.createElement("input");
         text.type = "text";
-        text.size = 4;
+        text.size = 10;
         text.addEventListener("click", function() {
           this.select();
         });
         text.addEventListener(
-          "input",
+          "change",
           () => {
             if (text.value.length === 0 || text.value === "?") text.value = "?";
             else text.value = text.value.replace("?", "");
