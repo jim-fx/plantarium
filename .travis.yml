@@ -13,7 +13,10 @@ cache:
     - node_modules
 
 script:
+  - mkdir build
+  - ls
   - npm run build
+  - ls
 
 deploy:
   provider: pages
