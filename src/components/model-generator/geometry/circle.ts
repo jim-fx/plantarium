@@ -1,16 +1,17 @@
 import calculateNormals from "./calculateNormals";
-import noise from "./noise";
+import noise from "../helper/noise";
+import { Vec3 } from "ogl";
 
-export default function(radius: number, resolution: number = 3, heightVariation: number = 0, noiseScale: number = 0) {
+export default function(origin: Vec3, radius: number, resolution: number = 3, heightVariation: number = 0, noiseScale: number = 0) {
   const positionAmount = (resolution + 1) * 3;
   const position = new Float32Array(positionAmount);
+  const normal = new Float32Array(positionAmount);
   const uv = new Float32Array(resolution * 2);
   const index = new Uint16Array(resolution * 3);
 
   const angle = (360 * (Math.PI / 180)) / resolution; // Convert to radians
 
-  const startPoint = [0, 0, radius];
-  const origin = [0, 0, 0];
+  const startPoint = [origin[0], origin[1], radius];
 
   position[0] = origin[0];
   position[1] = origin[1];
@@ -21,7 +22,7 @@ export default function(radius: number, resolution: number = 3, heightVariation:
 
     const x = Math.cos(_angle) * (startPoint[0] - origin[0]) - Math.sin(_angle) * (startPoint[2] - origin[2]) + origin[0];
     const z = Math.sin(_angle) * (startPoint[0] - origin[0]) + Math.cos(_angle) * (startPoint[2] - origin[2]) + origin[2];
-    const y = noise.n2d(x * noiseScale, z * noiseScale) * heightVariation;
+    const y = origin[1] + noise.n2d(x * noiseScale, z * noiseScale) * heightVariation;
 
     position[i * 3 + 0] = x;
     position[i * 3 + 1] = y;
@@ -42,7 +43,7 @@ export default function(radius: number, resolution: number = 3, heightVariation:
 
   return {
     position: position,
-    normal: calculateNormals(position, index),
+    normal: normal,
     uv: uv,
     index: index
   };

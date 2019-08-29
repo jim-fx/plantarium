@@ -74,6 +74,8 @@ export default {
         {
           type: "Slider",
           title: "Height",
+          max: 10,
+          min: 1,
           init: (pd: plantDescription) => {
             return pd.stem.height.value;
           },

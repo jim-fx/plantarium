@@ -1,4 +1,3 @@
-//@ts-ignore
 import { Renderer, Camera, Orbit, Vec3, Transform, Texture, Program, Color, Geometry, Mesh, Sphere } from "ogl";
 
 import ResizeObserver from "resize-observer-polyfill";
@@ -79,7 +78,7 @@ export default function(canvas: HTMLCanvasElement) {
 
   const camera = new Camera(gl, { fov: 70, aspect: b.width / b.height });
   camera.position.set(0, 2, 4);
-  camera.lookAt([0, 0, 0]);
+  camera.lookAt(new Vec3(0, 0, 0));
 
   const controls = new Orbit(camera, {
     target: new Vec3(0, 0.2, 0),
@@ -98,6 +97,14 @@ export default function(canvas: HTMLCanvasElement) {
   const img = new Image();
   img.onload = () => (texture.image = img);
   img.src = "assets/rocky_dirt1-albedo.png";
+
+  const uvTexture = new Texture(gl, {
+    wrapS: gl.REPEAT,
+    wrapT: gl.REPEAT
+  });
+  const uvImg = new Image();
+  uvImg.onload = () => (uvTexture.image = uvImg);
+  uvImg.src = "assets/rocky_dirt1-albedo.png";
 
   const program = new Program(gl, {
     vertex: FogShader.vertex,
@@ -125,7 +132,7 @@ export default function(canvas: HTMLCanvasElement) {
     }
   });
 
-  let plantMesh;
+  let plantMesh: Mesh;
 
   loadModel();
   async function loadModel() {
@@ -136,35 +143,34 @@ export default function(canvas: HTMLCanvasElement) {
       normal: { size: 3, data: new Float32Array(plant.normal) },
       uv: { size: 2, data: new Float32Array(plant.uv) }
     });
+    plantGeometry.computeBoundingBox();
     plantMesh = new Mesh(gl, {
       geometry: plantGeometry,
       program: basicProgram
     });
     plantMesh.setParent(scene);
-    plantMesh.geometry.computeBoundingBox();
-    controls.target[1] = plantMesh.geometry.bounds.max[2] / 2;
 
     const s = new Sphere(gl, {
-      radius: 0.2,
+      radius: 0.01,
       widthSegments: 4,
       heightSegments: 4
     });
+    s.computeBoundingBox();
+    const sphere = new Mesh(gl, { geometry: s, program: basicProgram });
+    sphere.setParent(scene);
+    controls.target[1] = s.bounds.max[2] / 2;
 
-    window.gl = gl;
-
-    const mesh = new Mesh(gl, { geometry: s, program: basicProgram });
-    mesh.setParent(scene);
-
-    customControls(canvas, controls.target, plantMesh.geometry.bounds.max, plantMesh.geometry.bounds.min);
+    customControls(canvas, controls.target, plantGeometry.bounds.max, plantGeometry.bounds.min);
 
     /*const ground = convertFromThree(await (await fetch(`assets/ground2.json`)).json());
     const geometry = new Geometry(gl, {
       position: { size: 3, data: new Float32Array(ground.position) },
       uv: { size: 2, data: new Float32Array(ground.uv) }
-    });*/
-    //const mesh = new Mesh(gl, { geometry, program });
+    });
+    const mesh = new Mesh(gl, { geometry, program });*/
     //mesh.setParent(scene);
   }
+
   requestAnimationFrame(update);
 
   let start = 0;
@@ -178,24 +184,18 @@ export default function(canvas: HTMLCanvasElement) {
   }
 
   return {
-    render: (model: transferGeometry) => {
-      let geo: any = {
-        position: { size: 3, data: new Float32Array(model.position) }
-      };
+    render: (model: any) => {
+      if (model && "position" in model) {
+        console.log(model);
 
-      if ("normal" in model) {
-        geo.normal = { size: 3, data: new Float32Array(model.normal) };
-      }
-
-      if ("uv" in model) {
-        geo.uv = { size: 2, data: new Float32Array(model.uv) };
-      }
-      if ("index" in model) {
-        geo.index = { size: 1, data: new Uint16Array(model.index) };
-      }
-
-      if (plantMesh) {
-        plantMesh.geometry = new Geometry(gl, geo);
+        if (plantMesh) {
+          plantMesh.geometry = new Geometry(gl, {
+            position: { size: 3, data: model.position },
+            normal: { size: 3, data: model.normal },
+            uv: { size: 2, data: model.uv },
+            index: { size: 1, data: model.index }
+          });
+        }
       }
     }
   };
