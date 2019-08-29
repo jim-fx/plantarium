@@ -28,7 +28,7 @@ class Generator {
     const stemSkeleton = createStemSkeleton(pd.stem, settings);
     const stemGeometry = createStemGeometry(pd.stem, settings, stemSkeleton);
 
-    return stemGeometry;
+    return calculateNormals(stemGeometry);
   }
 }
 
