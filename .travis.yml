@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+  - "12"
+dist: trusty
+sudo: false
+
+branches:
+  only:
+    - master
+
+cache:
+  directories:
+    - node_modules
+
+script:
+  - npm run build
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: build/
+  on:
+    branch: master
