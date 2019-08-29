@@ -13,15 +13,12 @@ cache:
     - node_modules
 
 script:
-  - mkdir build
-  - ls
   - npm run build
-  - ls
 
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
-  local_dir: build/*
+  local_dir: build
   on:
     branch: master
