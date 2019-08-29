@@ -43,7 +43,7 @@ export default function(...geometries: TransferGeometry[]): TransferGeometry {
     const _index = geometries[i].index;
     const indexLength = _index.length;
     for (let j = 0; j < indexLength; j++) {
-      index[j + indexOffset] = _index[j] + indexOffset;
+      index[indexOffset + j] = _index[j] + posOffset / 3;
     }
     indexOffset += indexLength;
   }
