@@ -17,6 +17,12 @@ declare module "ogl" {
     fromQuaternion: (q: Quat, order?: string) => this;
   }
 
+  export class Color extends Array {
+    constructor(r?: number | string, g?: number, b?: number);
+
+    static hexToRGB: (hex: string) => number[];
+  }
+
   export class Vec2 extends Array {
     constructor(x: number, y: number);
 
@@ -204,6 +210,8 @@ declare module "ogl" {
       radius: number;
     };
 
+    computeBoundingBox: (array?: number[]) => void;
+
     addAttribute: (key: string, attribute: any) => void;
 
     setDrawRange: (start: number, count: number) => void;
@@ -266,11 +274,101 @@ declare module "ogl" {
     applyState: () => void;
   }
 
+  export class Renderer {
+    constructor(object?: {
+      canvas?: HTMLCanvasElement;
+      width?: number;
+      height?: number;
+      dpr?: number;
+      alpha?: boolean;
+      depth?: boolean;
+      stencil?: boolean;
+      antialias?: boolean;
+      premultipliedAlpha?: boolean;
+      preserveDrawingBuffer?: boolean;
+      powerPreference?: string;
+      autoClear?: boolean;
+      webgl?: number;
+    });
+
+    gl: WebGL2RenderingContext;
+
+    setSize: (width: number, height: number) => void;
+    setViewport: (width: number, height: number) => void;
+
+    render: (object: { scene?: Transform; camera?: Camera; update?: boolean; sort?: boolean; frustumCull?: boolean }) => void;
+  }
+
+  export class Texture {
+    constructor(
+      gl: WebGL2RenderingContext,
+      object: {
+        image?: HTMLImageElement;
+        generateMipmaps?: boolean;
+        premultiplyAlpha?: boolean;
+        unpackAlignment?: number;
+        wrapS?: number;
+        wrapT?: number;
+        flip?: boolean;
+        level?: number;
+        width?: number; // used for RenderTargets or Data Textures
+        height?: number;
+      }
+    );
+
+    image: HTMLImageElement;
+  }
+
   export class Mesh extends Transform {
     constructor(gl: WebGL2RenderingContext, object: { geometry: Geometry; program: Program });
 
     geometry: Geometry;
 
     draw: (camera: Camera) => void;
+  }
+
+  export class Sphere extends Geometry {
+    constructor(
+      gl: WebGL2RenderingContext,
+      object: {
+        radius?: number;
+        widthSegments?: number;
+        heightSegments?: number;
+        phiStart?: number;
+        phiLength?: number;
+        thetaStart?: number;
+        thetaLength?: number;
+        attributes?: {};
+      }
+    );
+  }
+
+  export class Orbit {
+    constructor(
+      object: Camera,
+      config: {
+        element?: HTMLElement;
+        enabled?: boolean;
+        target?: Vec3;
+        ease?: number;
+        inertia?: number;
+        enableRotate?: boolean;
+        rotateSpeed?: number;
+        enableZoom?: boolean;
+        zoomSpeed?: number;
+        enablePan?: boolean;
+        panSpeed?: number;
+        minPolarAngle?: number;
+        maxPolarAngle?: number;
+        minAzimuthAngle?: number;
+        maxAzimuthAngle?: number;
+        minDistance?: number;
+        maxDistance?: number;
+      }
+    );
+
+    target: Vec3;
+
+    update: () => void;
   }
 }

@@ -33,6 +33,8 @@ interface settings {
   useRandomSeed: boolean;
   seed: number;
 
+  forceUpdate: boolean;
+
   stemResX: number;
   stemResY: number;
 }
