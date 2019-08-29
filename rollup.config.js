@@ -3,7 +3,6 @@ import resolve from "rollup-plugin-node-resolve";
 import babel from "rollup-plugin-babel";
 import scss from "rollup-plugin-scss";
 import json from "rollup-plugin-json";
-import uglify from "rollup-plugin-uglify-es";
 import liveServer from "rollup-plugin-live-server";
 import glslify from "rollup-plugin-glslify";
 import { terser } from "rollup-plugin-terser";

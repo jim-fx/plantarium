@@ -31,7 +31,6 @@
     "rollup-plugin-sizes": "^0.5.1",
     "rollup-plugin-terser": "^5.1.1",
     "rollup-plugin-uglify": "^6.0.2",
-    "rollup-plugin-uglify-es": "0.0.1",
     "typescript": "3.5.3"
   },
   "dependencies": {
