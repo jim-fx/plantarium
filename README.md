@@ -7,7 +7,7 @@
 Through the interface the user defines the so called plantDescription, which is a JSON object with a certain structure. The plantDescription gets passed through a generator, which generates a 3D model which is then rendered.
 The idea is to abstract the plantDescription, so you can generate lots of different plants from the same description.
 
-## Why
+## Why?
 
 I have always been fascinated by the way nature constructs plants. Also i like procedural modelling and programming interfaces.
 
@@ -19,9 +19,17 @@ Importer --> Stem --> Branch --> Leaf --> Display --> IO --> Exporter
 
 Each layer can modify the plantDescription and the passes it to the next layer
 
+The vertical layers are the UI Elements, as they update the get the current plantDescription from there layer, modify it and pass it back to their layer.
+
 ## Technology
 
-Typescript, Scss, Babel, Rollup, and O-GL
+Typescript, SCSS, Babel, Rollup, OG-L, ComLink
+
+## Long Shots
+
+- Let the user save the plantDescription online.
+
+- Integration into blender plugin
 
 ## Screendesign:
 

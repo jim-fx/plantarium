@@ -1,4 +1,5 @@
-#UIComponents
+UIComponents
+--------------------------------------------------
 
   -Checkbox
     ✔ Create @done (8/25/2019, 11:45:14 PM)
@@ -24,20 +25,49 @@
     ✔ Create @done (8/25/2019, 11:45:25 PM)
 
 CodeComponent
+--------------------------------------------------
 
   -Stage
     ✔ Create @done (8/22/2019, 10:20:21 PM)
   -Render/Scene
     ✔ Create @done (8/25/2019, 11:45:05 PM)
-  -Generator
-    ☐ Create
 
   -Import/Export
     -Download/Upload
     ✔ -CRUD from Localstorag @done (8/28/2019, 5:21:57 PM)
 
+  - Project Manager
+    ☐ Move to seperate UI Layer?
+
+Generator
+--------------------------------------------------
+
+  ✔ Create @done (8/29/2019, 8:32:44 PM)
+
+  - stemSkeleton
+    ✔ Create @done (8/29/2019, 8:33:20 PM)
+    ☐ Some how apply gravity
+
+  - stemGeometry
+    ✔ Create @done (8/29/2019, 8:36:31 PM)
+
+  - branchesSkeleton
+    ☐ Create
+
+  - branchesGeometry
+    ☐ Create
+
+  - leafPlacement
+    ☐ Create
+
+  - leafGeometry
+    ☐ Create
+    ☐ Maybe use a instancedBuffer shader
 
 Fixes
+--------------------------------------------
 
+☐ Fix the join Geometry function;
+☐ Fix the width jittering in the import/export page (possibly related to the projectMeta table)
 ✔ Fix projects not showing up @done (8/29/2019, 4:29:19 PM)
 ✔ Fix seed not disabling when enabling random seed @done (8/29/2019, 4:29:20 PM)
