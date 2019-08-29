@@ -28,6 +28,73 @@ export default class UIProjectList extends UIElement {
     this.wrapper.append(this.scrollWrapper);
     this.wrapper.append(addNewButton);
   }
+
+  addNewProject(_meta: plantMetaInfo) {
+    const _active = projectManager.activeProjectName;
+
+    const tr = document.createElement("tr");
+
+    //Create projectName
+    const projectName = document.createElement("td");
+    const p = document.createElement("p");
+    p.innerHTML = _meta.name;
+    projectName.addEventListener("dblclick", () =>
+      makeEditable(p, (value: string) => {
+        const newMeta = JSON.parse(JSON.stringify(_meta));
+        newMeta.name = value;
+        p.innerHTML = projectManager.updateMeta(_meta, newMeta);
+      })
+    );
+    projectName.append(p);
+    tr.append(projectName);
+
+    //Create the buttons
+    const buttons = document.createElement("td");
+    buttons.align = "right";
+    const downloadJSONButton = document.createElement("button");
+    downloadJSONButton.innerHTML = "↓";
+    buttons.append(downloadJSONButton);
+
+    //Create the delete Button
+    const deleteButton = document.createElement("button");
+    deleteButton.addEventListener(
+      "click",
+      ev => {
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        const rowToBeDeleted = <HTMLTableRowElement>this.rows.get(_meta.name);
+        rowToBeDeleted.classList.add("ui-row-deleted");
+        this.rows.delete(_meta.name);
+
+        setTimeout(() => {
+          rowToBeDeleted.remove();
+        }, 500);
+        projectManager.removeProject(_meta);
+      },
+      false
+    );
+    deleteButton.innerHTML = "✖";
+    buttons.append(deleteButton);
+    tr.append(buttons);
+
+    tr.addEventListener(
+      "click",
+      () => {
+        projectManager.setActiveProject(_meta.name);
+      },
+      false
+    );
+
+    if (_meta.name === _active) {
+      tr.classList.add("ui-project-list-row-active");
+    }
+
+    this.rows.set(_meta.name, tr);
+    this.table.insertBefore(tr, this.table.firstChild);
+    this.scrollTop();
+  }
+
   init() {
     const newNames = projectManager.projectNames;
 
@@ -45,66 +112,10 @@ export default class UIProjectList extends UIElement {
     projectManager.projectMetas.forEach((_meta: plantMetaInfo) => {
       const el = this.rows.get(_meta.name);
       if (el) {
-        _meta.name === _active
-          ? el.classList.add("ui-project-list-row-active")
-          : el.classList.remove("ui-project-list-row-active");
+        //If name already has a row activate that row
+        _meta.name === _active ? el.classList.add("ui-project-list-row-active") : el.classList.remove("ui-project-list-row-active");
       } else {
-        const tr = document.createElement("tr");
-        const projectName = document.createElement("td");
-        const p = document.createElement("p");
-        p.innerHTML = _meta.name;
-        projectName.addEventListener("dblclick", () =>
-          makeEditable(p, (value: string) => {
-            const newMeta = JSON.parse(JSON.stringify(_meta));
-            newMeta.name = value;
-            p.innerHTML = projectManager.updateMeta(_meta, newMeta);
-          })
-        );
-        projectName.append(p);
-        tr.append(projectName);
-
-        const buttons = document.createElement("td");
-        buttons.align = "right";
-        const downloadJSONButton = document.createElement("button");
-        downloadJSONButton.innerHTML = "↓";
-        buttons.append(downloadJSONButton);
-        const deleteButton = document.createElement("button");
-        deleteButton.addEventListener(
-          "click",
-          ev => {
-            ev.preventDefault();
-            ev.stopPropagation();
-
-            const rowToBeDeleted = <HTMLTableRowElement>this.rows.get(_meta.name);
-            rowToBeDeleted.classList.add("ui-row-deleted");
-            this.rows.delete(_meta.name);
-
-            setTimeout(() => {
-              rowToBeDeleted.remove();
-            }, 500);
-            projectManager.removeProject(_meta);
-          },
-          false
-        );
-        deleteButton.innerHTML = "✖";
-        buttons.append(deleteButton);
-        tr.append(buttons);
-
-        tr.addEventListener(
-          "click",
-          () => {
-            projectManager.setActiveProject(_meta.name);
-          },
-          false
-        );
-
-        if (_meta.name === _active) {
-          tr.classList.add("ui-project-list-row-active");
-        }
-
-        this.rows.set(_meta.name, tr);
-        this.table.insertBefore(tr, this.table.firstChild);
-        this.scrollTop();
+        this.addNewProject(_meta);
       }
     });
   }

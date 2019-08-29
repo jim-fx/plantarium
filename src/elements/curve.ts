@@ -53,7 +53,7 @@ export default class UICurve extends UIElement {
           };
         })
       });
-    }, 100);
+    }, 50);
 
     this.ctx = <CanvasRenderingContext2D>canvas.getContext("2d");
     this.curve = new Curve(this.ctx);
@@ -138,7 +138,7 @@ export default class UICurve extends UIElement {
           canvas.height = b.height;
           this.draw();
         },
-        200,
+        50,
         false
       )
     );

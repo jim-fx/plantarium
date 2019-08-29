@@ -7,16 +7,15 @@ import Stage from "./components/stages/stageClass";
 import { stemConfig, branchConfig, leafConfig, ioConfig, settingsConfig } from "./config/index";
 
 import display from "./components/display";
-import { importer, exporter } from "./components/io";
+import { default as importerStage } from "./components/io/importer";
+import { default as exporterStage } from "./components/io/exporter";
 import projectManager from "./components/project-manager";
 
-const importerStage = importer;
 const stemStage = new Stage(stemConfig);
 const branchStage = new Stage(branchConfig);
 const leafStage = new Stage(leafConfig);
 const IOStage = new Stage(ioConfig);
 const displayStage = display;
-const exporterStage = exporter;
 
 const settingsStage = new Stage(settingsConfig);
 

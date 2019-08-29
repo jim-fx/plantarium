@@ -2,6 +2,10 @@ import "./stage.scss";
 import createFromConfig from "../../elements/createFromConfig";
 import StageHandler from "./stageHandler";
 import UIElement from "../../elements/element";
+import logger from "../../logger";
+
+const log = logger("stage class");
+
 const sidebar = <HTMLElement>document.getElementById("sidebar");
 
 export default class Stage implements Stage {
@@ -11,7 +15,7 @@ export default class Stage implements Stage {
 
   private _listeners: Function[] = [];
   private _nextStage: Stage | undefined;
-  private _pd: plantDescription | undefined;
+  private _pd: plantDescription = {};
   private _elements: UIElement[] = [];
 
   constructor(config: UIConfig) {
@@ -36,6 +40,7 @@ export default class Stage implements Stage {
   }
 
   init(pd: plantDescription) {
+    log("init stage " + this.config.title, 2);
     this._pd = pd;
     this._elements.forEach(el => el.init(pd));
     if (this._nextStage) {

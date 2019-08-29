@@ -35,6 +35,12 @@ interface settings {
 
   forceUpdate: boolean;
 
+  debug_wireframe: boolean;
+  debug_indices: boolean;
+  debug_render_perf: boolean;
+  debug_generate_perf: boolean;
+  debug_pd: boolean;
+
   stemResX: number;
   stemResY: number;
 }

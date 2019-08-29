@@ -4,12 +4,17 @@ export default class UIElement {
   wrapper: HTMLElement;
   config: UIConfig;
   private _enabled: boolean = true;
+  private _update: Function;
   constructor(stage: Stage, wrapper: HTMLElement, config: UIConfig) {
     this.stage = stage;
     this.wrapper = document.createElement("div");
     this.wrapper.classList.add("ui-element-wrapper");
     this.config = config;
     wrapper.append(this.wrapper);
+
+    if (this.config.onUpdate) {
+      this._update = v => this.config.onUpdate.bind(this)(v, Object.assign(this.stage.pd, {}), (newState: plantDescription) => (this.stage.pd = newState));
+    }
   }
 
   get enabled() {
@@ -23,8 +28,8 @@ export default class UIElement {
   init(_pd: plantDescription) {}
 
   update(v: parameter) {
-    if (this.config.onUpdate) {
-      this.config.onUpdate(v, Object.assign(this.stage.pd, {}), (newState: plantDescription) => (this.stage.pd = newState));
+    if (this._update) {
+      this._update(v);
     }
   }
 }

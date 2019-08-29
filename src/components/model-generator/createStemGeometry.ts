@@ -1,7 +1,7 @@
 import { Vec3 } from "ogl";
 import interpolateArray from "./helper/interpolateArray";
 import Curve from "../../helpers/curve";
-import { Circle, join } from "./geometry";
+import { circle, join } from "./geometry";
 
 const samplingCurve = new Curve();
 
@@ -28,7 +28,7 @@ export default function(stem: stemDescription, settings: settings, skeleton: Vec
   }
 
   const circles: TransferGeometry[] = skeleton.map((origin, i) => {
-    return Circle(origin, interpolateArray(diameterArray, 1 - i / amount) * diameter, res, 0, 0);
+    return circle(origin, interpolateArray(diameterArray, 1 - i / amount) * diameter, res, 0, 0);
   });
 
   return join(...circles);

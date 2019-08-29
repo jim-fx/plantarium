@@ -3,16 +3,18 @@ import noise from "../helper/noise";
 import { Vec3 } from "ogl";
 
 export default function(origin: Vec3, radius: number, resolution: number = 3, heightVariation: number = 0, noiseScale: number = 0) {
+  //General parameters
   const positionAmount = (resolution + 1) * 3;
+  const angle = (360 * (Math.PI / 180)) / resolution; // Convert to radians
+  const startPoint = [origin[0], origin[1], radius];
+
+  //Final model
   const position = new Float32Array(positionAmount);
   const normal = new Float32Array(positionAmount);
   const uv = new Float32Array(resolution * 2);
   const index = new Uint16Array(resolution * 3);
 
-  const angle = (360 * (Math.PI / 180)) / resolution; // Convert to radians
-
-  const startPoint = [origin[0], origin[1], radius];
-
+  //Set first point
   position[0] = origin[0];
   position[1] = origin[1];
   position[2] = origin[2];
@@ -42,9 +44,9 @@ export default function(origin: Vec3, radius: number, resolution: number = 3, he
   }
 
   return {
-    position: position,
-    normal: normal,
-    uv: uv,
-    index: index
+    position,
+    normal,
+    uv,
+    index
   };
 }

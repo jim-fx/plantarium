@@ -5,7 +5,7 @@ import createStemGeometry from "./createStemGeometry";
 import noise from "./helper/noise";
 import { Vec3 } from "ogl";
 
-import { Circle, join, calculateNormals } from "./geometry";
+import { circle, join, calculateNormals, triangle } from "./geometry";
 
 let oldSettings: string;
 
@@ -26,19 +26,9 @@ class Generator {
     }
 
     const stemSkeleton = createStemSkeleton(pd.stem, settings);
-    //const stemGeometry = createStemGeometry(pd.stem, settings, stemSkeleton);
+    const stemGeometry = createStemGeometry(pd.stem, settings, stemSkeleton);
 
-    const ca = Circle(new Vec3(0, 0, 0), 1, 3, 0, 0);
-    const cb = Circle(new Vec3(0, 1, 0), 1, 3, 0, 0);
-    const cc = Circle(new Vec3(0, -1, 0), 1, 3, 0, 0);
-
-    //console.log(ca);
-
-    const cj = join(ca, cb);
-
-    //console.log(cj);
-
-    return cj;
+    return stemGeometry;
   }
 }
 

@@ -4,14 +4,16 @@ import UIElement from "./element";
 export default class UINumber extends UIElement {
   element: HTMLInputElement;
 
+  title: HTMLElement;
+
   private _value: number = 1;
 
   constructor(stage: Stage, wrapper: HTMLElement, config: UIConfig) {
     super(stage, wrapper, config);
 
-    const title = document.createElement("h4");
-    title.innerHTML = config.title;
-    this.wrapper.append(title);
+    this.title = document.createElement("h4");
+    this.title.innerHTML = config.title;
+    this.wrapper.append(this.title);
 
     let buttonWrapper = document.createElement("div");
     buttonWrapper.classList.add("ui-number-button-wrapper");
@@ -50,6 +52,7 @@ export default class UINumber extends UIElement {
       const initValue: number = <number>this.config.init.bind(this)(pd);
       if (initValue !== undefined) {
         this._value = initValue;
+        this.element.value = initValue;
       }
     }
   }

@@ -14,6 +14,7 @@
   -Curve
     ✔ Create @done (8/25/2019, 11:45:18 PM)
     ✔ sampling of Curve @done (8/26/2019, 7:45:12 PM)
+    ☐ Static function that doesnt require reinit new class
     ☐ function to interpolate sampled array
   -LeafGenerator
     ✔ Create @done (8/26/2019, 9:20:33 PM)
@@ -34,3 +35,9 @@ CodeComponent
   -Import/Export
     -Download/Upload
     ✔ -CRUD from Localstorag @done (8/28/2019, 5:21:57 PM)
+
+
+Fixes
+
+✔ Fix projects not showing up @done (8/29/2019, 4:29:19 PM)
+✔ Fix seed not disabling when enabling random seed @done (8/29/2019, 4:29:20 PM)

@@ -1,12 +1,11 @@
 import defaultPD from "../../assets/defaultPlantDescription.json";
 import importer from "../io/importer";
 import incrementProjectName from "./incrementProjectName";
+import logger from "../../logger";
+const log = logger("project manager");
 
 const projectStore: Map<string, plantDescription | undefined> = new Map();
 const metaStore: Map<string, plantMetaInfo> = new Map();
-
-window.p = projectStore;
-window.m = metaStore;
 
 let activeProjectName: string = localStorage.activeProjectName;
 
@@ -123,12 +122,16 @@ const pm = {
   },
   init: () => {
     if (activeProjectName) {
+      log("load project " + activeProjectName + " from localStorage", 2);
       //Load active project from localStorage
       pm.setActiveProject(activeProjectName);
     } else if (projectStore.size > 0) {
+      const projectName = projectStore.keys().next().value;
+      log("load project " + projectName + " from localStorage", 2);
       //Set first project active
-      pm.setActiveProject(projectStore.keys().next().value);
+      pm.setActiveProject(projectName);
     } else {
+      log("load project default project", 2);
       pm.loadProject(defaultPD);
     }
   }

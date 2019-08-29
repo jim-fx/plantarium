@@ -30,9 +30,13 @@ export default {
     return settings.get(key);
   },
   set: (key: string, value: any) => {
-    settings.set(key, value);
-    save();
-    importer.init(exporter.pd);
+    const old = settings.get(key);
+
+    if (old !== value) {
+      settings.set(key, value);
+      save();
+      importer.init(exporter.pd);
+    }
   },
 
   get object(): settings {

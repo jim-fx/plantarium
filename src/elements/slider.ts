@@ -18,11 +18,11 @@ class UISlider extends UIElement {
     this.element.type = "range";
 
     if ("min" in config) {
-      this.element.min = config.min * 100;
+      this.element.min = ((config.min || 0) * 100).toString();
     }
 
     if ("max" in config) {
-      this.element.max = config.max * 100;
+      this.element.max = ((config.max || 1) * 100).toString();
     }
 
     if (config.default !== undefined) this.element.value = "" + config.default * 100;

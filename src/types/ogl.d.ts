@@ -197,28 +197,6 @@ declare module "ogl" {
     toArray: (a?: [], offset?: number) => number[];
   }
 
-  export class Geometry {
-    constructor(gl: WebGL2RenderingContext, attributes: any);
-
-    gl: WebGL2RenderingContext;
-
-    bounds: {
-      min: Vec3;
-      max: Vec3;
-      center: Vec3;
-      scale: Vec3;
-      radius: number;
-    };
-
-    computeBoundingBox: (array?: number[]) => void;
-
-    addAttribute: (key: string, attribute: any) => void;
-
-    setDrawRange: (start: number, count: number) => void;
-
-    remove: () => void;
-  }
-
   export class Camera extends Transform {
     constructor(gl: WebGL2RenderingContext, object: { near?: number; far?: number; fov?: number; aspect?: number });
 
@@ -260,10 +238,11 @@ declare module "ogl" {
   export class Program {
     constructor(
       gl: WebGL2RenderingContext,
-      config: {
+      config?: {
         vertex: String;
         fragment: String;
         uniforms?: object;
+        cullFace?: number;
       }
     );
 
@@ -318,9 +297,39 @@ declare module "ogl" {
 
     image: HTMLImageElement;
   }
+  export class Geometry {
+    constructor(gl: WebGL2RenderingContext, object: any);
+
+    gl: WebGL2RenderingContext;
+
+    bounds: {
+      min: Vec3;
+      max: Vec3;
+      center: Vec3;
+      scale: Vec3;
+      radius: number;
+    };
+
+    computeBoundingBox: (array?: number[]) => void;
+
+    addAttribute: (key: string, attribute: any) => void;
+
+    setDrawRange: (start: number, count: number) => void;
+
+    remove: () => void;
+  }
 
   export class Mesh extends Transform {
-    constructor(gl: WebGL2RenderingContext, object: { geometry: Geometry; program: Program });
+    constructor(
+      gl: WebGL2RenderingContext,
+      object: {
+        mode?: number;
+        geometry: Geometry;
+        program: Program;
+      }
+    );
+
+    mode: number;
 
     geometry: Geometry;
 

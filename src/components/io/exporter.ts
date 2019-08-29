@@ -1,5 +1,6 @@
 import projectManager from "../project-manager";
-const pdDisplay = <HTMLElement>document.getElementById("pd-display");
+import overlay from "../display/overlay";
+
 const dlAnchorElem = <HTMLAnchorElement>document.getElementById("downloadAnchorElem");
 
 let pd: plantDescription;
@@ -8,7 +9,7 @@ let nextStage: Stage;
 const exp = {
   set pd(_pd: plantDescription) {
     pd = _pd;
-    pdDisplay.innerHTML = JSON.stringify(_pd, null, 2);
+    overlay.pd(_pd);
     projectManager.save(_pd);
   },
   get pd(): plantDescription {
