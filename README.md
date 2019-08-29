@@ -1,7 +1,5 @@
 # plant-generator
 
-Build:
-
 ![travis ci build status](https://api.travis-ci.com/jim-fx/plant-generator.svg?branch=master)
 
 Screendesign:
