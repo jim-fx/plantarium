@@ -29,4 +29,4 @@ Typescript, Scss, Babel, Rollup, and O-GL
 
 ## Data flow inside the app:
 
-![screendesign leaves](https://raw.githubusercontent.com/jim-fx/plant-generator/master/design/screendesign/data%20flow.jpg)
+![screendesign leaves](https://raw.githubusercontent.com/jim-fx/plant-generator/master/design/screendesign/data%20flow%20through%20stages.jpg)
