@@ -1,35 +1,38 @@
-import { Vec3 } from "ogl";
-import interpolateArray from "./helper/interpolateArray";
 import Curve from "../../helpers/curve";
-import { circle, join } from "./geometry";
+import { tube } from "./geometry";
+import noise from "./helper/noise";
 
 const samplingCurve = new Curve();
 
 let geometry: TransferGeometry;
 let oldDescription: string;
 
-//Circle(p(pd.stem.diameter), settings["stemResX"], pd.stem.height.variation);
+function getStemDiameter(diameter: parameter, i: number) {
+  let v = 0.1;
 
-export default function(stem: stemDescription, settings: settings, skeleton: Vec3[]): TransferGeometry {
+  if ("variation" in diameter) {
+    v = diameter.value - diameter.value * diameter.variation * ((noise.n1d(93815 + i * 200) + 1) / 2);
+  } else {
+    v = diameter.value;
+  }
+
+  if (diameter.curve && diameter.curve.length) {
+    samplingCurve.points = diameter.curve;
+    return samplingCurve.array.map((_v: number) => v * _v);
+  } else {
+    return [0, 1 * v];
+  }
+}
+
+export default function(stem: stemDescription, settings: settings, skeleton: Float32Array, i: number): TransferGeometry {
   //Check if we need to regenerate
   const newDescription = JSON.stringify(stem);
   if (!settings.forceUpdate && oldDescription === newDescription && geometry) {
     return geometry;
   }
 
-  const amount = skeleton.length;
-  const res = settings.stemResX;
-  const diameter = stem.diameter.value || 1;
+  const diameter = getStemDiameter(stem.diameter, i);
+  const resX = settings.stemResX || 1;
 
-  let diameterArray: number[] = [0, 1];
-  if (stem.diameter.curve && stem.diameter.curve.length) {
-    samplingCurve.points = stem.diameter.curve;
-    diameterArray = samplingCurve.array;
-  }
-
-  const circles: TransferGeometry[] = skeleton.map((origin, i) => {
-    return circle(origin, interpolateArray(diameterArray, 1 - i / amount) * diameter, res, 0, 0);
-  });
-
-  return join(...circles);
+  return tube(skeleton, diameter, resX);
 }

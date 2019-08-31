@@ -1,12 +1,10 @@
-import calculateNormals from "./calculateNormals";
-import noise from "../helper/noise";
 import { Vec3 } from "ogl";
 
-export default function(origin: Vec3, radius: number, resolution: number = 3, heightVariation: number = 0, noiseScale: number = 0) {
+export default function(origin: Vec3, radius: number, resolution: number = 3) {
   //General parameters
-  const positionAmount = (resolution + 1) * 3;
+  const positionAmount = resolution * 3;
   const angle = (360 * (Math.PI / 180)) / resolution; // Convert to radians
-  const startPoint = [origin[0], origin[1], radius];
+  const startPoint = [origin[0], origin[1], origin[2] + radius];
 
   //Final model
   const position = new Float32Array(positionAmount);
@@ -19,12 +17,12 @@ export default function(origin: Vec3, radius: number, resolution: number = 3, he
   position[1] = origin[1];
   position[2] = origin[2];
 
-  for (let i = 1; i < positionAmount; i++) {
+  for (let i = 1; i < resolution; i++) {
     const _angle = angle * i;
 
     const x = Math.cos(_angle) * (startPoint[0] - origin[0]) - Math.sin(_angle) * (startPoint[2] - origin[2]) + origin[0];
+    const y = origin[1];
     const z = Math.sin(_angle) * (startPoint[0] - origin[0]) + Math.cos(_angle) * (startPoint[2] - origin[2]) + origin[2];
-    const y = origin[1] + noise.n2d(x * noiseScale, z * noiseScale) * heightVariation;
 
     position[i * 3 + 0] = x;
     position[i * 3 + 1] = y;

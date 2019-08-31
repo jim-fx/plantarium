@@ -5,32 +5,33 @@
   },
   "stem": {
     "diameter": {
-      "value": 0.2,
-      "type": "float"
+      "value": 0.05
     },
-    "height": {
-      "value": 1,
-      "type": "float"
+    "originOffset": {
+      "value": 0
     },
-    "amount": {
-      "value": 1,
-      "type": "integer"
-    }
+    "originAngle": {
+      "value": 0
+    },
+    "originRotation": {
+      "value": 0
+    },
+    "size": {
+      "value": 1
+    },
+    "amount": 1
   },
   "branches": {
     "diameter": {
-      "value": 1,
-      "type": "float"
+      "value": 1
     }
   },
   "leaves": {
     "diameter": {
-      "value": 1,
-      "type": "float"
+      "value": 1
     },
     "size": {
-      "value": 1,
-      "type": "float"
+      "value": 1
     },
     "shape": [{ "x": 0, "y": 0 }, { "x": 0.3, "y": 0.4 }, { "x": 0.3, "y": 0.6 }, { "x": 0, "y": 1 }]
   }

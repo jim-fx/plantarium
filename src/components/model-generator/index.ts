@@ -3,11 +3,15 @@ import * as Comlink from "comlink";
 import createStemSkeleton from "./createStemSkeleton";
 import createStemGeometry from "./createStemGeometry";
 import noise from "./helper/noise";
-import { Vec3 } from "ogl";
-
-import { circle, join, calculateNormals, triangle } from "./geometry";
+import { calculateNormals, join } from "./geometry";
+import draw from "./helper/draw";
 
 let oldSettings: string;
+
+const stemSkeletons: Float32Array[] = [];
+
+const debugLines: Float32Array[] = [];
+draw.setSkeleton(debugLines);
 
 class Generator {
   constructor() {}
@@ -25,10 +29,19 @@ class Generator {
       noise.seed = settings.seed;
     }
 
-    const stemSkeleton = createStemSkeleton(pd.stem, settings);
-    const stemGeometry = createStemGeometry(pd.stem, settings, stemSkeleton);
+    stemSkeletons.length = pd.stem.amount || 1;
+    debugLines.length = 0;
+    for (let i = 0; i < stemSkeletons.length; i++) {
+      stemSkeletons[i] = createStemSkeleton(pd.stem, settings, i);
+    }
 
-    return calculateNormals(stemGeometry);
+    const stemGeometries = stemSkeletons.map((stemSkeleton, i) => createStemGeometry(pd.stem, settings, stemSkeleton, i));
+
+    const final = calculateNormals(join(...stemGeometries));
+
+    final.skeleton = stemSkeletons.concat(debugLines);
+
+    return final;
   }
 }
 

@@ -3,29 +3,144 @@ export default {
   type: "stage",
   children: [
     {
+      type: "Number",
       title: "Amount",
+      min: 1,
+      max: 20,
+      init: (pd: plantDescription) => {
+        return pd.stem.amount;
+      },
+      onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+        originalState.stem.amount = output.value;
+        updateState(originalState);
+      }
+    },
+    {
+      type: "Slider",
+      title: "Gravity",
+      min: 0,
+      max: 1,
+      init: (pd: plantDescription) => {
+        return pd.stem.gravity;
+      },
+      onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+        originalState.stem.gravity = output.value;
+        updateState(originalState);
+      }
+    },
+    {
+      title: "Origin",
       type: "group",
       children: [
         {
-          type: "Number",
-          title: "Amount",
+          type: "Slider",
+          title: "Position",
+          min: 0,
+          max: 1,
           init: (pd: plantDescription) => {
-            return pd.stem.amount.value;
+            return pd.stem.originOffset.value;
           },
           onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
-            originalState.stem.amount.value = output.value;
+            originalState.stem.originOffset.value = output.value;
+            updateState(originalState);
+          }
+        },
+        {
+          type: "Slider",
+          title: "Position Variation",
+          min: 0,
+          max: 1,
+          init: (pd: plantDescription) => {
+            return pd.stem.originOffset.variation || 0;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+            if (output.value === 0) {
+              delete originalState.stem.originOffset.variation;
+            } else {
+              originalState.stem.originOffset.variation = output.value;
+            }
+            updateState(originalState);
+          }
+        },
+        {
+          type: "Slider",
+          title: "Rotation",
+          default: 0,
+          min: 0,
+          max: 360,
+          init: (pd: plantDescription) => {
+            return pd.stem.originRotation.value || 0;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+            originalState.stem.originRotation.value = output.value;
+            updateState(originalState);
+          }
+        },
+        {
+          type: "Slider",
+          title: "Rotation Variation",
+          default: 0,
+          min: 0,
+          max: 360,
+          init: (pd: plantDescription) => {
+            return pd.stem.originRotation.variation || 0;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+            if (output.value === 0) {
+              delete originalState.stem.originRotation.variation;
+            } else {
+              originalState.stem.originRotation.variation = output.value;
+            }
+            updateState(originalState);
+          }
+        },
+        {
+          type: "Slider",
+          title: "Angle",
+          default: 0,
+          min: 0,
+          max: 45,
+          init: (pd: plantDescription) => {
+            return pd.stem.originAngle.value || 0;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+            originalState.stem.originAngle.value = output.value;
+            updateState(originalState);
+          }
+        },
+        {
+          type: "Slider",
+          title: "Angle Variation",
+          default: 0,
+          min: 0,
+          max: 1.57,
+          init: (pd: plantDescription) => {
+            if ("variation" in pd.stem.originAngle) {
+              return pd.stem.originAngle.variation;
+            } else {
+              return 0;
+            }
+          },
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+            if (output.value === 0) {
+              delete originalState.stem.originAngle.variation;
+            } else {
+              originalState.stem.originAngle.variation = output.value;
+            }
             updateState(originalState);
           }
         }
       ]
     },
     {
-      title: "Diameter",
+      title: "Thiccness",
       type: "group",
       children: [
         {
           type: "Slider",
           title: "Diameter",
+          min: 0.01,
+          max: 0.1,
           init: (pd: plantDescription) => {
             return pd.stem.diameter.value;
           },
@@ -69,48 +184,34 @@ export default {
     },
     {
       type: "group",
-      title: "Height",
+      title: "Size",
       children: [
         {
           type: "Slider",
-          title: "Height",
-          min: 1,
-          max: 10,
+          title: "Size",
+          min: 0.1,
+          max: 2,
           init: (pd: plantDescription) => {
-            return pd.stem.height.value;
+            return pd.stem.size.value;
           },
           onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
-            originalState.stem.height.value = output.value;
+            originalState.stem.size.value = output.value;
             updateState(originalState);
           }
         },
         {
           type: "Slider",
           default: 0,
-          title: "Height Variation",
+          title: "Size Variation",
           init: (pd: plantDescription) => {
-            return pd.stem.height.variation;
+            return pd.stem.size.variation;
           },
           onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
             if (output.value === 0) {
-              delete originalState.stem.height.variation;
+              delete originalState.stem.size.variation;
             } else {
-              originalState.stem.height.variation = output.value;
+              originalState.stem.size.variation = output.value;
             }
-            updateState(originalState);
-          }
-        },
-        {
-          type: "Slider",
-          default: 1,
-          title: "Noise Scale",
-          min: 0.1,
-          max: 10,
-          init: (pd: plantDescription) => {
-            return pd.stem.noiseScale;
-          },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
-            originalState.stem.noiseScale = output.value;
             updateState(originalState);
           }
         }

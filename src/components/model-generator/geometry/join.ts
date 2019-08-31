@@ -15,14 +15,6 @@ export default function(...geometries: TransferGeometry[]): TransferGeometry {
   let indexOffset = 0;
 
   for (let i = 0; i < geometries.length; i++) {
-    //Copy position array
-    const _pos = geometries[i].position;
-    const posLength = _pos.length;
-    for (let j = 0; j < posLength; j++) {
-      position[posOffset + j] = _pos[j];
-    }
-    posOffset += posLength;
-
     //Copy normal array
     const _normal = geometries[i].normal;
     const normalLength = _normal.length;
@@ -43,9 +35,17 @@ export default function(...geometries: TransferGeometry[]): TransferGeometry {
     const _index = geometries[i].index;
     const indexLength = _index.length;
     for (let j = 0; j < indexLength; j++) {
-      index[indexOffset + j] = _index[j] + posOffset / 3;
+      index[j + indexOffset] = _index[j] + posOffset / 3;
     }
     indexOffset += indexLength;
+
+    //Copy position array
+    const _pos = geometries[i].position;
+    const posLength = _pos.length;
+    for (let j = 0; j < posLength; j++) {
+      position[posOffset + j] = _pos[j];
+    }
+    posOffset += posLength;
   }
 
   return {
