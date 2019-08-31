@@ -32,11 +32,17 @@ export default class Stage implements Stage {
   }
 
   show() {
-    this.wrapper.classList.add("stage-wrapper-visible");
+    this.wrapper.style.display = "";
+    setTimeout(() => {
+      this.wrapper.classList.add("stage-wrapper-visible");
+    }, 300);
   }
 
   hide() {
     this.wrapper.classList.remove("stage-wrapper-visible");
+    setTimeout(() => {
+      this.wrapper.style.display = "none";
+    }, 300);
   }
 
   init(pd: plantDescription) {
