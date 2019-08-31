@@ -20,8 +20,7 @@ body {
   overflow: hidden;
   padding: 0px;
   box-sizing: border-box;
-  font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
-    "Helvetica Neue", sans-serif;
+  font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
 .component {
@@ -86,6 +85,15 @@ button:focus {
   margin-top: 1px;
   overflow-x: hidden;
   overflow-y: scroll;
+}
+
+#version {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  z-index: 99;
+  display: inline;
+  color: white;
 }
 
 body > table {

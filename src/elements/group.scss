@@ -2,6 +2,7 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
+  padding-left: 19px;
   > ::after {
     position: absolute;
     content: "";
@@ -24,16 +25,15 @@
 }
 
 .group-toppart {
-  margin-left: -10px;
   margin-top: 10px;
   cursor: pointer;
   > h3 {
     user-select: none;
-    padding-left: 10px;
+    padding-left: 17px;
   }
   > span {
     position: absolute;
-    left: -20px;
+    left: -7px;
     float: left;
     transform: rotate(-45deg) translateY(0.25em);
     transition: transform 0.3s ease;
@@ -49,4 +49,21 @@
   transition: max-height 0.3s ease;
   max-height: 0px;
   overflow: hidden;
+}
+
+.stage-wrapper {
+  > .group-toppart {
+    margin-left: -10px;
+    > h3 {
+      padding-left: 10px;
+    }
+    > span {
+      left: -20px;
+    }
+  }
+  > .ui-group-content-wrapper {
+    > .group-wrapper {
+      padding-left: 0;
+    }
+  }
 }
