@@ -2,7 +2,7 @@ import settings from "../components/settings";
 import getSeed from "./_getSeed";
 import logger from "../logger";
 
-const log = logger("config");
+const log: log = logger("config");
 
 export default {
   title: "settings",
@@ -49,7 +49,7 @@ export default {
           min: 3,
           max: 24,
           default: settings.get("stemResX"),
-          onUpdate: v => {
+          onUpdate: (v: parameter) => {
             settings.set("stemResX", v.value);
           }
         },
@@ -59,7 +59,7 @@ export default {
           min: 3,
           max: 32,
           default: settings.get("stemResY"),
-          onUpdate: v => {
+          onUpdate: (v: parameter) => {
             settings.set("stemResY", v.value);
           }
         }
@@ -73,7 +73,7 @@ export default {
           type: "Checkbox",
           title: "Show Indices",
           default: settings.get("debug_indices"),
-          onUpdate: v => {
+          onUpdate: (v: parameter) => {
             settings.set("debug_indices", v.enabled);
           }
         },
@@ -81,7 +81,7 @@ export default {
           type: "Checkbox",
           title: "Wireframe",
           default: settings.get("debug_wireframe"),
-          onUpdate: v => {
+          onUpdate: (v: parameter) => {
             settings.set("debug_wireframe", v.enabled);
           }
         },
@@ -110,6 +110,72 @@ export default {
           }
         },
         {
+          type: "Checkbox",
+          title: "Show Skeleton",
+          default: settings.get("debug_skeleton"),
+          onUpdate: (v: parameter) => {
+            settings.set("debug_skeleton", v.enabled);
+          }
+        },
+        {
+          type: "Checkbox",
+          title: "Disable Ground",
+          default: settings.get("debug_disable_ground"),
+          onUpdate: (v: parameter) => {
+            settings.set("debug_disable_ground", v.enabled);
+          }
+        },
+        {
+          type: "Checkbox",
+          title: "Show Grid",
+          default: settings.get("debug_grid"),
+          onUpdate: (v: parameter) => {
+            settings.set("debug_grid", v.enabled);
+          }
+        },
+        {
+          type: "group",
+          title: "Grid Settings",
+          children: [
+            {
+              type: "Number",
+              title: "Resolution",
+              min: 3,
+              max: 32,
+              init: function() {
+                if (settings.get("debug_grid")) {
+                  this.enabled = true;
+                } else {
+                  this.enabled = false;
+                }
+
+                return settings.get("debug_grid_resolution");
+              },
+              onUpdate: (v: parameter) => {
+                settings.set("debug_grid_resolution", v.value);
+              }
+            },
+            {
+              type: "Slider",
+              title: "Size",
+              min: 2,
+              max: 10,
+              init: function() {
+                if (settings.get("debug_grid")) {
+                  this.enabled = true;
+                } else {
+                  this.enabled = false;
+                }
+
+                return settings.get("debug_grid_size");
+              },
+              onUpdate: (v: parameter) => {
+                settings.set("debug_grid_size", v.value);
+              }
+            }
+          ]
+        },
+        {
           type: "Number",
           title: "Log Level",
           min: 0,
@@ -119,7 +185,7 @@ export default {
             return log.level;
           },
           onUpdate: function(v: parameter) {
-            log.level = v.value;
+            log.level = <number>v.value;
             this.title.innerHTML = `${this.config.title} (${["error", "warning", "components", "all"][log.level]})`;
           }
         }

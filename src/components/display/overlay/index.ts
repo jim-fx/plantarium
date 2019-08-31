@@ -17,6 +17,8 @@ export default {
     pdDisplay.innerHTML = JSON.stringify(_pd, null, 2);
   },
   update: (s: settings) => {
+    debug3D.update(s);
+
     if (s["debug_generate_perf"]) {
       generatePerf.show();
     } else {
@@ -27,12 +29,6 @@ export default {
       renderPerf.show();
     } else {
       renderPerf.hide();
-    }
-
-    if (s["debug_indices"]) {
-      debug3D.show();
-    } else {
-      debug3D.hide();
     }
 
     if (s["debug_pd"]) {
