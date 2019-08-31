@@ -19,11 +19,19 @@ interface plantMetaInfo {
 }
 
 interface stemDescription {
-  amount: parameter;
+  amount: number;
   diameter: parameter;
-  height: parameter;
-  randomness: number;
+  size: parameter;
   gravity: number;
+
+  originOffset: parameter;
+  originAngle: parameter;
+  originRotation: parameter;
+
+  yNoiseStrength: number;
+  xzNoiseStrength: number;
+  noiseScale: number;
+  noiseStrength: parameter;
 }
 
 interface branchDescription {

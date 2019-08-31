@@ -225,7 +225,7 @@ declare module "ogl" {
     up: Vec3;
 
     setParent: (parent: Transform, notifyParent?: boolean) => void;
-    setChild: (parent: Transform, notifyChild?: boolean) => void;
+    addChild: (parent: Transform, notifyChild?: boolean) => void;
     removeChild: (parent: Transform, notifyChild?: boolean) => void;
 
     updateMatrixWorld: (force?: boolean) => void;

@@ -5,4 +5,6 @@ interface TransferGeometry {
   normal: Float32Array;
   uv: Float32Array;
   index: Uint16Array | Uint32Array;
+
+  skeleton?: Float32Array[];
 }

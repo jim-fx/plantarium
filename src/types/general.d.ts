@@ -40,7 +40,17 @@ interface settings {
   debug_render_perf: boolean;
   debug_generate_perf: boolean;
   debug_pd: boolean;
+  debug_skeleton: boolean;
+  debug_disable_ground: boolean;
+  debug_grid: boolean;
+  debug_grid_size: number;
+  debug_grid_resolution: number;
 
   stemResX: number;
   stemResY: number;
+}
+
+interface log {
+  level: number;
+  error: Function;
 }
