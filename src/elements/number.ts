@@ -13,6 +13,7 @@ export default class UINumber extends UIElement {
 
     this.title = document.createElement("h4");
     this.title.innerHTML = config.title;
+    this.title.classList.add("ui-number-title");
     this.wrapper.append(this.title);
 
     let buttonWrapper = document.createElement("div");
@@ -40,6 +41,9 @@ export default class UINumber extends UIElement {
     this.element.min = config.min !== undefined ? config.min.toString() : "0";
     this.element.addEventListener("input", () => {
       this.value = parseInt(this.element.value);
+    });
+    this.element.addEventListener("click", function() {
+      this.select();
     });
 
     buttonWrapper.append(this.element);
