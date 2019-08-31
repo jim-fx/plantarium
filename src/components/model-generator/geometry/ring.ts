@@ -25,13 +25,13 @@ export default function(origin: Vec3, axis: Vec3, radius: number, resolution: nu
 
   const start = getStart(origin, axis).multiply(radius);
 
-  draw(
+  /*   draw(
     origin.toArray(),
     origin
       .clone()
       .add(start)
       .toArray()
-  );
+  ); */
 
   for (let i = 0; i < resolution; i++) {
     const _angle = angle * i;

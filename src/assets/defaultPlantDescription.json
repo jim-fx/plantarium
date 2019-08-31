@@ -19,6 +19,9 @@
       "value": 65,
       "variation": 34
     },
+    "noiseStrength": {
+      "value": 0
+    },
     "size": {
       "value": 1,
       "variation": 0.5

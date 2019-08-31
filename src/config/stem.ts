@@ -6,7 +6,7 @@ export default {
       type: "Number",
       title: "Amount",
       min: 1,
-      max: 20,
+      max: 200,
       init: (pd: plantDescription) => {
         return pd.stem.amount;
       },
@@ -179,6 +179,49 @@ export default {
             } else {
               originalState.stem.diameter.curve = output.curve;
             }
+            updateState(originalState);
+          }
+        }
+      ]
+    },
+    {
+      type: "group",
+      title: "Noise",
+      children: [
+        {
+          type: "Slider",
+          title: "Scale",
+          min: 1,
+          max: 10,
+          init: (pd: plantDescription) => {
+            return pd.stem.noiseScale;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+            originalState.stem.noiseScale = output.value;
+            updateState(originalState);
+          }
+        },
+        {
+          type: "Slider",
+          title: "Strength",
+          min: 0.1,
+          max: 2,
+          init: (pd: plantDescription) => {
+            return pd.stem.noiseStrength.value;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+            originalState.stem.noiseStrength.value = output.value;
+            updateState(originalState);
+          }
+        },
+        {
+          type: "Curve",
+          title: "Strength Curve",
+          init: (pd: plantDescription) => {
+            return pd.stem.noiseStrength.curve;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+            originalState.stem.noiseStrength.curve = output.curve;
             updateState(originalState);
           }
         }

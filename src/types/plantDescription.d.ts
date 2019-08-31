@@ -28,10 +28,8 @@ interface stemDescription {
   originAngle: parameter;
   originRotation: parameter;
 
-  yNoiseStrength: number;
-  xzNoiseStrength: number;
-  noiseScale: number;
   noiseStrength: parameter;
+  noiseScale: number;
 }
 
 interface branchDescription {

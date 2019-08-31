@@ -1,9 +1,13 @@
 import noise from "./helper/noise";
+import Curve from "../../helpers/curve";
+import interpolateArray from "./helper/interpolateArray";
 
 let skeleton: Float32Array;
 let oldDescription: string;
 
 const toRadian = Math.PI / 180;
+
+const samplingCurve = new Curve();
 
 function getStemSize(size: parameter, i: number) {
   if ("variation" in size) {
@@ -48,6 +52,15 @@ function getOrigin(rot: parameter, pos: parameter, i: number): number[] {
   return [-x, y, z];
 }
 
+function getNoiseStrength(noise: parameter) {
+  if (noise.curve && noise.curve.length) {
+    samplingCurve.points = noise.curve;
+    return samplingCurve.array;
+  } else {
+    return [0, 1];
+  }
+}
+
 export default function(stem: stemDescription, settings: settings, i: number): Float32Array {
   //Check if we need to regenerate else return cached skeleton
   const newDescription = JSON.stringify(stem);
@@ -66,13 +79,25 @@ export default function(stem: stemDescription, settings: settings, i: number): F
 
   const gravity = (stem.gravity || 0) * Math.PI * 0.5;
 
-  for (let i = 0; i < amountPoints; i++) {
-    const a = i / amountPoints;
+  const noiseScale = stem.noiseScale || 1;
+  const noiseStrength = stem.noiseStrength.value || 0;
+  let noiseStrengthCurve;
+  if (noiseStrength) {
+    noiseStrengthCurve = getNoiseStrength(stem.noiseStrength);
+  }
+
+  for (let j = 0; j < amountPoints; j++) {
+    const a = j / amountPoints;
 
     //Create point
-    const x = origin[0];
+    let x = origin[0];
     const y = a * stemsize;
-    const z = origin[2];
+    let z = origin[2];
+
+    if (noiseStrength) {
+      x += noise.n1d(2312312 + a * noiseScale + i * 100) * interpolateArray(noiseStrengthCurve, a) * noiseStrength;
+      z += noise.n1d(92538165 + a * noiseScale + i * 100) * interpolateArray(noiseStrengthCurve, a) * noiseStrength;
+    }
 
     //Apply gravity
     const gravityAngle = gravity * a + originAngle;
@@ -85,9 +110,9 @@ export default function(stem: stemDescription, settings: settings, i: number): F
     const __y = _y;
     const __z = Math.sin(-XYRotation) * (_x - origin[0]) + Math.cos(-XYRotation) * (_z - origin[2]) + origin[2];
 
-    skeleton[i * 3 + 0] = __x;
-    skeleton[i * 3 + 1] = __y;
-    skeleton[i * 3 + 2] = __z;
+    skeleton[j * 3 + 0] = __x;
+    skeleton[j * 3 + 1] = __y;
+    skeleton[j * 3 + 2] = __z;
   }
 
   return skeleton;
