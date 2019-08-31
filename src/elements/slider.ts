@@ -17,21 +17,21 @@ class UISlider extends UIElement {
     this.element = document.createElement("input");
     this.element.type = "range";
 
-    if ("min" in config) {
-      this.element.min = ((config.min || 0) * 100).toString();
-    }
+    const min = "min" in config ? config.min * 1000 : 0;
+    this.element.min = min.toString();
 
-    if ("max" in config) {
-      this.element.max = ((config.max || 1) * 100).toString();
-    }
+    const max = "max" in config ? config.max * 1000 : 1000;
+    this.element.max = max.toString();
 
-    if (config.default !== undefined) this.element.value = "" + config.default * 100;
+    this.element.step = Math.abs((max - max) / 100).toString();
+
+    if (config.default !== undefined) this.element.value = "" + config.default * 1000;
 
     this.element.addEventListener(
       "input",
       throttle(() => {
         this.update({
-          value: parseInt(this.element.value) / 100
+          value: parseInt(this.element.value) / 1000
         });
       }, 20),
       false
@@ -42,11 +42,11 @@ class UISlider extends UIElement {
 
   init(pd: plantDescription) {
     if (this.config.init) {
-      const initValue: number = <number>this.config.init(pd);
+      const initValue: number = <number>this.config.init.bind(this)(pd);
 
       if (initValue !== undefined) {
         log("init " + this.config.title + " with value: " + initValue, 3);
-        this.element.value = (initValue * 100).toString();
+        this.element.value = (initValue * 1000).toString();
       }
     }
   }
