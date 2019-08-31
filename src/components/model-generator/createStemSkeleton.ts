@@ -11,7 +11,7 @@ const samplingCurve = new Curve();
 
 function getStemSize(size: parameter, i: number) {
   if ("variation" in size) {
-    return size.value + size.value * (noise.n1d(12312 + i * 400) * size.variation);
+    return size.value - size.value * size.variation * ((noise.n1d(12312 + i * 400) + 1) / 2);
   } else {
     return size.value;
   }

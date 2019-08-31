@@ -6,7 +6,7 @@ export default {
       type: "Number",
       title: "Amount",
       min: 1,
-      max: 200,
+      max: 150,
       init: (pd: plantDescription) => {
         return pd.stem.amount;
       },
@@ -139,7 +139,7 @@ export default {
         {
           type: "Slider",
           title: "Diameter",
-          min: 0.01,
+          min: 0.002,
           max: 0.1,
           init: (pd: plantDescription) => {
             return pd.stem.diameter.value;
@@ -154,7 +154,7 @@ export default {
           title: "Diameter Variation",
           default: 0,
           min: 0,
-          max: 5,
+          max: 1,
           init: (pd: plantDescription) => {
             return pd.stem.diameter.variation;
           },
@@ -204,8 +204,8 @@ export default {
         {
           type: "Slider",
           title: "Strength",
-          min: 0.1,
-          max: 2,
+          min: 0,
+          max: 1,
           init: (pd: plantDescription) => {
             return pd.stem.noiseStrength.value;
           },
@@ -235,7 +235,7 @@ export default {
           type: "Slider",
           title: "Size",
           min: 0.1,
-          max: 2,
+          max: 4,
           init: (pd: plantDescription) => {
             return pd.stem.size.value;
           },
@@ -247,6 +247,8 @@ export default {
         {
           type: "Slider",
           default: 0,
+          min: 0,
+          max: 1,
           title: "Size Variation",
           init: (pd: plantDescription) => {
             return pd.stem.size.variation;

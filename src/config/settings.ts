@@ -47,7 +47,7 @@ export default {
           type: "Number",
           title: "Stem X Resolution",
           min: 3,
-          max: 24,
+          max: 32,
           default: settings.get("stemResX") || 3,
           onUpdate: (v: parameter) => {
             settings.set("stemResX", v.value);

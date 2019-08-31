@@ -11,7 +11,7 @@ function getStemDiameter(diameter: parameter, i: number) {
   let v = 0.1;
 
   if ("variation" in diameter) {
-    v = diameter.value + diameter.value * diameter.variation * noise.n1d(93815 + i * 200);
+    v = diameter.value - diameter.value * diameter.variation * ((noise.n1d(93815 + i * 200) + 1) / 2);
   } else {
     v = diameter.value;
   }
