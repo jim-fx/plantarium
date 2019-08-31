@@ -1,10 +1,10 @@
-let logLevel: number = parseInt(localStorage.pdLogLevel) || 2;
+let logLevel: number = parseInt(localStorage.pdLogLevel) || 1;
 //0 = only errors;
 //1 = errors+warnings
 //2 = all major components
 //3 = all components
 
-export default function logger(name: string) {
+export default function logger(name: string): log {
   function log(msg: string, _logLevel: number = 1) {
     if (logLevel < _logLevel) return;
     console.log(name + " | " + msg);
