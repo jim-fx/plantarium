@@ -63,14 +63,12 @@ export default class Group {
       false
     );
 
-    setTimeout(() => {
-      if (this.id in groupState) {
-        this.open = groupState[this.id];
-        groupState[this.id] && open();
-      } else {
-        this.open = !!config.open;
-        config.open && open();
-      }
-    }, 0);
+    if (this.id in groupState) {
+      this.open = groupState[this.id];
+      groupState[this.id] && open();
+    } else {
+      this.open = !!config.open;
+      config.open && open();
+    }
   }
 }
