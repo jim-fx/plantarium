@@ -67,7 +67,9 @@ Generator
 Fixes
 --------------------------------------------
 
-☐ Fix the join Geometry function;
+✔ Fix the initialization of the renderer with the settings, right now the settings get passed @done (8/31/2019, 10:52:01 AM)
+☐ Fix the direction of the stem curve, left side of curve should be bottom of stem
+✔ Fix the join Geometry function; @done (8/30/2019, 5:11:40 PM)
 ☐ Fix the width jittering in the import/export page (possibly related to the projectMeta table)
 ✔ Fix projects not showing up @done (8/29/2019, 4:29:19 PM)
 ✔ Fix seed not disabling when enabling random seed @done (8/29/2019, 4:29:20 PM)
