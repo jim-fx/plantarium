@@ -1,7 +1,7 @@
 {
-  "name": "rollup-typescript-babel",
-  "version": "1.0.0",
-  "description": "A sample setup using Rollup and Babel to build TypeScript code, and using TypeScript for type-checking.",
+  "name": "plant-generator",
+  "version": "0.0.1",
+  "description": "Tool to define and create procedural plants.",
   "scripts": {
     "dev": "rollup -c -w ",
     "build": "NODE_ENV=production rollup -c"
@@ -17,7 +17,7 @@
     "babel-polyfill": "^6.26.0",
     "glsl-noise": "0.0.0",
     "glsl-pi": "^1.0.0",
-    "ogl": "0.0.17",
+    "ogl": "latest",
     "resize-observer-polyfill": "^1.5.1",
     "rollup": "1.20.0",
     "rollup-plugin-babel": "4.3.3",
@@ -30,7 +30,7 @@
     "rollup-plugin-scss": "^1.0.2",
     "rollup-plugin-sizes": "^0.5.1",
     "rollup-plugin-terser": "^5.1.1",
-    "rollup-plugin-uglify": "^6.0.2",
+    "rollup-plugin-uglify": "^6.0.3",
     "typescript": "3.5.3"
   },
   "dependencies": {
