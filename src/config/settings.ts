@@ -48,7 +48,7 @@ export default {
           title: "Stem X Resolution",
           min: 3,
           max: 24,
-          default: settings.get("stemResX"),
+          default: settings.get("stemResX") || 3,
           onUpdate: (v: parameter) => {
             settings.set("stemResX", v.value);
           }
@@ -58,7 +58,7 @@ export default {
           title: "Stem Y Resolution",
           min: 3,
           max: 32,
-          default: settings.get("stemResY"),
+          default: settings.get("stemResY") || 3,
           onUpdate: (v: parameter) => {
             settings.set("stemResY", v.value);
           }
@@ -160,6 +160,7 @@ export default {
               title: "Size",
               min: 2,
               max: 10,
+              default: 2,
               init: function() {
                 if (settings.get("debug_grid")) {
                   this.enabled = true;
@@ -167,7 +168,7 @@ export default {
                   this.enabled = false;
                 }
 
-                return settings.get("debug_grid_size");
+                return settings.get("debug_grid_size") || 2;
               },
               onUpdate: (v: parameter) => {
                 settings.set("debug_grid_size", v.value);

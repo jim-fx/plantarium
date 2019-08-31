@@ -4,6 +4,9 @@ import incrementProjectName from "./incrementProjectName";
 import logger from "../../logger";
 const log = logger("project manager");
 
+//Download
+const dlAnchorElem = <HTMLAnchorElement>document.getElementById("downloadAnchorElem");
+
 const projectStore: Map<string, plantDescription | undefined> = new Map();
 const metaStore: Map<string, plantMetaInfo> = new Map();
 
@@ -110,6 +113,13 @@ const pm = {
   loadProject: (pd: plantDescription) => {
     localStorage.setItem("_pd_" + pd.meta.name, JSON.stringify(pd));
     pm.setActiveProject(pd.meta.name);
+  },
+  download: (meta: plantMetaInfo) => {
+    const _pd = JSON.parse(localStorage["_pd_" + meta.name]);
+    const dataStr = "data:text/json;charset=utf-8," + JSON.stringify(_pd, null, 2);
+    dlAnchorElem.setAttribute("href", dataStr);
+    dlAnchorElem.setAttribute("download", _pd.meta.name + ".json");
+    dlAnchorElem.click();
   },
   get projectNames(): string[] {
     return Array.from(projectStore.keys());

@@ -1,4 +1,4 @@
-export default function(size: number, res: number): TransferGeometry {
+export default function(size: number = 2, res: number = 3): TransferGeometry {
   res = res + 2;
 
   const amountPoints = (res * 4 - 4) * 3;

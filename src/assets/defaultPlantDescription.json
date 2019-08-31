@@ -5,21 +5,26 @@
   },
   "stem": {
     "diameter": {
-      "value": 0.05
+      "value": 0.01,
+      "variation": 0.2
     },
     "originOffset": {
-      "value": 0
+      "value": 0,
+      "variation": 0.2
     },
     "originAngle": {
-      "value": 0
+      "value": 10
     },
     "originRotation": {
-      "value": 0
+      "value": 65,
+      "variation": 34
     },
     "size": {
-      "value": 1
+      "value": 1,
+      "variation": 0.5
     },
-    "amount": 1
+    "amount": 9,
+    "gravity": 0.6
   },
   "branches": {
     "diameter": {
@@ -33,6 +38,23 @@
     "size": {
       "value": 1
     },
-    "shape": [{ "x": 0, "y": 0 }, { "x": 0.3, "y": 0.4 }, { "x": 0.3, "y": 0.6 }, { "x": 0, "y": 1 }]
+    "shape": [
+      {
+        "x": 0,
+        "y": 0
+      },
+      {
+        "x": 0.3,
+        "y": 0.4
+      },
+      {
+        "x": 0.3,
+        "y": 0.6
+      },
+      {
+        "x": 0,
+        "y": 1
+      }
+    ]
   }
 }

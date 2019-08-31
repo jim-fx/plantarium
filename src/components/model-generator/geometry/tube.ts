@@ -1,6 +1,7 @@
 import { Vec3 } from "ogl";
 import interpolateArray from "../helper/interpolateArray";
 import ring from "./ring";
+import draw from "../helper/draw";
 
 function mergeRings(rings: Float32Array[], position: Float32Array) {
   let offset = 0;

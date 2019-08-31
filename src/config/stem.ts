@@ -153,6 +153,8 @@ export default {
           type: "Slider",
           title: "Diameter Variation",
           default: 0,
+          min: 0,
+          max: 5,
           init: (pd: plantDescription) => {
             return pd.stem.diameter.variation;
           },

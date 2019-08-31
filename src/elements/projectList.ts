@@ -52,6 +52,13 @@ export default class UIProjectList extends UIElement {
     const buttons = document.createElement("td");
     buttons.align = "right";
     const downloadJSONButton = document.createElement("button");
+    downloadJSONButton.addEventListener(
+      "click",
+      () => {
+        projectManager.download(_meta);
+      },
+      false
+    );
     downloadJSONButton.innerHTML = "↓";
     buttons.append(downloadJSONButton);
 

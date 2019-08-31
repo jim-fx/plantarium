@@ -11,7 +11,7 @@ function getStemDiameter(diameter: parameter, i: number) {
   let v = 0.1;
 
   if ("variation" in diameter) {
-    v = diameter.value - diameter.value * diameter.variation * ((noise.n1d(93815 + i * 200) + 1) / 2);
+    v = diameter.value + diameter.value * diameter.variation * noise.n1d(93815 + i * 200);
   } else {
     v = diameter.value;
   }
@@ -32,7 +32,7 @@ export default function(stem: stemDescription, settings: settings, skeleton: Flo
   }
 
   const diameter = getStemDiameter(stem.diameter, i);
-  const resX = settings.stemResX || 1;
+  const resX = settings.stemResX || 3;
 
   return tube(skeleton, diameter, resX);
 }
