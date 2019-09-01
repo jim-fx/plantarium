@@ -5,10 +5,9 @@ import createStemGeometry from "./createStemGeometry";
 import noise from "./helper/noise";
 import { calculateNormals, join } from "./geometry";
 import draw from "./helper/draw";
+import createBranchSkeleton from "./createBranchSkeleton";
 
 let oldSettings: string;
-
-const stemSkeletons: Float32Array[] = [];
 
 const debugLines: Float32Array[] = [];
 draw.setSkeleton(debugLines);
@@ -29,17 +28,19 @@ class Generator {
       noise.seed = settings.seed;
     }
 
-    stemSkeletons.length = pd.stem.amount || 1;
+    //Create the stem skeletons
     debugLines.length = 0;
-    for (let i = 0; i < stemSkeletons.length; i++) {
-      stemSkeletons[i] = createStemSkeleton(pd.stem, settings, i);
-    }
+    const stemSkeletons = new Array(pd.stem.amount).fill(null).map((v, i) => createStemSkeleton(pd.stem, settings, i));
 
-    const stemGeometries = stemSkeletons.map((stemSkeleton, i) => createStemGeometry(pd.stem, settings, stemSkeleton, i));
+    //Create the branch skeletons from the stem skeletons
+    const branchSkeletons = stemSkeletons.map((skeleton, i) => createBranchSkeleton(pd.branches, settings, skeleton, i));
+
+    //Create the stem geometries from the stem skeletons
+    const stemGeometries = stemSkeletons.map((skeleton, i) => createStemGeometry(pd.stem, settings, skeleton, i));
 
     const final = calculateNormals(join(...stemGeometries));
 
-    final.skeleton = stemSkeletons.concat(debugLines);
+    final.skeleton = stemSkeletons.concat(debugLines, branchSkeletons.flat());
 
     return final;
   }

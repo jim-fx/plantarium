@@ -1,5 +1,5 @@
 interface parameter {
-  value?: number;
+  value: number;
   type?: "float" | "int";
   enabled?: boolean;
   variation?: number;
@@ -33,7 +33,18 @@ interface stemDescription {
 }
 
 interface branchDescription {
+  amount: number;
+
+  lowestBranch: parameter;
+
+  length: parameter;
+
+  angle: parameter;
+
   diameter: parameter;
+  offset: parameter;
+
+  gravity: number;
 }
 
 interface leafDescription {

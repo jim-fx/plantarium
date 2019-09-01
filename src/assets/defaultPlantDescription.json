@@ -32,6 +32,18 @@
   "branches": {
     "diameter": {
       "value": 1
+    },
+    "length": {
+      "value": 0.7
+    },
+    "angle": {
+      "value": 30
+    },
+    "lowestBranch": {
+      "value": 0.2
+    },
+    "offset": {
+      "value": 0
     }
   },
   "leaves": {

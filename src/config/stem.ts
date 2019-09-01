@@ -221,7 +221,11 @@ export default {
             return pd.stem.noiseStrength.curve;
           },
           onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
-            originalState.stem.noiseStrength.curve = output.curve;
+            if (output.curve && output.curve.length <= 2) {
+              delete originalState.stem.noiseStrength.curve;
+            } else {
+              originalState.stem.noiseStrength.curve = output.curve;
+            }
             updateState(originalState);
           }
         }
