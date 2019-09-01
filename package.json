@@ -1,6 +1,6 @@
 {
   "name": "plantarium",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Tool for the procedural generation of 3D plants.",
   "scripts": {
     "dev": "rollup -c -w ",
