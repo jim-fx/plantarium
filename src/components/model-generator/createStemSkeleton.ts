@@ -1,13 +1,11 @@
 import noise from "./helper/noise";
-import Curve from "../../helpers/curve";
+import curveToArray from "./helper/curveToArray";
 import interpolateArray from "./helper/interpolateArray";
 
 let skeleton: Float32Array;
 let oldDescription: string;
 
 const toRadian = Math.PI / 180;
-
-const samplingCurve = new Curve();
 
 function getStemSize(size: parameter, i: number) {
   if ("variation" in size) {
@@ -54,8 +52,7 @@ function getOrigin(rot: parameter, pos: parameter, i: number): number[] {
 
 function getNoiseStrength(noise: parameter) {
   if (noise.curve && noise.curve.length) {
-    samplingCurve.points = noise.curve;
-    return samplingCurve.array;
+    return curveToArray(noise.curve);
   } else {
     return [0, 1];
   }

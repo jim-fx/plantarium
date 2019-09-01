@@ -1,8 +1,6 @@
-import Curve from "../../helpers/curve";
+import curveToArray from "./helper/curveToArray";
 import { tube } from "./geometry";
 import noise from "./helper/noise";
-
-const samplingCurve = new Curve();
 
 let geometry: TransferGeometry;
 let oldDescription: string;
@@ -17,8 +15,7 @@ function getStemDiameter(diameter: parameter, i: number) {
   }
 
   if (diameter.curve && diameter.curve.length) {
-    samplingCurve.points = diameter.curve;
-    return samplingCurve.array.map((_v: number) => v * _v);
+    return curveToArray(diameter.curve).map((_v: number) => v * _v);
   } else {
     return [0, 1 * v];
   }
