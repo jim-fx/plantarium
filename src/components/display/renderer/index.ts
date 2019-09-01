@@ -143,24 +143,30 @@ function applySettings(_s: settings) {
 
   //Load the models;
   (async () => {
-    //Load uv checker Texture
+    /*     //Load uv checker Texture
     const uvTexture = new Texture(gl, {
       wrapS: gl.REPEAT,
       wrapT: gl.REPEAT
     });
     const uvImg = new Image();
     uvImg.onload = () => (uvTexture.image = uvImg);
-    uvImg.src = "assets/uv.png";
+    uvImg.src = "assets/uv.png"; */
 
-    //Load placeholder plant geometry
-    const plantGeometry = await (await fetch(`assets/plant.json`)).json();
+    //Load the ground/dirt texture (from freepbr.com)
+    const groundTexture = new Texture(gl, {
+      wrapS: gl.REPEAT,
+      wrapT: gl.REPEAT
+    });
+    const img = new Image();
+    img.onload = () => (groundTexture.image = img);
+    img.src = "assets/rocky_dirt1-albedo.jpg";
 
     basicShader = new Program(gl, {
       vertex: BasicShader.vertex,
       fragment: BasicShader.fragment,
       uniforms: {
         uTime: { value: 0 },
-        tMap: { value: uvTexture },
+        tMap: { value: groundTexture },
         // Pass relevant uniforms for fog
         uFogColor: { value: new Color("#ffffff") },
         uFogNear: { value: 10 },
@@ -184,23 +190,14 @@ function applySettings(_s: settings) {
     //Create the main mesh with the placeholder geometry
     mesh = new Mesh(gl, {
       geometry: new Geometry(gl, {
-        position: { size: 3, data: new Float32Array(plantGeometry.position) },
-        normal: { size: 3, data: new Float32Array(plantGeometry.normal) },
-        uv: { size: 2, data: new Float32Array(plantGeometry.uv) }
+        position: { size: 3, data: new Float32Array([0, 0, 0]) },
+        normal: { size: 3, data: new Float32Array([0, 0, 0]) },
+        uv: { size: 3, data: new Float32Array([0, 0]) }
       }),
       program: basicShader
     });
     mesh.setParent(scene);
     mesh.geometry.computeBoundingBox();
-
-    //Load the ground/dirt texture (from freepbr.com)
-    const groundTexture = new Texture(gl, {
-      wrapS: gl.REPEAT,
-      wrapT: gl.REPEAT
-    });
-    const img = new Image();
-    img.onload = () => (groundTexture.image = img);
-    img.src = "assets/rocky_dirt1-albedo.png";
 
     //Load ground object
     const groundGeometry = await (await fetch(`assets/ground2.json`)).json();

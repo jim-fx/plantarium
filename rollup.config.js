@@ -6,6 +6,7 @@ import json from "rollup-plugin-json";
 import liveServer from "rollup-plugin-live-server";
 import glslify from "rollup-plugin-glslify";
 import { terser } from "rollup-plugin-terser";
+import analyze from "rollup-plugin-analyzer";
 
 const PROD = process.env.NODE_ENV === "production";
 
@@ -39,6 +40,12 @@ export default [
       }),
 
       PROD && terser(),
+
+      PROD &&
+        analyze({
+          summaryOnly: true,
+          limit: 10
+        }),
 
       //Import GLSL Shaders
       glslify({ include: ["**/*.vert", "**/*.frag"] }),
@@ -84,6 +91,12 @@ export default [
       commonjs({
         sourceMap: !PROD
       }),
+
+      PROD &&
+        analyze({
+          summaryOnly: true,
+          limit: 10
+        }),
 
       PROD && terser()
     ],
