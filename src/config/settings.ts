@@ -1,6 +1,7 @@
 import settings from "../components/settings";
 import getSeed from "./_getSeed";
 import logger from "../logger";
+import devSettings from "../assets/devSettings.json";
 
 const log: log = logger("config");
 
@@ -38,6 +39,11 @@ export default {
       onUpdate: (v: parameter) => {
         settings.set("seed", v.value);
       }
+    },
+    {
+      type: "Button",
+      title: "load dev settings",
+      onClick: () => settings.loadSettings(devSettings)
     },
     {
       type: "group",

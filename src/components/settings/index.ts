@@ -38,7 +38,13 @@ export default {
       importer.init(exporter.pd);
     }
   },
-
+  loadSettings: (_settings: settings) => {
+    Object.keys(_settings).forEach(k => {
+      settings.set(k, _settings[k]);
+    });
+    save();
+    importer.init(exporter.pd);
+  },
   get object(): settings {
     return obj;
   }
