@@ -68,6 +68,26 @@ export default {
           onUpdate: (v: parameter) => {
             settings.set("stemResY", v.value);
           }
+        },
+        {
+          type: "Number",
+          title: "Leaf X Resolution",
+          min: 3,
+          max: 32,
+          default: settings.get("leafResX") || 3,
+          onUpdate: (v: parameter) => {
+            settings.set("leafResX", v.value);
+          }
+        },
+        {
+          type: "Number",
+          title: "Leaf Y Resolution",
+          min: 3,
+          max: 32,
+          default: settings.get("leafResY") || 3,
+          onUpdate: (v: parameter) => {
+            settings.set("leafResY", v.value);
+          }
         }
       ]
     },
@@ -129,6 +149,22 @@ export default {
           default: settings.get("debug_disable_ground"),
           onUpdate: (v: parameter) => {
             settings.set("debug_disable_ground", v.enabled);
+          }
+        },
+        {
+          type: "Checkbox",
+          title: "Disable Model",
+          default: settings.get("debug_disable_model"),
+          onUpdate: (v: parameter) => {
+            settings.set("debug_disable_model", v.enabled);
+          }
+        },
+        {
+          type: "Checkbox",
+          title: "Show UV",
+          default: settings.get("debug_uv"),
+          onUpdate: (v: parameter) => {
+            settings.set("debug_uv", v.enabled);
           }
         },
         {

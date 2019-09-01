@@ -77,7 +77,7 @@ export default class UICurve extends UIElement {
           };
         })
       });
-    }, 100);
+    }, 50);
 
     const canvasWrapper = document.createElement("div");
     leftCanvas.addEventListener("mouseover", () => {

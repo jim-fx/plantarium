@@ -1,5 +1,5 @@
 import { Renderer, Camera, Orbit, Vec3, Transform, Texture, Program, Color, Geometry, Mesh } from "ogl";
-import { FogShader, BasicShader } from "./shaders";
+import { FogShader, BasicShader, InstanceShader } from "./shaders";
 import { grid } from "../../model-generator/geometry";
 import customControls from "./controls";
 
@@ -14,13 +14,15 @@ let renderer: Renderer;
 let scene: Transform;
 let camera: Camera;
 let controls: any;
-let mesh: Mesh;
+let plant: Geometry;
+let plantMesh: Mesh;
 let ground: Mesh;
 let gl: WebGL2RenderingContext;
+let leaf: Geometry;
+let leafMesh: Mesh;
 
 let start = 0;
 
-let basicShader: Program;
 let showIndices: boolean;
 let showSkeleton: boolean;
 
@@ -30,16 +32,16 @@ let gridMesh: Mesh;
 
 let _deferedSettings: settings;
 function applySettings(_s: settings) {
-  if (mesh) {
+  _deferedSettings = _s;
+  if (plant) {
     if (_s["debug_wireframe"]) {
-      mesh.mode = gl.LINE_STRIP;
+      plantMesh.mode = gl.LINES;
+      leafMesh.mode = gl.LINES;
     } else {
-      mesh.mode = gl.TRIANGLES;
+      plantMesh.mode = gl.TRIANGLES;
+      leafMesh.mode = gl.TRIANGLES;
     }
-  } else {
-    _deferedSettings = _s;
   }
-
   if (_s["debug_indices"]) {
     showIndices = true;
   } else {
@@ -57,6 +59,14 @@ function applySettings(_s: settings) {
       ground.scale.set(0, 0, 0);
     } else {
       ground.scale.set(1, 1, 1);
+    }
+  }
+
+  if (plant) {
+    if (_s["debug_disable_model"]) {
+      plantMesh.scale.set(0, 0, 0);
+    } else {
+      plantMesh.scale.set(1, 1, 1);
     }
   }
 
@@ -124,6 +134,8 @@ function applySettings(_s: settings) {
   camera.position.set(0, 2, 4);
   camera.lookAt(new Vec3(0, 0, 0));
 
+  if (localStorage.pdCamera) camera.position.fromArray(localStorage.pdCamera.split(",").map((v: string) => parseFloat(v)));
+
   overlay.debug3d.camera = camera;
 
   controls = new Orbit(camera, {
@@ -143,14 +155,14 @@ function applySettings(_s: settings) {
 
   //Load the models;
   (async () => {
-    /*     //Load uv checker Texture
+    //Load uv checker Texture
     const uvTexture = new Texture(gl, {
       wrapS: gl.REPEAT,
       wrapT: gl.REPEAT
     });
     const uvImg = new Image();
     uvImg.onload = () => (uvTexture.image = uvImg);
-    uvImg.src = "assets/uv.png"; */
+    uvImg.src = "assets/uv.png";
 
     //Load the ground/dirt texture (from freepbr.com)
     const groundTexture = new Texture(gl, {
@@ -161,16 +173,12 @@ function applySettings(_s: settings) {
     img.onload = () => (groundTexture.image = img);
     img.src = "assets/rocky_dirt1-albedo.jpg";
 
-    basicShader = new Program(gl, {
+    const basicShader = new Program(gl, {
       vertex: BasicShader.vertex,
       fragment: BasicShader.fragment,
       uniforms: {
         uTime: { value: 0 },
-        tMap: { value: groundTexture },
-        // Pass relevant uniforms for fog
-        uFogColor: { value: new Color("#ffffff") },
-        uFogNear: { value: 10 },
-        uFogFar: { value: 30 }
+        tMap: { value: groundTexture }
       }
     });
 
@@ -187,17 +195,56 @@ function applySettings(_s: settings) {
     });
     gridMesh.setParent(scene);
 
+    plant = new Geometry(gl, {
+      position: { size: 3, data: new Float32Array([0, 0, 0]) },
+      normal: { size: 3, data: new Float32Array([0, 0, 0]) },
+      uv: { size: 2, data: new Float32Array([0, 0]) },
+      index: { size: 1, data: new Uint16Array([0, 0]) }
+    });
+
     //Create the main mesh with the placeholder geometry
-    mesh = new Mesh(gl, {
-      geometry: new Geometry(gl, {
-        position: { size: 3, data: new Float32Array([0, 0, 0]) },
-        normal: { size: 3, data: new Float32Array([0, 0, 0]) },
-        uv: { size: 3, data: new Float32Array([0, 0]) }
-      }),
+    plantMesh = new Mesh(gl, {
+      geometry: plant,
       program: basicShader
     });
-    mesh.setParent(scene);
-    mesh.geometry.computeBoundingBox();
+    plantMesh.setParent(scene);
+    plant.computeBoundingBox();
+
+    leaf = new Geometry(gl, {
+      position: { size: 3, data: new Float32Array([0, 0, 0, 0, 0, 0]) },
+      normal: { size: 3, data: new Float32Array([0, 0, 0, 0, 0, 0]) },
+      uv: { size: 2, data: new Float32Array([0, 0, 0, 0]) },
+      index: { size: 1, data: new Uint16Array([0, 1]) },
+      // simply add the 'instanced' property to flag as an instanced attribute.
+      // set the value as the divisor number
+      offset: { instanced: 1, size: 3, data: new Float32Array([0, 0, 0, 1, 1, 1]) },
+      rotation: { instanced: 1, size: 3, data: new Float32Array([0, 0, 0, 1, 1, 1]) },
+      scale: { instanced: 1, size: 3, data: new Float32Array([0, 0, 0, 1, 1, 1]) }
+    });
+
+    const leafTexture = new Texture(gl, {
+      wrapS: gl.REPEAT,
+      wrapT: gl.REPEAT
+    });
+    const leafImg = new Image();
+    leafImg.onload = () => (leafTexture.image = leafImg);
+    leafImg.src = "assets/leaf.jpg";
+
+    const instanceShader = new Program(gl, {
+      vertex: InstanceShader.vertex,
+      fragment: InstanceShader.fragment,
+      uniforms: {
+        uTime: { value: 0 },
+        tMap: { value: leafTexture }
+      }
+    });
+
+    leafMesh = new Mesh(gl, {
+      geometry: leaf,
+      program: instanceShader
+    });
+
+    leafMesh.setParent(scene);
 
     //Load ground object
     const groundGeometry = await (await fetch(`assets/ground2.json`)).json();
@@ -221,16 +268,19 @@ function applySettings(_s: settings) {
     });
     ground.setParent(scene);
 
-    _deferedSettings && applySettings(_deferedSettings);
+    applySettings(_deferedSettings);
     //Instantiate custom controls (up/down movement)
-    customControls(canvas, controls.target, mesh.geometry);
+    customControls(canvas, controls.target, plant);
   })();
 
   requestAnimationFrame(render);
 })();
 
+let i: number = 0;
+
 //Render loop
 function render() {
+  i++;
   overlay.ms(performance.now() - start);
 
   requestAnimationFrame(render);
@@ -239,26 +289,64 @@ function render() {
   controls.update();
   renderer.render({ scene, camera });
 
+  if (i % 30 === 0) localStorage["pdCamera"] = camera.position;
+
   start = performance.now();
 }
 
 export default {
-  render: (model: any) => {
-    if (model && "position" in model && mesh) {
-      if (showIndices) {
-        overlay.debug3d.points = model.position;
-      }
+  render: (model: TransferGeometry) => {
+    gl.disable(gl.CULL_FACE);
 
-      if (showSkeleton && "skeleton" in model) {
+    if (model && "position" in model && plant) {
+      overlay.vertices(model.position.length / 3);
+
+      if (showSkeleton && model.skeleton) {
         overlay.debug3d.skeleton = model.skeleton;
       }
+      showIndices && (overlay.debug3d.points = model.position);
 
-      mesh.geometry = new Geometry(gl, {
-        position: { size: 3, data: model.position },
-        normal: { size: 3, data: model.normal },
-        uv: { size: 2, data: model.uv },
-        index: { size: 1, data: model.index }
-      });
+      if (model.leaf) {
+        overlay.debug3d.uv = model.leaf.uv;
+
+        leaf.attributes.position.data = model.leaf.position;
+        leaf.updateAttribute(leaf.attributes.position);
+        leaf.attributes.normal.data = model.leaf.normal;
+        leaf.updateAttribute(leaf.attributes.normal);
+        leaf.attributes.uv.data = model.leaf.uv;
+        leaf.updateAttribute(leaf.attributes.uv);
+        leaf.attributes.index.data = model.leaf.index;
+        leaf.updateAttribute(leaf.attributes.index);
+        leaf.attributes.offset.data = model.leaf.offset;
+        leaf.updateAttribute(leaf.attributes.offset);
+        leaf.attributes.rotation.data = model.leaf.rotation;
+        leaf.updateAttribute(leaf.attributes.rotation);
+        leaf.attributes.scale.data = model.leaf.scale;
+        leaf.updateAttribute(leaf.attributes.scale);
+
+        leaf.setDrawRange(0, model.leaf.index.length);
+        leaf.setInstancedCount(model.leaf.offset.length);
+      }
+
+      if (true) {
+        plantMesh.geometry = new Geometry(gl, {
+          position: { size: 3, data: new Float32Array(model.position) },
+          normal: { size: 3, data: new Float32Array(model.normal) },
+          uv: { size: 2, data: new Float32Array(model.uv) },
+          index: { size: 1, data: new Uint16Array(model.index) }
+        });
+      } else {
+        plant.attributes.position.data = model.position;
+        plant.updateAttribute(plant.attributes.position);
+        plant.attributes.normal.data = model.normal;
+        plant.updateAttribute(plant.attributes.normal);
+        plant.attributes.uv.data = model.uv;
+        plant.updateAttribute(plant.attributes.uv);
+        plant.attributes.index.data = model.index;
+        plant.updateAttribute(plant.attributes.index);
+
+        plant.setDrawRange(0, model.index.length);
+      }
     }
   },
   update: applySettings

@@ -80,7 +80,7 @@ export default class Curve {
           return true;
         }
       })
-      .map(p => p.y);
+      .map(p => Math.max(p.y, 0));
   }
 
   set points(pts) {

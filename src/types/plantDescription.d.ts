@@ -34,23 +34,24 @@ interface stemDescription {
 
 interface branchDescription {
   amount: number;
-
   lowestBranch: parameter;
-
   length: parameter;
-
   angle: parameter;
-
+  rotation: parameter;
   diameter: parameter;
   offset: parameter;
-
   gravity: number;
+  noiseScale: number;
+  noiseStrength: parameter;
 }
 
 interface leafDescription {
   diameter: parameter;
   size: parameter;
   shape: point[];
+
+  xCurvature: parameter;
+  yCurvature: parameter;
 }
 
 interface plantDescription {

@@ -22,4 +22,12 @@ const WireFrameShader = {
   vertex: WireFrameVert
 };
 
-export { FogShader, BasicShader, WireFrameShader };
+import InstanceShaderFrag from "./InstanceShader.frag";
+import InstanceShaderVert from "./InstanceShader.vert";
+
+const InstanceShader = {
+  fragment: InstanceShaderFrag,
+  vertex: InstanceShaderVert
+};
+
+export { FogShader, BasicShader, WireFrameShader, InstanceShader };
