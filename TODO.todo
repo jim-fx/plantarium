@@ -15,8 +15,9 @@ UIComponents
   -Curve
     ✔ Create @done (8/25/2019, 11:45:18 PM)
     ✔ sampling of Curve @done (8/26/2019, 7:45:12 PM)
-    ☐ Static function that doesnt require reinit new class
-    ☐ function to interpolate sampled array
+    ✔ Static function that doesnt require reinit new class @done (9/1/2019, 1:02:49 PM)
+    ✔ function to interpolate sampled array @done (9/1/2019, 1:02:48 PM)
+    ☐ Add configuration for endpoints [unlocked, [0, 1]]
   -LeafGenerator
     ✔ Create @done (8/26/2019, 9:20:33 PM)
   -Button
@@ -50,23 +51,44 @@ Generator
 
   - stemGeometry
     ✔ Create @done (8/29/2019, 8:36:31 PM)
+    ☐ Create uvsO
 
   - branchesSkeleton
     ✔ Create @done (9/1/2019, 3:24:16 AM)
 
   - branchesGeometry
-    ☐ Create
+    ✔ Create @done (9/1/2019, 9:39:07 PM)
 
   - leafPlacement
     ☐ Create
 
   - leafGeometry
-    ☐ Create
-    ☐ Maybe use a instancedBuffer shader
+    ✔ Create @done (9/2/2019, 1:49:37 AM)
+    ✔ Maybe use a instancedBuffer shader @done (9/1/2019, 9:39:12 PM)
+
+Server
+--------------------------------------------
+
+  ☐ Create
+  ☐ Connect to Texture Server
+  ☐ Upload plantDescirptions
+  
+
+  //Maybes
+  ☐ Create preview Render on server
+
+
+Long Shots
+--------------------------------------------
+
+  ☐ Growth simulator
 
 Fixes
 --------------------------------------------
 
+☐ Fix interpolationSkeleton function, some resulting positions are offset from skeleton
+✔ Fix rotation of stemSkeletons @done (9/1/2019, 5:00:39 PM)
+☐ Fix rotation of branches
 ✔ Fix the initialization of the renderer with the settings, right now the settings get passed @done (8/31/2019, 10:52:01 AM)
 ☐ Fix the direction of the stem curve, left side of curve should be bottom of stem
 ✔ Fix the join Geometry function; @done (8/30/2019, 5:11:40 PM)
