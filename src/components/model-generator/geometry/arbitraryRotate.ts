@@ -14,26 +14,23 @@ import { Vec3 } from "ogl";
    Assume right hand coordinate system.
 */
 
-export default function arbitraryRotate(p: Vec3, theta: number, r: Vec3) {
-  const q = new Vec3(0, 0, 0);
-  let costheta: number;
-  let sintheta: number;
+export default function arbitraryRotate(point: Vec3 | number[], theta: number, axis: Vec3) {
+  axis.normalize();
 
-  r.normalize();
-  costheta = Math.cos(theta);
-  sintheta = Math.sin(theta);
+  const costheta = Math.cos(theta);
+  const sintheta = Math.sin(theta);
 
-  q[0] += (costheta + (1 - costheta) * r[0] * r[0]) * p[0];
-  q[0] += ((1 - costheta) * r[0] * r[1] - r[2] * sintheta) * p[1];
-  q[0] += ((1 - costheta) * r[0] * r[2] + r[1] * sintheta) * p[2];
+  return new Vec3(
+    (costheta + (1 - costheta) * axis[0] * axis[0]) * point[0] +
+      ((1 - costheta) * axis[0] * axis[1] - axis[2] * sintheta) * point[1] +
+      ((1 - costheta) * axis[0] * axis[2] + axis[1] * sintheta) * point[2],
 
-  q[1] += ((1 - costheta) * r[0] * r[1] + r[2] * sintheta) * p[0];
-  q[1] += (costheta + (1 - costheta) * r[1] * r[1]) * p[1];
-  q[1] += ((1 - costheta) * r[1] * r[2] - r[0] * sintheta) * p[2];
+    ((1 - costheta) * axis[0] * axis[1] + axis[2] * sintheta) * point[0] +
+      (costheta + (1 - costheta) * axis[1] * axis[1]) * point[1] +
+      ((1 - costheta) * axis[1] * axis[2] - axis[0] * sintheta) * point[2],
 
-  q[2] += ((1 - costheta) * r[0] * r[2] - r[1] * sintheta) * p[0];
-  q[2] += ((1 - costheta) * r[1] * r[2] + r[0] * sintheta) * p[1];
-  q[2] += (costheta + (1 - costheta) * r[2] * r[2]) * p[2];
-
-  return q;
+    ((1 - costheta) * axis[0] * axis[2] - axis[1] * sintheta) * point[0] +
+      ((1 - costheta) * axis[1] * axis[2] + axis[0] * sintheta) * point[1] +
+      (costheta + (1 - costheta) * axis[2] * axis[2]) * point[2]
+  );
 }

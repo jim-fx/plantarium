@@ -27,7 +27,6 @@ button:focus {
   top: 7px;
   position: absolute;
   height: 38px;
-  transition: top 0.3s cubic-bezier(0.8, 0.2, 0.2, 0.8), left 0.3s cubic-bezier(0.8, 0.2, 0.2, 0.8),
-    width 0.3s cubic-bezier(0.8, 0.2, 0.2, 0.8);
+  transition: top 0.3s $transition-rubber, left 0.3s $transition-rubber, width 0.3s $transition-rubber;
   background-image: linear-gradient(45deg, $dark-green, $light-green);
 }

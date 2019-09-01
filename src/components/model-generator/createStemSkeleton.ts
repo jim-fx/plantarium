@@ -15,7 +15,7 @@ function getStemSize(size: parameter, i: number) {
   }
 }
 
-function getOriginAngle(h, i) {
+function getOriginAngle(h: parameter, i: number) {
   if ("variation" in h) {
     return h.value * toRadian + h.value * toRadian * noise.n1d(531723 + i * 200) * h.variation;
   } else {
@@ -23,15 +23,15 @@ function getOriginAngle(h, i) {
   }
 }
 
-function getOriginRotation(h, i) {
+function getOriginRotation(h: parameter, i: number, amount: number) {
   if ("variation" in h) {
-    return h.value * i * toRadian + noise.n1d(31231 + i * 300) * h.variation * toRadian;
+    return h.value * (i / amount) * toRadian + noise.n1d(31231 + i * 300) * h.variation * toRadian;
   } else {
-    return h.value * i * toRadian;
+    return h.value * (i / amount) * toRadian;
   }
 }
 
-function getOriginPosition(pos, i) {
+function getOriginPosition(pos: parameter, i: number) {
   if ("variation" in pos) {
     return [pos.value + noise.n1d(15092 + i * 512) * pos.variation, 0, 0];
   } else {
@@ -39,9 +39,9 @@ function getOriginPosition(pos, i) {
   }
 }
 
-function getOrigin(rot: parameter, pos: parameter, i: number): number[] {
+function getOrigin(rot: parameter, pos: parameter, i: number, amount: number): number[] {
   const origin = getOriginPosition(pos, i);
-  const rotation = getOriginRotation(rot, i);
+  const rotation = getOriginRotation(rot, i, amount);
 
   const x = Math.cos(rotation) * origin[0] - Math.sin(rotation) * origin[2];
   const y = origin[1];
@@ -58,21 +58,21 @@ function getNoiseStrength(noise: parameter) {
   }
 }
 
-export default function(stem: stemDescription, settings: settings, i: number): Float32Array {
+export default function(stem: stemDescription, settings: settings, i: number, stemAmount: number): Float32Array {
   //Check if we need to regenerate else return cached skeleton
   const newDescription = JSON.stringify(stem);
   if (!settings.forceUpdate && oldDescription === newDescription && skeleton.length) {
     return skeleton;
   }
 
-  const amountPoints = settings.stemResY || 8;
+  const amountPoints = settings.stemResY || 20;
   skeleton = new Float32Array(amountPoints * 3);
 
   const stemsize = getStemSize(stem.size, i);
 
-  const origin = getOrigin(stem.originRotation, stem.originOffset, i);
+  const origin = getOrigin(stem.originRotation, stem.originOffset, i, stemAmount);
   const originAngle = getOriginAngle(stem.originAngle, i);
-  const XYRotation = getOriginRotation(stem.originRotation, i);
+  const XYRotation = getOriginRotation(stem.originRotation, i, stemAmount);
 
   const gravity = (stem.gravity || 0) * Math.PI * 0.5;
 

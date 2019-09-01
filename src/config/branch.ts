@@ -34,7 +34,7 @@ export default {
       min: 0,
       max: 1,
       init: (pd: plantDescription) => {
-        return pd.branches.lowestBranch;
+        return pd.branches.lowestBranch.value;
       },
       onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
         originalState.branches.lowestBranch.value = output.value;
@@ -80,8 +80,8 @@ export default {
         {
           type: "Slider",
           title: "Length",
-          min: 0.01,
-          max: 0.7,
+          min: 0.05,
+          max: 2,
           init: (pd: plantDescription) => {
             return pd.branches.length.value;
           },
@@ -178,6 +178,8 @@ export default {
         {
           type: "Slider",
           title: "Angle",
+          min: -1,
+          max: 1,
           init: (pd: plantDescription) => {
             return pd.branches.angle.value;
           },
@@ -188,7 +190,7 @@ export default {
         },
         {
           type: "Slider",
-          title: "Angle",
+          title: "Angle Variation",
           default: 0,
           init: (pd: plantDescription) => {
             return pd.branches.angle.variation;
@@ -213,6 +215,88 @@ export default {
               delete originalState.branches.angle.curve;
             } else {
               originalState.branches.angle.curve = output.curve;
+            }
+            updateState(originalState);
+          }
+        }
+      ]
+    },
+    {
+      title: "Rotation",
+      type: "group",
+      children: [
+        {
+          type: "Slider",
+          title: "Rotation",
+          min: 0,
+          max: 1,
+          init: (pd: plantDescription) => {
+            return pd.branches.rotation.value;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+            originalState.branches.rotation.value = output.value;
+            updateState(originalState);
+          }
+        },
+        {
+          type: "Slider",
+          title: "Rotation Variation",
+          default: 0,
+          init: (pd: plantDescription) => {
+            return pd.branches.rotation.variation;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+            if (output.value === 0) {
+              delete originalState.branches.rotation.variation;
+            } else {
+              originalState.branches.rotation.variation = output.value;
+            }
+            updateState(originalState);
+          }
+        }
+      ]
+    },
+    {
+      type: "group",
+      title: "Noise",
+      children: [
+        {
+          type: "Slider",
+          title: "Scale",
+          min: 1,
+          max: 10,
+          init: (pd: plantDescription) => {
+            return pd.branches.noiseScale;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+            originalState.branches.noiseScale = output.value;
+            updateState(originalState);
+          }
+        },
+        {
+          type: "Slider",
+          title: "Strength",
+          min: 0,
+          max: 1,
+          init: (pd: plantDescription) => {
+            return pd.branches.noiseStrength.value;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+            originalState.branches.noiseStrength.value = output.value;
+            updateState(originalState);
+          }
+        },
+        {
+          type: "Curve",
+          title: "Strength Curve",
+          init: (pd: plantDescription) => {
+            return pd.branches.noiseStrength.curve;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+            if (output.curve && output.curve.length <= 2) {
+              delete originalState.branches.noiseStrength.curve;
+            } else {
+              originalState.branches.noiseStrength.curve = output.curve;
             }
             updateState(originalState);
           }

@@ -26,7 +26,6 @@ interface Stage {
   show(): void;
   init(pd: plantDescription): void;
   hide(): void;
-  onActivate(cb: Function): void;
 }
 
 interface settings {
@@ -42,12 +41,16 @@ interface settings {
   debug_pd: boolean;
   debug_skeleton: boolean;
   debug_disable_ground: boolean;
+  debug_disable_model: boolean;
   debug_grid: boolean;
   debug_grid_size: number;
   debug_grid_resolution: number;
+  debug_uv: number;
 
   stemResX: number;
   stemResY: number;
+  leafResX: number;
+  leafResY: number;
 }
 
 interface log {

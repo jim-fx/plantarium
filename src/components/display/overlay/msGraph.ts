@@ -1,4 +1,4 @@
-export default function(name: string, left: number, bottom: number, wrapper: HTMLElement): Function {
+export default function(name: string, suffix: string, left: number, bottom: number, wrapper: HTMLElement): Function {
   const msCanvas = document.createElement("canvas");
   msCanvas.style.display = "none";
   const msWidth = 200;
@@ -32,7 +32,7 @@ export default function(name: string, left: number, bottom: number, wrapper: HTM
       msCtx.fillRect(msWidth - i * 2, 50 - height, 2, height);
     });
     msCtx.fillStyle = "black";
-    msCtx.fillText(name + ": " + ms + "ms", 10, 40);
+    msCtx.fillText(name + ": " + ms + suffix, 10, 40);
   };
 
   exp.show = function() {

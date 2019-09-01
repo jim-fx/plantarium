@@ -310,9 +310,17 @@ declare module "ogl" {
       radius: number;
     };
 
-    computeBoundingBox: (array?: number[]) => void;
+    attributes: any;
+
+    setInstancedCount: (value: number) => void;
+
+    setIndex: (value: Uint16Array | Uint32Array) => void;
 
     addAttribute: (key: string, attribute: any) => void;
+
+    updateAttribute: (attr: any) => void;
+
+    computeBoundingBox: (array?: number[]) => void;
 
     setDrawRange: (start: number, count: number) => void;
 

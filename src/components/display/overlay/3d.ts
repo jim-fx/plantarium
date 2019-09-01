@@ -30,6 +30,10 @@ let skeleton: Float32Array[];
 let skeletonL: number;
 let showSkeleton: boolean;
 
+let showUV: boolean = false;
+let uv: Float32Array;
+let uvL: number = 0;
+
 export default {
   draw: () => {
     if (!camera || !visible) return;
@@ -69,6 +73,22 @@ export default {
         ctx.stroke();
       }
     }
+
+    if (showUV && uv) {
+      for (let j = 0; j < uvL; j++) {
+        //Convert from normalized coordinates to screen space
+        const x = uv[j * 2 + 0];
+        const y = uv[j * 2 + 1];
+        ctx.fillRect(x - 2, y - 2, 4, 4);
+        if (j === 0) {
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.stroke();
+    }
   },
   set camera(c: Camera) {
     camera = c;
@@ -77,6 +97,15 @@ export default {
     points = p;
     pointsL = p.length / 3;
   },
+  set uv(_uv: Float32Array) {
+    uv = new Float32Array(_uv.length);
+    const l = _uv.length / 2;
+    uvL = l;
+    for (let i = 0; i < l; i++) {
+      uv[i * 2 + 0] = Math.floor((1 + _uv[i * 2 + 0]) * w);
+      uv[i * 2 + 1] = Math.floor(_uv[i * 2 + 1] * h);
+    }
+  },
   set skeleton(s: Float32Array[]) {
     skeleton = s;
     skeletonL = s.length;
@@ -84,12 +113,13 @@ export default {
   show: () => {},
   hide: () => {},
   update: (s: settings) => {
-    if (s["debug_indices"] || s["debug_skeleton"]) {
+    if (s["debug_indices"] || s["debug_skeleton"] || s["debug_uv"]) {
       visible = true;
       canvas.style.display = "";
 
       showIndeces = !!s["debug_indices"];
       showSkeleton = !!s["debug_skeleton"];
+      showUV = !!s["debug_uv"];
     } else {
       visible = false;
       canvas.style.display = "none";

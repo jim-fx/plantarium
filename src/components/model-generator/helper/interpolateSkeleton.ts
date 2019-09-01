@@ -10,7 +10,7 @@ export default function(skeleton: Float32Array, alpha: number): number[] {
   const i = Math.max(Math.min(Math.floor(amountPoints * alpha), amountPoints - 2), 0);
   const j = Math.max(Math.min(Math.ceil(amountPoints * alpha), amountPoints - 1), 0);
 
-  const a = j - alpha * (amountPoints);
+  const a = j - alpha * (amountPoints-1);
 
   return [
     lerp(skeleton[j * 3 + 0], skeleton[i * 3 + 0], a),

@@ -7,6 +7,35 @@ export default function(geometry: TransferGeometry): TransferGeometry {
 
   //Calculate normals per face
   //Process 3 vertices at a time
+
+  /*let vA, vB, vC;
+  const cb = new Vec3();
+  const ab = new Vec3();
+
+  const fl = index.length / 9;
+  for (let f = 0; f < fl; f++) {
+    vA = new Vec3(position[index[f * 9 + 0]], position[index[f * 9 + 1]], position[index[f * 9 + 2]]);
+
+    vB = new Vec3(position[index[f * 9 + 3]], position[index[f * 9 + 4]], position[index[f * 9 + 5]]);
+
+    vC = new Vec3(position[index[f * 9 + 6]], position[index[f * 9 + 7]], position[index[f * 9 + 8]]);
+
+
+    cb.cross(vC.sub(vB), vA.sub(vB));
+
+    normals[index[f * 9 + 0]] = cb[0];
+    normals[index[f * 9 + 1]] = cb[1];
+    normals[index[f * 9 + 2]] = cb[2];
+
+    normals[index[f * 9 + 3]] = cb[3];
+    normals[index[f * 9 + 4]] = cb[4];
+    normals[index[f * 9 + 5]] = cb[5];
+
+    normals[index[f * 9 + 6]] = cb[6];
+    normals[index[f * 9 + 7]] = cb[7];
+    normals[index[f * 9 + 8]] = cb[8];
+  }*/
+
   for (let i = 0; i < index.length / 3; i++) {
     const v1 = new Vec3(position[index[i * 3 + 0] * 3 + 0], position[index[i * 3 + 0] * 3 + 1], position[index[i * 3 + 0] * 3 + 2]);
 

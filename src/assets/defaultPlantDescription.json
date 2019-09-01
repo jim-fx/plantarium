@@ -5,52 +5,82 @@
   },
   "stem": {
     "diameter": {
-      "value": 0.01,
+      "value": 0.009,
       "variation": 0.2
     },
     "originOffset": {
-      "value": 0,
-      "variation": 0.2
+      "value": 0.118,
+      "variation": 0.154
     },
     "originAngle": {
-      "value": 10
+      "value": 10.651
     },
     "originRotation": {
-      "value": 65,
-      "variation": 34
+      "value": 360,
+      "variation": 119.29
     },
     "noiseStrength": {
       "value": 0
     },
     "size": {
-      "value": 1,
-      "variation": 0.5
+      "value": 1.969,
+      "variation": 0.964
     },
     "amount": 9,
-    "gravity": 0.6
+    "gravity": 0.473
   },
   "branches": {
     "diameter": {
-      "value": 1
+      "value": 0.633
     },
     "length": {
-      "value": 0.7
+      "value": 0.777,
+      "variation": 0.45,
+      "curve": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 0.291,
+          "y": 0.78
+        },
+        {
+          "x": 1,
+          "y": 1
+        }
+      ]
     },
     "angle": {
       "value": 30
     },
     "lowestBranch": {
-      "value": 0.2
+      "value": 0.379
     },
     "offset": {
+      "value": 0.882
+    },
+    "rotation": {
       "value": 0
-    }
+    },
+    "amount": 15,
+    "noiseScale": 1,
+    "noiseStrength": {
+      "value": 0
+    },
+    "gravity": 0.509
   },
   "leaves": {
     "diameter": {
       "value": 1
     },
     "size": {
+      "value": 1
+    },
+    "xCurvature": {
+      "value": 1
+    },
+    "yCurvature": {
       "value": 1
     },
     "shape": [

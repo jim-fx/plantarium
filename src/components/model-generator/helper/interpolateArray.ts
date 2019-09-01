@@ -7,8 +7,8 @@ function interpolateArray(array: number[], alpha: number = 0): number {
   const length = array.length;
 
   //Get value below and above i
-  const i = Math.max(Math.min(Math.floor(length * alpha), length - 2), 0);
-  const j = Math.max(Math.min(Math.ceil(length * alpha), length - 1), 0);
+  const i = Math.max(Math.min(Math.floor((length - 1) * alpha), length - 2), 0);
+  const j = Math.max(Math.min(Math.ceil((length - 1) * alpha), length - 1), 0);
 
   //Lerp the two values
   return lerp(array[j], array[i], j - alpha * (length - 1));

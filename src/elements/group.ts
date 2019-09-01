@@ -37,17 +37,21 @@ export default class Group {
       localStorage.setItem("groupState", JSON.stringify(groupState));
     };
 
+    let timeout: NodeJS.Timeout;
+
     const open = () => {
+      timeout && clearTimeout(timeout);
       toppart.classList.add("group-open");
       this.wrapper.classList.add("group-open");
       contentWrapper.style.maxHeight = this.wrapper.getBoundingClientRect().height + "px";
 
-      setTimeout(() => {
+      timeout = setTimeout(() => {
         contentWrapper.style.maxHeight = "5000px";
       }, 300);
     };
 
     const close = () => {
+      timeout && clearTimeout(timeout);
       toppart.classList.remove("group-open");
       this.wrapper.classList.remove("group-open");
       contentWrapper.style.maxHeight = "0px";
