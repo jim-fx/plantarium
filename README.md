@@ -1,6 +1,6 @@
 # plant-generator
 
-![travis ci build status](https://api.travis-ci.com/jim-fx/plant-generator.svg?branch=master)
+![travis ci build status](https://api.travis-ci.com/jim-fx/plantarium.svg?branch=master)
 
 ## Basic Idea
 
