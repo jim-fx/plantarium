@@ -64,7 +64,7 @@ export default {
           title: "Stem Y Resolution",
           min: 3,
           max: 32,
-          default: settings.get("stemResY") || 3,
+          default: settings.get("stemResY") || 20,
           onUpdate: (v: parameter) => {
             settings.set("stemResY", v.value);
           }
