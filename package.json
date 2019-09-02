@@ -4,21 +4,24 @@
   "description": "Tool for the procedural generation of 3D plants.",
   "scripts": {
     "dev": "rollup -c -w ",
-    "build": "NODE_ENV=production rollup -c"
+    "build": "NODE_ENV=production rollup -c && mv stats.html build/stats.html"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/jim-fx/plantarium.git"
   },
+  "module": "ogl",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "7.5.5",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-    "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "7.3.3",
+    "comlink": "^4.0.2",
+    "core-js": "^3.2.1",
     "ogl": "latest",
+    "open-simplex-noise": "^1.6.0",
     "rollup": "1.20.0",
     "rollup-plugin-analyzer": "^3.1.2",
     "rollup-plugin-babel": "4.3.3",
@@ -28,13 +31,10 @@
     "rollup-plugin-live-server": "^1.0.3",
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-scss": "^1.0.2",
-    "rollup-plugin-sizes": "^0.5.1",
     "rollup-plugin-terser": "^5.1.1",
+    "rollup-plugin-visualizer": "^2.5.4",
     "tslib": "^1.10.0",
     "typescript": "3.5.3"
   },
-  "dependencies": {
-    "comlink": "^4.0.2",
-    "open-simplex-noise": "^1.6.0"
-  }
+  "dependencies": {}
 }

@@ -8,6 +8,8 @@ import glslify from "rollup-plugin-glslify";
 import { terser } from "rollup-plugin-terser";
 import analyze from "rollup-plugin-analyzer";
 
+import visualizer from "rollup-plugin-visualizer";
+
 const PROD = process.env.NODE_ENV === "production";
 
 const extensions = [".js", ".jsx", ".ts", ".tsx"];
@@ -15,10 +17,6 @@ const extensions = [".js", ".jsx", ".ts", ".tsx"];
 export default [
   {
     input: "./src/index.ts",
-
-    // Specify here external modules which you don't want to include in your bundle (for instance: 'lodash', 'moment' etc.)
-    // https://rollupjs.org/guide/en#external-e-external
-    external: [],
 
     plugins: [
       babel({
@@ -47,6 +45,11 @@ export default [
           limit: 10
         }),
 
+      PROD &&
+        visualizer({
+          sourcemap: true
+        }),
+
       //Import GLSL Shaders
       glslify({ include: ["**/*.vert", "**/*.frag"] }),
 
@@ -63,19 +66,12 @@ export default [
         file: "./build/bundle.js",
         format: "iife",
         name: "plantGenerator",
-        sourcemap: PROD ? false : "inline",
-
-        // https://rollupjs.org/guide/en#output-globals-g-globals
-        globals: {}
+        sourcemap: true
       }
     ]
   },
   {
     input: "./src/components/model-generator",
-
-    // Specify here external modules which you don't want to include in your bundle (for instance: 'lodash', 'moment' etc.)
-    // https://rollupjs.org/guide/en#external-e-external
-    external: [],
 
     plugins: [
       babel({
@@ -105,11 +101,8 @@ export default [
       {
         file: "./build/generator.js",
         format: "iife",
-        name: "plantGenerator",
-        sourcemap: PROD ? false : "inline",
-
-        // https://rollupjs.org/guide/en#output-globals-g-globals
-        globals: {}
+        name: "plantarium",
+        sourcemap: true
       }
     ]
   }
