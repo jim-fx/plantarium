@@ -1,5 +1,4 @@
-import importer from "../io/importer";
-import exporter from "../io/exporter";
+import updateUI from "../../helpers/updateUI";
 const settings: Map<string, any> = new Map();
 
 let obj: any = {};
@@ -35,7 +34,7 @@ export default {
     if (old !== value) {
       settings.set(key, value);
       save();
-      importer.init(exporter.pd);
+      updateUI();
     }
   },
   loadSettings: (_settings: settings) => {
@@ -43,7 +42,7 @@ export default {
       settings.set(k, _settings[k]);
     });
     save();
-    importer.init(exporter.pd);
+    updateUI();
   },
   get object(): settings {
     return obj;

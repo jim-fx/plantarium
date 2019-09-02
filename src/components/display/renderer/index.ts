@@ -3,7 +3,6 @@ import { FogShader, BasicShader, InstanceShader } from "./shaders";
 import { grid } from "../../model-generator/geometry";
 import customControls from "./controls";
 
-import ResizeObserver from "resize-observer-polyfill";
 import debounce from "../../../helpers/debounce";
 
 import overlay from "../overlay";

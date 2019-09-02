@@ -1,6 +1,5 @@
 import "./leafCreator.scss";
 import UIElement from "./element";
-import ResizeObserver from "resize-observer-polyfill";
 import debounce from "../helpers/debounce";
 import throttle from "../helpers/throttle";
 import { Vec2 } from "ogl";
