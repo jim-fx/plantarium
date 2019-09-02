@@ -100,9 +100,6 @@ export default function(branch: branchDescription, skeleton: Float32Array, i: nu
     const amountPoints = 3 + Math.floor(skeletonLength * (length / 0.7) * 0.2);
 
     branches[j] = new Float32Array(amountPoints * 3);
-    branches[j][0] = origin[0];
-    branches[j][1] = origin[1];
-    branches[j][2] = origin[2];
 
     for (let k = 0; k < amountPoints; k++) {
       const _a = k / amountPoints;
@@ -119,13 +116,14 @@ export default function(branch: branchDescription, skeleton: Float32Array, i: nu
       const _pos = arbitraryRotate(pos, _branchRotation, average);
 
       //Apply gravity; (sine wave for now, rotating around average would look nicer)
-      const __x = _pos[0];
+      const curlBack = 1 - _a * 0.5 * gravity;
+      const __x = _pos[0] * curlBack;
       const __y = _pos[1] + Math.sin(_a * Math.PI * 0.5 + Math.PI * 0.5) * gravity - gravity;
-      const __z = _pos[2];
+      const __z = _pos[2] * curlBack;
 
-      branches[j][k * 3 + 3] = origin[0] + __x;
-      branches[j][k * 3 + 4] = origin[1] + __y;
-      branches[j][k * 3 + 5] = origin[2] + __z;
+      branches[j][k * 3 + 0] = origin[0] + __x;
+      branches[j][k * 3 + 1] = origin[1] + __y;
+      branches[j][k * 3 + 2] = origin[2] + __z;
     }
 
     //const element = array[i];
