@@ -9,7 +9,7 @@ function loopThroughChildren(stage: Stage, wrapper: HTMLElement, config: UIConfi
   if (typeof config.children === "object") {
     config.children.forEach(child => {
       //If child is a group, create it and loop again
-      if (child.type === "group") {
+      if (child.type === "Group") {
         const group = new elements.Group(wrapper, child);
         if ("children" in child) {
           array.push(...loopThroughChildren(stage, group.wrapper, child));
