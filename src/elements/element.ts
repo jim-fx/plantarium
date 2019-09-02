@@ -1,4 +1,5 @@
 import "./element.scss";
+import { parameter } from "../components/model-generator/helper";
 export default class UIElement {
   stage: Stage;
   wrapper: HTMLElement;
@@ -13,7 +14,11 @@ export default class UIElement {
     wrapper.append(this.wrapper);
 
     if (this.config.onUpdate) {
-      this._update = v => this.config.onUpdate.bind(this)(v, Object.assign(this.stage.pd, {}), (newState: plantDescription) => (this.stage.pd = newState));
+      const _update = this.config.onUpdate.bind(this);
+      this._update = (v: parameter) => {
+        _update(v, this.stage.pd);
+        this.stage.pd = this.stage.pd;
+      };
     }
   }
 

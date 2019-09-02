@@ -10,9 +10,8 @@ export default {
       init: (pd: plantDescription) => {
         return pd.stem.amount;
       },
-      onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+      onUpdate: (output: parameter, originalState: plantDescription) => {
         originalState.stem.amount = output.value;
-        updateState(originalState);
       }
     },
     {
@@ -23,9 +22,8 @@ export default {
       init: (pd: plantDescription) => {
         return pd.stem.gravity;
       },
-      onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+      onUpdate: (output: parameter, originalState: plantDescription) => {
         originalState.stem.gravity = output.value;
-        updateState(originalState);
       }
     },
     {
@@ -40,9 +38,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.stem.originOffset.value;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.stem.originOffset.value = output.value;
-            updateState(originalState);
           }
         },
         {
@@ -53,13 +50,12 @@ export default {
           init: (pd: plantDescription) => {
             return pd.stem.originOffset.variation || 0;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             if (output.value === 0) {
               delete originalState.stem.originOffset.variation;
             } else {
               originalState.stem.originOffset.variation = output.value;
             }
-            updateState(originalState);
           }
         },
         {
@@ -71,9 +67,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.stem.originRotation.value || 0;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.stem.originRotation.value = output.value;
-            updateState(originalState);
           }
         },
         {
@@ -85,13 +80,12 @@ export default {
           init: (pd: plantDescription) => {
             return pd.stem.originRotation.variation || 0;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             if (output.value === 0) {
               delete originalState.stem.originRotation.variation;
             } else {
               originalState.stem.originRotation.variation = output.value;
             }
-            updateState(originalState);
           }
         },
         {
@@ -103,9 +97,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.stem.originAngle.value || 0;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.stem.originAngle.value = output.value;
-            updateState(originalState);
           }
         },
         {
@@ -121,13 +114,12 @@ export default {
               return 0;
             }
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             if (output.value === 0) {
               delete originalState.stem.originAngle.variation;
             } else {
               originalState.stem.originAngle.variation = output.value;
             }
-            updateState(originalState);
           }
         }
       ]
@@ -144,9 +136,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.stem.diameter.value;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.stem.diameter.value = output.value;
-            updateState(originalState);
           }
         },
         {
@@ -158,13 +149,12 @@ export default {
           init: (pd: plantDescription) => {
             return pd.stem.diameter.variation;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             if (output.value === 0) {
               delete originalState.stem.diameter.variation;
             } else {
               originalState.stem.diameter.variation = output.value;
             }
-            updateState(originalState);
           }
         },
         {
@@ -173,13 +163,12 @@ export default {
           init: (pd: plantDescription) => {
             return pd.stem.diameter.curve;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             if (output.curve && output.curve.length <= 2) {
               delete originalState.stem.diameter.curve;
             } else {
               originalState.stem.diameter.curve = output.curve;
             }
-            updateState(originalState);
           }
         }
       ]
@@ -196,9 +185,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.stem.noiseScale;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.stem.noiseScale = output.value;
-            updateState(originalState);
           }
         },
         {
@@ -209,9 +197,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.stem.noiseStrength.value;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.stem.noiseStrength.value = output.value;
-            updateState(originalState);
           }
         },
         {
@@ -220,13 +207,12 @@ export default {
           init: (pd: plantDescription) => {
             return pd.stem.noiseStrength.curve;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             if (output.curve && output.curve.length <= 2) {
               delete originalState.stem.noiseStrength.curve;
             } else {
               originalState.stem.noiseStrength.curve = output.curve;
             }
-            updateState(originalState);
           }
         }
       ]
@@ -243,9 +229,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.stem.size.value;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.stem.size.value = output.value;
-            updateState(originalState);
           }
         },
         {
@@ -257,13 +242,12 @@ export default {
           init: (pd: plantDescription) => {
             return pd.stem.size.variation;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             if (output.value === 0) {
               delete originalState.stem.size.variation;
             } else {
               originalState.stem.size.variation = output.value;
             }
-            updateState(originalState);
           }
         }
       ]

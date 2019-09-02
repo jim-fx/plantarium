@@ -10,9 +10,8 @@ export default {
       init: (pd: plantDescription) => {
         return pd.leaves.amount;
       },
-      onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+      onUpdate: (output: parameter, originalState: plantDescription) => {
         originalState.leaves.amount = output.value;
-        updateState(originalState);
       }
     },
     {
@@ -21,9 +20,8 @@ export default {
       init: (pd: plantDescription) => {
         return pd.leaves.gravity;
       },
-      onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+      onUpdate: (output: parameter, originalState: plantDescription) => {
         originalState.leaves.gravity = output.value;
-        updateState(originalState);
       }
     },
     {
@@ -33,9 +31,8 @@ export default {
       init: (pd: plantDescription) => {
         return pd.leaves.onBranches;
       },
-      onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+      onUpdate: (output: parameter, originalState: plantDescription) => {
         originalState.leaves.onBranches = <boolean>output.enabled;
-        updateState(originalState);
       }
     },
     {
@@ -45,9 +42,8 @@ export default {
       init: (pd: plantDescription) => {
         return pd.leaves.onStem;
       },
-      onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+      onUpdate: (output: parameter, originalState: plantDescription) => {
         originalState.leaves.onStem = <boolean>output.enabled;
-        updateState(originalState);
       }
     },
     {
@@ -62,9 +58,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.leaves.size.value;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.leaves.size.value = output.value;
-            updateState(originalState);
           }
         },
         {
@@ -73,9 +68,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.leaves.size.variation;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.leaves.size.variation = output.value;
-            updateState(originalState);
           }
         },
         {
@@ -84,9 +78,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.leaves.size.curve;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.leaves.size.curve = output.curve;
-            updateState(originalState);
           }
         }
       ]
@@ -101,9 +94,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.leaves.shape;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.leaves.shape = <point[]>output.shape;
-            updateState(originalState);
           }
         },
         {
@@ -112,9 +104,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.leaves.xCurvature.curve;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.leaves.xCurvature.curve = output.curve;
-            updateState(originalState);
           }
         },
         {
@@ -123,9 +114,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.leaves.xCurvature.value;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.leaves.xCurvature.value = output.value;
-            updateState(originalState);
           }
         },
         {
@@ -134,9 +124,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.leaves.yCurvature.curve;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.leaves.yCurvature.curve = output.curve;
-            updateState(originalState);
           }
         },
         {
@@ -145,9 +134,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.leaves.yCurvature.value;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.leaves.yCurvature.value = output.value;
-            updateState(originalState);
           }
         }
       ]

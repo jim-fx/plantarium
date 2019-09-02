@@ -9,9 +9,8 @@ export default {
       init: (pd: plantDescription) => {
         return pd.branches.enable;
       },
-      onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+      onUpdate: (output: parameter, originalState: plantDescription) => {
         originalState.branches.enable = <boolean>output.enabled;
-        updateState(originalState);
       }
     },
     {
@@ -24,9 +23,8 @@ export default {
         this.enabled = !pd.branches.enable;
         return pd.branches.amount;
       },
-      onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+      onUpdate: (output: parameter, originalState: plantDescription) => {
         originalState.branches.amount = output.value;
-        updateState(originalState);
       }
     },
     {
@@ -37,9 +35,8 @@ export default {
       init: (pd: plantDescription) => {
         return pd.branches.gravity;
       },
-      onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+      onUpdate: (output: parameter, originalState: plantDescription) => {
         originalState.branches.gravity = output.value;
-        updateState(originalState);
       }
     },
     {
@@ -50,9 +47,8 @@ export default {
       init: (pd: plantDescription) => {
         return pd.branches.lowestBranch.value;
       },
-      onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+      onUpdate: (output: parameter, originalState: plantDescription) => {
         originalState.branches.lowestBranch.value = output.value;
-        updateState(originalState);
       }
     },
     {
@@ -67,9 +63,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.branches.offset.value;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.branches.offset.value = output.value;
-            updateState(originalState);
           }
         },
         {
@@ -80,9 +75,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.branches.offset.variation;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.branches.offset.variation = output.value;
-            updateState(originalState);
           }
         }
       ]
@@ -99,9 +93,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.branches.length.value;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.branches.length.value = output.value;
-            updateState(originalState);
           }
         },
         {
@@ -111,13 +104,12 @@ export default {
           init: (pd: plantDescription) => {
             return pd.branches.length.variation;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             if (output.value === 0) {
               delete originalState.branches.length.variation;
             } else {
               originalState.branches.length.variation = output.value;
             }
-            updateState(originalState);
           }
         },
         {
@@ -126,13 +118,12 @@ export default {
           init: (pd: plantDescription) => {
             return pd.branches.length.curve;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             if (output.curve && output.curve.length <= 2) {
               delete originalState.branches.length.curve;
             } else {
               originalState.branches.length.curve = output.curve;
             }
-            updateState(originalState);
           }
         }
       ]
@@ -147,9 +138,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.branches.diameter.value;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.branches.diameter.value = output.value;
-            updateState(originalState);
           }
         },
         {
@@ -159,13 +149,12 @@ export default {
           init: (pd: plantDescription) => {
             return pd.branches.diameter.variation;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             if (output.value === 0) {
               delete originalState.branches.diameter.variation;
             } else {
               originalState.branches.diameter.variation = output.value;
             }
-            updateState(originalState);
           }
         },
         {
@@ -174,13 +163,12 @@ export default {
           init: (pd: plantDescription) => {
             return pd.branches.diameter.curve;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             if (output.curve && output.curve.length <= 2) {
               delete originalState.branches.diameter.curve;
             } else {
               originalState.branches.diameter.curve = output.curve;
             }
-            updateState(originalState);
           }
         }
       ]
@@ -197,9 +185,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.branches.angle.value;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.branches.angle.value = output.value;
-            updateState(originalState);
           }
         },
         {
@@ -209,13 +196,12 @@ export default {
           init: (pd: plantDescription) => {
             return pd.branches.angle.variation;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             if (output.value === 0) {
               delete originalState.branches.angle.variation;
             } else {
               originalState.branches.angle.variation = output.value;
             }
-            updateState(originalState);
           }
         },
         {
@@ -224,13 +210,12 @@ export default {
           init: (pd: plantDescription) => {
             return pd.branches.angle.curve;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             if (output.curve && output.curve.length <= 2) {
               delete originalState.branches.angle.curve;
             } else {
               originalState.branches.angle.curve = output.curve;
             }
-            updateState(originalState);
           }
         }
       ]
@@ -247,9 +232,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.branches.rotation.value;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.branches.rotation.value = output.value;
-            updateState(originalState);
           }
         },
         {
@@ -259,13 +243,12 @@ export default {
           init: (pd: plantDescription) => {
             return pd.branches.rotation.variation;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             if (output.value === 0) {
               delete originalState.branches.rotation.variation;
             } else {
               originalState.branches.rotation.variation = output.value;
             }
-            updateState(originalState);
           }
         }
       ]
@@ -282,9 +265,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.branches.noiseScale;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.branches.noiseScale = output.value;
-            updateState(originalState);
           }
         },
         {
@@ -295,9 +277,8 @@ export default {
           init: (pd: plantDescription) => {
             return pd.branches.noiseStrength.value;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.branches.noiseStrength.value = output.value;
-            updateState(originalState);
           }
         },
         {
@@ -306,13 +287,12 @@ export default {
           init: (pd: plantDescription) => {
             return pd.branches.noiseStrength.curve;
           },
-          onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+          onUpdate: (output: parameter, originalState: plantDescription) => {
             if (output.curve && output.curve.length <= 2) {
               delete originalState.branches.noiseStrength.curve;
             } else {
               originalState.branches.noiseStrength.curve = output.curve;
             }
-            updateState(originalState);
           }
         }
       ]
