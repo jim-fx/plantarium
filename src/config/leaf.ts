@@ -19,7 +19,7 @@ export default {
     {
       type: "Number",
       title: "Amount",
-      min: 3,
+      min: 1,
       max: 64,
       init: function(pd: plantDescription) {
         this.enabled = pd.leaves.enable;
@@ -41,28 +41,45 @@ export default {
       }
     },
     {
-      type: "Checkbox",
-      title: "On Branches",
-      default: true,
-      init: function(pd: plantDescription) {
-        this.enabled = pd.leaves.enable;
-        return pd.leaves.onBranches;
-      },
-      onUpdate: (output: parameter, originalState: plantDescription) => {
-        originalState.leaves.onBranches = <boolean>output.enabled;
-      }
-    },
-    {
-      type: "Checkbox",
-      title: "On Stem",
-      default: false,
-      init: function(pd: plantDescription) {
-        this.enabled = pd.leaves.enable;
-        return pd.leaves.onStem;
-      },
-      onUpdate: (output: parameter, originalState: plantDescription) => {
-        originalState.leaves.onStem = <boolean>output.enabled;
-      }
+      type: "Group",
+      title: "Distribution",
+      children: [
+        {
+          type: "Slider",
+          title: "Lowest Leaf",
+          init: function(pd: plantDescription) {
+            this.enabled = pd.leaves.enable;
+            return pd.leaves.lowestLeaf;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription) => {
+            originalState.leaves.lowestLeaf = output.value;
+          }
+        },
+        {
+          type: "Checkbox",
+          title: "On Branches",
+          default: true,
+          init: function(pd: plantDescription) {
+            this.enabled = pd.leaves.enable && pd.branches.enable;
+            return pd.leaves.onBranches;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription) => {
+            originalState.leaves.onBranches = <boolean>output.enabled;
+          }
+        },
+        {
+          type: "Checkbox",
+          title: "On Stem",
+          default: false,
+          init: function(pd: plantDescription) {
+            this.enabled = pd.leaves.enable;
+            return pd.leaves.onStem;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription) => {
+            originalState.leaves.onStem = <boolean>output.enabled;
+          }
+        }
+      ]
     },
     {
       type: "Group",
