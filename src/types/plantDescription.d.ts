@@ -33,6 +33,7 @@ interface stemDescription {
 }
 
 interface branchDescription {
+  enable: boolean;
   amount: number;
   lowestBranch: parameter;
   length: parameter;
@@ -46,7 +47,17 @@ interface branchDescription {
 }
 
 interface leafDescription {
-  diameter: parameter;
+  enable: boolean;
+
+  amount: number;
+  gravity: number;
+
+  onStem: boolean;
+  onBranches: boolean;
+
+  angle: parameter;
+  rotation: parameter;
+
   size: parameter;
   shape: point[];
 

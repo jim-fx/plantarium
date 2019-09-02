@@ -3,11 +3,25 @@ export default {
   type: "stage",
   children: [
     {
+      type: "Checkbox",
+      title: "Use Branches",
+      default: true,
+      init: (pd: plantDescription) => {
+        return pd.branches.enable;
+      },
+      onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
+        originalState.branches.enable = <boolean>output.enabled;
+        updateState(originalState);
+      }
+    },
+    {
       type: "Number",
       title: "Amount",
       min: 1,
       max: 50,
-      init: (pd: plantDescription) => {
+      init: function(pd: plantDescription) {
+        console.log(this);
+        this.enabled = !pd.branches.enable;
         return pd.branches.amount;
       },
       onUpdate: (output: parameter, originalState: plantDescription, updateState: Function) => {
@@ -43,7 +57,7 @@ export default {
     },
     {
       title: "Offset",
-      type: "group",
+      type: "Group",
       children: [
         {
           type: "Slider",
@@ -75,7 +89,7 @@ export default {
     },
     {
       title: "Length",
-      type: "group",
+      type: "Group",
       children: [
         {
           type: "Slider",
@@ -125,7 +139,7 @@ export default {
     },
     {
       title: "Diameter",
-      type: "group",
+      type: "Group",
       children: [
         {
           type: "Slider",
@@ -173,7 +187,7 @@ export default {
     },
     {
       title: "Angle",
-      type: "group",
+      type: "Group",
       children: [
         {
           type: "Slider",
@@ -223,7 +237,7 @@ export default {
     },
     {
       title: "Rotation",
-      type: "group",
+      type: "Group",
       children: [
         {
           type: "Slider",
@@ -257,7 +271,7 @@ export default {
       ]
     },
     {
-      type: "group",
+      type: "Group",
       title: "Noise",
       children: [
         {

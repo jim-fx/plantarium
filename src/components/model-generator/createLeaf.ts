@@ -13,7 +13,10 @@ export default function(leaf: leafDescription, settings: settings, branchSkeleto
   const leafPointsAmount = leaf.shape.length;
   const leafRes = settings.leafResX || 5;
 
-  //Create leaf geometry
+  //////////////////////////
+  //-Create leaf Geometry-//
+  //////////////////////////
+
   const uv = new Float32Array(leafPointsAmount * leafRes * 2);
   const position = new Float32Array(leafPointsAmount * leafRes * 3);
   const normal = new Float32Array(leafPointsAmount * leafRes * 3);
@@ -23,6 +26,8 @@ export default function(leaf: leafDescription, settings: settings, branchSkeleto
 
   const yCurvatureArray = getCurvatureArray(leaf.yCurvature);
   const yCurvatureStrength = leaf.yCurvature.value;
+
+  const gravity = leaf.gravity || 0;
 
   const xCurvatureArray = getCurvatureArray(leaf.xCurvature);
   const xCurvatureStrength = leaf.xCurvature.value;
@@ -40,17 +45,18 @@ export default function(leaf: leafDescription, settings: settings, branchSkeleto
       const y = interpolateArray(yCurvatureArray, _a) * yCurvatureStrength + interpolateArray(xCurvatureArray, Math.abs(a)) * xCurvatureStrength * Math.sin(Math.abs(_a) * Math.PI);
       const z = p.y * leafSize;
 
-      const gravityAngle = _a * _a * yCurvatureStrength;
+      const gravityAngle = _a * _a * gravity;
+      const curlBack = 1 - _a * 0.2 * gravity;
       const _x = x;
-      const _y = Math.cos(gravityAngle) * y - Math.sin(gravityAngle) * z;
-      const _z = Math.sin(gravityAngle) * y + Math.cos(gravityAngle) * z;
+      const _y = (Math.cos(gravityAngle) * y - Math.sin(gravityAngle) * z) * curlBack;
+      const _z = (Math.sin(gravityAngle) * y + Math.cos(gravityAngle) * z) * curlBack;
 
       position[offset + 0] = _x;
       position[offset + 1] = _y;
       position[offset + 2] = _z;
 
-      normal[offset + 0] = 0;
-      normal[offset + 1] = 1;
+      normal[offset + 0] = _a;
+      normal[offset + 1] = 1 - _a;
       normal[offset + 2] = 0;
 
       const uvOffset = i * 2 * leafRes + j * 2;
@@ -78,10 +84,25 @@ export default function(leaf: leafDescription, settings: settings, branchSkeleto
     }
   }
 
-  const skeletons = branchSkeletons.flat();
+  //////////////////////
+  //-Create instances-//
+  //////////////////////
+
+  const useStem = !!leaf.onStem;
+  const useBranches = !!leaf.onBranches;
+
+  const skeletons: Float32Array[] = [];
+
+  if (useBranches) {
+    skeletons.push(...branchSkeletons.flat());
+  }
+
+  if (useStem) {
+    skeletons.push(...stemSkeletons);
+  }
+
   const skeletonL = skeletons.reduce((a, b) => a + b.length, 0);
 
-  //Create leaf instanced attributes;
   const offset = new Float32Array(skeletonL);
   const scale = new Float32Array(skeletonL);
   const rotation = new Float32Array(skeletonL);
@@ -90,6 +111,7 @@ export default function(leaf: leafDescription, settings: settings, branchSkeleto
   for (let i = 0; i < skeletons.length; i++) {
     const skelly = skeletons[i];
     const l = skelly.length;
+
     for (let j = 0; j < l; j++) {
       offset[_offset + j] = skelly[j];
       scale[_offset + j] = 1 - j / (l - 1);
