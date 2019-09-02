@@ -17,7 +17,7 @@ export default {
     {
       type: "Slider",
       title: "Gravity",
-      min: 0,
+      min: 0.001,
       max: 1,
       init: (pd: plantDescription) => {
         return pd.stem.gravity;
