@@ -140,9 +140,10 @@ function applySettings(_s: settings) {
   controls = new Orbit(camera, {
     target: new Vec3(0, 0.2, 0),
     maxPolarAngle: 1.6,
-    minDistance: 1,
+    minDistance: 0.2,
     maxDistance: 15,
-    enablePan: false,
+    //enablePan: false,
+    ease: 0.7,
     rotateSpeed: 0.5,
     inertia: 0.5,
     element: canvas
@@ -155,13 +156,13 @@ function applySettings(_s: settings) {
   //Load the models;
   (async () => {
     //Load uv checker Texture
-    const uvTexture = new Texture(gl, {
+    /*const uvTexture = new Texture(gl, {
       wrapS: gl.REPEAT,
       wrapT: gl.REPEAT
     });
     const uvImg = new Image();
     uvImg.onload = () => (uvTexture.image = uvImg);
-    uvImg.src = "assets/uv.png";
+    uvImg.src = "assets/uv.png";*/
 
     //Load the ground/dirt texture (from freepbr.com)
     const groundTexture = new Texture(gl, {
@@ -269,7 +270,7 @@ function applySettings(_s: settings) {
 
     applySettings(_deferedSettings);
     //Instantiate custom controls (up/down movement)
-    customControls(canvas, controls.target, plant);
+    //customControls(canvas, controls.target, plant);
   })();
 
   requestAnimationFrame(render);
@@ -319,6 +320,7 @@ export default {
             scale: { instanced: 1, size: 3, data: new Float32Array(model.leaf.scale) },
             rotation: { instanced: 1, size: 3, data: new Float32Array(model.leaf.rotation) }
           });
+          leafMesh.geometry.setInstancedCount(model.leaf.offset.length / 3);
         } else {
           leaf.attributes.position.data = model.leaf.position;
           leaf.updateAttribute(leaf.attributes.position);
@@ -338,6 +340,8 @@ export default {
           leaf.setDrawRange(0, model.leaf.index.length);
           leaf.setInstancedCount(model.leaf.offset.length);
         }
+      } else {
+        leafMesh.geometry.setInstancedCount(0);
       }
 
       if (true) {
@@ -345,7 +349,7 @@ export default {
           position: { size: 3, data: new Float32Array(model.position) },
           normal: { size: 3, data: new Float32Array(model.normal) },
           uv: { size: 2, data: new Float32Array(model.uv) },
-          index: { size: 1, data: new Uint16Array(model.index) }
+          index: { size: 1, data: new Uint32Array(model.index) }
         });
       } else {
         plant.attributes.position.data = model.position;
