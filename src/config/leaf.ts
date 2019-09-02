@@ -1,13 +1,28 @@
+import updateUI from "../helpers/updateUI";
+
 export default {
   title: "leaf",
   type: "stage",
   children: [
     {
+      type: "Checkbox",
+      title: "Use Leaves",
+      default: true,
+      init: (pd: plantDescription) => {
+        return pd.leaves.enable;
+      },
+      onUpdate: (output: parameter, originalState: plantDescription) => {
+        originalState.leaves.enable = <boolean>output.enabled;
+        updateUI();
+      }
+    },
+    {
       type: "Number",
       title: "Amount",
       min: 3,
       max: 64,
-      init: (pd: plantDescription) => {
+      init: function(pd: plantDescription) {
+        this.enabled = pd.leaves.enable;
         return pd.leaves.amount;
       },
       onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -17,7 +32,8 @@ export default {
     {
       type: "Slider",
       title: "Gravity",
-      init: (pd: plantDescription) => {
+      init: function(pd: plantDescription) {
+        this.enabled = pd.leaves.enable;
         return pd.leaves.gravity;
       },
       onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -28,7 +44,8 @@ export default {
       type: "Checkbox",
       title: "On Branches",
       default: true,
-      init: (pd: plantDescription) => {
+      init: function(pd: plantDescription) {
+        this.enabled = pd.leaves.enable;
         return pd.leaves.onBranches;
       },
       onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -39,7 +56,8 @@ export default {
       type: "Checkbox",
       title: "On Stem",
       default: false,
-      init: (pd: plantDescription) => {
+      init: function(pd: plantDescription) {
+        this.enabled = pd.leaves.enable;
         return pd.leaves.onStem;
       },
       onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -55,7 +73,8 @@ export default {
           title: "Size",
           min: 0.1,
           max: 1,
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.leaves.enable;
             return pd.leaves.size.value;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -65,7 +84,8 @@ export default {
         {
           type: "Slider",
           title: "Size Variation",
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.leaves.enable;
             return pd.leaves.size.variation;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -75,7 +95,8 @@ export default {
         {
           type: "Curve",
           title: "Size",
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.leaves.enable;
             return pd.leaves.size.curve;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -91,7 +112,8 @@ export default {
         {
           type: "LeafCreator",
           title: "Outline",
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.leaves.enable;
             return pd.leaves.shape;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -101,7 +123,8 @@ export default {
         {
           type: "Curve",
           title: "X Curvature",
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.leaves.enable;
             return pd.leaves.xCurvature.curve;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -111,7 +134,8 @@ export default {
         {
           type: "Slider",
           title: "X Curvature Strength",
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.leaves.enable;
             return pd.leaves.xCurvature.value;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -121,7 +145,8 @@ export default {
         {
           type: "Curve",
           title: "Y Curvature",
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.leaves.enable;
             return pd.leaves.yCurvature.curve;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -131,7 +156,8 @@ export default {
         {
           type: "Slider",
           title: "Y Curvature Strength",
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.leaves.enable;
             return pd.leaves.yCurvature.value;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {

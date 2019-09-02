@@ -1,3 +1,5 @@
+import updateUI from "../helpers/updateUI";
+
 export default {
   title: "branch",
   type: "stage",
@@ -11,6 +13,7 @@ export default {
       },
       onUpdate: (output: parameter, originalState: plantDescription) => {
         originalState.branches.enable = <boolean>output.enabled;
+        updateUI();
       }
     },
     {
@@ -19,8 +22,7 @@ export default {
       min: 1,
       max: 50,
       init: function(pd: plantDescription) {
-        console.log(this);
-        this.enabled = !pd.branches.enable;
+        this.enabled = pd.branches.enable;
         return pd.branches.amount;
       },
       onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -32,7 +34,8 @@ export default {
       title: "Gravity",
       min: 0,
       max: 1,
-      init: (pd: plantDescription) => {
+      init: function(pd: plantDescription) {
+        this.enabled = pd.branches.enable;
         return pd.branches.gravity;
       },
       onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -44,7 +47,8 @@ export default {
       title: "Lowest Branch",
       min: 0,
       max: 1,
-      init: (pd: plantDescription) => {
+      init: function(pd: plantDescription) {
+        this.enabled = pd.branches.enable;
         return pd.branches.lowestBranch.value;
       },
       onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -60,7 +64,8 @@ export default {
           title: "Offset",
           min: 0,
           max: 1,
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.branches.enable;
             return pd.branches.offset.value;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -72,7 +77,8 @@ export default {
           title: "Offset Variation",
           min: 0,
           max: 1,
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.branches.enable;
             return pd.branches.offset.variation;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -90,7 +96,8 @@ export default {
           title: "Length",
           min: 0.05,
           max: 2,
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.branches.enable;
             return pd.branches.length.value;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -101,7 +108,8 @@ export default {
           type: "Slider",
           default: 0,
           title: "Variation",
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.branches.enable;
             return pd.branches.length.variation;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -115,7 +123,8 @@ export default {
         {
           type: "Curve",
           title: "Length",
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.branches.enable;
             return pd.branches.length.curve;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -135,7 +144,8 @@ export default {
         {
           type: "Slider",
           title: "Diameter",
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.branches.enable;
             return pd.branches.diameter.value;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -146,7 +156,8 @@ export default {
           type: "Slider",
           default: 0,
           title: "Variation",
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.branches.enable;
             return pd.branches.diameter.variation;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -160,7 +171,8 @@ export default {
         {
           type: "Curve",
           title: "Diameter",
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.branches.enable;
             return pd.branches.diameter.curve;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -182,7 +194,8 @@ export default {
           title: "Angle",
           min: -1,
           max: 1,
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.branches.enable;
             return pd.branches.angle.value;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -193,7 +206,8 @@ export default {
           type: "Slider",
           title: "Angle Variation",
           default: 0,
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.branches.enable;
             return pd.branches.angle.variation;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -207,7 +221,8 @@ export default {
         {
           type: "Curve",
           title: "Angle",
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.branches.enable;
             return pd.branches.angle.curve;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -229,7 +244,8 @@ export default {
           title: "Rotation",
           min: 0,
           max: 1,
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.branches.enable;
             return pd.branches.rotation.value;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -240,7 +256,8 @@ export default {
           type: "Slider",
           title: "Rotation Variation",
           default: 0,
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.branches.enable;
             return pd.branches.rotation.variation;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -262,7 +279,8 @@ export default {
           title: "Scale",
           min: 1,
           max: 10,
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.branches.enable;
             return pd.branches.noiseScale;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -274,7 +292,8 @@ export default {
           title: "Strength",
           min: 0,
           max: 1,
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.branches.enable;
             return pd.branches.noiseStrength.value;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -284,7 +303,8 @@ export default {
         {
           type: "Curve",
           title: "Strength Curve",
-          init: (pd: plantDescription) => {
+          init: function(pd: plantDescription) {
+            this.enabled = pd.branches.enable;
             return pd.branches.noiseStrength.curve;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
