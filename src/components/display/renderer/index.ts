@@ -309,23 +309,36 @@ export default {
       if (model.leaf) {
         overlay.debug3d.uv = model.leaf.uv;
 
-        leaf.attributes.position.data = model.leaf.position;
-        leaf.updateAttribute(leaf.attributes.position);
-        leaf.attributes.normal.data = model.leaf.normal;
-        leaf.updateAttribute(leaf.attributes.normal);
-        leaf.attributes.uv.data = model.leaf.uv;
-        leaf.updateAttribute(leaf.attributes.uv);
-        leaf.attributes.index.data = model.leaf.index;
-        leaf.updateAttribute(leaf.attributes.index);
-        leaf.attributes.offset.data = model.leaf.offset;
-        leaf.updateAttribute(leaf.attributes.offset);
-        leaf.attributes.rotation.data = model.leaf.rotation;
-        leaf.updateAttribute(leaf.attributes.rotation);
-        leaf.attributes.scale.data = model.leaf.scale;
-        leaf.updateAttribute(leaf.attributes.scale);
+        if (true) {
+          leafMesh.geometry = new Geometry(gl, {
+            position: { size: 3, data: new Float32Array(model.leaf.position) },
+            normal: { size: 3, data: new Float32Array(model.leaf.normal) },
+            uv: { size: 2, data: new Float32Array(model.leaf.uv) },
+            index: { size: 1, data: new Uint16Array(model.leaf.index) },
 
-        leaf.setDrawRange(0, model.leaf.index.length);
-        leaf.setInstancedCount(model.leaf.offset.length);
+            offset: { instanced: 1, size: 3, data: new Float32Array(model.leaf.offset) },
+            scale: { instanced: 1, size: 3, data: new Float32Array(model.leaf.scale) },
+            rotation: { instanced: 1, size: 3, data: new Float32Array(model.leaf.rotation) }
+          });
+        } else {
+          leaf.attributes.position.data = model.leaf.position;
+          leaf.updateAttribute(leaf.attributes.position);
+          leaf.attributes.normal.data = model.leaf.normal;
+          leaf.updateAttribute(leaf.attributes.normal);
+          leaf.attributes.uv.data = model.leaf.uv;
+          leaf.updateAttribute(leaf.attributes.uv);
+          leaf.attributes.index.data = model.leaf.index;
+          leaf.updateAttribute(leaf.attributes.index);
+          leaf.attributes.offset.data = model.leaf.offset;
+          leaf.updateAttribute(leaf.attributes.offset);
+          leaf.attributes.rotation.data = model.leaf.rotation;
+          leaf.updateAttribute(leaf.attributes.rotation);
+          leaf.attributes.scale.data = model.leaf.scale;
+          leaf.updateAttribute(leaf.attributes.scale);
+
+          leaf.setDrawRange(0, model.leaf.index.length);
+          leaf.setInstancedCount(model.leaf.offset.length);
+        }
       }
 
       if (true) {
