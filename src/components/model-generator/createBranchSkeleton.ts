@@ -13,19 +13,18 @@ function getLowestBranch(param: parameter, i: number) {
 function getBranchLengthArray(length: parameter) {
   let v = length.value;
   if (length.curve) {
-    return curveToArray(length.curve).map(_v => _v * v);
+    return curveToArray(length.curve).map(_v => v * _v);
   } else {
-    return [0, 1 * v];
+    return [0, v];
   }
 }
 
-function getBranchAngleArray(angle: parameter) {
-  let v = angle.value;
-
-  if (angle.curve) {
-    return curveToArray(angle.curve).map(_v => _v * v);
+function getArrayFromParam(param: parameter) {
+  let v = param.value;
+  if (param.curve) {
+    return curveToArray(param.curve).map((_v, i, a) => v + _v - i / (a.length - 1));
   } else {
-    return [0, 1 * v];
+    return [v];
   }
 }
 
@@ -42,7 +41,7 @@ export default function(branch: branchDescription, skeleton: Float32Array, i: nu
   const branchOffset = branch.offset.value || 0;
   const branchOffsetVariation = branch.offset.variation || 0;
 
-  const branchAngleArray = getBranchAngleArray(branch.angle);
+  const branchAngleArray = getArrayFromParam(branch.angle);
   const branchAngleVariation = branch.angle.variation || 0;
 
   const branchRotation = branch.rotation.value || 0;
@@ -80,7 +79,8 @@ export default function(branch: branchDescription, skeleton: Float32Array, i: nu
     const p = Math.max(Math.min(Math.floor(skeletonLength * positionAlongStem), skeletonLength - 3), 1);
     const n = Math.max(Math.min(Math.ceil(skeletonLength * positionAlongStem), skeletonLength - 2), 1);
     const prevSegment = new Vec3(origin[0] - skeleton[p * 3 - 3], origin[1] - skeleton[p * 3 - 2], origin[2] - skeleton[p * 3 - 1]);
-    const nextSegment = new Vec3(skeleton[n * 3 + 3] - origin[0] / 2, skeleton[n * 3 + 4] - origin[1] / 2, skeleton[n * 3 + 5] - origin[2] / 2);
+    const nextSegment = new Vec3(skeleton[n * 3 + 3] - origin[0], skeleton[n * 3 + 4] - origin[1], skeleton[n * 3 + 5] - origin[2]);
+
     const average = new Vec3((prevSegment[0] + nextSegment[0]) / 2, (prevSegment[1] + nextSegment[1]) / 2, (prevSegment[2] + nextSegment[2]) / 2);
 
     const offsetVec = new Vec3().cross(prevSegment, nextSegment).normalize();
@@ -97,7 +97,7 @@ export default function(branch: branchDescription, skeleton: Float32Array, i: nu
       _branchRotation -= branchRotationVariation * noise.n1d(896217392 + j * 123) * Math.PI;
     }
 
-    const amountPoints = 3 + Math.floor(skeletonLength * (length / 0.7) * 0.2);
+    const amountPoints = 3 + Math.floor(skeletonLength * length * 0.5);
 
     branches[j] = new Float32Array(amountPoints * 3);
 
