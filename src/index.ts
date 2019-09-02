@@ -1,6 +1,5 @@
 import "./index.scss";
 import "./typography.scss";
-import "babel-polyfill";
 import resizeTables from "./helpers/resizeTable";
 import p from "../package.json";
 document.getElementById("version").innerHTML = "v" + p.version;
