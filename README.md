@@ -1,4 +1,4 @@
-# plant-generator
+# Plantarium
 
 ![travis ci build status](https://api.travis-ci.com/jim-fx/plantarium.svg?branch=master)
 
@@ -33,8 +33,8 @@ Typescript, SCSS, Babel, Rollup, OG-L, ComLink
 
 ## Screendesign:
 
-![screendesign leaves](https://raw.githubusercontent.com/jim-fx/plant-generator/master/design/screendesign/leaves.jpg)
+![screendesign leaves](https://raw.githubusercontent.com/jim-fx/plantarium/master/design/screendesign/leaves.jpg)
 
 ## Data flow inside the app:
 
-![screendesign leaves](https://raw.githubusercontent.com/jim-fx/plant-generator/master/design/screendesign/data%20flow%20through%20stages.jpg)
+![screendesign leaves](https://raw.githubusercontent.com/jim-fx/plantarium/master/design/screendesign/data%20flow%20through%20stages.jpg)

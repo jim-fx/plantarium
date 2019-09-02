@@ -6,6 +6,10 @@
     "dev": "rollup -c -w ",
     "build": "NODE_ENV=production rollup -c"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jim-fx/plantarium.git"
+  },
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "7.5.5",
