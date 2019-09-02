@@ -4,14 +4,14 @@ function interpolateArray(array: number[], alpha: number = 0): number {
   //Clamp to 0-1 range
   alpha = Math.max(Math.min(alpha, 1), 0);
 
-  const length = array.length;
+  const _alpha = (array.length - 1) * alpha;
 
   //Get value below and above i
-  const i = Math.max(Math.min(Math.floor((length - 1) * alpha), length - 2), 0);
-  const j = Math.max(Math.min(Math.ceil((length - 1) * alpha), length - 1), 0);
+  const i = Math.floor(_alpha);
+  const j = Math.ceil(_alpha);
 
   //Lerp the two values
-  return lerp(array[j], array[i], j - alpha * (length - 1));
+  return lerp(array[j], array[i], j - _alpha);
 }
 
 export default interpolateArray;
