@@ -7,8 +7,6 @@ import createStemSkeleton from "./createStemSkeleton";
 import createStemGeometry from "./createStemGeometry";
 import createBranchSkeleton from "./createBranchSkeleton";
 import createBranchGeometry from "./createBranchGeometry";
-
-import leafGeometry from "../../assets/leaf.json";
 import createLeaf from "./createLeaf";
 
 let oldSettings: string;
@@ -32,24 +30,40 @@ class Generator {
       noise.seed = settings.seed;
     }
 
+    const skeletons: Float32Array[] = [];
+    let leaf: LeafGeometry;
+    let branchSkeletons: Float32Array[][] = [];
+
     //Create the stem skeletons
     debugLines.length = 0;
     const stemSkeletons = new Array(pd.stem.amount).fill(null).map((v, i) => createStemSkeleton(pd.stem, settings, i, pd.stem.amount));
 
-    //Create the branch skeletons from the stem skeletons
-    const branchSkeletons = stemSkeletons.map((skeleton, i) => createBranchSkeleton(pd.branches, skeleton, i));
-
     //Create the stem geometries from the stem skeletons
     const stemGeometries = stemSkeletons.map((skeleton, i) => createStemGeometry(pd.stem, settings, skeleton, i));
 
-    //Create the branch geometries
-    const branchGeometries = branchSkeletons.map((skeletons, i) => createBranchGeometry(pd, settings, skeletons, i));
+    if (pd.branches.enable) {
+      //Create the branch skeletons from the stem skeletons
+      branchSkeletons = stemSkeletons.map((skeleton, i) => createBranchSkeleton(pd.branches, skeleton, i));
 
-    const final = calculateNormals(join(...stemGeometries.concat(branchGeometries)));
+      //Create the branch geometries
+      const branchGeometries = branchSkeletons.map((skeletons, i) => createBranchGeometry(pd, settings, skeletons, i));
 
-    final.skeleton = stemSkeletons.concat(debugLines, branchSkeletons.flat());
+      stemGeometries.push(...branchGeometries);
+      skeletons.push(...branchSkeletons.flat());
+    }
 
-    final.leaf = <LeafGeometry>calculateNormals(createLeaf(pd.leaves, settings, branchSkeletons, stemSkeletons));
+    if (pd.leaves.enable) {
+      leaf = <LeafGeometry>calculateNormals(createLeaf(pd.leaves, settings, branchSkeletons, stemSkeletons));
+    }
+
+    const final = calculateNormals(join(...stemGeometries.concat()));
+
+    skeletons.push(...debugLines);
+    skeletons.push(...stemSkeletons);
+
+    final.skeleton = skeletons;
+
+    final.leaf = leaf;
 
     return final;
   }
