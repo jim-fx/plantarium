@@ -52,6 +52,8 @@ interface leafDescription {
   amount: number;
   gravity: number;
 
+  lowestLeaf: number;
+
   onStem: boolean;
   onBranches: boolean;
 
