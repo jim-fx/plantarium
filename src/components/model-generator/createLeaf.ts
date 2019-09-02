@@ -1,4 +1,5 @@
-import { curveToArray, interpolateArray } from "./helper";
+import { curveToArray, interpolateArray, interpolateSkeleton } from "./helper";
+import { Vec3 } from "ogl";
 
 function getCurvatureArray(param: parameter) {
   if (param.curve && param.curve.length > 2) {
@@ -88,37 +89,118 @@ export default function(leaf: leafDescription, settings: settings, branchSkeleto
   //-Create instances-//
   //////////////////////
 
-  const useStem = !!leaf.onStem;
-  const useBranches = !!leaf.onBranches;
+  const leafAmount = leaf.amount || 3;
+  const lowestLeaf = leaf.lowestLeaf || 0;
+  const leafDistance = (1 - lowestLeaf) / (leafAmount - 1);
+  const onStem = !!leaf.onStem;
+  const onBranches = !!leaf.onBranches;
+  const sizeVar = leaf.size.variation || 0;
 
-  const skeletons: Float32Array[] = [];
+  const instanceCount = (onStem ? stemSkeletons.length : 0) * leafAmount + (onBranches ? branchSkeletons.flat().length : 0) * leafAmount;
 
-  if (useBranches) {
-    skeletons.push(...branchSkeletons.flat());
-  }
-
-  if (useStem) {
-    skeletons.push(...stemSkeletons);
-  }
-
-  const skeletonL = skeletons.reduce((a, b) => a + b.length, 0);
-
-  const offset = new Float32Array(skeletonL);
-  const scale = new Float32Array(skeletonL);
-  const rotation = new Float32Array(skeletonL);
+  const offset = new Float32Array(instanceCount * 3);
+  const scale = new Float32Array(instanceCount * 3);
+  const rotation = new Float32Array(instanceCount * 3);
 
   let _offset = 0;
-  for (let i = 0; i < skeletons.length; i++) {
-    const skelly = skeletons[i];
-    const l = skelly.length;
+  const stemAmount = stemSkeletons.length;
+  for (let i = 0; i < stemAmount; i++) {
+    const stemSkeleton = stemSkeletons[i];
 
-    for (let j = 0; j < l; j++) {
-      offset[_offset + j] = skelly[j];
-      scale[_offset + j] = 1 - j / (l - 1);
-      rotation[_offset + j] = skelly[j] * 10;
+    //Create leaves along stem
+    if (onStem) {
     }
-    _offset += l;
+
+    //Create leaves along branch
+    if (onBranches) {
+      const _branchSkeletons = branchSkeletons[i];
+      const branchAmount = _branchSkeletons.length;
+
+      for (let j = 0; j < branchAmount; j++) {
+        const branchSkeleton = _branchSkeletons[j];
+        const amountPoints = branchSkeleton.length / 3;
+
+        for (let k = 0; k < leafAmount; k++) {
+          const switchSide = k % 2 === 0;
+          const alpha = k / (leafAmount - 1);
+          const origin = new Vec3().fromArray(interpolateSkeleton(branchSkeleton, 1 - leafDistance * k));
+
+          //Get previos and next stem segment
+          const p = Math.floor(alpha * amountPoints);
+          const n = Math.ceil(alpha * amountPoints);
+
+          const prevPoint = new Vec3(branchSkeleton[p * 3 + 0], branchSkeleton[p * 3 + 1], branchSkeleton[p * 3 + 2]);
+
+          const prevSegment = new Vec3(origin[0] - branchSkeleton[p * 3 + 0], origin[1] - branchSkeleton[p * 3 + 1], origin[2] - branchSkeleton[p * 3 + 2]);
+
+          const nextSegment = new Vec3(origin[0] - branchSkeleton[n * 3 + 0], origin[1] - branchSkeleton[n * 3 + 1], origin[2] - branchSkeleton[n * 3 + 2]);
+
+          const averageVec = new Vec3((prevSegment[0] + nextSegment[0]) / 2, (prevSegment[1] + nextSegment[1]) / 2, (prevSegment[2] + nextSegment[2]) / 2);
+
+          const offsetVec = new Vec3().cross(prevSegment, nextSegment).normalize();
+
+          const rotVec = origin.dot(averageVec);
+
+          const rotY = new Vec3(1, 0, 0).dot(new Vec3(origin[0], 0, origin[2]).sub(prevPoint));
+
+          offset[_offset + 0] = origin[0];
+          offset[_offset + 1] = origin[1];
+          offset[_offset + 2] = origin[2];
+
+          scale[_offset + 0] = alpha;
+          scale[_offset + 1] = alpha;
+          scale[_offset + 2] = alpha;
+
+          rotation[_offset + 0] = 0;
+          rotation[_offset + 1] = rotY - (switchSide ? 0 : Math.PI);
+          rotation[_offset + 2] = 0;
+
+          _offset += 3;
+        }
+      }
+    }
   }
+  /*
+  const l = skeletons.length;
+  for (let i = 0; i < l; i++) {
+    const skelly = skeletons[i];
+    const _l = skelly.length;
+    for (let j = 0; j < leafAmount; j++) {
+      const switchSide = j % 2 === 0;
+      const a = j / (leafAmount - 1);
+
+      let positionAlongStem = lowestLeaf + j * leafDistance;
+
+      const origin = interpolateSkeleton(skelly, positionAlongStem);
+
+      const p = Math.max(Math.min(Math.floor(_l * positionAlongStem), _l - 3), 1);
+      const n = Math.max(Math.min(Math.ceil(_l * positionAlongStem), _l - 2), 1);
+
+      const prevSegment = new Vec3(origin[0] - skelly[p + 0], origin[1] - skelly[p + 1], origin[2] - skelly[p + 2]);
+
+      const nextSegment = new Vec3(origin[0] - skelly[n + 0], origin[1] - skelly[n + 1], origin[2] - skelly[n + 2]);
+
+      //console.log(nextSegment.len(), prevSegment.len());
+
+      const angle = prevSegment.dot(nextSegment);
+
+      const off = _offset + j * 3;
+      offset[off + 0] = origin[0];
+      offset[off + 1] = origin[1];
+      offset[off + 2] = origin[2];
+
+      rotation[off + 0] = 0;
+      rotation[off + 1] = switchSide ? -angle : angle;
+      rotation[off + 2] = 0;
+
+      const s = (1 - a) * leafSize;
+      scale[off + 0] = s;
+      scale[off + 1] = s;
+      scale[off + 2] = s;
+    }
+
+    _offset += leafAmount * 3;
+  }*/
 
   return {
     position,
