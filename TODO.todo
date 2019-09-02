@@ -60,7 +60,7 @@ Generator
 
   - branchesSkeleton
     ✔ Create @done (9/1/2019, 3:24:16 AM)
-    ☐ Allow for disabling of branches
+    ✔ Allow for disabling of branches @done (9/2/2019, 6:18:29 PM)
 
   - branchesGeometry
     ✔ Create @done (9/1/2019, 9:39:07 PM)
@@ -100,6 +100,6 @@ Fixes
 ✔ Fix the initialization of the renderer with the settings, right now the settings get passed @done (8/31/2019, 10:52:01 AM)
 ☐ Fix the direction of the stem curve, left side of curve should be bottom of stem
 ✔ Fix the join Geometry function; @done (8/30/2019, 5:11:40 PM)
-☐ Fix the width jittering in the import/export page (possibly related to the projectMeta table)
+✔ Fix the width jittering in the import/export page (possibly related to the projectMeta table) @done (9/2/2019, 6:18:43 PM)
 ✔ Fix projects not showing up @done (8/29/2019, 4:29:19 PM)
 ✔ Fix seed not disabling when enabling random seed @done (8/29/2019, 4:29:20 PM)
