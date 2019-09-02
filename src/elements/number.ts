@@ -33,6 +33,17 @@ export default class UINumber extends UIElement {
     });
     buttonWrapper.append(addButton);
 
+    if (config.init) {
+      const _init = config.init.bind(this);
+      this._init = (pd: plantDescription) => {
+        const initValue: number = _init(pd);
+        if (initValue !== undefined) {
+          this._value = initValue;
+          this.element.value = initValue;
+        }
+      };
+    }
+
     this.element = document.createElement("input");
     this.element.type = "number";
     this.element.value = config.default !== undefined ? this.minMax(config.default) : this.minMax(1);
@@ -49,16 +60,6 @@ export default class UINumber extends UIElement {
     buttonWrapper.append(this.element);
 
     this.wrapper.append(buttonWrapper);
-  }
-
-  init(pd: plantDescription) {
-    if (this.config.init) {
-      const initValue: number = <number>this.config.init.bind(this)(pd);
-      if (initValue !== undefined) {
-        this._value = initValue;
-        this.element.value = initValue;
-      }
-    }
   }
 
   get value() {

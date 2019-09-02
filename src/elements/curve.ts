@@ -44,6 +44,18 @@ export default class UICurve extends UIElement {
     canvas.width = 200;
     canvas.height = 200;
 
+    if (config.init) {
+      const _init = config.init.bind(this);
+      this._init = (pd: plantDescription) => {
+        const initValue = _init(pd);
+        if (initValue) {
+          initValue[0].locked = true;
+          initValue[initValue.length - 1].locked = true;
+          this.points = <point[]>initValue;
+        }
+      };
+    }
+
     const update = throttle(() => {
       this.update({
         curve: this.points.map(p => {
@@ -147,17 +159,6 @@ export default class UICurve extends UIElement {
     this.wrapper.classList.add("curve-wrapper");
 
     this.draw();
-  }
-
-  init(pd: plantDescription) {
-    if (this.config.init) {
-      const initValue = this.config.init(pd);
-      if (initValue) {
-        initValue[0].locked = true;
-        initValue[initValue.length - 1].locked = true;
-        this.points = <point[]>initValue;
-      }
-    }
   }
 
   private render = () => {

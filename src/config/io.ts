@@ -23,7 +23,7 @@ export default {
       }
     },
     {
-      type: "group",
+      type: "Group",
       title: "Projects",
       open: true,
       children: [
@@ -34,7 +34,7 @@ export default {
       ]
     },
     {
-      type: "group",
+      type: "Group",
       title: "Export",
       children: [
         {

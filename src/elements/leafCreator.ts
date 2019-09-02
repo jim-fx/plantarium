@@ -68,6 +68,13 @@ export default class UICurve extends UIElement {
     this.grd.addColorStop(0, "#65e2a0");
     this.grd.addColorStop(1, "#337150");
 
+    if (config.init) {
+      const _init = config.init.bind(this);
+      this._init = (pd: plantDescription) => {
+        this.points = <point[]>_init(pd);
+      };
+    }
+
     const update = throttle(() => {
       this.update({
         shape: this.points.map(p => {
@@ -177,12 +184,6 @@ export default class UICurve extends UIElement {
     this.wrapper.classList.add("leaf-creator-wrapper");
 
     this.draw();
-  }
-
-  init(pd: plantDescription) {
-    if (this.config.init) {
-      this.points = <point[]>this.config.init(pd);
-    }
   }
 
   //Convert normalized to actual pixel/canvas coordinates

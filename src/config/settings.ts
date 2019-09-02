@@ -46,7 +46,7 @@ export default {
       onClick: () => settings.loadSettings(devSettings)
     },
     {
-      type: "group",
+      type: "Group",
       title: "Resolution",
       children: [
         {
@@ -92,7 +92,7 @@ export default {
       ]
     },
     {
-      type: "group",
+      type: "Group",
       title: "Debug",
       children: [
         {
@@ -176,7 +176,7 @@ export default {
           }
         },
         {
-          type: "group",
+          type: "Group",
           title: "Grid Settings",
           children: [
             {

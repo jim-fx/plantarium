@@ -5,6 +5,8 @@ let id = 0;
 
 export default class UICheckbox extends UIElement {
   private element: HTMLInputElement;
+
+  private _init: Function;
   constructor(stage: Stage, wrapper: HTMLElement, config: UIConfig) {
     super(stage, wrapper, config);
 
@@ -13,10 +15,19 @@ export default class UICheckbox extends UIElement {
 
     this.config = config;
 
+    if (config.init) {
+      const _init = config.init.bind(this);
+      this._init = (pd: plantDescription) => {
+        const initValue = _init(pd);
+        if (typeof initValue === "boolean") {
+          this.element.checked = initValue;
+        }
+      };
+    }
+
     let _id = "checkbox-id-" + id++;
 
     this.element = document.createElement("input");
-    this.element.setAttribute("data-t", config.title);
     this.element.type = "checkbox";
     this.element.id = _id;
     this.element.addEventListener(
@@ -34,18 +45,12 @@ export default class UICheckbox extends UIElement {
     label.innerHTML = "✖";
     label.setAttribute("for", _id);
 
-    if (config.default === true) {
-      this.element.checked = true;
-    }
-
     this.wrapper.append(this.element);
     this.wrapper.append(label);
     this.wrapper.append(title);
-  }
 
-  init(pd: plantDescription) {
-    if (this.config.init) {
-      this.element.checked = this.config.init.bind(this)(pd);
+    if (config.default) {
+      this.element.checked = true;
     }
   }
 }

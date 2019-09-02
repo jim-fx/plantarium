@@ -30,7 +30,7 @@ export default {
     },
     {
       title: "Origin",
-      type: "group",
+      type: "Group",
       children: [
         {
           type: "Slider",
@@ -134,7 +134,7 @@ export default {
     },
     {
       title: "Thiccness",
-      type: "group",
+      type: "Group",
       children: [
         {
           type: "Slider",
@@ -185,7 +185,7 @@ export default {
       ]
     },
     {
-      type: "group",
+      type: "Group",
       title: "Noise",
       children: [
         {
@@ -232,7 +232,7 @@ export default {
       ]
     },
     {
-      type: "group",
+      type: "Group",
       title: "Size",
       children: [
         {

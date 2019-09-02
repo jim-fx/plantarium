@@ -27,6 +27,17 @@ class UISlider extends UIElement {
 
     if (config.default !== undefined) this.element.value = "" + config.default * 1000;
 
+    if (config.init) {
+      const _init = config.init.bind(this);
+      this._init = (pd: plantDescription) => {
+        const initValue: number = <number>_init(pd);
+        if (initValue !== undefined) {
+          log("init " + this.config.title + " with value: " + initValue, 3);
+          this.element.value = (initValue * 1000).toString();
+        }
+      };
+    }
+
     this.element.addEventListener(
       "input",
       throttle(() => {
@@ -38,17 +49,6 @@ class UISlider extends UIElement {
     );
 
     this.wrapper.append(this.element);
-  }
-
-  init(pd: plantDescription) {
-    if (this.config.init) {
-      const initValue: number = <number>this.config.init.bind(this)(pd);
-
-      if (initValue !== undefined) {
-        log("init " + this.config.title + " with value: " + initValue, 3);
-        this.element.value = (initValue * 1000).toString();
-      }
-    }
   }
 }
 

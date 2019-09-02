@@ -25,7 +25,9 @@ export default class UIElement {
     this._enabled = v;
   }
 
-  init(_pd: plantDescription) {}
+  init(_pd: plantDescription) {
+    if (this._init) this._init(_pd);
+  }
 
   update(v: parameter) {
     if (this._update) {

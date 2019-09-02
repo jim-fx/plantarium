@@ -2,6 +2,10 @@
   position: relative;
   padding: 15px 0px;
   border-bottom: solid thin rgba(128, 128, 128, 0.226);
+  h4 {
+    user-select: none;
+    pointer-events: none;
+  }
 }
 .stage-wrapper > .ui-element-wrapper:last-child {
   border: none;
