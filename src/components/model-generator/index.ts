@@ -21,9 +21,9 @@ class Generator {
 
   generate(pd: plantDescription, settings: settings) {
     //If the settings change force regeneration of all parts
-    const newSettings = JSON.stringify(settings);
+    /*const newSettings = JSON.stringify(settings);
     settings.forceUpdate = oldSettings !== newSettings;
-    oldSettings = newSettings;
+    oldSettings = newSettings;*/
 
     //Load seed from settings
     if (settings.useRandomSeed === true) {
@@ -49,7 +49,7 @@ class Generator {
 
     final.skeleton = stemSkeletons.concat(debugLines, branchSkeletons.flat());
 
-    final.leaf = calculateNormals(createLeaf(pd.leaves, settings, branchSkeletons, stemSkeletons));
+    final.leaf = <LeafGeometry>calculateNormals(createLeaf(pd.leaves, settings, branchSkeletons, stemSkeletons));
 
     return final;
   }

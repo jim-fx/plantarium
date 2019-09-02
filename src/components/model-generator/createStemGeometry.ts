@@ -23,10 +23,10 @@ function getStemDiameter(diameter: parameter, i: number) {
 
 export default function(stem: stemDescription, settings: settings, skeleton: Float32Array, i: number): TransferGeometry {
   //Check if we need to regenerate
-  const newDescription = JSON.stringify(stem);
+  /*const newDescription = JSON.stringify(stem);
   if (!settings.forceUpdate && oldDescription === newDescription && geometry) {
     return geometry;
-  }
+  }*/
 
   const diameter = getStemDiameter(stem.diameter, i);
   const resX = settings.stemResX || 3;

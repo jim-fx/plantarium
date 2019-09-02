@@ -60,10 +60,10 @@ function getNoiseStrength(noise: parameter) {
 
 export default function(stem: stemDescription, settings: settings, i: number, stemAmount: number): Float32Array {
   //Check if we need to regenerate else return cached skeleton
-  const newDescription = JSON.stringify(stem);
+  /*const newDescription = JSON.stringify(stem);
   if (!settings.forceUpdate && oldDescription === newDescription && skeleton.length) {
     return skeleton;
-  }
+  }*/
 
   const amountPoints = settings.stemResY || 20;
   skeleton = new Float32Array(amountPoints * 3);

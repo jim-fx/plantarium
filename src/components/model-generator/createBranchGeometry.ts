@@ -23,10 +23,10 @@ function getBranchDiameter(diameter: parameter, stemDiameter: number, i: number)
 
 export default function(pd: plantDescription, settings: settings, skeletons: Float32Array[], i: number): TransferGeometry {
   //Check if we need to regenerate
-  const newDescription = JSON.stringify(pd);
+  /*const newDescription = JSON.stringify(pd);
   if (!settings.forceUpdate && oldDescription === newDescription && geometry) {
     return geometry;
-  }
+  }*/
 
   const diameter = getBranchDiameter(pd.branches.diameter, pd.stem.diameter.value, i);
   const amount = skeletons.length;
