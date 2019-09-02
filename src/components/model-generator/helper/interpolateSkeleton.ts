@@ -2,7 +2,7 @@ import lerp from "./lerp";
 
 export default function(skeleton: Float32Array, alpha: number): number[] {
 
-  alpha = Math.max(Math.min(alpha, 1), 0);
+  //alpha = Math.max(Math.min(alpha, 1), 0);
 
   const _alpha = (skeleton.length / 3 - 1) * alpha;
 
