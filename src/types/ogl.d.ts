@@ -193,6 +193,8 @@ declare module "ogl" {
 
     fromEuler: (euler: number) => this;
 
+    fromAxisAngle: (axis: Vec3, a: number) => this;
+
     fromArray: (a: number[], offset?: number) => this;
     toArray: (a?: [], offset?: number) => number[];
   }
@@ -336,6 +338,8 @@ declare module "ogl" {
         program: Program;
       }
     );
+
+    program: Program;
 
     mode: number;
 

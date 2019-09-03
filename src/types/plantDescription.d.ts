@@ -60,6 +60,8 @@ interface leafDescription {
   angle: parameter;
   rotation: parameter;
 
+  offset: parameter;
+
   size: parameter;
   shape: point[];
 

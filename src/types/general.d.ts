@@ -40,12 +40,17 @@ interface settings {
   debug_generate_perf: boolean;
   debug_pd: boolean;
   debug_skeleton: boolean;
-  debug_disable_ground: boolean;
   debug_disable_model: boolean;
   debug_grid: boolean;
   debug_grid_size: number;
   debug_grid_resolution: number;
   debug_uv: number;
+
+  ground_enable: boolean;
+  ground_resX: number;
+  ground_resY: number;
+  ground_size: number;
+  ground_texture_size: number;
 
   stemResX: number;
   stemResY: number;
