@@ -28,14 +28,14 @@ const generate = async (_pd: plantDescription) => {
 //Initializing
 (async () => {
   const GeneratorWrapper = Comlink.wrap(new Worker("generator.js"));
-  let _instance = await new GeneratorWrapper();
+  const _instance = await new GeneratorWrapper();
   instance = _instance;
   if (pd) {
     generate(pd);
   }
 })();
 
-export default function(_pd: plantDescription) {
+export default (_pd: plantDescription) => {
   pd = _pd;
   if (instance && _pd) {
     if (computing) {
@@ -44,4 +44,4 @@ export default function(_pd: plantDescription) {
       generate(pd);
     }
   }
-}
+};
