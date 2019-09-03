@@ -7,7 +7,7 @@ import createStemSkeleton from "./createStemSkeleton";
 import createStemGeometry from "./createStemGeometry";
 import createBranchSkeleton from "./createBranchSkeleton";
 import createBranchGeometry from "./createBranchGeometry";
-import createLeaf from "./createLeaf";
+import createLeaves from "./createLeaves";
 
 let oldSettings: string;
 
@@ -53,7 +53,7 @@ class Generator {
     }
 
     if (pd.leaves.enable) {
-      leaf = <LeafGeometry>calculateNormals(createLeaf(pd.leaves, settings, branchSkeletons, stemSkeletons));
+      leaf = <LeafGeometry>calculateNormals(createLeaves(pd.leaves, settings, branchSkeletons, stemSkeletons));
     }
 
     const final = calculateNormals(join(...stemGeometries.concat()));
