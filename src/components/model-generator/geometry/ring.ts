@@ -11,7 +11,9 @@ function getStart(origin: Vec3, axis: Vec3): Vec3 {
   }
 }
 
-export default function(origin: Vec3, axis: Vec3, radius: number, resolution: number = 3): Float32Array {
+export default function(origin: Vec3, axis: Vec3, radius: number, resolution: number = 3, testVec?: Vec3): Float32Array {
+  axis.normalize();
+
   //General parameters
   const positionAmount = resolution * 3;
   const angle = (360 * (Math.PI / 180)) / resolution; // Convert to radians
@@ -25,17 +27,9 @@ export default function(origin: Vec3, axis: Vec3, radius: number, resolution: nu
 
   const start = getStart(origin, axis).multiply(radius);
 
-  /*   draw(
-    origin.toArray(),
-    origin
-      .clone()
-      .add(start)
-      .toArray()
-  ); */
-
   for (let i = 0; i < resolution; i++) {
     const _angle = angle * i;
-    const v = arbitraryRotate(start, _angle, axis);
+    const v = arbitraryRotate(start, _angle, testVec || axis);
 
     position[i * 3 + 0] = x + v[0];
     position[i * 3 + 1] = y + v[1];
