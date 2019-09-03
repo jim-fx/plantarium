@@ -47,6 +47,10 @@ export default function(branch: branchDescription, skeleton: Float32Array, i: nu
   const branchRotation = branch.rotation.value || 0;
   const branchRotationVariation = branch.rotation.variation || 0;
 
+  const branchNoiseStrengthArray = getArrayFromParam(branch.noiseStrength);
+  const branchNoiseStrength = branch.noiseStrength.value;
+  const branchNoiseScale = branch.noiseScale || 1;
+
   const branchDistance = (1 - lowestBranch) / branchAmount;
 
   const skeletonLength = skeleton.length / 3;
@@ -102,12 +106,18 @@ export default function(branch: branchDescription, skeleton: Float32Array, i: nu
     branches[j] = new Float32Array(amountPoints * 3);
 
     for (let k = 0; k < amountPoints; k++) {
-      const _a = k / amountPoints;
+      const _a = k / (amountPoints - 1);
 
       //Create the basic point
-      const x = offsetVec[0] * (switchSide ? -length : length) * _a;
-      const y = offsetVec[1] * (switchSide ? -length : length) * _a;
-      const z = offsetVec[2] * (switchSide ? -length : length) * _a;
+      let x = offsetVec[0] * (switchSide ? -length : length) * _a;
+      let y = offsetVec[1] * (switchSide ? -length : length) * _a;
+      let z = offsetVec[2] * (switchSide ? -length : length) * _a;
+
+      if (branchNoiseStrength) {
+        x += _a * (noise.n1d(2312312 + _a * branchNoiseScale + i * 100 + j * 100) * interpolateArray(branchNoiseStrengthArray, _a) * branchNoiseStrength);
+        y += _a * (noise.n1d(92538165 + _a * branchNoiseScale + i * 100 + j * 100) * interpolateArray(branchNoiseStrengthArray, _a) * branchNoiseStrength);
+        z += _a * (noise.n1d(5126126 + _a * branchNoiseScale + i * 100 + j * 100) * interpolateArray(branchNoiseStrengthArray, _a) * branchNoiseStrength);
+      }
 
       //Apply angle rotation
       const pos = arbitraryRotate(new Vec3(x, y, z), switchSide ? branchAngle : -branchAngle, rotationAxis);

@@ -45,7 +45,7 @@ void main() {
     // copy position so that we can modify the instances
     vec4 pos = vec4(position.xyz, 1.0);
 
-    pos = pos * rotationY(rotation.y);
+    pos = pos *rotationX(rotation.x) *rotationY(rotation.y) ;
 
     vec3 rotated = vec3(pos.x, pos.y, pos.z);
 

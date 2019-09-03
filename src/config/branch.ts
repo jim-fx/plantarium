@@ -192,8 +192,8 @@ export default {
         {
           type: "Slider",
           title: "Angle",
-          min: -1,
-          max: 1,
+          min: -0.5,
+          max: 0.5,
           init: function(pd: plantDescription) {
             this.enabled = pd.branches.enable;
             return pd.branches.angle.value;

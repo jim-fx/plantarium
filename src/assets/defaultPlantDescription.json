@@ -5,7 +5,7 @@
   },
   "stem": {
     "diameter": {
-      "value": 0.009,
+      "value": 0.016,
       "variation": 0.2
     },
     "originOffset": {
@@ -16,18 +16,17 @@
       "value": 10.651
     },
     "originRotation": {
-      "value": 360,
-      "variation": 119.29
+      "value": 325.917
     },
     "noiseStrength": {
       "value": 0
     },
     "size": {
-      "value": 1.969,
-      "variation": 0.964
+      "value": 1.946,
+      "variation": 0.503
     },
-    "amount": 9,
-    "gravity": 0.473
+    "amount": 3,
+    "gravity": 0.421
   },
   "branches": {
     "enable": true,
@@ -40,7 +39,8 @@
       "curve": [
         {
           "x": 0,
-          "y": 0
+          "y": 0,
+          "locked": true
         },
         {
           "x": 0.291,
@@ -48,7 +48,8 @@
         },
         {
           "x": 1,
-          "y": 1
+          "y": 1,
+          "locked": true
         }
       ]
     },
@@ -73,6 +74,9 @@
   },
   "leaves": {
     "enable": true,
+    "amount": 12,
+    "onBranches": true,
+    "onStem": false,
     "diameter": {
       "value": 1
     },
@@ -86,7 +90,7 @@
       "value": 1
     },
     "size": {
-      "value": 1
+      "value": 0.249
     },
     "xCurvature": {
       "value": 1
@@ -100,17 +104,26 @@
         "y": 0
       },
       {
-        "x": 0.3,
-        "y": 0.4
+        "x": 0.21,
+        "y": 0.275
       },
       {
         "x": 0.3,
-        "y": 0.6
+        "y": 0.48
       },
       {
-        "x": 0,
+        "x": 0.308,
+        "y": 0.645
+      },
+      {
+        "x": 0.213,
+        "y": 0.83
+      },
+      {
+        "x": 0.01,
         "y": 1
       }
-    ]
+    ],
+    "gravity": 0.355
   }
 }

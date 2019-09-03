@@ -222,8 +222,8 @@ export default {
         {
           type: "Slider",
           title: "Angle",
-          min: -1,
-          max: 1,
+          min: 0,
+          max: Math.PI,
           init: function(pd: plantDescription) {
             this.enabled = pd.leaves.enable;
             return pd.leaves.angle.value;
@@ -272,7 +272,7 @@ export default {
         {
           type: "Slider",
           title: "Rotation",
-          min: 0,
+          min: -1,
           max: 1,
           init: function(pd: plantDescription) {
             this.enabled = pd.leaves.enable;
