@@ -5,3 +5,4 @@ export { default as triangle } from "./triangle";
 export { default as ring } from "./ring";
 export { default as tube } from "./tube";
 export { default as grid } from "./grid";
+export { default as ground } from "./ground";
