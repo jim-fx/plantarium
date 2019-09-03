@@ -1,5 +1,7 @@
 import { Vec3 } from "ogl";
 
+let lastNormal: Vec3;
+
 export default function(geometry: TransferGeometry): TransferGeometry {
   const position = geometry.position;
   const index = geometry.index;
@@ -43,13 +45,19 @@ export default function(geometry: TransferGeometry): TransferGeometry {
 
     const v3 = new Vec3(position[index[i * 3 + 2] * 3 + 0] - v1.x, position[index[i * 3 + 2] * 3 + 1] - v1.y, position[index[i * 3 + 2] * 3 + 2] - v1.z);
 
-    const normal = new Vec3().cross(v2, v3).normalize();
+    let normal = new Vec3().cross(v2, v3).normalize();
+
+    if (normal[0] === 0 && normal[1] === 0 && normal[3] === 0) {
+      normal = lastNormal;
+    }
 
     for (let j = 0; j < 3; j++) {
       normals[index[i * 3 + j] * 3 + 0] = normal.x;
       normals[index[i * 3 + j] * 3 + 1] = normal.y;
       normals[index[i * 3 + j] * 3 + 2] = normal.z;
     }
+
+    lastNormal = normal;
   }
 
   return geometry;
