@@ -1,7 +1,6 @@
-import { Renderer, Camera, Orbit, Vec3, Transform, Texture, Program, Color, Geometry, Mesh } from "ogl";
-import { FogShader, BasicShader, InstanceShader } from "./shaders";
-import { grid } from "../../model-generator/geometry";
-import customControls from "./controls";
+import { Renderer, Camera, Orbit, Vec3, Transform, Color, Geometry, Mesh } from "ogl";
+import { grid, ground } from "../../model-generator/geometry";
+import load from "./helpers/loader";
 
 import debounce from "../../../helpers/debounce";
 
@@ -15,12 +14,10 @@ let camera: Camera;
 let controls: any;
 let plant: Geometry;
 let plantMesh: Mesh;
-let ground: Mesh;
+let groundMesh: Mesh;
 let gl: WebGL2RenderingContext;
 let leaf: Geometry;
 let leafMesh: Mesh;
-
-let start = 0;
 
 let showIndices: boolean;
 let showSkeleton: boolean;
@@ -29,15 +26,15 @@ let gridSize: number = 5;
 let gridResolution: number = 8;
 let gridMesh: Mesh;
 
-let _deferedSettings: settings;
-function applySettings(_s: settings) {
-  _deferedSettings = _s;
+async function applySettings(_s: settings) {
   if (plant) {
     if (_s["debug_wireframe"]) {
       plantMesh.mode = gl.LINES;
+      groundMesh.mode = gl.LINES;
       leafMesh.mode = gl.LINES;
     } else {
       plantMesh.mode = gl.TRIANGLES;
+      groundMesh.mode = gl.TRIANGLES;
       leafMesh.mode = gl.TRIANGLES;
     }
   }
@@ -53,11 +50,28 @@ function applySettings(_s: settings) {
     showSkeleton = false;
   }
 
-  if (ground) {
-    if (_s["debug_disable_ground"]) {
-      ground.scale.set(0, 0, 0);
+  if (groundMesh) {
+    const resX = _s["ground_resX"] || 6;
+    const resY = _s["ground_resY"] || 6;
+    const size = _s["ground_size"] || 0;
+    if (resX && resY && size) {
+      const groundGeometry = ground(size, resX, resY);
+      groundMesh.geometry = new Geometry(gl, {
+        position: { size: 3, data: new Float32Array(groundGeometry.position) },
+        normal: { size: 3, data: new Float32Array(groundGeometry.normal) },
+        uv: { size: 2, data: new Float32Array(groundGeometry.uv) },
+        index: { size: 1, data: new Uint16Array(groundGeometry.index) }
+      });
+    }
+
+    if (_s["ground_enable"]) {
+      groundMesh.scale.set(1, 1, 1);
     } else {
-      ground.scale.set(1, 1, 1);
+      groundMesh.scale.set(0, 0, 0);
+    }
+
+    if (_s["ground_texture_size"]) {
+      groundMesh.program.uniforms.texScale.value = _s["ground_texture_size"];
     }
   }
 
@@ -112,6 +126,7 @@ function applySettings(_s: settings) {
   });
   gl = renderer.gl;
   gl.clearColor(1, 1, 1, 1);
+  load.setGl(gl);
 
   //Handle resizing
   (() => {
@@ -149,37 +164,20 @@ function applySettings(_s: settings) {
     element: canvas
   });
 
-  controls;
-
   scene = new Transform();
 
   //Load the models;
   (async () => {
-    //Load uv checker Texture
-    /*const uvTexture = new Texture(gl, {
-      wrapS: gl.REPEAT,
-      wrapT: gl.REPEAT
-    });
-    const uvImg = new Image();
-    uvImg.onload = () => (uvTexture.image = uvImg);
-    uvImg.src = "assets/uv.png";*/
-
     //Load the ground/dirt texture (from freepbr.com)
-    const groundTexture = new Texture(gl, {
+    const groundTexture = load.texture("assets/rocky_dirt1-albedo.jpg", {
       wrapS: gl.REPEAT,
       wrapT: gl.REPEAT
     });
-    const img = new Image();
-    img.onload = () => (groundTexture.image = img);
-    img.src = "assets/rocky_dirt1-albedo.jpg";
 
-    const basicShader = new Program(gl, {
-      vertex: BasicShader.vertex,
-      fragment: BasicShader.fragment,
-      uniforms: {
-        uTime: { value: 0 },
-        tMap: { value: groundTexture }
-      }
+    const basicShader = load.shader("BasicShader", {
+      uTime: { value: 0 },
+      roadColor: { value: new Color("#ff0000") },
+      tMap: { value: groundTexture }
     });
 
     //Create the grid;
@@ -222,21 +220,14 @@ function applySettings(_s: settings) {
       scale: { instanced: 1, size: 3, data: new Float32Array([0, 0, 0, 1, 1, 1]) }
     });
 
-    const leafTexture = new Texture(gl, {
+    const leafTexture = load.texture("assets/leaf.jpg", {
       wrapS: gl.REPEAT,
       wrapT: gl.REPEAT
     });
-    const leafImg = new Image();
-    leafImg.onload = () => (leafTexture.image = leafImg);
-    leafImg.src = "assets/leaf.jpg";
 
-    const instanceShader = new Program(gl, {
-      vertex: InstanceShader.vertex,
-      fragment: InstanceShader.fragment,
-      uniforms: {
-        uTime: { value: 0 },
-        tMap: { value: leafTexture }
-      }
+    const instanceShader = load.shader("InstanceShader", {
+      uTime: { value: 0 },
+      tMap: { value: leafTexture }
     });
 
     leafMesh = new Mesh(gl, {
@@ -247,38 +238,33 @@ function applySettings(_s: settings) {
     leafMesh.setParent(scene);
 
     //Load ground object
-    const groundGeometry = await (await fetch(`assets/ground2.json`)).json();
-    ground = new Mesh(gl, {
-      program: new Program(gl, {
-        vertex: FogShader.vertex,
-        fragment: FogShader.fragment,
-        uniforms: {
-          uTime: { value: 0 },
-          tMap: { value: groundTexture },
-          // Pass relevant uniforms for fog
-          uFogColor: { value: new Color("#ffffff") },
-          uFogNear: { value: 10 },
-          uFogFar: { value: 30 }
-        }
+    groundMesh = new Mesh(gl, {
+      //mode: gl.LINES,
+      program: load.shader("GroundShader", {
+        uTime: { value: 0 },
+        tMap: { value: groundTexture },
+        // Pass relevant uniforms for fog
+        uFogColor: { value: new Color("#ffffff") },
+        uFogNear: { value: 10 },
+        uFogFar: { value: 30 },
+        texScale: { value: 1 }
       }),
       geometry: new Geometry(gl, {
-        position: { size: 3, data: new Float32Array(groundGeometry.position) },
-        uv: { size: 2, data: new Float32Array(groundGeometry.uv) }
+        position: { size: 3, data: new Float32Array([0, 0, 0]) },
+        normal: { size: 1, data: new Float32Array([0, 0, 0]) },
+        uv: { size: 2, data: new Float32Array([0, 0, 0]) },
+        index: { size: 1, data: new Uint16Array([0, 0, 0]) }
       })
     });
-    ground.setParent(scene);
-
-    applySettings(_deferedSettings);
-    //Instantiate custom controls (up/down movement)
-    //customControls(canvas, controls.target, plant);
+    groundMesh.setParent(scene);
   })();
 
   requestAnimationFrame(render);
 })();
 
-let i: number = 0;
-
 //Render loop
+let i: number = 0;
+let start = 0;
 function render() {
   i++;
   overlay.ms(performance.now() - start);
@@ -308,7 +294,6 @@ export default {
 
       if (model.leaf) {
         overlay.debug3d.uv = model.leaf.uv;
-
         if (true) {
           leafMesh.geometry = new Geometry(gl, {
             position: { size: 3, data: new Float32Array(model.leaf.position) },
@@ -322,7 +307,7 @@ export default {
           });
           leafMesh.geometry.setInstancedCount(model.leaf.offset.length / 3);
         } else {
-          leaf.attributes.position.data = model.leaf.position;
+          /*leaf.attributes.position.data = model.leaf.position;
           leaf.updateAttribute(leaf.attributes.position);
           leaf.attributes.normal.data = model.leaf.normal;
           leaf.updateAttribute(leaf.attributes.normal);
@@ -338,7 +323,7 @@ export default {
           leaf.updateAttribute(leaf.attributes.scale);
 
           leaf.setDrawRange(0, model.leaf.index.length);
-          leaf.setInstancedCount(model.leaf.offset.length);
+          leaf.setInstancedCount(model.leaf.offset.length);*/
         }
       } else {
         leafMesh.geometry.setInstancedCount(0);
@@ -352,7 +337,7 @@ export default {
           index: { size: 1, data: new Uint32Array(model.index) }
         });
       } else {
-        plant.attributes.position.data = model.position;
+        /*plant.attributes.position.data = model.position;
         plant.updateAttribute(plant.attributes.position);
         plant.attributes.normal.data = model.normal;
         plant.updateAttribute(plant.attributes.normal);
@@ -361,7 +346,7 @@ export default {
         plant.attributes.index.data = model.index;
         plant.updateAttribute(plant.attributes.index);
 
-        plant.setDrawRange(0, model.index.length);
+        plant.setDrawRange(0, model.index.length);*/
       }
     }
   },
