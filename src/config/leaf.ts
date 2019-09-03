@@ -60,7 +60,7 @@ export default {
           title: "On Branches",
           default: true,
           init: function(pd: plantDescription) {
-            this.enabled = pd.leaves.enable && pd.branches.enable;
+            this.enabled = pd.leaves.enable && pd.leaves.enable;
             return pd.leaves.onBranches;
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
@@ -77,6 +77,38 @@ export default {
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.leaves.onStem = <boolean>output.enabled;
+          }
+        }
+      ]
+    },
+    {
+      title: "Offset",
+      type: "Group",
+      children: [
+        {
+          type: "Slider",
+          title: "Offset",
+          min: 0,
+          max: 1,
+          init: function(pd: plantDescription) {
+            this.enabled = pd.leaves.enable;
+            return pd.leaves.offset.value;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription) => {
+            originalState.leaves.offset.value = output.value;
+          }
+        },
+        {
+          type: "Slider",
+          title: "Offset Variation",
+          min: 0,
+          max: 1,
+          init: function(pd: plantDescription) {
+            this.enabled = pd.leaves.enable;
+            return pd.leaves.offset.variation;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription) => {
+            originalState.leaves.offset.variation = output.value;
           }
         }
       ]
@@ -179,6 +211,91 @@ export default {
           },
           onUpdate: (output: parameter, originalState: plantDescription) => {
             originalState.leaves.yCurvature.value = output.value;
+          }
+        }
+      ]
+    },
+    {
+      title: "Angle",
+      type: "Group",
+      children: [
+        {
+          type: "Slider",
+          title: "Angle",
+          min: -1,
+          max: 1,
+          init: function(pd: plantDescription) {
+            this.enabled = pd.leaves.enable;
+            return pd.leaves.angle.value;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription) => {
+            originalState.leaves.angle.value = output.value;
+          }
+        },
+        {
+          type: "Slider",
+          title: "Angle Variation",
+          default: 0,
+          init: function(pd: plantDescription) {
+            this.enabled = pd.leaves.enable;
+            return pd.leaves.angle.variation;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription) => {
+            if (output.value === 0) {
+              delete originalState.leaves.angle.variation;
+            } else {
+              originalState.leaves.angle.variation = output.value;
+            }
+          }
+        },
+        {
+          type: "Curve",
+          title: "Angle",
+          init: function(pd: plantDescription) {
+            this.enabled = pd.leaves.enable;
+            return pd.leaves.angle.curve;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription) => {
+            if (output.curve && output.curve.length <= 2) {
+              delete originalState.leaves.angle.curve;
+            } else {
+              originalState.leaves.angle.curve = output.curve;
+            }
+          }
+        }
+      ]
+    },
+    {
+      title: "Rotation",
+      type: "Group",
+      children: [
+        {
+          type: "Slider",
+          title: "Rotation",
+          min: 0,
+          max: 1,
+          init: function(pd: plantDescription) {
+            this.enabled = pd.leaves.enable;
+            return pd.leaves.rotation.value;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription) => {
+            originalState.leaves.rotation.value = output.value;
+          }
+        },
+        {
+          type: "Slider",
+          title: "Rotation Variation",
+          default: 0,
+          init: function(pd: plantDescription) {
+            this.enabled = pd.leaves.enable;
+            return pd.leaves.rotation.variation;
+          },
+          onUpdate: (output: parameter, originalState: plantDescription) => {
+            if (output.value === 0) {
+              delete originalState.leaves.rotation.variation;
+            } else {
+              originalState.leaves.rotation.variation = output.value;
+            }
           }
         }
       ]

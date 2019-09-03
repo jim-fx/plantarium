@@ -93,7 +93,7 @@ export default {
           title: "Angle",
           default: 0,
           min: 0,
-          max: 45,
+          max: 90,
           init: (pd: plantDescription) => {
             return pd.stem.originAngle.value || 0;
           },

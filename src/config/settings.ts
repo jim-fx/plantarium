@@ -2,6 +2,7 @@ import settings from "../components/settings";
 import getSeed from "./_getSeed";
 import logger from "../logger";
 import devSettings from "../assets/devSettings.json";
+import updateUI from "../helpers/updateUI";
 
 const log: log = logger("config");
 
@@ -44,6 +45,77 @@ export default {
       type: "Button",
       title: "load dev settings",
       onClick: () => settings.loadSettings(devSettings)
+    },
+    {
+      type: "Group",
+      title: "Ground",
+      children: [
+        {
+          type: "Checkbox",
+          title: "Enable Ground",
+          default: settings.get("ground_enable"),
+          onUpdate: (v: parameter) => {
+            settings.set("ground_enable", v.enabled);
+            updateUI();
+          }
+        },
+        {
+          type: "Slider",
+          title: "Size",
+          min: 0,
+          max: 2,
+          default: 1,
+          init: function() {
+            this.enabled = !!settings.get("ground_enable");
+            return settings.get("ground_size") || 2;
+          },
+          onUpdate: (v: parameter) => {
+            settings.set("ground_size", v.value);
+          }
+        },
+        {
+          type: "Slider",
+          title: "Texture Size",
+          min: 0.2,
+          max: 5,
+          default: 1,
+          init: function() {
+            this.enabled = !!settings.get("ground_enable");
+            return settings.get("ground_texture_size") || 2;
+          },
+          onUpdate: (v: parameter) => {
+            settings.set("ground_texture_size", v.value);
+          }
+        },
+        {
+          type: "Number",
+          title: "X Resolution",
+          min: 3,
+          max: 32,
+          default: settings.get("ground_resX") || 12,
+          init: function() {
+            this.enabled = !!settings.get("ground_enable");
+            return settings.get("ground_resX");
+          },
+          onUpdate: (v: parameter) => {
+            settings.set("ground_resX", v.value);
+          }
+        },
+        {
+          type: "Number",
+          title: "Y Resolution",
+          min: 3,
+          max: 32,
+          default: settings.get("ground_resY") || 12,
+          init: function() {
+            this.enabled = !!settings.get("ground_enable");
+            return settings.get("ground_resY");
+          },
+          onUpdate: (v: parameter) => {
+            settings.set("ground_resY", v.value);
+          }
+        }
+      ]
     },
     {
       type: "Group",
@@ -141,14 +213,6 @@ export default {
           default: settings.get("debug_skeleton"),
           onUpdate: (v: parameter) => {
             settings.set("debug_skeleton", v.enabled);
-          }
-        },
-        {
-          type: "Checkbox",
-          title: "Disable Ground",
-          default: settings.get("debug_disable_ground"),
-          onUpdate: (v: parameter) => {
-            settings.set("debug_disable_ground", v.enabled);
           }
         },
         {
