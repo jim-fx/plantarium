@@ -1,7 +1,10 @@
 interface UIConfig {
   title: string;
   type: string;
+
+  icon: string;
   identifiers?: string[];
+  align?: string;
   open?: boolean;
   default?: number | boolean;
   max?: number;
@@ -56,9 +59,4 @@ interface settings {
   stemResY: number;
   leafResX: number;
   leafResY: number;
-}
-
-interface log {
-  level: number;
-  error: Function;
 }
