@@ -76,6 +76,15 @@
     "diameter": {
       "value": 1
     },
+    "angle": {
+      "value": 1
+    },
+    "offset": {
+      "value": 1
+    },
+    "rotation": {
+      "value": 1
+    },
     "size": {
       "value": 1
     },

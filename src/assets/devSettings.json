@@ -1,5 +1,5 @@
 {
-  "debug_disable_ground": true,
+  "ground_enable": false,
   "debug_pd": true,
   "debug_skeleton": true,
   "debug_grid": true,
