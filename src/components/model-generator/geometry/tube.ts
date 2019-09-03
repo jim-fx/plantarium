@@ -1,5 +1,5 @@
 import { Vec3 } from "ogl";
-import interpolateArray from "../helper/interpolateArray";
+import { interpolateArray, draw } from "../helper";
 import ring from "./ring";
 
 function mergeRings(rings: Float32Array[], position: Float32Array) {
@@ -17,7 +17,7 @@ export default function(skeleton: Float32Array, diameter: number[], resX: number
   const resY = skeleton.length / 3;
 
   const numPosition = resY * resX * 3;
-  const numIndices = (resY + 1) * resX * 12;
+  const numIndices = resY * resX * 6 - resX * 6;
   const numUV = resY * resX * 2;
 
   const position = new Float32Array(numPosition);
@@ -36,16 +36,29 @@ export default function(skeleton: Float32Array, diameter: number[], resX: number
     const currentPoint = new Vec3(skeleton[i * 3 + 0], skeleton[i * 3 + 1], skeleton[i * 3 + 2]);
 
     if (i === 0) {
-      const axis = new Vec3(0, 1, 0);
-      rings[i] = ring(currentPoint, axis, _diameter, resX);
+      const _i = 1;
+
+      //Get average of previous segment and next segment
+      const avg = new Vec3(
+        (currentPoint[0] - skeleton[_i * 3 + 3] - (skeleton[_i * 3 - 3] - currentPoint[0])) / 2,
+        (currentPoint[1] - skeleton[_i * 3 + 4] - (skeleton[_i * 3 - 2] - currentPoint[1])) / 2,
+        (currentPoint[2] - skeleton[_i * 3 + 5] - (skeleton[_i * 3 - 1] - currentPoint[2])) / 2
+      );
+
+      const v2 = new Vec3((skeleton[_i * 3 + 3] - skeleton[_i * 3 - 3]) / 2, (skeleton[_i * 3 + 4] - skeleton[_i * 3 - 2]) / 2, (skeleton[_i * 3 + 5] - skeleton[_i * 3 - 1]) / 2);
+
+      rings[0] = ring(currentPoint, avg, -_diameter, resX, v2);
     } else if (i < l - 1) {
       //Get average of previous segment and next segment
       const avg = new Vec3(
-        (currentPoint[0] - skeleton[i * 3 - 3] + skeleton[i * 3 + 3] - currentPoint[0]) / 2,
-        (currentPoint[1] - skeleton[i * 3 - 2] + skeleton[i * 3 + 4] - currentPoint[1]) / 2,
-        (currentPoint[2] - skeleton[i * 3 - 1] + skeleton[i * 3 + 5] - currentPoint[2]) / 2
+        (currentPoint[0] - skeleton[i * 3 + 3] - (skeleton[i * 3 - 3] - currentPoint[0])) / 2,
+        (currentPoint[1] - skeleton[i * 3 + 4] - (skeleton[i * 3 - 2] - currentPoint[1])) / 2,
+        (currentPoint[2] - skeleton[i * 3 + 5] - (skeleton[i * 3 - 1] - currentPoint[2])) / 2
       );
-      rings[i] = ring(currentPoint, avg, _diameter, resX);
+
+      const v2 = new Vec3((skeleton[i * 3 + 3] - skeleton[i * 3 - 3]) / 2, (skeleton[i * 3 + 4] - skeleton[i * 3 - 2]) / 2, (skeleton[i * 3 + 5] - skeleton[i * 3 - 1]) / 2);
+
+      rings[i] = ring(currentPoint, avg, _diameter, resX, v2);
     } else {
       const prevSegment = new Vec3(currentPoint[0] - skeleton[i * 3 - 3], currentPoint[1] - skeleton[i * 3 - 2], currentPoint[2] - skeleton[i * 3 - 1]);
       rings[i] = ring(currentPoint, prevSegment, _diameter, resX);
@@ -55,29 +68,31 @@ export default function(skeleton: Float32Array, diameter: number[], resX: number
   mergeRings(rings, position);
 
   //Create the indeces
-  const segmentAmount = resY - 1;
-  const facesPerSegment = resX;
+  for (let i = 0; i < resY; i++) {
+    const indexOffset = i * resX * 6;
+    const positionOffset = i * resX;
+    for (let j = 0; j < resX; j++) {
+      const _indexOffset = indexOffset + j * 6;
+      const _positionOffset = positionOffset + j;
 
-  let offset = 0;
-  for (let i = 0; i < segmentAmount; i++) {
-    for (let j = 0; j < facesPerSegment; j++) {
-      const _o = offset * 6;
+      if (j === resX - 1) {
+        index[_indexOffset + 0] = _positionOffset;
+        index[_indexOffset + 1] = _positionOffset - resX + 1;
+        index[_indexOffset + 2] = _positionOffset + 1;
 
-      index[_o + 0] = offset;
-      index[_o + 1] = offset + 1;
-      index[_o + 2] = offset + resX;
+        index[_indexOffset + 3] = _positionOffset + 1;
+        index[_indexOffset + 4] = _positionOffset + resX;
+        index[_indexOffset + 5] = _positionOffset;
+      } else {
+        index[_indexOffset + 0] = _positionOffset;
+        index[_indexOffset + 1] = _positionOffset + 1;
+        index[_indexOffset + 2] = _positionOffset + resX + 1;
 
-      index[_o + 3] = offset + 1;
-      index[_o + 4] = offset + resX + 1;
-      index[_o + 5] = offset + resX;
-
-      offset += 1;
+        index[_indexOffset + 3] = _positionOffset + resX + 1;
+        index[_indexOffset + 4] = _positionOffset + resX;
+        index[_indexOffset + 5] = _positionOffset;
+      }
     }
-
-    //Fix last triangle in segment
-    index[(offset - 1) * 6 + 1] -= resX;
-    index[(offset - 1) * 6 + 3] -= resX;
-    index[(offset - 1) * 6 + 4] -= resX;
   }
 
   return {
