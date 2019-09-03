@@ -3,16 +3,6 @@
   pointer-events: none;
   transition: opacity 0.3s ease;
   padding-left: 19px;
-  > ::after {
-    position: absolute;
-    content: "";
-    opacity: 0;
-    background-color: gray;
-    width: 1px;
-    height: 100%;
-    left: 0;
-    top: 0;
-  }
 
   &.group-open {
     opacity: 1;
