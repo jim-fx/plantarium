@@ -78,10 +78,7 @@ export default function(stem: stemDescription, settings: settings, i: number, st
 
   const noiseScale = stem.noiseScale || 1;
   const noiseStrength = stem.noiseStrength.value || 0;
-  let noiseStrengthCurve;
-  if (noiseStrength) {
-    noiseStrengthCurve = getNoiseStrength(stem.noiseStrength);
-  }
+  let noiseStrengthCurve = getNoiseStrength(stem.noiseStrength);
 
   for (let j = 0; j < amountPoints; j++) {
     const a = j / amountPoints;
