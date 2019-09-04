@@ -1,0 +1,36 @@
+.ui-tab-wrapper {
+  list-style: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  border-radius: $border-radius;
+  border: solid 0.5px;
+  @include themify($themes) {
+    border-color: themed("outlineColor");
+  }
+
+  li {
+    display: inline-block;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    user-select: none;
+    cursor: pointer;
+
+    background-color: transparent;
+    @include themify($themes) {
+      color: themed("tabActive");
+    }
+
+    p {
+      text-align: center;
+      padding: 5px 3px;
+    }
+
+    &.ui-tab-active {
+      @include themify($themes) {
+        background-color: themed("tabActive");
+        color: themed("backgroundColor");
+      }
+    }
+  }
+}

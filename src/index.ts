@@ -1,8 +1,9 @@
 import "./index.scss";
-import "./typography.scss";
+import "./themes.scss";
+
 import resizeTables from "./helpers/resizeTable";
-import p from "../package.json";
-document.getElementById("version").innerHTML = "v" + p.version;
+import { version } from "../package.json";
+document.getElementById("version").innerHTML = "v" + version;
 
 import Stage from "./components/stages/stageClass";
 import { stemConfig, branchConfig, leafConfig, ioConfig, settingsConfig } from "./config/index";

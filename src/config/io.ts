@@ -7,13 +7,8 @@ export default {
   type: "stage",
   children: [
     {
-      type: "Button",
-      title: "remove all",
-      onClick: () => projectManager.removeAllProjects()
-    },
-    {
       type: "ProjectMeta",
-      title: "Project Meta",
+      title: "Active project:",
       identifiers: ["name", "author", "latinName", "class", "family"],
       init: (pd: plantDescription) => {
         return pd.meta;

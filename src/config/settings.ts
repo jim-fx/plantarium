@@ -50,6 +50,27 @@ export default {
       onClick: () => settings.loadSettings(devSettings)
     },
     {
+      type: "Tab",
+      title: "Theme",
+      identifiers: ["light", "dark"],
+      init: () => {
+        return settings.get("theme") || "dark";
+      },
+      onUpdate: (v: string) => {
+        settings.set("theme", v);
+        document.body.classList.forEach(c => {
+          if (c.includes("theme-")) {
+            document.body.classList.remove(c);
+          }
+        });
+        document.body.classList.add("themetransition");
+        document.body.classList.add("theme-" + v);
+        setTimeout(() => {
+          document.body.classList.remove("themetransition");
+        }, 300);
+      }
+    },
+    {
       type: "Group",
       title: "Ground",
       children: [
@@ -170,6 +191,18 @@ export default {
       type: "Group",
       title: "Debug",
       children: [
+        {
+          type: "Button",
+          title: "Reset All",
+          state: "warning",
+          default: settings.get("debug_indices"),
+          onClick: () => {
+            if (confirm("delete all settings and projects?")) {
+              localStorage.clear();
+              window.location.reload();
+            }
+          }
+        },
         {
           type: "Checkbox",
           title: "Show Indices",

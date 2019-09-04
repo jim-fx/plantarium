@@ -10,7 +10,7 @@ export default class UIButton extends UIElement {
     super(stage, wrapper, config);
 
     this.element = document.createElement("button");
-    this.element.classList.add("button");
+    this.element.classList.add("ui-button");
     this.element.innerHTML = config.title;
     this.element.addEventListener(
       "click",
@@ -21,6 +21,10 @@ export default class UIButton extends UIElement {
       },
       false
     );
+
+    if (config.state) {
+      this.element.classList.add("ui-button-" + config.state);
+    }
 
     this.wrapper.append(this.element);
 

@@ -11,6 +11,13 @@ export default class UIProjectMeta extends UIElement {
 
     const table = document.createElement("table");
 
+    if (config.title) {
+      const title = document.createElement("h3");
+      title.style.marginBottom = "15px";
+      title.innerHTML = config.title;
+      this.wrapper.append(title);
+    }
+
     if (config.identifiers) {
       config.identifiers.forEach(id => {
         const tr = document.createElement("tr");

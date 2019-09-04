@@ -1,13 +1,17 @@
 .leaf-creator-wrapper {
   > .canvas-wrapper {
     &:hover {
-      box-shadow: $shadow;
+      @include themify($themes) {
+        box-shadow: themed("shadow");
+      }
     }
     max-height: 200px;
     height: 200px;
     border-radius: 2px;
     overflow: hidden;
-    background-color: $light-gray;
+    @include themify($themes) {
+      background-color: themed("foregroundColor");
+    }
 
     > canvas {
       width: 50%;

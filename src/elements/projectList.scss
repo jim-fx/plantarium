@@ -28,10 +28,19 @@
   }
 
   table {
-    background-color: $light-gray;
+    @include themify($themes) {
+      background-color: themed("backgroundColor");
+    }
     border-spacing: 0;
     width: 100%;
     border-collapse: separate;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: $border-radius;
+    border-bottom: none;
+    @include themify($themes) {
+      border-color: themed("outlineColor");
+    }
 
     > tr {
       width: 100%;
@@ -39,22 +48,30 @@
       transition: background-color 0.2s ease, color 0.2s ease, opacity 0.5s ease;
       cursor: pointer;
       > td {
-        border-bottom: solid thin white;
+        border-bottom: solid thin;
+        @include themify($themes) {
+          border-color: themed("outlineColor");
+        }
         p {
           padding-left: 10px;
         }
         button {
           background-color: transparent;
-          color: white;
+          @include themify($themes) {
+            color: themed("textColor");
+          }
           padding: 0.2em;
         }
       }
       &.ui-project-list-row-active {
-        background-color: white;
-        border-right: solid 5px white;
-        color: $light-gray;
-        button {
-          color: $light-gray;
+        border-right: solid 5px;
+        @include themify($themes) {
+          background-color: themed("foregroundColor");
+          border-color: themed("outlineColor");
+          color: themed("textColor");
+          button {
+            color: themed("textColor");
+          }
         }
       }
       &:last-child > td {
@@ -63,7 +80,9 @@
     }
 
     &:hover {
-      box-shadow: $shadow;
+      @include themify($themes) {
+        box-shadow: themed("shadow");
+      }
     }
   }
   > button {

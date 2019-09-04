@@ -12,17 +12,23 @@ input[type="range"] {
     width: 100%;
     height: 4.3px;
     cursor: pointer;
-    background: #4b4b4b;
+    @include themify($themes) {
+      background: themed("foregroundColor");
+    }
     border-radius: 25px;
   }
   &:hover::-webkit-slider-thumb {
-    box-shadow: $shadow;
+    @include themify($themes) {
+      box-shadow: themed("shadow");
+    }
   }
   &::-webkit-slider-thumb {
     height: 16px;
     width: 16px;
     border-radius: 8px;
-    background: #4c4b4b;
+    @include themify($themes) {
+      background: themed("foregroundColor");
+    }
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -5.85px;
@@ -32,17 +38,23 @@ input[type="range"] {
     height: 4.3px;
     cursor: pointer;
 
-    background: #4b4b4b;
+    @include themify($themes) {
+      background: themed("foregroundColor");
+    }
     border-radius: 25px;
   }
   &:hover::-moz-range-thumb {
-    box-shadow: $shadow;
+    @include themify($themes) {
+      box-shadow: themed("shadow");
+    }
   }
   &::-moz-range-thumb {
     height: 16px;
     width: 16px;
     border-radius: 8px;
-    background: #4c4b4b;
+    @include themify($themes) {
+      background: themed("foregroundColor");
+    }
     cursor: pointer;
   }
   &::-ms-track {
@@ -54,12 +66,16 @@ input[type="range"] {
     color: transparent;
   }
   &::-ms-fill-lower {
-    background: #3e3e3e;
+    @include themify($themes) {
+      background: themed("foregroundColor");
+    }
 
     border-radius: 50px;
   }
   &::-ms-fill-upper {
-    background: #4b4b4b;
+    @include themify($themes) {
+      background: themed("foregroundColor");
+    }
 
     border-radius: 50px;
   }
@@ -70,7 +86,9 @@ input[type="range"] {
     height: 16px;
     width: 16px;
     border-radius: 8px;
-    background: #4c4b4b;
+    @include themify($themes) {
+      background: themed("foregroundColor");
+    }
     cursor: pointer;
     height: 4.3px;
   }

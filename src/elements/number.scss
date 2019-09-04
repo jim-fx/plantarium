@@ -1,12 +1,16 @@
 .ui-number-button-wrapper {
-  background-color: $light-gray;
+  @include themify($themes) {
+    background-color: themed("foregroundColor");
+  }
   position: relative;
   width: fit-content;
   border-radius: 2px;
   pointer-events: none;
 
   &:hover {
-    box-shadow: $shadow;
+    @include themify($themes) {
+      box-shadow: themed("shadow");
+    }
   }
 
   > input {
@@ -15,7 +19,9 @@
     margin: 0;
     text-align: center;
     background-color: transparent;
-    color: white;
+    @include themify($themes) {
+      color: themed("textColor");
+    }
     font-family: "Nunito Sans";
     font-weight: 400;
     border: none;
@@ -33,7 +39,9 @@
     padding: 5px 8px;
     padding-top: 5px;
     background-color: transparent;
-    color: white;
+    @include themify($themes) {
+      color: themed("textColor");
+    }
   }
   > button:nth-child(2) {
     right: 0;

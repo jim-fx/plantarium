@@ -1,18 +1,16 @@
-$dark-gray: #303030;
-$light-gray: #4b4b4b;
-$dark-green: #337150;
-$light-green: #65e2a0;
-$light-red: #e26565;
-$border-radius: 2px;
-$shadow: 0px 0px 2px rgba(0, 0, 0, 0.7);
-
-$transition-rubber: cubic-bezier(0.8, 0.2, 0.2, 0.8);
+@import "./themes.scss";
+//@import "./typography.scss";
 
 html,
 body {
   position: relative;
   width: 100%;
   height: 100%;
+  .themetransition {
+    * {
+      transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease !important;
+    }
+  }
 }
 
 canvas {
@@ -20,8 +18,6 @@ canvas {
 }
 
 body {
-  color: white;
-  background-color: $dark-gray;
   margin: 0px;
   overflow: hidden;
   padding: 0px;
@@ -30,22 +26,13 @@ body {
 }
 
 .component {
-  background-color: $dark-gray;
-  outline: solid #212121 1px;
+  outline: solid 1px;
   height: 100%;
-}
-
-a {
-  color: rgb(0, 100, 200);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-a:visited {
-  color: rgb(0, 80, 160);
+  @include themify($themes) {
+    outline-color: themed("outlineColor");
+    color: themed("textColor");
+    background-color: themed("backgroundColor");
+  }
 }
 
 label {
@@ -62,7 +49,11 @@ textarea {
   margin: 0 0 0.5em 0;
   box-sizing: border-box;
   border: 1px solid #ccc;
-  border-radius: 2px;
+
+  @include themify($themes) {
+    border-color: themed("outlineColor");
+  }
+  border-radius: $border-radius;
 }
 
 input:disabled {
@@ -77,10 +68,13 @@ button:focus {
 }
 
 #topbar {
-  height: 50px;
+  height: 51px;
   > button {
-    color: white;
     margin: 6px 3px;
+    @include themify($themes) {
+      color: themed("textColor");
+      background-color: themed("topBarBackground");
+    }
   }
 }
 
@@ -105,7 +99,6 @@ body > table {
   width: 100%;
   height: calc(100vh - 50px);
   margin: 0;
-  background-color: white;
   border-collapse: collapse;
   position: relative;
 
@@ -131,7 +124,9 @@ body > table {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   margin-right: 5px;
-  background: $light-gray;
+  @include themify($themes) {
+    background: themed("foregroundColor");
+  }
   border-radius: $border-radius;
 }
 

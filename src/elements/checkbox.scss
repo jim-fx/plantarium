@@ -9,7 +9,6 @@ input[type="checkbox"] {
   font-size: 0.85em;
   height: 1.5em;
   width: 1.5em;
-  background-color: #4b4b4b;
   border-radius: 2px;
   display: block;
   color: rgba(255, 255, 255, 0);
@@ -17,12 +16,22 @@ input[type="checkbox"] {
   text-align: center;
   cursor: pointer;
   user-select: none;
+
+  @include themify($themes) {
+    border-color: themed("outlineColor");
+    box-shadow: themed("textColor");
+    background-color: themed("foregroundColor");
+  }
 }
 
 .checkbox-label:hover {
-  box-shadow: $shadow;
+  @include themify($themes) {
+    box-shadow: themed("shadow");
+  }
 }
 
 input[type="checkbox"]:checked + label {
-  color: rgba(255, 255, 255, 1) !important;
+  @include themify($themes) {
+    color: themed("textColor");
+  }
 }

@@ -11,7 +11,9 @@
   }
   input[type="text"] {
     background-color: transparent;
-    color: white;
+    @include themify($themes) {
+      color: themed("textColor");
+    }
     border: none;
     margin: 0;
     padding: 0;
@@ -19,6 +21,6 @@
     margin-top: 5px;
     margin-bottom: 5px;
     font-weight: bolder;
-    width: 50%;
+    width: 80%;
   }
 }

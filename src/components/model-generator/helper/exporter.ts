@@ -10,22 +10,24 @@ const JSM = {};
  * Returns:
  *	{string} the result
  */
-JSM.ExportBodyContentToStl = function(body, name, hasConvexPolygons) {
+JSM.ExportBodyContentToStl = function(body: TransferGeometry, name: string, hasConvexPolygons) {
+  const index;
+
   function AddLineToContent(line) {
     stlContent += line + "\n";
   }
 
-  function AddTriangleToContent(normal, vertex1, vertex2, vertex3) {
-    AddLineToContent("\tfacet normal " + normal.x + " " + normal.y + " " + normal.z);
+  function AddTriangleToContent(normal: number[], vertex1: number[], vertex2: number[], vertex3: number[]) {
+    AddLineToContent("\tfacet normal " + normal[0] + " " + normal[1] + " " + normal[2]);
     AddLineToContent("\t\touter loop");
-    AddLineToContent("\t\t\tvertex " + vertex1.x + " " + vertex1.y + " " + vertex1.z);
-    AddLineToContent("\t\t\tvertex " + vertex2.x + " " + vertex2.y + " " + vertex2.z);
-    AddLineToContent("\t\t\tvertex " + vertex3.x + " " + vertex3.y + " " + vertex3.z);
+    AddLineToContent("\t\t\tvertex " + vertex1[0] + " " + vertex1[1] + " " + vertex1[2]);
+    AddLineToContent("\t\t\tvertex " + vertex2[0] + " " + vertex2[1] + " " + vertex2[2]);
+    AddLineToContent("\t\t\tvertex " + vertex3[0] + " " + vertex3[1] + " " + vertex3[2]);
     AddLineToContent("\t\tendloop");
     AddLineToContent("\tendfacet");
   }
 
-  function AddPolygon(index) {
+  function AddPolygon(index: number[]) {
     var polygon = body.GetPolygon(index);
     var count = polygon.VertexIndexCount();
     if (count < 3) {
@@ -81,10 +83,14 @@ JSM.ExportBodyContentToStl = function(body, name, hasConvexPolygons) {
 
   var stlContent = "";
 
-  var i;
-  for (i = 0; i < body.PolygonCount(); i++) {
-    AddPolygon(i);
-  }
+  (() => {
+    let i;
+    const index = body.index;
+    const l = index.length / 3;
+    for (i = 0; i < l; i++) {
+      AddPolygon([index[i * 3 + 0], index[i * 3 + 1], index[i * 3 + 2]]);
+    }
+  })();
 
   return stlContent;
 };

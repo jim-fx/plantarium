@@ -1,11 +1,10 @@
-import Curve from "./curve";
-import Button from "./button";
-import Slider from "./slider";
-import Group from "./group";
-import Checkbox from "./checkbox";
-import LeafCreator from "./leafCreator";
-import Number from "./number";
-import ProjectMeta from "./projectMeta";
-import ProjectList from "./projectList";
-
-export { Curve, Button, Slider, Group, Checkbox, LeafCreator, Number, ProjectMeta, ProjectList };
+export { default as Curve } from "./curve";
+export { default as Button } from "./button";
+export { default as Slider } from "./slider";
+export { default as Group } from "./group";
+export { default as Checkbox } from "./checkbox";
+export { default as LeafCreator } from "./leafCreator";
+export { default as Number } from "./number";
+export { default as ProjectMeta } from "./projectMeta";
+export { default as ProjectList } from "./projectList";
+export { default as Tab } from "./tab";

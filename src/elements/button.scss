@@ -4,7 +4,7 @@ button {
   margin: 0;
   padding: 8px 12px;
   border: none;
-  color: $light-gray;
+  color: $medium-gray;
   text-transform: lowercase;
   background-color: $light-green;
   cursor: pointer;
@@ -20,6 +20,11 @@ button {
 
 button:focus {
   outline: none;
+}
+
+.ui-button-warning {
+  color: white;
+  background-color: $light-red;
 }
 
 .button-background {

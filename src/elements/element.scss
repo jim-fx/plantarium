@@ -12,7 +12,9 @@
 }
 
 .ui-element-disabled {
-  opacity: 0.5;
+  @include themify($themes) {
+    opacity: themed("disabledOpacity");
+  }
   pointer-events: none !important;
   * {
     pointer-events: none !important;
