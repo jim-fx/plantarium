@@ -17,6 +17,12 @@ canvas {
   image-rendering: optimizeSpeed;
 }
 
+p#version {
+  @include themify($themes) {
+    color: themed("textColor");
+  }
+}
+
 body {
   margin: 0px;
   overflow: hidden;
