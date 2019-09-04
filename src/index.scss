@@ -84,6 +84,11 @@ button:focus {
   padding-top: 10px;
   overflow-x: hidden;
   overflow-y: scroll;
+
+  border-left: solid thin;
+  @include themify($themes) {
+    border-color: themed("outlineColor");
+  }
 }
 
 #version {
