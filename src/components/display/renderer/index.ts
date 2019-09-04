@@ -1,4 +1,4 @@
-import { Renderer, Camera, Orbit, Vec3, Transform, Color, Geometry, Mesh } from "ogl";
+import { Renderer, Camera, Orbit, Vec3, Transform, Color, Geometry, Mesh, Vec2 } from "ogl";
 import { grid, ground } from "../../model-generator/geometry";
 import load from "./helpers/loader";
 
@@ -176,7 +176,8 @@ async function applySettings(_s: settings) {
 
     const basicShader = load.shader("BasicShader", {
       uTime: { value: 0 },
-      roadColor: { value: new Color("#ff0000") },
+      uMouse: { value: new Vec2(1, 1) },
+      uResolution: { value: new Vec2(250, 250) },
       tMap: { value: groundTexture }
     });
 

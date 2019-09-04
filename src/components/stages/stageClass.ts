@@ -28,7 +28,7 @@ export default class Stage implements Stage {
     this._elements = createFromConfig(this);
 
     sidebar.append(this.wrapper);
-    StageHandler.registerStage(this);
+    StageHandler.registerStage(this, config);
   }
 
   show() {

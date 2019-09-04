@@ -16,9 +16,28 @@ const activeStageTitle = localStorage.activeStageTitle || "stem";
 log("default active stage: " + activeStageTitle, 3);
 
 export default {
-  registerStage: (stage: Stage) => {
+  registerStage: (stage: Stage, config?: UIConfig) => {
     const button = document.createElement("button");
-    button.innerHTML = stage.config.title;
+
+    if (config) {
+      if (config.align) {
+        button.classList.add("align-right");
+      }
+
+      if (config.icon) {
+        button.classList.add(`icon`);
+        button.classList.add(`icon-${config.icon}`);
+      }
+
+      if (config.iconOnly) {
+        button.classList.add(`only-icon`);
+      }
+    }
+
+    if (!config.iconOnly) {
+      button.innerHTML = stage.config.title;
+    }
+
     button.addEventListener(
       "click",
       () => {
