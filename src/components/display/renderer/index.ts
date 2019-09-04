@@ -26,7 +26,15 @@ let gridSize: number = 5;
 let gridResolution: number = 8;
 let gridMesh: Mesh;
 
+let _deferredSettings: settings;
+
 async function applySettings(_s: settings) {
+  if (!_deferredSettings) {
+    if (_s) {
+      _deferredSettings = _s;
+    }
+  }
+
   if (plant) {
     if (_s["debug_wireframe"]) {
       plantMesh.mode = gl.LINES;
@@ -38,6 +46,7 @@ async function applySettings(_s: settings) {
       leafMesh.mode = gl.TRIANGLES;
     }
   }
+
   if (_s["debug_indices"]) {
     showIndices = true;
   } else {
@@ -51,9 +60,9 @@ async function applySettings(_s: settings) {
   }
 
   if (groundMesh) {
-    const resX = _s["ground_resX"] || 6;
-    const resY = _s["ground_resY"] || 6;
-    const size = _s["ground_size"] || 0;
+    const resX = _s["ground_resX"] || 12;
+    const resY = _s["ground_resY"] || 12;
+    const size = _s["ground_size"] || 0.00001;
     if (resX && resY && size) {
       const groundGeometry = ground(size, resX, resY);
       groundMesh.geometry = new Geometry(gl, {
@@ -258,6 +267,10 @@ async function applySettings(_s: settings) {
       })
     });
     groundMesh.setParent(scene);
+
+    if (_deferredSettings) {
+      applySettings(_deferredSettings);
+    }
   })();
 
   requestAnimationFrame(render);
