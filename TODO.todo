@@ -6,25 +6,36 @@ UIComponents
 
   -Checkbox
     ✔ Create @done (8/25/2019, 11:45:14 PM)
+  
   -Slider
     ✔ Create @done (8/22/2019, 10:19:49 PM)
     ☐ Add text/label to slider
+  
   - Search Bar
     ☐ Create
+  
   - Number(Integer input)
     ✔ create @done (8/26/2019, 10:39:07 PM)
+  
+  -Tab Row
+    ✔ Create @done (9/4/2019, 3:30:54 PM)
+  
   -TextInput
     ☐ Create
+  
   -Curve
     ✔ Create @done (8/25/2019, 11:45:18 PM)
     ✔ sampling of Curve @done (8/26/2019, 7:45:12 PM)
     ✔ Static function that doesnt require reinit new class @done (9/1/2019, 1:02:49 PM)
     ✔ function to interpolate sampled array @done (9/1/2019, 1:02:48 PM)
     ☐ Add configuration for endpoints [unlocked, [0, 1]]
+
   -LeafGenerator
     ✔ Create @done (8/26/2019, 9:20:33 PM)
+  
   -Button
     ✔ Create @done (8/25/2019, 11:45:23 PM)
+  
   -Group
     ✔ Create @done (8/25/2019, 11:45:25 PM)
 
@@ -33,6 +44,7 @@ CodeComponent
 
   -Stage
     ✔ Create @done (8/22/2019, 10:20:21 PM)
+
   -Render/Scene
     ✔ Create @done (8/25/2019, 11:45:05 PM)
 
@@ -43,6 +55,9 @@ CodeComponent
 
   - Project Manager
     ☐ Move to seperate UI Layer?
+
+  - Exporter
+    ☐ Create
 
 Generator
 --------------------------------------------------
@@ -67,8 +82,8 @@ Generator
 
   - leafPlacement
     ✔ Create @done (9/2/2019, 12:52:14 PM)
-    ☐ Remove leave from origin of stems
-    ☐ Fix leav rotation
+    ✔ Remove leave from origin of stems @done (9/4/2019, 1:10:50 PM)
+    ✔ Fix leav rotation @done (9/4/2019, 1:10:45 PM)
 
   - leafGeometry
     ✔ Create @done (9/2/2019, 1:49:37 AM)
@@ -90,6 +105,9 @@ Long Shots
 --------------------------------------------
 
   ☐ Growth simulator
+
+  ☐ Blender Plugin
+
 
 Fixes
 --------------------------------------------
