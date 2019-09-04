@@ -1,6 +1,7 @@
 export default {
   title: "stem",
   type: "stage",
+  icon: "stem",
   children: [
     {
       type: "Number",

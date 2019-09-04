@@ -2,7 +2,8 @@ interface UIConfig {
   title: string;
   type: string;
 
-  icon: string;
+  icon?: string;
+  iconOnly?: boolean;
   identifiers?: string[];
   align?: string;
   open?: boolean;

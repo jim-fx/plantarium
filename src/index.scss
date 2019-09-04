@@ -88,7 +88,6 @@ button:focus {
   padding: 30px;
   height: 100%;
   padding-top: 10px;
-  margin-top: 1px;
   overflow-x: hidden;
   overflow-y: scroll;
 }
@@ -134,4 +133,50 @@ body > table {
   margin-right: 5px;
   background: $light-gray;
   border-radius: $border-radius;
+}
+
+.icon {
+  height: 2.5em;
+  padding-left: 30px;
+}
+
+.align-right {
+  float: right;
+  right: 5px;
+}
+
+.icon::before {
+  position: absolute;
+  content: "";
+  left: 2px;
+  top: 15%;
+  width: 30px;
+  height: 70%;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.only-icon {
+  width: 40px;
+  color: transparent !important;
+}
+
+.only-icon::before {
+  left: 7px;
+}
+
+.icon-settings::before {
+  background-image: url(assets/icons/cog.svg);
+}
+
+.icon-stem::before {
+  background-image: url(assets/icons/stem.svg);
+}
+
+.icon-branch::before {
+  background-image: url(assets/icons/branch.svg);
+}
+
+.icon-leaf::before {
+  background-image: url(assets/icons/leaf.svg);
 }

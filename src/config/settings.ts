@@ -4,11 +4,14 @@ import logger from "../logger";
 import devSettings from "../assets/devSettings.json";
 import updateUI from "../helpers/updateUI";
 
-const log: log = logger("config");
+const log = logger("config");
 
 export default {
   title: "settings",
   type: "stage",
+  align: "right",
+  icon: "settings",
+  iconOnly: true,
   children: [
     {
       type: "Checkbox",

@@ -3,6 +3,7 @@ import updateUI from "../helpers/updateUI";
 export default {
   title: "leaf",
   type: "stage",
+  icon: "leaf",
   children: [
     {
       type: "Checkbox",
