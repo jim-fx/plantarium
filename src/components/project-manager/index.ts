@@ -2,6 +2,9 @@ import defaultPD from "../../assets/defaultPlantDescription.json";
 import importer from "../io/importer";
 import incrementProjectName from "./incrementProjectName";
 import logger from "../../logger";
+import { version as _version } from "../../../package.json";
+
+const version = versionToNumber(_version);
 const log = logger("project manager");
 
 //Download
@@ -17,9 +20,17 @@ Object.keys(localStorage)
   .filter(k => k.includes("_pd_"))
   .forEach(k => {
     const name = k.replace("_pd_", "");
-    metaStore.set(name, JSON.parse(localStorage.getItem(k)).meta);
+    metaStore.set(name, JSON.parse(<string>localStorage.getItem(k)).meta);
     projectStore.set(name, undefined);
   });
+
+function versionToNumber(v: string) {
+  return parseInt(v.split(".").join(""));
+}
+
+function upgradeProject(pd: plantDescription): plantDescription {
+  return Object.assign(JSON.parse(JSON.stringify(defaultPD)), pd);
+}
 
 const pm = {
   updateMeta: (oldMeta: plantMetaInfo, newMeta: plantMetaInfo): string => {
@@ -60,8 +71,20 @@ const pm = {
     //Load new from localStorage
     projectStore.set(activeProjectName, JSON.parse(localStorage["_pd_" + name]));
 
-    //@ts-ignore
-    importer.init(projectStore.get(activeProjectName));
+    const activePD = <plantDescription>projectStore.get(activeProjectName);
+    if (activePD.meta.plantariumVersion) {
+      if (versionToNumber(activePD.meta.plantariumVersion) < version) {
+        log(`upgraded project ${activePD.meta.name} from version: ${activePD.meta.plantariumVersion} to version:${_version}`, 2);
+        activePD.meta.plantariumVersion = _version;
+        importer.init(upgradeProject(activePD));
+      } else {
+        importer.init(activePD);
+      }
+    } else {
+      activePD.meta.plantariumVersion = _version;
+      importer.init(activePD);
+    }
+
     return true;
   },
   addNewProject: (name?: string) => {
@@ -97,18 +120,11 @@ const pm = {
       pm.setActiveProject(projectStore.keys().next().value);
     }
   },
-  removeAllProjects: () => {
-    Array.from(projectStore.keys()).forEach(name => {
-      delete localStorage["_pd_" + name];
-      projectStore.delete(name);
-    });
-    pm.loadProject(defaultPD);
-  },
   save: (pd: plantDescription) => {
     pd.meta.lastSaved = Date.now();
     projectStore.set(pd.meta.name, pd);
     metaStore.set(pd.meta.name, pd.meta);
-    localStorage["_pd_" + pd.meta.name] = JSON.stringify(pd);
+    localStorage.setItem("_pd_" + pd.meta.name, JSON.stringify(pd));
   },
   loadProject: (pd: plantDescription) => {
     localStorage.setItem("_pd_" + pd.meta.name, JSON.stringify(pd));

@@ -9,6 +9,8 @@ interface parameter {
 
 interface plantMetaInfo {
   name: string;
+
+  plantariumVersion?: string;
   seed?: number;
   randomSeed?: boolean;
   lastSaved?: number;
