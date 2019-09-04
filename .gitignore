@@ -3,3 +3,4 @@ build/*.js
 build/*.css
 build/*.map
 build/stats.html
+.vscode
