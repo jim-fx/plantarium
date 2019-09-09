@@ -10,7 +10,6 @@ import createBranchGeometry from "./createBranchGeometry";
 import createLeaves from "./createLeaves";
 
 let oldSettings: string;
-
 const debugLines: Float32Array[] = [];
 draw.setSkeleton(debugLines);
 

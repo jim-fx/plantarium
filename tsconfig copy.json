@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "resolveJsonModule": true,
+    "noImplicitAny": true,
+    "importHelpers": true,
+    "declarationDir": "build/types",
+    "declaration": true,
+    "target": "es2015",
+    "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "lib": ["dom", "esnext", "esnext.asynciterable"],
+    "strict": true,
+    "experimentalDecorators": true,
+    "allowJs": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["build"]
+}
