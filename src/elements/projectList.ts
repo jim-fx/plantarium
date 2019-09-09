@@ -1,4 +1,5 @@
 import "./projectList.scss";
+import icon from "../assets/icons";
 import UIElement from "./element";
 import projectManager from "../components/project-manager";
 import makeEditable from "../helpers/makeEditable";
@@ -59,7 +60,7 @@ export default class UIProjectList extends UIElement {
       },
       false
     );
-    downloadJSONButton.innerHTML = "↓";
+    downloadJSONButton.append(icon.arrow);
     buttons.append(downloadJSONButton);
 
     //Create the delete Button
@@ -81,7 +82,7 @@ export default class UIProjectList extends UIElement {
       },
       false
     );
-    deleteButton.innerHTML = "✖";
+    deleteButton.append(icon.cross);
     buttons.append(deleteButton);
     tr.append(buttons);
 

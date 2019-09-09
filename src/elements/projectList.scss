@@ -56,6 +56,8 @@
           padding-left: 10px;
         }
         button {
+          width: 25px;
+          height: 25px;
           background-color: transparent;
           @include themify($themes) {
             color: themed("textColor");
@@ -85,7 +87,7 @@
       }
     }
   }
-  > button {
+  >button {
     width: calc(100% - 5px);
     padding: 3px 12px;
     border-radius: 0 0 $border-radius $border-radius;
