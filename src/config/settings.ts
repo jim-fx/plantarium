@@ -10,7 +10,7 @@ export default {
   title: "settings",
   type: "stage",
   align: "right",
-  icon: "settings",
+  icon: "cog",
   iconOnly: true,
   children: [
     {

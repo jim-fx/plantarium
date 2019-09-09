@@ -1,4 +1,5 @@
 import "./checkbox.scss";
+import icon from "../assets/icons";
 import UIElement from "./element";
 
 let id = 0;
@@ -42,7 +43,7 @@ export default class UICheckbox extends UIElement {
 
     const label = document.createElement("label");
     label.classList.add("checkbox-label");
-    label.innerHTML = "✖";
+    label.append(icon.cross)
     label.setAttribute("for", _id);
 
     this.wrapper.append(this.element);

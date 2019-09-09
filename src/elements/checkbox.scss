@@ -22,6 +22,15 @@ input[type="checkbox"] {
     box-shadow: themed("textColor");
     background-color: themed("foregroundColor");
   }
+
+  
+  > svg{
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    @include themify($themes) {
+      stroke-color: themed("textColor");
+    }
+  }
 }
 
 .checkbox-label:hover {
@@ -30,8 +39,6 @@ input[type="checkbox"] {
   }
 }
 
-input[type="checkbox"]:checked + label {
-  @include themify($themes) {
-    color: themed("textColor");
-  }
+input[type="checkbox"]:checked + label >svg{
+  opacity: 1;
 }

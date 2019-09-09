@@ -1,4 +1,5 @@
 import "./group.scss";
+import icon from "../assets/icons";
 
 const groupState = "groupState" in localStorage ? JSON.parse(localStorage.groupState) : {};
 let incrementer = 0;
@@ -19,7 +20,7 @@ export default class Group {
     toppart.classList.add("group-toppart");
 
     const triangle = document.createElement("span");
-    triangle.innerHTML = "◢";
+    triangle.appendChild(icon.triangle)
     toppart.append(triangle);
 
     const _title = document.createElement("h3");

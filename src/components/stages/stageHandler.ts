@@ -1,4 +1,5 @@
 import logger from "../../logger";
+import icon from "../../assets/icons";
 
 const log = logger("stage handler");
 
@@ -18,6 +19,7 @@ log("default active stage: " + activeStageTitle, 3);
 export default {
   registerStage: (stage: Stage, config?: UIConfig) => {
     const button = document.createElement("button");
+    button.classList.add("topbar-button")
 
     if (config) {
       if (config.align) {
@@ -25,17 +27,19 @@ export default {
       }
 
       if (config.icon) {
-        button.classList.add(`icon`);
-        button.classList.add(`icon-${config.icon}`);
+        button.append(icon[config.icon]);
+        if (config.iconOnly) {
+          button.classList.add(`only-icon`);
+        }else{
+          button.classList.add('button-icon');
+        }
       }
 
-      if (config.iconOnly) {
-        button.classList.add(`only-icon`);
-      }
+
     }
 
     if (!config.iconOnly) {
-      button.innerHTML = stage.config.title;
+      button.innerHTML += `<p>${stage.config.title}</p>`;
     }
 
     button.addEventListener(

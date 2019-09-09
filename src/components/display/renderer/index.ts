@@ -131,6 +131,7 @@ async function applySettings(_s: settings) {
     width: b.width,
     antialias: true,
     height: b.height,
+    dpr: window.devicePixelRatio||1,
     canvas: canvas
   });
   gl = renderer.gl;

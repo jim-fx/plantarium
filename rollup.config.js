@@ -7,6 +7,7 @@ import liveServer from "rollup-plugin-live-server";
 import glslify from "rollup-plugin-glslify";
 import { terser } from "rollup-plugin-terser";
 import analyze from "rollup-plugin-analyzer";
+import svg from 'rollup-plugin-svg'
 
 import visualizer from "rollup-plugin-visualizer";
 
@@ -36,6 +37,8 @@ export default [
       commonjs({
         sourceMap: !PROD
       }),
+
+      svg(),
 
       PROD && terser(),
 

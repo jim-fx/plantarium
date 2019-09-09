@@ -8,7 +8,7 @@ body {
   height: 100%;
   .themetransition {
     * {
-      transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease !important;
+      transition: color 0.3s, background-color 0.3s, border-color 0.3s !important;
     }
   }
 }
@@ -74,12 +74,28 @@ button:focus {
 }
 
 #topbar {
+  position: relative;
   height: 51px;
-  > button {
-    margin: 6px 3px;
+  border-bottom: solid thin;
+  @include themify($themes) {
+    border-color: themed("outlineColor");
+  }
+  > .topbar-button {
+    height: 100%;
+    margin: 0px 5px;
+    overflow: hidden;
+    transition: color 0.3s ease;
+    
     @include themify($themes) {
       color: themed("textColor");
-      background-color: themed("topBarBackground");
+    }
+    &.button-active{
+      @include themify($themes) {
+        color: themed("backgroundColor");
+        >svg{
+          stroke: themed("backgroundColor") !important;
+        }
+      }
     }
   }
 }
@@ -141,9 +157,17 @@ body > table {
   border-radius: $border-radius;
 }
 
-.icon {
+.button-icon {
   height: 2.5em;
   padding-left: 30px;
+  >svg{
+    position: absolute;
+    padding-left: 50px;
+    height: 25px;
+    width: 25px;
+    left: -50px;
+    top: 13px;
+  }
 }
 
 .align-right {
@@ -162,15 +186,6 @@ body > table {
   background-repeat: no-repeat;
 }
 
-.only-icon {
-  width: 40px;
-  color: transparent !important;
-}
-
-.only-icon::before {
-  left: 7px;
-}
-
 .icon-settings::before {
   background-image: url(assets/icons/cog.svg);
 }
@@ -185,4 +200,25 @@ body > table {
 
 .icon-leaf::before {
   background-image: url(assets/icons/leaf.svg);
+}
+
+svg{
+  width: 100%;
+  height: 100%;
+  stroke-width: 1px;
+  fill: none;
+  transition: stroke 0.3s ease;
+  @include themify($themes) {
+    stroke: themed("textColor");
+  }
+}
+.only-icon {
+  width: 40px;
+  padding: 5px;
+  margin-bottom: -1px !important;
+  color: transparent !important;
+}
+
+.only-icon::before {
+  left: 7px;
 }

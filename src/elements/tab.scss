@@ -7,7 +7,7 @@
   border-radius: $border-radius;
   border: solid 0.5px;
   @include themify($themes) {
-    border-color: themed("outlineColor");
+    border-color: themed("foregroundColor");
   }
 
   li {
@@ -28,8 +28,8 @@
 
     &.ui-tab-active {
       @include themify($themes) {
-        background-color: themed("tabActive");
-        color: themed("backgroundColor");
+        background-color: themed("foregroundColor");
+        color: themed("textColor");
       }
     }
   }
