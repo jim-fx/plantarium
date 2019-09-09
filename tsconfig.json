@@ -1,15 +1,25 @@
 {
   "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
-    "lib": ["dom", "es2016", "esnext.asynciterable"],
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
     "moduleResolution": "node",
-    "outDir": "./dist",
-    "strict": true,
-    "strictPropertyInitialization": false,
-    "sourceMap": true,
+    "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "resolveJsonModule": true,
+    "noImplicitAny": true,
+    "importHelpers": true,
+    "declarationDir": "build/types",
+    "declaration": true,
+    "target": "es2015",
+    "module": "commonjs",
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "lib": ["dom", "esnext", "esnext.asynciterable"],
+    "strict": true,
+    "experimentalDecorators": true,
+    "allowJs": true
   },
-  "include": ["./src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["build"]
 }

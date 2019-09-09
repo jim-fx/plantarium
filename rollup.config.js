@@ -13,12 +13,7 @@ import visualizer from "rollup-plugin-visualizer";
 
 const PROD = process.env.ROLLUP_WATCH !== "true";
 
-//NODEJS
-import globals from "rollup-plugin-node-globals";
-import builtins from "rollup-plugin-node-builtins";
-import typescript from 'rollup-plugin-typescript';
-
-const extensions = [ '.mjs','.js', '.json', '.node', ".ts"];
+const extensions = [ '.js', ".ts"];
 
 export default [
   {
@@ -63,17 +58,17 @@ export default [
       //Import GLSL Shaders
       glslify({ include: ["**/*.vert", "**/*.frag"] }),
 
-      PROD &&
+      !PROD &&
         liveServer({
-          root: "./build/client",
-          open: false,
+          root: "./build",
+          open: true,
           logLevel: 0
         })
     ],
 
     output: [
       {
-        file: "./build/client/bundle.js",
+        file: "./build/bundle.js",
         format: "iife",
         name: "plantarium_client",
         sourcemap: true
@@ -109,54 +104,10 @@ export default [
 
     output: [
       {
-        file: "./build/client/sw.js",
+        file: "./build/sw.js",
         format: "iife",
         name: "plantarium_serviceworker",
         sourcemap: true
-      }
-    ]
-  },
-  {
-    input: "./server/server.ts",
-
-    plugins: [
-
-      json(),
-
-      // Allows node_modules resolution
-      resolve({ 
-        preferBuiltins: true,
-        extensions }),
-
-      // Allow bundling cjs modules. Rollup doesn't understand cjs
-      commonjs({
-        sourceMap: !PROD
-      }),
-
-      typescript({
-        moduleResolution: "node"
-      }),
-
-      globals(),
-
-      builtins(),
-
-      PROD &&
-        analyze({
-          summaryOnly: true,
-          limit: 10
-        }),
-
-      PROD && terser()
-
-      //!PROD && run()
-    ],
-
-    output: [
-      {
-        file: "./build/server/server.js",
-        format: "cjs",
-        name: "plantarium_server"
       }
     ]
   }

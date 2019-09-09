@@ -75,13 +75,21 @@ async function applySettings(_s: settings) {
 
     if (_s["ground_enable"]) {
       groundMesh.scale.set(1, 1, 1);
+      if(!groundMesh.parent){
+        groundMesh.setParent(scene);
+        console.log(groundMesh.geometry.attributes.index)
+      }
+      groundMesh.geometry.setDrawRange(0, 890);
     } else {
-      groundMesh.scale.set(0, 0, 0);
+      groundMesh.scale.set(0.00001, 0, 0);
     }
 
     if (_s["ground_texture_size"]) {
       groundMesh.program.uniforms.texScale.value = _s["ground_texture_size"];
     }
+
+
+
   }
 
   if (plant) {
@@ -113,7 +121,8 @@ async function applySettings(_s: settings) {
         gridMesh.geometry = new Geometry(gl, {
           position: { size: 3, data: new Float32Array(gridGeometry.position) },
           normal: { size: 3, data: new Float32Array(gridGeometry.normal) },
-          uv: { size: 2, data: new Float32Array(gridGeometry.uv) }
+          uv: { size: 2, data: new Float32Array(gridGeometry.uv) },
+          index: { size: 1, data: new Uint16Array(gridGeometry.index) }
         });
       }
 
@@ -198,7 +207,8 @@ async function applySettings(_s: settings) {
       geometry: new Geometry(gl, {
         position: { size: 3, data: new Float32Array(gridGeometry.position) },
         normal: { size: 3, data: new Float32Array(gridGeometry.normal) },
-        uv: { size: 2, data: new Float32Array(gridGeometry.uv) }
+        uv: { size: 2, data: new Float32Array(gridGeometry.uv) },
+        index: { size: 1, data: new Uint16Array(gridGeometry.index) }
       }),
       program: basicShader
     });
@@ -267,7 +277,6 @@ async function applySettings(_s: settings) {
         index: { size: 1, data: new Uint16Array([0, 0, 0]) }
       })
     });
-    groundMesh.setParent(scene);
 
     if (_deferredSettings) {
       applySettings(_deferredSettings);
