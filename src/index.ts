@@ -1,9 +1,10 @@
 import "./index.scss";
 import "./themes.scss";
+import 'whatwg-fetch'
 
 import resizeTables from "./helpers/resizeTable";
 import { version } from "../package.json";
-document.getElementById("version").innerHTML = "v" + version;
+(<HTMLElement>document.getElementById("version")).innerHTML = "v" + version;
 
 import Stage from "./components/stages/stageClass";
 import { stemConfig, branchConfig, leafConfig, ioConfig, settingsConfig } from "./config/index";

@@ -77,7 +77,6 @@ async function applySettings(_s: settings) {
       groundMesh.scale.set(1, 1, 1);
       if(!groundMesh.parent){
         groundMesh.setParent(scene);
-        console.log(groundMesh.geometry.attributes.index)
       }
       groundMesh.geometry.setDrawRange(0, 890);
     } else {

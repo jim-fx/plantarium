@@ -1,1 +1,3 @@
-export {default as id} from "./id";
+module.exports = {
+    id: require("./id")
+}

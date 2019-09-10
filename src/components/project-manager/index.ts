@@ -2,6 +2,10 @@ import defaultPD from "../../assets/defaultPlantDescription.json";
 import importer from "../io/importer";
 import incrementProjectName from "./incrementProjectName";
 import logger from "../../logger";
+import dataManager from "./dataManager";
+
+dataManager();
+
 import { version as _version } from "../../../package.json";
 
 const version = versionToNumber(_version);
