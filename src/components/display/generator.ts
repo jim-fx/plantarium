@@ -27,7 +27,7 @@ const generate = async (_pd: plantDescription) => {
 
 //Initializing
 (async () => {
-  const GeneratorWrapper = Comlink.wrap(new Worker("generator.js"));
+  const GeneratorWrapper = Comlink.wrap(new Worker("sw.js"));
   const _instance = await new GeneratorWrapper();
   instance = _instance;
   if (pd) {

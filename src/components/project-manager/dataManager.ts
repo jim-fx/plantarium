@@ -22,6 +22,6 @@ async function bootstrap() {
   console.log(res.data);
 }
 
-bootstrap();
+//bootstrap();
 
 export default function() {}

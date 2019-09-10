@@ -1,4 +1,14 @@
-import { Renderer, Camera, Orbit, Vec3, Transform, Color, Geometry, Mesh, Vec2 } from "ogl";
+import {
+  Renderer,
+  Camera,
+  Orbit,
+  Vec3,
+  Transform,
+  Color,
+  Geometry,
+  Mesh,
+  Vec2
+} from "ogl";
 import { grid, ground } from "../../model-generator/geometry";
 import load from "./helpers/loader";
 
@@ -75,7 +85,7 @@ async function applySettings(_s: settings) {
 
     if (_s["ground_enable"]) {
       groundMesh.scale.set(1, 1, 1);
-      if(!groundMesh.parent){
+      if (!groundMesh.parent) {
         groundMesh.setParent(scene);
       }
       groundMesh.geometry.setDrawRange(0, 890);
@@ -86,9 +96,6 @@ async function applySettings(_s: settings) {
     if (_s["ground_texture_size"]) {
       groundMesh.program.uniforms.texScale.value = _s["ground_texture_size"];
     }
-
-
-
   }
 
   if (plant) {
@@ -139,7 +146,7 @@ async function applySettings(_s: settings) {
     width: b.width,
     antialias: true,
     height: b.height,
-    dpr: window.devicePixelRatio||1,
+    dpr: window.devicePixelRatio || 1,
     canvas: canvas
   });
   gl = renderer.gl;
@@ -166,7 +173,10 @@ async function applySettings(_s: settings) {
   camera.position.set(0, 2, 4);
   camera.lookAt(new Vec3(0, 0, 0));
 
-  if (localStorage.pdCamera) camera.position.fromArray(localStorage.pdCamera.split(",").map((v: string) => parseFloat(v)));
+  if (localStorage.pdCamera)
+    camera.position.fromArray(
+      localStorage.pdCamera.split(",").map((v: string) => parseFloat(v))
+    );
 
   overlay.debug3d.camera = camera;
 
@@ -235,19 +245,24 @@ async function applySettings(_s: settings) {
       index: { size: 1, data: new Uint16Array([0, 1]) },
       // simply add the 'instanced' property to flag as an instanced attribute.
       // set the value as the divisor number
-      offset: { instanced: 1, size: 3, data: new Float32Array([0, 0, 0, 1, 1, 1]) },
-      rotation: { instanced: 1, size: 3, data: new Float32Array([0, 0, 0, 1, 1, 1]) },
-      scale: { instanced: 1, size: 3, data: new Float32Array([0, 0, 0, 1, 1, 1]) }
+      offset: {
+        instanced: 1,
+        size: 3,
+        data: new Float32Array([0, 0, 0, 1, 1, 1])
+      },
+      rotation: {
+        instanced: 1,
+        size: 3,
+        data: new Float32Array([0, 0, 0, 1, 1, 1])
+      },
+      scale: {
+        instanced: 1,
+        size: 3,
+        data: new Float32Array([0, 0, 0, 1, 1, 1])
+      }
     });
-
-    const leafTexture = load.texture("assets/leaf.jpg", {
-      wrapS: gl.REPEAT,
-      wrapT: gl.REPEAT
-    });
-
     const instanceShader = load.shader("InstanceShader", {
-      uTime: { value: 0 },
-      tMap: { value: leafTexture }
+      uTime: { value: 0 }
     });
 
     leafMesh = new Mesh(gl, {
@@ -324,9 +339,21 @@ export default {
             uv: { size: 2, data: new Float32Array(model.leaf.uv) },
             index: { size: 1, data: new Uint16Array(model.leaf.index) },
 
-            offset: { instanced: 1, size: 3, data: new Float32Array(model.leaf.offset) },
-            scale: { instanced: 1, size: 3, data: new Float32Array(model.leaf.scale) },
-            rotation: { instanced: 1, size: 3, data: new Float32Array(model.leaf.rotation) }
+            offset: {
+              instanced: 1,
+              size: 3,
+              data: new Float32Array(model.leaf.offset)
+            },
+            scale: {
+              instanced: 1,
+              size: 3,
+              data: new Float32Array(model.leaf.scale)
+            },
+            rotation: {
+              instanced: 1,
+              size: 3,
+              data: new Float32Array(model.leaf.rotation)
+            }
           });
           leafMesh.geometry.setInstancedCount(model.leaf.offset.length / 3);
         } else {
