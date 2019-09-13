@@ -1,4 +1,4 @@
-import updateUI from "../helpers/updateUI";
+import pm from "../components/project-manager";
 
 export default {
   title: "leaf",
@@ -14,7 +14,7 @@ export default {
       },
       onUpdate: (output: parameter, originalState: plantDescription) => {
         originalState.leaves.enable = <boolean>output.enabled;
-        updateUI();
+        pm.updateUI();
       }
     },
     {

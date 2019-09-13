@@ -1,9 +1,16 @@
-import { curveToArray, interpolateArray, interpolateSkeleton, noise } from "./helper";
+import {
+  curveToArray,
+  interpolateArray,
+  interpolateSkeleton,
+  noise
+} from "./helper";
 import { Vec3 } from "ogl";
 
 function getCurvatureArray(param: parameter) {
   if (param.curve && param.curve.length > 2) {
-    return curveToArray(param.curve).map((v, i, a) => (v - 1 * (i / a.length)) * 0.2);
+    return curveToArray(param.curve).map(
+      (v, i, a) => (v - 1 * (i / a.length)) * 0.2
+    );
   } else {
     return [0, 0];
   }
@@ -11,13 +18,20 @@ function getCurvatureArray(param: parameter) {
 
 function getSizeArray(param: parameter) {
   if (param.curve && param.curve.length > 2) {
-    return curveToArray(param.curve).map((v, i, a) => param.value * (v - 1 * (i / a.length - 1)));
+    return curveToArray(param.curve).map(
+      (v, i, a) => param.value * (v - 1 * (i / a.length - 1))
+    );
   } else {
     return [param.value];
   }
 }
 
-export default function(leaf: leafDescription, settings: settings, branchSkeletons: Float32Array[][], stemSkeletons: Float32Array[]) {
+export default function(
+  leaf: leafDescription,
+  settings: settings,
+  branchSkeletons: Float32Array[][],
+  stemSkeletons: Float32Array[]
+) {
   const leafPoints = leaf.shape;
   const leafPointsAmount = leaf.shape.length;
   const leafRes = settings.leafResX || 5;
@@ -49,14 +63,20 @@ export default function(leaf: leafDescription, settings: settings, branchSkeleto
       const offset = i * 3 * leafRes + j * 3;
 
       const x = a * p.x * 0.5;
-      const y = interpolateArray(yCurvatureArray, _a) * yCurvatureStrength + interpolateArray(xCurvatureArray, Math.abs(a)) * xCurvatureStrength * Math.sin(Math.abs(_a) * Math.PI);
+      const y =
+        interpolateArray(yCurvatureArray, _a) * yCurvatureStrength +
+        interpolateArray(xCurvatureArray, Math.abs(a)) *
+          xCurvatureStrength *
+          Math.sin(Math.abs(_a) * Math.PI);
       const z = p.y;
 
       const gravityAngle = _a * _a * gravity;
       const curlBack = 1 - _a * 0.2 * gravity;
       const _x = x;
-      const _y = (Math.cos(gravityAngle) * y - Math.sin(gravityAngle) * z) * curlBack;
-      const _z = (Math.sin(gravityAngle) * y + Math.cos(gravityAngle) * z) * curlBack;
+      const _y =
+        (Math.cos(gravityAngle) * y - Math.sin(gravityAngle) * z) * curlBack;
+      const _z =
+        (Math.sin(gravityAngle) * y + Math.cos(gravityAngle) * z) * curlBack;
 
       position[offset + 0] = _x;
       position[offset + 1] = _y;
@@ -114,7 +134,9 @@ export default function(leaf: leafDescription, settings: settings, branchSkeleto
   const leafSizeArray = getSizeArray(leaf.size);
   const leafSizeVariation = leaf.size.variation || 0;
 
-  const instanceCount = (onStem ? stemSkeletons.length : 0) * leafAmount + (onBranches ? branchSkeletons.flat().length : 0) * leafAmount;
+  const instanceCount =
+    (onStem ? stemSkeletons.length : 0) * leafAmount +
+    (onBranches ? branchSkeletons.flat().length : 0) * leafAmount;
 
   const offset = new Float32Array(instanceCount * 3);
   const scale = new Float32Array(instanceCount * 3);
@@ -133,13 +155,22 @@ export default function(leaf: leafDescription, settings: settings, branchSkeleto
         const switchSide = k % 2 === 0;
         const alpha = k / (leafAmount - 1);
 
-        let positionAlongStem = 1 - k * leafDistance - (switchSide ? (leafOffset - 1) * leafDistance : 0) * 4;
+        let positionAlongStem =
+          1 -
+          k * leafDistance -
+          (switchSide ? (leafOffset - 1) * leafDistance : 0) * 4;
 
         if (leafOffsetVariation) {
-          positionAlongStem -= leafDistance * 2 * noise.n1d(123123923 + k * 2324 + i * 24124) * leafOffsetVariation;
+          positionAlongStem -=
+            leafDistance *
+            2 *
+            noise.n1d(123123923 + k * 2324 + i * 24124) *
+            leafOffsetVariation;
         }
 
-        const origin = new Vec3().fromArray(interpolateSkeleton(stemSkeleton, positionAlongStem));
+        const origin = new Vec3().fromArray(
+          interpolateSkeleton(stemSkeleton, positionAlongStem)
+        );
 
         const _alpha = (amountPoints - 1) * alpha;
 
@@ -147,8 +178,16 @@ export default function(leaf: leafDescription, settings: settings, branchSkeleto
         const p = Math.floor(_alpha);
         const n = Math.ceil(_alpha);
 
-        const prev = new Vec3(stemSkeleton[p * 3 + 0], stemSkeleton[p * 3 + 1], stemSkeleton[p * 3 + 2]);
-        const next = new Vec3(stemSkeleton[n * 3 + 0], stemSkeleton[n * 3 + 1], stemSkeleton[n * 3 + 2]);
+        const prev = new Vec3(
+          stemSkeleton[p * 3 + 0],
+          stemSkeleton[p * 3 + 1],
+          stemSkeleton[p * 3 + 2]
+        );
+        const next = new Vec3(
+          stemSkeleton[n * 3 + 0],
+          stemSkeleton[n * 3 + 1],
+          stemSkeleton[n * 3 + 2]
+        );
 
         offset[_offset + 0] = origin[0];
         offset[_offset + 1] = origin[1];
@@ -157,7 +196,10 @@ export default function(leaf: leafDescription, settings: settings, branchSkeleto
         const _leafSize = interpolateArray(leafSizeArray, 1 - alpha);
         let s = _leafSize * alpha * (1 - k / (leafAmount - 1));
         if (leafSizeVariation) {
-          s -= s * ((noise.n1d(1297213 + k * 123 + i * 942) + 1) / 2) * leafSizeVariation;
+          s -=
+            s *
+            ((noise.n1d(1297213 + k * 123 + i * 942) + 1) / 2) *
+            leafSizeVariation;
         }
         scale[_offset + 0] = s;
         scale[_offset + 1] = s;
@@ -169,12 +211,19 @@ export default function(leaf: leafDescription, settings: settings, branchSkeleto
 
         let rotY = dirVec.angle(_next) * (_next.x > 0 ? 1 : -1);
         if (leafAngleVariation) {
-          rotY -= rotY * noise.n1d(1297213 + k * 123 + i * 942) * leafAngleVariation * 2;
+          rotY -=
+            rotY *
+            noise.n1d(1297213 + k * 123 + i * 942) *
+            leafAngleVariation *
+            2;
         }
 
         let _leafRotation = leafRotation;
         if (leafRotationVariation) {
-          _leafRotation -= _leafRotation * noise.n1d(1297213 + k * 123 + i * 942) * leafRotationVariation;
+          _leafRotation -=
+            _leafRotation *
+            noise.n1d(1297213 + k * 123 + i * 942) *
+            leafRotationVariation;
         }
         const _leafAngle = interpolateArray(leafAngleArray, alpha);
 
@@ -199,13 +248,22 @@ export default function(leaf: leafDescription, settings: settings, branchSkeleto
           const switchSide = k % 2 === 0;
           const alpha = k / (leafAmount - 1);
 
-          let positionAlongStem = 1 - k * leafDistance - (switchSide ? (leafOffset - 1) * leafDistance : 0) * 4;
+          let positionAlongStem =
+            1 -
+            k * leafDistance -
+            (switchSide ? (leafOffset - 1) * leafDistance : 0) * 4;
 
           if (leafOffsetVariation) {
-            positionAlongStem -= leafDistance * 2 * noise.n1d(123123923 + k * 2324 + i * 24124) * leafOffsetVariation;
+            positionAlongStem -=
+              leafDistance *
+              2 *
+              noise.n1d(123123923 + k * 2324 + i * 24124) *
+              leafOffsetVariation;
           }
 
-          const origin = new Vec3().fromArray(interpolateSkeleton(branchSkeleton, positionAlongStem));
+          const origin = new Vec3().fromArray(
+            interpolateSkeleton(branchSkeleton, positionAlongStem)
+          );
 
           const _alpha = (amountPoints - 1) * alpha;
 
@@ -213,8 +271,16 @@ export default function(leaf: leafDescription, settings: settings, branchSkeleto
           const p = Math.floor(_alpha);
           const n = Math.ceil(_alpha);
 
-          const prev = new Vec3(branchSkeleton[p * 3 + 0], branchSkeleton[p * 3 + 1], branchSkeleton[p * 3 + 2]);
-          const next = new Vec3(branchSkeleton[n * 3 + 0], branchSkeleton[n * 3 + 1], branchSkeleton[n * 3 + 2]);
+          const prev = new Vec3(
+            branchSkeleton[p * 3 + 0],
+            branchSkeleton[p * 3 + 1],
+            branchSkeleton[p * 3 + 2]
+          );
+          const next = new Vec3(
+            branchSkeleton[n * 3 + 0],
+            branchSkeleton[n * 3 + 1],
+            branchSkeleton[n * 3 + 2]
+          );
 
           offset[_offset + 0] = origin[0];
           offset[_offset + 1] = origin[1];
@@ -223,7 +289,10 @@ export default function(leaf: leafDescription, settings: settings, branchSkeleto
           const _leafSize = interpolateArray(leafSizeArray, 1 - alpha);
           let s = _leafSize * alpha * (1 - j / (branchAmount - 1));
           if (leafSizeVariation) {
-            s -= s * ((noise.n1d(1297213 + k * 123 + i * 942) + 1) / 2) * leafSizeVariation;
+            s -=
+              s *
+              ((noise.n1d(1297213 + k * 123 + i * 942) + 1) / 2) *
+              leafSizeVariation;
           }
           scale[_offset + 0] = s;
           scale[_offset + 1] = s;
@@ -235,17 +304,25 @@ export default function(leaf: leafDescription, settings: settings, branchSkeleto
 
           let rotY = dirVec.angle(_next) * (_next.x > 0 ? 1 : -1);
           if (leafAngleVariation) {
-            rotY -= rotY * noise.n1d(1297213 + k * 123 + i * 942) * leafAngleVariation * 2;
+            rotY -=
+              rotY *
+              noise.n1d(1297213 + k * 123 + i * 942) *
+              leafAngleVariation *
+              2;
           }
 
           let _leafRotation = leafRotation;
           if (leafRotationVariation) {
-            _leafRotation -= _leafRotation * noise.n1d(1297213 + k * 123 + i * 942) * leafRotationVariation;
+            _leafRotation -=
+              _leafRotation *
+              noise.n1d(1297213 + k * 123 + i * 942) *
+              leafRotationVariation;
           }
           const _leafAngle = interpolateArray(leafAngleArray, alpha);
 
           rotation[_offset + 0] = _leafRotation;
-          rotation[_offset + 1] = rotY + (switchSide ? _leafAngle : -_leafAngle);
+          rotation[_offset + 1] =
+            rotY + (switchSide ? _leafAngle : -_leafAngle);
           rotation[_offset + 2] = 0;
 
           _offset += 3;

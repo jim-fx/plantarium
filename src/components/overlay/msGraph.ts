@@ -1,4 +1,17 @@
-export default function(name: string, suffix: string, left: number, bottom: number, wrapper: HTMLElement): Function {
+interface MSGraph {
+  (ms: number): void;
+  show: () => void;
+  hide: () => void;
+  level: number;
+}
+
+export default function(
+  name: string,
+  suffix: string,
+  left: number,
+  bottom: number,
+  wrapper: HTMLElement
+): MSGraph {
   const msCanvas = document.createElement("canvas");
   msCanvas.style.display = "none";
   const msWidth = 200;

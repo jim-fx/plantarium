@@ -1,35 +1,46 @@
 import "./index.scss";
 import "./themes.scss";
-import 'whatwg-fetch'
+import "whatwg-fetch";
 
 import resizeTables from "./helpers/resizeTable";
 import { version } from "../package.json";
-(<HTMLElement>document.getElementById("version")).innerHTML = "v" + version;
 
+//Import all the stages
 import Stage from "./components/stages/stageClass";
-import { stemConfig, branchConfig, leafConfig, ioConfig, settingsConfig } from "./config/index";
-
+import {
+  stemConfig,
+  branchConfig,
+  leafConfig,
+  ioConfig,
+  settingsConfig
+} from "./config/index";
 import display from "./components/display";
 import { default as importerStage } from "./components/io/importer";
 import { default as exporterStage } from "./components/io/exporter";
 import projectManager from "./components/project-manager";
+import settings from "./components/settings";
 
-const stemStage = new Stage(stemConfig);
-const branchStage = new Stage(branchConfig);
-const leafStage = new Stage(leafConfig);
-const IOStage = new Stage(ioConfig);
-const displayStage = display;
+(() => {
+  resizeTables(<HTMLTableElement>document.querySelector("table"));
 
-const settingsStage = new Stage(settingsConfig);
+  (<HTMLElement>document.getElementById("version")).innerHTML = "v" + version;
 
-importerStage.connect(stemStage);
-stemStage.connect(branchStage);
-branchStage.connect(leafStage);
-leafStage.connect(displayStage);
-displayStage.connect(IOStage);
-IOStage.connect(exporterStage);
-exporterStage.connect(settingsStage);
+  //Initialize all the stages
+  const stemStage = new Stage(stemConfig);
+  const branchStage = new Stage(branchConfig);
+  const leafStage = new Stage(leafConfig);
+  const IOStage = new Stage(ioConfig);
+  const displayStage = display;
+  const settingsStage = new Stage(settingsConfig);
 
-projectManager.init();
+  //Connect all the stages
+  importerStage.connect(stemStage);
+  stemStage.connect(branchStage);
+  branchStage.connect(leafStage);
+  leafStage.connect(displayStage);
+  displayStage.connect(IOStage);
+  IOStage.connect(settingsStage);
+  settingsStage.connect(projectManager);
 
-resizeTables(<HTMLTableElement>document.querySelector("table"));
+  projectManager.init();
+})();

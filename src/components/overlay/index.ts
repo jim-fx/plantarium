@@ -1,5 +1,6 @@
 import msGraph from "./msGraph";
 import debug3D from "./3d";
+
 const wrapper = <HTMLElement>document.getElementById("overlay-wrapper");
 
 const renderPerf = msGraph("render", "ms", 0, 0, wrapper);

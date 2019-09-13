@@ -2,7 +2,7 @@ import "./stage.scss";
 import createFromConfig from "../../elements/createFromConfig";
 import StageHandler from "./stageHandler";
 import UIElement from "../../elements/element";
-import logger from "../../logger";
+import logger from "../logger";
 
 const log = logger("stage class");
 

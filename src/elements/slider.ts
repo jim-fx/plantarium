@@ -1,7 +1,7 @@
 import "./slider.scss";
 import UIElement from "./element";
 import throttle from "../helpers/throttle";
-import logger from "../logger";
+import logger from "../components/logger";
 
 const log = logger("ui-slider");
 
@@ -25,7 +25,8 @@ class UISlider extends UIElement {
 
     this.element.step = Math.abs((max - max) / 100).toString();
 
-    if (config.default !== undefined) this.element.value = "" + config.default * 1000;
+    if (config.default !== undefined)
+      this.element.value = "" + config.default * 1000;
 
     if (config.init) {
       const _init = config.init.bind(this);

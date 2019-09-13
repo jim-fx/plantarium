@@ -1,4 +1,3 @@
-import updateUI from "../../helpers/updateUI";
 const settings: Map<string, any> = new Map();
 
 let obj: any = {};
@@ -8,17 +7,17 @@ const save = () => {
   settings.forEach((v, k) => {
     obj[k] = v;
   });
-  localStorage.setItem("pdSettings", JSON.stringify(obj));
+  localStorage.setItem("settings", JSON.stringify(obj));
 };
 
 const load = () => {
   if ("pdSettings" in localStorage) {
-    obj = JSON.parse(localStorage["pdSettings"]);
+    obj = JSON.parse(localStorage["settings"]);
     Object.keys(obj).forEach(k => {
       settings.set(k, obj[k]);
     });
   } else {
-    localStorage.setItem("pdSettings", "{}");
+    localStorage.setItem("settings", "{}");
   }
 };
 
@@ -34,7 +33,6 @@ export default {
     if (old !== value) {
       settings.set(key, value);
       save();
-      updateUI();
     }
   },
   loadSettings: (_settings: settings) => {
@@ -42,7 +40,6 @@ export default {
       settings.set(k, _settings[k]);
     });
     save();
-    updateUI();
   },
   get object(): settings {
     return obj;

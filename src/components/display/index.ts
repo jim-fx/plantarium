@@ -1,7 +1,7 @@
 import "./display.scss";
-import generate from "./generator";
-import renderer from "./renderer";
-import overlay from "./overlay";
+import sw from "../service-worker";
+import renderer from "../renderer";
+import overlay from "../overlay";
 import settings from "./../settings";
 
 let nextStage: Stage;
@@ -11,7 +11,7 @@ const exp = {
     if (nextStage) {
       nextStage.pd = _pd;
     }
-    generate(_pd);
+    sw.generate(_pd);
   },
   init: function(_pd: plantDescription) {
     const _s = settings.object;

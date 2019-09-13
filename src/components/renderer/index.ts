@@ -9,10 +9,10 @@ import {
   Mesh,
   Vec2
 } from "ogl";
-import { grid, ground } from "../../model-generator/geometry";
+import { grid, ground } from "../model-generator/geometry";
 import load from "./helpers/loader";
 
-import debounce from "../../../helpers/debounce";
+import debounce from "../../helpers/debounce";
 
 import overlay from "../overlay";
 
@@ -88,7 +88,7 @@ async function applySettings(_s: settings) {
       if (!groundMesh.parent) {
         groundMesh.setParent(scene);
       }
-      groundMesh.geometry.setDrawRange(0, 890);
+      groundMesh.geometry.setDrawRange(0, 400);
     } else {
       groundMesh.scale.set(0.00001, 0, 0);
     }
@@ -180,7 +180,9 @@ async function applySettings(_s: settings) {
 
   overlay.debug3d.camera = camera;
 
+  console.log(canvas);
   controls = new Orbit(camera, {
+    element: canvas,
     target: new Vec3(0, 0.2, 0),
     maxPolarAngle: 1.6,
     minDistance: 0.2,
@@ -188,8 +190,7 @@ async function applySettings(_s: settings) {
     //enablePan: false,
     ease: 0.7,
     rotateSpeed: 0.5,
-    inertia: 0.5,
-    element: canvas
+    inertia: 0.5
   });
 
   scene = new Transform();
@@ -288,7 +289,7 @@ async function applySettings(_s: settings) {
         position: { size: 3, data: new Float32Array([0, 0, 0]) },
         normal: { size: 1, data: new Float32Array([0, 0, 0]) },
         uv: { size: 2, data: new Float32Array([0, 0, 0]) },
-        index: { size: 1, data: new Uint16Array([0, 0, 0]) }
+        index: { size: 1, data: new Uint16Array([0]) }
       })
     });
 
@@ -331,7 +332,7 @@ export default {
       showIndices && (overlay.debug3d.points = model.position);
 
       if (model.leaf) {
-        overlay.debug3d.uv = model.leaf.uv;
+        overlay.debug3d.uv = model.uv;
         if (true) {
           leafMesh.geometry = new Geometry(gl, {
             position: { size: 3, data: new Float32Array(model.leaf.position) },

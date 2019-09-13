@@ -6,7 +6,7 @@ canvas.style.width = "100%";
 canvas.style.height = "100%";
 wrapper.append(canvas);
 
-const b = wrapper.parentElement.getBoundingClientRect();
+const b = (<HTMLElement>wrapper.parentElement).getBoundingClientRect();
 const w = b.width;
 const h = b.height;
 canvas.width = w;
@@ -55,7 +55,11 @@ export default {
         //Loop through each point along the skeleton
         const l = skeleton[i].length / 3;
         for (let j = 0; j < l; j++) {
-          const v = new Vec3(skeleton[i][j * 3], skeleton[i][j * 3 + 1], skeleton[i][j * 3 + 2]);
+          const v = new Vec3(
+            skeleton[i][j * 3],
+            skeleton[i][j * 3 + 1],
+            skeleton[i][j * 3 + 2]
+          );
           camera.project(v);
 
           //Convert from normalized coordinates to screen space

@@ -4,7 +4,7 @@ import UIElement from "./element";
 import projectManager from "../components/project-manager";
 import makeEditable from "../helpers/makeEditable";
 
-export default class UIProjectList extends UIElement {
+export default class UIPlantList extends UIElement {
   rows: Map<string, HTMLTableRowElement> = new Map();
   table: HTMLTableElement = document.createElement("table");
   scrollWrapper: HTMLDivElement = document.createElement("div");
@@ -19,7 +19,7 @@ export default class UIProjectList extends UIElement {
     addNewButton.addEventListener(
       "click",
       () => {
-        projectManager.addNewProject();
+        projectManager.addPlant();
       },
       false
     );
@@ -30,8 +30,8 @@ export default class UIProjectList extends UIElement {
     this.wrapper.append(addNewButton);
   }
 
-  addNewProject(_meta: plantMetaInfo) {
-    const _active = projectManager.activeProjectName;
+  addPlant(_meta: plantMetaInfo) {
+    const _active = projectManager.activePlantName;
 
     const tr = document.createElement("tr");
 
@@ -43,7 +43,8 @@ export default class UIProjectList extends UIElement {
       makeEditable(p, (value: string) => {
         const newMeta = JSON.parse(JSON.stringify(_meta));
         newMeta.name = value;
-        p.innerHTML = projectManager.updateMeta(_meta, newMeta);
+        p.innerHTML = value;
+        projectManager.updateMeta(_meta, newMeta);
       })
     );
     projectName.append(p);
@@ -78,7 +79,7 @@ export default class UIProjectList extends UIElement {
         setTimeout(() => {
           rowToBeDeleted.remove();
         }, 500);
-        projectManager.removeProject(_meta);
+        projectManager.deletePlant(_meta);
       },
       false
     );
@@ -88,9 +89,7 @@ export default class UIProjectList extends UIElement {
 
     tr.addEventListener(
       "click",
-      () => {
-        projectManager.setActiveProject(_meta.name);
-      },
+      () => projectManager.setActivePlant(_meta),
       false
     );
 
@@ -104,7 +103,7 @@ export default class UIProjectList extends UIElement {
   }
 
   init() {
-    const newNames = projectManager.projectNames;
+    const newNames = projectManager.plantNames;
 
     //Remove rows if they are not present in the new data
     Array.from(this.rows.keys()).forEach(k => {
@@ -116,14 +115,16 @@ export default class UIProjectList extends UIElement {
     });
 
     //Create all rows that arent created yet
-    const _active = projectManager.activeProjectName;
-    projectManager.projectMetas.forEach((_meta: plantMetaInfo) => {
+    const _active = projectManager.activePlantName;
+    projectManager.plantMetas.forEach((_meta: plantMetaInfo) => {
       const el = this.rows.get(_meta.name);
       if (el) {
         //If name already has a row activate that row
-        _meta.name === _active ? el.classList.add("ui-project-list-row-active") : el.classList.remove("ui-project-list-row-active");
+        _meta.name === _active
+          ? el.classList.add("ui-project-list-row-active")
+          : el.classList.remove("ui-project-list-row-active");
       } else {
-        this.addNewProject(_meta);
+        this.addPlant(_meta);
       }
     });
   }

@@ -1,4 +1,4 @@
-import logger from "../../logger";
+import logger from "../logger";
 import icon from "../../assets/icons";
 
 const log = logger("stage handler");
@@ -13,13 +13,13 @@ let activeButtonBackground = document.createElement("div");
 activeButtonBackground.classList.add("button-background");
 topbar.append(activeButtonBackground);
 
-const activeStageTitle = localStorage.activeStageTitle || "stem";
+const activeStageTitle = window.location.hash.replace("#", "") || "stem";
 log("default active stage: " + activeStageTitle, 3);
 
 export default {
   registerStage: (stage: Stage, config?: UIConfig) => {
     const button = document.createElement("button");
-    button.classList.add("topbar-button")
+    button.classList.add("topbar-button");
 
     if (config) {
       if (config.align) {
@@ -30,12 +30,10 @@ export default {
         button.append(icon[config.icon]);
         if (config.iconOnly) {
           button.classList.add(`only-icon`);
-        }else{
-          button.classList.add('button-icon');
+        } else {
+          button.classList.add("button-icon");
         }
       }
-
-
     }
 
     if (!config.iconOnly) {
@@ -50,7 +48,7 @@ export default {
 
           activeStage.hide();
           activeStage = stage;
-          localStorage.activeStageTitle = stage.title;
+          window.location.hash = stage.title;
           activeStage.show();
 
           activeButton.classList.remove("button-active");

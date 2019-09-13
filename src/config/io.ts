@@ -1,6 +1,7 @@
 import projectManager from "../components/project-manager";
 import settings from "../components/settings";
 import getSeed from "./_getSeed";
+import exporter from "../components/io/exporter";
 
 export default {
   title: "import/export",
@@ -51,6 +52,7 @@ export default {
           },
           onUpdate: (v: parameter) => {
             settings.set("exp_useRandomSeed", v.enabled);
+            projectManager.updateUI();
           }
         },
         {
@@ -61,8 +63,9 @@ export default {
           default: getSeed(settings.get("exp_seed")),
           init: function() {
             if (settings.get("exp_useRandomSeed")) {
-              this.enabled = false;
               const s = Math.floor(Math.random() * 100000);
+              settings.set("exp_seed", s);
+              this.enabled = false;
               this.element.value = s;
               return s;
             } else {
@@ -77,7 +80,9 @@ export default {
         {
           type: "Button",
           title: "download models",
-          onClick: () => {}
+          onClick: () => {
+            exporter.download(projectManager.pd, "obj");
+          }
         }
       ]
     }

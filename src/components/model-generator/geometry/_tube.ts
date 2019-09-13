@@ -13,7 +13,11 @@ function mergeRings(rings: Float32Array[], position: Float32Array) {
   }
 }
 
-export default function(skeleton: Float32Array, diameter: number[], resX: number): TransferGeometry {
+export default function(
+  skeleton: Float32Array,
+  diameter: number[],
+  resX: number
+): TransferGeometry {
   const resY = skeleton.length / 3;
 
   const numPosition = resY * resX * 3;
@@ -23,7 +27,10 @@ export default function(skeleton: Float32Array, diameter: number[], resX: number
   const position = new Float32Array(numPosition);
   const normal = new Float32Array(numPosition);
   const uv = new Float32Array(numUV);
-  const index = numIndices > 65536 ? new Uint32Array(numIndices) : new Uint16Array(numIndices);
+  const index =
+    numIndices > 65536
+      ? new Uint32Array(numIndices)
+      : new Uint16Array(numIndices);
 
   const rings = [];
 
@@ -32,12 +39,27 @@ export default function(skeleton: Float32Array, diameter: number[], resX: number
   for (let i = 0; i < resY; i++) {
     const _diameter = interpolateArray(diameter, 1 - i / (resY - 1));
 
+    //create the uvs
+    for (let j = 0; j < resX; j++) {
+      const offset = i * resX * 2 + j * 2;
+      uv[offset + 0] = -0.5 - j / resX;
+      uv[offset + 1] = i / resY;
+    }
+
     //Current point along line
-    const origin = new Vec3(skeleton[i * 3 + 0], skeleton[i * 3 + 1], skeleton[i * 3 + 2]);
+    const origin = new Vec3(
+      skeleton[i * 3 + 0],
+      skeleton[i * 3 + 1],
+      skeleton[i * 3 + 2]
+    );
 
     if (i < resY - 1) {
       //Next point along line
-      const next = new Vec3(skeleton[i * 3 + 3], skeleton[i * 3 + 4], skeleton[i * 3 + 5]);
+      const next = new Vec3(
+        skeleton[i * 3 + 3],
+        skeleton[i * 3 + 4],
+        skeleton[i * 3 + 5]
+      );
       axis = next.sub(origin);
       rings[i] = ring(origin, axis, _diameter, resX);
     } else {

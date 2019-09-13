@@ -1,9 +1,13 @@
 import * as elements from "./index";
-import logger from "../logger";
+import logger from "../components/logger";
 import UIElement from "./element";
 const log = logger("create elements from config");
 
-function loopThroughChildren(stage: Stage, wrapper: HTMLElement, config: UIConfig): UIElement[] {
+function loopThroughChildren(
+  stage: Stage,
+  wrapper: HTMLElement,
+  config: UIConfig
+): UIElement[] {
   const array: UIElement[] = [];
 
   if (typeof config.children === "object") {

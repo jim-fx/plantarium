@@ -31,7 +31,7 @@ interface stemDescription {
   originRotation: parameter;
 
   noiseStrength: parameter;
-  noiseScale: number;
+  noiseScale?: number;
 }
 
 interface branchDescription {
@@ -54,7 +54,7 @@ interface leafDescription {
   amount: number;
   gravity: number;
 
-  lowestLeaf: number;
+  lowestLeaf?: number;
 
   onStem: boolean;
   onBranches: boolean;

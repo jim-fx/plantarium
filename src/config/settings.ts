@@ -1,8 +1,8 @@
 import settings from "../components/settings";
 import getSeed from "./_getSeed";
-import logger from "../logger";
+import logger from "../components/logger";
 import devSettings from "../assets/devSettings.json";
-import updateUI from "../helpers/updateUI";
+import pm from "../components/project-manager";
 
 const log = logger("config");
 
@@ -80,7 +80,7 @@ export default {
           default: settings.get("ground_enable"),
           onUpdate: (v: parameter) => {
             settings.set("ground_enable", v.enabled);
-            updateUI();
+            pm.updateUI();
           }
         },
         {
@@ -324,12 +324,16 @@ export default {
           min: 0,
           max: 3,
           init: function() {
-            this.title.innerHTML = `${this.config.title} (${["error", "warning", "components", "all"][log.level]})`;
+            this.title.innerHTML = `${this.config.title} (${
+              ["error", "warning", "components", "all"][log.level]
+            })`;
             return log.level;
           },
           onUpdate: function(v: parameter) {
             log.level = <number>v.value;
-            this.title.innerHTML = `${this.config.title} (${["error", "warning", "components", "all"][log.level]})`;
+            this.title.innerHTML = `${this.config.title} (${
+              ["error", "warning", "components", "all"][log.level]
+            })`;
           }
         }
       ]

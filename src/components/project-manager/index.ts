@@ -1,86 +1,78 @@
 import defaultPD from "../../assets/defaultPlantDescription.json";
 import importer from "../io/importer";
-import incrementProjectName from "./incrementProjectName";
-import logger from "../../logger";
-import dataManager from "./dataManager";
+import logger from "../logger";
+import data from "../data-service";
 
-dataManager();
-
+//Helpers
+import incrementPlantName from "./incrementPlantName";
+import { json as downloadJSON } from "../../helpers/download";
+import versionToNumber from "./versionToNumber";
+import updatePlantDefinition from "./updatePlantDefinition";
 import { version as _version } from "../../../package.json";
 
 const version = versionToNumber(_version);
 const log = logger("project manager");
 
-//Download
-const dlAnchorElem = <HTMLAnchorElement>document.getElementById("downloadAnchorElem");
-
-const projectStore: Map<string, plantDescription | undefined> = new Map();
+const plantStore: Map<string, plantDescription | undefined> = new Map();
 const metaStore: Map<string, plantMetaInfo> = new Map();
 
-let activeProjectName: string = localStorage.activeProjectName;
+let activePlantName: string = localStorage.activePlantName;
+let pd: plantDescription;
 
-//Load all saved projects from localStorage;
-Object.keys(localStorage)
-  .filter(k => k.includes("_pd_"))
-  .forEach(k => {
-    const name = k.replace("_pd_", "");
-    metaStore.set(name, JSON.parse(<string>localStorage.getItem(k)).meta);
-    projectStore.set(name, undefined);
-  });
+export default {
+  updateMeta: async function(oldMeta: plantMetaInfo, newMeta: plantMetaInfo) {
+    if (plantStore.has(oldMeta.name)) {
+      let oldPD = <plantDescription>plantStore.get(oldMeta.name);
 
-function versionToNumber(v: string) {
-  return parseInt(v.split(".").join(""));
-}
-
-function upgradeProject(pd: plantDescription): plantDescription {
-  return Object.assign(JSON.parse(JSON.stringify(defaultPD)), pd);
-}
-
-const pm = {
-  updateMeta: (oldMeta: plantMetaInfo, newMeta: plantMetaInfo): string => {
-    if (projectStore.has(oldMeta.name)) {
-      let oldPD = <plantDescription>projectStore.get(oldMeta.name);
-
-      if (projectStore.has(newMeta.name)) {
-        newMeta.name = incrementProjectName(newMeta.name, Array.from(projectStore.keys()));
+      if (plantStore.has(newMeta.name)) {
+        newMeta.name = incrementPlantName(
+          newMeta.name,
+          Array.from(plantStore.keys())
+        );
       }
 
       if (oldPD) {
-        projectStore.delete(oldMeta.name);
+        plantStore.delete(oldMeta.name);
         metaStore.delete(oldMeta.name);
-        delete localStorage["_pd_" + oldMeta.name];
+        data.deletePlant(oldMeta);
         oldPD.meta = newMeta;
-        pm.save(oldPD);
+        this.save(oldPD);
       } else {
-        oldPD = JSON.parse(localStorage["_pd_" + oldMeta.name]);
+        oldPD = await data.getPlant(oldMeta);
         oldPD.meta = newMeta;
-        delete localStorage["_pd_" + oldMeta.name];
-        localStorage.setItem("_pd_" + newMeta.name, JSON.stringify(oldPD));
+        data.deletePlant(oldMeta);
+        data.savePlant(oldPD);
       }
     }
 
-    pm.setActiveProject(newMeta.name);
-    return newMeta.name;
+    this.setActivePlant(newMeta);
   },
-  setActiveProject: (name: string) => {
-    if (name === activeProjectName) return;
+  setActivePlant: async (meta: plantMetaInfo) => {
+    if (meta.name === activePlantName) return;
 
     //Unload old project
-    if (projectStore.has(activeProjectName)) {
-      projectStore.set(activeProjectName, undefined);
+    if (plantStore.has(activePlantName)) {
+      plantStore.set(activePlantName, undefined);
     }
 
-    activeProjectName = name;
+    activePlantName = meta.name;
+    localStorage.setItem("activePlantName", name);
 
-    //Load new from localStorage
-    projectStore.set(activeProjectName, JSON.parse(localStorage["_pd_" + name]));
+    const pd = await data.getPlant(meta);
 
-    const activePD = <plantDescription>projectStore.get(activeProjectName);
+    //Load new from database
+    plantStore.set(activePlantName, pd);
+
+    const activePD = <plantDescription>plantStore.get(activePlantName);
+
     if (activePD.meta.plantariumVersion) {
       if (versionToNumber(activePD.meta.plantariumVersion) < version) {
-        log(`upgraded project ${activePD.meta.name} from version: ${activePD.meta.plantariumVersion} to version:${_version}`, 2);
+        log(
+          `upgraded project ${activePD.meta.name} from version: ${activePD.meta.plantariumVersion} to version:${_version}`,
+          2
+        );
         activePD.meta.plantariumVersion = _version;
-        importer.init(upgradeProject(activePD));
+        importer.init(updatePlantDefinition(activePD));
       } else {
         importer.init(activePD);
       }
@@ -91,80 +83,105 @@ const pm = {
 
     return true;
   },
-  addNewProject: (name?: string) => {
+  addPlant: function(name?: string) {
     if (name) {
       //If the name is already set duplicate it
-      if (projectStore.has(name)) {
-        const newProject = JSON.parse(JSON.stringify(projectStore.get(name)));
-        const newName = incrementProjectName(name, Array.from(projectStore.keys()));
-        newProject.meta.name = newName;
-        pm.save(newProject);
+      if (plantStore.has(name)) {
+        const newPlant = JSON.parse(JSON.stringify(plantStore.get(name)));
+        const newName = incrementPlantName(name, Array.from(plantStore.keys()));
+        newPlant.meta.name = newName;
+        this.save(newPlant);
       } else {
         //Else create a new project from the default one
-        const newProject = JSON.parse(JSON.stringify(defaultPD));
-        newProject.meta.name = incrementProjectName(name, Array.from(projectStore.keys()));
-        pm.save(newProject);
+        const newPlant = JSON.parse(JSON.stringify(defaultPD));
+        newPlant.meta.name = incrementPlantName(
+          name,
+          Array.from(plantStore.keys())
+        );
+        this.save(newPlant);
       }
     } else {
-      const newProject = JSON.parse(JSON.stringify(defaultPD));
-      if (projectStore.has(newProject.meta.name)) {
-        newProject.meta.name = incrementProjectName(newProject.meta.name, Array.from(projectStore.keys()));
+      const newPlant = JSON.parse(JSON.stringify(defaultPD));
+      if (plantStore.has(newPlant.meta.name)) {
+        newPlant.meta.name = incrementPlantName(
+          newPlant.meta.name,
+          Array.from(plantStore.keys())
+        );
       }
-      pm.loadProject(newProject);
+      this.loadPlant(newPlant);
     }
   },
-  removeProject: (_meta: plantMetaInfo) => {
-    projectStore.delete(_meta.name);
+  deletePlant: function(_meta: plantMetaInfo) {
+    plantStore.delete(_meta.name);
     metaStore.delete(_meta.name);
-    delete localStorage["_pd_" + _meta.name];
+    data.deletePlant(_meta);
 
-    if (projectStore.size === 0) {
-      pm.loadProject(defaultPD);
-    } else if (!projectStore.has(activeProjectName)) {
-      pm.setActiveProject(projectStore.keys().next().value);
+    if (plantStore.size === 0) {
+      this.loadPlant(defaultPD);
+    } else if (!plantStore.has(activePlantName)) {
+      this.setActivePlant(plantStore.keys().next().value);
     }
   },
   save: (pd: plantDescription) => {
     pd.meta.lastSaved = Date.now();
-    projectStore.set(pd.meta.name, pd);
+    plantStore.set(pd.meta.name, pd);
     metaStore.set(pd.meta.name, pd.meta);
-    localStorage.setItem("_pd_" + pd.meta.name, JSON.stringify(pd));
+    data.savePlant(pd);
   },
-  loadProject: (pd: plantDescription) => {
-    localStorage.setItem("_pd_" + pd.meta.name, JSON.stringify(pd));
-    pm.setActiveProject(pd.meta.name);
+  loadPlant: function(pd: plantDescription) {
+    data.savePlant(pd);
+    this.setActivePlant(pd.meta);
   },
-  download: (meta: plantMetaInfo) => {
-    const _pd = JSON.parse(localStorage["_pd_" + meta.name]);
-    const dataStr = "data:text/json;charset=utf-8," + JSON.stringify(_pd, null, 2);
-    dlAnchorElem.setAttribute("href", dataStr);
-    dlAnchorElem.setAttribute("download", _pd.meta.name + ".json");
-    dlAnchorElem.click();
+  download: async (meta: plantMetaInfo) => {
+    const pd = await data.getPlant(meta);
+    downloadJSON(pd, meta.name);
   },
-  get projectNames(): string[] {
-    return Array.from(projectStore.keys());
+  get plantNames(): string[] {
+    return Array.from(plantStore.keys());
   },
-  get projectMetas(): plantMetaInfo[] {
+  get plantMetas(): plantMetaInfo[] {
     return Array.from(metaStore.values());
   },
-  get activeProjectName(): string {
-    return activeProjectName;
+  get activePlantName(): string {
+    return activePlantName;
   },
-  init: () => {
-    if (activeProjectName) {
-      log("load project " + activeProjectName + " from localStorage", 2);
-      //Load active project from localStorage
-      pm.setActiveProject(activeProjectName);
-    } else if (projectStore.size > 0) {
-      const projectName = projectStore.keys().next().value;
-      log("load project " + projectName + " from localStorage", 2);
+  set pd(_pd: plantDescription) {
+    pd = _pd;
+    this.save(_pd);
+  },
+  get pd() {
+    return pd;
+  },
+  init: async function() {
+    //Await for the initialization of sw
+    const plantMetas = await data.getPlantMetas();
+
+    if (!plantMetas.length) {
+      data.savePlant(defaultPD);
+      plantStore.set(defaultPD.meta.name, defaultPD);
+      metaStore.set(defaultPD.meta.name, defaultPD.meta);
+      this.setActivePlant(defaultPD.meta);
+    } else {
+      plantMetas.forEach(meta => {
+        metaStore.set(meta.name, meta);
+      });
+    }
+
+    if (activePlantName) {
+      //Load active project from database
+      log("load project " + activePlantName, 2);
+      this.setActivePlant({ name: activePlantName });
+    } else if (plantStore.size > 0) {
       //Set first project active
-      pm.setActiveProject(projectName);
+      const projectName = plantStore.keys().next().value;
+      log("load project " + projectName, 2);
+      this.setActivePlant(projectName);
     } else {
       log("load project default project", 2);
-      pm.loadProject(defaultPD);
+      this.loadPlant(defaultPD);
     }
+  },
+  updateUI: () => {
+    pd && importer.init(pd);
   }
 };
-
-export default pm;

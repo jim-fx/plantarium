@@ -1,6 +1,6 @@
 //For use in the model-generator;
 
-interface LeafGeometry {
+interface InstancedGeometry {
   position: Float32Array;
   normal: Float32Array;
   uv: Float32Array;
@@ -18,5 +18,5 @@ interface TransferGeometry {
 
   skeleton?: Float32Array[];
 
-  leaf?: LeafGeometry;
+  leaf?: InstancedGeometry;
 }

@@ -20,9 +20,15 @@ export default function(origin: Vec3, radius: number, resolution: number = 3) {
   for (let i = 1; i < resolution; i++) {
     const _angle = angle * i;
 
-    const x = Math.cos(_angle) * (startPoint[0] - origin[0]) - Math.sin(_angle) * (startPoint[2] - origin[2]) + origin[0];
+    const x =
+      Math.cos(_angle) * (startPoint[0] - origin[0]) -
+      Math.sin(_angle) * (startPoint[2] - origin[2]) +
+      origin[0];
     const y = origin[1];
-    const z = Math.sin(_angle) * (startPoint[0] - origin[0]) + Math.cos(_angle) * (startPoint[2] - origin[2]) + origin[2];
+    const z =
+      Math.sin(_angle) * (startPoint[0] - origin[0]) +
+      Math.cos(_angle) * (startPoint[2] - origin[2]) +
+      origin[2];
 
     position[i * 3 + 0] = x;
     position[i * 3 + 1] = y;
