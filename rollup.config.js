@@ -13,7 +13,7 @@ import visualizer from "rollup-plugin-visualizer";
 
 const PROD = process.env.ROLLUP_WATCH !== "true";
 
-const extensions = [ '.js', ".ts"];
+const extensions = [".js", ".ts"];
 
 export default [
   {
@@ -76,14 +76,12 @@ export default [
     ]
   },
   {
-    input: "./src/components/model-generator",
+    input: "./src/sw.ts",
 
     plugins: [
       babel({
         extensions: extensions
       }),
-
-      json(),
 
       // Allows node_modules resolution
       resolve({ extensions }),
@@ -92,6 +90,8 @@ export default [
       commonjs({
         sourceMap: !PROD
       }),
+
+      json(),
 
       PROD &&
         analyze({
