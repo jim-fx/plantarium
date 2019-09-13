@@ -1,6 +1,6 @@
 @import "./themes.scss";
-@import "./typography.scss";
 
+// Basic styling
 html,
 body {
   position: relative;
@@ -13,6 +13,51 @@ body {
   }
 }
 
+body {
+  margin: 0px;
+  overflow: hidden;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+
+  > table {
+    width: 100%;
+    height: calc(100vh - 50px);
+    margin: 0;
+    border-collapse: collapse;
+    position: relative;
+
+    tr > td {
+      padding: 0;
+      margin: 0;
+      margin-top: 0px;
+      height: 100%;
+      overflow: hidden;
+    }
+  }
+}
+
+// Typography
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin: 0;
+}
+
+h4 {
+  font-weight: 400;
+}
+
+// Other stuff
+
 canvas {
   image-rendering: optimizeSpeed;
 }
@@ -21,14 +66,6 @@ p#version {
   @include themify($themes) {
     color: themed("textColor");
   }
-}
-
-body {
-  margin: 0px;
-  overflow: hidden;
-  padding: 0px;
-  box-sizing: border-box;
-  font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
 .component {
@@ -73,6 +110,24 @@ button:focus {
   border-color: #666;
 }
 
+.button-icon {
+  height: 2.5em;
+  padding-left: 30px;
+  > svg {
+    position: absolute;
+    padding-left: 50px;
+    height: 25px;
+    width: 25px;
+    left: -50px;
+    top: 13px;
+  }
+}
+
+.align-right {
+  float: right;
+  right: 5px;
+}
+
 #topbar {
   position: relative;
   height: 51px;
@@ -85,14 +140,14 @@ button:focus {
     margin: 0px 5px;
     overflow: hidden;
     transition: color 0.3s ease;
-    
+
     @include themify($themes) {
       color: themed("textColor");
     }
-    &.button-active{
+    &.button-active {
       @include themify($themes) {
         color: themed("backgroundColor");
-        >svg{
+        > svg {
           stroke: themed("backgroundColor") !important;
         }
       }
@@ -122,33 +177,13 @@ button:focus {
   color: white;
 }
 
-body > table {
-  width: 100%;
-  height: calc(100vh - 50px);
-  margin: 0;
-  border-collapse: collapse;
-  position: relative;
-
-  tr > td {
-    padding: 0;
-    margin: 0;
-    margin-top: 0px;
-    height: 100%;
-    overflow: hidden;
-  }
-}
-
-/* width */
+// Style scrollbar
 ::-webkit-scrollbar {
   width: 5px;
 }
-
-/* Track */
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-
-/* Handle */
 ::-webkit-scrollbar-thumb {
   margin-right: 5px;
   @include themify($themes) {
@@ -157,52 +192,8 @@ body > table {
   border-radius: $border-radius;
 }
 
-.button-icon {
-  height: 2.5em;
-  padding-left: 30px;
-  >svg{
-    position: absolute;
-    padding-left: 50px;
-    height: 25px;
-    width: 25px;
-    left: -50px;
-    top: 13px;
-  }
-}
-
-.align-right {
-  float: right;
-  right: 5px;
-}
-
-.icon::before {
-  position: absolute;
-  content: "";
-  left: 2px;
-  top: 15%;
-  width: 30px;
-  height: 70%;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-.icon-settings::before {
-  background-image: url(assets/icons/cog.svg);
-}
-
-.icon-stem::before {
-  background-image: url(assets/icons/stem.svg);
-}
-
-.icon-branch::before {
-  background-image: url(assets/icons/branch.svg);
-}
-
-.icon-leaf::before {
-  background-image: url(assets/icons/leaf.svg);
-}
-
-svg{
+// Icon styles
+svg {
   width: 100%;
   height: 100%;
   stroke-width: 1.5px;
@@ -218,7 +209,6 @@ svg{
   margin-bottom: -1px !important;
   color: transparent !important;
 }
-
 .only-icon::before {
   left: 7px;
 }
