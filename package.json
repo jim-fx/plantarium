@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "npm run client:watch",
     "start": "npm run server:start",
+    "build": "npm run client:build",
     "client:watch": "rollup -c -w ",
     "client:build": "NODE_ENV=production rollup -c && mv stats.html build/stats.html",
     "server:start": "node server/server.js",
