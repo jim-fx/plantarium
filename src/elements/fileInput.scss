@@ -1,0 +1,26 @@
+input[type="file"] {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+
+  + label {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+
+    position: relative;
+    border-radius: 2px;
+    margin: 0;
+    padding: 8px 12px;
+    border: none;
+    color: $medium-gray;
+    text-transform: lowercase;
+    background-color: $light-green;
+    cursor: pointer;
+  }
+}
