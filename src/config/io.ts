@@ -1,6 +1,6 @@
 import projectManager from "../components/project-manager";
 import settings from "../components/settings";
-import getSeed from "./_getSeed";
+import getSeed from "../helpers/getSeed";
 import exporter from "../components/io/exporter";
 
 export default {
@@ -78,10 +78,20 @@ export default {
           }
         },
         {
+          type: "Tab",
+          identifiers: ["obj", "stl", "gltf"],
+          default: settings.get("exp_filetype") || "obj",
+          title: "filetype",
+          onUpdate: v => {
+            console.log(v);
+            settings.set("exp_filetype", v);
+          }
+        },
+        {
           type: "Button",
           title: "download models",
           onClick: () => {
-            exporter.download(projectManager.pd, "obj");
+            exporter.download(projectManager.pd);
           }
         }
       ]

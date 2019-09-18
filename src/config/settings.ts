@@ -1,5 +1,5 @@
 import settings from "../components/settings";
-import getSeed from "./_getSeed";
+import getSeed from "../helpers/getSeed";
 import logger from "../components/logger";
 import pm from "../components/project-manager";
 

@@ -57,6 +57,10 @@ interface settings {
   ground_size: number;
   ground_texture_size: number;
 
+  exp_useRandomSeed: boolean;
+  exp_filetype: string;
+  exp_seed: string;
+
   stemResX: number;
   stemResY: number;
   leafResX: number;
