@@ -49,15 +49,15 @@ CodeComponent
     ✔ Create @done (8/25/2019, 11:45:05 PM)
 
   -Import/Export
-    -Download/Upload
-    ☐ Export models functionality
+    ✔ Upload json files @done (9/18/2019, 3:18:10 PM)
+    ✔ Export models functionality @done (9/18/2019, 3:17:57 PM)
     ✔ -CRUD from Localstorag @done (8/28/2019, 5:21:57 PM)
 
   - Project Manager
     ☐ Move to seperate UI Layer?
 
   - Exporter
-    ☐ Create
+    ✔ Create @done (9/18/2019, 3:17:50 PM)
 
 Generator
 --------------------------------------------------
