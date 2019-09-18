@@ -8,7 +8,7 @@ import { version } from "../package.json";
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function() {
     navigator.serviceWorker
-      .register("/sw.js", {
+      .register("sw.js", {
         scope: "/"
       })
       .then(
@@ -49,7 +49,7 @@ import projectManager from "./components/project-manager";
   const settingsStage = new Stage(settingsConfig);
 
   //Connect all the stages
-  [importerStage, stemStage, branchStage, leafStage, IOStage, settingsStage, projectManager, displayStage].forEach((s: Stage, i, a) => s.connect(a[i + 1]));
+  [importerStage, stemStage, branchStage, leafStage, IOStage, settingsStage, displayStage, projectManager].forEach((s: Stage, i, a) => s.connect(a[i + 1]));
 
   projectManager.init();
 })();
