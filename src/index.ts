@@ -7,17 +7,13 @@ import { version } from "../package.json";
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function() {
-    navigator.serviceWorker
-      .register("sw.js", {
-        scope: "/"
-      })
-      .then(
-        function(reg) {},
-        function(err) {
-          // registration failed :(
-          console.error(err);
-        }
-      );
+    navigator.serviceWorker.register("sw.js").then(
+      function(reg) {},
+      function(err) {
+        // registration failed :(
+        console.error(err);
+      }
+    );
   });
 } else {
   alert(
