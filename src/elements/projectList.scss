@@ -27,6 +27,26 @@
     }
   }
 
+  .ui-delete-wrapper {
+    position: absolute;
+    width: calc(100% - 7px);
+    height: 1.8em;
+    z-index: 5;
+    button {
+      width: 50%;
+      padding: 0;
+      height: 100%;
+      color: black;
+      border-radius: 0px $border-radius $border-radius 0px;
+    }
+
+    .ui-delete-confirm {
+      background-color: $light-red;
+      color: white;
+      border-radius: $border-radius 0px 0px $border-radius;
+    }
+  }
+
   table {
     @include themify($themes) {
       background-color: themed("backgroundColor");
@@ -48,6 +68,7 @@
       transition: background-color 0.2s ease, color 0.2s ease, opacity 0.5s ease;
       cursor: pointer;
       > td {
+        position: relative;
         border-bottom: solid thin;
         @include themify($themes) {
           border-color: themed("outlineColor");
@@ -87,7 +108,7 @@
       }
     }
   }
-  >button {
+  > button {
     width: calc(100% - 5px);
     padding: 3px 12px;
     border-radius: 0 0 $border-radius $border-radius;
