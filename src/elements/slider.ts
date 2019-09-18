@@ -17,16 +17,15 @@ class UISlider extends UIElement {
     this.element = document.createElement("input");
     this.element.type = "range";
 
-    const min = "min" in config ? config.min * 1000 : 0;
+    const min = "min" in config ? <number>config.min * 1000 : 0;
     this.element.min = min.toString();
 
-    const max = "max" in config ? config.max * 1000 : 1000;
+    const max = "max" in config ? <number>config.max * 1000 : 1000;
     this.element.max = max.toString();
 
     this.element.step = Math.abs((max - max) / 100).toString();
 
-    if (config.default !== undefined)
-      this.element.value = "" + config.default * 1000;
+    if (config.default !== undefined) this.element.value = "" + <number>config.default * 1000;
 
     if (config.init) {
       const _init = config.init.bind(this);

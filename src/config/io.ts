@@ -85,6 +85,20 @@ export default {
           }
         }
       ]
+    },
+    {
+      type: "Group",
+      title: "Import",
+      children: [
+        {
+          type: "FileInput",
+          title: "Load File",
+          onUpdate: (_s: plantDescription[]) => {
+            _s.forEach(s => projectManager.addPlant(s));
+            projectManager.updateUI();
+          }
+        }
+      ]
     }
   ]
 };

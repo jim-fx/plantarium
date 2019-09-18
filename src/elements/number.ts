@@ -39,14 +39,14 @@ export default class UINumber extends UIElement {
         const initValue: number = _init(pd);
         if (initValue !== undefined) {
           this._value = initValue;
-          this.element.value = initValue;
+          this.element.value = initValue.toString();
         }
       };
     }
 
     this.element = document.createElement("input");
     this.element.type = "number";
-    this.element.value = config.default !== undefined ? this.minMax(config.default) : this.minMax(1);
+    this.element.value = config.default !== undefined ? this.minMax(<number>config.default).toString() : this.minMax(1).toString();
     this._value = parseInt(this.element.value);
     this.element.max = config.max !== undefined ? config.max.toString() : "10";
     this.element.min = config.min !== undefined ? config.min.toString() : "0";
@@ -66,7 +66,7 @@ export default class UINumber extends UIElement {
     return this._value;
   }
 
-  private minMax(v) {
+  private minMax(v: number) {
     return Math.max(Math.min(v, this.config.max || 10), this.config.min || 0);
   }
 

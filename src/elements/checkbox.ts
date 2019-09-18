@@ -7,7 +7,6 @@ let id = 0;
 export default class UICheckbox extends UIElement {
   private element: HTMLInputElement;
 
-  private _init: Function;
   constructor(stage: Stage, wrapper: HTMLElement, config: UIConfig) {
     super(stage, wrapper, config);
 
@@ -43,7 +42,7 @@ export default class UICheckbox extends UIElement {
 
     const label = document.createElement("label");
     label.classList.add("checkbox-label");
-    label.append(icon.cross)
+    label.append(icon.cross);
     label.setAttribute("for", _id);
 
     this.wrapper.append(this.element);

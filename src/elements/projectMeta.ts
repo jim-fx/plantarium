@@ -40,6 +40,15 @@ export default class UIProjectMeta extends UIElement {
           },
           false
         );
+        text.addEventListener(
+          "keydown",
+          function(ev) {
+            if (ev.key === "Enter") {
+              this.blur();
+            }
+          },
+          false
+        );
         tdV.append(text);
         this.rows.set(id, text);
 

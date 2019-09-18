@@ -1,11 +1,12 @@
 import "./element.scss";
-import { parameter } from "../components/model-generator/helper";
 export default class UIElement {
   stage: Stage;
   wrapper: HTMLElement;
   config: UIConfig;
   private _enabled: boolean = true;
-  private _update: Function;
+  private _update: Function | undefined;
+
+  _init: Function | undefined;
   constructor(stage: Stage, wrapper: HTMLElement, config: UIConfig) {
     this.stage = stage;
     this.wrapper = document.createElement("div");
@@ -34,7 +35,7 @@ export default class UIElement {
     if (this._init) this._init(_pd);
   }
 
-  update(v: parameter) {
+  update(v: any) {
     if (this._update) {
       this._update(v);
     }

@@ -5,7 +5,7 @@ import UIElement from "./element";
 export default class UITab extends UIElement {
   elements: Map<string, HTMLLIElement> = new Map();
 
-  active: HTMLLIElement;
+  active: HTMLLIElement | undefined;
 
   constructor(stage: Stage, wrapper: HTMLElement, config: UIConfig) {
     super(stage, wrapper, config);
@@ -16,10 +16,7 @@ export default class UITab extends UIElement {
     if (config.init) {
       const _init = config.init.bind(this);
       this._init = (pd: plantDescription) => {
-        const initValue = _init(pd);
-        if (this.elements.has(initValue)) {
-          this.setActive(initValue);
-        }
+        this.setActive(_init(pd));
       };
     }
 

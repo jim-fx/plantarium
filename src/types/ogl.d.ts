@@ -91,29 +91,9 @@ declare module "ogl" {
   }
 
   export class Mat3 extends Array {
-    constructor(
-      m00: number,
-      m01: number,
-      m02: number,
-      m10: number,
-      m11: number,
-      m12: number,
-      m20: number,
-      m21: number,
-      m22: number
-    );
+    constructor(m00: number, m01: number, m02: number, m10: number, m11: number, m12: number, m20: number, m21: number, m22: number);
 
-    set: (
-      m00: number,
-      m01: number,
-      m02: number,
-      m10: number,
-      m11: number,
-      m12: number,
-      m20: number,
-      m21: number,
-      m22: number
-    ) => Mat3;
+    set: (m00: number, m01: number, m02: number, m10: number, m11: number, m12: number, m20: number, m21: number, m22: number) => Mat3;
 
     translate: (v: Vec3, m?: Mat3) => Mat3;
 
@@ -220,23 +200,10 @@ declare module "ogl" {
   }
 
   export class Camera extends Transform {
-    constructor(
-      gl: WebGL2RenderingContext,
-      object: { near?: number; far?: number; fov?: number; aspect?: number }
-    );
+    constructor(gl: WebGL2RenderingContext, object: { near?: number; far?: number; fov?: number; aspect?: number });
 
-    perspective: (object: {
-      near?: number;
-      far?: number;
-      fov?: number;
-      aspect?: number;
-    }) => Camera;
-    orthographic: (object: {
-      near?: number;
-      far?: number;
-      fov?: number;
-      aspect?: number;
-    }) => Camera;
+    perspective: (object: { near?: number; far?: number; fov?: number; aspect?: number }) => Camera;
+    orthographic: (object: { near?: number; far?: number; fov?: number; aspect?: number }) => Camera;
 
     updateMatrixWorld: () => Camera;
 
@@ -310,13 +277,7 @@ declare module "ogl" {
     setSize: (width: number, height: number) => void;
     setViewport: (width: number, height: number) => void;
 
-    render: (object: {
-      scene?: Transform;
-      camera?: Camera;
-      update?: boolean;
-      sort?: boolean;
-      frustumCull?: boolean;
-    }) => void;
+    render: (object: { scene?: Transform; camera?: Camera; update?: boolean; sort?: boolean; frustumCull?: boolean }) => void;
   }
 
   export class Texture {
@@ -377,6 +338,8 @@ declare module "ogl" {
         program: Program;
       }
     );
+
+    parent: Mesh;
 
     program: Program;
 

@@ -4,6 +4,17 @@ import UIElement from "./element";
 import projectManager from "../components/project-manager";
 import makeEditable from "../helpers/makeEditable";
 
+const deleteWrapper = document.createElement("div");
+deleteWrapper.classList.add("ui-delete-wrapper");
+const deleteWrapperCancel = document.createElement("button");
+deleteWrapperCancel.innerHTML = "cancel";
+deleteWrapperCancel.classList.add("ui-delete-cancel");
+const deleteWrapperConfirm = document.createElement("button");
+deleteWrapperConfirm.innerHTML = "confirm";
+deleteWrapperConfirm.classList.add("ui-delete-confirm");
+deleteWrapper.append(deleteWrapperConfirm);
+deleteWrapper.append(deleteWrapperCancel);
+
 export default class UIPlantList extends UIElement {
   rows: Map<string, HTMLTableRowElement> = new Map();
   table: HTMLTableElement = document.createElement("table");
@@ -19,7 +30,7 @@ export default class UIPlantList extends UIElement {
     addNewButton.addEventListener(
       "click",
       () => {
-        projectManager.addPlant();
+        projectManager.newPlant();
       },
       false
     );
@@ -71,15 +82,7 @@ export default class UIPlantList extends UIElement {
       ev => {
         ev.preventDefault();
         ev.stopPropagation();
-
-        const rowToBeDeleted = <HTMLTableRowElement>this.rows.get(_meta.name);
-        rowToBeDeleted.classList.add("ui-row-deleted");
-        this.rows.delete(_meta.name);
-
-        setTimeout(() => {
-          rowToBeDeleted.remove();
-        }, 500);
-        projectManager.deletePlant(_meta);
+        this.deletePlant(_meta);
       },
       false
     );
@@ -87,11 +90,7 @@ export default class UIPlantList extends UIElement {
     buttons.append(deleteButton);
     tr.append(buttons);
 
-    tr.addEventListener(
-      "click",
-      () => projectManager.setActivePlant(_meta),
-      false
-    );
+    tr.addEventListener("click", () => projectManager.setActivePlant(_meta), false);
 
     if (_meta.name === _active) {
       tr.classList.add("ui-project-list-row-active");
@@ -102,8 +101,29 @@ export default class UIPlantList extends UIElement {
     this.scrollTop();
   }
 
+  deletePlant(_meta: plantMetaInfo) {
+    const rowToBeDeleted = <HTMLTableRowElement>this.rows.get(_meta.name);
+
+    (<HTMLElement>rowToBeDeleted.parentNode).insertBefore(deleteWrapper, rowToBeDeleted);
+
+    deleteWrapperCancel.onclick = () => {
+      deleteWrapper.remove();
+    };
+
+    deleteWrapperConfirm.onclick = () => {
+      rowToBeDeleted.classList.add("ui-row-deleted");
+      setTimeout(() => {
+        rowToBeDeleted.remove();
+      }, 500);
+      projectManager.deletePlant(_meta);
+      this.rows.delete(_meta.name);
+      deleteWrapper.remove();
+    };
+  }
+
   init() {
-    const newNames = projectManager.plantNames;
+    const newMetas = projectManager.plantMetas;
+    const newNames = newMetas.map(_meta => _meta.name);
 
     //Remove rows if they are not present in the new data
     Array.from(this.rows.keys()).forEach(k => {
@@ -116,13 +136,11 @@ export default class UIPlantList extends UIElement {
 
     //Create all rows that arent created yet
     const _active = projectManager.activePlantName;
-    projectManager.plantMetas.forEach((_meta: plantMetaInfo) => {
+    newMetas.forEach((_meta: plantMetaInfo) => {
       const el = this.rows.get(_meta.name);
       if (el) {
         //If name already has a row activate that row
-        _meta.name === _active
-          ? el.classList.add("ui-project-list-row-active")
-          : el.classList.remove("ui-project-list-row-active");
+        _meta.name === _active ? el.classList.add("ui-project-list-row-active") : el.classList.remove("ui-project-list-row-active");
       } else {
         this.addPlant(_meta);
       }

@@ -2,18 +2,19 @@ interface UIConfig {
   title: string;
   type: string;
 
+  state?: string;
   icon?: string;
   iconOnly?: boolean;
   identifiers?: string[];
   align?: string;
   open?: boolean;
-  default?: number | boolean;
+  default?: number | boolean | string;
   max?: number;
   min?: number;
   onClick?: Function;
   onUpdate?: Function;
   children?: UIConfig[];
-  init?(pd: plantDescription): any;
+  init?(obj: any): any;
 }
 
 interface point {
