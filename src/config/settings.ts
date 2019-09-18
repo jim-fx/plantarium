@@ -71,7 +71,15 @@ export default {
         {
           type: "Checkbox",
           title: "Enable Ground",
-          default: settings.get("ground_enable"),
+          default: true,
+          init: () => {
+            const s = settings.get("ground_enable");
+            if (typeof s === "boolean" && !s) {
+              return false;
+            } else {
+              return true;
+            }
+          },
           onUpdate: (v: parameter) => {
             settings.set("ground_enable", v.enabled);
             pm.updateUI();
@@ -89,6 +97,7 @@ export default {
           },
           onUpdate: (v: parameter) => {
             settings.set("ground_size", v.value);
+            pm.updateUI();
           }
         },
         {
@@ -103,6 +112,7 @@ export default {
           },
           onUpdate: (v: parameter) => {
             settings.set("ground_resX", v.value);
+            pm.updateUI();
           }
         },
         {
@@ -117,6 +127,7 @@ export default {
           },
           onUpdate: (v: parameter) => {
             settings.set("ground_resY", v.value);
+            pm.updateUI();
           }
         }
       ]
@@ -133,6 +144,7 @@ export default {
           default: settings.get("stemResX") || 3,
           onUpdate: (v: parameter) => {
             settings.set("stemResX", v.value);
+            pm.updateUI();
           }
         },
         {
@@ -143,6 +155,7 @@ export default {
           default: settings.get("stemResY") || 20,
           onUpdate: (v: parameter) => {
             settings.set("stemResY", v.value);
+            pm.updateUI();
           }
         },
         {
@@ -153,6 +166,7 @@ export default {
           default: settings.get("leafResX") || 3,
           onUpdate: (v: parameter) => {
             settings.set("leafResX", v.value);
+            pm.updateUI();
           }
         },
         {
@@ -163,6 +177,7 @@ export default {
           default: settings.get("leafResY") || 3,
           onUpdate: (v: parameter) => {
             settings.set("leafResY", v.value);
+            pm.updateUI();
           }
         }
       ]
@@ -175,7 +190,6 @@ export default {
           type: "Button",
           title: "Reset All",
           state: "warning",
-          default: settings.get("debug_indices"),
           onClick: () => {
             if (confirm("delete all settings and projects?")) {
               localStorage.clear();
@@ -189,6 +203,7 @@ export default {
           default: settings.get("debug_indices"),
           onUpdate: (v: parameter) => {
             settings.set("debug_indices", v.enabled);
+            pm.updateUI();
           }
         },
         {
@@ -197,6 +212,7 @@ export default {
           default: settings.get("debug_wireframe"),
           onUpdate: (v: parameter) => {
             settings.set("debug_wireframe", v.enabled);
+            pm.updateUI();
           }
         },
         {
@@ -205,6 +221,7 @@ export default {
           default: settings.get("debug_generate_perf"),
           onUpdate: (v: parameter) => {
             settings.set("debug_generate_perf", v.enabled);
+            pm.updateUI();
           }
         },
         {
@@ -213,6 +230,7 @@ export default {
           default: settings.get("debug_render_perf"),
           onUpdate: (v: parameter) => {
             settings.set("debug_render_perf", v.enabled);
+            pm.updateUI();
           }
         },
         {
@@ -221,6 +239,7 @@ export default {
           default: settings.get("debug_pd"),
           onUpdate: (v: parameter) => {
             settings.set("debug_pd", v.enabled);
+            pm.updateUI();
           }
         },
         {
@@ -229,6 +248,7 @@ export default {
           default: settings.get("debug_skeleton"),
           onUpdate: (v: parameter) => {
             settings.set("debug_skeleton", v.enabled);
+            pm.updateUI();
           }
         },
         {
@@ -237,6 +257,7 @@ export default {
           default: settings.get("debug_disable_model"),
           onUpdate: (v: parameter) => {
             settings.set("debug_disable_model", v.enabled);
+            pm.updateUI();
           }
         },
         {
@@ -245,6 +266,7 @@ export default {
           default: settings.get("debug_uv"),
           onUpdate: (v: parameter) => {
             settings.set("debug_uv", v.enabled);
+            pm.updateUI();
           }
         },
         {
@@ -253,6 +275,7 @@ export default {
           default: settings.get("debug_grid"),
           onUpdate: (v: parameter) => {
             settings.set("debug_grid", v.enabled);
+            pm.updateUI();
           }
         },
         {
@@ -275,6 +298,7 @@ export default {
               },
               onUpdate: (v: parameter) => {
                 settings.set("debug_grid_resolution", v.value);
+                pm.updateUI();
               }
             },
             {
@@ -294,6 +318,7 @@ export default {
               },
               onUpdate: (v: parameter) => {
                 settings.set("debug_grid_size", v.value);
+                pm.updateUI();
               }
             }
           ]
@@ -310,6 +335,7 @@ export default {
           onUpdate: function(v: parameter) {
             log.level = <number>v.value;
             this.title.innerHTML = `${this.config.title} (${["error", "warning", "components", "all"][log.level]})`;
+            pm.updateUI();
           }
         }
       ]

@@ -7,6 +7,8 @@ export default class UITab extends UIElement {
 
   active: HTMLLIElement | undefined;
 
+  activeID: string | undefined;
+
   constructor(stage: Stage, wrapper: HTMLElement, config: UIConfig) {
     super(stage, wrapper, config);
 
@@ -28,6 +30,7 @@ export default class UITab extends UIElement {
         this.elements.set(id, listItem);
 
         if (config.default && config.default === id) {
+          this.activeID = config.default;
           this.setActive(id);
         }
 
@@ -50,14 +53,17 @@ export default class UITab extends UIElement {
   }
 
   setActive(id: string) {
-    if (this.active) {
-      this.active.classList.remove("ui-tab-active");
-    }
-    if (this.elements.has(id)) {
-      this.active = <HTMLLIElement>this.elements.get(id);
-      this.active.classList.add("ui-tab-active");
-    }
+    if (id !== this.activeID) {
+      this.activeID = id;
+      if (this.active) {
+        this.active.classList.remove("ui-tab-active");
+      }
+      if (this.elements.has(id)) {
+        this.active = <HTMLLIElement>this.elements.get(id);
+        this.active.classList.add("ui-tab-active");
+      }
 
-    this.update(id);
+      this.update(id);
+    }
   }
 }

@@ -16,7 +16,7 @@ interface TextureLoader {
 }
 
 interface ShaderLoader {
-  (src: string, options: any): Program;
+  (src: string, uniforms?: any): Program;
 }
 
 const textureLoader: TextureLoader = <TextureLoader>function(src: string, options: any = {}): Texture {

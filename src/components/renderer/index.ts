@@ -5,6 +5,7 @@ import load from "./helpers/loader";
 import debounce from "../../helpers/debounce";
 
 import overlay from "../overlay";
+import { WireFrameShader, GroundShader } from "./shaders";
 
 const canvas = <HTMLCanvasElement>document.getElementById("render-canvas");
 
@@ -73,28 +74,23 @@ async function applySettings(_s: settings) {
       });
     }
 
-    if (_s["ground_enable"]) {
-      groundMesh.scale.set(1, 1, 1);
+    if (_s["ground_enable"] !== false) {
+      groundMesh.visible = true;
       if (!groundMesh.parent) {
         groundMesh.setParent(scene);
       }
-      //groundMesh.geometry.setDrawRange(0, 400);
     } else {
-      groundMesh.scale.set(0.00001, 0, 0);
+      groundMesh.visible = false;
     }
   }
 
   if (plant) {
-    if (_s["debug_disable_model"]) {
-      plantMesh.scale.set(0, 0, 0);
-    } else {
-      plantMesh.scale.set(1, 1, 1);
-    }
+    plantMesh.visible = !_s["debug_disable_model"];
   }
 
   if (gridMesh) {
     if (_s["debug_grid"]) {
-      gridMesh.scale.set(1, 1, 1);
+      gridMesh.visible = true;
 
       let gridNeedsUpdate = false;
 
@@ -111,16 +107,11 @@ async function applySettings(_s: settings) {
       if (gridNeedsUpdate) {
         const gridGeometry = grid(gridSize, gridResolution);
         gridMesh.geometry = new Geometry(gl, {
-          position: { size: 3, data: new Float32Array(gridGeometry.position) },
-          normal: { size: 3, data: new Float32Array(gridGeometry.normal) },
-          uv: { size: 2, data: new Float32Array(gridGeometry.uv) },
-          index: { size: 1, data: new Uint16Array(gridGeometry.index) }
+          position: { size: 3, data: new Float32Array(gridGeometry.position) }
         });
       }
-
-      gridMesh;
     } else {
-      gridMesh.scale.set(0, 0, 0);
+      gridMesh.visible = false;
     }
   }
 }
@@ -197,12 +188,9 @@ async function applySettings(_s: settings) {
     gridMesh = new Mesh(gl, {
       mode: gl.LINES,
       geometry: new Geometry(gl, {
-        position: { size: 3, data: new Float32Array(gridGeometry.position) },
-        normal: { size: 3, data: new Float32Array(gridGeometry.normal) },
-        uv: { size: 2, data: new Float32Array(gridGeometry.uv) },
-        index: { size: 1, data: new Uint16Array(gridGeometry.index) }
+        position: { size: 3, data: new Float32Array(gridGeometry.position) }
       }),
-      program: basicShader
+      program: load.shader("WireFrameShader")
     });
     gridMesh.setParent(scene);
 
@@ -244,13 +232,12 @@ async function applySettings(_s: settings) {
         data: new Float32Array([0, 0, 0, 1, 1, 1])
       }
     });
-    const instanceShader = load.shader("InstanceShader", {
-      uTime: { value: 0 }
-    });
 
     leafMesh = new Mesh(gl, {
       geometry: leaf,
-      program: instanceShader
+      program: load.shader("InstanceShader", {
+        uTime: { value: 0 }
+      })
     });
 
     leafMesh.setParent(scene);
@@ -275,9 +262,7 @@ async function applySettings(_s: settings) {
       })
     });
 
-    if (!!_deferredSettings) {
-      applySettings(_deferredSettings);
-    }
+    applySettings(_deferredSettings);
   })();
 
   requestAnimationFrame(render);

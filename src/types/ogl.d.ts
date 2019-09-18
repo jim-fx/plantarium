@@ -339,6 +339,8 @@ declare module "ogl" {
       }
     );
 
+    visible: boolean;
+
     parent: Mesh;
 
     program: Program;

@@ -19,4 +19,11 @@ const InstanceShader = {
   vertex: InstanceShaderVert
 };
 
-export { GroundShader, BasicShader, InstanceShader };
+import WireFrameFrag from "./WireFrameShader.frag";
+import WireFrameVert from "./WireFrameShader.vert";
+const WireFrameShader = {
+  fragment: WireFrameFrag,
+  vertex: WireFrameVert
+};
+
+export { GroundShader, BasicShader, InstanceShader, WireFrameShader };
