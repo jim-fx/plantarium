@@ -6,7 +6,7 @@ import dataService from "../data-service";
 //Helpers
 import incrementPlantName from "./incrementPlantName";
 import { json as downloadJSON } from "../../helpers/download";
-import versionToNumber from "./versionToNumber";
+import versionToNumber from "../../helpers/versionToNumber";
 import updatePlantDefinition from "./updatePlantDefinition";
 import { version as _version } from "../../../package.json";
 

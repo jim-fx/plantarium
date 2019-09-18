@@ -83,7 +83,6 @@ export default {
           default: settings.get("exp_filetype") || "obj",
           title: "filetype",
           onUpdate: v => {
-            console.log(v);
             settings.set("exp_filetype", v);
           }
         },

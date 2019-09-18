@@ -35,6 +35,8 @@
     "file-saver": "^2.0.2",
     "graphql": "^14.5.4",
     "helmet": "^3.21.0",
+    "idb": "^4.0.4",
+    "idb-keyval": "^3.2.0",
     "ogl": "latest",
     "open-simplex-noise": "^1.6.0",
     "rollup": "1.20.0",
