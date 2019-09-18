@@ -5,7 +5,7 @@ self.addEventListener("install", event => {
   // Perform install steps
   event.waitUntil(
     caches.open(`cache-${version}`).then(cache => {
-      return cache.addAll(["/", "/bundle.*", "/assets/*"]);
+      return cache.addAll(["/", "/bundle.*", "/assets/*", "/favicon/*"]);
     })
   );
 });

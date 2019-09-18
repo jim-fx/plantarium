@@ -11,6 +11,7 @@ export default class UIButton extends UIElement {
 
     this.element = document.createElement("button");
     this.element.classList.add("ui-button");
+    this.element.name = config.title;
     this.element.innerHTML = config.title;
     this.element.addEventListener(
       "click",

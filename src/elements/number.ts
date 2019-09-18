@@ -45,6 +45,7 @@ export default class UINumber extends UIElement {
     }
 
     this.element = document.createElement("input");
+    this.element.title = config.title;
     this.element.type = "number";
     this.element.value = config.default !== undefined ? this.minMax(<number>config.default).toString() : this.minMax(1).toString();
     this._value = parseInt(this.element.value);
