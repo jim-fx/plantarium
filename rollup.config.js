@@ -76,6 +76,76 @@ export default [
     ]
   },
   {
+    input: "./src/components/model-generator/worker.ts",
+
+    plugins: [
+      babel({
+        extensions: extensions
+      }),
+
+      // Allows node_modules resolution
+      resolve({ extensions }),
+
+      // Allow bundling cjs modules. Rollup doesn't understand cjs
+      commonjs({
+        sourceMap: !PROD
+      }),
+
+      PROD && terser(),
+
+      PROD &&
+        analyze({
+          summaryOnly: true,
+          limit: 10
+        })
+    ],
+
+    output: [
+      {
+        file: "./build/generator.js",
+        format: "iife",
+        name: "plantarium_generator",
+        sourcemap: true
+      }
+    ]
+  },
+  {
+    input: "./src/components/data-service/worker.ts",
+
+    plugins: [
+      babel({
+        extensions: extensions
+      }),
+
+      json(),
+
+      // Allows node_modules resolution
+      resolve({ extensions }),
+
+      // Allow bundling cjs modules. Rollup doesn't understand cjs
+      commonjs({
+        sourceMap: !PROD
+      }),
+
+      PROD && terser(),
+
+      PROD &&
+        analyze({
+          summaryOnly: true,
+          limit: 10
+        })
+    ],
+
+    output: [
+      {
+        file: "./build/dataService.js",
+        format: "iife",
+        name: "plantarium_dataservice",
+        sourcemap: true
+      }
+    ]
+  },
+  {
     input: "./src/sw.ts",
 
     plugins: [

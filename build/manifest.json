@@ -3,7 +3,7 @@
   "short_name": "plantarium",
   "orientation": "landscape",
   "start_url": "/",
-  "display": "minimal-ui",
+  "display": "fullscreen",
   "icons": [
     {
       "src": "favicon/android-icon-36x36.png",

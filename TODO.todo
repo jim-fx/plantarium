@@ -64,6 +64,7 @@ Generator
 
   ✔ Create @done (8/29/2019, 8:32:44 PM)
   ☐ Caching of created Skeletons and Geometry
+  ☐ Closing top point of tube geometry
 
   - stemSkeleton
     ✔ Create @done (8/29/2019, 8:33:20 PM)
@@ -112,7 +113,7 @@ Long Shots
 Fixes
 --------------------------------------------
 
-☐ Fix interpolationSkeleton function, some resulting positions are offset from skeleton
+✔ Fix interpolationSkeleton function, some resulting positions are offset from skeleton @done (9/17/2019, 4:13:03 PM)
 ✔ Fix rotation of stemSkeletons @done (9/1/2019, 5:00:39 PM)
 ☐ Fix rotation of branches
 ✔ Fix the initialization of the renderer with the settings, right now the settings get passed @done (8/31/2019, 10:52:01 AM)

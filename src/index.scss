@@ -6,11 +6,6 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
-  .themetransition {
-    * {
-      transition: color 0.3s, background-color 0.3s, border-color 0.3s !important;
-    }
-  }
 }
 
 body {
@@ -18,8 +13,7 @@ body {
   overflow: hidden;
   padding: 0px;
   box-sizing: border-box;
-  font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 
   > table {
     width: 100%;
