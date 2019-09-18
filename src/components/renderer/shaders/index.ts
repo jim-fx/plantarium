@@ -19,8 +19,8 @@ const InstanceShader = {
   vertex: InstanceShaderVert
 };
 
-import WireFrameFrag from "./WireFrameShader.frag";
-import WireFrameVert from "./WireFrameShader.vert";
+import WireFrameFrag from "./WireframeShader.frag";
+import WireFrameVert from "./WireframeShader.vert";
 const WireFrameShader = {
   fragment: WireFrameFrag,
   vertex: WireFrameVert
