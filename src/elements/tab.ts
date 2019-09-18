@@ -15,6 +15,13 @@ export default class UITab extends UIElement {
     const list = document.createElement("ul");
     list.classList.add("ui-tab-wrapper");
 
+    if (config.title) {
+      const title = document.createElement("h4");
+      title.innerHTML = config.title;
+      title.classList.add("ui-number-title");
+      this.wrapper.append(title);
+    }
+
     if (config.init) {
       const _init = config.init.bind(this);
       this._init = (pd: plantDescription) => {
@@ -30,7 +37,6 @@ export default class UITab extends UIElement {
         this.elements.set(id, listItem);
 
         if (config.default && config.default === id) {
-          this.activeID = config.default;
           this.setActive(id);
         }
 
