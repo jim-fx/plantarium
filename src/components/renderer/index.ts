@@ -2,10 +2,9 @@ import { Renderer, Camera, Orbit, Vec3, Transform, Color, Geometry, Mesh, Vec2 }
 import { grid, ground } from "../model-generator/geometry";
 import load from "./helpers/loader";
 
-import debounce from "../../helpers/debounce";
+import throttle from "../../helpers/throttle";
 
 import overlay from "../overlay";
-import { WireFrameShader, GroundShader } from "./shaders";
 
 const canvas = <HTMLCanvasElement>document.getElementById("render-canvas");
 
@@ -132,16 +131,14 @@ async function applySettings(_s: settings) {
 
   //Handle resizing
   (() => {
-    const resize = debounce(
-      () => {
-        const wrapper = <HTMLElement>canvas.parentElement;
-        const b = wrapper.getBoundingClientRect();
-        renderer.setSize(b.width, b.height);
-        camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
-      },
-      200,
-      false
-    );
+    const resize = throttle(() => {
+      const wrapper = <HTMLElement>canvas.parentElement;
+      const b = wrapper.getBoundingClientRect();
+      renderer.setSize(b.width, b.height);
+      canvas.style.height = "";
+      canvas.style.width = "";
+      camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
+    }, 500);
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(<HTMLElement>canvas.parentElement);
   })();
