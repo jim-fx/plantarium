@@ -1,7 +1,6 @@
 import settings from "../components/settings";
 import getSeed from "./_getSeed";
 import logger from "../components/logger";
-import devSettings from "../assets/devSettings.json";
 import pm from "../components/project-manager";
 
 const log = logger("config");
@@ -43,11 +42,6 @@ export default {
       onUpdate: (v: parameter) => {
         settings.set("seed", v.value);
       }
-    },
-    {
-      type: "Button",
-      title: "load dev settings",
-      onClick: () => settings.loadSettings(devSettings)
     },
     {
       type: "Tab",
@@ -95,20 +89,6 @@ export default {
           },
           onUpdate: (v: parameter) => {
             settings.set("ground_size", v.value);
-          }
-        },
-        {
-          type: "Slider",
-          title: "Texture Size",
-          min: 0.2,
-          max: 5,
-          default: 1,
-          init: function() {
-            this.enabled = !!settings.get("ground_enable");
-            return settings.get("ground_texture_size") || 2;
-          },
-          onUpdate: (v: parameter) => {
-            settings.set("ground_texture_size", v.value);
           }
         },
         {
@@ -324,16 +304,12 @@ export default {
           min: 0,
           max: 3,
           init: function() {
-            this.title.innerHTML = `${this.config.title} (${
-              ["error", "warning", "components", "all"][log.level]
-            })`;
+            this.title.innerHTML = `${this.config.title} (${["error", "warning", "components", "all"][log.level]})`;
             return log.level;
           },
           onUpdate: function(v: parameter) {
             log.level = <number>v.value;
-            this.title.innerHTML = `${this.config.title} (${
-              ["error", "warning", "components", "all"][log.level]
-            })`;
+            this.title.innerHTML = `${this.config.title} (${["error", "warning", "components", "all"][log.level]})`;
           }
         }
       ]
