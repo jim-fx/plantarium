@@ -15,7 +15,7 @@ export default class Stage implements Stage {
 
   private _listeners: Function[] = [];
   private _nextStage: Stage | undefined;
-  private _pd: plantDescription = {};
+  private _pd: plantDescription = <plantDescription>{};
   private _elements: UIElement[] = [];
 
   constructor(config: UIConfig) {

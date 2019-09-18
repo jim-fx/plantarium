@@ -1,14 +1,4 @@
-import {
-  Renderer,
-  Camera,
-  Orbit,
-  Vec3,
-  Transform,
-  Color,
-  Geometry,
-  Mesh,
-  Vec2
-} from "ogl";
+import { Renderer, Camera, Orbit, Vec3, Transform, Color, Geometry, Mesh, Vec2 } from "ogl";
 import { grid, ground } from "../model-generator/geometry";
 import load from "./helpers/loader";
 
@@ -36,7 +26,7 @@ let gridSize: number = 5;
 let gridResolution: number = 8;
 let gridMesh: Mesh;
 
-let _deferredSettings: settings;
+let _deferredSettings: settings = <settings>{};
 
 async function applySettings(_s: settings) {
   if (!_deferredSettings) {
@@ -88,13 +78,9 @@ async function applySettings(_s: settings) {
       if (!groundMesh.parent) {
         groundMesh.setParent(scene);
       }
-      groundMesh.geometry.setDrawRange(0, 400);
+      //groundMesh.geometry.setDrawRange(0, 400);
     } else {
       groundMesh.scale.set(0.00001, 0, 0);
-    }
-
-    if (_s["ground_texture_size"]) {
-      groundMesh.program.uniforms.texScale.value = _s["ground_texture_size"];
     }
   }
 
@@ -173,14 +159,10 @@ async function applySettings(_s: settings) {
   camera.position.set(0, 2, 4);
   camera.lookAt(new Vec3(0, 0, 0));
 
-  if (localStorage.pdCamera)
-    camera.position.fromArray(
-      localStorage.pdCamera.split(",").map((v: string) => parseFloat(v))
-    );
+  if (localStorage.pdCamera) camera.position.fromArray(localStorage.pdCamera.split(",").map((v: string) => parseFloat(v)));
 
   overlay.debug3d.camera = camera;
 
-  console.log(canvas);
   controls = new Orbit(camera, {
     element: canvas,
     target: new Vec3(0, 0.2, 0),
@@ -293,7 +275,7 @@ async function applySettings(_s: settings) {
       })
     });
 
-    if (_deferredSettings) {
+    if (!!_deferredSettings) {
       applySettings(_deferredSettings);
     }
   })();

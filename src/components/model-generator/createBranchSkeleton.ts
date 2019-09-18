@@ -110,7 +110,7 @@ export default function(branch: branchDescription, skeleton: Float32Array, i: nu
 
       //Create the basic point
       let x = offsetVec[0] * (switchSide ? -length : length) * _a;
-      let y = offsetVec[1] * (switchSide ? -length : length) * _a;
+      let y = 0 * (switchSide ? -length : length) * _a;
       let z = offsetVec[2] * (switchSide ? -length : length) * _a;
 
       if (branchNoiseStrength) {

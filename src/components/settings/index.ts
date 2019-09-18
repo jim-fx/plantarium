@@ -11,7 +11,7 @@ const save = () => {
 };
 
 const load = () => {
-  if ("pdSettings" in localStorage) {
+  if ("settings" in localStorage) {
     obj = JSON.parse(localStorage["settings"]);
     Object.keys(obj).forEach(k => {
       settings.set(k, obj[k]);
@@ -34,12 +34,6 @@ export default {
       settings.set(key, value);
       save();
     }
-  },
-  loadSettings: (_settings: settings) => {
-    Object.keys(_settings).forEach(k => {
-      settings.set(k, _settings[k]);
-    });
-    save();
   },
   get object(): settings {
     return obj;

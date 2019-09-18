@@ -1,7 +1,7 @@
 import defaultPD from "../../assets/defaultPlantDescription.json";
 import importer from "../io/importer";
 import logger from "../logger";
-import data from "../data-service";
+import dataService from "../data-service";
 
 //Helpers
 import incrementPlantName from "./incrementPlantName";
@@ -18,6 +18,7 @@ const metaStore: Map<string, plantMetaInfo> = new Map();
 
 let activePlantName: string = localStorage.activePlantName;
 let pd: plantDescription;
+let nextStage: Stage;
 
 export default {
   updateMeta: async function(oldMeta: plantMetaInfo, newMeta: plantMetaInfo) {
@@ -25,23 +26,20 @@ export default {
       let oldPD = <plantDescription>plantStore.get(oldMeta.name);
 
       if (plantStore.has(newMeta.name)) {
-        newMeta.name = incrementPlantName(
-          newMeta.name,
-          Array.from(plantStore.keys())
-        );
+        newMeta.name = incrementPlantName(newMeta.name, Array.from(plantStore.keys()));
       }
 
       if (oldPD) {
         plantStore.delete(oldMeta.name);
         metaStore.delete(oldMeta.name);
-        data.deletePlant(oldMeta);
+        dataService.deletePlant(oldMeta);
         oldPD.meta = newMeta;
         this.save(oldPD);
       } else {
-        oldPD = await data.getPlant(oldMeta);
+        oldPD = await dataService.getPlant(oldMeta);
         oldPD.meta = newMeta;
-        data.deletePlant(oldMeta);
-        data.savePlant(oldPD);
+        dataService.deletePlant(oldMeta);
+        dataService.savePlant(oldPD);
       }
     }
 
@@ -58,7 +56,7 @@ export default {
     activePlantName = meta.name;
     localStorage.setItem("activePlantName", name);
 
-    const pd = await data.getPlant(meta);
+    const pd = await dataService.getPlant(meta);
 
     //Load new from database
     plantStore.set(activePlantName, pd);
@@ -67,10 +65,7 @@ export default {
 
     if (activePD.meta.plantariumVersion) {
       if (versionToNumber(activePD.meta.plantariumVersion) < version) {
-        log(
-          `upgraded project ${activePD.meta.name} from version: ${activePD.meta.plantariumVersion} to version:${_version}`,
-          2
-        );
+        log(`upgraded project ${activePD.meta.name} from version: ${activePD.meta.plantariumVersion} to version:${_version}`, 2);
         activePD.meta.plantariumVersion = _version;
         importer.init(updatePlantDefinition(activePD));
       } else {
@@ -83,41 +78,25 @@ export default {
 
     return true;
   },
-  addPlant: function(name?: string) {
-    if (name) {
-      //If the name is already set duplicate it
-      if (plantStore.has(name)) {
-        const newPlant = JSON.parse(JSON.stringify(plantStore.get(name)));
-        const newName = incrementPlantName(name, Array.from(plantStore.keys()));
-        newPlant.meta.name = newName;
-        this.save(newPlant);
-      } else {
-        //Else create a new project from the default one
-        const newPlant = JSON.parse(JSON.stringify(defaultPD));
-        newPlant.meta.name = incrementPlantName(
-          name,
-          Array.from(plantStore.keys())
-        );
-        this.save(newPlant);
-      }
-    } else {
-      const newPlant = JSON.parse(JSON.stringify(defaultPD));
-      if (plantStore.has(newPlant.meta.name)) {
-        newPlant.meta.name = incrementPlantName(
-          newPlant.meta.name,
-          Array.from(plantStore.keys())
-        );
-      }
-      this.loadPlant(newPlant);
-    }
+  newPlant: function(_name?: string): plantDescription {
+    const plant = _name && plantStore.has(_name) ? JSON.parse(JSON.stringify(plantStore.get(_name))) : JSON.parse(JSON.stringify(defaultPD));
+    this.addPlant(plant);
+    this.updateUI();
+    return plant;
+  },
+  addPlant: function(_pd: plantDescription) {
+    _pd.meta.name = incrementPlantName(_pd.meta.name, Array.from(plantStore.keys()));
+    dataService.savePlant(_pd);
+    metaStore.set(_pd.meta.name, _pd.meta);
+    this.setActivePlant(_pd.meta);
   },
   deletePlant: function(_meta: plantMetaInfo) {
     plantStore.delete(_meta.name);
     metaStore.delete(_meta.name);
-    data.deletePlant(_meta);
+    dataService.deletePlant(_meta);
 
     if (plantStore.size === 0) {
-      this.loadPlant(defaultPD);
+      this.addPlant(defaultPD);
     } else if (!plantStore.has(activePlantName)) {
       this.setActivePlant(plantStore.keys().next().value);
     }
@@ -126,14 +105,10 @@ export default {
     pd.meta.lastSaved = Date.now();
     plantStore.set(pd.meta.name, pd);
     metaStore.set(pd.meta.name, pd.meta);
-    data.savePlant(pd);
-  },
-  loadPlant: function(pd: plantDescription) {
-    data.savePlant(pd);
-    this.setActivePlant(pd.meta);
+    dataService.savePlant(pd);
   },
   download: async (meta: plantMetaInfo) => {
-    const pd = await data.getPlant(meta);
+    const pd = await dataService.getPlant(meta);
     downloadJSON(pd, meta.name);
   },
   get plantNames(): string[] {
@@ -147,17 +122,20 @@ export default {
   },
   set pd(_pd: plantDescription) {
     pd = _pd;
+    if (nextStage) {
+      nextStage.pd = _pd;
+    }
     this.save(_pd);
   },
   get pd() {
     return pd;
   },
+
   init: async function() {
-    //Await for the initialization of sw
-    const plantMetas = await data.getPlantMetas();
+    const plantMetas = await dataService.getPlantMetas();
 
     if (!plantMetas.length) {
-      data.savePlant(defaultPD);
+      dataService.savePlant(defaultPD);
       plantStore.set(defaultPD.meta.name, defaultPD);
       metaStore.set(defaultPD.meta.name, defaultPD.meta);
       this.setActivePlant(defaultPD.meta);
@@ -178,8 +156,11 @@ export default {
       this.setActivePlant(projectName);
     } else {
       log("load project default project", 2);
-      this.loadPlant(defaultPD);
+      this.addPlant(defaultPD);
     }
+  },
+  connect: (_s: Stage) => {
+    nextStage = _s;
   },
   updateUI: () => {
     pd && importer.init(pd);

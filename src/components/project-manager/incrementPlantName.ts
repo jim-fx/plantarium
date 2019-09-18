@@ -25,4 +25,5 @@ function increment(name: string, alreadyTakenNames: string[]): string {
     return newName;
   }
 }
+
 export default increment;

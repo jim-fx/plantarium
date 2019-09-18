@@ -5,20 +5,35 @@ import "whatwg-fetch";
 import resizeTables from "./helpers/resizeTable";
 import { version } from "../package.json";
 
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker
+      .register("/sw.js", {
+        scope: "/"
+      })
+      .then(
+        function(reg) {},
+        function(err) {
+          // registration failed :(
+          console.error(err);
+        }
+      );
+  });
+} else {
+  alert(
+    `
+    This application won't work for you right now, 
+    as your browser seems a bit old, support is planned.
+    `
+  );
+}
+
 //Import all the stages
 import Stage from "./components/stages/stageClass";
-import {
-  stemConfig,
-  branchConfig,
-  leafConfig,
-  ioConfig,
-  settingsConfig
-} from "./config/index";
+import { stemConfig, branchConfig, leafConfig, ioConfig, settingsConfig } from "./config/index";
 import display from "./components/display";
 import { default as importerStage } from "./components/io/importer";
-import { default as exporterStage } from "./components/io/exporter";
 import projectManager from "./components/project-manager";
-import settings from "./components/settings";
 
 (() => {
   resizeTables(<HTMLTableElement>document.querySelector("table"));
@@ -34,13 +49,7 @@ import settings from "./components/settings";
   const settingsStage = new Stage(settingsConfig);
 
   //Connect all the stages
-  importerStage.connect(stemStage);
-  stemStage.connect(branchStage);
-  branchStage.connect(leafStage);
-  leafStage.connect(displayStage);
-  displayStage.connect(IOStage);
-  IOStage.connect(settingsStage);
-  settingsStage.connect(projectManager);
+  [importerStage, stemStage, branchStage, leafStage, IOStage, settingsStage, projectManager, displayStage].forEach((s: Stage, i, a) => s.connect(a[i + 1]));
 
   projectManager.init();
 })();
