@@ -47,7 +47,6 @@
     "rollup-plugin-live-server": "^1.0.3",
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-scss": "^1.0.2",
-    "rollup-plugin-svg": "^2.0.0",
     "rollup-plugin-terser": "^5.1.1",
     "rollup-plugin-typescript": "^1.0.1",
     "rollup-plugin-visualizer": "^2.5.4",
@@ -58,6 +57,7 @@
     "@types/express": "^4.17.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "graphql-iso-date": "^3.6.1",
     "lowdb": "^1.0.0",
     "nodemon": "^1.19.2",
     "whatwg-fetch": "^3.0.0"

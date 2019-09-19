@@ -8,7 +8,7 @@ import liveServer from "rollup-plugin-live-server";
 import glslify from "rollup-plugin-glslify";
 import { terser } from "rollup-plugin-terser";
 import analyze from "rollup-plugin-analyzer";
-import svg from "rollup-plugin-svg";
+import svg from "./src/assets/rollup-plugin-svg";
 import visualizer from "rollup-plugin-visualizer";
 
 const PROD = process.env.ROLLUP_WATCH !== "true";
