@@ -11,6 +11,8 @@ branches:
 cache:
   directories:
     - node_modules
+    - ~/.npm
+    - ~/.cache
 
 install:
   - npm ci
