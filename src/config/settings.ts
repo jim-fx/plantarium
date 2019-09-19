@@ -47,7 +47,13 @@ export default {
       type: "Tab",
       title: "Theme",
       identifiers: ["light", "dark"],
-      init: () => {
+      init: function() {
+        matchMedia("(prefers-color-scheme: dark)").onchange = ev => {
+          const theme = ev.matches ? "dark" : "light";
+          this.setActive(theme);
+          this.update(theme);
+        };
+
         return settings.get("theme") || "dark";
       },
       onUpdate: (v: string) => {

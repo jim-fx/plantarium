@@ -19,6 +19,11 @@ const load = () => {
   } else {
     localStorage.setItem("settings", "{}");
   }
+
+  if (!settings.get("theme") && matchMedia("(prefers-color-scheme: dark)")) {
+    settings.set("theme", "dark");
+    obj["theme"] = "dark";
+  }
 };
 
 load();
