@@ -12,13 +12,35 @@ module.exports.getPlant = function(args) {
     .value();
 };
 module.exports.getPlants = function(args) {
-  if (args.topic) {
-    var topic = args.topic;
+  console.log(args);
+
+  if (args && args.author) {
+    var author = args.author;
     return db
       .get("plants")
-      .filter({ topic: topic })
+      .filter({ author: author })
       .value();
   } else {
     return db.get("plants").value();
+  }
+};
+
+module.exports.getUser = function(args) {
+  if (args && args.id) {
+    var id = args.id;
+
+    console.log(
+      db
+        .get("users")
+        .filter({ id: id })
+        .value()
+    );
+
+    return db
+      .get("users")
+      .filter({ id: id })
+      .value()[0];
+  } else {
+    return false;
   }
 };

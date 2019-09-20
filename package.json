@@ -9,7 +9,7 @@
     "client:watch": "rollup -c -w ",
     "client:build": "NODE_ENV=production rollup -c && mv stats.html build/stats.html",
     "server:start": "node server/server.js",
-    "server:watch": "nodemon server/server.js",
+    "server:watch": "nodemon --watch server server/server.js",
     "cypress:open": "cypress open"
   },
   "repository": {
@@ -51,7 +51,8 @@
     "rollup-plugin-typescript": "^1.0.1",
     "rollup-plugin-visualizer": "^2.5.4",
     "tslib": "^1.10.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.5.3",
+    "uuid": "^3.3.3"
   },
   "dependencies": {
     "@types/express": "^4.17.1",

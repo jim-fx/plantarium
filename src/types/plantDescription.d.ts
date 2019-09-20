@@ -18,6 +18,7 @@ interface plantMetaInfo {
   latinName?: string;
   family?: string;
   class?: string;
+  public?: boolean;
 }
 
 interface stemDescription {
