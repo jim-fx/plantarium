@@ -95,7 +95,7 @@ export default {
     metaStore.delete(_meta.name);
     dataService.deletePlant(_meta);
 
-    if (plantStore.size === 0) {
+    if (metaStore.size === 0) {
       this.addPlant(defaultPD);
     } else if (!plantStore.has(activePlantName)) {
       this.setActivePlant(plantStore.keys().next().value);

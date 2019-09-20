@@ -14,6 +14,7 @@ async function generate(pd) {
 export default {
   set pd(_pd: plantDescription) {
     if (nextStage) nextStage.pd = _pd;
+    overlay.pd(_pd);
     generate(_pd);
   },
   init: function(_pd: plantDescription) {

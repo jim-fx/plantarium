@@ -3,6 +3,8 @@ import generate from "./generate";
 
 let settings: settings = <settings>{};
 
+postMessage({ type: "overlay", value: "Registered generator worker" });
+
 expose((pd: plantDescription, _s: settings | settings[] = settings) => {
   if (Array.isArray(_s)) {
     settings = _s[0];

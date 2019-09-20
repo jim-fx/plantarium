@@ -1,0 +1,101 @@
+#popup-wrapper {
+  position: absolute;
+  bottom: 0;
+
+  .popup {
+    position: relative;
+
+    width: fit-content;
+    padding: 10px;
+    padding-right: 30px;
+    margin: 10px;
+    border-radius: $border-radius;
+    @include themify($themes) {
+      box-shadow: themed("shadow");
+    }
+
+    overflow: hidden;
+
+    max-height: 70px;
+    box-sizing: border-box;
+    transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease, margin-bottom 0.3s ease;
+
+    &.popup-out {
+      max-height: 0;
+      opacity: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    span {
+      height: 2.4em;
+      width: 2.4em;
+      border-radius: 50%;
+      border: solid 1px;
+      display: inline-block;
+      vertical-align: middle;
+
+      svg {
+        height: 100%;
+      }
+    }
+
+    p {
+      width: fit-content;
+      vertical-align: middle;
+      display: inline-block;
+      padding: 10px;
+      padding-left: 20px;
+    }
+
+    .popup-progress {
+      position: absolute;
+      height: 2.5px;
+      width: 0%;
+      left: 0;
+      bottom: 0;
+    }
+
+    .popup-progress-extend {
+      width: 100%;
+    }
+  }
+
+  .popup-info {
+    span {
+      display: none;
+    }
+    @include themify($themes) {
+      background-color: themed("backgroundColor");
+    }
+    color: white;
+    .popup-progress {
+      background-color: white;
+    }
+  }
+
+  .popup-success {
+    background-color: $light-green;
+    color: $dark-gray;
+    border-color: $dark-gray;
+    span {
+      svg {
+        stroke: $dark-gray;
+      }
+    }
+    .popup-progress {
+      background-color: $dark-gray;
+    }
+  }
+
+  .popup-error {
+    background-color: $light-red;
+    color: white;
+    span {
+      border-color: white;
+    }
+    .popup-progress {
+      background-color: white;
+    }
+  }
+}
