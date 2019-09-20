@@ -34,6 +34,7 @@ export default {
         {
           type: "Slider",
           title: "Position",
+          tooltip: "How far the stems are offset from the center",
           min: 0,
           max: 1,
           init: (pd: plantDescription) => {
@@ -46,6 +47,7 @@ export default {
         {
           type: "Slider",
           title: "Position Variation",
+          tooltip: "How much the offset varies",
           min: 0,
           max: 1,
           init: (pd: plantDescription) => {
@@ -62,6 +64,7 @@ export default {
         {
           type: "Slider",
           title: "Rotation",
+          tooltip: "Stem rotation around the z axis",
           default: 0,
           min: 0,
           max: 360,
@@ -75,6 +78,7 @@ export default {
         {
           type: "Slider",
           title: "Rotation Variation",
+          tooltip: "How much the stem rotation varies",
           default: 0,
           min: 0,
           max: 360,

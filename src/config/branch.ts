@@ -46,6 +46,7 @@ export default {
     {
       type: "Slider",
       title: "Lowest Branch",
+      tooltip: "position of the lowest branch along the stem",
       min: 0,
       max: 1,
       init: function(pd: plantDescription) {
@@ -63,6 +64,7 @@ export default {
         {
           type: "Slider",
           title: "Offset",
+          tooltip: "offset the position of every 2nd branch along the stem",
           min: 0,
           max: 1,
           init: function(pd: plantDescription) {
@@ -243,6 +245,7 @@ export default {
         {
           type: "Slider",
           title: "Rotation",
+          tooltip: "rotates the branch around the stem",
           min: 0,
           max: 1,
           init: function(pd: plantDescription) {

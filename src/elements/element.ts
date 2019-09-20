@@ -14,12 +14,20 @@ export default class UIElement {
     this.config = config;
     wrapper.append(this.wrapper);
 
-    if (this.config.onUpdate) {
+    if (config.onUpdate) {
       const _update = this.config.onUpdate.bind(this);
       this._update = (v: parameter) => {
         _update(v, this.stage.pd);
         this.stage.pd = this.stage.pd;
       };
+    }
+
+    if (config.tooltip) {
+      const tooltip = document.createElement("span");
+      this.wrapper.classList.add("tooltip");
+      tooltip.classList.add("tooltip-text");
+      tooltip.innerHTML = config.tooltip;
+      this.wrapper.append(tooltip);
     }
   }
 
