@@ -270,7 +270,7 @@ let i: number = 0;
 let start = 0;
 function render() {
   i++;
-  overlay.ms(performance.now() - start);
+  overlay.renderTime(performance.now() - start);
 
   requestAnimationFrame(render);
 

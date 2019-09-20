@@ -2,7 +2,7 @@ import settings from "../components/settings";
 import getSeed from "../helpers/getSeed";
 import logger from "../components/logger";
 import pm from "../components/project-manager";
-
+import data from "../components/data-service";
 const log = logger("config");
 
 export default {
@@ -12,6 +12,32 @@ export default {
   icon: "cog",
   iconOnly: true,
   children: [
+    {
+      type: "Checkbox",
+      title: "Enable Sync",
+      tooltip: "Enables syncing of projects to the cloud",
+      init: () => !!settings.get("enable_sync"),
+      onUpdate: (v: parameter) => {
+        settings.set("enable_sync", v.enabled);
+        v.enabled ? data.enableSync() : data.disableSync();
+        pm.updateUI();
+      }
+    },
+    {
+      type: "Text",
+      title: "User ID",
+      init: function() {
+        this.enabled = !!settings.get("enable_sync");
+
+        if (this.enabled) {
+          data.getID().then(id => (this.element.value = id));
+        }
+        return "";
+      },
+      onUpdate: async function(v: string) {
+        const newID = await data.setID(v);
+      }
+    },
     {
       type: "Checkbox",
       title: "use random seed",
@@ -201,6 +227,33 @@ export default {
               localStorage.clear();
               window.location.reload();
             }
+          }
+        },
+        {
+          type: "Checkbox",
+          title: "Disable Tooltips",
+          default: !!settings.get("disable_tooltips"),
+          init: () => {
+            const v = !!settings.get("disable_tooltips");
+
+            if (v) {
+              document.body.classList.add("tooltip-disabled");
+            } else {
+              document.body.classList.remove("tooltip-disabled");
+            }
+
+            return v;
+          },
+          onUpdate: (v: parameter) => {
+            settings.set("disable_tooltips", v.enabled);
+
+            if (v.enabled) {
+              document.body.classList.add("tooltip-disabled");
+            } else {
+              document.body.classList.remove("tooltip-disabled");
+            }
+
+            pm.updateUI();
           }
         },
         {

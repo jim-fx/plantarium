@@ -9,3 +9,4 @@ export { default as ProjectMeta } from "./projectMeta";
 export { default as ProjectList } from "./projectList";
 export { default as Tab } from "./tab";
 export { default as FileInput } from "./fileInput";
+export { default as Text } from "./text";

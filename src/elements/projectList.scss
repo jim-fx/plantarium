@@ -48,9 +48,6 @@
   }
 
   table {
-    @include themify($themes) {
-      background-color: themed("backgroundColor");
-    }
     border-spacing: 0;
     width: 100%;
     border-collapse: separate;
@@ -59,7 +56,8 @@
     border-radius: $border-radius;
     border-bottom: none;
     @include themify($themes) {
-      border-color: themed("outlineColor");
+      background-color: themed("backgroundColor");
+      border-color: themed("foregroundColor");
     }
 
     > tr {
@@ -71,7 +69,7 @@
         position: relative;
         border-bottom: solid thin;
         @include themify($themes) {
-          border-color: themed("outlineColor");
+          border-color: themed("foregroundColor");
         }
         p {
           padding-left: 10px;
@@ -90,7 +88,7 @@
         border-right: solid 5px;
         @include themify($themes) {
           background-color: themed("foregroundColor");
-          border-color: themed("outlineColor");
+          border-color: themed("foregroundColor");
           color: themed("textColor");
           button {
             color: themed("textColor");

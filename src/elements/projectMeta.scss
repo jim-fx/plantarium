@@ -11,6 +11,7 @@
   }
   input[type="text"] {
     background-color: transparent;
+    text-align: right;
     @include themify($themes) {
       color: themed("textColor");
     }

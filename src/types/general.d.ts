@@ -2,6 +2,7 @@ interface UIConfig {
   title: string;
   type: string;
 
+  tooltip?: string;
   state?: string;
   icon?: string;
   iconOnly?: boolean;

@@ -16,8 +16,8 @@ export default class UIElement {
 
     if (config.onUpdate) {
       const _update = this.config.onUpdate.bind(this);
-      this._update = (v: parameter) => {
-        _update(v, this.stage.pd);
+      this._update = (v: parameter, original: any = this.stage.pd) => {
+        _update(v, original);
         this.stage.pd = this.stage.pd;
       };
     }
@@ -35,6 +35,7 @@ export default class UIElement {
     return this._enabled;
   }
   set enabled(v) {
+    this.wrapper.blur();
     v ? this.wrapper.classList.remove("ui-element-disabled") : this.wrapper.classList.add("ui-element-disabled");
     this._enabled = v;
   }
@@ -43,9 +44,9 @@ export default class UIElement {
     if (this._init) this._init(_pd);
   }
 
-  update(v: any) {
+  update(v: any, orig?: any) {
     if (this._update) {
-      this._update(v);
+      this._update(v, orig);
     }
   }
 }

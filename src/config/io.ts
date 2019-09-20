@@ -6,6 +6,7 @@ import exporter from "../components/io/exporter";
 export default {
   title: "import/export",
   type: "stage",
+  icon: "io",
   children: [
     {
       type: "ProjectMeta",
@@ -14,8 +15,8 @@ export default {
       init: (pd: plantDescription) => {
         return pd.meta;
       },
-      onUpdate: (output: plantMetaInfo, originalState: plantDescription) => {
-        projectManager.updateMeta(originalState.meta, output);
+      onUpdate: (newMeta: plantMetaInfo, originalMeta: plantMetaInfo) => {
+        projectManager.updateMeta(originalMeta, newMeta);
       }
     },
     {

@@ -1,0 +1,11 @@
+.ui-text-input {
+  @include themify($themes) {
+    background-color: themed("foregroundColor");
+    color: themed("textColor");
+    border-color: themed("outlineColor");
+  }
+  border: none;
+  margin: 0;
+  padding: 0.5em;
+  width: 100%;
+}

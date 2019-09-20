@@ -23,9 +23,7 @@ input[type="checkbox"] {
     background-color: themed("foregroundColor");
   }
 
-  
-  > svg{
-    transition: opacity 0.3s ease;
+  > svg {
     opacity: 0;
     @include themify($themes) {
       stroke-color: themed("textColor");
@@ -39,6 +37,6 @@ input[type="checkbox"] {
   }
 }
 
-input[type="checkbox"]:checked + label >svg{
+input[type="checkbox"]:checked + label > svg {
   opacity: 1;
 }

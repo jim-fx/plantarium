@@ -52,7 +52,7 @@
 
     /* Fade in tooltip */
     opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s, transform 0.3s;
 
     &::before {
       content: "TIP: ";
@@ -74,7 +74,7 @@
   }
 
   &:hover .tooltip-text {
-    transition: opacity 0.3s 0.8s ease, transform 0.3s 0.8s ease;
+    transition: opacity 0.3s 1s, transform 0.3s 1s;
     transform: translateY(100%);
     opacity: 1;
   }
