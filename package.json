@@ -10,7 +10,8 @@
     "client:build": "NODE_ENV=production rollup -c && mv stats.html build/stats.html",
     "server:start": "node server/server.js",
     "server:watch": "nodemon --watch server server/server.js",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "heroku-postbuild": "echo nope"
   },
   "repository": {
     "type": "git",
