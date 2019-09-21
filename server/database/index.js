@@ -29,14 +29,6 @@ module.exports.getPlants = function(args) {
 module.exports.getUser = function(args) {
   if (args && args.id) {
     var id = args.id;
-
-    console.log(
-      db
-        .get("users")
-        .filter({ id: id })
-        .value()
-    );
-
     return db
       .get("users")
       .filter({ id: id })
@@ -47,8 +39,6 @@ module.exports.getUser = function(args) {
 };
 
 module.exports.createUser = function() {
-  console.log("createUser");
-
   const user = {
     id: uuid()
   };
