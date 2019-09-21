@@ -49,3 +49,15 @@ module.exports.createUser = function() {
 
   return user;
 };
+
+module.exports.getUpdatedPlants = function(args) {
+  const { author } = args;
+
+  const allPlants = db.get("plants").filter({
+    meta: {
+      author: author
+    }
+  });
+
+  console.log(args);
+};

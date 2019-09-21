@@ -17,7 +17,8 @@ const graph = async function(query: string, args: any = {}, operationName = "") 
   const json = await res.json();
 
   if (json.errors) {
-    console.error(`graph error ${operationName && "(" + operationName + ") "}| `, json.errors[0]);
+    const d = `graph error ${operationName && "(" + operationName + ") "}| `;
+    throw json.errors[0].message;
   } else {
     return json.data;
   }
@@ -44,6 +45,24 @@ graph.createUser = async function() {
     }`,
     {},
     "createUser"
+  );
+};
+
+graph.getUpdatedPlants = async function(userID: string, plants: plantDescription[]) {
+  return await graph(
+    `mutation getUpdatePlants($userID:String $plants:[Plant]){
+      getUpdatedPlants(author:$userID, plants:$plants) {
+        meta {
+          name
+          author
+        },
+        
+      }
+    }`,
+    {
+      userID: userID,
+      plants: plants
+    }
   );
 };
 

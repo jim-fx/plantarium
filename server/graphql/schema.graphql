@@ -1,13 +1,21 @@
-const graphql = require("graphql");
-const { GraphQLDate } = require("graphql-iso-date");
-const BigInt = require("graphql-bigint");
-const db = require("../database");
+input plantMeta{
+
+}
+
+type plantMeta{
+  name:!string
+  lastSaved: 
+}
+
+type plante {
+  meta: plantMeta
+}
 
 const plantMetaInputType = new graphql.GraphQLInputObjectType({
   name: "PlantMetaInput",
   fields: {
     name: { type: graphql.GraphQLString },
-    lastSaved: { type: BigInt }
+    lastSaved: { type: GraphQLDate }
   }
 });
 
@@ -18,7 +26,7 @@ const plantMetaInfoType = new graphql.GraphQLObjectType({
     plantariumVersion: { type: graphql.GraphQLString },
     seed: { type: graphql.GraphQLString },
     randomSeed: { type: graphql.GraphQLString },
-    lastSaved: { type: BigInt },
+    lastSaved: { type: GraphQLDate },
     author: { type: graphql.GraphQLString },
     latinName: { type: graphql.GraphQLString },
     family: { type: graphql.GraphQLString },
@@ -82,13 +90,9 @@ const mutationType = new graphql.GraphQLObjectType({
       args: {
         author: { type: graphql.GraphQLString },
         plants: {
-          type: new graphql.GraphQLList(plantMetaInputType)
+          type: [plantMetaInputType]
         }
       }
     }
   }
 });
-
-const schema = new graphql.GraphQLSchema({ query: queryType, mutation: mutationType });
-
-module.exports = schema;

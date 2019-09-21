@@ -21,10 +21,14 @@ export default function(msg: string, type: string = "info") {
     case "info":
       p.classList.add("popup-info");
       break;
+    case "sync":
+      p.classList.add("popup-sync");
+      break;
     case "error":
       p.classList.add("popup-error");
+      console.error(msg);
       iconWrapper.append(icon.cross);
-      time = 3000;
+      time = 3000 + msg.length * 50;
       break;
     default:
       break;

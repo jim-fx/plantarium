@@ -50,7 +50,7 @@
 
     .popup-progress {
       position: absolute;
-      height: 2.5px;
+      height: 1px;
       width: 0%;
       left: 0;
       bottom: 0;
@@ -85,6 +85,23 @@
     }
     .popup-progress {
       background-color: $dark-gray;
+    }
+  }
+
+  .popup-sync {
+    box-shadow: none !important;
+    padding: 0;
+    span {
+      display: none;
+    }
+    background-color: transparent;
+    color: $dark-gray;
+    .popup-progress {
+      height: 1px;
+      background-color: $dark-gray;
+    }
+    p {
+      padding: 5px 0px;
     }
   }
 

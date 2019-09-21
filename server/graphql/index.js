@@ -8,7 +8,8 @@ module.exports = () =>
       plants: db.getPlants,
       plant: db.getPlant,
       user: db.getUser,
-      createUser: db.createUser
+      createUser: db.createUser,
+      getUpdatedPlants: db.getUpdatedPlants
     },
     graphiql: true
   });
