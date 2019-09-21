@@ -99,7 +99,7 @@ export default [
       }),
 
       replace({
-        SERVER_URL: env.SERVER_URL
+        SERVER_URL: process.env.SERVER_URL
       }),
 
       PROD && terser(),
@@ -134,7 +134,7 @@ export default [
       resolve({ extensions }),
 
       replace({
-        SERVER_URL: env.SERVER_URL
+        SERVER_URL: process.env.SERVER_URL
       }),
 
       // Allow bundling cjs modules. Rollup doesn't understand cjs
