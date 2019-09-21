@@ -10,6 +10,9 @@ import { terser } from "rollup-plugin-terser";
 import analyze from "rollup-plugin-analyzer";
 import svg from "./src/assets/rollup-plugin-svg";
 import visualizer from "rollup-plugin-visualizer";
+import replace from "rollup-plugin-replace";
+import dotenv from "dotenv";
+const env = dotenv.config().parsed;
 
 const PROD = process.env.ROLLUP_WATCH !== "true";
 
@@ -31,6 +34,10 @@ export default [
 
       // will output compiled styles to bundle.css
       scss(),
+
+      replace({
+        SERVER_URL: env.SERVER_URL
+      }),
 
       // Allows node_modules resolution
       resolve({ extensions }),
@@ -91,6 +98,10 @@ export default [
         sourceMap: !PROD
       }),
 
+      replace({
+        SERVER_URL: env.SERVER_URL
+      }),
+
       PROD && terser(),
 
       PROD &&
@@ -121,6 +132,10 @@ export default [
 
       // Allows node_modules resolution
       resolve({ extensions }),
+
+      replace({
+        SERVER_URL: env.SERVER_URL
+      }),
 
       // Allow bundling cjs modules. Rollup doesn't understand cjs
       commonjs({

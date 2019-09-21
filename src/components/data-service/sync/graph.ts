@@ -4,7 +4,7 @@ interface graph {
 }
 
 const graph = async function(query: string, args: any = {}, operationName = "") {
-  const res = await fetch("http://localhost:4000/graphql", {
+  const res = await fetch("SERVER_URL/graphql", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
