@@ -12,7 +12,7 @@ import svg from "./src/assets/rollup-plugin-svg";
 import visualizer from "rollup-plugin-visualizer";
 import replace from "rollup-plugin-replace";
 import dotenv from "dotenv";
-const env = dotenv.config().parsed;
+dotenv.config();
 
 const PROD = process.env.ROLLUP_WATCH !== "true";
 
@@ -36,7 +36,7 @@ export default [
       scss(),
 
       replace({
-        SERVER_URL: env.SERVER_URL
+        SERVER_URL: process.env.SERVER_URL
       }),
 
       // Allows node_modules resolution
