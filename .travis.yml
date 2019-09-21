@@ -1,29 +1,27 @@
 language: node_js
 node_js:
-  - "12"
+- '12'
 dist: trusty
 sudo: false
-
 branches:
   only:
-    - master
-
+  - master
 cache:
   directories:
-    - node_modules
-    - ~/.npm
-    - ~/.cache
-
+  - node_modules
+  - "~/.npm"
+  - "~/.cache"
 install:
-  - npm ci
-
+- npm ci
 script:
-  - npm run build
-
+- npm run build
 deploy:
   provider: pages
   skip_cleanup: true
-  github_token: $GITHUB_TOKEN
+  github_token: "$GITHUB_TOKEN"
   local_dir: build
   on:
     branch: master
+notifications:
+  slack:
+    secure: LWGu9Rjo8KdUW/Lwn7s5KBwj49XQlU+KIQltk8eO8+JeRZvTErlsq+RpeeUJBNVO6rnCQAehuQLLbRDeL39iS2N4HYfgQiTAVYdqN5nmq5G6dOp9bsAdqOoEGTq3YemMtNc7vG70ggLvxUHK8py8/19UWM826pmAj7VfwQ88CvAVZ/0A25K28LROyXkTE5SHqTeCtE0AieLqLGbtCPZu/pDwcLJv0CkHeKqdJRqdV6RR4pTJasuSU/ZiYADNANlAe2tYN5LyUOmjnKrOgymsIV5cLgdhx/jsnT1K22lyZlkPK3cZn4aKn0l4FLMvOJempuXD+i7K6vTH5gMjxgG2nSe1GkRVa6Ry50lnx+BIxK3M2SfkHggAFTvFLBYHVj+gYWAeDJLkrz3twTwM1G3SkblkTFkFBspiM0HZjIvLoyl218nWzPYsn/a3ZalIMCWwv4qNXfKOFF4uLbMNHHGWgcVeo5mF/aPPwUSMW11HHaFlDfzjxhNqpgh7ehA1cYEchGdOheo7uaFcUFolEmsoRvMlEwBdIO8BB3bI0p0/GSa5KuYEYQDyFnhqOpgB05PjNUmN7OeIc+00GmKZUnDilO/Yl/0OkTgih6u8p03XDcG7thZ5TewIOvXiLdFvpm3CfwWy0JD7JOaf6iuhQIEbGP1HBvBo4TjwtIcFEYYCRdM=
