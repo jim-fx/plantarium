@@ -17,7 +17,7 @@ const graph = async function(query: string, args: any = {}, operationName = "") 
   const json = await res.json();
 
   if (json.errors) {
-    console.error(json.errors);
+    console.error(`graph error ${operationName && "(" + operationName + ") "}| `, json.errors[0]);
   } else {
     return json.data;
   }
@@ -30,7 +30,20 @@ graph.getUser = async function(args: { id: string }) {
         id
       }
     }`,
-    args
+    args,
+    "getUser"
+  );
+};
+
+graph.createUser = async function() {
+  return await graph(
+    `mutation createUser {
+      user {
+        id
+      }
+    }`,
+    {},
+    "createUser"
   );
 };
 

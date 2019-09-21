@@ -1,7 +1,6 @@
 const graphql = require("graphql");
 const { GraphQLDate } = require("graphql-iso-date");
-const { getPlant, getPlants } = require("../database");
-const uuid = require("uuid/v4");
+const db = require("../database");
 
 const plantMetaInfoType = new graphql.GraphQLObjectType({
   name: "PlantMetaInfo",
@@ -57,6 +56,16 @@ const queryType = new graphql.GraphQLObjectType({
   }
 });
 
-const schema = new graphql.GraphQLSchema({ query: queryType });
+const mutationType = new graphql.GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    user: {
+      type: userType,
+      resolve: db.createUser
+    }
+  }
+});
+
+const schema = new graphql.GraphQLSchema({ query: queryType, mutation: mutationType });
 
 module.exports = schema;

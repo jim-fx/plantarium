@@ -1,6 +1,6 @@
 const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
-
+const uuid = require("uuid");
 const adapter = new FileSync(__dirname + "/data.json");
 const db = low(adapter);
 
@@ -11,6 +11,7 @@ module.exports.getPlant = function(args) {
     .find({ id: id })
     .value();
 };
+
 module.exports.getPlants = function(args) {
   console.log(args);
 
@@ -43,4 +44,18 @@ module.exports.getUser = function(args) {
   } else {
     return false;
   }
+};
+
+module.exports.createUser = function() {
+  console.log("createUser");
+
+  const user = {
+    id: uuid()
+  };
+
+  db.get("users")
+    .push(user)
+    .write();
+
+  return user;
 };

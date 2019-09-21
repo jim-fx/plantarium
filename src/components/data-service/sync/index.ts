@@ -1,52 +1,55 @@
 import { get, set } from "idb-keyval";
 import graph from "./graph";
+import popup from "./popup";
 
 const regex = /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i;
 
 let enabled: boolean = false;
 let id: string;
+let initialized = false;
 
-get("sync_enabled").then(val => {
-  enabled = !!val;
-});
+async function init() {
+  const e = await get("sync_enabled");
+  enabled = !!e;
 
-get("sync_id").then(val => {
-  id = <string>val;
-});
+  const i = await get("sync_id");
+  id = <string>i;
+
+  initialized = true;
+}
+init();
 
 export default {
   getID: async () => {
+    if (!initialized) await init();
+
     if (id) {
       return id;
     } else {
-      const { user } = await graph(`
-          {
-            user {
-              id
-            }
-          }
-        `);
+      const { user } = await graph.createUser();
 
       id = user.id;
 
       set("sync_id", id);
 
-      postMessage({ type: "overlay", value: { type: "success", msg: `created new user` } });
+      popup("created new user", "success");
 
       return id;
     }
   },
   setID: async (_id: string) => {
-    if (_id !== id) {
-      if (regex.exec(_id)) {
-        const res = await graph.getUser({ id: _id });
+    if (!initialized) await init();
 
-        console.log(res);
+    if (_id && _id !== id && regex.exec(_id)) {
+      const { user } = await graph.getUser({ id: _id });
 
-        id = _id;
-        set("sync_id", id);
-        return true;
+      if (user && user.id) {
+        id = user.id;
+        set("sync_id", user.id);
+        popup("logged in", "success");
+        return user.id;
       } else {
+        popup("could not log in", "error");
         return id;
       }
     } else {

@@ -7,7 +7,8 @@ module.exports = () =>
     rootValue: {
       plants: db.getPlants,
       plant: db.getPlant,
-      user: db.getUser
+      user: db.getUser,
+      createUser: db.createUser
     },
     graphiql: true
   });

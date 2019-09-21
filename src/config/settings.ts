@@ -35,7 +35,7 @@ export default {
         return "";
       },
       onUpdate: async function(v: string) {
-        const newID = await data.setID(v);
+        this.element.value = await data.setID(v);
       }
     },
     {
