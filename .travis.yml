@@ -1,25 +1,25 @@
 language: node_js
 node_js:
-- '12'
+  - "12"
 dist: trusty
 sudo: false
 branches:
   only:
-  - master
+    - master
 cache:
   directories:
-  - node_modules
-  - "~/.npm"
-  - "~/.cache"
+    - node_modules
+    - "~/.npm"
+    - "~/.cache"
 install:
-- npm ci
+  - npm ci
 script:
-- npm run build
+  - npm run build
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: "$GITHUB_TOKEN"
-  local_dir: build
+  local_dir: build/client
   on:
     branch: master
 notifications:
