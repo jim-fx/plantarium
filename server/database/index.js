@@ -4,15 +4,15 @@ const uuid = require("uuid");
 const adapter = new FileSync(__dirname + "/data.json");
 const db = low(adapter);
 
-module.exports.getPlant = function(args) {
+export function getPlant(args) {
   var id = args.id;
   return db
     .get("plants")
     .find({ id: id })
     .value();
-};
+}
 
-module.exports.getPlants = function(args) {
+export function getPlants(args) {
   console.log(args);
 
   if (args && args.author) {
@@ -24,9 +24,9 @@ module.exports.getPlants = function(args) {
   } else {
     return db.get("plants").value();
   }
-};
+}
 
-module.exports.getUser = function(args) {
+export function getUser(args) {
   if (args && args.id) {
     var id = args.id;
     return db
@@ -36,9 +36,9 @@ module.exports.getUser = function(args) {
   } else {
     return false;
   }
-};
+}
 
-module.exports.createUser = function() {
+export function createUser() {
   const user = {
     id: uuid()
   };
@@ -48,9 +48,9 @@ module.exports.createUser = function() {
     .write();
 
   return user;
-};
+}
 
-module.exports.getUpdatedPlants = function(args) {
+export function getUpdatedPlants(args) {
   const { author } = args;
 
   const allPlants = db.get("plants").filter({
@@ -60,4 +60,4 @@ module.exports.getUpdatedPlants = function(args) {
   });
 
   console.log(args);
-};
+}
