@@ -18,33 +18,46 @@ async function sync() {
     };
   });
 
-  graph
-    .getUpdatedPlants(id, m)
-    .then(newM => {
-      console.log(newM);
-      popup("synced data", "sync");
-    })
-    .catch(err => {
-      popup("sync " + err, "error");
-    });
+  //graph.pushPlants(id, m);
 }
 const int = interval(sync, 10000);
 
 async function init() {
+  if (initialized) return;
+  initialized = true;
+
   const e = await get("sync_enabled");
   enabled = !!e;
 
+  const i = await get("sync_id");
+  id = <string>i;
+
   if (enabled) {
+    const m = (await db.getPlantMetas()).map((d: plantMetaInfo) => {
+      return {
+        name: d.name,
+        lastSaved: d.lastSaved
+      };
+    });
+
+    const _new = await graph.getUpdatedPlants(id, m);
+    _new.forEach(async (p: plantDescription) => {
+      await db.savePlant(p);
+
+      const curM = m.find(_p => _p.name === p.meta.name);
+
+      m.splice(m.indexOf(curM), 1);
+    });
+
+    const newPlants = await Promise.all(m.map(async p => await db.getPlant(p)));
+
+    graph.pushPlants(id, newPlants);
+
     int.start();
     sync();
   } else {
     int.stop();
   }
-
-  const i = await get("sync_id");
-  id = <string>i;
-
-  initialized = true;
 }
 init();
 
@@ -94,6 +107,7 @@ export default {
       set("sync_enabled", v);
       popup(`sync ${v ? "en" : "dis"}abled`, "success");
       if (v) {
+        init();
         sync();
         int.start();
       } else {

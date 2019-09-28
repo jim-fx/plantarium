@@ -1,24 +1,27 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "noFallthroughCasesInSwitch": true,
+    "target": "es6",
+    "module": "commonjs",
+    "lib": ["dom", "es6", "es2017", "esnext.asynciterable"],
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "declaration": false,
+
+    "composite": false,
+    "removeComments": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "noUnusedLocals": true,
-    "resolveJsonModule": true,
-    "noImplicitAny": true,
-    "importHelpers": true,
-    "declarationDir": "build/types",
-    "declaration": true,
-    "target": "es2015",
-    "module": "commonjs",
     "emitDecoratorMetadata": true,
-    "lib": ["dom", "esnext", "esnext.asynciterable"],
-    "strict": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "skipLibCheck": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["build"]
+  "exclude": ["node_modules"]
 }

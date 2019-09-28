@@ -10563,9 +10563,6 @@
 		amount: 12,
 		onBranches: true,
 		onStem: false,
-		diameter: {
-			value: 1
-		},
 		angle: {
 			value: 1
 		},
@@ -12484,9 +12481,13 @@
 	              return init();
 
 	            case 3:
-	              data$1.savePlant(pd);
+	              _context.next = 5;
+	              return data$1.savePlant(pd);
 
-	            case 4:
+	            case 5:
+	              return _context.abrupt("return", _context.sent);
+
+	            case 6:
 	            case "end":
 	              return _context.stop();
 	          }
@@ -12517,9 +12518,13 @@
 	              return init();
 
 	            case 3:
-	              data$1.deletePlant(meta);
+	              _context2.next = 5;
+	              return data$1.deletePlant(meta);
 
-	            case 4:
+	            case 5:
+	              return _context2.abrupt("return", _context2.sent);
+
+	            case 6:
 	            case "end":
 	              return _context2.stop();
 	          }
@@ -13085,7 +13090,7 @@
 	          switch (_context.prev = _context.next) {
 	            case 0:
 	              if (!plantStore.has(oldMeta.name)) {
-	                _context.next = 17;
+	                _context.next = 20;
 	                break;
 	              }
 
@@ -13096,32 +13101,39 @@
 	              }
 
 	              if (!oldPD) {
-	                _context.next = 11;
+	                _context.next = 12;
 	                break;
 	              }
 
 	              plantStore.delete(oldMeta.name);
 	              metaStore.delete(oldMeta.name);
-	              data$2.deletePlant(oldMeta);
+	              _context.next = 8;
+	              return data$2.deletePlant(oldMeta);
+
+	            case 8:
 	              oldPD.meta = newMeta;
 	              this.save(oldPD);
-	              _context.next = 17;
+	              _context.next = 20;
 	              break;
 
-	            case 11:
-	              _context.next = 13;
+	            case 12:
+	              _context.next = 14;
 	              return data$2.getPlant(oldMeta);
 
-	            case 13:
+	            case 14:
 	              oldPD = _context.sent;
 	              oldPD.meta = newMeta;
-	              data$2.deletePlant(oldMeta);
-	              data$2.savePlant(oldPD);
-
-	            case 17:
-	              this.setActivePlant(newMeta);
+	              _context.next = 18;
+	              return data$2.deletePlant(oldMeta);
 
 	            case 18:
+	              _context.next = 20;
+	              return data$2.savePlant(oldPD);
+
+	            case 20:
+	              this.setActivePlant(newMeta);
+
+	            case 21:
 	            case "end":
 	              return _context.stop();
 	          }
@@ -13221,7 +13233,7 @@
 	    }
 	  },
 	  save: function save(pd) {
-	    pd.meta.lastSaved = Date.now();
+	    pd.meta.lastSaved = Date.now().toString();
 	    plantStore.set(pd.meta.name, pd);
 	    metaStore.set(pd.meta.name, pd.meta);
 	    data$2.savePlant(pd);

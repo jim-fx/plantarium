@@ -77,9 +77,6 @@
     "amount": 12,
     "onBranches": true,
     "onStem": false,
-    "diameter": {
-      "value": 1
-    },
     "angle": {
       "value": 1
     },

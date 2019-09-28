@@ -2922,9 +2922,13 @@
 	        while (1) {
 	          switch (_context.prev = _context.next) {
 	            case 0:
-	              set$2(pd.meta.name, pd, store$3);
+	              _context.next = 2;
+	              return set$2(pd.meta.name, pd, store$3);
 
-	            case 1:
+	            case 2:
+	              return _context.abrupt("return", _context.sent);
+
+	            case 3:
 	            case "end":
 	              return _context.stop();
 	          }
@@ -3011,6 +3015,162 @@
 	  }()
 	};
 
+	var $find = arrayIteration.find;
+
+
+
+	var FIND = 'find';
+	var SKIPS_HOLES = true; // Shouldn't skip holes
+
+	if (FIND in []) Array(1)[FIND](function () {
+	  SKIPS_HOLES = false;
+	}); // `Array.prototype.find` method
+	// https://tc39.github.io/ecma262/#sec-array.prototype.find
+
+	_export({
+	  target: 'Array',
+	  proto: true,
+	  forced: SKIPS_HOLES
+	}, {
+	  find: function find(callbackfn
+	  /* , that = undefined */
+	  ) {
+	    return $find(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+	  }
+	}); // https://tc39.github.io/ecma262/#sec-array.prototype-@@unscopables
+
+	addToUnscopables(FIND);
+
+	var sloppyArrayMethod = function (METHOD_NAME, argument) {
+	  var method = [][METHOD_NAME];
+	  return !method || !fails(function () {
+	    // eslint-disable-next-line no-useless-call,no-throw-literal
+	    method.call(null, argument || function () {
+	      throw 1;
+	    }, 1);
+	  });
+	};
+
+	var $forEach = arrayIteration.forEach;
+
+	 // `Array.prototype.forEach` method implementation
+	// https://tc39.github.io/ecma262/#sec-array.prototype.foreach
+
+
+	var arrayForEach = sloppyArrayMethod('forEach') ? function forEach(callbackfn
+	/* , thisArg */
+	) {
+	  return $forEach(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+	} : [].forEach;
+
+	// `Array.prototype.forEach` method
+	// https://tc39.github.io/ecma262/#sec-array.prototype.foreach
+
+
+	_export({
+	  target: 'Array',
+	  proto: true,
+	  forced: [].forEach != arrayForEach
+	}, {
+	  forEach: arrayForEach
+	});
+
+	var $indexOf = arrayIncludes.indexOf;
+
+
+
+	var nativeIndexOf = [].indexOf;
+	var NEGATIVE_ZERO = !!nativeIndexOf && 1 / [1].indexOf(1, -0) < 0;
+	var SLOPPY_METHOD = sloppyArrayMethod('indexOf'); // `Array.prototype.indexOf` method
+	// https://tc39.github.io/ecma262/#sec-array.prototype.indexof
+
+	_export({
+	  target: 'Array',
+	  proto: true,
+	  forced: NEGATIVE_ZERO || SLOPPY_METHOD
+	}, {
+	  indexOf: function indexOf(searchElement
+	  /* , fromIndex = 0 */
+	  ) {
+	    return NEGATIVE_ZERO // convert -0 to +0
+	    ? nativeIndexOf.apply(this, arguments) || 0 : $indexOf(this, searchElement, arguments.length > 1 ? arguments[1] : undefined);
+	  }
+	});
+
+	var createProperty = function (object, key, value) {
+	  var propertyKey = toPrimitive(key);
+	  if (propertyKey in object) objectDefineProperty.f(object, propertyKey, createPropertyDescriptor(0, value));else object[propertyKey] = value;
+	};
+
+	var max$1 = Math.max;
+	var min$2 = Math.min;
+	var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF;
+	var MAXIMUM_ALLOWED_LENGTH_EXCEEDED = 'Maximum allowed length exceeded'; // `Array.prototype.splice` method
+	// https://tc39.github.io/ecma262/#sec-array.prototype.splice
+	// with adding support of @@species
+
+	_export({
+	  target: 'Array',
+	  proto: true,
+	  forced: !arrayMethodHasSpeciesSupport('splice')
+	}, {
+	  splice: function splice(start, deleteCount
+	  /* , ...items */
+	  ) {
+	    var O = toObject(this);
+	    var len = toLength(O.length);
+	    var actualStart = toAbsoluteIndex(start, len);
+	    var argumentsLength = arguments.length;
+	    var insertCount, actualDeleteCount, A, k, from, to;
+
+	    if (argumentsLength === 0) {
+	      insertCount = actualDeleteCount = 0;
+	    } else if (argumentsLength === 1) {
+	      insertCount = 0;
+	      actualDeleteCount = len - actualStart;
+	    } else {
+	      insertCount = argumentsLength - 2;
+	      actualDeleteCount = min$2(max$1(toInteger(deleteCount), 0), len - actualStart);
+	    }
+
+	    if (len + insertCount - actualDeleteCount > MAX_SAFE_INTEGER) {
+	      throw TypeError(MAXIMUM_ALLOWED_LENGTH_EXCEEDED);
+	    }
+
+	    A = arraySpeciesCreate(O, actualDeleteCount);
+
+	    for (k = 0; k < actualDeleteCount; k++) {
+	      from = actualStart + k;
+	      if (from in O) createProperty(A, k, O[from]);
+	    }
+
+	    A.length = actualDeleteCount;
+
+	    if (insertCount < actualDeleteCount) {
+	      for (k = actualStart; k < len - actualDeleteCount; k++) {
+	        from = k + actualDeleteCount;
+	        to = k + insertCount;
+	        if (from in O) O[to] = O[from];else delete O[to];
+	      }
+
+	      for (k = len; k > len - actualDeleteCount + insertCount; k--) delete O[k - 1];
+	    } else if (insertCount > actualDeleteCount) {
+	      for (k = len - actualDeleteCount; k > actualStart; k--) {
+	        from = k + actualDeleteCount - 1;
+	        to = k + insertCount - 1;
+	        if (from in O) O[to] = O[from];else delete O[to];
+	      }
+	    }
+
+	    for (k = 0; k < insertCount; k++) {
+	      O[k + actualStart] = arguments[k + 2];
+	    }
+
+	    O.length = len - actualDeleteCount + insertCount;
+	    return A;
+	  }
+	});
+
 	// `RegExp.prototype.flags` getter implementation
 	// https://tc39.github.io/ecma262/#sec-get-regexp.prototype.flags
 
@@ -3086,6 +3246,79 @@
 	  exec: regexpExec
 	});
 
+	for (var COLLECTION_NAME$1 in domIterables) {
+	  var Collection$1 = global_1[COLLECTION_NAME$1];
+	  var CollectionPrototype$1 = Collection$1 && Collection$1.prototype; // some Chrome versions have non-configurable methods on DOMTokenList
+
+	  if (CollectionPrototype$1 && CollectionPrototype$1.forEach !== arrayForEach) try {
+	    hide(CollectionPrototype$1, 'forEach', arrayForEach);
+	  } catch (error) {
+	    CollectionPrototype$1.forEach = arrayForEach;
+	  }
+	}
+
+	var IS_CONCAT_SPREADABLE = wellKnownSymbol('isConcatSpreadable');
+	var MAX_SAFE_INTEGER$1 = 0x1FFFFFFFFFFFFF;
+	var MAXIMUM_ALLOWED_INDEX_EXCEEDED = 'Maximum allowed index exceeded';
+	var IS_CONCAT_SPREADABLE_SUPPORT = !fails(function () {
+	  var array = [];
+	  array[IS_CONCAT_SPREADABLE] = false;
+	  return array.concat()[0] !== array;
+	});
+	var SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('concat');
+
+	var isConcatSpreadable = function (O) {
+	  if (!isObject(O)) return false;
+	  var spreadable = O[IS_CONCAT_SPREADABLE];
+	  return spreadable !== undefined ? !!spreadable : isArray(O);
+	};
+
+	var FORCED$1 = !IS_CONCAT_SPREADABLE_SUPPORT || !SPECIES_SUPPORT; // `Array.prototype.concat` method
+	// https://tc39.github.io/ecma262/#sec-array.prototype.concat
+	// with adding support of @@isConcatSpreadable and @@species
+
+	_export({
+	  target: 'Array',
+	  proto: true,
+	  forced: FORCED$1
+	}, {
+	  concat: function concat(arg) {
+	    // eslint-disable-line no-unused-vars
+	    var O = toObject(this);
+	    var A = arraySpeciesCreate(O, 0);
+	    var n = 0;
+	    var i, k, length, len, E;
+
+	    for (i = -1, length = arguments.length; i < length; i++) {
+	      E = i === -1 ? O : arguments[i];
+
+	      if (isConcatSpreadable(E)) {
+	        len = toLength(E.length);
+	        if (n + len > MAX_SAFE_INTEGER$1) throw TypeError(MAXIMUM_ALLOWED_INDEX_EXCEEDED);
+
+	        for (k = 0; k < len; k++, n++) if (k in E) createProperty(A, n, E[k]);
+	      } else {
+	        if (n >= MAX_SAFE_INTEGER$1) throw TypeError(MAXIMUM_ALLOWED_INDEX_EXCEEDED);
+	        createProperty(A, n++, E);
+	      }
+	    }
+
+	    A.length = n;
+	    return A;
+	  }
+	});
+
+	function popup (msg) {
+	  var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "info";
+	  postMessage({
+	    type: "overlay",
+	    value: {
+	      msg: msg,
+	      type: type
+	    }
+	  });
+	}
+
 	var graph =
 	/*#__PURE__*/
 	function () {
@@ -3125,15 +3358,18 @@
 	            json = _context.sent;
 
 	            if (!json.errors) {
-	              _context.next = 13;
+	              _context.next = 12;
 	              break;
 	            }
-	            throw json.errors[0].message;
 
-	          case 13:
+	            popup("graph error ".concat(operationName && "(" + operationName + ") ", "| ").concat(json.errors[0].message), "error");
+	            _context.next = 13;
+	            break;
+
+	          case 12:
 	            return _context.abrupt("return", json.data);
 
-	          case 14:
+	          case 13:
 	          case "end":
 	            return _context.stop();
 	        }
@@ -3198,7 +3434,7 @@
 	  }, _callee3);
 	}));
 
-	graph.getUpdatedPlants =
+	graph.pushPlants =
 	/*#__PURE__*/
 	function () {
 	  var _ref4 = _asyncToGenerator(
@@ -3209,8 +3445,8 @@
 	        switch (_context4.prev = _context4.next) {
 	          case 0:
 	            _context4.next = 2;
-	            return graph("mutation getUpdatePlants($userID:String $plants:[Plant]){\n      getUpdatedPlants(author:$userID, plants:$plants) {\n        meta {\n          name\n          author\n        },\n        \n      }\n    }", {
-	              userID: userID,
+	            return graph("mutation updatePlants($author: String! $plants:[PlantInput]){\n      updatePlants(author:$author plants:$plants){\n        id\n        name\n      }\n    }", {
+	              author: userID,
 	              plants: plants
 	            });
 
@@ -3230,16 +3466,48 @@
 	  };
 	}();
 
-	function popup (msg) {
-	  var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "info";
-	  postMessage({
-	    type: "overlay",
-	    value: {
-	      msg: msg,
-	      type: type
-	    }
-	  });
-	}
+	graph.getUpdatedPlants =
+	/*#__PURE__*/
+	function () {
+	  var _ref5 = _asyncToGenerator(
+	  /*#__PURE__*/
+	  regeneratorRuntime.mark(function _callee5(userID, plants) {
+	    var res;
+	    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+	      while (1) {
+	        switch (_context5.prev = _context5.next) {
+	          case 0:
+	            _context5.next = 2;
+	            return graph("query getUpdatePlants($author: String! $plants:[PlantMetaInput]){\n      getUpdatedPlants(author:$author plants:$plants){\n        meta{\n          name\n        }\n      }\n    }", {
+	              author: userID,
+	              plants: plants
+	            });
+
+	          case 2:
+	            res = _context5.sent;
+
+	            if (!res) {
+	              _context5.next = 7;
+	              break;
+	            }
+
+	            return _context5.abrupt("return", res.getUpdatedPlants);
+
+	          case 7:
+	            console.error("error");
+
+	          case 8:
+	          case "end":
+	            return _context5.stop();
+	        }
+	      }
+	    }, _callee5);
+	  }));
+
+	  return function (_x5, _x6) {
+	    return _ref5.apply(this, arguments);
+	  };
+	}();
 
 	function interval (func, time) {
 	  var int = setInterval(func, time);
@@ -3284,14 +3552,8 @@
 	            };
 
 	            m = _context3.sent.map(_context3.t0);
-	            graph.getUpdatedPlants(id$1, m).then(function (newM) {
-	              console.log(newM);
-	              popup("synced data", "sync");
-	            }).catch(function (err) {
-	              popup("sync " + err, "error");
-	            });
 
-	          case 5:
+	          case 4:
 	          case "end":
 	            return _context3.stop();
 	        }
@@ -3310,40 +3572,138 @@
 	function _init() {
 	  _init = _asyncToGenerator(
 	  /*#__PURE__*/
-	  regeneratorRuntime.mark(function _callee4() {
-	    var e, i;
-	    return regeneratorRuntime.wrap(function _callee4$(_context4) {
+	  regeneratorRuntime.mark(function _callee6() {
+	    var e, i, m, _new, newPlants;
+
+	    return regeneratorRuntime.wrap(function _callee6$(_context6) {
 	      while (1) {
-	        switch (_context4.prev = _context4.next) {
+	        switch (_context6.prev = _context6.next) {
 	          case 0:
-	            _context4.next = 2;
-	            return get$1("sync_enabled");
-
-	          case 2:
-	            e = _context4.sent;
-	            enabled = !!e;
-
-	            if (enabled) {
-	              int.start();
-	              sync();
-	            } else {
-	              int.stop();
+	            if (!initialized) {
+	              _context6.next = 2;
+	              break;
 	            }
 
-	            _context4.next = 7;
+	            return _context6.abrupt("return");
+
+	          case 2:
+	            initialized = true;
+	            _context6.next = 5;
+	            return get$1("sync_enabled");
+
+	          case 5:
+	            e = _context6.sent;
+	            enabled = !!e;
+	            _context6.next = 9;
 	            return get$1("sync_id");
 
-	          case 7:
-	            i = _context4.sent;
+	          case 9:
+	            i = _context6.sent;
 	            id$1 = i;
-	            initialized = true;
 
-	          case 10:
+	            if (!enabled) {
+	              _context6.next = 28;
+	              break;
+	            }
+
+	            _context6.next = 14;
+	            return db.getPlantMetas();
+
+	          case 14:
+	            _context6.t0 = function (d) {
+	              return {
+	                name: d.name,
+	                lastSaved: d.lastSaved
+	              };
+	            };
+
+	            m = _context6.sent.map(_context6.t0);
+	            _context6.next = 18;
+	            return graph.getUpdatedPlants(id$1, m);
+
+	          case 18:
+	            _new = _context6.sent;
+
+	            _new.forEach(
+	            /*#__PURE__*/
+	            function () {
+	              var _ref3 = _asyncToGenerator(
+	              /*#__PURE__*/
+	              regeneratorRuntime.mark(function _callee4(p) {
+	                var curM;
+	                return regeneratorRuntime.wrap(function _callee4$(_context4) {
+	                  while (1) {
+	                    switch (_context4.prev = _context4.next) {
+	                      case 0:
+	                        _context4.next = 2;
+	                        return db.savePlant(p);
+
+	                      case 2:
+	                        curM = m.find(function (_p) {
+	                          return _p.name === p.meta.name;
+	                        });
+	                        m.splice(m.indexOf(curM), 1);
+
+	                      case 4:
+	                      case "end":
+	                        return _context4.stop();
+	                    }
+	                  }
+	                }, _callee4);
+	              }));
+
+	              return function (_x2) {
+	                return _ref3.apply(this, arguments);
+	              };
+	            }());
+
+	            _context6.next = 22;
+	            return Promise.all(m.map(
+	            /*#__PURE__*/
+	            function () {
+	              var _ref4 = _asyncToGenerator(
+	              /*#__PURE__*/
+	              regeneratorRuntime.mark(function _callee5(p) {
+	                return regeneratorRuntime.wrap(function _callee5$(_context5) {
+	                  while (1) {
+	                    switch (_context5.prev = _context5.next) {
+	                      case 0:
+	                        _context5.next = 2;
+	                        return db.getPlant(p);
+
+	                      case 2:
+	                        return _context5.abrupt("return", _context5.sent);
+
+	                      case 3:
+	                      case "end":
+	                        return _context5.stop();
+	                    }
+	                  }
+	                }, _callee5);
+	              }));
+
+	              return function (_x3) {
+	                return _ref4.apply(this, arguments);
+	              };
+	            }()));
+
+	          case 22:
+	            newPlants = _context6.sent;
+	            graph.pushPlants(id$1, newPlants);
+	            int.start();
+	            sync();
+	            _context6.next = 29;
+	            break;
+
+	          case 28:
+	            int.stop();
+
+	          case 29:
 	          case "end":
-	            return _context4.stop();
+	            return _context6.stop();
 	        }
 	      }
-	    }, _callee4);
+	    }, _callee6);
 	  }));
 	  return _init.apply(this, arguments);
 	}
@@ -3482,6 +3842,7 @@
 	      popup("sync ".concat(v ? "en" : "dis", "abled"), "success");
 
 	      if (v) {
+	        init();
 	        sync();
 	        int.start();
 	      } else {
@@ -3813,9 +4174,13 @@
 	        while (1) {
 	          switch (_context.prev = _context.next) {
 	            case 0:
-	              db.savePlant(pd);
+	              _context.next = 2;
+	              return db.savePlant(pd);
 
-	            case 1:
+	            case 2:
+	              return _context.abrupt("return", _context.sent);
+
+	            case 3:
 	            case "end":
 	              return _context.stop();
 	          }

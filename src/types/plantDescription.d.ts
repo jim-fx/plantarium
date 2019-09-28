@@ -10,10 +10,14 @@ interface parameter {
 interface plantMetaInfo {
   name: string;
 
+  id: string;
+
+  authorID: string;
+
   plantariumVersion?: string;
   seed?: number;
   randomSeed?: boolean;
-  lastSaved?: number;
+  lastSaved?: string;
   author?: string;
   latinName?: string;
   family?: string;

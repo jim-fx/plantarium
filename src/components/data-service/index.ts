@@ -16,11 +16,11 @@ async function init() {
 export default {
   savePlant: async (pd: plantDescription) => {
     if (!data) await init();
-    data.savePlant(pd);
+    return await data.savePlant(pd);
   },
   deletePlant: async (meta: plantMetaInfo) => {
     if (!data) await init();
-    data.deletePlant(meta);
+    return await data.deletePlant(meta);
   },
   getPlant: async (meta: plantMetaInfo): Promise<plantDescription> => {
     if (!data) await init();

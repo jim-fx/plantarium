@@ -32,14 +32,14 @@ export default {
       if (oldPD) {
         plantStore.delete(oldMeta.name);
         metaStore.delete(oldMeta.name);
-        dataService.deletePlant(oldMeta);
+        await dataService.deletePlant(oldMeta);
         oldPD.meta = newMeta;
         this.save(oldPD);
       } else {
         oldPD = await dataService.getPlant(oldMeta);
         oldPD.meta = newMeta;
-        dataService.deletePlant(oldMeta);
-        dataService.savePlant(oldPD);
+        await dataService.deletePlant(oldMeta);
+        await dataService.savePlant(oldPD);
       }
     }
 
@@ -102,7 +102,7 @@ export default {
     }
   },
   save: (pd: plantDescription) => {
-    pd.meta.lastSaved = Date.now();
+    pd.meta.lastSaved = Date.now().toString();
     plantStore.set(pd.meta.name, pd);
     metaStore.set(pd.meta.name, pd.meta);
     dataService.savePlant(pd);

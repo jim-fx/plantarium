@@ -1,10 +1,6 @@
 input PlantMetaInput {
-  author: String!
-  lastSaved: String
-}
-
-type PlantMeta {
   name: String!
+  id: String
   lastSaved: String
   plantariumVersion: String
   seed: String
@@ -15,8 +11,161 @@ type PlantMeta {
   class: String
 }
 
+type PlantMeta {
+  name: String!
+  id: String
+  lastSaved: String
+  plantariumVersion: String
+  seed: String
+  randomSeed: Boolean
+  author: String
+  latinName: String
+  family: String
+  class: String
+}
+
+type Point {
+  x: Float!
+  y: Float!
+  locked: Boolean
+}
+
+input PointInput {
+  x: Float!
+  y: Float!
+  locked: Boolean
+}
+
+type Parameter {
+  value: Float
+  enabled: Boolean
+  variation: Float
+  shape: [Point]
+  curve: [Point]
+}
+
+input ParameterInput {
+  value: Float
+  enabled: Boolean
+  variation: Float
+  shape: [PointInput]
+  curve: [PointInput]
+}
+
+type Stem {
+  amount: Int
+  diameter: Parameter
+  size: Parameter
+  gravity: Float
+
+  originOffset: Parameter
+  originAngle: Parameter
+  originRotation: Parameter
+
+  noiseStrength: Parameter
+  noiseScale: Float
+}
+
+input StemInput {
+  amount: Int
+  diameter: ParameterInput
+  size: ParameterInput
+  gravity: Float
+
+  originOffset: ParameterInput
+  originAngle: ParameterInput
+  originRotation: ParameterInput
+
+  noiseStrength: ParameterInput
+  noiseScale: Float
+}
+
+type Branch {
+  enable: Boolean
+  amount: Int
+  lowestBranch: Parameter
+  length: Parameter
+  angle: Parameter
+  rotation: Parameter
+  diameter: Parameter
+  offset: Parameter
+  gravity: Float
+  noiseScale: Float
+  noiseStrength: Parameter
+}
+
+input BranchInput {
+  enable: Boolean
+  amount: Int
+  lowestBranch: ParameterInput
+  length: ParameterInput
+  angle: ParameterInput
+  rotation: ParameterInput
+  diameter: ParameterInput
+  offset: ParameterInput
+  gravity: Float
+  noiseScale: Float
+  noiseStrength: ParameterInput
+}
+
+type Leaf {
+  enable: Boolean
+
+  amount: Int
+  gravity: Float
+
+  lowestLeaf: Float
+
+  onStem: Boolean
+  onBranches: Boolean
+
+  angle: Parameter
+  rotation: Parameter
+
+  offset: Parameter
+
+  size: Parameter
+  shape: [Point]
+
+  xCurvature: Parameter
+  yCurvature: Parameter
+}
+
+input LeafInput {
+  enable: Boolean
+
+  amount: Int
+  gravity: Float
+
+  lowestLeaf: Float
+
+  onStem: Boolean
+  onBranches: Boolean
+
+  angle: ParameterInput
+  rotation: ParameterInput
+
+  offset: ParameterInput
+
+  size: ParameterInput
+  shape: [PointInput]
+
+  xCurvature: ParameterInput
+  yCurvature: ParameterInput
+}
+
 type Plant {
   meta: PlantMeta
+  stem: Stem
+  branches: Branch
+  leaves: Leaf
+}
+
+input PlantInput {
+  meta: PlantMetaInput
+  stem: StemInput
+  branches: BranchInput
+  leaves: LeafInput
 }
 
 type User {
@@ -24,8 +173,13 @@ type User {
   name: String
 }
 
+type Mutation {
+  updatePlants(author: String!, plants: [PlantInput]): [PlantMeta]
+}
+
 type Query {
   plants(author: String!, plants: [PlantMetaInput]): [Plant]
+  getUpdatedPlants(author: String!, plants: [PlantMetaInput]): [Plant]
   plant(id: String!): Plant
   user(id: String!): User
 }

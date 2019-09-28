@@ -10,52 +10,45 @@ import { terser } from "rollup-plugin-terser";
 import analyze from "rollup-plugin-analyzer";
 import svg from "./src/assets/rollup-plugin-svg";
 import visualizer from "rollup-plugin-visualizer";
-import replace from "rollup-plugin-replace";
-import run from "rollup-plugin-run";
 import typescript from "rollup-plugin-typescript";
 import graphql from "rollup-plugin-graphql";
+import replace from "rollup-plugin-replace";
 import dotenv from "dotenv";
 dotenv.config();
 
 const PROD = process.env.ROLLUP_WATCH !== "true";
+
 const extensions = [".mjs", ".ts", ".js"];
-const externals = ["child_process", "http", "path", "events", "zlib", "buffer", "stream", "util", "tty", "fs", "net", "string_decoder", "crypto", "module", "url", "assert", "constants"];
 
 const server = {
   input: "./server/index.ts",
-  plugins: [
-    typescript(),
-
-    // Allow bundling cjs modules. Rollup doesn't understand cjs
-    commonjs({
-      sourceMap: !PROD
-    }),
-
-    // Allows node_modules resolution
-    resolve({ extensions, preferBuiltins: true }),
-
-    graphql(),
-
-    json(),
-
-    PROD && terser(),
-
-    PROD &&
-      analyze({
-        summaryOnly: true,
-        limit: 10
-      }),
-
-    run({
-      execArgv: ["-r", "source-map-support/register"]
-    })
+  plugins: [resolve({ extensions, preferBuiltins: true }), commonjs(), typescript(), json(), graphql()],
+  external: [
+    "url",
+    "events",
+    "path",
+    "zlib",
+    "http",
+    "net",
+    "fs",
+    "buffer",
+    "crypto",
+    "util",
+    "stream",
+    "tty",
+    "mongodb-client-encryption",
+    "assert",
+    "saslprep",
+    "cluster",
+    "dns",
+    "constants",
+    "string_decoder",
+    "tls",
+    "module"
   ],
-  external: externals,
   output: {
     file: "build/server/server.js",
-    format: "cjs",
-    name: "plantarium_server",
-    sourcemap: true
+    format: "cjs"
   }
 };
 

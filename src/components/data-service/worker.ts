@@ -4,7 +4,7 @@ import { expose } from "comlink";
 
 expose({
   savePlant: async (pd: plantDescription) => {
-    db.savePlant(pd);
+    return await db.savePlant(pd);
   },
   deletePlant: (meta: plantMetaInfo) => {
     db.deletePlant(meta);
