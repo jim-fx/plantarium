@@ -4,4 +4,5 @@ build/*.css
 build/*.map
 build/stats.html
 .vscode
+.pnpm-lock.yaml
 .env
