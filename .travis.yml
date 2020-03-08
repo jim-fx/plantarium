@@ -9,12 +9,12 @@ branches:
 cache:
   directories:
     - node_modules
-    - "~/.npm"
+    - "~/.yarn"
     - "~/.cache"
 install:
-  - npm ci
+  - yarn install
 script:
-  - npm run build
+  - yarn build
 deploy:
   provider: pages
   skip_cleanup: true
