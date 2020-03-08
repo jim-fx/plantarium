@@ -6,7 +6,7 @@
     "dev": "rollup -c -w",
     "start": "npm run server:start",
     "build": "npm run build:client",
-    "build:client": "rollup -c && mv stats.html build/client/stats.html",
+    "build:client": "rollup -c && mv stats.html build/stats.html",
     "build:server": "build=SERVER rollup -c",
     "watch:server": "nodemon --ignore data.json build/server/server.js ",
     "start:server": "ts-node server",
