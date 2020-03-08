@@ -10,7 +10,6 @@
     "build:server": "build=SERVER rollup -c",
     "watch:server": "nodemon --ignore data.json build/server/server.js ",
     "start:server": "ts-node server",
-    "open:cypress": "cypress open",
     "heroku-postbuild": "echo nope"
   },
   "repository": {
@@ -18,7 +17,7 @@
     "url": "https://github.com/jim-fx/plantarium.git"
   },
   "engines": {
-    "node": "12.x"
+    "node": "13.x"
   },
   "license": "MIT",
   "devDependencies": {
@@ -28,6 +27,12 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "7.3.3",
     "@babel/runtime": "^7.5.5",
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-json": "^4.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@rollup/plugin-replace": "^2.3.1",
+    "@rollup/plugin-run": "^1.2.0",
+    "@rollup/plugin-typescript": "^4.0.0",
     "@types/express-slow-down": "^1.1.1",
     "@types/file-saver": "^2.0.1",
     "@types/graphql": "^14.5.0",
@@ -36,7 +41,6 @@
     "@types/node": "^12.7.8",
     "comlink": "^4.0.2",
     "core-js": "^3.2.1",
-    "cypress": "^3.4.1",
     "dotenv": "^8.1.0",
     "file-saver": "^2.0.2",
     "idb-keyval": "^3.2.0",
@@ -45,17 +49,11 @@
     "rollup": "1.20.0",
     "rollup-plugin-analyzer": "^3.1.2",
     "rollup-plugin-babel": "4.3.3",
-    "rollup-plugin-commonjs": "10.0.2",
     "rollup-plugin-glslify": "^1.1.2",
     "rollup-plugin-graphql": "^0.1.0",
-    "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-live-server": "^1.0.3",
-    "rollup-plugin-node-resolve": "5.2.0",
-    "rollup-plugin-replace": "^2.2.0",
-    "rollup-plugin-run": "^1.1.0",
     "rollup-plugin-scss": "^1.0.2",
     "rollup-plugin-terser": "^5.1.1",
-    "rollup-plugin-typescript": "^1.0.1",
     "rollup-plugin-visualizer": "^2.5.4",
     "shortid": "^2.2.15",
     "source-map-support": "^0.5.13",
@@ -63,6 +61,9 @@
     "typescript": "^3.6.3"
   },
   "dependencies": {
+    "@types/lowdb": "^1.0.9",
+    "@types/shortid": "^0.0.29",
+    "@types/uuid": "^7.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-graphql": "^0.9.0",
