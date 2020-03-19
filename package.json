@@ -44,7 +44,7 @@
     "dotenv": "^8.1.0",
     "file-saver": "^2.0.2",
     "idb-keyval": "^3.2.0",
-    "ogl": "latest",
+    "ogl": "^0.0.41",
     "open-simplex-noise": "^1.6.0",
     "rollup": "1.20.0",
     "rollup-plugin-analyzer": "^3.1.2",
