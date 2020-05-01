@@ -16,7 +16,9 @@ stages:
 
 install:
   stage: install
-  script: yarn install
+  script:
+    - yarn install
+    - yarn bootstrap
 
 build:frontend:
   stage: build
