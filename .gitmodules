@@ -1,3 +1,21 @@
 [submodule "backend"]
 	path = backend
 	url = ../backend
+[submodule "frontend"]
+	path = frontend
+	url = ../frontend
+[submodule "@types"]
+	path = packages/@types
+	url = ../types
+[submodule "generator"]
+	path = packages/generator
+	url = ../generator
+[submodule "helpers"]
+	path = packages/helpers
+	url = ../helpers
+[submodule "nodes"]
+	path = packages/nodes
+	url = ../nodes
+[submodule "renderer"]
+	path = packages/renderer
+	url = ../renderer
