@@ -1,0 +1,13 @@
+{
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "frontend",
+    "backend"
+  ],
+  "devDependencies": {
+    "lerna": "^3.20.2",
+    "wsrun": "^5.2.0"
+  }
+}

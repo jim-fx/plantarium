@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "es2020"],
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "pretty": true,
+    "typeRoots": ["@types", "packages/@types", "node_modules/@types"]
+  },
+  "exclude": ["node_modules"]
+}

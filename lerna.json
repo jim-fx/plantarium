@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json.schemastore.org/lerna",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "version": "0.0.0",
+  "packages": [
+    "packages/*"
+  ]
+}
