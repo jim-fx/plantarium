@@ -24,6 +24,7 @@ build:frontend:
   stage: build
   script:
     - cd frontend
+    - yarn install
     - yarn build
   artifacts:
     paths:
