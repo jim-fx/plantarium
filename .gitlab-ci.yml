@@ -10,21 +10,15 @@ cache:
     - cache
 
 stages:
-  - install
   - build
   - deploy
-
-install:
-  stage: install
-  script:
-    - yarn install
-    - yarn bootstrap
 
 build:frontend:
   stage: build
   script:
-    - cd frontend
     - yarn install
+    - yarn bootstrap;
+    - cd frontend
     - yarn build
   artifacts:
     paths:
