@@ -2,6 +2,7 @@ image: node:alpine
 
 variables:
   YARN_CACHE_FOLDER: '$CI_PROJECT_DIR/cache/.yarn'
+  GIT_SUBMODULE_STRATEGY: recursive
 
 cache:
   paths:
