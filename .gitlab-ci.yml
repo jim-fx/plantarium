@@ -1,0 +1,32 @@
+image: node:alpine
+
+variables:
+  YARN_CACHE_FOLDER: '$CI_PROJECT_DIR/cache/.yarn'
+
+cache:
+  paths:
+    - node_modules
+    - cache
+
+stages:
+  - install
+  - build
+  - deploy
+
+install:
+  stage: install
+  script: yarn install
+
+build:frontend:
+  stage: build
+  script:
+    - cd frontend
+    - yarn build
+  artifacts:
+    paths:
+      - frontend/public/dist
+
+pages:
+  stage: deploy
+  script:
+    - mv frontend/public public
