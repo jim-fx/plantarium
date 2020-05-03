@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "dev:frontend": "yarn --cwd 'frontend' run dev",
-    "build:frontend": "yarn wsrun -p frontend -r --stages build"
+    "build:frontend": "yarn wsrun -p frontend --exclude-missing -r --stages -- build"
   },
   "devDependencies": {
     "wsrun": "^5.2.0"
