@@ -15,8 +15,6 @@ stages:
 
 build:frontend:
   stage: build
-  before_script:
-    - git submodule update --init
   script:
     - yarn install
     - yarn build:frontend
