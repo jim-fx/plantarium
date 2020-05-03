@@ -28,3 +28,6 @@ pages:
   stage: deploy
   script:
     - mv frontend/public public
+  artifacts:
+    paths:
+      - public
