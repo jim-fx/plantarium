@@ -17,9 +17,7 @@ build:frontend:
   stage: build
   script:
     - yarn install
-    - yarn bootstrap;
-    - cd frontend
-    - yarn build
+    - yarn build:frontend
   artifacts:
     paths:
       - frontend/public/dist
