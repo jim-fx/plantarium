@@ -7,10 +7,10 @@
     "backend"
   ],
   "scripts": {
-    "bootstrap": "lerna bootstrap"
+    "dev:frontend": "yarn --cwd 'frontend' run dev",
+    "build:frontend": "yarn wsrun -p frontend -r --stages build"
   },
   "devDependencies": {
-    "lerna": "^3.20.2",
     "wsrun": "^5.2.0"
   }
 }
