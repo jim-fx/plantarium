@@ -1,0 +1,16 @@
+public/dist/
+public/docs/
+public/cov/
+
+node_modules/
+
+.rts2_cache*
+.nyc_output/
+
+.vscode/
+
+yarn-error.log
+npm-debug.log
+
+tests/screenshots/
+tests/videos/

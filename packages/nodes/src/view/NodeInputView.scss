@@ -1,0 +1,25 @@
+@import '../variables.scss';
+
+.node-input-wrapper {
+  width: 7px;
+  height: 7px;
+  box-sizing: border-box;
+  right: 0;
+  margin: 5px 0px;
+  border-radius: 2px;
+  margin-left: 3px;
+  transform: rotate(45deg);
+  border: solid medium $border;
+}
+
+.socket-state-highlight {
+  outline: solid thick hotpink;
+}
+
+.socket-state-potential {
+  outline: solid thick green;
+}
+
+.socket-state-middle {
+  outline: solid thick orangered;
+}

@@ -1,0 +1,17 @@
+{
+  "name": "@plantarium/helpers",
+  "version": "0.0.0",
+  "source": "src/index.ts",
+  "module": "dist/index.mjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "microbundle",
+    "dev": "microbundle watch"
+  },
+  "dependencies": {
+    "@plantarium/types": "^0.0.0",
+    "file-saver": "^2.0.2"
+  }
+}

@@ -1,0 +1,227 @@
+@import "./themes.scss";
+
+// Basic styling
+html,
+body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0px;
+  overflow: hidden;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+    "Helvetica Neue", sans-serif;
+
+  @include themify($themes) {
+    background-color: themed("backgroundColor");
+  }
+
+  > table {
+    width: 100%;
+    height: calc(100vh - 45px);
+    margin: 0;
+    border-collapse: collapse;
+    position: relative;
+
+    tr > td {
+      padding: 0;
+      margin: 0;
+      margin-top: 0px;
+      height: 100%;
+      overflow: hidden;
+    }
+  }
+}
+
+// Typography
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin: 0;
+}
+
+h4 {
+  font-weight: 400;
+}
+
+// Other stuff
+
+canvas {
+  image-rendering: optimizeSpeed;
+}
+
+p#version {
+  @include themify($themes) {
+    color: themed("textColor");
+  }
+}
+
+.component {
+  outline: solid 1px;
+  height: 100%;
+  @include themify($themes) {
+    outline-color: themed("outlineColor");
+    color: themed("textColor");
+    background-color: themed("backgroundColor");
+  }
+}
+
+label {
+  display: block;
+}
+
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0.4em;
+  margin: 0 0 0.5em 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+
+  @include themify($themes) {
+    border-color: themed("outlineColor");
+  }
+  border-radius: $border-radius;
+}
+
+input:disabled {
+  color: #ccc;
+}
+
+input[type="range"] {
+  height: 0;
+}
+button:focus {
+  border-color: #666;
+}
+
+.button-icon {
+  height: 2.5em;
+  padding-left: 30px;
+  > svg {
+    position: absolute;
+    padding-left: 50px;
+    height: 25px;
+    width: 25px;
+    left: -50px;
+    top: 13px;
+  }
+}
+
+.align-right {
+  position: absolute;
+  right: 5px;
+}
+
+#topbar {
+  position: relative;
+
+  height: 40px;
+  clear: both;
+
+  border-bottom: solid thin;
+
+  @include themify($themes) {
+    border-color: themed("outlineColor");
+  }
+
+  > button {
+    height: 100%;
+    background: transparent;
+
+    @include themify($themes) {
+      color: themed("textColor");
+    }
+    &.button-active {
+      @include themify($themes) {
+        color: themed("backgroundColor");
+        > svg {
+          stroke: themed("backgroundColor") !important;
+        }
+      }
+    }
+  }
+
+  > button.align-right {
+    float: right;
+  }
+}
+
+#sidebar {
+  height: 100%;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  border-left: solid thin;
+  @include themify($themes) {
+    border-color: themed("outlineColor");
+  }
+}
+
+#canvas-wrapper {
+  height: 100%;
+  > canvas {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+#version {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  z-index: 99;
+  display: inline;
+  color: white;
+}
+
+// Style scrollbar
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  margin-right: 5px;
+  @include themify($themes) {
+    background: themed("foregroundColor");
+  }
+  border-radius: $border-radius;
+}
+
+// Icon styles
+svg {
+  width: 100%;
+  height: 100%;
+  stroke-width: 1.5px;
+  fill: none;
+  transition: stroke 0.3s ease;
+  @include themify($themes) {
+    stroke: themed("textColor");
+  }
+}
+.only-icon {
+  width: 40px;
+  padding: 5px;
+  margin-bottom: -1px !important;
+  color: transparent !important;
+}
+.only-icon::before {
+  left: 7px;
+}

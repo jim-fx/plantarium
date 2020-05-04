@@ -1,0 +1,57 @@
+image: node:alpine
+
+variables:
+  YARN_CACHE_FOLDER: '$CI_PROJECT_DIR/cache/.yarn'
+  CYPRESS_CACHE_FOLDER: '$CI_PROJECT_DIR/cache/Cypress'
+
+cache:
+  paths:
+    - node_modules
+    - cache
+
+stages:
+  - install
+  - test
+  - build
+  - deploy
+
+install:
+  stage: install
+  script: yarn install
+
+lint:
+  stage: test
+  script: yarn lint
+
+test:
+  image: cypress/base:12.16.1
+  stage: test
+  coverage: /All files\s*\|\s*([0-9.]+)/
+  script:
+    - yarn add -D node-sass
+    - yarn test
+    - yarn nyc report --reporter=text --reporter=html
+  artifacts:
+    paths:
+      - public/cov
+
+build:
+  stage: build
+  script: yarn build
+  artifacts:
+    paths:
+      - public/dist
+
+pages:
+  stage: deploy
+  script:
+    - yarn build:docs
+    - mv public temp
+    - mkdir public
+    - mv temp public/$CI_PIPELINE_ID
+  artifacts:
+    name: '$CI_PIPELINE_ID'
+    paths:
+      - public
+    expire_in: 5 days
+  when: always

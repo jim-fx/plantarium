@@ -1,0 +1,13 @@
+@import '../variables.scss';
+
+.node-output-wrapper {
+  width: 7px;
+  height: 7px;
+  box-sizing: border-box;
+  right: 0;
+  margin: 5px 0px;
+  border-radius: 2px;
+  margin-right: 9px;
+  border: solid medium $border;
+  transform: rotate(45deg);
+}

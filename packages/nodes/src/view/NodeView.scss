@@ -1,0 +1,61 @@
+@import '../variables.scss';
+
+.node-wrapper {
+  position: absolute;
+  background-color: $bg;
+  border-radius: 5px;
+  min-height: 50px;
+  border: solid medium $border;
+  color: $border;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.13), 1px 2px 2px rgba(0, 0, 0, 0.1),
+    -1px -2px 2px rgba(0, 0, 0, 0.05);
+
+  > .node-title {
+    pointer-events: none;
+    user-select: none;
+    white-space: pre;
+    font-size: 0.5em;
+    margin: 0;
+    padding: 2px;
+    padding-left: 4px;
+    opacity: 1;
+    border-bottom: solid medium $border;
+    background: $green_gradient;
+    border-radius: 4px 4px 0px 0px;
+  }
+
+  &.node-active {
+    outline: solid thick red;
+  }
+
+  &.node-selected {
+    outline: solid medium yellow;
+  }
+}
+
+.node-inputs-wrapper {
+  left: -7px;
+}
+
+.node-outputs-wrapper {
+  right: -7px;
+}
+
+.node-inputs-wrapper,
+.node-outputs-wrapper {
+  position: absolute;
+  top: 12px;
+  width: 10px;
+}
+
+.socket-type-boolean {
+  background-color: red;
+}
+
+.socket-type-number {
+  background-color: yellow;
+}
+
+.socket-type-all {
+  background: conic-gradient(red, orange, yellow, green, blue, purple);
+}

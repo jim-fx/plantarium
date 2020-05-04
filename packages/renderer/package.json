@@ -1,0 +1,17 @@
+{
+  "name": "@plantarium/renderer",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "source": "src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "microbundle --externals=none",
+    "dev": "microbundle watch"
+  },
+  "dependencies": {
+    "@plantarium/helpers": "^0.0.0",
+    "ogl": "^0.0.43",
+    "resize-observer-polyfill": "^1.5.1"
+  }
+}
