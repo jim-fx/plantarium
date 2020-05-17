@@ -2,11 +2,12 @@ export default {
   name: 'Number',
   outputs: ['number'],
   state: {
-    id: 'value',
-    type: 'number',
-    defaultValue: 0,
+    value: {
+      type: 'number',
+      defaultValue: 0,
+    },
   },
-  compute(_inputData: any[], state) {
-    return state.value;
+  compute({ value = 0 }) {
+    return value;
   },
 };

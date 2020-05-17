@@ -1,33 +1,33 @@
 export default {
   name: 'Color',
-  outputs: ['vec3'],
-  state: [
-    {
-      id: 'r',
-      defaultValue: 0,
+  outputs: ['color'],
+  state: {
+    r: {
+      value: 0,
       type: 'number',
+      inputType: 'slider',
       min: 0,
       max: 1,
-      steps: 0.05,
+      step: 0.05,
     },
-    {
-      id: 'g',
-      defaultValue: 0,
+    g: {
+      value: 0,
       type: 'number',
+      inputType: 'slider',
       min: 0,
       max: 1,
-      steps: 0.05,
+      step: 0.05,
     },
-    {
-      id: 'b',
-      defaultValue: 0,
+    b: {
+      value: 0,
       type: 'number',
+      inputType: 'slider',
       min: 0,
       max: 1,
-      steps: 0.05,
+      step: 0.05,
     },
-  ],
-  compute(inputData: number[], { r = 0, g = 0, b = 0 }) {
+  },
+  compute({ r = 0, g = 0, b = 0 }) {
     return [r, g, b];
   },
 };

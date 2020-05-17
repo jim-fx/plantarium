@@ -11,28 +11,6 @@
     top: 50%;
     overflow: visible;
     z-index: 1;
-
-    &::before {
-      content: '';
-      position: absolute;
-      height: 10000vh;
-      top: -5000vh;
-      width: 1px;
-      background-color: white;
-      opacity: 0.2;
-      z-index: -1;
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
-      width: 10000vw;
-      height: 1px;
-      left: -5000vw;
-      background-color: white;
-      opacity: 0.2;
-      z-index: -1;
-    }
   }
   > svg {
     position: absolute;
@@ -56,17 +34,17 @@
   width: 100%;
   overflow: hidden !important;
 
+  position: relative;
+  height: 100%;
+  background: #333;
+  margin: 0;
+  padding: 0;
+  -webkit-user-select: none; /* Chrome all / Safari all */
+  -moz-user-select: none; /* Firefox all */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none; /* Likely future */
+
   &.nodesystem-state-dragging {
     cursor: grab;
   }
-
-  background-size: 1px 100px, 100px 100px, 4px 4px, 4px 4px;
-  background-position: 0px 0px;
-  background-image: linear-gradient(
-      rgba(255, 255, 255, 0.1) 1px,
-      transparent 1px
-    ),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
 }

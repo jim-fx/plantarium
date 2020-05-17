@@ -1,5 +1,5 @@
-import { Vec3 } from "ogl";
-import arbitraryRotate from "./arbitraryRotate";
+import { Vec3 } from 'ogl';
+import arbitraryRotate from './arbitraryRotate';
 
 function getStart(origin: Vec3, axis: Vec3): Vec3 {
   if (origin[0] === 0 && origin[2] === 0) {
@@ -9,12 +9,12 @@ function getStart(origin: Vec3, axis: Vec3): Vec3 {
   }
 }
 
-export default function(
+export default function (
   origin: Vec3,
   axis: Vec3,
   radius: number,
-  resolution: number = 3,
-  testVec?: Vec3
+  resolution = 3,
+  testVec?: Vec3,
 ): Float32Array {
   axis.normalize();
 

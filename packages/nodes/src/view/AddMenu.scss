@@ -14,6 +14,8 @@
   z-index: 99;
   position: absolute;
   width: 100px;
+  pointer-events: none;
+
   opacity: 0;
   border: solid medium red;
   transform: translateX(0px) translateY(0px) scale(0.7);
@@ -52,5 +54,6 @@
 
 .context-visible {
   opacity: 1;
+  pointer-events: all;
   transform: scale(1);
 }

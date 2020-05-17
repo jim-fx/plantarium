@@ -1,9 +1,7 @@
 import { ProjectManager } from 'components';
-import { PlantariumSettings, PlantDescription } from '@plantarium/types';
 import Renderer from '@plantarium/renderer';
-import { Transform, Box, Program, Mesh, Color } from 'ogl';
+import { Transform, Program, Mesh } from 'ogl';
 
-import * as generator from '@plantarium/generator';
 import BackgroundScene from './background';
 import ForegroundScene from './foreground';
 
@@ -12,6 +10,7 @@ export default class Scene {
   bg: BackgroundScene;
   fg: ForegroundScene;
   scene: Transform;
+  wrapper: HTMLElement;
 
   program: Program;
   mesh: Mesh;
@@ -26,6 +25,20 @@ export default class Scene {
     this.renderer.handleResize();
     this.scene = this.renderer.scene;
     this.gl = this.renderer.gl;
+
+    this.wrapper = document.getElementById('canvas-wrapper');
+
+    // debug pd
+    const pd = document.getElementById('debug-pd');
+    const { debugPd = false } = pm.getSettings();
+    pd.style.display = debugPd ? 'block' : 'none';
+    pd.innerHTML = JSON.stringify(pm.getPlant(), null, 2);
+    pm.on('settings', ({ debugPd = false }) => {
+      pd.style.display = debugPd ? 'block' : 'none';
+    });
+    pm.on('plant', (p) => {
+      pd.innerHTML = JSON.stringify(p, null, 2);
+    });
 
     this.bg = new BackgroundScene(this, pm);
     this.fg = new ForegroundScene(this, pm);

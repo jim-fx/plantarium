@@ -1,5 +1,6 @@
 import { EventEmitter } from '@plantarium/helpers';
 import NodeType from './NodeType';
+import NodeInput from './NodeInput';
 
 export default class NodeTypeStore extends EventEmitter {
   types: NodeType[] = [];
@@ -11,10 +12,11 @@ export default class NodeTypeStore extends EventEmitter {
 
   add(type: NodeType) {
     if (!type.inputs && !type.outputs) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       const temp = new type.node({}, { attributes: { id: 'TempNode' } });
-      type.inputs = temp.inputs.map((o) => o.type[0]);
-      type.outputs = temp.outputs.map((o) => o.type);
+      type.inputs = Object.values(temp.inputs).map((o: NodeInput) => o.type[0]);
+      if (temp.outputs) type.outputs = temp.outputs.map((o) => o.type);
     }
 
     this.types = [

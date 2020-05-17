@@ -1,16 +1,25 @@
-@import '../variables.scss';
+@import "../variables.scss";
 
 .node-input-wrapper {
-  width: 7px;
+  position: absolute;
+  top: 0;
+  left: -3px;
+  width: 4px;
   height: 7px;
   box-sizing: border-box;
   right: 0;
+  border-radius: 0% 3.5px 3.5px 0%;
+
   margin: 5px 0px;
-  border-radius: 2px;
+  margin-top: 0;
   margin-left: 3px;
-  transform: rotate(45deg);
-  border: solid medium $border;
 }
+
+// .node-state-disabled .node-input-wrapper {
+//   left: -7px !important;
+//   width: 7px !important;
+//   border-radius: 50% !important;
+// }
 
 .socket-state-highlight {
   outline: solid thick hotpink;

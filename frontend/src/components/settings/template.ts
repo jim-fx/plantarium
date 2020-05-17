@@ -4,6 +4,10 @@ export default [
     type: 'boolean',
   },
   {
+    id: 'debugPd',
+    type: 'boolean',
+  },
+  {
     id: 'enableRandomSeed',
     type: 'boolean',
   },
@@ -13,6 +17,13 @@ export default [
     min: 0,
     max: 5,
     steps: 0.1,
+  },
+  {
+    id: 'stemResX',
+    type: 'number',
+    min: 3,
+    max: 16,
+    steps: 1,
   },
   {
     id: 'ground_resX',

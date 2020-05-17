@@ -1,0 +1,56 @@
+<!-- 
+  The first script tag imports the custom element defined in App.svelte.
+  After that, the element is used just as a consumer would use it in an HTML file.
+-->
+<script type="module" src="dist/index.js"></script>
+
+<!DOCTYPE html />
+<html lang="en">
+  <head>
+    <meta charset="utf8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@plantarium/elements</title>
+    <link rel="stylesheet" href="global.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <h3>InputSlider</h3>
+      <plant-slider></plant-slider>
+      <plant-slider min="-100" max="100"></plant-slider>
+    </div>
+
+    <div class="container">
+      <h3>InputNumber</h3>
+      <plant-number></plant-number>
+      <plant-number min="-100" max="100"></plant-number>
+    </div>
+
+    <div class="container">
+      <h3>InputColor</h3>
+      <plant-color></plant-color>
+      <plant-color min="-100" max="100"></plant-color>
+    </div>
+  </body>
+
+  <style>
+    /* These styles can also be defined in the global.css file. */
+
+    /* These styles will be applied to all alert-boxes */
+    alert-box {
+      width: 300px;
+      margin: 5px;
+    }
+
+    /* These styles will only be applied to the alert-box with an id of "custom" */
+    alert-box#custom {
+      --alert-box-bg: teal;
+      --alert-box-text: #86f1ec;
+      font-family: sans-serif;
+    }
+
+    plant-slider {
+      margin: 6.5px 0px;
+    }
+  </style>
+</html>

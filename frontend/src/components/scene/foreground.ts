@@ -1,7 +1,8 @@
 import { PlantariumSettings, PlantDescription } from '@plantarium/types';
-import { Mesh, Box, Program, Color } from 'ogl';
+import { Mesh, Box, Program, Color, Vec2 } from 'ogl';
 import { Scene, ProjectManager } from 'components';
-import { cube } from '@plantarium/generator';
+import { plant, transferToGeometry } from '@plantarium/generator';
+import { BasicShader } from './shaders';
 
 export default class ForegroundScene {
   private scene: Scene;
@@ -12,8 +13,7 @@ export default class ForegroundScene {
 
   private gl: WebGL2RenderingContext;
 
-  private box: Mesh;
-  private program: Program;
+  private mesh: Mesh;
 
   constructor(scene: Scene, pm: ProjectManager) {
     this.scene = scene;
@@ -31,35 +31,11 @@ export default class ForegroundScene {
 
   initGeometry() {
     const geometry = new Box(this.scene.gl);
-    this.program = new Program(this.scene.gl, {
-      vertex: `
-            attribute vec3 position;
-
-            uniform mat4 modelViewMatrix;
-            uniform mat4 projectionMatrix;
-
-            void main() {
-                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-            }
-            `,
-      fragment: `
-
-            precision highp float;
-
-            uniform vec3 uColor;
-
-            void main() {
-                gl_FragColor.rgb = uColor;
-                gl_FragColor.a = 1.0;
-            }
-        `,
-      uniforms: {
-        uColor: {
-          value: new Color(1, 0, 0),
-        },
-      },
+    const program = new Program(this.gl, {
+      vertex: BasicShader.vertex,
+      fragment: BasicShader.fragment,
     });
-    this.box = this.scene.addMesh(geometry, this.program);
+    this.mesh = this.scene.addMesh(geometry, program);
   }
 
   setSettings(settings: PlantariumSettings) {
@@ -72,11 +48,11 @@ export default class ForegroundScene {
     this.update();
   }
 
-  update(plant = this.plant, settings = this.settings) {
-    if (!plant || !settings) return;
+  update(p = this.plant, s = this.settings) {
+    if (!p || !s) return;
 
-    const p = (plant as unknown) as any;
-    this.program.uniforms.uColor.value = new Color(p.color);
-    this.box.geometry = cube(this.gl, p.dims);
+    const geo = plant(p, s);
+
+    this.mesh.geometry = transferToGeometry(this.gl, geo);
   }
 }

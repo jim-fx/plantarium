@@ -150,7 +150,7 @@ export default class NodeSystem extends EventEmitter {
   removeNode(node: Node) {
     node.view.remove();
 
-    node.inputs.forEach((i) => i.remove());
+    Object.values(node.inputs).forEach((i) => i.remove());
     node.outputs.forEach((o) => o.remove());
 
     this.nodes = this.nodes.filter((n) => n !== node);
@@ -164,13 +164,15 @@ export default class NodeSystem extends EventEmitter {
   }
 
   getSockets(type?: string) {
-    const sockets = this.nodes.map((n) => [...n.inputs, ...n.outputs]).flat();
+    const sockets = this.nodes
+      .map((n) => [...Object.values(n.inputs), ...n.outputs])
+      .flat();
     if (!type) return sockets;
     return sockets.filter((s) => s.type === type);
   }
 
   getInputs(type?: string) {
-    const inputs = this.nodes.map((n) => n.inputs).flat();
+    const inputs = this.nodes.map((n) => Object.values(n.inputs)).flat();
     if (!type || type === '*') return inputs;
     return inputs.filter((s) => s.type.includes('*') || s.type.includes(type));
   }

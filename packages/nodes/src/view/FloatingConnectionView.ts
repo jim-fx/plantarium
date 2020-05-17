@@ -39,6 +39,8 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
 
     super({}, system);
 
+    this.setType(Array.isArray(socket.type) ? socket.type[0] : socket.type);
+
     this.view = system.view;
 
     const { x: x1, y: y1 } = socket.view;
@@ -109,27 +111,23 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
 
     this.allSockets.forEach((s) => (s.view.state = ''));
 
-    let indexIn = 0;
-    let indexOut = 0;
+    let keyIn: string;
 
     if (
       this.socket instanceof NodeInput &&
       this.hoveredSocket instanceof NodeOutput
     ) {
-      indexIn = this.socket.node.inputs.indexOf(this.socket);
-      indexOut = this.hoveredSocket.node.outputs.indexOf(this.hoveredSocket);
+      keyIn = this.socket.key;
     } else if (
       this.socket instanceof NodeOutput &&
       this.hoveredSocket instanceof NodeInput
     ) {
-      indexIn = this.hoveredSocket.node.inputs.indexOf(this.hoveredSocket);
-      indexOut = this.socket.node.outputs.indexOf(this.socket);
+      keyIn = this.hoveredSocket.key;
     }
 
     if (this.hoveredSocket) {
       this.emit('connection', {
-        indexIn,
-        indexOut,
+        keyIn,
         inputNode: this.isInput ? this.socket.node : this.hoveredSocket.node,
         outputNode: this.isInput ? this.hoveredSocket.node : this.socket.node,
       });
@@ -141,9 +139,9 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
         .then((props) => this.view.system.createNode(props))
         .then((node) => {
           if (this.socket instanceof NodeOutput) {
-            this.socket.node.connectTo(node, indexIn, indexOut);
+            this.socket.node.connectTo(node, keyIn);
           } else {
-            node.connectTo(this.socket.node, indexIn, indexOut);
+            node.connectTo(this.socket.node, keyIn);
           }
         })
         .catch((err) => {

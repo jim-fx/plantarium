@@ -2,9 +2,6 @@ import { EventEmitter } from '@plantarium/helpers';
 
 const COLORS = [
   { color: '#00ffff', name: 'aqua' },
-  { color: '#f0ffff', name: 'azure' },
-  { color: '#f5f5dc', name: 'beige' },
-  { color: '#000000', name: 'black' },
   { color: '#0000ff', name: 'blue' },
   { color: '#a52a2a', name: 'brown' },
   { color: '#00ffff', name: 'cyan' },
@@ -64,5 +61,10 @@ export default class ColorStore extends EventEmitter {
     this.setType(socketType);
     cb(this.colors[socketType]);
     return super.on(socketType, cb);
+  }
+
+  get(socketType: string) {
+    this.setType(socketType);
+    return this.colors[socketType];
   }
 }

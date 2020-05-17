@@ -17,7 +17,7 @@ export default class NodeOutputView {
     this.wrapper = document.createElement('div');
     this.wrapper.classList.add('node-output-wrapper');
     this.wrapper.classList.add(`socket-type-${output.type}`);
-    this.node.view.outputWrapper.appendChild(this.wrapper);
+    this.node.view.wrapper.appendChild(this.wrapper);
 
     this.wrapper.addEventListener(
       'mousedown',
@@ -52,12 +52,10 @@ export default class NodeOutputView {
   }
 
   get x() {
-    return this.node.view.x + this.node.view.width;
+    return this.node.view.x + this.node.view.width - 3;
   }
 
   get y() {
-    return (
-      this.node.view.y + (this.node.outputs.indexOf(this.output) + 1) * 12 + 9
-    );
+    return this.node.view.y + 7;
   }
 }

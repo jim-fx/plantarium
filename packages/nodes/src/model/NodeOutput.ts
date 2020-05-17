@@ -20,7 +20,7 @@ export default class NodeOutput {
     this.view = new NodeOutputView(this);
   }
 
-  updateDownstream(data: any) {
+  updateDownstream(data) {
     this.connections.forEach((c) => {
       c.updateDownstream(data);
     });
@@ -29,7 +29,7 @@ export default class NodeOutput {
   removeConnection(conn: NodeConnection) {
     const index = this.connections.indexOf(conn);
     this.connections.splice(index, 1);
-    this.node.disconnectFrom(conn.input.node, conn.indexIn, conn.indexOut);
+    this.node.disconnectFrom(conn.input.node, conn.keyIn);
     if (this.view) this.view.connections.splice(index, 1);
   }
 

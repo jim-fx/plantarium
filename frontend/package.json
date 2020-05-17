@@ -4,8 +4,8 @@
   "description": "Tool for the procedural generation of 3D plants.",
   "scripts": {
     "dev": "rollup -c -w",
-    "start": "npm run server:start",
-    "build": "npm run build:client",
+    "start": "yarn server:start",
+    "build": "yarn build:client",
     "build:client": "rollup -c && mv stats.html public/stats.html",
     "heroku-postbuild": "echo nope"
   },

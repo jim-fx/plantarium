@@ -1,0 +1,20 @@
+/* 
+This file is for global css that will be applied to the index.html file. 
+These styles will NOT be applied to the Shadow DOM root of the custom element.
+*/
+
+body {
+  background-color: #303030;
+}
+
+h3 {
+  color: #cccccc;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+}

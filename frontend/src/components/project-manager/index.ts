@@ -9,7 +9,7 @@ export default class ProjectManager extends EventEmitter {
 
   constructor(nodeSystem: NodeSystem, settingsUi: typeof settingsUI) {
     super();
-    nodeSystem.on('result', this.setPlant.bind(this));
+    nodeSystem.on('result', this.setPlant.bind(this), 50);
     this.setPlant(nodeSystem.result);
 
     settingsUi.on('settings', this.setSettings.bind(this), 50);

@@ -7,7 +7,7 @@ export default interface NodeType {
     description?: string;
     tags?: string[];
   };
-  inputs?: (string[] | string)[];
+  inputs?: string[];
   outputs?: string[];
   node: typeof Node;
   view?: typeof NodeView;

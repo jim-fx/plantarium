@@ -2,15 +2,17 @@ export default {
   name: 'Slider',
   outputs: ['number'],
   state: {
-    id: 'value',
-    type: 'number',
-    inputType: 'range',
-    min: -5,
-    max: 5,
-    steps: 0.1,
-    value: 0,
+    value: {
+      type: 'number',
+      inputType: 'slider',
+      external: false,
+      min: 0,
+      max: 1,
+      step: 0.01,
+      value: 0,
+    },
   },
-  compute(_inputData: any[], { value = 0 }) {
+  compute({ value = 0 }) {
     return value;
   },
 };

@@ -1,6 +1,6 @@
-import { Vec3 } from "ogl";
-import { interpolateArray, draw } from "../helper";
-import ring from "./ring";
+import { Vec3 } from 'ogl';
+import { interpolateArray } from 'helper';
+import ring from './ring';
 
 function mergeRings(rings: Float32Array[], position: Float32Array) {
   let offset = 0;
@@ -13,8 +13,11 @@ function mergeRings(rings: Float32Array[], position: Float32Array) {
   }
 }
 
-export default function(skeleton: Float32Array, diameter: number[], resX: number): TransferGeometry {
-  const resY = skeleton.length / 3;
+export default function tube(
+  skeleton: Float32Array,
+  resX: number,
+): TransferGeometry {
+  const resY = skeleton.length / 4;
 
   const numPosition = resY * resX * 3;
   const numIndices = resY * resX * 6 - resX * 6;
@@ -23,45 +26,43 @@ export default function(skeleton: Float32Array, diameter: number[], resX: number
   const position = new Float32Array(numPosition);
   const normal = new Float32Array(numPosition);
   const uv = new Float32Array(numUV);
-  const index = numIndices > 65536 ? new Uint32Array(numIndices) : new Uint16Array(numIndices);
+  const index =
+    numIndices > 65536
+      ? new Uint32Array(numIndices)
+      : new Uint16Array(numIndices);
 
   const rings = [];
 
   //Create all rings
-  const l = resY;
-  for (let i = 0; i < l; i++) {
-    const _diameter = interpolateArray(diameter, 1 - i / (l - 1));
+  let axis: Vec3;
+  for (let i = 0; i < resY; i++) {
+    //create the uvs
+    for (let j = 0; j < resX; j++) {
+      const offset = i * resX * 2 + j * 2;
+      uv[offset + 0] = -0.5 - j / resX;
+      uv[offset + 1] = i / resY;
+    }
 
     //Current point along line
-    const currentPoint = new Vec3(skeleton[i * 3 + 0], skeleton[i * 3 + 1], skeleton[i * 3 + 2]);
+    const origin = new Vec3(
+      skeleton[i * 4 + 0],
+      skeleton[i * 4 + 1],
+      skeleton[i * 4 + 2],
+    );
 
-    if (i === 0) {
-      const _i = 1;
+    const diameter = skeleton[i * 4 + 3];
 
-      //Get average of previous segment and next segment
-      const avg = new Vec3(
-        (currentPoint[0] - skeleton[_i * 3 + 3] - (skeleton[_i * 3 - 3] - currentPoint[0])) / 2,
-        (currentPoint[1] - skeleton[_i * 3 + 4] - (skeleton[_i * 3 - 2] - currentPoint[1])) / 2,
-        (currentPoint[2] - skeleton[_i * 3 + 5] - (skeleton[_i * 3 - 1] - currentPoint[2])) / 2
+    if (i < resY - 1) {
+      //Next point along line
+      const next = new Vec3(
+        skeleton[i * 4 + 4],
+        skeleton[i * 4 + 5],
+        skeleton[i * 4 + 6],
       );
-
-      const v2 = new Vec3((skeleton[_i * 3 + 3] - skeleton[_i * 3 - 3]) / 2, (skeleton[_i * 3 + 4] - skeleton[_i * 3 - 2]) / 2, (skeleton[_i * 3 + 5] - skeleton[_i * 3 - 1]) / 2);
-
-      rings[0] = ring(currentPoint, avg, -_diameter, resX, v2);
-    } else if (i < l - 1) {
-      //Get average of previous segment and next segment
-      const avg = new Vec3(
-        (currentPoint[0] - skeleton[i * 3 + 3] - (skeleton[i * 3 - 3] - currentPoint[0])) / 2,
-        (currentPoint[1] - skeleton[i * 3 + 4] - (skeleton[i * 3 - 2] - currentPoint[1])) / 2,
-        (currentPoint[2] - skeleton[i * 3 + 5] - (skeleton[i * 3 - 1] - currentPoint[2])) / 2
-      );
-
-      const v2 = new Vec3((skeleton[i * 3 + 3] - skeleton[i * 3 - 3]) / 2, (skeleton[i * 3 + 4] - skeleton[i * 3 - 2]) / 2, (skeleton[i * 3 + 5] - skeleton[i * 3 - 1]) / 2);
-
-      rings[i] = ring(currentPoint, avg, _diameter, resX, v2);
+      axis = next.sub(origin);
+      rings[i] = ring(origin, axis, diameter, resX);
     } else {
-      const prevSegment = new Vec3(currentPoint[0] - skeleton[i * 3 - 3], currentPoint[1] - skeleton[i * 3 - 2], currentPoint[2] - skeleton[i * 3 - 1]);
-      rings[i] = ring(currentPoint, prevSegment, _diameter, resX);
+      rings[i] = ring(origin, axis, diameter, resX);
     }
   }
 
@@ -99,6 +100,6 @@ export default function(skeleton: Float32Array, diameter: number[], resX: number
     position,
     normal,
     uv,
-    index
+    index,
   };
 }

@@ -24,8 +24,7 @@ const dev = {
         refs: [
           {
             id: '0',
-            out: 0,
-            in: 0,
+            out: 'input',
           },
         ],
       },
@@ -44,8 +43,7 @@ const dev = {
         refs: [
           {
             id: '1',
-            out: 0,
-            in: 0,
+            out: 'input1',
           },
         ],
       },
@@ -64,8 +62,7 @@ const dev = {
         refs: [
           {
             id: '1',
-            out: 0,
-            in: 1,
+            out: 'input2',
           },
         ],
       },
@@ -97,13 +94,11 @@ const stressTest = {
         refs: [
           {
             id: '1',
-            out: 0,
-            in: 0,
+            in: 'input1',
           },
           {
             id: '1',
-            out: 0,
-            in: 1,
+            in: 'input2',
           },
         ],
       },
@@ -114,38 +109,37 @@ const stressTest = {
   ],
 };
 
-const gridSize = 12;
-const grid = new Array(gridSize)
+const gridWidth = 15;
+const gridHeight = 8;
+const grid = new Array(gridHeight)
   .fill(null)
-  .map((_n) => new Array(gridSize).fill(null))
+  .map(() => new Array(gridWidth).fill(null))
   .map((row, y) =>
     row.map((_cell, x) => {
-      const i = y * gridSize + x + 1;
+      const i = y * gridWidth + x + 1;
       const id = i.toString();
 
       return {
         attributes: {
           id,
           pos: {
-            x: -200 + x * 80,
-            y: y * 60,
+            x: -200 + x * 90,
+            y: y * 150,
           },
           type: 'math',
           refs: [
             {
               id: (i + 1).toString(),
-              out: 0,
-              in: 0,
+              in: 'input1',
             },
             {
               id: (i + 1).toString(),
-              out: 0,
-              in: 1,
+              in: 'input2',
             },
           ],
         },
         state: {
-          mode: 'add',
+          mode: 'multiply',
         },
       };
     }),
@@ -153,10 +147,10 @@ const grid = new Array(gridSize)
 
 stressTest.nodes.push(...grid.flat().flat(), {
   attributes: {
-    id: (gridSize * gridSize + 1).toString(),
+    id: (gridWidth * gridHeight + 1).toString(),
     pos: {
-      x: -200 + gridSize * 80,
-      y: (gridSize - 1) * 60,
+      x: -200 + gridWidth * 90,
+      y: (gridHeight - 1) * 150,
     },
     type: 'output',
     refs: [],
@@ -165,5 +159,7 @@ stressTest.nodes.push(...grid.flat().flat(), {
     value: 2,
   },
 });
+
+stressTest.nodes[stressTest.nodes.length - 2].attributes.refs[0].in = 'input';
 
 export { dev, stressTest };

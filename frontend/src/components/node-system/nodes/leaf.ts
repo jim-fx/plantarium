@@ -1,17 +1,17 @@
 export default {
   name: 'Leaf',
   outputs: ['leaf'],
-  inputs: ['number'],
   state: {
-    id: 'value',
-    type: 'number',
-    value: 0,
+    value: {
+      type: 'number',
+      value: 0,
+    },
   },
-  compute(inputData: any[], state: any) {
+  compute({ value = 0 }) {
     return {
       type: 'leaf',
       stuff: 'settings',
-      values: inputData[0] ?? state.value,
+      values: value,
     };
   },
 };

@@ -27,7 +27,9 @@ export default class NodeConnection {
 
     const children = input.node.getChildren();
 
-    if (children.includes(output.node)) throw new Error('Circular reference');
+    if (children.includes(output.node)) {
+      throw new Error('Circular reference');
+    }
 
     if (!input.type.includes(output.type) && !input.type.includes('*'))
       throw new Error(
@@ -39,6 +41,7 @@ export default class NodeConnection {
 
     if (system.options.view) {
       this.view = new NodeViewConnection(this);
+      this.view.setType(output.type);
     }
 
     this.output.setConnection(this);
@@ -56,20 +59,15 @@ export default class NodeConnection {
   deserialize() {
     return {
       id: this.input.node.attributes.id,
-      out: this.indexOut,
-      in: this.indexIn,
+      in: this.keyIn,
     };
   }
 
-  updateDownstream(data: any) {
+  updateDownstream(data) {
     this.input.updateDownstream(data);
   }
 
-  get indexOut() {
-    return this.output.node.outputs.indexOf(this.output);
-  }
-
-  get indexIn() {
-    return this.input.node.inputs.indexOf(this.input);
+  get keyIn() {
+    return this.input.key;
   }
 }

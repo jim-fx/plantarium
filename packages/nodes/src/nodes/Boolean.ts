@@ -2,11 +2,12 @@ export default {
   name: 'Boolean',
   outputs: ['boolean'],
   state: {
-    id: 'value',
-    type: 'boolean',
-    defaultValue: false,
+    value: {
+      type: 'boolean',
+      defaultValue: false,
+    },
   },
-  compute(inputData, { value = false }) {
+  compute({ value = false }) {
     return value;
   },
 };

@@ -1,8 +1,10 @@
+import { InstancedGeometry } from '@plantarium/types';
+
 function applyTransformation(
   geo: TransferGeometry,
   offset: number[] = [0, 0, 0],
   rot: number[] = [0, 0, 0],
-  scale: number[] = [1, 1, 1]
+  scale: number[] = [1, 1, 1],
 ): TransferGeometry {
   const newPos = new Float32Array(geo.position.length);
 
@@ -33,17 +35,17 @@ function applyTransformation(
     position: newPos,
     uv: geo.uv,
     normal: geo.normal,
-    index: geo.index
+    index: geo.index,
   };
 }
 
-export default function(instances: InstancedGeometry): TransferGeometry[] {
+export default function (instances: InstancedGeometry): TransferGeometry[] {
   const exp: TransferGeometry[] = [];
   const geometry: TransferGeometry = {
     position: instances.position,
     normal: instances.position,
     uv: instances.uv,
-    index: instances.index
+    index: instances.index,
   };
 
   const offset = instances.offset;
@@ -57,8 +59,8 @@ export default function(instances: InstancedGeometry): TransferGeometry[] {
         geometry,
         [offset[i + 0], offset[i + 1], offset[i + 2]],
         [rotation[i + 0], rotation[i + 1], rotation[i + 2]],
-        [scale[i + 0], scale[i + 1], scale[i + 2]]
-      )
+        [scale[i + 0], scale[i + 1], scale[i + 2]],
+      ),
     );
   }
 

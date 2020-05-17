@@ -101,17 +101,16 @@ export default class NodeSystemView extends EventEmitter {
       ({
         inputNode,
         outputNode,
-        indexIn,
-        indexOut,
+        keyIn,
       }: {
         inputNode: Node;
         outputNode: Node;
-        indexIn: number;
-        indexOut: number;
+        keyIn: string;
       }) => {
-        outputNode.connectTo(inputNode, indexOut, indexIn);
+        outputNode.connectTo(inputNode, keyIn);
       },
     );
+    return floatingConnection;
   }
 
   setActive(n?: Node | undefined, { shiftKey = false, ctrlKey = false } = {}) {
@@ -148,7 +147,10 @@ export default class NodeSystemView extends EventEmitter {
 
         debugNode.enableUpdates = true;
 
-        this.activeNode.connectTo(debugNode, 0, 0);
+        this.activeNode.connectTo(
+          debugNode,
+          Object.keys(this.activeNode.inputs)[0],
+        );
       }
     } else if (shiftKey) {
       if (!this.activeNode) {
@@ -316,7 +318,7 @@ export default class NodeSystemView extends EventEmitter {
   }
 
   handleMouseDown(ev: MouseEvent) {
-    const { shiftKey, ctrlKey, clientX, clientY, which } = ev;
+    const { shiftKey, ctrlKey, clientX, clientY, which, target } = ev;
 
     if (!shiftKey) this.setActive();
 
@@ -339,6 +341,7 @@ export default class NodeSystemView extends EventEmitter {
     this.emit('mousedown', {
       x,
       y,
+      target,
       keys: {
         ...this.keyMap,
         shiftKey,

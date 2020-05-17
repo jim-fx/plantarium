@@ -27,7 +27,7 @@ interface CustomMouseEvent {
  */
 interface NodeProps {
   attributes: NodeAttributes;
-  state?: any;
+  state?: unknown;
 }
 
 interface NodeSystemData {
@@ -44,6 +44,15 @@ interface NodeSystemMeta {
   };
 }
 
+interface NodeStateTemplate {
+  external?: boolean;
+  internal?: boolean;
+  label?: string | boolean;
+  type?: string;
+  values?: unknown[];
+  value?: unknown;
+}
+
 /**
  * Used to register new node types
  */
@@ -54,14 +63,14 @@ interface NodeTypeData {
     description?: string;
     tags?: string[];
   };
-  state?: any;
+  state?: {
+    [key: string]: NodeStateTemplate;
+  };
 
-  inputs?: (string[] | string)[];
+  outputs: string[];
 
-  outputs?: string[];
-
-  compute(inputData: any[], state?: any): any;
-  initView?(node: any);
+  compute(state?: unknown): unknown;
+  initView?(node: unknown);
 }
 
 interface NodePosition {
@@ -71,8 +80,7 @@ interface NodePosition {
 
 interface NodeRef {
   id: string;
-  in: number;
-  out: number;
+  in: string;
 }
 
 interface Rect {

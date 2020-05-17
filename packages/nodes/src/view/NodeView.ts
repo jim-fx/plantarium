@@ -8,8 +8,7 @@ import System from 'model/NodeSystem';
 export default class NodeView extends EventEmitter {
   node: Node;
   wrapper: HTMLDivElement;
-  inputWrapper: HTMLDivElement;
-  outputWrapper: HTMLDivElement;
+  header: HTMLDivElement;
 
   inputs: InputView[] = [];
   outputs: OutputView[] = [];
@@ -53,18 +52,15 @@ export default class NodeView extends EventEmitter {
       'node-view-' + this.system.id + '-' + this.node.id,
     );
 
+    this.header = document.createElement('div');
+    const nonInter = document.createElement('div');
+    nonInter.classList.add('non-interactive');
     const title = document.createElement('p');
     title.innerHTML = node.attributes.name || node.attributes.type;
-    title.classList.add('node-title');
-    this.wrapper.appendChild(title);
-
-    this.inputWrapper = document.createElement('div');
-    this.inputWrapper.classList.add('node-inputs-wrapper');
-    this.wrapper.append(this.inputWrapper);
-
-    this.outputWrapper = document.createElement('div');
-    this.outputWrapper.classList.add('node-outputs-wrapper');
-    this.wrapper.append(this.outputWrapper);
+    title.className = 'node-title';
+    this.header.classList.add('node-header');
+    this.header.appendChild(title);
+    this.wrapper.appendChild(this.header);
 
     node.system.view.nodeContainer.append(this.wrapper);
 

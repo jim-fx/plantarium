@@ -1,21 +1,21 @@
 import Node from 'model/Node';
 
-import NodeInput from 'model/NodeInput';
 import NodeSystem from 'model/NodeSystem';
 
 import NodeView from 'view/NodeView';
+import NodeState from 'model/NodeState';
 
 class DebugNode extends Node {
   constructor(system: NodeSystem, props: NodeProps) {
     super(system, props);
 
-    this.inputs = [new NodeInput(this, ['*'])];
-
-    this.outputs = [];
+    this.states.push(
+      new NodeState(this, 'input', { type: '*', internal: false }),
+    );
   }
 
-  compute(inputData: any[]) {
-    return inputData[0];
+  compute({ input }) {
+    return input;
   }
 }
 
@@ -24,15 +24,16 @@ class DebugView extends NodeView {
     super(node);
 
     const d = document.createElement('div');
+    const p = document.createElement('p');
+    d.append(p);
 
-    node.on('computedData', (data: any) => {
-      d.innerHTML = '';
-      const p = document.createElement('p');
-      p.innerHTML = data;
-      d.append(p);
+    node.on('computedData', (data: unknown) => {
+      p.innerHTML = JSON.stringify(data);
     });
 
-    this.wrapper.appendChild(d);
+    setTimeout(() => {
+      this.wrapper.appendChild(d);
+    }, 50);
   }
 }
 

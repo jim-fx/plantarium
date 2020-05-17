@@ -1,10 +1,9 @@
 import Node from './Node';
 import NodeView from 'view/NodeView';
 import NodeOutput from './NodeOutput';
-import NodeInput from './NodeInput';
 import NodeSystem from './NodeSystem';
-import stateToInterface from 'view/stateToInterface';
 import NodeType from './NodeType';
+import NodeState from './NodeState';
 
 export default class NodeParser {
   system: NodeSystem;
@@ -37,7 +36,7 @@ export default class NodeParser {
                 ref.id
               } `,
             );
-          n.connectTo(n2, ref.out, ref.in);
+          n.connectTo(n2, ref.in);
         });
     });
 
@@ -50,14 +49,21 @@ export default class NodeParser {
   }
 
   parseType(typeData: NodeTypeData): NodeType {
-    const { inputs, compute, meta, outputs, name, state, initView } = typeData;
+    const { compute, meta, outputs, name, state, initView } = typeData;
+
+    const inputs = [];
 
     const N = class TempNode extends Node {
       constructor(system: NodeSystem, props: NodeProps) {
         super(system, props);
         if (compute) this.compute = compute;
-        if (outputs) this.outputs = outputs.map((s) => new NodeOutput(this, s));
-        if (inputs) this.inputs = inputs.map((s) => new NodeInput(this, s));
+        if (outputs)
+          this.outputs = outputs.map((type) => new NodeOutput(this, type));
+        if (state) {
+          Object.entries(state).forEach(([key, value]) => {
+            this.states.push(new NodeState(this, key, value));
+          });
+        }
       }
     };
 
@@ -66,8 +72,7 @@ export default class NodeParser {
         initView: () => void;
         constructor(node: Node) {
           super(node);
-          this.initView = () =>
-            initView ? initView(node) : stateToInterface(node, this, state);
+          this.initView = () => initView && initView(node);
           this.initView();
         }
       };

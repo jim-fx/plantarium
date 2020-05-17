@@ -1,6 +1,10 @@
 .node-connection-path {
   fill: none;
-  stroke: grey;
+  stroke: rgb(128, 128, 128);
   stroke-width: 0.1em;
   stroke-linecap: butt;
+}
+
+.connection-type-number {
+  stroke: yellow;
 }

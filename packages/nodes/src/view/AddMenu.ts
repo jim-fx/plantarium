@@ -282,7 +282,7 @@ export default class RightClickMenu {
       : this.containers.filter((c) => {
           if (socket instanceof NodeInput) {
             const { type } = socket;
-            if (!c.type.outputs || !c.type.outputs.length) return false;
+            if (!c.type.outputs) return false;
             if (type.includes('*')) return true;
             return c.type.outputs?.some((t) => type.includes(t));
           } else {

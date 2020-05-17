@@ -68,9 +68,7 @@
   "dependencies": {
     "@plantarium/helpers": "^0.0.0",
     "@plantarium/types": "^0.0.0",
+    "@plantarium/ui": "^0.0.0",
     "settings-ui": "^1.3.2"
-  },
-  "publishConfig": {
-    "@plantarium:registry": "https://gitlab.com/api/v4/projects/18527438/packages/npm/"
   }
 }

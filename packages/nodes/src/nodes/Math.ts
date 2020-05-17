@@ -3,12 +3,19 @@ export default {
   inputs: ['number', 'number'],
   outputs: ['number'],
   state: {
-    id: 'mode',
-    inputType: 'selection',
-    values: ['add', 'multiply', 'subtract'],
+    mode: {
+      external: false,
+      values: ['add', 'multiply', 'subtract'],
+    },
+    input1: {
+      type: 'number',
+    },
+    input2: {
+      type: 'number',
+    },
   },
-  compute([input1 = 0, input2 = 0]: number[], state) {
-    switch (state) {
+  compute({ input1 = 0, input2 = 0, mode = 'add' }) {
+    switch (mode) {
       case 'multiply':
         return input1 * input2;
       case 'subtract':

@@ -56,62 +56,14 @@ interface PlantMetaInfo {
   public?: boolean;
 }
 
-interface StemDescription {
-  amount: number;
-  diameter: Parameter;
-  size: Parameter;
-  gravity: number;
-
-  originOffset: Parameter;
-  originAngle: Parameter;
-  originRotation: Parameter;
-
-  noiseStrength: Parameter;
-  noiseScale?: number;
-}
-
-interface BranchDescription {
-  enable: boolean;
-  amount: number;
-  lowestBranch: Parameter;
-  length: Parameter;
-  angle: Parameter;
-  rotation: Parameter;
-  diameter: Parameter;
-  offset: Parameter;
-  gravity: number;
-  noiseScale: number;
-  noiseStrength: Parameter;
-}
-
-interface LeafDescription {
-  enable: boolean;
-
-  amount: number;
-  gravity: number;
-
-  lowestLeaf?: number;
-
-  onStem: boolean;
-  onBranches: boolean;
-
-  angle: Parameter;
-  rotation: Parameter;
-
-  offset: Parameter;
-
-  size: Parameter;
-  shape: Point[];
-
-  xCurvature: Parameter;
-  yCurvature: Parameter;
+export interface PartDescription {
+  type: 'stem' | 'branch' | 'leave' | string;
+  parameters: unknown;
 }
 
 export interface PlantDescription {
   meta: PlantMetaInfo;
-  stem: StemDescription;
-  branches: BranchDescription;
-  leaves: LeafDescription;
+  main: PartDescription;
 }
 
 export interface PlantariumSettings {
@@ -120,29 +72,29 @@ export interface PlantariumSettings {
 
   forceUpdate: boolean;
 
-  debug_wireframe: boolean;
-  debug_indices: boolean;
-  debug_render_perf: boolean;
-  debug_generate_perf: boolean;
-  debug_pd: boolean;
-  debug_skeleton: boolean;
-  debug_disable_model: boolean;
-  debug_grid: boolean;
-  debug_grid_size: number;
-  debug_grid_resolution: number;
-  debug_uv: number;
+  debugWireframe: boolean;
+  debugIndices: boolean;
+  debugRenderPerf: boolean;
+  debugGeneratePerf: boolean;
+  debugPd: boolean;
+  debugSkeleton: boolean;
+  debugDisableModel: boolean;
+  debugGrid: boolean;
+  debugGridSize: number;
+  debugGridResolution: number;
+  debugUv: number;
 
   ground: {
     enable: boolean;
     resX: number;
     resY: number;
     scale: number;
-    texture_size: number;
+    textureSize: number;
   };
 
-  exp_useRandomSeed: boolean;
-  exp_filetype: string;
-  exp_seed: string;
+  expUseRandomSeed: boolean;
+  expFiletype: string;
+  expSeed: string;
 
   stemResX: number;
   stemResY: number;

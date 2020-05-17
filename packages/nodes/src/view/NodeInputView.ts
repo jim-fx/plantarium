@@ -9,6 +9,8 @@ export default class NodeInputView {
   wrapper: HTMLDivElement;
   connection!: NodeConnectionView;
 
+  private _y = 0;
+
   constructor(input: NodeInput) {
     if (!input || !input.node) throw new Error('Somethings missing');
 
@@ -20,7 +22,7 @@ export default class NodeInputView {
     input.type.forEach((t) => {
       this.wrapper.classList.add(`socket-type-${t === '*' ? 'all' : t}`);
     });
-    this.node.view.inputWrapper.appendChild(this.wrapper);
+    this.input.state.getView().outerWrapper.appendChild(this.wrapper);
 
     this.wrapper.addEventListener(
       'mousedown',
@@ -48,6 +50,10 @@ export default class NodeInputView {
       this.wrapper.style.backgroundColor =
         col !== 'rgba(0, 0, 0, 0)' ? col : color;
     });
+
+    this._y =
+      this.wrapper.getBoundingClientRect().top -
+      this.node.view.wrapper.getBoundingClientRect().y;
   }
 
   remove() {
@@ -67,8 +73,6 @@ export default class NodeInputView {
   }
 
   get y() {
-    return (
-      this.node.view.y + (this.node.inputs.indexOf(this.input) + 1) * 12 + 9
-    );
+    return this._y + this.node.view.y + 3.5;
   }
 }
