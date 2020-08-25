@@ -29,10 +29,13 @@ export interface TransferGeometry {
   leaf?: InstanceGeometry;
 }
 
-interface Parameter {
+export interface Point {
+  x: number;
+  y: number;
+}
+
+export interface Parameter {
   value: number;
-  type?: 'float' | 'int';
-  enabled?: boolean;
   variation?: number;
   shape?: Point[];
   curve?: Point[];
@@ -56,9 +59,16 @@ interface PlantMetaInfo {
   public?: boolean;
 }
 
+interface PlantPartParameters {
+  stem: PlantPartParameters;
+  length: number | Parameter;
+  size: number | Parameter;
+  thiccness: number | Parameter;
+}
+
 export interface PartDescription {
-  type: 'stem' | 'branch' | 'leave' | string;
-  parameters: unknown;
+  type: string;
+  props: PlantPartParameters;
 }
 
 export interface PlantDescription {
@@ -100,12 +110,6 @@ export interface PlantariumSettings {
   stemResY: number;
   leafResX: number;
   leafResY: number;
-}
-
-export interface Point {
-  x: number;
-  y: number;
-  locked?: boolean;
 }
 
 import './ogl';

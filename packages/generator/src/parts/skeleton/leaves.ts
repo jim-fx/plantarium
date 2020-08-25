@@ -3,7 +3,7 @@ import {
   interpolateArray,
   interpolateSkeleton,
   noise,
-} from '../helper';
+} from '../../helpers';
 import { Vec3 } from 'ogl';
 import { PlantariumSettings } from '@plantarium/types';
 

@@ -1,6 +1,6 @@
-import noise from '../helper/noise';
-import curveToArray from '../helper/curveToArray';
-import interpolateArray from '../helper/interpolateArray';
+import noise from '../../helpers/noise';
+import curveToArray from '../../helpers/curveToArray';
+import interpolateArray from '../../helpers/interpolateArray';
 import { PlantariumSettings } from '@plantarium/types';
 
 // const toRadian = Math.PI / 180;
@@ -74,10 +74,17 @@ export default function createStemSkeleton(
   parameters,
   settings: PlantariumSettings,
 ) {
-  const amountPoints = settings.stemResY || 20;
+  const {
+    origin = { x: 0, y: 0, z: 0 },
+    height = 3,
+    thiccness = 0.4,
+  } = parameters;
+
+  const { stemResY: amountPoints = 20 } = settings;
+
   const skeleton = new Float32Array(amountPoints * 4);
 
-  const { origin = { x: 0, y: 0, z: 0 }, height = 3 } = parameters;
+  console.log('skeleton.stem');
 
   for (let j = 0; j < amountPoints; j++) {
     const a = j / amountPoints;
@@ -90,7 +97,7 @@ export default function createStemSkeleton(
     skeleton[j * 4 + 0] = x;
     skeleton[j * 4 + 1] = y;
     skeleton[j * 4 + 2] = z;
-    skeleton[j * 4 + 3] = (1 - a) * 0.4;
+    skeleton[j * 4 + 3] = (1 - a) * thiccness;
   }
 
   return {

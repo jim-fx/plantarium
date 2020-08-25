@@ -219,6 +219,24 @@ declare module 'ogl' {
     toArray: (a?: [], offset?: number) => number[];
   }
 
+  export class Transform {
+    position: Vec3;
+    quaternion: Quat;
+    scale: Vec3;
+    rotation: Euler;
+    up: Vec3;
+
+    setParent: (parent: Transform, notifyParent?: boolean) => void;
+    addChild: (parent: Transform, notifyChild?: boolean) => void;
+    removeChild: (parent: Transform, notifyChild?: boolean) => void;
+
+    updateMatrixWorld: (force?: boolean) => void;
+    updateMatrix: () => void;
+    traverse: (callback: Function) => void;
+    decompose: () => void;
+    lookAt: (target: Vec3) => void;
+  }
+
   export class Camera extends Transform {
     constructor(
       gl: WebGL2RenderingContext,
@@ -250,24 +268,6 @@ declare module 'ogl' {
     frustumIntersectsMesh: () => void;
 
     frustumIntersectsSphere: () => void;
-  }
-
-  export class Transform {
-    position: Vec3;
-    quaternion: Quat;
-    scale: Vec3;
-    rotation: Euler;
-    up: Vec3;
-
-    setParent: (parent: Transform, notifyParent?: boolean) => void;
-    addChild: (parent: Transform, notifyChild?: boolean) => void;
-    removeChild: (parent: Transform, notifyChild?: boolean) => void;
-
-    updateMatrixWorld: (force?: boolean) => void;
-    updateMatrix: () => void;
-    traverse: (callback: Function) => void;
-    decompose: () => void;
-    lookAt: (target: Vec3) => void;
   }
 
   export class Program {

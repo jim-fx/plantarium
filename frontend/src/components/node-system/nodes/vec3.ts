@@ -7,16 +7,19 @@ export default {
       type: 'number',
       label: false,
       value: 0,
+      step: 0.1,
     },
     y: {
       type: 'number',
       label: false,
       value: 0,
+      step: 0.1,
     },
     z: {
       type: 'number',
       label: false,
       value: 0,
+      step: 0.1,
     },
   },
   compute({ x = 0, y = 0, z = 0 }) {

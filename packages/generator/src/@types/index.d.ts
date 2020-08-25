@@ -18,7 +18,7 @@ interface PlantPart {
   type: string;
   skeletons: Float32Array[];
   geometry?: TransferGeometry;
-  parameters: unknown;
+  parameters: any;
 }
 
 interface TransferGeometry {
@@ -30,11 +30,6 @@ interface TransferGeometry {
   skeleton?: Float32Array[];
 
   leaf?: InstanceGeometry;
-}
-
-interface Parameter {
-  value: any;
-  curve: any;
 }
 
 // interface BranchDescription extends PartDescription {

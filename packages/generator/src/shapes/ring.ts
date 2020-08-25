@@ -1,5 +1,5 @@
 import { Vec3 } from 'ogl';
-import arbitraryRotate from './arbitraryRotate';
+import arbitraryRotate from 'helpers/arbitraryRotate';
 
 function getStart(origin: Vec3, axis: Vec3): Vec3 {
   if (origin[0] === 0 && origin[2] === 0) {

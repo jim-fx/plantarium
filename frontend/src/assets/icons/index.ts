@@ -41,7 +41,6 @@ Object.keys(strings).forEach((key) => {
       if (objs[key]) {
         return objs[key].cloneNode(true);
       } else {
-        // @ts-ignore
         d.innerHTML = strings[key];
         objs[key] = d.children[0];
         return objs[key];

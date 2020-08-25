@@ -57,10 +57,9 @@ export default class Renderer {
   }
 
   bindEventlisteners() {
-    const res = this.handleResize.bind(this);
-    const resize = throttle(res, 500);
-    const resizeObserver = new ResizeObserver(resize);
-    resizeObserver.observe(this.canvas.parentElement);
+    // const resize = throttle(this.handleResize.bind(this), 500);
+    // const resizeObserver = new ResizeObserver(resize);
+    // resizeObserver.observe(this.canvas.parentElement);
   }
 
   handleResize() {

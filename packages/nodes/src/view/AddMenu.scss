@@ -11,7 +11,7 @@
 }
 
 .context-wrapper {
-  z-index: 99;
+  z-index: -1;
   position: absolute;
   width: 100px;
   pointer-events: none;
@@ -53,6 +53,7 @@
 }
 
 .context-visible {
+  z-index: 99;
   opacity: 1;
   pointer-events: all;
   transform: scale(1);

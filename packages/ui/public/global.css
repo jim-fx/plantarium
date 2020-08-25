@@ -18,3 +18,9 @@ h3 {
   justify-content: center;
   font-family: sans-serif;
 }
+
+hr {
+  height: 0px;
+  border: solid 0.5px #585858;
+  border-style: solid;
+}

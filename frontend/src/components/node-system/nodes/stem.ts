@@ -14,6 +14,14 @@ export default {
       step: 0.05,
       value: 0,
     },
+    thiccness: {
+      type: 'number',
+      inputType: 'slider',
+      min: 0,
+      max: 1,
+      step: 0.02,
+      value: 0,
+    },
     amount: {
       type: 'number',
       min: 0,

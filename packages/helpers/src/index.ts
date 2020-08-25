@@ -14,6 +14,7 @@ export { default as versionToNumber } from './versionToNumber';
 export { default as EventEmitter } from './EventEmitter';
 export { default as fastHash } from './fastHash';
 export { default as genID } from './genID';
+export * as curve from './curve';
 
 // Geometry Stuff
 export { default as convertToOBJ } from './convertToOBJ';

@@ -1,3 +1,4 @@
+import { Parameter } from '@plantarium/types';
 import noise from './noise';
 
 export default (param: Parameter) => {

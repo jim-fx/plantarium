@@ -7,21 +7,25 @@
   export let min = -Infinity;
   export let max = Infinity;
   export let step = 1;
-  export let value = 50;
+  export let value = 0;
 
   let el;
 
   function handleChange(change) {
-    value = Math.max(min, Math.min(value + change, max));
+    value = Math.max(min, Math.min(+value + change, max));
+  }
+
+  function strip(number) {
+    return parseFloat(number).toPrecision(4);
   }
 
   function dispatchEvent() {
     // 1. Create the custom event.
     const event = new CustomEvent('change', {
-      detail: value,
+      detail: parseFloat(value),
       bubbles: true,
       cancelable: true,
-      composed: true, // makes the event jump shadow DOM boundary
+      composed: true,
     });
 
     // 2. Dispatch the custom event.

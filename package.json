@@ -7,7 +7,7 @@
     "backend"
   ],
   "scripts": {
-    "dev:frontend": "yarn --cwd 'frontend' run dev",
+    "dev:frontend": "yarn --cwd frontend run dev",
     "build:frontend": " yarn wsrun --stages build"
   },
   "devDependencies": {

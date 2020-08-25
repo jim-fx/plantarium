@@ -4,8 +4,10 @@
   import { curve } from '@plantarium/helpers';
 
   export let points = [
-    { x: 0, y: 1, locked: true },
-    { x: 1, y: 0, locked: true },
+    { x: 0.5, y: 1, locked: true },
+    { x: 0.2, y: 0.6 },
+    { x: 0.2, y: 0.3 },
+    { x: 0.5, y: 0, locked: true },
   ];
 
   let canvas, ctx;
@@ -16,6 +18,7 @@
   let isHovered = false;
   let isRendering = false;
   let activePoint = undefined;
+  let gradient;
 
   const mousePos = new Vec2(0, 0);
   const mouseDownPos = new Vec2(0, 0);
@@ -33,8 +36,12 @@
       mousePos.y = ev.offsetY / height;
 
       if (activePoint) {
-        activePoint.x = mousePos.x;
-        activePoint.y = mousePos.y;
+        if (activePoint.locked) {
+          activePoint.x = Math.min(0.5, mousePos.x);
+        } else {
+          activePoint.x = Math.min(0.5, mousePos.x);
+          activePoint.y = mousePos.y;
+        }
       }
     }
   };
@@ -54,7 +61,7 @@
           return a.d < b.d ? -1 : 1;
         });
 
-      if (_points[0].d < hoverDistance && !points[_points[0].i].locked) {
+      if (_points[0].d < hoverDistance) {
         activePoint = points[_points[0].i];
         pointDownPos.x = activePoint.x;
         pointDownPos.y = activePoint.y;
@@ -83,13 +90,60 @@
     ctx.strokeStyle = 'white';
     ctx.fillStyle = 'white';
 
-    const absPoints = points
-      .sort((a, b) => (a.x > b.x ? 1 : -1))
-      .map(({ x, y, locked = false }) => {
-        return { x: x * cWidth, y: y * cHeight, locked };
-      });
+    points = points.sort(({ y: ay, x: ax }, { y: by, x: bx }) => {
+      if (ay === by) {
+        if (ay < 0.5) {
+          return ax > bx ? 1 : -1;
+        } else {
+          return ax > bx ? -1 : 1;
+        }
+      }
 
-    curve.drawCurve(ctx, absPoints);
+      return ay > by ? 1 : -1;
+    });
+
+    if (points[0].x !== 0.5) {
+      delete points[0].locked;
+      points = [
+        {
+          x: 0.5,
+          y: 0,
+          locked: true,
+        },
+        ...points,
+      ];
+    }
+
+    if (points[points.length - 1].x !== 0.5) {
+      delete points[points.length - 1].locked;
+      points = [
+        ...points,
+        {
+          x: 0.5,
+          y: 1,
+          locked: true,
+        },
+      ];
+    }
+
+    points = points.sort(({ y: ay, x: ax }, { y: by, x: bx }) => {
+      if (ay === by) {
+        if (ay < 0.5) {
+          return ax > bx ? -1 : 1;
+        } else {
+          return ax > bx ? 1 : -1;
+        }
+      }
+
+      return ay > by ? 1 : -1;
+    });
+
+    const absPoints = points.map(({ x, y, locked = false }) => {
+      return { x: x * cWidth, y: y * cHeight, locked };
+    });
+
+    drawLines(absPoints);
+    drawShape(absPoints);
 
     if (isHovered) {
       requestAnimationFrame(render);
@@ -97,29 +151,55 @@
     }
   }
 
-  const drawControlPoints = (pts) =>
+  function drawControlPoints(pts) {
     pts.forEach((p, i) => {
       ctx.beginPath();
 
       const mouseDistance =
         Math.abs(points[i].x - mousePos.x) + Math.abs(points[i].y - mousePos.y);
 
-      if (!p.locked) {
-        if (mouseDistance < hoverDistance) {
-          ctx.arc(p.x, p.y, 5, 0, 2 * Math.PI);
-          ctx.fillStyle = 'white';
-          ctx.fill();
-        } else {
-          ctx.arc(p.x, p.y, 4, 0, 2 * Math.PI);
-          ctx.fillStyle = '#4b4b4b';
-          ctx.fill();
+      if (mouseDistance < hoverDistance) {
+        ctx.arc(p.x, p.y, 5, 0, 2 * Math.PI);
+        ctx.fillStyle = 'white';
+        ctx.fill();
+      } else {
+        ctx.arc(p.x, p.y, 4, 0, 2 * Math.PI);
+        ctx.fillStyle = '#4b4b4b';
+        ctx.fill();
 
-          ctx.arc(p.x, p.y, 4, 0, 2 * Math.PI);
-          ctx.lineWidth = 2;
-          ctx.stroke();
-        }
+        ctx.arc(p.x, p.y, 4, 0, 2 * Math.PI);
+        ctx.lineWidth = 2;
+        ctx.stroke();
       }
     });
+  }
+
+  function drawLines(pts) {
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, pts[0].y);
+    pts.forEach((p, i) => {
+      // Skip first point
+      if (i === 0) return;
+      ctx.lineTo(pts[i].x, pts[i].y);
+    });
+
+    ctx.closePath();
+    ctx.stroke();
+  }
+
+  function drawShape(pts) {
+    ctx.beginPath();
+    ctx.moveTo(cWidth - pts[0].x, pts[0].y);
+    pts.forEach((p, i) => {
+      // Skip first point
+      if (i === 0) return;
+      ctx.lineTo(cWidth - pts[i].x, pts[i].y);
+    });
+
+    ctx.closePath();
+    ctx.fillStyle = gradient;
+    ctx.fill();
+  }
 
   onMount(() => {
     ctx = canvas.getContext('2d');
@@ -129,6 +209,10 @@
       cWidth = width * devicePixelRatio;
       cHeight = height * devicePixelRatio;
     }
+
+    gradient = ctx.createLinearGradient(0, 0, 0, cHeight);
+    gradient.addColorStop(0, '#65e2a0');
+    gradient.addColorStop(1, '#337150');
 
     setTimeout(render, 50);
   });
@@ -148,7 +232,7 @@
   }
 </style>
 
-<svelte:options tag="plant-curve" />
+<svelte:options tag="plant-shape" />
 
 <svelte:window
   on:mouseup={() => {

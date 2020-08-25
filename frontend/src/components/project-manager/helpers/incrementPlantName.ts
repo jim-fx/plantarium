@@ -3,7 +3,7 @@ function containsIncrementer(string: string) {
 
   const a = string.split('_');
 
-  if (isNaN(<number>(<unknown>a[a.length - 1]))) return false;
+  if (isNaN(parseInt(a[a.length - 1]))) return false;
 
   return true;
 }
@@ -12,7 +12,7 @@ function increment(name: string, alreadyTakenNames: string[]): string {
   let newName = '';
 
   if (containsIncrementer(name)) {
-    let _s = name.split('_');
+    const _s = name.split('_');
     _s[_s.length - 1] = parseInt(_s[_s.length - 1]) + 1 + '';
     newName = _s.join('_');
   } else {

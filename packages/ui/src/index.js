@@ -1,8 +1,10 @@
 import InputSlider from './InputSlider.svelte';
 import InputNumber from './InputNumber.svelte';
 import InputSelect from './InputSelect.svelte';
+import InputCurve from './InputCurve.svelte';
+import InputShape from './InputShape.svelte';
 
-export { InputNumber, InputSlider, InputSelect };
+export { InputNumber, InputSlider, InputSelect, InputCurve, InputShape };
 
 // *****************************************
 // * Notice that the component is not instantiated and mounted to the document <body className="">
@@ -10,7 +12,7 @@ export { InputNumber, InputSlider, InputSelect };
 // * in the index.html file to simulate the end-user experience.
 // ******************************************
 
-export function stateToElement(template, value) {
+export function stateToElement(template, value = 0) {
   if (Array.isArray(template.values)) {
     const element = new InputSelect();
     element.setItems(template.values);
@@ -27,12 +29,25 @@ export function stateToElement(template, value) {
     return element;
   }
 
+  if (template.inputType === 'curve') {
+    const element = new InputCurve();
+    if ('points' in template) element.setAttribute('points', template.points);
+    return element;
+  }
+
+  if (template.inputType === 'shape') {
+    const element = new InputShape();
+    if ('points' in template) element.setAttribute('points', template.points);
+    return element;
+  }
+
   if (template.type === 'number' || typeof template.value === 'number') {
     const element = new InputNumber();
-    if (value !== undefined) element.setAttribute('value', +value);
     if ('max' in template) element.setAttribute('max', template.max);
     if ('min' in template) element.setAttribute('min', template.min);
     if ('step' in template) element.setAttribute('step', template.step);
+    const { value: _value = value } = template;
+    element.setAttribute('value', parseFloat(_value));
     return element;
   }
 }

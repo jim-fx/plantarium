@@ -25,8 +25,8 @@
   div {
     position: relative;
     margin: 0px;
-    margin-bottom: 7px;
-    padding-top: 9px;
+    margin-bottom: 12px;
+    padding-top: 6px;
   }
 
   input[type='range'] {

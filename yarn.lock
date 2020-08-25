@@ -7391,6 +7391,11 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
+open-simplex-noise@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/open-simplex-noise/-/open-simplex-noise-2.3.1.tgz#fb3e04db8693f6487497536be76d6192f1b9b827"
+  integrity sha512-akJvOFDWOoyNHg/ahxZQLBkBvKofV4avYLksYcaSUXNEHU+Y0bJlRRlZEf0MV753CR+lVSMtEPBv7NacDM+0mg==
+
 open@^7.0.3:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/open/-/open-7.0.3.tgz#db551a1af9c7ab4c7af664139930826138531c48"
@@ -9286,6 +9291,11 @@ simple-swizzle@^0.2.2:
   integrity sha1-pNprY1/8zMoz9w0Xy5JZLeleVXo=
   dependencies:
     is-arrayish "^0.3.1"
+
+simplex-noise@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/simplex-noise/-/simplex-noise-2.4.0.tgz#81b3458fb22dccc3bc8dd9a977c73797f86f523a"
+  integrity sha512-OjyDWm/QZjVbMrPxDVi9b2as+SeNn9EBXlrWVRlFW+TSyWMSXouDryXkQN0vf5YP+QZKobrmkvx1eQYPLtuqfw==
 
 sirv-cli@^0.4.4:
   version "0.4.5"
