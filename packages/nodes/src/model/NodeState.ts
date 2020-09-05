@@ -18,12 +18,8 @@ export default class NodeState extends EventEmitter {
     this.state = state;
     if (state.external !== false) {
       this.input = new NodeInput(this, key, state.type);
-      this.input.on('connected', () => {
-        this.emit('connected');
-      });
-      this.input.on('disconnected', () => {
-        this.emit('disconnected');
-      });
+      this.input.on('connected', () => this.emit('connected'));
+      this.input.on('disconnected', () => this.emit('disconnected'));
       node.inputs[key] = this.input;
     }
   }

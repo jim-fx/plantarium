@@ -60,7 +60,7 @@ export default class BackgroundScene {
         uTime: { value: 0 },
         tMap: { value: groundTexture },
         // Pass relevant uniforms for fog
-        uFogColor: { value: new Color('#ffffff') },
+        uFogColor: { value: new Color('#303030') },
         uFogNear: { value: 10 },
         uFogFar: { value: 30 },
         texScale: { value: 1 },

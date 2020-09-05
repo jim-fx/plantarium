@@ -41,20 +41,19 @@ const dev = {
 };
 
 const dev2 = {
-  meta: { lastSaved: Date.now(), transform: { x: 0, y: 0, s: 1 } },
+  meta: { transform: { x: 0, y: 0, s: 1 } },
   nodes: [
     {
-      attributes: { pos: { x: 0, y: 0 }, type: 'output', id: '0', refs: [] },
-      state: {},
-    },
-    {
       attributes: {
-        pos: { x: -200, y: 18 },
+        pos: { x: -100, y: 0 },
         type: 'stem',
         id: '1',
-        refs: [{ id: '0', in: 'pd' }],
+        refs: [{ id: '0', in: 'main' }],
       },
       state: { height: 5, amount: 1 },
+    },
+    {
+      attributes: { pos: { x: 0, y: 0 }, type: 'output', id: '0', refs: [] },
     },
   ],
 };

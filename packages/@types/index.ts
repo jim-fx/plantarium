@@ -35,10 +35,8 @@ export interface Point {
 }
 
 export interface Parameter {
-  value: number;
+  value: number | number[];
   variation?: number;
-  shape?: Point[];
-  curve?: Point[];
 }
 
 interface PlantMetaInfo {
@@ -59,17 +57,7 @@ interface PlantMetaInfo {
   public?: boolean;
 }
 
-interface PlantPartParameters {
-  stem: PlantPartParameters;
-  length: number | Parameter;
-  size: number | Parameter;
-  thiccness: number | Parameter;
-}
-
-export interface PartDescription {
-  type: string;
-  props: PlantPartParameters;
-}
+type PartDescription = {};
 
 export interface PlantDescription {
   meta: PlantMetaInfo;
@@ -80,6 +68,17 @@ export interface PlantariumSettings {
   useRandomSeed: boolean;
   seed: number;
 
+  stemResX: number;
+  stemResY: number;
+  leafResX: number;
+  leafResY: number;
+
+  grid: {
+    enable: boolean;
+    gridSize: number;
+    gridResolution: number;
+  };
+
   forceUpdate: boolean;
 
   debugWireframe: boolean;
@@ -89,9 +88,6 @@ export interface PlantariumSettings {
   debugPd: boolean;
   debugSkeleton: boolean;
   debugDisableModel: boolean;
-  debugGrid: boolean;
-  debugGridSize: number;
-  debugGridResolution: number;
   debugUv: number;
 
   ground: {
@@ -102,14 +98,9 @@ export interface PlantariumSettings {
     textureSize: number;
   };
 
-  expUseRandomSeed: boolean;
-  expFiletype: string;
-  expSeed: string;
-
-  stemResX: number;
-  stemResY: number;
-  leafResX: number;
-  leafResY: number;
+  exportUseRandomSeed: boolean;
+  exportFiletype: string;
+  exportSeed: string;
 }
 
 import './ogl';

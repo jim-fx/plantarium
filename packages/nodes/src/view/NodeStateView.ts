@@ -26,13 +26,9 @@ export default class NodeStateView {
       this.wrapper.appendChild(label);
     }
 
-    this.state.on('connected', () => {
-      this.disable();
-    });
+    this.state.on('connected', () => this.disable());
 
-    this.state.on('disconnected', () => {
-      this.enable();
-    });
+    this.state.on('disconnected', () => this.enable());
 
     if (template.internal !== false) {
       const value = this.node.state[this.state.getKey()];

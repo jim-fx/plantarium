@@ -27,7 +27,7 @@ export default class Renderer {
       dpr: 1,
     });
     this.gl = this.renderer.gl;
-    this.gl.clearColor(1, 1, 1, 1);
+    this.gl.clearColor(0.18823, 0.18823, 0.18823, 1);
 
     // Setup Camera
     this.camera = new Camera(this.gl, { fov: 70, aspect: width / height });

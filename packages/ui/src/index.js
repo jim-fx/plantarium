@@ -13,10 +13,11 @@ export { InputNumber, InputSlider, InputSelect, InputCurve, InputShape };
 // ******************************************
 
 export function stateToElement(template, value = 0) {
+
   if (Array.isArray(template.values)) {
     const element = new InputSelect();
     element.setItems(template.values);
-    element.setValue(+value || template.values[0]);
+    element.setValue(+value || value || template.values[0]);
     return element;
   }
 
