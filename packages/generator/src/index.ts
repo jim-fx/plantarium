@@ -1,2 +1,2 @@
-import * as components from 'components';
-export default components;
+export { grid, ground, plant } from 'parts';
+export { transferToGeometry } from 'helpers';

@@ -46,6 +46,7 @@ class SearchContainer {
 
     this.searchString = s.join(':').toLowerCase();
     this.menu.wrapper.appendChild(this.wrapper);
+    this.wrapper.addEventListener('click', this.focus);
   }
 
   show() {

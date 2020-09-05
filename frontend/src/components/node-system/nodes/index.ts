@@ -6,3 +6,5 @@ export { default as Color } from './color';
 export { default as Stem } from './stem';
 export { default as Branch } from './branch';
 export { default as Parameter } from './parameter';
+export { default as Noise } from './noise';
+export { default as Gravity } from './gravity';

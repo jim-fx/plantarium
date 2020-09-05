@@ -13,6 +13,7 @@ import svg from 'rollup-plugin-svg';
 import visualizer from 'rollup-plugin-visualizer';
 import replace from '@rollup/plugin-replace';
 import typescript from '@rollup/plugin-typescript';
+import sourcemaps from "rollup-plugin-sourcemaps";
 
 const PROD = process.env.ROLLUP_WATCH !== 'true';
 
@@ -37,6 +38,8 @@ const client = {
       sourceMap: !PROD,
     }),
 
+    sourcemaps(),
+
     svg(),
 
     // will output compiled styles to bundle.css
@@ -49,26 +52,26 @@ const client = {
     PROD && terser(),
 
     PROD &&
-      analyze({
-        summaryOnly: true,
-        limit: 10,
-      }),
+    analyze({
+      summaryOnly: true,
+      limit: 10,
+    }),
 
     PROD &&
-      visualizer({
-        sourcemap: true,
-      }),
+    visualizer({
+      sourcemap: true,
+    }),
 
     //Import GLSL Shaders
     glslify({ include: ['**/*.vert', '**/*.frag'] }),
 
     !PROD &&
-      liveServer({
-        root: './public',
-        open: true,
-        quiet: true,
-        logLevel: 0,
-      }),
+    liveServer({
+      root: './public',
+      open: true,
+      quiet: true,
+      logLevel: 0,
+    }),
   ],
 
   output: [
@@ -104,10 +107,10 @@ const clientModel = {
     PROD && terser(),
 
     PROD &&
-      analyze({
-        summaryOnly: true,
-        limit: 10,
-      }),
+    analyze({
+      summaryOnly: true,
+      limit: 10,
+    }),
   ],
 
   output: [
@@ -145,10 +148,10 @@ const clientData = {
     PROD && terser(),
 
     PROD &&
-      analyze({
-        summaryOnly: true,
-        limit: 10,
-      }),
+    analyze({
+      summaryOnly: true,
+      limit: 10,
+    }),
   ],
 
   output: [
@@ -180,10 +183,10 @@ const clientServiceWorker = {
     json(),
 
     PROD &&
-      analyze({
-        summaryOnly: true,
-        limit: 10,
-      }),
+    analyze({
+      summaryOnly: true,
+      limit: 10,
+    }),
 
     PROD && terser(),
   ],

@@ -16,10 +16,19 @@ interface Vec3 {
 
 interface PlantPart {
   type: string;
-  skeletons: Float32Array[];
-  geometry?: TransferGeometry;
-  parameters: any;
+  result: {
+    skeletons: Float32Array[];
+    geometry?: TransferGeometry;
+  };
+  parameters: {
+    [key: string]: any;
+  };
 }
+
+type Parameter = {
+  value: number | number[];
+  variaton: number;
+};
 
 interface TransferGeometry {
   position: Float32Array;
@@ -31,26 +40,3 @@ interface TransferGeometry {
 
   leaf?: InstanceGeometry;
 }
-
-// interface BranchDescription extends PartDescription {
-//   input: PlantPart;
-//   amount: number;
-//   lowestBranch: Parameter;
-//   length: Parameter;
-//   angle: Parameter;
-//   rotation: Parameter;
-//   diameter: Parameter;
-//   offset: Parameter;
-// }
-
-// interface StemDescription extends PartDescription {
-//   origin: Vec3;
-
-//   amount: number;
-//   diameter: Parameter;
-//   height: Parameter;
-
-//   originOffset: Parameter;
-//   originAngle: Parameter;
-//   originRotation: Parameter;
-// }

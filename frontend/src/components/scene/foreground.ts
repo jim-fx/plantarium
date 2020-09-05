@@ -39,12 +39,13 @@ export default class ForegroundScene {
   }
 
   setSettings(settings: PlantariumSettings) {
-    this.settings = settings;
+    this.settings = JSON.parse(JSON.stringify(settings));
     this.update();
   }
 
   setPlant(plant: PlantDescription) {
-    this.plant = plant;
+    this.plant = plant ? JSON.parse(JSON.stringify(plant)) : plant;
+    console.log(this.plant);
     this.update();
   }
 

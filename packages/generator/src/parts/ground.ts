@@ -1,10 +1,12 @@
-const totalSize = 100;
+const totalSize = 102;
 const slopeLength = 2;
 const groundHeight = 1;
 
 export default function (size: number, resX = 12, resY = 12): TransferGeometry {
   //General parameters
   const angle = (360 * (Math.PI / 180)) / resY; // Convert to radians
+
+  size = 0;
 
   //Final model
   const position = new Float32Array(resX * resY * 3 + 3);
@@ -28,16 +30,17 @@ export default function (size: number, resX = 12, resY = 12): TransferGeometry {
   const xPositions = new Array(resX - 1)
     .fill(null)
     .map((v, i, a) => size + (i / (a.length - 1)) * slopeLength);
+
   xPositions.push(totalSize);
 
-  const yPositions = xPositions.map((v, i, a) => {
+  const yPositions = xPositions.map((v) => {
     const slopeAlpha =
       (Math.max(Math.min(v, size + slopeLength), size) - size) / slopeLength;
     return Math.sin((slopeAlpha + 0.5) * Math.PI) / 2 + 0.5 - groundHeight;
   });
 
   //Loop from center out
-  for (let i = 0; i < resX; i++) {
+  for (let i = 0; i <= resX; i++) {
     const xPos = xPositions[i];
     const yPos = yPositions[i];
 
@@ -73,7 +76,7 @@ export default function (size: number, resX = 12, resY = 12): TransferGeometry {
       index[(resY - 1) * 3 + 1] = 1;
       index[(resY - 1) * 3 + 2] = resY;
     } else {
-      index[i * 3 + 0] = 0;
+      index[i * 3 + 0] = i + 0;
       index[i * 3 + 1] = i + 1;
       index[i * 3 + 2] = i + 2;
     }
