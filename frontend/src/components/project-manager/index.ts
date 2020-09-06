@@ -1,6 +1,6 @@
 import { EventEmitter } from '@plantarium/helpers';
 import { PlantDescription, PlantariumSettings } from '@plantarium/types';
-import { NodeSystem } from '@plantarium/nodes';
+import { NodeSystem } from '@plantarium/nodesystem';
 import settingsUI from 'components/settings';
 
 export default class ProjectManager extends EventEmitter {

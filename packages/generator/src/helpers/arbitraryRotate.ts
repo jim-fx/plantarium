@@ -1,4 +1,4 @@
-import { Vec3 } from "ogl";
+import { Vec3 } from 'ogl';
 
 /*
   Javascript version of:  
@@ -14,7 +14,11 @@ import { Vec3 } from "ogl";
    Assume right hand coordinate system.
 */
 
-export default function arbitraryRotate(point: Vec3 | number[], theta: number, axis: Vec3) {
+export default function arbitraryRotate(
+  point: Vec3 | number[],
+  theta: number,
+  axis: Vec3,
+) {
   axis.normalize();
 
   const costheta = Math.cos(theta);
@@ -31,6 +35,6 @@ export default function arbitraryRotate(point: Vec3 | number[], theta: number, a
 
     ((1 - costheta) * axis[0] * axis[2] - axis[1] * sintheta) * point[0] +
       ((1 - costheta) * axis[1] * axis[2] + axis[0] * sintheta) * point[1] +
-      (costheta + (1 - costheta) * axis[2] * axis[2]) * point[2]
+      (costheta + (1 - costheta) * axis[2] * axis[2]) * point[2],
   );
 }

@@ -19,9 +19,9 @@ export default {
       type: 'number',
       inputType: 'slider',
       min: 0,
-      max: 10,
-      step: 0.05,
-      value: 0,
+      max: 1,
+      step: 0.01,
+      value: 0.8,
     },
     amount: {
       type: 'number',

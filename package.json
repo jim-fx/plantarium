@@ -1,5 +1,4 @@
 {
-  "name": "root",
   "private": true,
   "workspaces": [
     "packages/*",
@@ -7,11 +6,15 @@
     "backend"
   ],
   "scripts": {
-    "dev:frontend": "yarn --cwd frontend run dev",
+    "frontend": "yarn workspace @plantarium/frontend dev",
+    "generator": "yarn workspace @plantarium/generator dev",
+    "nodesystem": "yarn workspace @plantarium/nodesystem dev",
+    "ui": "yarn workspace @plantarium/ui dev",
+    "dev": "concurrently --kill-others-on-fail \"yarn frontend\" \"yarn generator\"  \" yarn nodesystem\"",
     "build:frontend": " yarn wsrun --stages build"
   },
   "devDependencies": {
+    "concurrently": "^5.3.0",
     "wsrun": "^5.2.0"
-  },
-  "version": "0.0.0"
+  }
 }

@@ -6,6 +6,6 @@ export { default as lerp } from './lerp';
 export { default as join } from './join';
 export { default as noise } from './noise';
 export { default as calculateNormals } from './calculateNormals';
-export { default as parameter } from './parameter';
+// export { default as parameter } from './parameter';
 export { default as convertInstancedGeometry } from './convertInstancedGeometry';
 export { default as transferToGeometry } from './transferToGeometry';

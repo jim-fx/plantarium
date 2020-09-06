@@ -47,8 +47,7 @@ export function stateToElement(template, value = 0) {
     if ('max' in template) element.setAttribute('max', template.max);
     if ('min' in template) element.setAttribute('min', template.min);
     if ('step' in template) element.setAttribute('step', template.step);
-    const { value: _value = value } = template;
-    element.setAttribute('value', parseFloat(_value));
+    element.setAttribute('value', value);
     return element;
   }
 }

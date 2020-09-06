@@ -5,6 +5,7 @@ export { default as aggregate } from './aggregate';
 export { default as memoize } from './memoize';
 export { default as inputChanged } from './inputChanged';
 
+export { default as logger } from './logger';
 export * as download from './download';
 export { default as getSeed } from './getSeed';
 export { default as interval } from './interval';

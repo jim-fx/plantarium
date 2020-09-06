@@ -1,6 +1,7 @@
 import { tube } from 'shapes';
 import { PlantariumSettings } from '@plantarium/types';
 import { join } from 'helpers';
+import { logger } from '@plantarium/helpers';
 
 export function skeleton(part: PlantPart, settings: PlantariumSettings) {
   const {

@@ -17,11 +17,25 @@ interface Vec3 {
 interface PlantPart {
   type: string;
   result: {
-    skeletons: Float32Array[];
+    skeletons?: Float32Array[];
     geometry?: TransferGeometry;
   };
   parameters: {
-    [key: string]: any;
+    [key: string]: PlantPart | string | number | object;
+    input?: PlantPart;
+    strength?: number;
+    length?: number;
+    amount?: number;
+    lowestBranch?: number;
+    size?: number;
+    height?: number;
+    thiccness?: number;
+    type?: string;
+    origin?: {
+      x: number;
+      y: number;
+      z: number;
+    };
   };
 }
 

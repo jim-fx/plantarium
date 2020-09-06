@@ -9,56 +9,62 @@ export function geometry(part: PlantPart, settings: PlantariumSettings) {
     result: { skeletons },
   } = part;
 
+  console.log(input.result.geometry, skeletons, stemResX);
+
   return {
     geometry: join(
       input.result.geometry,
-      ...skeletons.map((skeleton) => {
-        return tube(skeleton, stemResX);
-      }),
+      ...skeletons.map((skeleton) => tube(skeleton, stemResX)),
     ),
   };
 }
+
+const branchRes = 50;
 
 export function skeleton(part: PlantPart, settings: PlantariumSettings) {
   const { parameters } = part;
 
   const {
     input,
-    length,
+    length = 1,
     amount,
     thiccness = 0.2,
     lowestBranch = 0.5,
   } = parameters;
 
-  const skeletons: Float32Array[] = [];
   const { skeletons: inputSkeletons } = input.result;
 
-  for (let s = 0; s < inputSkeletons.length; s++) {
-    const skelly = inputSkeletons[s];
+  const skeletons: Float32Array[] = inputSkeletons
+    .map((skelly) => {
+      const branches = [];
+      for (let i = 0; i < amount; i++) {
+        const a = i / amount;
 
-    for (let i = 0; i < amount; i++) {
-      const a = i / amount;
-      const [x, y, z, t] = interpolateSkeleton(
-        skelly,
-        lowestBranch + a * lowestBranch,
-      );
+        const ci = Math.floor((skelly.length / 4) * a);
 
-      console.log('BRANCH', x, y, z);
+        const [x, y, z, t] = interpolateSkeleton(
+          skelly,
+          lowestBranch + a * lowestBranch,
+        );
 
-      skeletons.push(
-        Float32Array.from([
-          x,
-          y,
-          z,
-          t * thiccness,
-          x + length,
-          y,
-          z,
-          t * thiccness,
-        ]),
-      );
-    }
-  }
+        const branch = new Float32Array(branchRes * 4);
+        for (let j = 0; j < branchRes * 4; j++) {
+          const _a = j / branchRes;
+
+          branch[j * 4 + 0] = x + _a * length;
+          branch[j * 4 + 1] = y;
+          branch[j * 4 + 2] = z;
+          branch[j * 4 + 3] = t * thiccness * (1 - _a);
+        }
+
+        branches.push(branch);
+      }
+
+      return branches;
+    })
+    .flat();
+
+  console.log('BRANCH', skeletons);
 
   return {
     skeletons,

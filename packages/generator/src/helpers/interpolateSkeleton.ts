@@ -14,5 +14,6 @@ export default function (skeleton: Float32Array, alpha: number): number[] {
     lerp(skeleton[j * 4 + 0], skeleton[i * 4 + 0], a),
     lerp(skeleton[j * 4 + 1], skeleton[i * 4 + 1], a),
     lerp(skeleton[j * 4 + 2], skeleton[i * 4 + 2], a),
+    lerp(skeleton[j * 4 + 3], skeleton[i * 4 + 3], a),
   ];
 }

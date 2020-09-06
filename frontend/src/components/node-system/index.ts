@@ -1,5 +1,5 @@
-import { NodeSystem } from '@plantarium/nodes';
-import '@plantarium/nodes/public/dist/index.esm.css';
+import { NodeSystem } from '@plantarium/nodesystem';
+import '@plantarium/nodesystem/public/dist/index.esm.css';
 import * as nodes from './nodes';
 import project from './defaultProject';
 

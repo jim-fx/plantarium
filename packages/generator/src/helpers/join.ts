@@ -1,13 +1,20 @@
-export default function(...geometries: TransferGeometry[]): TransferGeometry {
+export default function (...geometries: TransferGeometry[]): TransferGeometry {
   if (geometries.length === 1) {
     return geometries[0];
   }
 
-  const position = new Float32Array(geometries.reduce((a, b) => a + b.position.length, 0));
-  const normal = new Float32Array(geometries.reduce((a, b) => a + b.normal.length, 0));
+  console.log('JOIN', geometries);
+
+  const position = new Float32Array(
+    geometries.reduce((a, b) => a + b.position.length, 0),
+  );
+  const normal = new Float32Array(
+    geometries.reduce((a, b) => a + b.normal.length, 0),
+  );
   const uv = new Float32Array(geometries.reduce((a, b) => a + b.uv.length, 0));
   const indexSize = geometries.reduce((a, b) => a + b.index.length, 0);
-  const index = indexSize > 65536 ? new Uint32Array(indexSize) : new Uint16Array(indexSize);
+  const index =
+    indexSize > 65536 ? new Uint32Array(indexSize) : new Uint16Array(indexSize);
 
   let posOffset = 0;
   let normalOffset = 0;
@@ -49,9 +56,9 @@ export default function(...geometries: TransferGeometry[]): TransferGeometry {
   }
 
   return {
-    position: position,
-    normal: normal,
-    uv: uv,
-    index: index
+    position,
+    normal,
+    uv,
+    index,
   };
 }
