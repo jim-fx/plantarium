@@ -2,16 +2,16 @@
   "private": true,
   "workspaces": [
     "packages/*",
-    "frontend",
-    "backend"
+    "frontend"
   ],
   "scripts": {
     "frontend": "yarn workspace @plantarium/frontend dev",
     "generator": "yarn workspace @plantarium/generator dev",
+    "nodes": "yarn workspace @plantarium/nodes dev",
     "nodesystem": "yarn workspace @plantarium/nodesystem dev",
     "ui": "yarn workspace @plantarium/ui dev",
-    "dev": "concurrently --kill-others-on-fail \"yarn frontend\" \"yarn generator\"  \" yarn nodesystem\"",
-    "build:frontend": " yarn wsrun --stages build"
+    "dev": "concurrently --kill-others-on-fail \"yarn frontend\" \" yarn nodesystem\" \"yarn generator\"  \" yarn nodes\"",
+    "build": " yarn wsrun --stages -m build"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",

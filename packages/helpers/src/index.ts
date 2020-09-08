@@ -18,5 +18,4 @@ export { default as genID } from './genID';
 export * as curve from './curve';
 
 // Geometry Stuff
-export { default as convertToOBJ } from './convertToOBJ';
 export { default as loader } from './loader';

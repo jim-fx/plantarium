@@ -1,6 +1,6 @@
 interface Logger {
-  (message?, ...args: []): void;
-  warn(message?, ...args: []): void;
+  (...args: any[]): void;
+  warn(...args: any[]): void;
   error(err: Error): void;
 }
 
@@ -8,14 +8,14 @@ let filters: string[] = [];
 let level = 0;
 
 function log(scope: string): Logger {
-  const log = (message?: any, ...args: []) => {
+  const log = (...args: []) => {
     if ((!filters.length || filters.includes(scope)) && level === 0) {
       console.log(`[${scope}]`, ...args);
     }
   };
 
-  log.warn = (message?: any, ...args: []) => {
-    if (level <= 1) console.warn(`[${scope}] ${message}`, ...args);
+  log.warn = (...args: []) => {
+    if (level <= 1) console.warn(`[${scope}]`, ...args);
   };
 
   log.error = (err: Error) => {

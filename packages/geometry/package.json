@@ -1,0 +1,18 @@
+{
+  "name": "@plantarium/geometry",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "source": "src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "microbundle",
+    "dev": "microbundle watch"
+  },
+  "dependencies": {
+    "@plantarium/helpers": "^0.0.0",
+    "open-simplex-noise": "^2.3.1",
+    "simplex-noise": "^2.4.0",
+    "ogl-typescript": "^0.1.20"
+  }
+}

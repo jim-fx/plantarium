@@ -1,12 +1,6 @@
-<script>
+<script lang="ts">
   import { createEventDispatcher, onMount } from 'svelte';
   const dispatch = createEventDispatcher();
-
-  // Styling
-  export let min = 0;
-  export let max = 100;
-  export let step = 1;
-  export let value = 50;
 
   let main;
 

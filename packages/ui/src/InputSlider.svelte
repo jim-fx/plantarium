@@ -133,7 +133,7 @@ This tells the Svelte compiler that this file is a custom element.
 We also have to include the "customElement: true" compiler setting in rollup configuration.
 -->
 <svelte:options tag="plant-slider" />
-<div role="range">
+<div role="input" type="range">
   <output
     class:isActive
     style={`left: ${((value - min) / Math.abs(min - max)) * 90}%`}>

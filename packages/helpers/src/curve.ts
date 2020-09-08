@@ -1,5 +1,3 @@
-import { Point } from '@plantarium/types';
-
 const tension = 0.4;
 
 function plotCBez(

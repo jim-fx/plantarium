@@ -1,2 +1,2 @@
-export { grid, ground, plant } from 'parts';
-export { transferToGeometry } from 'helpers';
+export { default as plant } from './plant';
+export { ground } from '@plantarium/geometry';

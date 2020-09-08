@@ -11,8 +11,6 @@
     "dev": "microbundle watch --format cjs --raw"
   },
   "dependencies": {
-    "@plantarium/types": "^0.0.0",
-    "esbuild": "^0.6.31",
     "file-saver": "^2.0.2"
   }
 }

@@ -26,7 +26,13 @@
     "rollup-plugin-terser": "^5.1.1",
     "sirv-cli": "^0.4.4",
     "svelte": "^3.6.10",
-    "svelte-testing-library": "^1.6.0"
+    "svelte-testing-library": "^1.6.0",
+    "svelte-check": "^1.0.0",
+    "svelte-preprocess": "^4.0.0",
+    "@rollup/plugin-typescript": "^4.0.0",
+    "typescript": "^3.9.3",
+    "tslib": "^2.0.0",
+    "@tsconfig/svelte": "^1.0.0"
   },
   "scripts": {
     "build": "rollup -c",
@@ -46,6 +52,7 @@
   "dependencies": {
     "@jaames/iro": "^5.1.8",
     "svelte-color-picker": "^1.0.7",
-    "svelte-select": "^3.7.0"
+    "svelte-select": "^3.7.0",
+    "@plantarium/helpers": "^0.0.0"
   }
 }

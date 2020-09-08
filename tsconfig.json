@@ -5,7 +5,8 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "resolveJsonModule": true,
-    "pretty": true
+    "pretty": true,
+    "typeRoots": ["@types"]
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "backend"]
 }

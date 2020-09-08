@@ -1,14 +1,14 @@
-import { Texture, Program } from 'ogl';
+import { Texture, Program, OGLRenderingContext } from 'ogl-typescript';
 
-const textureCache: any = {};
-const shaderCache: any = {};
+const textureCache: { [key: string]: Texture } = {};
+const shaderCache: { [key: string]: Program } = {};
 
 const loadShader = (
-  gl: WebGL2RenderingContext,
+  gl: OGLRenderingContext,
   {
     shader,
     uniforms,
-  }: { shader: { vertex: string; fragment: string }; uniforms: any },
+  }: { shader: { vertex: string; fragment: string }; uniforms: {} },
 ): Program => {
   if (shaderCache[name]) return shaderCache[name];
 
@@ -23,9 +23,9 @@ const loadShader = (
 };
 
 const loadTexture = (
-  gl: WebGL2RenderingContext,
+  gl: OGLRenderingContext,
   src: string,
-  options: any = {},
+  options = {},
 ): Texture => {
   if (textureCache[src]) return textureCache[src];
   const texture = new Texture(gl, options);

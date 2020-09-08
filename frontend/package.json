@@ -24,9 +24,9 @@
     "@plantarium/generator": "^0.0.0",
     "@plantarium/helpers": "^0.0.0",
     "@plantarium/nodesystem": "^0.0.9",
+    "@plantarium/nodes": "^0.0.0",
     "@plantarium/renderer": "^0.0.0",
-    "@plantarium/types": "^0.0.0",
-    "ogl": "^0.0.43",
+    "ogl-typescript": "^0.1.20",
     "resize-observer-polyfill": "^1.5.1",
     "settings-ui": "^1.3.2"
   },

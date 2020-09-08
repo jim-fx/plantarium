@@ -1,18 +1,25 @@
 import ResizeObserver from 'resize-observer-polyfill';
 
-import { Renderer as oRenderer, Camera, Orbit, Vec3, Transform } from 'ogl';
+import {
+  Renderer as oRenderer,
+  Camera,
+  Orbit,
+  Vec3,
+  Transform,
+  OGLRenderingContext,
+} from 'ogl-typescript';
 
 import { throttle } from '@plantarium/helpers';
 
 export default class Renderer {
   canvas: HTMLCanvasElement;
 
-  gl: WebGL2RenderingContext;
+  gl: OGLRenderingContext;
 
   renderer: oRenderer;
   scene: Transform = new Transform();
   camera: Camera;
-  controls: Orbit;
+  controls: typeof Orbit;
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
@@ -52,6 +59,8 @@ export default class Renderer {
 
   render() {
     requestAnimationFrame(this.render.bind(this));
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    //@ts-ignore
     this.controls.update();
     this.renderer.render({ scene: this.scene, camera: this.camera });
   }
