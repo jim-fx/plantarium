@@ -1,8 +1,9 @@
 import { Vec3 } from 'ogl-typescript';
+import { TransferGeometry } from '@plantarium/types';
 
 let lastNormal: Vec3;
 
-export default function (geometry: TransferGeometry): TransferGeometry {
+export default function (geometry: TransferGeometry) {
   const position = geometry.position;
   const index = geometry.index;
   const normals = geometry.normal;

@@ -1,3 +1,4 @@
+import { TransferGeometry } from '@plantarium/types';
 export default function (model: TransferGeometry): string {
   let output = '';
 

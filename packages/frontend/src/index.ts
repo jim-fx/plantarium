@@ -4,7 +4,7 @@ import './index.scss';
 import './themes.scss';
 
 import { NodeSystem } from '@plantarium/nodesystem';
-import '@plantarium/nodesystem/public/dist/index.esm.css';
+import '@plantarium/nodesystem/public/dist/index.css';
 
 import Nodes from '@plantarium/nodes';
 import { resizeTable } from '@plantarium/helpers';
@@ -53,7 +53,6 @@ const defaultProject = {
         id: '1',
         refs: [{ id: '0', in: 'main' }],
       },
-      state: { height: 5, amount: 1 },
     },
     {
       attributes: { pos: { x: 0, y: 0 }, type: 'output', id: '0', refs: [] },
@@ -64,6 +63,7 @@ const defaultProject = {
 const nodeUI = new NodeSystem({
   wrapper: document.getElementById('nodesystem-wrapper'),
   view: true,
+  defaultNodes: true,
   registerNodes: Nodes,
 });
 

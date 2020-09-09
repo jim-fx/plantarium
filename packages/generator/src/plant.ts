@@ -1,5 +1,10 @@
 import { logger } from '@plantarium/helpers';
 import { calculateNormals } from '@plantarium/geometry';
+import {
+  GeneratorContext,
+  NodeResult,
+  PlantariumSettings,
+} from '@plantarium/types';
 
 import executeSkeletonNode from './executeSkeletonNode';
 import executeGeometryNode from './executeGeometryNode';
@@ -11,7 +16,7 @@ const isNode = (value): value is NodeResult => {
   return typeof value === 'object' && 'type' in value;
 };
 
-const handleSkeletonNode = (node, ctx: GeneratorContext): SkeletonResult => {
+const handleSkeletonNode = (node, ctx: GeneratorContext) => {
   log('skeleton.' + node.type, node);
 
   const parameters = {};

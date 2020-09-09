@@ -1,3 +1,4 @@
+import { Point } from '@plantarium/types';
 const tension = 0.4;
 
 function plotCBez(
@@ -24,8 +25,8 @@ function plotCBez(
   const pts = [{ x: Ax, y: Ay }];
   for (let i = 1; i < ptCount; i++) {
     const t = i / ptCount;
-    let ax = Ax + deltaBAx * t;
-    let bx = Bx + deltaCBx * t;
+    ax = Ax + deltaBAx * t;
+    bx = Bx + deltaCBx * t;
     const cx = Cx + deltaDCx * t;
     ax += (bx - ax) * t;
     bx += (cx - bx) * t;

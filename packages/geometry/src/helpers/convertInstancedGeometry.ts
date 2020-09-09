@@ -1,3 +1,5 @@
+import { InstancedGeometry, TransferGeometry } from '@plantarium/types';
+
 function applyTransformation(
   geo: TransferGeometry,
   offset: number[] = [0, 0, 0],

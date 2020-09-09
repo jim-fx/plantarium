@@ -1,9 +1,9 @@
 import fastHash from './fastHash';
 
-export default function memoize(func: (...args: any) => any) {
-  const memo: { [hash: string]: any } = {};
+export default function memoize(func: (...args) => unknown) {
+  const memo: { [hash: string]: unknown } = {};
 
-  return (...args: any) => {
+  return (...args) => {
     const hash = fastHash(JSON.stringify(args));
 
     if (hash in memo) {

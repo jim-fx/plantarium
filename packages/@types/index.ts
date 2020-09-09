@@ -1,4 +1,4 @@
-interface TransferGeometry {
+export interface TransferGeometry {
   position: Float32Array;
   normal: Float32Array;
   uv: Float32Array;
@@ -9,7 +9,7 @@ interface TransferGeometry {
   leaf?: InstancedGeometry;
 }
 
-interface InstancedGeometry {
+export interface InstancedGeometry {
   position: Float32Array;
   normal: Float32Array;
   uv: Float32Array;
@@ -19,81 +19,30 @@ interface InstancedGeometry {
   scale: Float32Array;
 }
 
-interface ParameterResult {
+export interface ParameterResult {
   value: number | number[];
   variation?: number;
   curve?: Point[];
 }
 
 /**
- * Result of the skeleton phase of the Generator
- */
-interface SkeletonResult extends NodeResult {
-  result: {
-    skeletons?: Float32Array[];
-  };
-  parameters: {
-    [key: string]: SkeletonResult | ParameterResult | string;
-  };
-}
-
-/**
- * Result of the geometry phase of the Generator
- */
-interface GeometryResult extends SkeletonResult {
-  result: {
-    skeletons?: Float32Array[];
-    geometry?: TransferGeometry;
-  };
-  parameters: {
-    [key: string]: GeometryResult | ParameterResult | string;
-  };
-}
-
-interface PlantNode {
-  name: string;
-  type: string;
-
-  outputs: string[];
-
-  parameters: {
-    [key: string]: ValueTemplate;
-  };
-
-  computeNode(parameters: { [key: string]: ValueResult }): NodeResult;
-  computeSkeleton?(
-    part: SkeletonResult,
-    ctx: GeneratorContext,
-  ): {
-    skeletons?: Float32Array[];
-  };
-  computeGeometry?(
-    part: GeometryResult,
-    ctx: GeneratorContext,
-  ): {
-    skeletons?: Float32Array[];
-    geometry?: TransferGeometry;
-  };
-}
-
-/**
  * Output of a node
  */
-interface NodeResult {
+export interface NodeResult {
   type: string;
   parameters: {
     [key: string]: ValueResult;
   };
 }
 
-interface GeneratorContext {
+export interface GeneratorContext {
   handleParameter(param: ParameterResult, alpha?: number): number;
   getSetting(key: string): number;
   readonly seed: number;
   refresh(): number;
 }
 
-interface ValueTemplate {
+export interface ValueTemplate {
   type: string | string[];
   label?: boolean | string;
   value?: boolean | string | number;
@@ -107,20 +56,20 @@ interface ValueTemplate {
   step?: number;
 }
 
-type ValueResult = NodeResult | ParameterResult | string;
+export type ValueResult = NodeResult | ParameterResult | string;
 
-interface Point {
+export interface Point {
   x: number;
   y: number;
   pinned?: boolean;
 }
 
-interface PlantDescription {
+export interface PlantDescription {
   meta: PlantMetaInfo;
   main: NodeResult;
 }
 
-interface PlantMetaInfo {
+export interface PlantMetaInfo {
   name: string;
 
   id: string;
@@ -138,7 +87,7 @@ interface PlantMetaInfo {
   public?: boolean;
 }
 
-interface PlantariumSettings {
+export interface PlantariumSettings {
   useRandomSeed: boolean;
   seed: number;
 

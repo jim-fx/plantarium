@@ -12,10 +12,7 @@ function mergeRings(rings: Float32Array[], position: Float32Array) {
   }
 }
 
-export default function tube(
-  skeleton: Float32Array,
-  resX: number,
-): TransferGeometry {
+export default function tube(skeleton: Float32Array, resX: number) {
   const resY = skeleton.length / 4;
 
   const numPosition = resY * resX * 3;

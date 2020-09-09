@@ -1,16 +1,9 @@
-export default (baseClass: any, ...mixins: any) => {
-  const base = class Base extends baseClass {
-    constructor(...args: any) {
-      super(...args);
-      mixins.forEach((mixin: any) => copyProps(this, new mixin()));
-    }
-  };
-  const copyProps = (target: any, source: any) => {
+export default (baseClass, ...mixins) => {
+  const copyProps = (target, source) => {
     // this function copies all properties and symbols, filtering out some special ones
     Object.getOwnPropertyNames(source)
-      // @ts-ignore this is dark magic
-      .concat(Object.getOwnPropertySymbols(source))
-      .forEach((prop: any) => {
+      .concat(Object.getOwnPropertySymbols(source).map((s) => s.toString()))
+      .forEach((prop) => {
         if (
           !prop.match(
             /^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/,
@@ -19,12 +12,17 @@ export default (baseClass: any, ...mixins: any) => {
           Object.defineProperty(
             target,
             prop,
-            // @ts-ignore this is dark magic
             Object.getOwnPropertyDescriptor(source, prop),
           );
       });
   };
-  mixins.forEach((mixin: any) => {
+  const base = class Base extends baseClass {
+    constructor(...args) {
+      super(...args);
+      mixins.forEach((mixin) => copyProps(this, new mixin()));
+    }
+  };
+  mixins.forEach((mixin) => {
     // outside contructor() to allow aggregation(A,B,C).staticFunction() to be called etc.
     copyProps(base.prototype, mixin.prototype);
     copyProps(base, mixin);

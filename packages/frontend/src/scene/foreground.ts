@@ -5,6 +5,7 @@ import ProjectManager from 'project-manager';
 import { plant } from '@plantarium/generator';
 import { transferToGeometry } from '@plantarium/geometry';
 import { BasicShader } from './shaders';
+import { NodeResult, PlantariumSettings } from '@plantarium/types';
 
 export default class ForegroundScene {
   private scene: Scene;
@@ -54,6 +55,7 @@ export default class ForegroundScene {
   update(p = this.plant, s = this.settings) {
     if (!p || !s) return;
 
+    if (!p['main']) return;
     const result = plant(p, s);
 
     this.mesh.geometry = transferToGeometry(this.gl, result.geometry);

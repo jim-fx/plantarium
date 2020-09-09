@@ -1,5 +1,5 @@
 let activeElement: HTMLElement;
-let callback: (value: string) => any;
+let callback: (value: string) => unknown;
 let value: string;
 
 function setCursorPos(el) {
@@ -14,13 +14,6 @@ function setCursorPos(el) {
     const sel = window.getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
-    // @ts-ignore
-  } else if (typeof document.body.createTextRange != 'undefined') {
-    // @ts-ignore
-    const textRange = document.body.createTextRange();
-    textRange.moveToElementText(el);
-    textRange.collapse(false);
-    textRange.select();
   }
 }
 
@@ -41,7 +34,7 @@ function stopEditing(ev) {
   }
 }
 
-export default function (el: HTMLElement, cb: (value: string) => any) {
+export default function (el: HTMLElement, cb: (value: string) => unknown) {
   activeElement = el;
   callback = cb;
   value = el.innerText;

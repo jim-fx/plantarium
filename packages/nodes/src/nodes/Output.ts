@@ -1,10 +1,12 @@
+import { PlantNode } from '@types';
+
 const node: PlantNode = {
   name: 'Output',
   type: 'output',
   outputs: [],
-  parameters: {
+  state: {
     main: {
-      type: 'pd',
+      type: 'plant',
       label: 'plant',
       internal: false,
     },

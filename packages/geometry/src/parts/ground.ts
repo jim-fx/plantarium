@@ -1,3 +1,5 @@
+import { TransferGeometry } from '@plantarium/types';
+
 const totalSize = 102;
 const slopeLength = 2;
 const groundHeight = 1;

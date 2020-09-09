@@ -1,11 +1,14 @@
-const node: PLantNode = {
+import { noise } from '@plantarium/geometry';
+import { PlantNode } from '@types';
+
+const node: PlantNode = {
   name: 'Noise',
   type: 'noise',
-  outputs: [ValueType.Plant],
+  outputs: ['plant'],
 
   state: {
     input: {
-      type: 'pd',
+      type: 'plant',
       label: 'plant',
       internal: false,
     },
@@ -34,10 +37,10 @@ const node: PLantNode = {
     };
   },
 
-  computeSkeleton(parameters, ctx) {
-    const { parameters } = part;
+  computeSkeleton(node) {
+    const { parameters } = node;
 
-    const { input, size = 1, strength = 0.5 } = parameters;
+    const { input, size = 1, strength = 0.5 } = node;
 
     const { skeletons: inputSkeletons } = input.result;
 

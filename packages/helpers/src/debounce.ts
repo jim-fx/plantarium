@@ -1,5 +1,5 @@
 export default function debounce(
-  func: () => any,
+  func: () => unknown,
   wait: number,
   immediate: boolean,
 ) {

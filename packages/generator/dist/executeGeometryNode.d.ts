@@ -1,4 +1,3 @@
-declare const _default: (node: SkeletonResult, ctx: GeneratorContext) => {
-    skeletons?: Float32Array[];
-};
+import { GeneratorContext } from '@plantarium/types';
+declare const _default: (node: any, ctx: GeneratorContext) => any;
 export default _default;

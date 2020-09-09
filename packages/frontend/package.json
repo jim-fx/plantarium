@@ -1,0 +1,35 @@
+{
+  "name": "@plantarium/frontend",
+  "version": "0.0.7",
+  "description": "Tool for the procedural generation of 3D plants.",
+  "scripts": {
+    "dev": "rollup -c -w",
+    "start": "yarn server:start",
+    "build": "yarn build:client",
+    "build:client": "rollup -c && mv stats.html public/stats.html",
+    "heroku-postbuild": "echo nope",
+    "clean": "rm -rf public/dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/plantarium/fronttend.git"
+  },
+  "license": "MIT",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "@babel/core": "^7.9.6",
+    "@plantarium/generator": "file:../generator",
+    "@plantarium/helpers": "file:../helpers",
+    "@plantarium/nodes": "file:../nodes",
+    "@plantarium/nodesystem": "file:../nodesystem",
+    "@plantarium/renderer": "file:../renderer",
+    "@plantarium/types": "file:../@types",
+    "ogl-typescript": "^0.1.20",
+    "resize-observer-polyfill": "^1.5.1",
+    "settings-ui": "^1.3.2"
+  }
+}

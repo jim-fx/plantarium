@@ -1,3 +1,4 @@
+import { TransferGeometry } from '@plantarium/types';
 export default function (size = 2, res = 3): TransferGeometry {
   res = res + 2;
 

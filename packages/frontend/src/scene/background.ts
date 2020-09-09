@@ -11,6 +11,7 @@ import ProjectManager from 'project-manager';
 import { ground } from '@plantarium/generator';
 import { loader } from '@plantarium/helpers';
 import { GroundShader } from './shaders';
+import { PlantariumSettings } from '@plantarium/types';
 
 const createGround = (settings: PlantariumSettings) => {
   const {

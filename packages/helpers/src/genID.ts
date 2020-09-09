@@ -5,7 +5,7 @@ export default () => {
   const idMap: { [id: number]: boolean } = {};
   let amount = 0;
 
-  const genID = (id: number = 0, iteration = 0): string => {
+  const genID = (id = 0, iteration = 0): string => {
     if (iteration > 500) {
       throw new Error('Infinite loop in id generation algo');
     }

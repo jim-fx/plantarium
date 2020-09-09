@@ -7,12 +7,13 @@
   "license": "MIT",
   "scripts": {
     "build": "microbundle",
-    "dev": "microbundle watch"
+    "dev": "microbundle watch",
+    "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@plantarium/helpers": "^0.0.0",
+    "@plantarium/types": "file:../@types",
+    "ogl-typescript": "^0.1.20",
     "open-simplex-noise": "^2.3.1",
-    "simplex-noise": "^2.4.0",
-    "ogl-typescript": "^0.1.20"
+    "simplex-noise": "^2.4.0"
   }
 }

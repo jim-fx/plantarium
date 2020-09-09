@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "src",
-    "typeRoots": ["@plantarium/types"]
+    "typeRoots": ["../../@types", "@types"]
   },
   "exclude": ["dist"]
 }

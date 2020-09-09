@@ -7,10 +7,12 @@
   "license": "MIT",
   "scripts": {
     "build": "microbundle",
-    "dev": "microbundle watch"
+    "dev": "microbundle watch",
+    "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@plantarium/helpers": "^0.0.0",
+    "@plantarium/helpers": "file:../helpers",
+    "@plantarium/types": "file:../@types",
     "ogl-typescript": "^0.1.20",
     "resize-observer-polyfill": "^1.5.1"
   }

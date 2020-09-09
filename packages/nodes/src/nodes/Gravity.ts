@@ -1,5 +1,6 @@
 import { noise, arbitraryRotate } from '@plantarium/geometry';
 import { logger } from '@plantarium/helpers';
+import { GeometryResult, PlantNode } from '@types';
 import { Vec3 } from 'ogl-typescript';
 
 const log = logger('node.gravity');
@@ -10,7 +11,7 @@ const node: PlantNode = {
 
   outputs: ['plant'],
 
-  parameters: {
+  state: {
     input: {
       type: 'pd',
     },
@@ -30,8 +31,7 @@ const node: PlantNode = {
 
     const {
       result: { skeletons: inputSkeletons },
-    } = input as SkeletonResult;
-
+    } = input as GeometryResult;
     if (type === 'simple') {
       const skeletons = inputSkeletons.map((skelly, j) => {
         const amount = skelly.length / 4;

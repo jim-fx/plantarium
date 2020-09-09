@@ -1,4 +1,5 @@
 import { Geometry, OGLRenderingContext } from 'ogl-typescript';
+import { TransferGeometry } from '@plantarium/types';
 
 export default function (gl: OGLRenderingContext, transfer: TransferGeometry) {
   return new Geometry(gl, {

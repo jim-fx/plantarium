@@ -1,3 +1,4 @@
+import { TransferGeometry } from '@plantarium/types';
 export default function (...geometries: TransferGeometry[]): TransferGeometry {
   if (geometries.length === 1) {
     return geometries[0];

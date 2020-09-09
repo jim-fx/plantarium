@@ -1,4 +1,5 @@
 import { join, tube, interpolateSkeleton } from '@plantarium/geometry';
+import { GeometryResult, PlantNode } from '@types';
 
 const branchRes = 50;
 
@@ -8,9 +9,9 @@ const node: PlantNode = {
 
   outputs: ['plant'],
 
-  parameters: {
+  state: {
     input: {
-      type: 'pd',
+      type: 'plant',
       label: 'plant',
       internal: false,
     },
@@ -55,7 +56,7 @@ const node: PlantNode = {
     const thiccness = 0.2;
     const lowestBranch = 0.5;
 
-    const { skeletons: inputSkeletons } = (input as SkeletonResult).result;
+    const { skeletons: inputSkeletons } = (input as GeometryResult).result;
 
     const skeletons: Float32Array[] = inputSkeletons
       .map((skelly) => {

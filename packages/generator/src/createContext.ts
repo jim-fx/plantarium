@@ -1,3 +1,9 @@
+import {
+  GeneratorContext,
+  ParameterResult,
+  PlantariumSettings,
+} from '@plantarium/types';
+
 let lastSettings = '';
 let lastCtx;
 

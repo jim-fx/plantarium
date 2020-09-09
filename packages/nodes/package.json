@@ -7,10 +7,12 @@
   "license": "MIT",
   "scripts": {
     "build": "microbundle",
-    "dev": "microbundle watch"
+    "dev": "microbundle watch",
+    "clean": "rimraf dist"
   },
   "dependencies": {
-    "@plantarium/helpers": "^0.0.0",
-    "@plantarium/geometry": "^0.0.0"
+    "@plantarium/geometry": "file:../geometry",
+    "@plantarium/helpers": "file:../helpers",
+    "@plantarium/types": "file:../@types"
   }
 }
