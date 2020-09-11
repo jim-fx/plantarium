@@ -54,6 +54,7 @@ export interface ValueTemplate {
   min?: number;
   max?: number;
   step?: number;
+  defaultValue?: number | string | boolean;
 }
 
 export type ValueResult = NodeResult | ParameterResult | string;

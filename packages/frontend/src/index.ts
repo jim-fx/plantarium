@@ -63,7 +63,7 @@ const defaultProject = {
 const nodeUI = new NodeSystem({
   wrapper: document.getElementById('nodesystem-wrapper'),
   view: true,
-  defaultNodes: true,
+  defaultNodes: false,
   registerNodes: Nodes,
 });
 

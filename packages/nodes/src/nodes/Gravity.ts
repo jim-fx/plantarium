@@ -6,12 +6,12 @@ import { Vec3 } from 'ogl-typescript';
 const log = logger('node.gravity');
 
 const node: PlantNode = {
-  name: 'Gravity',
+  title: 'Gravity',
   type: 'gravity',
 
   outputs: ['plant'],
 
-  state: {
+  parameters: {
     input: {
       type: 'pd',
     },

@@ -1,7 +1,9 @@
+import { PlantNode } from '@types';
+
 const node: PlantNode = {
-  name: 'Slider',
+  title: 'Slider',
   type: 'slider',
-  outputs: [ValueType.Parameter],
+  outputs: ['param'],
   parameters: {
     value: {
       type: 'number',

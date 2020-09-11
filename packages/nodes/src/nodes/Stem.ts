@@ -2,10 +2,10 @@ import { join, tube } from '@plantarium/geometry';
 import { PlantNode } from '@types';
 
 const node: PlantNode = {
-  name: 'Stem',
+  title: 'Stem',
   type: 'stem',
   outputs: ['plant'],
-  state: {
+  parameters: {
     origin: {
       type: 'vec3',
       internal: false,

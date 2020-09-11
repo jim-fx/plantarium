@@ -2,11 +2,11 @@ import { noise } from '@plantarium/geometry';
 import { PlantNode } from '@types';
 
 const node: PlantNode = {
-  name: 'Noise',
+  title: 'Noise',
   type: 'noise',
   outputs: ['plant'],
 
-  state: {
+  parameters: {
     input: {
       type: 'plant',
       label: 'plant',

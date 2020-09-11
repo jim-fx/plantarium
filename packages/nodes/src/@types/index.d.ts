@@ -18,12 +18,12 @@ interface GeometryResult extends NodeResult {
 }
 
 export interface PlantNode {
-  name: string;
+  title: string;
   type: string;
 
   outputs: string[];
 
-  state: {
+  parameters: {
     [key: string]: ValueTemplate;
   };
 

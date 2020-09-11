@@ -4,12 +4,12 @@ import { GeometryResult, PlantNode } from '@types';
 const branchRes = 50;
 
 const node: PlantNode = {
-  name: 'Branches',
+  title: 'Branches',
   type: 'branch',
 
   outputs: ['plant'],
 
-  state: {
+  parameters: {
     input: {
       type: 'plant',
       label: 'plant',
