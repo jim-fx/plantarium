@@ -70,7 +70,7 @@
   },
   "dependencies": {
     "@plantarium/frontend": "file:packages/frontend",
-    "@plantarium/types": "file:packages/@types",
+    "@plantarium/types": "file:packages/types",
     "@plantarium/generator": "file:packages/generator",
     "@plantarium/geometry": "file:packages/geometry",
     "@plantarium/helpers": "file:packages/helpers",
