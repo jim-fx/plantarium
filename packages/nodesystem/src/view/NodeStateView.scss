@@ -1,0 +1,15 @@
+.node-state-single-wrapper {
+  position: relative;
+  padding: 0px 5px;
+  margin: 5px 0px;
+}
+
+.node-state-single-wrapper.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.node-state-single-wrapper > .state-label {
+  font-size: smaller;
+  margin: 2px 0px;
+}

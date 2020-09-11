@@ -1,0 +1,8 @@
+{
+  "mode": "file",
+  "module": "umd",
+  "theme": "minimal",
+  "inputFiles": ["./src"],
+  "out": "public/docs",
+  "exclude": "src/helpers/*"
+}

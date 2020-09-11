@@ -1,0 +1,69 @@
+.nodesystem-transform {
+  position: relative;
+  height: 100%;
+  width: 100%;
+
+  > .nodes-container {
+    position: relative;
+    width: 0px;
+    height: 0px;
+    left: 50%;
+    top: 50%;
+    overflow: visible;
+    z-index: 1;
+
+    &::before {
+      content: "";
+      position: absolute;
+      height: 10000vh;
+      top: -5000vh;
+      width: 1px;
+      background-color: white;
+      opacity: 0.2;
+      z-index: -1;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 10000vw;
+      height: 1px;
+      left: -5000vw;
+      background-color: white;
+      opacity: 0.2;
+      z-index: -1;
+    }
+  }
+  > svg {
+    position: absolute;
+    pointer-events: none;
+    overflow: visible;
+    width: 1px !important;
+    height: 1px !important;
+    left: 50%;
+    top: 50%;
+    transform: scale(0.83);
+    z-index: 0;
+
+    > path {
+      stroke-linecap: round;
+    }
+  }
+}
+
+.nodesystem-wrapper {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  &.nodesystem-state-dragging {
+    cursor: grab;
+  }
+
+  background-size: 1px 100px, 100px 100px, 4px 4px, 4px 4px;
+  background-position: 0px 0px;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
