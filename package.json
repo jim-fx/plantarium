@@ -6,7 +6,7 @@
   ],
   "scripts": {
     "dev": "yarn wsrun --parallel -m dev",
-    "build": "yarn wsrun --stages -m build",
+    "build": "yarn wsrun --stages -m -e build",
     "clean": "yarn wsrun --parallel -m clean"
   },
   "devDependencies": {
@@ -70,13 +70,14 @@
   },
   "dependencies": {
     "@plantarium/frontend": "file:packages/frontend",
-    "@plantarium/types": "file:packages/types",
     "@plantarium/generator": "file:packages/generator",
     "@plantarium/geometry": "file:packages/geometry",
     "@plantarium/helpers": "file:packages/helpers",
     "@plantarium/nodes": "file:packages/nodes",
     "@plantarium/nodesystem": "file:packages/nodesystem",
     "@plantarium/renderer": "file:packages/renderer",
+    "@plantarium/types": "file:packages/types",
     "@plantarium/ui": "file:packages/ui"
-  }
+  },
+  "version": "0.0.0"
 }
