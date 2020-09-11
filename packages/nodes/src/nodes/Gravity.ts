@@ -13,7 +13,7 @@ const node: PlantNode = {
 
   parameters: {
     input: {
-      type: 'pd',
+      type: 'plant',
     },
   },
   computeNode(parameters) {

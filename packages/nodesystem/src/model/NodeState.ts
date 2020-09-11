@@ -39,7 +39,7 @@ export default class NodeState extends EventEmitter {
 
   setValue(value: unknown) {
     if (!this.isExternal) this.value = value;
-    this.node.state[this.key] = value;
+    this.node._state[this.key] = this.value;
     this.node.update();
   }
 

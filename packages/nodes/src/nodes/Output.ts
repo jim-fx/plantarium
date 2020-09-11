@@ -1,3 +1,4 @@
+import { NodeResult } from '@plantarium/types';
 import { PlantNode } from '@types';
 
 const node: PlantNode = {
@@ -12,10 +13,7 @@ const node: PlantNode = {
     },
   },
   computeNode(parameters) {
-    return {
-      type: 'output',
-      parameters,
-    };
+    return (parameters as unknown) as NodeResult;
   },
 };
 

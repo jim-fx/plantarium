@@ -154,18 +154,16 @@ export default class NodeView extends EventEmitter {
   }
 
   setPosition(x: number, y: number) {
-    if (!isNaN(x) && !isNaN(y)) {
-      this.x = x;
-      this.y = y;
+    this.x = x;
+    this.y = y;
 
-      const vx = this.downX - x;
-      const vy = this.downY - y;
+    const vx = this.downX - x;
+    const vy = this.downY - y;
 
-      this.wrapper.style.left = x + 'px';
-      this.wrapper.style.top = y + 'px';
+    this.wrapper.style.left = x + 'px';
+    this.wrapper.style.top = y + 'px';
 
-      this.emit('move', { x, y, vx, vy });
-    }
+    this.emit('move', { x, y, vx, vy });
   }
 
   remove() {

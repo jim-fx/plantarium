@@ -47,7 +47,6 @@ export default class ForegroundScene {
   }
 
   setPlant(plant: NodeResult) {
-    console.log('plant', plant);
     this.plant = plant ? JSON.parse(JSON.stringify(plant)) : plant;
     this.update();
   }
@@ -55,7 +54,10 @@ export default class ForegroundScene {
   update(p = this.plant, s = this.settings) {
     if (!p || !s) return;
 
+    console.log('PLANT', JSON.parse(JSON.stringify(p)));
+
     if (!p['main']) return;
+
     const result = plant(p, s);
 
     this.mesh.geometry = transferToGeometry(this.gl, result.geometry);

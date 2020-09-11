@@ -13,6 +13,6 @@
   "dependencies": {
     "@plantarium/geometry": "file:../geometry",
     "@plantarium/helpers": "file:../helpers",
-    "@plantarium/types": "file:../@types"
+    "@plantarium/types": "file:../types"
   }
 }

@@ -12,7 +12,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@plantarium/types": "file:../@types",
+    "@plantarium/types": "file:../types",
     "file-saver": "^2.0.2"
   }
 }

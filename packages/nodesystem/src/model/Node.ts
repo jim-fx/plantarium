@@ -1,7 +1,7 @@
 import NodeView from 'view/NodeView';
 import NodeOutput from './NodeOutput';
 import NodeConnection from './NodeConnection';
-import { memoize, inputChanged, EventEmitter } from '@plantarium/helpers';
+import { memoize, EventEmitter } from '@plantarium/helpers';
 import NodeSystem from './NodeSystem';
 import NodeState from './NodeState';
 
@@ -13,7 +13,7 @@ export default class Node extends EventEmitter {
 
   outputs: NodeOutput[] = [];
 
-  private stateValue = {};
+  _state = {};
   states: {
     [key: string]: NodeState;
   } = {};
@@ -26,7 +26,6 @@ export default class Node extends EventEmitter {
   wrapper!: HTMLDivElement;
 
   enableUpdates = true;
-  update: () => void;
   _compute: (state: { [key: string]: unknown }) => unknown;
 
   _unsubscribeNodeMove: (() => void) | undefined;
@@ -39,26 +38,20 @@ export default class Node extends EventEmitter {
     this.system = system;
 
     const { attributes, state = {} } = props;
-    this.stateValue = state;
+    this._state = state;
     this.attributes = attributes;
     this.id = attributes.id;
 
-    this._compute = memoize((_state = this.state) => {
+    this._compute = memoize((_state = this._state) => {
       if (Object.keys(_state).length > 0) {
         return this.compute(_state);
       }
       return;
     });
-
-    this.update = inputChanged(() => this.enableUpdates && this._update());
   }
 
   get state() {
-    return this.stateValue;
-  }
-
-  getStateValue(key: string): unknown {
-    return this.state[key];
+    return this._state;
   }
 
   bindView(view: NodeView) {
@@ -96,11 +89,14 @@ export default class Node extends EventEmitter {
   }
 
   setStateValue(key: string, value: unknown) {
-    console.log('set state', key, value);
     this.states[key].setValue(value);
   }
 
-  _update() {
+  getStateValue(key: string): unknown {
+    return this.state[key];
+  }
+
+  update() {
     this.computedData = this._compute(this.state);
 
     this.emit('computedData', this.computedData);

@@ -27,7 +27,7 @@
     "@plantarium/nodes": "file:../nodes",
     "@plantarium/nodesystem": "file:../nodesystem",
     "@plantarium/renderer": "file:../renderer",
-    "@plantarium/types": "file:../@types",
+    "@plantarium/types": "file:../types",
     "ogl-typescript": "^0.1.20",
     "resize-observer-polyfill": "^1.5.1",
     "settings-ui": "^1.3.2"

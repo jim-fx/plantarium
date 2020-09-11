@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@jaames/iro": "^5.1.8",
-    "@plantarium/types": "file:../@types",
+    "@plantarium/types": "file:../types",
     "svelte-color-picker": "^1.0.7",
     "svelte-select": "^3.7.0"
   }
