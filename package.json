@@ -16,9 +16,6 @@
     "type": "git",
     "url": "https://github.com/jim-fx/plantarium.git"
   },
-  "engines": {
-    "node": "13.x"
-  },
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.6.2",
