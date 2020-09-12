@@ -4,9 +4,7 @@
     "lib": ["dom", "es2020"],
     "moduleResolution": "node",
     "sourceMap": true,
-    "resolveJsonModule": true,
-    "pretty": true,
-    "typeRoots": ["packages/@types"]
+    "resolveJsonModule": true
   },
   "exclude": ["node_modules"]
 }

@@ -11,7 +11,7 @@
   "source": "src/index.ts",
   "scripts": {
     "build": "microbundle --css-modules false --compress false",
-    "build:dev": "microbundle watch --compress false --external none --format es --css-modules false",
+    "dev": "microbundle watch --compress false --external none --format es --css-modules false",
     "build:example": "microbundle --external none --format es",
     "build:docs": "typedoc --ignoreCompilerErrors src/index.ts",
     "build:test": "env NODE_ENV=test yarn build:example && unset NODE_ENV",
@@ -21,8 +21,7 @@
     "lint": "eslint 'src/**/*.ts'",
     "serve": "live-server public --quiet --port=8081",
     "test": "yarn build:test && run-p --race serve cy:run",
-    "dev:serve": "run-p --race build:dev serve",
-    "dev": "yarn run build:dev"
+    "dev:serve": "run-p --race dev serve"
   },
   "devDependencies": {
     "@cypress/code-coverage": "^2.0.4",

@@ -12,8 +12,9 @@ const createContext = (s: PlantariumSettings): GeneratorContext => {
     handleParameter(param: ParameterResult, alpha?: number) {
       return alpha;
     },
-    getSetting(key: string) {
-      return s[key];
+    getSetting(key: string, defaultValue) {
+      console.log('CTX GET', key, s[key]);
+      return s[key] ?? defaultValue;
     },
     get seed() {
       return Math.random();

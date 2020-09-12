@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@plantarium/types": "file:../types",
-    "@plantarium/helpers": "file:../types",
+    "@plantarium/helpers": "file:../helpers",
     "ogl-typescript": "^0.1.20",
     "open-simplex-noise": "^2.3.1",
     "simplex-noise": "^2.4.0"

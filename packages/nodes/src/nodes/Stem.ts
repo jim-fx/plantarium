@@ -50,7 +50,9 @@ const node: PlantNode = {
 
     // const { stemResY: amountPoints = 50 } = settings;
 
-    const amountPoints = ctx.getSetting('stemResY');
+    const amountPoints = ctx.getSetting('stemResY', 50);
+
+    console.log(amountPoints);
 
     const skeletons = [];
 

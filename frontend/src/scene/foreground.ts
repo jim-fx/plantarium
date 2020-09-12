@@ -54,11 +54,9 @@ export default class ForegroundScene {
   update(p = this.plant, s = this.settings) {
     if (!p || !s) return;
 
-    console.log('PLANT', JSON.parse(JSON.stringify(p)));
-
-    if (!p['main']) return;
-
     const result = plant(p, s);
+
+    console.log(result);
 
     this.mesh.geometry = transferToGeometry(this.gl, result.geometry);
   }

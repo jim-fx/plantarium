@@ -7,7 +7,7 @@ const system = new NodeSystem({
   view: true,
   wrapper: document.getElementById('nodesystem-wrapper'),
   defaultNodes: true,
-  logLevel: 3,
+  logLevel: 0,
   registerNodes: nodes,
 });
 
@@ -17,7 +17,7 @@ system.on('save', (save) => {
 
 const nodeData = localStorage.getItem('system-0')
   ? JSON.parse(localStorage.getItem('system-0') || '{}')
-  : dev;
+  : stressTest;
 
 window.addEventListener('keydown', (ev) => {
   if (document.activeElement.tagName === 'BODY') {

@@ -12,8 +12,8 @@ const node: PlantNode = {
       internal: false,
     },
   },
-  computeNode(parameters) {
-    return (parameters as unknown) as NodeResult;
+  computeNode(parameters = {}) {
+    return (parameters.main as unknown) as NodeResult;
   },
 };
 

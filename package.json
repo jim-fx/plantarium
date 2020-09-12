@@ -2,10 +2,11 @@
   "name": "plantarium",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "frontend"
   ],
   "scripts": {
-    "dev": "yarn wsrun --parallel -m dev",
+    "dev": "yarn wsrun --parallel -m -x @plantarium/types -x @plantarium/geometry -x @plantarium/renderer -x @plantarium/helpers dev",
     "build": "yarn wsrun --stages -m -e build",
     "clean": "yarn wsrun --parallel -m clean"
   },
@@ -21,7 +22,6 @@
     "@tsconfig/svelte": "^1.0.0",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
-    "@zerollup/ts-transform-paths": "^1.7.17",
     "babel-plugin-istanbul": "^6.0.0",
     "concurrently": "^5.3.0",
     "cypress": "^4.3.0",
@@ -33,7 +33,6 @@
     "jest": "^24.8.0",
     "jest-dom": "^4.0.0",
     "jest-transform-svelte": "^2.0.2",
-    "lerna": "^3.22.1",
     "live-server": "^1.2.1",
     "microbundle": "^0.12.0-next.9",
     "node-sass": "^4.13.1",
@@ -62,14 +61,13 @@
     "ts-node": "^8.8.2",
     "tslib": "^2.0.0",
     "tslint": "^6.1.0",
-    "ttypescript": "^1.5.10",
     "typedoc": "^0.17.3",
     "typescript": "^3.9.3",
     "wait-on": "^4.0.1",
     "wsrun": "^5.2.0"
   },
   "dependencies": {
-    "@plantarium/frontend": "file:packages/frontend",
+    "@plantarium/frontend": "file:frontend",
     "@plantarium/generator": "file:packages/generator",
     "@plantarium/geometry": "file:packages/geometry",
     "@plantarium/helpers": "file:packages/helpers",

@@ -12,7 +12,7 @@
     overflow: visible;
     z-index: 1;
 
-    &::before {
+    /* &::before {
       content: "";
       position: absolute;
       height: 10000vh;
@@ -32,7 +32,7 @@
       background-color: white;
       opacity: 0.2;
       z-index: -1;
-    }
+    } */
   }
   > svg {
     position: absolute;
@@ -60,10 +60,10 @@
     cursor: grab;
   }
 
-  background-size: 1px 100px, 100px 100px, 4px 4px, 4px 4px;
+  /* background-size: 1px 100px, 100px 100px, 4px 4px, 4px 4px;
   background-position: 0px 0px;
   background-image: linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
     linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px); */
 }

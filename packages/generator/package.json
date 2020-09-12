@@ -8,7 +8,7 @@
   "scripts": {
     "build": "microbundle",
     "dev": "microbundle watch",
-    "clean": "rimraf dist"
+    "clean": "rm -rf dist"
   },
   "dependencies": {
     "@plantarium/geometry": "file:../geometry",

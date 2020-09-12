@@ -3,6 +3,7 @@ import InputNumber from './InputNumber.svelte';
 import InputSelect from './InputSelect.svelte';
 import InputCurve from './InputCurve.svelte';
 import InputShape from './InputShape.svelte';
+import InputCheckbox from './InputCheckbox.svelte';
 import type { ValueTemplate } from '@plantarium/types';
 
 export { InputNumber, InputSlider, InputSelect, InputCurve, InputShape };
@@ -16,9 +17,13 @@ export { InputNumber, InputSlider, InputSelect, InputCurve, InputShape };
 export function stateToElement(
   target: HTMLElement,
   template: ValueTemplate,
-  value = 0,
+  value,
 ) {
-  if (Array.isArray(template.values)) {
+  if (value === undefined && 'defaultValue' in template) {
+    value = template.defaultValue ?? 0;
+  }
+
+  if (template.inputType === 'select' || Array.isArray(template.values)) {
     const element = new InputSelect({ target });
     element.setItems(template.values);
     element.setValue(+value || value || template.values[0]);
@@ -46,11 +51,17 @@ export function stateToElement(
     return element;
   }
 
-  if (template.type === 'number' || typeof template.value === 'number') {
+  if (template.type === 'number' || typeof value === 'number') {
     const element = new InputNumber({ target });
     if ('max' in template) element.setAttribute('max', template.max);
     if ('min' in template) element.setAttribute('min', template.min);
     if ('step' in template) element.setAttribute('step', template.step);
+    element.setAttribute('value', value);
+    return element;
+  }
+
+  if (template.type === 'checkbox' || typeof value === 'boolean') {
+    const element = new InputCheckbox({ target });
     element.setAttribute('value', value);
     return element;
   }

@@ -97,15 +97,20 @@ export default class Node extends EventEmitter {
   }
 
   update() {
+    if (!this.enableUpdates) return;
+
     this.computedData = this._compute(this.state);
 
     this.emit('computedData', this.computedData);
 
     //Update downstream nodes
     this.refs.forEach((ref) => {
+      ref.node.enableUpdates = false;
       ref.keyIn.forEach((keyIn) => {
         ref.node.setStateValue(keyIn, this.computedData);
       });
+      ref.node.enableUpdates = true;
+      ref.node.update();
     });
 
     this.save();

@@ -10,10 +10,6 @@
     "heroku-postbuild": "echo nope",
     "clean": "rm -rf public/dist"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://gitlab.com/plantarium/fronttend.git"
-  },
   "license": "MIT",
   "config": {
     "commitizen": {
@@ -22,12 +18,12 @@
   },
   "dependencies": {
     "@babel/core": "^7.9.6",
-    "@plantarium/generator": "file:../generator",
-    "@plantarium/helpers": "file:../helpers",
-    "@plantarium/nodes": "file:../nodes",
-    "@plantarium/nodesystem": "file:../nodesystem",
-    "@plantarium/renderer": "file:../renderer",
-    "@plantarium/types": "file:../types",
+    "@plantarium/generator": "file:../packages/generator",
+    "@plantarium/helpers": "file:../packages/helpers",
+    "@plantarium/nodes": "file:../packages/nodes",
+    "@plantarium/nodesystem": "file:../packages/nodesystem",
+    "@plantarium/renderer": "file:../packages/renderer",
+    "@plantarium/types": "file:../packages/types",
     "ogl-typescript": "^0.1.20",
     "resize-observer-polyfill": "^1.5.1",
     "settings-ui": "^1.3.2"

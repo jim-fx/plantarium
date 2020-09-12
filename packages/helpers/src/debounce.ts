@@ -3,7 +3,7 @@ export default function debounce(
   wait: number,
   immediate: boolean,
 ) {
-  let timeout: ReturnType<typeof setTimeout> | null;
+  let timeout: number;
   return () => {
     const later = () => {
       timeout = null;
