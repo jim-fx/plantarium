@@ -1,6 +1,5 @@
 import Nodes from '@plantarium/nodes';
-import { GeneratorContext } from '@plantarium/types';
-import { PlantNode } from '@types';
+import { GeneratorContext, PlantNode } from '@plantarium/types';
 
 const nodes: { [type: string]: PlantNode } = {};
 

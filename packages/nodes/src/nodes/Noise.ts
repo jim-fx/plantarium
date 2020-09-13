@@ -1,5 +1,5 @@
 import { noise } from '@plantarium/geometry';
-import { PlantNode } from '@types';
+import { PlantNode, GeometryResult } from '@plantarium/types';
 
 const node: PlantNode = {
   title: 'Noise',
@@ -40,9 +40,11 @@ const node: PlantNode = {
   computeSkeleton(node) {
     const { parameters } = node;
 
-    const { input, size = 1, strength = 0.5 } = node;
+    const size = 1;
+    const strength = 0.5;
+    const { input } = parameters;
 
-    const { skeletons: inputSkeletons } = input.result;
+    const { skeletons: inputSkeletons } = (input as GeometryResult).result;
 
     inputSkeletons.forEach((skelly, j) => {
       const length = skelly.length / 4;

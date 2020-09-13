@@ -1,5 +1,5 @@
 import { join, tube, interpolateSkeleton } from '@plantarium/geometry';
-import { GeometryResult, PlantNode } from '@types';
+import { GeometryResult, PlantNode } from '@plantarium/types';
 
 const branchRes = 50;
 

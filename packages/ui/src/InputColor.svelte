@@ -1,7 +1,4 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount } from 'svelte';
-  const dispatch = createEventDispatcher();
-
   let main;
 
   function handleChange() {

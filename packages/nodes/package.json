@@ -6,8 +6,6 @@
   "source": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "build": "microbundle",
-    "dev": "microbundle watch",
     "clean": "rm -rf dist"
   },
   "dependencies": {

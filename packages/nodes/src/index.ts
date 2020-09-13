@@ -1,4 +1,4 @@
-import { PlantNode } from '@types';
+import { PlantNode } from '@plantarium/types';
 import * as nodes from './nodes';
 const _nodes = Object.values(nodes).map((node) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore

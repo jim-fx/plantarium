@@ -6,13 +6,11 @@
   "source": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "build": "microbundle",
-    "dev": "microbundle watch",
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@plantarium/types": "file:../types",
     "@plantarium/helpers": "file:../helpers",
+    "@plantarium/types": "file:../types",
     "ogl-typescript": "^0.1.20",
     "open-simplex-noise": "^2.3.1",
     "simplex-noise": "^2.4.0"

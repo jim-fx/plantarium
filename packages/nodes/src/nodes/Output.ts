@@ -1,5 +1,4 @@
-import { NodeResult } from '@plantarium/types';
-import { PlantNode } from '@types';
+import { NodeResult, PlantNode } from '@plantarium/types';
 
 const node: PlantNode = {
   title: 'Output',

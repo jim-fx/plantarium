@@ -2,8 +2,10 @@
   "name": "@plantarium/ui",
   "version": "0.0.0",
   "author": "Max Richter",
-  "module": "public/dist/index.mjs",
   "main": "public/dist/index.js",
+  "module": "public/dist/index.mjs",
+  "types": "public/dist/index.d.ts",
+  "source": "src/index.ts",
   "license": "MIT",
   "keywords": [
     "svelte",
@@ -30,8 +32,8 @@
   },
   "dependencies": {
     "@jaames/iro": "^5.1.8",
-    "@plantarium/types": "file:../types",
     "@plantarium/helpers": "file:../helpers",
+    "@plantarium/types": "file:../types",
     "svelte-color-picker": "^1.0.7",
     "svelte-select": "^3.7.0"
   }

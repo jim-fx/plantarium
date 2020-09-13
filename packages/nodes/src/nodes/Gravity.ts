@@ -1,6 +1,6 @@
 import { noise, arbitraryRotate } from '@plantarium/geometry';
 import { logger } from '@plantarium/helpers';
-import { GeometryResult, PlantNode } from '@types';
+import { GeometryResult, PlantNode } from '@plantarium/types';
 import { Vec3 } from 'ogl-typescript';
 
 const log = logger('node.gravity');

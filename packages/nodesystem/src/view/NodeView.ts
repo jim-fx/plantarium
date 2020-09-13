@@ -1,6 +1,6 @@
 import './NodeView.scss';
 import { EventEmitter } from '@plantarium/helpers';
-import InputView from '../@types/NodeInputView';
+import InputView from './NodeInputView';
 import OutputView from './NodeOutputView';
 import Node from 'model/Node';
 import System from 'model/NodeSystem';

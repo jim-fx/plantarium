@@ -37,7 +37,7 @@ export interface NodeResult {
 
 export interface GeneratorContext {
   handleParameter(param: ParameterResult, alpha?: number): number;
-  getSetting(key: string): number;
+  getSetting(key: string, defaultValue?: number): number;
   readonly seed: number;
   refresh(): number;
 }
@@ -86,6 +86,31 @@ export interface PlantMetaInfo {
   family?: string;
   class?: string;
   public?: boolean;
+}
+
+export interface GeometryResult extends NodeResult {
+  result: {
+    skeletons?: Float32Array[];
+    geometry?: TransferGeometry;
+  };
+  parameters: {
+    [key: string]: GeometryResult | ParameterResult | string;
+  };
+}
+
+export interface PlantNode {
+  title: string;
+  type: string;
+
+  outputs: string[];
+
+  parameters: {
+    [key: string]: ValueTemplate;
+  };
+
+  computeNode(parameters: { [key: string]: ValueResult }): NodeResult;
+  computeSkeleton?(part: GeometryResult, ctx: GeneratorContext);
+  computeGeometry?(part: GeometryResult, ctx: GeneratorContext);
 }
 
 export interface PlantariumSettings {

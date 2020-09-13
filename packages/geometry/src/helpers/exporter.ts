@@ -1,4 +1,5 @@
-const JSM = {};
+//@ts-nocheck
+export default JSM = {};
 
 /**
  * Function: ExportBodyContentToStl

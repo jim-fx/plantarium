@@ -1,8 +1,9 @@
 {
   "name": "@plantarium/renderer",
   "version": "0.0.0",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/bundle.js",
+  "module": "dist/bundle.mjs",
+  "types": "dist/bundle.d.ts",
   "source": "src/index.ts",
   "license": "MIT",
   "scripts": {

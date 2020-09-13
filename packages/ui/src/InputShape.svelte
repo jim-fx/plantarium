@@ -252,7 +252,5 @@
   }}
   on:mousemove={handleMouseMove}
   on:mousedown={handleMouseDown}>
-
   <canvas bind:this={canvas} width={cWidth} height={cHeight} />
-
 </div>

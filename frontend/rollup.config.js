@@ -5,8 +5,6 @@ import resolve from '@rollup/plugin-node-resolve';
 // import babel from 'rollup-plugin-babel';
 import scss from 'rollup-plugin-scss';
 import json from '@rollup/plugin-json';
-import liveServer from 'rollup-plugin-live-server';
-import glslify from 'rollup-plugin-glslify';
 import { terser } from 'rollup-plugin-terser';
 import analyze from 'rollup-plugin-analyzer';
 import svg from 'rollup-plugin-svg';
@@ -24,13 +22,17 @@ export default {
   watch: { clearScreen: false },
 
   plugins: [
+
+
     // Allows node_modules resolution
     resolve(),
+
+    typescript(),
+
 
     //For importing defaultPlantDescription
     json(),
 
-    typescript(),
 
     // Allow bundling cjs modules. Rollup doesn't understand cjs
     commonjs({
@@ -63,16 +65,6 @@ export default {
       sourcemap: true,
     }),
 
-    //Import GLSL Shaders
-    glslify({ include: ['**/*.vert', '**/*.frag'] }),
-
-    !PROD &&
-    liveServer({
-      root: './public',
-      open: true,
-      quiet: true,
-      logLevel: 0,
-    }),
   ],
 
   output: [

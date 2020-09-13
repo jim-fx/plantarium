@@ -2,6 +2,8 @@
   "name": "@plantarium/frontend",
   "version": "0.0.7",
   "description": "Tool for the procedural generation of 3D plants.",
+  "main": "public/dist/bundle.js",
+  "bundle": "public/dist/bundle.js",
   "scripts": {
     "dev": "rollup -c -w",
     "start": "yarn server:start",

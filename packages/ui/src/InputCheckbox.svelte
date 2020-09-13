@@ -1,8 +1,4 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
-
-  const dispatch = createEventDispatcher();
-
   // Styling
   export let value = false;
 
@@ -45,7 +41,6 @@
   div * {
     box-sizing: border-box;
   }
-
 </style>
 
 <!-- 

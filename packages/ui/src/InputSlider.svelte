@@ -1,6 +1,4 @@
 <script>
-  import { space } from 'svelte/internal';
-
   // Styling
   export let min = 0;
   export let max = 100;

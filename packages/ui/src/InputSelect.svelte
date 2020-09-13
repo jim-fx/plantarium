@@ -1,7 +1,4 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher();
-
   let selectedValue = undefined;
   let open = false;
   let main;
@@ -88,7 +85,6 @@
 <svelte:options tag="plant-select" />
 
 <div id="main" bind:this={main}>
-
   {#if selectedValue !== undefined}
     <div id="selected-value" on:click={handleOpen}>{selectedValue}</div>
   {:else}
@@ -107,5 +103,4 @@
       {/each}
     </div>
   {/if}
-
 </div>

@@ -1,8 +1,4 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
-
-  const dispatch = createEventDispatcher();
-
   // Styling
   export let min = -Infinity;
   export let max = Infinity;

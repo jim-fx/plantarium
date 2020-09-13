@@ -2,12 +2,11 @@
   "name": "@plantarium/generator",
   "version": "0.0.0",
   "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "source": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "build": "microbundle",
-    "dev": "microbundle watch",
     "clean": "rm -rf dist"
   },
   "dependencies": {

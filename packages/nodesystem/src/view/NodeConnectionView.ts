@@ -1,5 +1,5 @@
 import ConnectionView from './ConnectionView';
-import NodeInputView from '../@types/NodeInputView';
+import NodeInputView from './NodeInputView';
 import NodeOutputView from './NodeOutputView';
 import NodeConnection from 'model/NodeConnection';
 

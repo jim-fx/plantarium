@@ -1,4 +1,4 @@
-import { version } from '../package.json';
+const version = '0.0.7';
 
 import './index.scss';
 import './themes.scss';
