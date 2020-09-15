@@ -3,11 +3,10 @@ const version = '0.0.7';
 import './index.scss';
 import './themes.scss';
 
-import { NodeSystem } from '@plantarium/nodesystem';
-import '@plantarium/nodesystem/public/dist/index.css';
+import { NodeSystem } from 'packages/nodesystem';
 
-import Nodes from '@plantarium/nodes';
-import { resizeTable } from '@plantarium/helpers';
+import Nodes from 'packages/nodes';
+import { resizeTable } from 'packages/helpers';
 
 import ProjectManager from './project-manager';
 import SettingsView from './settings-view';
@@ -64,7 +63,7 @@ const nodeUI = new NodeSystem({
   wrapper: document.getElementById('nodesystem-wrapper'),
   view: true,
   defaultNodes: false,
-  registerNodes: Nodes,
+  registerNodes: (Nodes as unknown) as NodeTypeData[],
 });
 
 nodeUI.load(JSON.parse(localStorage.getItem('nodesystem')) || defaultProject);

@@ -80,15 +80,7 @@
     "wsrun": "^5.2.0"
   },
   "dependencies": {
-    "@plantarium/frontend": "file:frontend",
-    "@plantarium/generator": "file:packages/generator",
-    "@plantarium/geometry": "file:packages/geometry",
-    "@plantarium/helpers": "file:packages/helpers",
-    "@plantarium/nodes": "file:packages/nodes",
-    "@plantarium/nodesystem": "file:packages/nodesystem",
-    "@plantarium/renderer": "file:packages/renderer",
-    "@plantarium/types": "file:packages/types",
-    "@plantarium/ui": "file:packages/ui"
+    "@plantarium/frontend": "file:frontend"
   },
   "version": "0.0.0"
 }

@@ -6,12 +6,17 @@ import resolve from '@rollup/plugin-node-resolve';
 import scss from 'rollup-plugin-scss';
 import json from '@rollup/plugin-json';
 import { terser } from 'rollup-plugin-terser';
-import analyze from 'rollup-plugin-analyzer';
+/* import analyze from 'rollup-plugin-analyzer';
 import svg from 'rollup-plugin-svg';
 import visualizer from 'rollup-plugin-visualizer';
-import replace from '@rollup/plugin-replace';
+import replace from '@rollup/plugin-replace'; */
 import typescript from '@rollup/plugin-typescript';
 import sourcemaps from "rollup-plugin-sourcemaps";
+import { string } from 'rollup-plugin-string';
+import svelte from "rollup-plugin-svelte";
+import autoPreprocess from 'svelte-preprocess';
+import livereload from "rollup-plugin-livereload"
+import serve from "rollup-plugin-serve"
 
 const PROD = process.env.ROLLUP_WATCH !== 'true';
 
@@ -23,53 +28,52 @@ export default {
 
   plugins: [
 
+    resolve({
+      browser: true,
+      preferBuiltins: false
+    }),
 
-    // Allows node_modules resolution
-    resolve(),
+    commonjs(),
 
     typescript(),
 
+    svelte({
+      customElement: true,
+      preprocess: autoPreprocess()
+    }),
 
-    //For importing defaultPlantDescription
+    string({
+      include: [
+        '**/*.frag',
+        '**/*.vert',
+      ],
+    }),
+
     json(),
 
 
-    // Allow bundling cjs modules. Rollup doesn't understand cjs
-    commonjs({
-      sourceMap: !PROD,
+    scss({
+      output: 'public/dist/bundle.css',
+      sourceMapEmbed: true
     }),
 
     sourcemaps(),
 
-    svg(),
-
-    // will output compiled styles to bundle.css
-    scss({
-      sourceMapEmbed: true
-    }),
-
-    replace({
-      SERVER_URL: process.env.SERVER_URL,
-    }),
 
     PROD && terser(),
 
-    PROD &&
-    analyze({
-      summaryOnly: true,
-      limit: 10,
-    }),
-
-    PROD &&
-    visualizer({
-      sourcemap: true,
+    !PROD && livereload('public'),
+    !PROD & serve({
+      host: '0.0.0.0',
+      port: 8080,
+      contentBase: "public"
     }),
 
   ],
 
   output: [
     {
-      file: './public/dist/bundle.js',
+      dir: './public/dist',
       format: 'iife',
       name: 'plantarium_client',
       sourcemap: true,

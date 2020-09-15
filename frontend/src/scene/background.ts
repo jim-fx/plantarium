@@ -8,10 +8,9 @@ import {
 } from 'ogl-typescript';
 import Scene from 'scene';
 import ProjectManager from 'project-manager';
-import { ground } from '@plantarium/generator';
-import { loader } from '@plantarium/helpers';
+import { ground } from 'packages/generator';
+import { loader } from 'packages/helpers';
 import { GroundShader } from './shaders';
-import { PlantariumSettings } from '@plantarium/types';
 
 const createGround = (settings: PlantariumSettings) => {
   const {
@@ -72,7 +71,10 @@ export default class BackgroundScene {
         texScale: { value: 1 },
       },
     });
-    this.ground = this.scene.addMesh(groundGeometry, groundShader);
+    this.ground = this.scene.addMesh({
+      geometry: groundGeometry,
+      program: groundShader,
+    });
 
     const update = (time = 0) => {
       requestAnimationFrame(update);

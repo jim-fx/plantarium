@@ -2,28 +2,26 @@ import { Mesh, Box, Program, OGLRenderingContext } from 'ogl-typescript';
 
 import Scene from 'scene';
 import ProjectManager from 'project-manager';
-import { plant } from '@plantarium/generator';
-import { transferToGeometry } from '@plantarium/geometry';
+import { plant } from 'packages/generator';
+import { transferToGeometry } from 'packages/geometry';
 import { BasicShader } from './shaders';
-import { NodeResult, PlantariumSettings } from '@plantarium/types';
+import DebugScene from './debug';
 
 export default class ForegroundScene {
-  private scene: Scene;
-  private pm: ProjectManager;
-
   private plant: NodeResult;
   private settings: PlantariumSettings;
+  private dbg: DebugScene;
 
   private gl: OGLRenderingContext;
 
   private mesh: Mesh;
 
-  constructor(scene: Scene, pm: ProjectManager) {
-    this.scene = scene;
+  constructor(private scene: Scene, private pm: ProjectManager) {
     this.gl = scene.renderer.gl;
-    this.pm = pm;
 
     this.initGeometry();
+
+    this.dbg = new DebugScene(scene, pm);
 
     this.setSettings(pm.getSettings());
     this.setPlant(pm.getPlant());
@@ -38,7 +36,10 @@ export default class ForegroundScene {
       vertex: BasicShader.vertex,
       fragment: BasicShader.fragment,
     });
-    this.mesh = this.scene.addMesh(geometry, program);
+    this.mesh = this.scene.addMesh({
+      geometry,
+      program,
+    });
   }
 
   setSettings(settings: PlantariumSettings) {
@@ -56,7 +57,7 @@ export default class ForegroundScene {
 
     const result = plant(p, s);
 
-    console.log(result);
+    this.dbg.setPlant(result);
 
     this.mesh.geometry = transferToGeometry(this.gl, result.geometry);
   }

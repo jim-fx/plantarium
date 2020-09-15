@@ -1,6 +1,12 @@
 import ProjectManager from 'project-manager';
-import Renderer from '@plantarium/renderer';
-import { Transform, Program, Mesh, OGLRenderingContext } from 'ogl-typescript';
+import Renderer from 'packages/renderer';
+import {
+  Transform,
+  Program,
+  Mesh,
+  OGLRenderingContext,
+  MeshOptions,
+} from 'ogl-typescript';
 
 import BackgroundScene from './background';
 import ForegroundScene from './foreground';
@@ -28,24 +34,12 @@ export default class Scene {
 
     this.wrapper = document.getElementById('canvas-wrapper');
 
-    // debug pd
-    const pd = document.getElementById('debug-pd');
-    const { debugPd = false } = pm.getSettings();
-    pd.style.display = debugPd ? 'block' : 'none';
-    pd.innerHTML = JSON.stringify(pm.getPlant(), null, 2);
-    pm.on('settings', ({ debugPd = false }) => {
-      pd.style.display = debugPd ? 'block' : 'none';
-    });
-    pm.on('plant', (p) => {
-      pd.innerHTML = JSON.stringify(p, null, 2);
-    });
-
     this.bg = new BackgroundScene(this, pm);
     this.fg = new ForegroundScene(this, pm);
   }
 
-  addMesh(geometry, program) {
-    const mesh = new Mesh(this.gl, { geometry, program });
+  addMesh(options: Partial<MeshOptions>) {
+    const mesh = new Mesh(this.gl, options);
     mesh.setParent(this.scene);
     return mesh;
   }

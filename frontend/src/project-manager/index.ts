@@ -1,6 +1,5 @@
-import { EventEmitter } from '@plantarium/helpers';
-import { NodeSystem } from '@plantarium/nodesystem';
-import { NodeResult, PlantariumSettings } from '@plantarium/types';
+import { EventEmitter } from 'packages/helpers';
+import { NodeSystem } from 'packages/nodesystem';
 import SettingsView from '../settings-view';
 
 export default class ProjectManager extends EventEmitter {
@@ -10,7 +9,7 @@ export default class ProjectManager extends EventEmitter {
   constructor(nodeSystem: NodeSystem, settingsUI: SettingsView) {
     super();
     nodeSystem.on('result', this.setPlant.bind(this), 50);
-    this.setPlant(nodeSystem.result);
+    this.setPlant(nodeSystem.result as NodeResult);
 
     settingsUI.on('settings', this.setSettings.bind(this), 50);
     this.setSettings(settingsUI.getSettings());

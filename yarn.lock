@@ -1311,11 +1311,6 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
-"@irojs/iro-core@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@irojs/iro-core/-/iro-core-1.0.3.tgz#abe9dc4235a173463b3ddef409da597071fc8cfb"
-  integrity sha512-B4m1LAQDIWOuSddVmC1Y6xRZsd92hZ/ac5Cik4UtbtgICqzjLtnbU0oppwF+Gb4LiDSegJQ4Dk8xMYalM1kQdQ==
-
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"
@@ -1338,14 +1333,6 @@
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.2.tgz#26520bf09abe4a5644cd5414e37125a8954241dd"
   integrity sha512-tsAQNx32a8CoFhjhijUIhI4kccIAgmGhy8LZMZgGfmXcpMbPRUqn5LWmgRttILi6yeGmBJd2xsPkFMs0PzgPCw==
-
-"@jaames/iro@^5.1.8":
-  version "5.2.3"
-  resolved "https://registry.yarnpkg.com/@jaames/iro/-/iro-5.2.3.tgz#d5991044d8ea084f5e80925f8d0b968ec79d6520"
-  integrity sha512-vMPMsaHaEFRyV8dGlVAeoDfpQZhFDkdI5S2HmucETsMX+F0P7FIW3sojH7Vr3/ABc4IWRpb6GL0rVHkvhajFog==
-  dependencies:
-    "@irojs/iro-core" "^1.0.3"
-    preact "^10.0.0"
 
 "@jest/console@^24.7.1", "@jest/console@^24.9.0":
   version "24.9.0"
@@ -2320,78 +2307,6 @@
   integrity sha512-OlMlSySBJoJ6uozkr/i03nO5dlYQyE05vmQNZhAh9MyO4DPBP88QlwsDVLmVjIMFssvIZB6WO0ctIGMRG+xsJQ==
   dependencies:
     "@types/node" ">= 8"
-
-"@plantarium/frontend@file:frontend":
-  version "0.0.7"
-  dependencies:
-    "@babel/core" "^7.9.6"
-    "@plantarium/generator" "file:../../.cache/yarn/v6/npm-@plantarium-frontend-0.0.7-53a2bca1-ffec-4078-9d67-bd1ef27e875b-1599997254279/node_modules/@plantarium/packages/generator"
-    "@plantarium/helpers" "file:../../.cache/yarn/v6/npm-@plantarium-frontend-0.0.7-53a2bca1-ffec-4078-9d67-bd1ef27e875b-1599997254279/node_modules/@plantarium/packages/helpers"
-    "@plantarium/nodes" "file:../../.cache/yarn/v6/npm-@plantarium-frontend-0.0.7-53a2bca1-ffec-4078-9d67-bd1ef27e875b-1599997254279/node_modules/@plantarium/packages/nodes"
-    "@plantarium/nodesystem" "file:../../.cache/yarn/v6/npm-@plantarium-frontend-0.0.7-53a2bca1-ffec-4078-9d67-bd1ef27e875b-1599997254279/node_modules/@plantarium/packages/nodesystem"
-    "@plantarium/renderer" "file:../../.cache/yarn/v6/npm-@plantarium-frontend-0.0.7-53a2bca1-ffec-4078-9d67-bd1ef27e875b-1599997254279/node_modules/@plantarium/packages/renderer"
-    "@plantarium/types" "file:../../.cache/yarn/v6/npm-@plantarium-frontend-0.0.7-53a2bca1-ffec-4078-9d67-bd1ef27e875b-1599997254279/node_modules/@plantarium/packages/types"
-    ogl-typescript "^0.1.20"
-    resize-observer-polyfill "^1.5.1"
-    settings-ui "^1.3.2"
-
-"@plantarium/generator@file:packages/generator":
-  version "0.0.0"
-  dependencies:
-    "@plantarium/geometry" "file:../../.cache/yarn/v6/npm-@plantarium-generator-0.0.0-293fe75a-f691-4771-a8f6-75034c992f59-1599997254329/node_modules/@plantarium/geometry"
-    "@plantarium/helpers" "file:../../.cache/yarn/v6/npm-@plantarium-generator-0.0.0-293fe75a-f691-4771-a8f6-75034c992f59-1599997254329/node_modules/@plantarium/helpers"
-    "@plantarium/nodes" "file:../../.cache/yarn/v6/npm-@plantarium-generator-0.0.0-293fe75a-f691-4771-a8f6-75034c992f59-1599997254329/node_modules/@plantarium/nodes"
-    "@plantarium/types" "file:../../.cache/yarn/v6/npm-@plantarium-generator-0.0.0-293fe75a-f691-4771-a8f6-75034c992f59-1599997254329/node_modules/@plantarium/types"
-
-"@plantarium/geometry@file:packages/geometry":
-  version "0.0.0"
-  dependencies:
-    "@plantarium/helpers" "file:../../.cache/yarn/v6/npm-@plantarium-geometry-0.0.0-b011d118-1870-4cd0-80da-18a2d5441f39-1599997254347/node_modules/@plantarium/helpers"
-    "@plantarium/types" "file:../../.cache/yarn/v6/npm-@plantarium-geometry-0.0.0-b011d118-1870-4cd0-80da-18a2d5441f39-1599997254347/node_modules/@plantarium/types"
-    ogl-typescript "^0.1.20"
-    open-simplex-noise "^2.3.1"
-    simplex-noise "^2.4.0"
-
-"@plantarium/helpers@file:packages/helpers":
-  version "0.0.0"
-  dependencies:
-    "@plantarium/types" "file:../../.cache/yarn/v6/npm-@plantarium-helpers-0.0.0-f106ecec-8ec8-4941-822c-96e65284bfd6-1599997254334/node_modules/@plantarium/types"
-    file-saver "^2.0.2"
-
-"@plantarium/nodes@file:packages/nodes":
-  version "0.0.0"
-  dependencies:
-    "@plantarium/geometry" "file:../../.cache/yarn/v6/npm-@plantarium-nodes-0.0.0-3a406e45-868b-4a17-ae42-78fe0cf14ffe-1599997254332/node_modules/@plantarium/geometry"
-    "@plantarium/helpers" "file:../../.cache/yarn/v6/npm-@plantarium-nodes-0.0.0-3a406e45-868b-4a17-ae42-78fe0cf14ffe-1599997254332/node_modules/@plantarium/helpers"
-    "@plantarium/types" "file:../../.cache/yarn/v6/npm-@plantarium-nodes-0.0.0-3a406e45-868b-4a17-ae42-78fe0cf14ffe-1599997254332/node_modules/@plantarium/types"
-
-"@plantarium/nodesystem@file:packages/nodesystem":
-  version "0.0.9"
-  dependencies:
-    "@plantarium/helpers" "file:../../.cache/yarn/v6/npm-@plantarium-nodesystem-0.0.9-8e6f09e4-94e0-4d4f-afc9-7890bb82c5e5-1599997254336/node_modules/@plantarium/helpers"
-    "@plantarium/types" "file:../../.cache/yarn/v6/npm-@plantarium-nodesystem-0.0.9-8e6f09e4-94e0-4d4f-afc9-7890bb82c5e5-1599997254336/node_modules/@plantarium/types"
-    "@plantarium/ui" "file:../../.cache/yarn/v6/npm-@plantarium-nodesystem-0.0.9-8e6f09e4-94e0-4d4f-afc9-7890bb82c5e5-1599997254336/node_modules/@plantarium/ui"
-    settings-ui "^1.3.2"
-
-"@plantarium/renderer@file:packages/renderer":
-  version "0.0.0"
-  dependencies:
-    "@plantarium/helpers" "file:../../.cache/yarn/v6/npm-@plantarium-renderer-0.0.0-1b6eee97-92ef-4dfa-9f68-8c2ef2f40a65-1599997254330/node_modules/@plantarium/helpers"
-    "@plantarium/types" "file:../../.cache/yarn/v6/npm-@plantarium-renderer-0.0.0-1b6eee97-92ef-4dfa-9f68-8c2ef2f40a65-1599997254330/node_modules/@plantarium/types"
-    ogl-typescript "^0.1.20"
-    resize-observer-polyfill "^1.5.1"
-
-"@plantarium/types@file:packages/types":
-  version "0.0.0"
-
-"@plantarium/ui@file:packages/ui":
-  version "0.0.0"
-  dependencies:
-    "@jaames/iro" "^5.1.8"
-    "@plantarium/helpers" "file:../../.cache/yarn/v6/npm-@plantarium-ui-0.0.0-3f9a09a7-88d0-49d9-be61-28abd3e1d18c-1599997254338/node_modules/@plantarium/helpers"
-    "@plantarium/types" "file:../../.cache/yarn/v6/npm-@plantarium-ui-0.0.0-3f9a09a7-88d0-49d9-be61-28abd3e1d18c-1599997254338/node_modules/@plantarium/types"
-    svelte-color-picker "^1.0.7"
-    svelte-select "^3.7.0"
 
 "@polka/url@^0.5.0":
   version "0.5.0"
@@ -8774,7 +8689,7 @@ mime@1.6.0:
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
   integrity sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==
 
-mime@^2.3.1:
+mime@>=2.4.6, mime@^2.3.1:
   version "2.4.6"
   resolved "https://registry.yarnpkg.com/mime/-/mime-2.4.6.tgz#e5b407c90db442f2beb5b162373d07b69affa4d1"
   integrity sha512-RZKhC3EmpBchfTGBVb8fb+RL2cWyw/32lshnsETttkBAyAUXSGHxbEJWWRXc751DrIxG1q04b8QwMbAwkRPpUA==
@@ -9527,10 +9442,10 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
-open-simplex-noise@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/open-simplex-noise/-/open-simplex-noise-2.3.1.tgz#fb3e04db8693f6487497536be76d6192f1b9b827"
-  integrity sha512-akJvOFDWOoyNHg/ahxZQLBkBvKofV4avYLksYcaSUXNEHU+Y0bJlRRlZEf0MV753CR+lVSMtEPBv7NacDM+0mg==
+open-simplex-noise@^2.4.0-pre4:
+  version "2.4.0-pre4"
+  resolved "https://registry.yarnpkg.com/open-simplex-noise/-/open-simplex-noise-2.4.0-pre4.tgz#a0032a793bdca35a4c4470fcb8408f82089ddd71"
+  integrity sha512-NO7jDIom2OCsODXihm0lh3VViZYV58NHDhPOKkzOQ+zFvGgvaGXSiGXAwwKr7jLYA8101KUW6+6jcTLsPLtLhg==
 
 open@^7.0.3:
   version "7.2.1"
@@ -9544,6 +9459,11 @@ opencollective-postinstall@^2.0.2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/opencollective-postinstall/-/opencollective-postinstall-2.0.3.tgz#7a0fff978f6dbfa4d006238fbac98ed4198c3259"
   integrity sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==
+
+opener@1:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/opener/-/opener-1.5.2.tgz#5d37e1f35077b9dcac4301372271afdeb2a13598"
+  integrity sha512-ur5UIdyw5Y7yEj9wLzhqXiy6GZ3Mwx0yGI+5sMn2r0N0v3cKJvUmFH5yPP+WXh9e0xfyzyJX95D8l088DNFj7A==
 
 opn@latest:
   version "6.0.0"
@@ -10390,11 +10310,6 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.27, postcss@^7.0.32:
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
-preact@^10.0.0:
-  version "10.4.8"
-  resolved "https://registry.yarnpkg.com/preact/-/preact-10.4.8.tgz#8517b106cc5591eb675237c93da99ac052cf4756"
-  integrity sha512-uVLeEAyRsCkUEFhVHlOu17OxcrwC7+hTGZ08kBoLBiGHiZooUZuibQnphgMKftw/rqYntNMyhVCPqQhcyAGHag==
-
 prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
@@ -11238,6 +11153,13 @@ rollup-plugin-livereload@^1.0.1:
   dependencies:
     livereload "^0.9.1"
 
+rollup-plugin-livereload@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-livereload/-/rollup-plugin-livereload-2.0.0.tgz#d3928d74e8cf2ae4286c5dd46b770fd3f3b82313"
+  integrity sha512-oC/8NqumGYuphkqrfszOHUUIwzKsaHBICw6QRwT5uD07gvePTS+HW+GFwu6f9K8W02CUuTvtIM9AWJrbj4wE1A==
+  dependencies:
+    livereload "^0.9.1"
+
 rollup-plugin-node-resolve@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/rollup-plugin-node-resolve/-/rollup-plugin-node-resolve-5.2.0.tgz#730f93d10ed202473b1fb54a5997a7db8c6d8523"
@@ -11284,6 +11206,14 @@ rollup-plugin-scss@^2.4.0:
   dependencies:
     node-sass "4"
     rollup-pluginutils "2"
+
+rollup-plugin-serve@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-serve/-/rollup-plugin-serve-1.0.4.tgz#17665974185f9007ecaeb0835c4e89612e04d234"
+  integrity sha512-74Gh47+dGKhmy04MIu9deXwn8VGlWsk93HcGIbO+NCdZ9roRXVO7y4l/9MLAAujuYpzsWCopHHZT8/6PSRzGLg==
+  dependencies:
+    mime ">=2.4.6"
+    opener "1"
 
 rollup-plugin-sourcemaps@^0.6.2:
   version "0.6.2"
@@ -11387,6 +11317,13 @@ rollup@^1.18.0, rollup@^1.32.1:
     "@types/estree" "*"
     "@types/node" "*"
     acorn "^7.1.0"
+
+rollup@^2.26.11:
+  version "2.26.11"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.26.11.tgz#4fc31de9c7b83d50916fc8395f8c3d24730cdaae"
+  integrity sha512-xyfxxhsE6hW57xhfL1I+ixH8l2bdoIMaAecdQiWF3N7IgJEMu99JG+daBiSZQjnBpzFxa0/xZm+3pbCdAQehHw==
+  optionalDependencies:
+    fsevents "~2.1.2"
 
 rsvp@^4.8.4:
   version "4.8.5"
@@ -11682,11 +11619,6 @@ simple-swizzle@^0.2.2:
   integrity sha1-pNprY1/8zMoz9w0Xy5JZLeleVXo=
   dependencies:
     is-arrayish "^0.3.1"
-
-simplex-noise@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/simplex-noise/-/simplex-noise-2.4.0.tgz#81b3458fb22dccc3bc8dd9a977c73797f86f523a"
-  integrity sha512-OjyDWm/QZjVbMrPxDVi9b2as+SeNn9EBXlrWVRlFW+TSyWMSXouDryXkQN0vf5YP+QZKobrmkvx1eQYPLtuqfw==
 
 sirv-cli@^0.4.4:
   version "0.4.6"
@@ -12323,13 +12255,6 @@ svelte-check@^1.0.0:
     vscode-languageserver-types "3.15.1"
     vscode-uri "2.1.2"
 
-svelte-color-picker@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/svelte-color-picker/-/svelte-color-picker-1.0.7.tgz#06d0d69cbd4c8430b2d7a72c1d17d3dace0c2ed3"
-  integrity sha512-Xu5efoJKPEouO+rSLkbVR/0EI4ewzO2PgtapC7FdvPlYaCykdqm7YvsoTLaTSNdIljoBtHzNaYgtYxc/ThL5+w==
-  dependencies:
-    sirv-cli "^0.4.4"
-
 svelte-language-server@*:
   version "0.10.120"
   resolved "https://registry.yarnpkg.com/svelte-language-server/-/svelte-language-server-0.10.120.tgz#b5d445dde242e4674fcd13127704734c2f70c8da"
@@ -12362,11 +12287,6 @@ svelte-preprocess@^4.0.0, svelte-preprocess@~4.2.0:
     "@types/sass" "^1.16.0"
     detect-indent "^6.0.0"
     strip-indent "^3.0.0"
-
-svelte-select@^3.7.0:
-  version "3.11.1"
-  resolved "https://registry.yarnpkg.com/svelte-select/-/svelte-select-3.11.1.tgz#e596900b7a60a059654e41edf9e2879a4b2de198"
-  integrity sha512-fva5VRmZT/MnqTMXOlwkEnX+ultdTKdMyguTOngzt77NsXjvPxA7+/M8cUlxyQkAJEqI1RdxCq2RRAAxaJxNBg==
 
 svelte-testing-library@^1.6.0:
   version "1.6.0"

@@ -1,8 +1,7 @@
 import './index.scss';
-import { EventEmitter } from '@plantarium/helpers';
+import { EventEmitter } from 'packages/helpers';
 import template from './template';
 import SettingsUI from 'settings-ui';
-import { PlantariumSettings } from '@plantarium/types';
 
 function applyCurrentStateToStore(store, currentState) {
   Object.entries(currentState).forEach(([key, value = 0]) => {
