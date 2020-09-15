@@ -4,9 +4,11 @@ import { stateToElement } from 'packages/ui';
 
 export default class NodeStateView {
   wrapper = document.createElement('div');
+  input = document.createElement('div');
 
   constructor(private nodeState: NodeState) {
     this.wrapper.classList.add('node-state-single-wrapper');
+    this.input.classList.add('node-state-input');
 
     const template = nodeState.template;
 
@@ -20,7 +22,7 @@ export default class NodeStateView {
 
     if (!template.external) {
       const element = stateToElement(
-        this.wrapper,
+        this.input,
         template,
         nodeState.getValue(),
       );
@@ -32,6 +34,7 @@ export default class NodeStateView {
     }
 
     nodeState.node.view.stateWrapper.appendChild(this.wrapper);
+    this.wrapper.appendChild(this.input);
   }
 
   get y() {

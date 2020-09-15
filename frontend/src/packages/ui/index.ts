@@ -62,7 +62,7 @@ export function stateToElement(
     return element;
   }
 
-  if (template.type === 'checkbox' || typeof value === 'boolean') {
+  if (template.type === 'boolean' || typeof value === 'boolean') {
     const element = new InputCheckbox({ target });
     element.setAttribute('value', value);
     return element;

@@ -56,8 +56,6 @@ const node: PlantNode = {
       const oy = ctx.handleParameter(part.parameters.origin?.y);
       const oz = ctx.handleParameter(part.parameters.origin?.z);
 
-      console.log(ox, oy, oz);
-
       const height = ctx.handleParameter(part.parameters.height);
       const thiccness = ctx.handleParameter(part.parameters.thiccness);
 

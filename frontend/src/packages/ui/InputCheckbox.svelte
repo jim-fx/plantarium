@@ -7,12 +7,11 @@
   function dispatchEvent() {
     // 1. Create the custom event.
     const event = new CustomEvent('change', {
-      detail: !!value,
+      detail: value,
       bubbles: true,
       cancelable: true,
       composed: true,
     });
-
     // 2. Dispatch the custom event.
     el && el.dispatchEvent(event);
   }
@@ -22,7 +21,7 @@
 
 <style>
   input[type='checkbox'] {
-    visibility: hidden;
+    /* visibility: hidden; */
     position: absolute;
   }
 
@@ -48,7 +47,7 @@
 <div>
   <!-- <span class="tooltip-text">Enables syncing of projects to the cloud</span> -->
 
-  <input type="checkbox" />
+  <input type="checkbox" bind:this={el} bind:checked={value} />
 
   <label class="checkbox-label" for="checkbox-id-5">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">

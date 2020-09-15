@@ -24,6 +24,11 @@ const node: PlantNode = {
       type: 'select',
       values: ['Y', 'X', 'Z'],
     },
+    spread: {
+      internal: true,
+      type: 'boolean',
+      value: true,
+    },
     angle: {
       type: 'number',
       inputType: 'slider',
@@ -41,7 +46,7 @@ const node: PlantNode = {
   },
   computeSkeleton(node, ctx) {
     const { parameters } = node;
-    const { input, type } = parameters;
+    const { input, type, spread } = parameters;
 
     const {
       result: { skeletons },
@@ -58,7 +63,10 @@ const node: PlantNode = {
       const oy = skelly[1];
       const oz = skelly[2];
 
-      const angle = ctx.handleParameter(parameters.angle, a) * a;
+      const _a = j / (skeletons.length - 1);
+
+      const angle =
+        ctx.handleParameter(parameters.angle, _a) * (spread ? _a : 1);
 
       // Loop over every single joint in the skeleton
       for (let i = 1; i < amount; i++) {

@@ -1,9 +1,14 @@
+import { inputChanged } from 'packages/helpers';
 import Nodes from 'packages/nodes';
 
 const nodes: { [type: string]: PlantNode } = {};
 
 Nodes.forEach((n) => {
   nodes[n.type] = n;
+  const { computeGeometry } = n;
+  if (computeGeometry) {
+    n.computeGeometry = inputChanged(computeGeometry);
+  }
 });
 
 export default (node, ctx: GeneratorContext) => {

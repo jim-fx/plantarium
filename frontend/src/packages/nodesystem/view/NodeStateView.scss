@@ -4,7 +4,7 @@
   margin: 5px 0px;
 }
 
-.node-state-single-wrapper.disabled {
+.node-state-single-wrapper.disabled>.node-state-input {
   opacity: 0.5;
   pointer-events: none;
 }
