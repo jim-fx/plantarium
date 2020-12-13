@@ -1,11 +1,12 @@
-<script>
+<script lang="ts">
+  import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
+
   // Styling
   export let min = -Infinity;
   export let max = Infinity;
   export let step = 1;
   export let value = 0;
-
-  let el;
 
   function handleChange(change) {
     value = Math.max(min, Math.min(+value + change, max));
@@ -15,20 +16,7 @@
     return parseFloat(number).toPrecision(4);
   }
 
-  function dispatchEvent() {
-    // 1. Create the custom event.
-    const event = new CustomEvent('change', {
-      detail: parseFloat(value),
-      bubbles: true,
-      cancelable: true,
-      composed: true,
-    });
-
-    // 2. Dispatch the custom event.
-    el && el.dispatchEvent(event);
-  }
-
-  $: value !== undefined && dispatchEvent();
+  $: value !== undefined && dispatch('change', parseFloat(value + ''));
 </script>
 
 <style>
@@ -49,6 +37,8 @@
     display: flex;
     background-color: #4b4b4b;
     border-radius: 2px;
+
+    padding: 3px 1px;
 
     font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
       Roboto, 'Oxygen-Sans', Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
@@ -101,7 +91,7 @@
 <div>
   <button on:click={() => handleChange(-step)} />
 
-  <input bind:this={el} bind:value {step} {max} {min} type="number" />
+  <input bind:value {step} {max} {min} type="number" />
 
   <button on:click={() => handleChange(+step)} class="plus" />
 </div>

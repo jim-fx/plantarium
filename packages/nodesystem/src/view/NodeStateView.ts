@@ -29,7 +29,6 @@ export default class NodeStateView {
 
       if (element) {
         element.$on('change', ({ detail }) => {
-          console.log(detail);
           this.nodeState.setValue(detail);
         });
       }

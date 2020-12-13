@@ -1,13 +1,15 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
-  import Renderer from '@plantarium/renderer';
   import { NodeSystem } from '@plantarium/nodesystem';
   import Nodes from '@plantarium/nodes';
+  import { Button } from '@plantarium/ui';
 
   import { ProjectManager } from './components/project-manager';
   import Scene from './components/scene/Scene.svelte';
   import { SettingsManager } from './components/settings-manager';
+  import SettingsManagerView from './components/settings-manager/SettingsManagerView.svelte';
+  import ProjectManagerView from './components/project-manager/ProjectManagerView.svelte';
 
   const defaultProject = {
     meta: { transform: { x: 0, y: 0, s: 1 } },
@@ -26,9 +28,10 @@
     ],
   };
 
-  let renderCanvas: HTMLCanvasElement;
   let nodeSystemWrapper: HTMLDivElement;
   let projectManager: ProjectManager;
+  let showPM = false;
+  const settingsManager = new SettingsManager();
 
   onMount(() => {
     const nodeSystem = new NodeSystem({
@@ -37,8 +40,6 @@
       defaultNodes: false,
       registerNodes: (Nodes as unknown) as NodeTypeData[],
     });
-
-    const settingsManager = new SettingsManager();
 
     projectManager = new ProjectManager(nodeSystem, settingsManager);
 
@@ -53,18 +54,37 @@
 </script>
 
 <style lang="scss">
-  @import './themes';
-
   main {
     height: 100%;
     display: grid;
-
     grid-template-columns: minmax(50vw, 25%) 1fr;
+  }
+
+  header {
+    .left,
+    .right {
+      display: inline-block;
+    }
   }
 </style>
 
 <header>
-  <h2>Eyy</h2>
+  <div class="left">
+    <div>
+      <Button
+        icon="Cog"
+        name="Projects"
+        cls="projects-icon"
+        bind:active={showPM} />
+      {#if projectManager}
+        <ProjectManagerView pm={projectManager} visible={showPM} />
+      {/if}
+    </div>
+  </div>
+
+  <div class="right">
+    <SettingsManagerView sm={settingsManager} />
+  </div>
 </header>
 <main>
   <Scene pm={projectManager} />

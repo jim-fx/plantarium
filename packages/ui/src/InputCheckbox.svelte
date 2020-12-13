@@ -1,28 +1,37 @@
 <script>
-  // Styling
+  import { createEventDispatcher } from 'svelte';
+  import createId from 'shortid';
+  const dispatch = createEventDispatcher();
+
   export let value = false;
 
-  let el;
+  const id = createId();
 
-  function dispatchEvent() {
-    // 1. Create the custom event.
-    const event = new CustomEvent('change', {
-      detail: value,
-      bubbles: true,
-      cancelable: true,
-      composed: true,
-    });
-    // 2. Dispatch the custom event.
-    el && el.dispatchEvent(event);
-  }
-
-  $: value !== undefined && dispatchEvent();
+  $: value !== undefined && dispatch('change', !!value);
 </script>
 
 <style>
   input[type='checkbox'] {
-    /* visibility: hidden; */
+    opacity: 0;
+    cursor: pointer;
     position: absolute;
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  input:checked + label > svg {
+    opacity: 1;
+  }
+
+  label {
+    padding-left: 0px !important;
+    padding: 2px;
+    cursor: pointer;
   }
 
   div {
@@ -31,6 +40,9 @@
     display: flex;
     background-color: #4b4b4b;
     border-radius: 2px;
+
+    width: 20px;
+    height: 20px;
 
     font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
       Roboto, 'Oxygen-Sans', Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
@@ -44,10 +56,9 @@
 
 <div>
   <!-- <span class="tooltip-text">Enables syncing of projects to the cloud</span> -->
-
-  <input type="checkbox" bind:this={el} bind:checked={value} />
-
-  <label class="checkbox-label" for="checkbox-id-5">
+  <input type="checkbox" bind:checked={value} {id} />
+  <!-- svelte-ignore a11y-label-has-associated-control -->
+  <label class="checkbox-label" for={id}>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
       <title>cross</title>
       <line

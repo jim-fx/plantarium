@@ -1,20 +1,12 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
+
   export let selectedValue = undefined;
   let open = false;
   let main;
 
-  function handleChange() {
-    const event = new CustomEvent('change', {
-      detail: selectedValue,
-      bubbles: true,
-      cancelable: true,
-      composed: true, // makes the event jump shadow DOM boundary
-    });
-
-    main && main.dispatchEvent(event);
-  }
-
-  $: selectedValue && handleChange();
+  $: selectedValue && dispatch('change', selectedValue);
 
   function handleOpen() {
     open = true;

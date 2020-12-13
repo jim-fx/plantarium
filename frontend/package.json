@@ -15,15 +15,16 @@
     "rollup-plugin-livereload": "^2.0.0",
     "rollup-plugin-svelte": "^7.0.0",
     "rollup-plugin-terser": "^7.0.0",
+    "sass": "^1.30.0",
     "svelte": "^3.0.0",
     "svelte-preprocess": "^4.0.0",
-    "sass": "^1.30.0",
     "tslib": "^2.0.0"
   },
   "dependencies": {
     "@plantarium/renderer": "1.0.0",
     "rollup-plugin-glslify": "^1.2.0",
     "rollup-plugin-scss": "^2.6.1",
+    "rollup-plugin-svg-import": "^1.5.1",
     "typescript": "^4.1.3"
   }
 }

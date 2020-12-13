@@ -231,11 +231,11 @@ export default class NodeSystemView extends EventEmitter {
     const one = s * 100;
     const four = s * 4;
 
-    this.wrapper.style.backgroundSize = `1px ${one}px, ${one}px ${one}px, ${four}px ${four}px, ${four}px ${four}px`;
+    // this.wrapper.style.backgroundSize = `1px ${one}px, ${one}px ${one}px, ${four}px ${four}px, ${four}px ${four}px`;
 
-    this.wrapper.style.backgroundPosition = `${this.width / 2 + x}px ${
-      this.height / 2 + y
-    }px`;
+    // this.wrapper.style.backgroundPosition = `${this.width / 2 + x}px ${
+    //   this.height / 2 + y
+    // }px`;
 
     this.transformWrapper.style.transform = `
       translateX(${x}px)

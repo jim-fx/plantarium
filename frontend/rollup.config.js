@@ -8,6 +8,7 @@ import typescript from '@rollup/plugin-typescript';
 import scss from 'rollup-plugin-scss';
 import sass from "sass";
 import glslify from "rollup-plugin-glslify";
+import svg from "rollup-plugin-svg-import"
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -34,6 +35,10 @@ export default {
 		}),
 
 		glslify(),
+
+		svg({
+			stringify: true
+		}),
 
 		// If you have external dependencies installed from
 		// npm, you'll most likely need these plugins. In

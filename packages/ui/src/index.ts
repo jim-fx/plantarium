@@ -4,8 +4,18 @@ import InputSelect from './InputSelect.svelte';
 import InputCurve from './InputCurve.svelte';
 import InputShape from './InputShape.svelte';
 import InputCheckbox from './InputCheckbox.svelte';
+import Button from './Button.svelte';
+import Icon from './Icon.svelte';
 
-export { InputNumber, InputSlider, InputSelect, InputCurve, InputShape };
+export {
+  InputNumber,
+  InputSlider,
+  InputSelect,
+  InputCurve,
+  InputShape,
+  Button,
+  Icon,
+};
 
 // *****************************************
 // * Notice that the component is not instantiated and mounted to the document <body className="">
