@@ -8,6 +8,8 @@ $light-red: #e26565;
 
 $border-radius: 2px;
 
+$green-gradient: linear-gradient(45deg, $dark-green, $light-green);
+
 $transition-rubber: cubic-bezier(0.8, 0.2, 0.2, 0.8);
 
 $themes: (
@@ -43,7 +45,7 @@ $themes: (
     .theme-#{$theme} & {
       $theme-map: () !global;
       @each $key, $submap in $map {
-        $value: map-get(map-get($themes, $theme), "#{$key}");
+        $value: map-get(map-get($themes, $theme), '#{$key}');
         $theme-map: map-merge(
           $theme-map,
           (

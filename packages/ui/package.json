@@ -1,0 +1,10 @@
+{
+  "name": "@plantarium/ui",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "shortid": "^2.2.16",
+    "svelte-color-picker": "^1.0.7"
+  }
+}

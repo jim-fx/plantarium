@@ -1,140 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf8" />
-    <meta name="viewport" content="width=device-width" />
 
-    <title>jim-fx's | Plantarium</title>
+<head>
+	<meta charset="utf8" />
+	<meta name="viewport" content="width=device-width" />
 
-    <link
-      rel="apple-touch-icon"
-      sizes="57x57"
-      href="./favicon/apple-icon-57x57.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="60x60"
-      href="./favicon/apple-icon-60x60.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="72x72"
-      href="./favicon/apple-icon-72x72.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="76x76"
-      href="./favicon/apple-icon-76x76.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="114x114"
-      href="./favicon/apple-icon-114x114.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="120x120"
-      href="./favicon/apple-icon-120x120.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="144x144"
-      href="./favicon/apple-icon-144x144.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="152x152"
-      href="./favicon/apple-icon-152x152.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="./favicon/apple-icon-180x180.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="./favicon/android-icon-192x192.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="./favicon/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="96x96"
-      href="./favicon/favicon-96x96.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="./favicon/favicon-16x16.png"
-    />
-    <link rel="manifest" href="./manifest.json" />
-    <meta name="msapplication-TileColor" content="#ffffff" />
-    <meta
-      name="msapplication-TileImage"
-      content="./favicon/ms-icon-144x144.png"
-    />
-    <meta name="theme-color" content="#ffffff" />
+	<title>jim-fx's | Plantarium</title>
 
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,700&display=swap"
-    />
+	<link rel="apple-touch-icon" sizes="57x57" href="./favicon/apple-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="60x60" href="./favicon/apple-icon-60x60.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="./favicon/apple-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="./favicon/apple-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="./favicon/apple-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="./favicon/apple-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="./favicon/apple-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="./favicon/apple-icon-152x152.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-icon-180x180.png" />
+	<link rel="icon" type="image/png" sizes="192x192" href="./favicon/android-icon-192x192.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="96x96" href="./favicon/favicon-96x96.png" />
+	<link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png" />
+	<link rel="manifest" href="./manifest.json" />
+	<meta name="msapplication-TileColor" content="#ffffff" />
+	<meta name="msapplication-TileImage" content="./favicon/ms-icon-144x144.png" />
+	<meta name="theme-color" content="#ffffff" />
 
-    <link rel="stylesheet" href="dist/bundle.css" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,700&display=swap" />
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-  </head>
-  <body class="theme-dark">
-    <p id="version"></p>
+	<link rel="stylesheet" href="build/bundle.css" />
 
-    <div class="component" id="topbar">
-      <button id="button-project" class="button-icon">projects</button>
-      <button id="button-settings" class="button-icon align-right">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-          <title>cog</title>
-          <circle class="cls-1" cx="50.37" cy="50.5" r="17.23" />
-          <path
-            id="Path_23"
-            data-name="Path 23"
-            class="cls-1"
-            d="M38.07,20.49,32.17,8.05,50.83,4.41l.61,13.8,12.13,2.28L68.73,8.05l14,10.16-9,10L81.17,38.7l12-5.47,3.34,17.3H81.93L80.57,63l12.59,6.37L82.7,83.62l-9-9.86L63.58,81.19l5.15,11.23-17.9,3.64V82.71L38.08,81.19,32.77,92.42,17.44,82.71l10.17-8.35L19.11,63,8.19,69.36,4.4,50.56H17.45l1.67-13.81L8.2,30.84l9.25-13.2,11.08,8.81Z"
-          />
-        </svg>
-      </button>
-    </div>
+</head>
 
-    <table style="overflow: hidden">
-      <tr>
-        <td
-          style="max-width: calc(100vw - 200px); min-width: 200px; width: 30%"
-        >
-          <div id="debug-pd"></div>
-          <div id="canvas-wrapper">
-            <canvas id="render-canvas"></canvas>
-          </div>
-        </td>
-        <td
-          valign="top"
-          style="min-width: 200px; max-width: calc(100vw - 200px)"
-        >
-          <div class="component" id="sidebar">
-            <div id="settings-wrapper"></div>
-            <div id="nodesystem-wrapper"></div>
-          </div>
-        </td>
-      </tr>
-    </table>
+<body class="theme-dark">
+	<script src="build/bundle.js"></script>
+</body>
 
-    <a id="downloadAnchorElem" style="display: none"></a>
-
-    <script src="dist/index.js"></script>
-  </body>
 </html>

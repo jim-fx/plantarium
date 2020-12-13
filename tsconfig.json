@@ -1,37 +1,7 @@
 {
   "extends": "@tsconfig/svelte/tsconfig.json",
   "compilerOptions": {
-    "target": "es5",
-    "allowJs": false,
-    "sourceMap": true,
-    "removeComments": false,
-    "strict": false,
-    "lib": ["DOM", "ES2020"],
-    "noImplicitAny": false,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noImplicitReturns": false,
-    "strictNullChecks": false,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "declaration": true,
-    "importsNotUsedAsValues": "preserve",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "baseUrl": "./",
-    "paths": {
-      "@plantarium/*": ["packages/*/src", "frontend/*"]
-    },
-    "outDir": "./dist"
-  },
-  "exclude": [
-    "node_modules",
-    "**/dist/**",
-    "**/lib/**",
-    "**/test/**",
-    "**/scripts/**",
-    "**/types/**",
-    "bundles/**/*.d.ts",
-    "rollup.config.js"
-  ]
+    "lib": ["ES2019", "DOM"],
+    "sourceMap": true
+  }
 }

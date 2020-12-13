@@ -1,0 +1,10 @@
+{
+  "name": "@plantarium/renderer",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@plantarium/helpers": "1.0.0",
+    "resize-observer-polyfill": "^1.5.1"
+  }
+}
