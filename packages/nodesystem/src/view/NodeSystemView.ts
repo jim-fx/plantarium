@@ -39,6 +39,8 @@ export default class NodeSystemView extends EventEmitter {
   mdx = 0;
   mdy = 0;
 
+  ev: MouseEvent;
+
   ogWidth = 0;
   ogHeight = 0;
 
@@ -251,10 +253,15 @@ export default class NodeSystemView extends EventEmitter {
       'mousemove',
       throttle((ev) => this.handleMouseMove(ev), 10),
     );
+
     this.wrapper.addEventListener('mousedown', (ev) =>
       this.handleMouseDown(ev),
     );
+    this.wrapper.addEventListener('touchdown', (ev: MouseEvent) =>
+      this.handleMouseDown(ev),
+    );
     this.wrapper.addEventListener('mouseup', (ev) => this.handleMouseUp(ev));
+
     window.addEventListener(
       'resize',
       throttle(() => this.handleResize(), 10),
@@ -265,7 +272,10 @@ export default class NodeSystemView extends EventEmitter {
     );
   }
 
-  handleMouseMove({ clientX, clientY, shiftKey, ctrlKey, which }: MouseEvent) {
+  handleMouseMove(ev: MouseEvent) {
+    this.ev = ev;
+    const { clientX, clientY, shiftKey, ctrlKey, button } = ev;
+
     // e = Mouse click event.
     const x = clientX - this.left; //x position within the element.
     const y = clientY - this.top; //y position within the element.
@@ -279,7 +289,7 @@ export default class NodeSystemView extends EventEmitter {
     if (this.mouseDown) {
       vx = (this.mdx - x) / this.s;
       vy = (this.mdy - y) / this.s;
-      if (this.keyMap.space || which === 2) {
+      if (this.keyMap.space || button === 2) {
         this.setTransform({
           x: this.dx - vx,
           y: this.dy - vy,
@@ -303,7 +313,7 @@ export default class NodeSystemView extends EventEmitter {
     this.emit('mousemove', {
       x,
       y,
-      keys: { ...this.keyMap, shiftKey, ctrlKey, which },
+      keys: { ...this.keyMap, shiftKey, ctrlKey },
     });
   }
 
@@ -372,11 +382,14 @@ export default class NodeSystemView extends EventEmitter {
     this.emit('keyup', { key, keys: this.keyMap });
   }
 
-  handleKeyDown({ key, keyCode, ctrlKey, shiftKey }: KeyboardEvent) {
-    if (key === ' ') key = 'space';
-    switch (keyCode) {
-      // shift + a
-      case 65:
+  handleKeyDown({ key, ctrlKey, shiftKey }: KeyboardEvent) {
+    key = key === ' ' ? 'space' : key.toLowerCase();
+    this.keyMap[key && key.toLowerCase()] = true;
+    if (key === 'space') {
+      this.ev && this.handleMouseDown(this.ev);
+    }
+    switch (key) {
+      case 'a':
         if (shiftKey) {
           this.addMenu
             .show({ x: this.mx, y: this.my })
@@ -386,8 +399,7 @@ export default class NodeSystemView extends EventEmitter {
             .catch();
         }
         break;
-      // c
-      case 67:
+      case 'c':
         if (shiftKey && ctrlKey) {
           localStorage.clear();
           window.location.reload();
@@ -401,11 +413,11 @@ export default class NodeSystemView extends EventEmitter {
         }
         break;
       // f
-      case 70:
+      case 'f':
         this.setTransform({ x: 0, y: 0, s: 1 });
         break;
       // g
-      case 71:
+      case 'g':
         if (!this.keyMap.g) {
           this.mdx = this.mx;
           this.mdy = this.my;
@@ -416,15 +428,15 @@ export default class NodeSystemView extends EventEmitter {
         }
         break;
       // x
-      case 88:
+      case 'x':
         if (this.activeNode) this.system.removeNode(this.activeNode);
         this.selectedNodes.forEach((n) => n.remove());
         break;
       // z
-      case 90:
+      case 'z':
         break;
       // l
-      case 76:
+      case 'l':
         // TODO: implement new log
         if (this.activeNode) {
           console.log(this.activeNode);
@@ -432,7 +444,7 @@ export default class NodeSystemView extends EventEmitter {
         }
         break;
       // v
-      case 86:
+      case 'v':
         if (ctrlKey) {
           const sorted = this.clipboard.sort((a, b) => {
             const { pos: { x: x1 = 0, y: y1 = 0 } = {} } = a.attributes;
@@ -466,8 +478,6 @@ export default class NodeSystemView extends EventEmitter {
         }
         break;
     }
-
-    this.keyMap[key && key.toLowerCase()] = true;
 
     this.emit('keydown', { key, keys: { ...this.keyMap, ctrlKey } });
   }
