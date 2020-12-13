@@ -1,4 +1,1 @@
-node_modules/
-public/dist/
-public/stats.html
-.env
+public/build/

@@ -1,82 +1,64 @@
-/* eslint-disable no-undef */
-//BROWSER
+import svelte from 'rollup-plugin-svelte';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
-// import babel from 'rollup-plugin-babel';
-import scss from 'rollup-plugin-scss';
-import json from '@rollup/plugin-json';
+import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
-/* import analyze from 'rollup-plugin-analyzer';
-import svg from 'rollup-plugin-svg';
-import visualizer from 'rollup-plugin-visualizer';
-import replace from '@rollup/plugin-replace'; */
+import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
-import sourcemaps from "rollup-plugin-sourcemaps";
-import { string } from 'rollup-plugin-string';
-import svelte from "rollup-plugin-svelte";
-import autoPreprocess from 'svelte-preprocess';
-import livereload from "rollup-plugin-livereload"
-import serve from "rollup-plugin-serve"
+import scss from 'rollup-plugin-scss';
+import glslify from "rollup-plugin-glslify";
 
-const PROD = process.env.ROLLUP_WATCH !== 'true';
-
+const production = !process.env.ROLLUP_WATCH;
 
 export default {
-  input: './src/index.ts',
+	input: 'src/main.ts',
+	output: {
+		sourcemap: true,
+		format: 'iife',
+		name: 'app',
+		file: 'public/build/bundle.js'
+	},
+	plugins: [
+		svelte({
+			preprocess: sveltePreprocess(),
+			compilerOptions: {
+				// enable run-time checks when not in production
+				dev: !production
+			}
+		}),
+		// we'll extract any component CSS out into
+		// a separate file - better for performance
+		scss(),
 
-  watch: { clearScreen: false },
+		glslify(),
 
-  plugins: [
+		// If you have external dependencies installed from
+		// npm, you'll most likely need these plugins. In
+		// some cases you'll need additional configuration -
+		// consult the documentation for details:
+		// https://github.com/rollup/plugins/tree/master/packages/commonjs
+		resolve({
+			browser: true,
+			dedupe: ['svelte', "@plantarium/renderer"],
+			moduleDirectory: [ // as array
+				'../packages/*',
+			]
+		}),
+		commonjs(),
+		typescript({
+			inlineSources: !production,
+			include: ["../packages/**/*.ts", "src/**/*.ts"]
+		}),
 
-    resolve({
-      browser: true,
-      preferBuiltins: false
-    }),
+		// Watch the `public` directory and refresh the
+		// browser on changes when not in production
+		!production && livereload('public'),
 
-    commonjs(),
-
-    typescript(),
-
-    svelte({
-      customElement: true,
-      preprocess: autoPreprocess()
-    }),
-
-    string({
-      include: [
-        '**/*.frag',
-        '**/*.vert',
-      ],
-    }),
-
-    json(),
-
-
-    scss({
-      output: 'public/dist/bundle.css',
-      sourceMapEmbed: true
-    }),
-
-    sourcemaps(),
-
-
-    PROD && terser(),
-
-    !PROD && livereload('public'),
-    !PROD & serve({
-      host: '0.0.0.0',
-      port: 8080,
-      contentBase: "public"
-    }),
-
-  ],
-
-  output: [
-    {
-      dir: './public/dist',
-      format: 'iife',
-      name: 'plantarium_client',
-      sourcemap: true,
-    },
-  ],
+		// If we're building for production (npm run build
+		// instead of npm run dev), minify
+		production && terser()
+	],
+	watch: {
+		clearScreen: false
+	}
 };

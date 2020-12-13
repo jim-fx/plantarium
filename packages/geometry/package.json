@@ -1,0 +1,9 @@
+{
+  "name": "@plantarium/geometry",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "open-simplex-noise": "^2.4.0-pre4"
+  }
+}
