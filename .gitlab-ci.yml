@@ -16,7 +16,7 @@ stages:
 build:frontend:
   stage: build
   script:
-    - yarn install
+    - yarn install --ignore-optional
     - yarn build
   artifacts:
     paths:

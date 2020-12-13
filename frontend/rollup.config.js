@@ -6,6 +6,7 @@ import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import scss from 'rollup-plugin-scss';
+import sass from "sass";
 import glslify from "rollup-plugin-glslify";
 
 const production = !process.env.ROLLUP_WATCH;
@@ -28,7 +29,9 @@ export default {
 		}),
 		// we'll extract any component CSS out into
 		// a separate file - better for performance
-		scss(),
+		scss({
+			sass
+		}),
 
 		glslify(),
 
