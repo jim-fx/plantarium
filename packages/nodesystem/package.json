@@ -1,0 +1,10 @@
+{
+  "name": "@plantarium/nodesystem",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "source": "src/index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@plantarium/ui": "1.0.0"
+  }
+}

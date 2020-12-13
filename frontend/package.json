@@ -1,0 +1,29 @@
+{
+  "name": "@plantarium/frontend",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^16.0.0",
+    "@rollup/plugin-node-resolve": "^10.0.0",
+    "@rollup/plugin-typescript": "^6.0.0",
+    "@tsconfig/svelte": "^1.0.0",
+    "rollup": "^2.3.4",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-svelte": "^7.0.0",
+    "rollup-plugin-terser": "^7.0.0",
+    "svelte": "^3.0.0",
+    "svelte-preprocess": "^4.0.0",
+    "tslib": "^2.0.0"
+  },
+  "dependencies": {
+    "@plantarium/renderer": "1.0.0",
+    "rollup-plugin-glslify": "^1.2.0",
+    "rollup-plugin-scss": "^2.6.1",
+    "sass": "^1.30.0",
+    "typescript": "^4.1.3"
+  }
+}

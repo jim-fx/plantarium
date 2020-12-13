@@ -1,0 +1,24 @@
+{
+  "name": "plantarium",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "backend": "yarn workspace @plantarium/backend",
+    "frontend": "yarn workspace @plantarium/frontend",
+    "frontend:dev": "yarn frontend dev",
+    "frontend:build": "yarn frontend build",
+    "backend:dev": "yarn backend dev",
+    "backend:start": "yarn backend start",
+    "backend:build": "yarn backend build",
+    "build": "run-p frontend:build backend:build",
+    "dev": "run-p backend:dev frontend:dev",
+    "start": "yarn build && yarn backend:start"
+  },
+  "dependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
