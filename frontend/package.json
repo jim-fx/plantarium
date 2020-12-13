@@ -1,33 +1,29 @@
 {
   "name": "@plantarium/frontend",
-  "version": "0.0.7",
-  "description": "Tool for the procedural generation of 3D plants.",
-  "main": "public/dist/bundle.js",
-  "bundle": "public/dist/bundle.js",
-  "scripts": {
-    "dev": "rollup -c -w",
-    "build": "rollup -c",
-    "clean": "rm -rf public/dist"
-  },
+  "version": "1.0.0",
   "license": "MIT",
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
-  "dependencies": {
-    "@babel/core": "^7.9.6",
-    "file-saver": "^2.0.2",
-    "ogl-typescript": "^0.1.20",
-    "open-simplex-noise": "^2.4.0-pre4",
-    "resize-observer-polyfill": "^1.5.1",
-    "rollup-plugin-livereload": "^2.0.0",
-    "rollup-plugin-serve": "^1.0.4",
-    "settings-ui": "^1.3.2"
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
   },
   "devDependencies": {
-    "rollup": "^2.26.11",
+    "@rollup/plugin-commonjs": "^16.0.0",
+    "@rollup/plugin-node-resolve": "^10.0.0",
+    "@rollup/plugin-typescript": "^6.0.0",
+    "@tsconfig/svelte": "^1.0.0",
+    "rollup": "^2.3.4",
     "rollup-plugin-livereload": "^2.0.0",
-    "rollup-plugin-serve": "^1.0.4"
+    "rollup-plugin-svelte": "^7.0.0",
+    "rollup-plugin-terser": "^7.0.0",
+    "svelte": "^3.0.0",
+    "svelte-preprocess": "^4.0.0",
+    "tslib": "^2.0.0"
+  },
+  "dependencies": {
+    "@plantarium/renderer": "1.0.0",
+    "rollup-plugin-glslify": "^1.2.0",
+    "rollup-plugin-scss": "^2.6.1",
+    "sass": "^1.30.0",
+    "typescript": "^4.1.3"
   }
 }

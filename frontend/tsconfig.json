@@ -1,8 +1,5 @@
 {
   "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "baseUrl": "src",
-    "rootDir": "src",
-    "outDir": "public/dist"
-  }
+  "include": ["src/**/*", "../packages/**/*"],
+  "exclude": ["node_modules/*", "__sapper__/*", "public/*"]
 }
