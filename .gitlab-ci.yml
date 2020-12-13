@@ -20,7 +20,7 @@ build:frontend:
     - yarn build
   artifacts:
     paths:
-      - frontend/public/dist
+      - frontend/public/build
 
 pages:
   stage: deploy
