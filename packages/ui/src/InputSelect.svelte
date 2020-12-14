@@ -42,7 +42,6 @@
     color: white;
     border-radius: 2px;
     position: relative;
-    font-size: 0.6em;
     padding: 8%;
   }
 

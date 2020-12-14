@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import ClickOutside from 'svelte-click-outside';
 
   import { NodeSystem } from '@plantarium/nodesystem';
   import Nodes from '@plantarium/nodes';
@@ -10,23 +11,6 @@
   import { SettingsManager } from './components/settings-manager';
   import SettingsManagerView from './components/settings-manager/SettingsManagerView.svelte';
   import ProjectManagerView from './components/project-manager/ProjectManagerView.svelte';
-
-  const defaultProject = {
-    meta: { transform: { x: 0, y: 0, s: 1 } },
-    nodes: [
-      {
-        attributes: {
-          pos: { x: -100, y: 0 },
-          type: 'stem',
-          id: '1',
-          refs: [{ id: '0', in: 'main' }],
-        },
-      },
-      {
-        attributes: { pos: { x: 0, y: 0 }, type: 'output', id: '0', refs: [] },
-      },
-    ],
-  };
 
   let nodeSystemWrapper: HTMLDivElement;
   let projectManager: ProjectManager;
@@ -42,14 +26,6 @@
     });
 
     projectManager = new ProjectManager(nodeSystem, settingsManager);
-
-    nodeSystem.load(
-      JSON.parse(localStorage.getItem('nodesystem')) || defaultProject,
-    );
-
-    nodeSystem.on('save', (save) => {
-      localStorage.setItem('nodesystem', JSON.stringify(save));
-    });
   });
 </script>
 
@@ -66,20 +42,30 @@
       display: inline-block;
     }
   }
+
+  .project-wrapper.active {
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    opacity: 0.95;
+  }
 </style>
 
 <header>
   <div class="left">
-    <div>
-      <Button
-        icon="Cog"
-        name="Projects"
-        cls="projects-icon"
-        bind:active={showPM} />
-      {#if projectManager}
-        <ProjectManagerView pm={projectManager} visible={showPM} />
-      {/if}
-    </div>
+    <ClickOutside on:clickoutside={() => (showPM = false)}>
+      <div class="project-wrapper" class:active={showPM}>
+        <Button
+          icon="Cog"
+          name="Projects"
+          cls="projects-icon"
+          bind:active={showPM} />
+        {#if projectManager}
+          <ProjectManagerView
+            pm={projectManager}
+            visible={showPM}
+            on:close={() => (showPM = false)} />
+        {/if}
+      </div>
+    </ClickOutside>
   </div>
 
   <div class="right">

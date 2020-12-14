@@ -1127,6 +1127,11 @@ http-signature@~1.2.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
+immediate@~3.0.5:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/immediate/-/immediate-3.0.6.tgz#9db1dbd0faf8de6fbe0f5dd5e56bb606280de69b"
+  integrity sha1-nbHb0Pr43m++D13V5Wu2BigN5ps=
+
 in-publish@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/in-publish/-/in-publish-2.0.1.tgz#948b1a535c8030561cea522f73f78f4be357e00c"
@@ -1348,6 +1353,13 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
+lie@3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/lie/-/lie-3.1.1.tgz#9a436b2cc7746ca59de7a41fa469b3efb76bd87e"
+  integrity sha1-mkNrLMd0bKWd56QfpGmz77dr2H4=
+  dependencies:
+    immediate "~3.0.5"
+
 livereload-js@^3.1.0:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/livereload-js/-/livereload-js-3.3.1.tgz#61f887468086762e61fb2987412cf9d1dda99202"
@@ -1388,6 +1400,13 @@ local-access@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/local-access/-/local-access-1.1.0.tgz#e007c76ba2ca83d5877ba1a125fc8dfe23ba4798"
   integrity sha512-XfegD5pyTAfb+GY6chk283Ox5z8WexG56OvM06RWLpAc/UHozO8X6xAxEkIitZOtsSMM1Yr3DkHgW5W+onLhCw==
+
+localforage@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/localforage/-/localforage-1.9.0.tgz#f3e4d32a8300b362b4634cc4e066d9d00d2f09d1"
+  integrity sha512-rR1oyNrKulpe+VM9cYmcFn6tsHuokyVHFaCM3+osEmxaHTbEk8oQu6eGDfS6DQLWi/N67XRmB8ECG37OES368g==
+  dependencies:
+    lie "3.1.1"
 
 locate-path@^3.0.0:
   version "3.0.0"
@@ -2454,6 +2473,11 @@ supports-color@^7.0.0:
   dependencies:
     has-flag "^4.0.0"
 
+svelte-click-outside@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/svelte-click-outside/-/svelte-click-outside-1.0.0.tgz#94a823779e3613ae0bdadc53f26916fdd64cb09e"
+  integrity sha512-TVDn5Vd8L0WI0Y9BFh/2I7judkIqYCbFKkGwGl/f8D0inwBFNyU0weKhrbJY4VQtYnWriq0NPl+mIYGisgALbw==
+
 svelte-color-picker@^1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/svelte-color-picker/-/svelte-color-picker-1.0.7.tgz#06d0d69cbd4c8430b2d7a72c1d17d3dace0c2ed3"
@@ -2470,6 +2494,13 @@ svelte-preprocess@^4.0.0:
     "@types/sass" "^1.16.0"
     detect-indent "^6.0.0"
     strip-indent "^3.0.0"
+
+svelte-resize-observer@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/svelte-resize-observer/-/svelte-resize-observer-1.1.0.tgz#6c1bd3549fb8494d3fa970b91d5f276441c71583"
+  integrity sha512-vTZNfyXCx1Ibh61KTuWjqkX1CnXrYf5Ct1ppgZ5cYja6mNUyYml/7FNc/3wUmyBYT7RMdS8y/u/F/+SZI9Kp5w==
+  dependencies:
+    resize-observer-polyfill "^1.5.1"
 
 svelte@^3.0.0:
   version "3.31.0"
