@@ -54,9 +54,15 @@ export default class ProjectManager extends EventEmitter {
   }
 
   private createNewProject(): PlantProject {
+    const amountDefaultProjects = Object.values(this.projects).filter((p) =>
+      /^DefaultProject((\d)+)?/.test(p.meta.name),
+    ).length;
+
     const plant = {
       meta: {
-        name: 'DefaultProject',
+        name:
+          'DefaultProject' +
+          (amountDefaultProjects ? amountDefaultProjects : ''),
         id: createId(),
         transform: { x: 0, y: 0, s: 1 },
       },
@@ -117,6 +123,18 @@ export default class ProjectManager extends EventEmitter {
     const project = (await storage.getItem(PTP_PREFIX + id)) as PlantProject;
     this.projects[id] = project;
     return project;
+  }
+
+  async deleteProject(id: string) {
+    if (id in this.projects) {
+      delete this.projects[id];
+      await storage.removeItem(PTP_PREFIX + id);
+      await storage.setItem('pt_project_ids', Object.keys(this.projects));
+      this.store.set(Object.values(this.projects));
+      log('deleted project with id: ' + id);
+    } else {
+      log.warn('cant delete project with id: ' + id);
+    }
   }
 
   async setActiveProject(id: string) {

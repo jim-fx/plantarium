@@ -1,6 +1,8 @@
 const getPluralS = (amount: number) => (amount > 1 ? 's' : '');
 
 const time = (millis: number) => {
+  if (typeof millis !== 'number' || isNaN(millis)) return 'never';
+
   if (millis < 1000) return millis + ' millisecond' + getPluralS(millis);
 
   const seconds = Math.floor(millis / 1000);
