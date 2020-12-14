@@ -10,8 +10,6 @@
   export let visible = false;
 
   const { store } = pm;
-
-  store.subscribe(() => console.log('store update'));
 </script>
 
 <style lang="scss">
@@ -132,22 +130,24 @@
     </button>
   </div>
 
-  <div class="project-list">
-    {#each $store as project}
-      <div
-        class="project-wrapper"
-        class:active={project.meta.active}
-        on:click={() => pm.setActiveProject(project.meta.id)}>
-        <div class="project-image">
-          <!--  -->
-        </div>
-        <div class="project-content">
-          <div class="project-content-header">
-            <h3>{project.meta.name}</h3>
-            <p>{humane.time(Date.now() - project.meta.lastSaved)} ago</p>
+  {#if visible}
+    <div class="project-list">
+      {#each $store as project}
+        <div
+          class="project-wrapper"
+          class:active={project.meta.active}
+          on:click={() => pm.setActiveProject(project.meta.id)}>
+          <div class="project-image">
+            <!--  -->
+          </div>
+          <div class="project-content">
+            <div class="project-content-header">
+              <h3>{project.meta.name}</h3>
+              <p>{humane.time(Date.now() - project.meta.lastSaved)} ago</p>
+            </div>
           </div>
         </div>
-      </div>
-    {/each}
-  </div>
+      {/each}
+    </div>
+  {/if}
 </div>

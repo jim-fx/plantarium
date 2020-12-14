@@ -39,6 +39,12 @@ export default class ProjectManager extends EventEmitter {
     this.nodeSystem = nodeSystem;
 
     nodeSystem.on('result', this.setProject.bind(this), 50);
+    nodeSystem.on(
+      'save',
+      (project: PlantProject) => this.saveProject(project),
+      1000,
+    );
+
     this.setProject(nodeSystem.result as NodeResult);
 
     this.settingsManager = settingsManager;
