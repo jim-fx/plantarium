@@ -28,8 +28,8 @@
     overflow: auto;
     min-width: 300px;
     overflow-x: hidden;
-    min-height: 300px;
-    max-height: 80vh;
+    min-height: 100px;
+    max-height: min-content;
     max-width: 500px;
   }
 
@@ -108,8 +108,38 @@
     }
 
     > .project-content {
-      display: inline-block;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
       padding-left: 5px;
+
+      > .project-content-header {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        > p {
+          font-size: 0.8em;
+        }
+      }
+
+      > .project-content-footer {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+
+        > button {
+          font-size: 0.8em;
+          border: none;
+          border-radius: 6px;
+          margin: 0;
+          margin-right: 5px;
+
+          &.delete {
+            background-color: $light-red;
+          }
+        }
+      }
     }
 
     &.active {
@@ -135,17 +165,27 @@
       {#each $store as project}
         <div
           class="project-wrapper"
-          class:active={project.meta.active}
+          class:active={project.meta.id === pm.activeProjectId}
           on:click={() => pm.setActiveProject(project.meta.id)}>
           <div class="project-image">
             <!--  -->
           </div>
           <div class="project-content">
             <div class="project-content-header">
-              <h3 contenteditable on:change={(ev) => console.log(ev)}>
+              <h3
+                contenteditable
+                on:input={function (ev) {
+                  pm.updateProjectMeta(project.meta.id, {
+                    name: ev.currentTarget.innerText,
+                  });
+                }}>
                 {project.meta.name}
               </h3>
               <p>{humane.time(Date.now() - project.meta.lastSaved)} ago</p>
+            </div>
+            <div class="project-content-main" />
+            <div class="project-content-footer">
+              <button class="delete">delete</button>
             </div>
           </div>
         </div>

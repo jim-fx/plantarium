@@ -28,7 +28,7 @@ const PTP_PREFIX = 'pt_project_';
 export default class ProjectManager extends EventEmitter {
   private plant: NodeResult;
   private settingsManager: SettingsManager;
-  public activeProject: PlantProject;
+  public activeProjectId: string;
   private projects: { [key: string]: PlantProject } = {};
   public store: Writable<PlantProject[]> = writable([]);
   private nodeSystem: NodeSystem;
@@ -90,36 +90,43 @@ export default class ProjectManager extends EventEmitter {
     this.saveProject(plant);
   }
 
-  private async saveProject(plant: PlantProject) {
-    this.projects[plant.meta.id] = plant;
+  async updateProjectMeta(id: string, meta: Partial<PlantProjectMeta>) {
+    const project = await this.getProject(id);
+
+    project.meta = { ...project.meta, ...meta };
+
+    console.log(project.meta);
+
+    this.saveProject(project);
+  }
+
+  private async saveProject(project: PlantProject) {
+    this.projects[project.meta.id] = project;
 
     await storage.setItem('pt_project_ids', Object.keys(this.projects));
 
-    await storage.setItem(PTP_PREFIX + plant.meta.id, plant);
+    await storage.setItem(PTP_PREFIX + project.meta.id, project);
 
-    log('saved plant id: ', plant.meta.id);
+    log('saved plant id: ', project.meta.id);
 
     this.store.set(Object.values(this.projects));
   }
 
   private async getProject(id: string): Promise<PlantProject> {
-    return storage.getItem(PTP_PREFIX + id);
+    if (id in this.projects) return this.projects[id];
+    const project = (await storage.getItem(PTP_PREFIX + id)) as PlantProject;
+    this.projects[id] = project;
+    return project;
   }
 
   async setActiveProject(id: string) {
-    if (id === this?.activeProject?.meta.id) return;
+    if (id === this?.activeProjectId) return;
     const project = await this.getProject(id);
     if (project) {
       await storage.setItem('pt_active_id', id);
-
-      if (this.activeProject) {
-        this.activeProject.meta.active = false;
-        this.saveProject(this.activeProject);
-      }
-      this.activeProject = project;
-      this.activeProject.meta.active = true;
-      this.saveProject(this.activeProject);
+      this.activeProjectId = id;
       this.nodeSystem.load(project);
+      this.saveProject(project);
       log('set active project to id: ' + id);
     } else {
       log.warn('cant find plant with id: ' + id);
