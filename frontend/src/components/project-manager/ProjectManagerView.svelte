@@ -142,7 +142,9 @@
           </div>
           <div class="project-content">
             <div class="project-content-header">
-              <h3>{project.meta.name}</h3>
+              <h3 contenteditable on:change={(ev) => console.log(ev)}>
+                {project.meta.name}
+              </h3>
               <p>{humane.time(Date.now() - project.meta.lastSaved)} ago</p>
             </div>
           </div>

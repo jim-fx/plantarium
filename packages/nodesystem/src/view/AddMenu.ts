@@ -163,7 +163,6 @@ export default class RightClickMenu {
     );
 
     this.view.on('keydown', ({ key }) => {
-      console.log(key);
       switch (key) {
         case 'escape':
           this.reject();
