@@ -27,6 +27,8 @@
     "rollup-plugin-scss": "^2.6.1",
     "rollup-plugin-svg-import": "^1.5.1",
     "shortid": "^2.2.16",
+    "svelte-click-outside": "^1.0.0",
+    "svelte-resize-observer": "^1.1.0",
     "typescript": "^4.1.3"
   }
 }

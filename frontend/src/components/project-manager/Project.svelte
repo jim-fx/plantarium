@@ -11,7 +11,7 @@
 
   .project-wrapper {
     position: relative;
-    height: 100px;
+    min-height: 100px;
     padding: 4px;
     border-radius: 10px;
     display: grid;
@@ -70,6 +70,7 @@
 <div
   class="project-wrapper"
   class:active={project.meta.id === pm.activeProjectId}
+  on:resize={alert}
   on:click={() => pm.setActiveProject(project.meta.id)}>
   <div class="project-image">
     <!--  -->

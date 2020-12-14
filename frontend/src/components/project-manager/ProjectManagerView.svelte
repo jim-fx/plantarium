@@ -1,16 +1,19 @@
 <script lang="ts">
   import { InputSelect } from '@plantarium/ui';
-  import { humane } from '@plantarium/helpers';
   import { createEventDispatcher } from 'svelte';
+  import ResizeObserer from 'svelte-resize-observer';
   const dispatch = createEventDispatcher();
 
   import type ProjectManager from './ProjectManager';
   import Project from './Project.svelte';
+  import { localState } from '../../helpers';
   export let pm: ProjectManager;
 
   export let visible = false;
 
   const { store } = pm;
+
+  const { width, height } = localState.get('pmSize');
 </script>
 
 <style lang="scss">
@@ -24,6 +27,8 @@
     pointer-events: none;
     resize: both;
     border-radius: 0px 5px 5px 5px;
+
+    margin-bottom: 8px;
 
     resize: both;
     overflow: auto;
@@ -92,7 +97,15 @@
   }
 </style>
 
-<div class="wrapper" class:visible>
+<div
+  class="wrapper"
+  class:visible
+  style={`width: ${width}px; height: ${height}px;`}>
+  <ResizeObserer
+    on:resize={(ev) => localState.set('pmSize', {
+        width: ev.detail.contentRect.width,
+        height: ev.detail.contentRect.height,
+      })} />
   <div class="header">
     <button class="add-new" on:click={() => pm.createNew()}>
       <p>new</p>

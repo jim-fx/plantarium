@@ -10,6 +10,7 @@ import {
 
 import BackgroundScene from './background';
 import ForegroundScene from './foreground';
+import { localState } from '../../helpers';
 
 export default class Scene {
   renderer: Renderer;
@@ -23,7 +24,8 @@ export default class Scene {
   gl: OGLRenderingContext;
 
   constructor(pm: ProjectManager, canvas: HTMLCanvasElement) {
-    this.renderer = new Renderer(canvas);
+    this.renderer = new Renderer(canvas, { camPos: localState.get('camPos') });
+    this.renderer.on('camPos', (camPos) => localState.set('camPos', camPos));
     this.renderer.handleResize();
     this.scene = this.renderer.scene;
     this.gl = this.renderer.gl;

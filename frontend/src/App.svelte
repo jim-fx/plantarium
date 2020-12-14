@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import ClickOutside from 'svelte-click-outside';
 
   import { NodeSystem } from '@plantarium/nodesystem';
   import Nodes from '@plantarium/nodes';
@@ -41,23 +42,30 @@
       display: inline-block;
     }
   }
+
+  .project-wrapper.active {
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    opacity: 0.95;
+  }
 </style>
 
 <header>
   <div class="left">
-    <div>
-      <Button
-        icon="Cog"
-        name="Projects"
-        cls="projects-icon"
-        bind:active={showPM} />
-      {#if projectManager}
-        <ProjectManagerView
-          pm={projectManager}
-          visible={showPM}
-          on:close={() => (showPM = false)} />
-      {/if}
-    </div>
+    <ClickOutside on:clickoutside={() => (showPM = false)}>
+      <div class="project-wrapper" class:active={showPM}>
+        <Button
+          icon="Cog"
+          name="Projects"
+          cls="projects-icon"
+          bind:active={showPM} />
+        {#if projectManager}
+          <ProjectManagerView
+            pm={projectManager}
+            visible={showPM}
+            on:close={() => (showPM = false)} />
+        {/if}
+      </div>
+    </ClickOutside>
   </div>
 
   <div class="right">

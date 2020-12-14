@@ -1,3 +1,4 @@
+//@ts-nocheck
 const tension = 0.4;
 
 function plotCBez(
