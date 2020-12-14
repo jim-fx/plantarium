@@ -72,9 +72,15 @@ interface Vec3 {
   z: number;
   pinned?: boolean;
 }
-interface PlantDescription {
+
+interface NodeProps {
+  attributes: NodeAttributes;
+  state?: any;
+}
+
+interface PlantProject {
   meta: PlantMetaInfo;
-  main: NodeResult;
+  nodes: NodeProps[];
 }
 
 interface PlantMetaInfo {
@@ -82,12 +88,18 @@ interface PlantMetaInfo {
 
   id: string;
 
-  authorID: string;
+  authorID?: string;
 
+  transform?: {
+    x: number;
+    y: number;
+    s: number;
+  };
+  active?: boolean;
   plantariumVersion?: string;
   seed?: number;
   randomSeed?: boolean;
-  lastSaved?: string;
+  lastSaved?: number;
   author?: string;
   latinName?: string;
   family?: string;

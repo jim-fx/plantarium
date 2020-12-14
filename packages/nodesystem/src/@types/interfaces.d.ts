@@ -36,7 +36,7 @@ interface NodeSystemData {
 }
 
 interface NodeSystemMeta {
-  lastSaved: number;
+  lastSaved?: number;
   transform?: {
     x: number;
     y: number;

@@ -24,7 +24,7 @@ export default class ForegroundScene {
     this.dbg = new DebugScene(scene, pm);
 
     this.setSettings(pm.getSettings());
-    this.setPlant(pm.getPlant());
+    this.setPlant(pm.getActiveProject());
 
     this.pm.on('settings', this.setSettings.bind(this));
     this.pm.on('plant', this.setPlant.bind(this));

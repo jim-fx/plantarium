@@ -1,31 +1,17 @@
 <script lang="ts">
+  import { InputSelect } from '@plantarium/ui';
+  import { humane } from '@plantarium/helpers';
+  import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
+
   import type ProjectManager from './ProjectManager';
   export let pm: ProjectManager;
 
   export let visible = false;
 
-  const projects = [
-    {
-      name: 'Fern02',
-    },
-    {
-      name: 'Fern02',
-    },
-    {
-      name: 'Fern02',
-    },
-    {
-      name: 'Fern02',
-    },
-    {
-      name: 'Fern02',
-    },
-    {
-      name: 'Fern02',
-    },
-  ];
+  const { store } = pm;
 
-  pm.on('save', () => {});
+  store.subscribe(() => console.log('store update'));
 </script>
 
 <style lang="scss">
@@ -61,38 +47,58 @@
     display: grid;
     grid-template-columns: auto 1fr auto auto;
     column-gap: 5px;
-    padding: 20px;
+    padding: 7px;
     z-index: 99;
     min-height: 30px;
     padding-bottom: 0px;
     top: 0px;
     left: 0px;
     background: linear-gradient(0deg, #65e29f00 0%, #65e29f 50%);
-    padding-right: 15px;
+
+    > * {
+      height: 100%;
+      border-radius: 5px;
+      padding: 0px 10px;
+      background-color: $dark-green;
+      color: white;
+      font-size: 1em;
+      border: none;
+
+      > p {
+        padding: 0px;
+        color: white;
+      }
+    }
+
+    > :global(#main > *) {
+      background-color: $dark-green;
+      font-size: 1em;
+    }
+
+    > button {
+      cursor: pointer;
+    }
   }
 
-  .header > div {
-    height: 100%;
-    background-color: red;
-    border-radius: 5px;
-  }
-
-  .header > div > p {
-    padding: 5px;
+  .close {
+    width: 30px;
   }
 
   .project-list {
     overflow-y: hidden;
     overflow-x: hidden;
-    padding: 10px;
-    padding-right: 15px;
+    padding: 3px;
+    padding-right: 7px;
+    padding-top: 7px;
   }
 
   .project-wrapper {
     position: relative;
     height: 100px;
-    padding: 10px;
+    padding: 4px;
     border-radius: 10px;
+    display: grid;
+    grid-template-columns: 100px 1fr;
 
     > .project-image {
       background-image: url('../assets/rocky_dirt1-albedo.jpg');
@@ -105,6 +111,7 @@
 
     > .project-content {
       display: inline-block;
+      padding-left: 5px;
     }
 
     &.active {
@@ -115,28 +122,30 @@
 
 <div class="wrapper" class:visible>
   <div class="header">
-    <div class="add-new">
+    <button class="add-new" on:click={() => pm.createNew()}>
       <p>new</p>
-    </div>
-    <div class="search">
-      <p>search</p>
-    </div>
-    <div class="sort">
-      <p>sort</p>
-    </div>
-    <div class="close">
+    </button>
+    <input type="text" class="search" placeholder="Search" />
+    <InputSelect values={['Date', 'Test', 'Test2']} />
+    <button class="close" on:click={() => dispatch('close')}>
       <p>x</p>
-    </div>
+    </button>
   </div>
 
   <div class="project-list">
-    {#each projects as project}
-      <div class="project-wrapper" class:active={Math.random() > 0.5}>
+    {#each $store as project}
+      <div
+        class="project-wrapper"
+        class:active={project.meta.active}
+        on:click={() => pm.setActiveProject(project.meta.id)}>
         <div class="project-image">
           <!--  -->
         </div>
         <div class="project-content">
-          <h3>{project.name}</h3>
+          <div class="project-content-header">
+            <h3>{project.meta.name}</h3>
+            <p>{humane.time(Date.now() - project.meta.lastSaved)} ago</p>
+          </div>
         </div>
       </div>
     {/each}

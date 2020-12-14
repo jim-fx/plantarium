@@ -11,23 +11,6 @@
   import SettingsManagerView from './components/settings-manager/SettingsManagerView.svelte';
   import ProjectManagerView from './components/project-manager/ProjectManagerView.svelte';
 
-  const defaultProject = {
-    meta: { transform: { x: 0, y: 0, s: 1 } },
-    nodes: [
-      {
-        attributes: {
-          pos: { x: -100, y: 0 },
-          type: 'stem',
-          id: '1',
-          refs: [{ id: '0', in: 'main' }],
-        },
-      },
-      {
-        attributes: { pos: { x: 0, y: 0 }, type: 'output', id: '0', refs: [] },
-      },
-    ],
-  };
-
   let nodeSystemWrapper: HTMLDivElement;
   let projectManager: ProjectManager;
   let showPM = false;
@@ -42,14 +25,6 @@
     });
 
     projectManager = new ProjectManager(nodeSystem, settingsManager);
-
-    nodeSystem.load(
-      JSON.parse(localStorage.getItem('nodesystem')) || defaultProject,
-    );
-
-    nodeSystem.on('save', (save) => {
-      localStorage.setItem('nodesystem', JSON.stringify(save));
-    });
   });
 </script>
 
@@ -77,7 +52,10 @@
         cls="projects-icon"
         bind:active={showPM} />
       {#if projectManager}
-        <ProjectManagerView pm={projectManager} visible={showPM} />
+        <ProjectManagerView
+          pm={projectManager}
+          visible={showPM}
+          on:close={() => (showPM = false)} />
       {/if}
     </div>
   </div>

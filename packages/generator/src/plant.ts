@@ -63,7 +63,7 @@ export default function plant(rootNode: NodeResult, s: PlantariumSettings) {
 
   const a2 = performance.now();
 
-  console.log(a2 - a1);
+  // console.log(a2 - a1);
 
   return result;
 }

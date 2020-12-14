@@ -163,14 +163,15 @@ export default class RightClickMenu {
     );
 
     this.view.on('keydown', ({ key }) => {
+      console.log(key);
       switch (key) {
-        case 'Escape':
+        case 'escape':
           this.reject();
           break;
-        case 'ArrowDown':
+        case 'arrowdown':
           this.setActive(1);
           break;
-        case 'ArrowUp':
+        case 'arrowup':
           this.setActive(-1);
           break;
       }
@@ -301,8 +302,6 @@ export default class RightClickMenu {
     if (this.possibleContainers.length) this.possibleContainers[0].focus();
 
     this.filteredContainers = [...this.possibleContainers];
-
-    console.log(this.filteredContainers);
 
     return new Promise((res, rej) => {
       this.res = res;
