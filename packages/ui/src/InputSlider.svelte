@@ -104,7 +104,6 @@
     position: absolute;
     display: inline;
     pointer-events: none;
-    font-size: 0.7em;
     color: #cccccc;
     text-shadow: 0px 0px 2px black;
     top: -1.2em;

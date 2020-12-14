@@ -15,7 +15,8 @@
     border: none;
     background-color: transparent;
     outline: none;
-    transition: background-color 0.3s ease;
+    transition: none;
+    cursor: pointer;
   }
 
   button.has-icon > :global(.icon-wrapper) {

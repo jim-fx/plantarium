@@ -80,7 +80,6 @@
     background-color: transparent;
     padding: 8%;
     width: 72%;
-    font-size: 0.6em;
     font-weight: bold;
     text-align: center;
     border: none;

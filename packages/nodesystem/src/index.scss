@@ -1,4 +1,4 @@
-@import "./variables.scss";
+@import './variables.scss';
 
 html {
   height: 100%;
@@ -13,7 +13,6 @@ label {
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
   background: transparent;
-  font-size: 0.8em;
   color: $border;
   border: none;
 }
