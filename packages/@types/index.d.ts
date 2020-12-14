@@ -79,11 +79,11 @@ interface NodeProps {
 }
 
 interface PlantProject {
-  meta: PlantMetaInfo;
+  meta: PlantProjectMeta;
   nodes: NodeProps[];
 }
 
-interface PlantMetaInfo {
+interface PlantProjectMeta {
   name: string;
 
   id: string;
