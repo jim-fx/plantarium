@@ -13,7 +13,7 @@
 
   const { store } = pm;
 
-  const { width, height } = localState.get('pmSize');
+  const { width = 'unset', height = 'unset' } = localState.get('pmSize') || {};
 </script>
 
 <style lang="scss">
