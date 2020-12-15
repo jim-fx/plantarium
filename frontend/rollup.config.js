@@ -16,9 +16,9 @@ export default {
 	input: 'src/main.ts',
 	output: {
 		sourcemap: true,
-		format: 'iife',
+		format: "es",
 		name: 'app',
-		file: 'public/build/bundle.js'
+		dir: "public/build"
 	},
 	plugins: [
 		svelte({
@@ -31,7 +31,8 @@ export default {
 		// we'll extract any component CSS out into
 		// a separate file - better for performance
 		scss({
-			sass
+			sass,
+			output: "public/build/bundle.css"
 		}),
 
 		glslify(),

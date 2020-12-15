@@ -5,17 +5,20 @@
   import { NodeSystem } from '@plantarium/nodesystem';
   import Nodes from '@plantarium/nodes';
   import { Button } from '@plantarium/ui';
+  import { lazyLoad } from './helpers';
 
   import { ProjectManager } from './components/project-manager';
   import Scene from './components/scene/Scene.svelte';
   import { SettingsManager } from './components/settings-manager';
   import SettingsManagerView from './components/settings-manager/SettingsManagerView.svelte';
-  import ProjectManagerView from './components/project-manager/ProjectManagerView.svelte';
 
   let nodeSystemWrapper: HTMLDivElement;
   let projectManager: ProjectManager;
   let showPM = false;
+  $: pmLoad = pmLoad || showPM || false;
   const settingsManager = new SettingsManager();
+
+  const db = 'APP: imported projectManager';
 
   onMount(() => {
     const nodeSystem = new NodeSystem({
@@ -58,11 +61,14 @@
           name="Projects"
           cls="projects-icon"
           bind:active={showPM} />
-        {#if projectManager}
-          <ProjectManagerView
-            pm={projectManager}
-            visible={showPM}
-            on:close={() => (showPM = false)} />
+        {#if projectManager && pmLoad}
+          {#await lazyLoad('pmv') then ProjectManagerView}
+            <svelte:component
+              this={ProjectManagerView}
+              pm={projectManager}
+              visible={showPM}
+              on:close={() => (showPM = false)} />
+          {/await}
         {/if}
       </div>
     </ClickOutside>
