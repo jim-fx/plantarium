@@ -101,8 +101,8 @@ export default class NodeSystem extends EventEmitter {
   }
 
   set result(res) {
-    this._result = res;
     this.emit('result', res);
+    this._result = res;
   }
 
   load(systemData: NodeSystemData) {

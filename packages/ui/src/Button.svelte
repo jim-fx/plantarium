@@ -19,6 +19,13 @@
     cursor: pointer;
   }
 
+  button.only-icon {
+    width: 40px;
+    > :global(.icon-wrapper) {
+      left: 9px;
+    }
+  }
+
   button.has-icon > :global(.icon-wrapper) {
     position: absolute;
     top: 9px;
@@ -47,11 +54,15 @@
   on:click={() => (active = !active)}
   class={cls}
   class:active
+  class:only-icon={!name}
   class:has-icon={!!icon}>
   {#if icon}
     <Icon name={icon} {active} />
   {/if}
-  <p>{name}</p>
+
+  {#if name}
+    <p>{name}</p>
+  {/if}
 
   <div class="content">
     <slot />

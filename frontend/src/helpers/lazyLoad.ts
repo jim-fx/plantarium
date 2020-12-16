@@ -2,7 +2,14 @@ const components = {
   pmv: {
     name: 'ProjectManagerView',
     import: () =>
+      //@ts-ignore
       import('../components/project-manager/ProjectManagerView.svelte'),
+  },
+  smv: {
+    name: 'ProjectManagerView',
+    import: () =>
+      //@ts-ignore
+      import('../components/settings-manager/SettingsManagerView.svelte'),
   },
 };
 

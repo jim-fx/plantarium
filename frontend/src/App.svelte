@@ -16,6 +16,8 @@
   let projectManager: ProjectManager;
   let showPM = false;
   $: pmLoad = pmLoad || showPM || false;
+  let sShow = false;
+  $: sLoad = sLoad || sShow || false;
   const settingsManager = new SettingsManager();
 
   const db = 'APP: imported projectManager';
@@ -40,10 +42,8 @@
   }
 
   header {
-    .left,
-    .right {
-      display: inline-block;
-    }
+    display: flex;
+    justify-content: space-between;
   }
 
   .project-wrapper.active {
@@ -75,7 +75,21 @@
   </div>
 
   <div class="right">
-    <SettingsManagerView sm={settingsManager} />
+    <ClickOutside on:clickoutside={() => (sShow = false)}>
+      <div class="settings-wrapper">
+        <Button icon="Cog" cls="settings-icon" bind:active={sShow} />
+
+        {#if settingsManager && sLoad}
+          {#await lazyLoad('smv') then SettingsManagerView}
+            <svelte:component
+              this={SettingsManagerView}
+              sm={settingsManager}
+              visible={sShow}
+              on:close={() => (sLoad = false)} />
+          {/await}
+        {/if}
+      </div>
+    </ClickOutside>
   </div>
 </header>
 <main>
