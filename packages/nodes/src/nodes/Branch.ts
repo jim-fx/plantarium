@@ -5,8 +5,6 @@ import {
 } from '@plantarium/geometry/src/helpers';
 import rotate2D from '@plantarium/geometry/src/helpers/rotate2D';
 
-const branchRes = 50;
-
 const node: PlantNode = {
   title: 'Branches',
   type: 'branch',
@@ -64,6 +62,8 @@ const node: PlantNode = {
     const { input } = parameters;
 
     const { skeletons: inputSkeletons } = input.result;
+
+    const branchRes = ctx.getSetting('stemResX');
 
     const skeletons = inputSkeletons
       .map((skelly) => {

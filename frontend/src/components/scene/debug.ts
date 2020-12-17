@@ -85,8 +85,8 @@ export default class DebugScene {
   setSettings(settings: PlantariumSettings) {
     this.settings = JSON.parse(JSON.stringify(settings));
 
-    this.m.skeleton.visible = !!this.settings.debugSkeleton;
-    this.m.vertices.visible = !!this.settings.debugSkeleton;
+    this.m.skeleton.visible = !!this.settings.debug?.skeleton;
+    this.m.vertices.visible = !!this.settings.debug?.skeleton;
 
     this.update();
   }
@@ -100,7 +100,7 @@ export default class DebugScene {
     if (!p || !s) return;
 
     //Convert skeletons to Geometry
-    if (p['skeletons'] && s.debugSkeleton) {
+    if (p['skeletons'] && s.debug?.skeleton) {
       const skeletons: Float32Array[] = p['skeletons'];
       const amountPos = skeletons.reduce((acc, cur) => acc + cur.length, 0) / 4;
 

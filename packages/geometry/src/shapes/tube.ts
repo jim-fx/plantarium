@@ -41,9 +41,9 @@ export default function tube(skeleton: Float32Array, resX: number) {
 
     //Current point along line
     const origin = new Vec3(
-      skeleton[i * 4 + 0] + Math.random() * 0.001,
-      skeleton[i * 4 + 1] + Math.random() * 0.001,
-      skeleton[i * 4 + 2] + Math.random() * 0.001,
+      skeleton[i * 4 + 0],
+      skeleton[i * 4 + 1],
+      skeleton[i * 4 + 2],
     );
 
     const diameter = skeleton[i * 4 + 3];

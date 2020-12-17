@@ -47,7 +47,7 @@ const node: PlantNode = {
   computeSkeleton(part, ctx) {
     const amount = ctx.handleParameter(part.parameters.amount);
 
-    const amountPoints = 50; //} = ctx.settings;
+    const amountPoints = ctx.getSetting('stemResY');
 
     const skeletons = [];
 
@@ -84,7 +84,7 @@ const node: PlantNode = {
   },
 
   computeGeometry(part, ctx) {
-    const stemResX = 16;
+    const stemResX = ctx.getSetting('stemResX');
     return {
       geometry: join(
         ...part.result.skeletons.map((skelly) => tube(skelly, stemResX)),

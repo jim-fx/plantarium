@@ -17,6 +17,7 @@
     const c = { ...t };
 
     delete c.defaultValue;
+    delete c.type;
 
     return c;
   };

@@ -33,9 +33,7 @@ const resolveDeep = (object: any, path: string[]) => {
   }
 };
 
-const keyToPath = (key: string) => {
-  return key.includes('.') ? key.split('.') : [key];
-};
+const keyToPath = (key: string) => (key.includes('.') ? key.split('.') : [key]);
 
 export default class SettingsManager extends EventEmitter {
   private settings: PlantariumSettings = {} as PlantariumSettings;
