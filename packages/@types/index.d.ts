@@ -158,14 +158,16 @@ interface PlantariumSettings {
 
   forceUpdate: boolean;
 
-  debugWireframe: boolean;
-  debugIndices: boolean;
-  debugRenderPerf: boolean;
-  debugGeneratePerf: boolean;
-  debugPd: boolean;
-  debugSkeleton: boolean;
-  debugDisableModel: boolean;
-  debugUv: number;
+  debug: {
+    wireframe: boolean;
+    indices: boolean;
+    renderPerf: boolean;
+    generatePerf: boolean;
+    pd: boolean;
+    skeleton: boolean;
+    disableModel: boolean;
+    uv: number;
+  };
 
   ground: {
     enable: boolean;

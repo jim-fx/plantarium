@@ -57,6 +57,8 @@ export default class ForegroundScene {
 
     const result = plant(p, s);
 
+    this.mesh.mode = s?.debug?.wireframe ? this.gl.LINES : this.gl.TRIANGLES;
+
     this.dbg.setPlant(result);
 
     this.mesh.geometry = transferToGeometry(this.gl, result.geometry);

@@ -3,17 +3,26 @@ const template: SettingsTemplate = {
     type: 'boolean',
     defaultValue: false,
   },
-  debugPd: {
-    type: 'boolean',
-    defaultValue: false,
-  },
-  debugSkeleton: {
-    type: 'boolean',
-    defaultValue: false,
-  },
+
   useRandomSeed: {
     type: 'boolean',
     defaultValue: false,
+  },
+  debug: {
+    options: {
+      pd: {
+        type: 'boolean',
+        defaultValue: false,
+      },
+      skeleton: {
+        type: 'boolean',
+        defaultValue: false,
+      },
+      wireframe: {
+        type: 'boolean',
+        defaultValue: false,
+      },
+    },
   },
   ground: {
     options: {
