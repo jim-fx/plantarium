@@ -58,6 +58,9 @@ export default class SettingsManager extends EventEmitter {
 
   save() {
     this.emit('settings', this.settings);
+
+    logger.setLevel(this.settings?.debug?.logLevel ?? 2);
+
     this._save();
   }
 
@@ -65,6 +68,8 @@ export default class SettingsManager extends EventEmitter {
     const s = (await storage.getItem('pt_settings')) || {};
 
     this.settings = templateToSettings(SettingsTemplate, s);
+
+    logger.setLevel(this.settings?.debug?.logLevel ?? 2);
 
     this.store.set(this.settings);
 

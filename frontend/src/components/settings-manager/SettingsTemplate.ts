@@ -24,8 +24,8 @@ const template: SettingsTemplate = {
       logLevel: {
         type: 'number',
         min: 0,
-        max: 4,
-        defaultValue: 2,
+        max: 2,
+        defaultValue: 1,
       },
     },
   },

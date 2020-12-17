@@ -142,8 +142,8 @@ interface PlantNode {
 }
 
 interface PlantariumSettings {
-  useRandomSeed: boolean;
   seed: number;
+  useRandomSeed: boolean;
 
   stemResX: number;
   stemResY: number;
@@ -164,6 +164,7 @@ interface PlantariumSettings {
     renderPerf: boolean;
     generatePerf: boolean;
     pd: boolean;
+    logLevel: number;
     skeleton: boolean;
     disableModel: boolean;
     uv: number;

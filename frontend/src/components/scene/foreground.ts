@@ -31,7 +31,7 @@ export default class ForegroundScene {
   }
 
   initGeometry() {
-    const geometry = new Box(this.scene.gl);
+    const geometry = new Box(this.scene.gl, { width: 0, height: 0, depth: 0 });
     const program = new Program(this.gl, {
       vertex: BasicShader.vertex,
       fragment: BasicShader.fragment,
