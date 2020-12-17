@@ -2,15 +2,16 @@
   import { onMount } from 'svelte';
   import ClickOutside from 'svelte-click-outside';
 
+  // Model components
   import { NodeSystem } from '@plantarium/nodesystem';
   import Nodes from '@plantarium/nodes';
   import { Button } from '@plantarium/ui';
   import { lazyLoad } from './helpers';
 
+  // View components
   import { ProjectManager } from './components/project-manager';
-  import Scene from './components/scene/Scene.svelte';
   import { SettingsManager } from './components/settings-manager';
-  import SettingsManagerView from './components/settings-manager/SettingsManagerView.svelte';
+  import Scene from './components/scene/Scene.svelte';
 
   let nodeSystemWrapper: HTMLDivElement;
   let projectManager: ProjectManager;
@@ -19,6 +20,9 @@
   let sShow = false;
   $: sLoad = sLoad || sShow || false;
   const settingsManager = new SettingsManager();
+
+  //@ts-ignore
+  window.s = settingsManager;
 
   const db = 'APP: imported projectManager';
 
@@ -44,6 +48,10 @@
   header {
     display: flex;
     justify-content: space-between;
+  }
+
+  .settings-wrapper {
+    position: relative;
   }
 
   .project-wrapper.active {

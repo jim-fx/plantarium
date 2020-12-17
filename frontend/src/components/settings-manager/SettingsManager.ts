@@ -1,22 +1,94 @@
 import './index.scss';
-import { EventEmitter } from '@plantarium/helpers';
-import template from './template';
+import { EventEmitter, debounce } from '@plantarium/helpers';
+import SettingsTemplate from './SettingsTemplate';
 
-function applyCurrentStateToStore(store, currentState) {
-  Object.entries(currentState).forEach(([key, value = 0]) => {
-    if (key in store) {
-      store[key] = value === null ? 0 : value;
+import storage from 'localforage';
+import { Writable, writable } from 'svelte/store';
+
+const templateToSettings = (
+  template: SettingsTemplate,
+  store?: { [key: string]: any },
+): PlantariumSettings => {
+  const settings = {} as PlantariumSettings;
+
+  Object.entries(template).forEach(([key, _template]) => {
+    const value = store && key in store ? store[key] : undefined;
+    if ('options' in _template) {
+      settings[key] = templateToSettings(_template.options, value);
+    } else {
+      settings[key] = value || (_template.defaultValue ?? _template.value);
     }
   });
-  return store;
-}
+
+  return settings;
+};
+
+const resolveDeep = (object: any, path: string[]) => {
+  const current = path.shift();
+  if (current && current in object) {
+    if (!path.length) return object[current];
+    return resolveDeep(object[current], path);
+  } else {
+    return;
+  }
+};
+
+const keyToPath = (key: string) => {
+  return key.includes('.') ? key.split('.') : [key];
+};
 
 export default class SettingsManager extends EventEmitter {
+  private save: () => void;
+
+  private settings: PlantariumSettings = {} as PlantariumSettings;
+
+  public store: Writable<any> = writable({});
+
   constructor() {
     super();
+
+    this.save = debounce(
+      () => {
+        console.log(this.settings);
+        storage.setItem('pt_settings', this.settings);
+      },
+      500,
+      false,
+    );
+
+    this.loadFromLocal();
+  }
+
+  async loadFromLocal() {
+    const s = (await storage.getItem('pt_settings')) || {};
+
+    this.settings = templateToSettings(SettingsTemplate, s);
+
+    this.store.set(this.settings);
+    console.log(this.settings);
+  }
+
+  set(key: string, value: any) {
+    let path = keyToPath(key);
+
+    if (path.length > 1) {
+      let finalKey = path.pop();
+      let obj = resolveDeep(this.settings, path);
+      if (obj) {
+        obj[finalKey] = value;
+      }
+    } else {
+      this.settings[path[0]] = value;
+    }
+
+    this.save();
+  }
+
+  get(key: string) {
+    return resolveDeep(this.settings, keyToPath(key));
   }
 
   getSettings() {
-    return {} as PlantariumSettings;
+    return JSON.parse(JSON.stringify(this.settings)) as PlantariumSettings;
   }
 }

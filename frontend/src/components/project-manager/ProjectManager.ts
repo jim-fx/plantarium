@@ -9,6 +9,7 @@ import createId from 'shortid';
 window.clearAll = () => {
   storage.clear();
 };
+
 //@ts-ignore
 window.getAll = async () => {
   const keys = await storage.keys();
@@ -19,9 +20,9 @@ window.getAll = async () => {
   });
 };
 
-const log = logger('PM');
-logger.setFilter('PM');
-logger.setLevel(0);
+const log = logger('projectManager');
+// logger.setFilter('PM');
+logger.setLevel(2);
 
 const PTP_PREFIX = 'pt_project_';
 
@@ -179,7 +180,6 @@ export default class ProjectManager extends EventEmitter {
       this.setActiveProject(projectIds[0]);
     }
 
-    console.log(this.projects);
     this.store.set(Object.values(this.projects));
   }
 

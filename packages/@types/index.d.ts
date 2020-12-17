@@ -43,6 +43,10 @@ interface GeneratorContext {
   refresh(): void;
 }
 
+type SettingsTemplate = {
+  [key: string]: ValueTemplate | { options: SettingsTemplate };
+};
+
 interface ValueTemplate {
   type: string | string[];
   label?: boolean | string;
@@ -54,7 +58,7 @@ interface ValueTemplate {
   inputType?: string;
   min?: number;
   max?: number;
-  step?: number;
+  steps?: number;
   defaultValue?: number | string | boolean | Vec3;
 }
 

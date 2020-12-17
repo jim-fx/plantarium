@@ -2,11 +2,10 @@
   import Icon from './Icon.svelte';
 
   export let icon: string;
-  export let name: string;
+  export let name: string = "";
   export let cls: string;
   export let active = false;
 </script>
-
 <style lang="scss">
   button {
     position: relative;

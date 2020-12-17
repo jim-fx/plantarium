@@ -32,60 +32,38 @@ export function stateToElement(
     value = template.value;
   }
 
+  const component = stateToComponent(template, value);
+
+  const props = { ...template };
+  delete props.type;
+  delete props.inputType;
+  delete props.internal;
+
+  return new component({ target, props: { ...props } });
+}
+
+export function stateToComponent(template: ValueTemplate, value: unknown) {
   if (template.inputType === 'select' || Array.isArray(template.values)) {
-    return new InputSelect({
-      target,
-      props: {
-        values: template.values,
-        selectedValue: value,
-      },
-    });
+    return InputSelect;
   }
 
   if (template.inputType === 'slider' || template.step) {
-    return new InputSlider({
-      target,
-      props: {
-        max: template.max,
-        min: template.min,
-        step: template.step,
-        value: template.value,
-      },
-    });
+    return InputSlider;
   }
 
   if (template.inputType === 'curve') {
-    return new InputCurve({
-      target,
-      props: { points: value || template.value },
-    });
+    return InputCurve;
   }
 
   if (template.inputType === 'shape') {
-    return new InputShape({
-      target,
-      props: {
-        points: template.value,
-      },
-    });
+    return InputShape;
   }
 
   if (template.type === 'number' || typeof value === 'number') {
-    return new InputNumber({
-      target,
-      props: {
-        max: template.max,
-        min: template.min,
-        step: template.step,
-        value: template.value,
-      },
-    });
+    return InputNumber;
   }
 
   if (template.type === 'boolean' || typeof value === 'boolean') {
-    return new InputCheckbox({
-      target,
-      props: { value: template.value },
-    });
+    return InputCheckbox;
   }
 }
