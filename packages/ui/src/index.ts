@@ -41,6 +41,8 @@ export function stateToElement(
   delete props.inputType;
   delete props.internal;
 
+  props.value = value as any;
+
   return new component({ target, props: { ...props } });
 }
 
