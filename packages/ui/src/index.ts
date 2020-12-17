@@ -6,6 +6,7 @@ import InputShape from './InputShape.svelte';
 import InputCheckbox from './InputCheckbox.svelte';
 import Button from './Button.svelte';
 import Icon from './Icon.svelte';
+import Section from './Section.svelte';
 
 export {
   InputNumber,
@@ -15,6 +16,7 @@ export {
   InputShape,
   Button,
   Icon,
+  Section,
 };
 
 // *****************************************
@@ -47,7 +49,7 @@ export function stateToComponent(template: ValueTemplate, value: unknown) {
     return InputSelect;
   }
 
-  if (template.inputType === 'slider' || template.step) {
+  if (template.inputType === 'slider' || 'step' in template) {
     return InputSlider;
   }
 

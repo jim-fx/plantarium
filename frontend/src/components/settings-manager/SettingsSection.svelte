@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { stateToComponent } from '@plantarium/ui';
+  import { stateToComponent,Section } from '@plantarium/ui';
   import type { SettingsManager } from '.';
 
   type SettingsTemplate = {
@@ -24,14 +24,31 @@
 
 <style>
   .wrapper {
-    padding-left: 10px;
+    margin-left: 20px;
+    width: calc(100% - 20px);
+    display: flex;
+    justify-content:space-between;
+    flex-wrap: wrap;
+
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+    margin-top: 5px;
+    padding-top: 10px;
+
+    border-bottom: solid thin #30303055;
+  }
+
+  h3{
+    user-select: none;
+    width: fit-content;
   }
 </style>
 
 <div class="wrapper">
-  <h3>{key}</h3>
-
   {#if template.options}
+
+    <Section name={key}>
+
     {#each Object.entries(value) as [_key, _value]}
       {#if _key in template.options}
         <svelte:self
@@ -44,7 +61,10 @@
         <p>error</p>
       {/if}
     {/each}
+
+  </Section>
   {:else}
+    <h3>{key}</h3>
     <svelte:component
       this={stateToComponent(template, value)}
       {value}

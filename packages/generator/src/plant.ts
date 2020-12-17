@@ -45,8 +45,6 @@ const handleGeometryNode = (node, ctx) => {
 };
 
 export default function plant(rootNode: NodeResult, s: PlantariumSettings) {
-  const a1 = performance.now();
-
   const ctx = createContext(s);
 
   const skelly = handleSkeletonNode(rootNode, ctx);
@@ -60,10 +58,6 @@ export default function plant(rootNode: NodeResult, s: PlantariumSettings) {
   const { result } = final;
 
   result.geometry = calculateNormals(result.geometry);
-
-  const a2 = performance.now();
-
-  // console.log(a2 - a1);
 
   return result;
 }

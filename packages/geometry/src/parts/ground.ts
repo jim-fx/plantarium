@@ -6,8 +6,6 @@ export default function (size: number, resX = 12, resY = 12): TransferGeometry {
   //General parameters
   const angle = (360 * (Math.PI / 180)) / resY; // Convert to radians
 
-  size = 0;
-
   //Final model
   const position = new Float32Array(resX * resY * 3 + 3);
   const normal = new Float32Array(resX * resY * 3 + 3);

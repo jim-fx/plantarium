@@ -18,6 +18,7 @@
     margin: 0px;
     margin-bottom: 12px;
     padding-top: 6px;
+    width: 100%;
   }
 
   input[type='range'] {

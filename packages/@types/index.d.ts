@@ -58,7 +58,7 @@ interface ValueTemplate {
   inputType?: string;
   min?: number;
   max?: number;
-  steps?: number;
+  step?: number;
   defaultValue?: number | string | boolean | Vec3;
 }
 

@@ -38,18 +38,17 @@ const keyToPath = (key: string) => {
 };
 
 export default class SettingsManager extends EventEmitter {
-  private save: () => void;
-
   private settings: PlantariumSettings = {} as PlantariumSettings;
 
   public store: Writable<any> = writable({});
 
+  private _save: () => void;
+
   constructor() {
     super();
 
-    this.save = debounce(
+    this._save = debounce(
       () => {
-        console.log(this.settings);
         storage.setItem('pt_settings', this.settings);
       },
       500,
@@ -59,13 +58,19 @@ export default class SettingsManager extends EventEmitter {
     this.loadFromLocal();
   }
 
+  save() {
+    this.emit('settings', this.settings);
+    this._save();
+  }
+
   async loadFromLocal() {
     const s = (await storage.getItem('pt_settings')) || {};
 
     this.settings = templateToSettings(SettingsTemplate, s);
 
     this.store.set(this.settings);
-    console.log(this.settings);
+
+    this.emit('settings', this.settings);
   }
 
   set(key: string, value: any) {

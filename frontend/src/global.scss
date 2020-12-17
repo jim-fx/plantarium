@@ -220,6 +220,29 @@ button > .icon-wrapper > svg {
   opacity: 1;
 }
 
+.settings-icon.active {
+  border-radius: 5px 5px 0px 0px !important;
+}
+
+.settings-icon::after {
+  position: absolute;
+  content: '';
+  opacity: 0;
+  left: -25px;
+  bottom: 0px;
+  height: 25px;
+  width: 25px;
+  border-radius: 100%;
+  box-shadow: 10px 10px 0px -5px #65e2a0;
+}
+.settings-icon.active::after {
+  opacity: 1;
+}
+
+.wrapper .wrapper:last-child {
+  border-bottom: none !important;
+}
+
 // Icon styles
 svg {
   height: 100%;

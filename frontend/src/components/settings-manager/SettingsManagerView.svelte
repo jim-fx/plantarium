@@ -20,6 +20,8 @@
     pointer-events: none;
     resize: both;
     border-radius: 5px 0px 5px 5px;
+    padding: 10px;
+    padding-left: 0px;
 
     margin-bottom: 8px;
 
