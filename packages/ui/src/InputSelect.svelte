@@ -2,11 +2,11 @@
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
 
-  export let selectedValue = undefined;
+  export let value = undefined;
   let open = false;
   let main;
 
-  $: selectedValue && dispatch('change', selectedValue);
+  $: value && dispatch('change', value);
 
   function handleOpen() {
     open = true;
@@ -21,8 +21,8 @@
     }, 50);
   }
 
-  function setSelected(value) {
-    selectedValue = value;
+  function setSelected(v) {
+    value = v;
     open = false;
   }
 
@@ -32,7 +32,7 @@
   }
 
   export function setValue(v) {
-    selectedValue = v;
+    value = v;
   }
 </script>
 
@@ -74,8 +74,8 @@
 </style>
 
 <div id="main" bind:this={main}>
-  {#if selectedValue !== undefined}
-    <div id="selected-value" on:click={handleOpen}>{selectedValue}</div>
+  {#if value !== undefined}
+    <div id="selected-value" on:click={handleOpen}>{value}</div>
   {:else}
     <div id="selected-value" on:click={handleOpen}>none</div>
   {/if}
@@ -84,7 +84,7 @@
     <div id="item-wrapper">
       {#each values as item}
         <p
-          style={`opacity: ${item === selectedValue ? 0.5 : 1}`}
+          style={`opacity: ${item === value ? 0.5 : 1}`}
           class="item"
           on:click={() => setSelected(item)}>
           {item}

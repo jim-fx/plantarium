@@ -3,7 +3,6 @@ const template: SettingsTemplate = {
     type: 'boolean',
     defaultValue: false,
   },
-
   useRandomSeed: {
     type: 'boolean',
     defaultValue: false,
@@ -21,6 +20,12 @@ const template: SettingsTemplate = {
       wireframe: {
         type: 'boolean',
         defaultValue: false,
+      },
+      logLevel: {
+        type: 'number',
+        min: 0,
+        max: 4,
+        defaultValue: 2,
       },
     },
   },
@@ -56,14 +61,14 @@ const template: SettingsTemplate = {
   stemResX: {
     type: 'number',
     min: 3,
-    max: 16,
+    max: 32,
     step: 1,
     defaultValue: 16,
   },
   stemResY: {
     type: 'number',
     min: 3,
-    max: 16,
+    max: 64,
     step: 1,
     defaultValue: 32,
   },

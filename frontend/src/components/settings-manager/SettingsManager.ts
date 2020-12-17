@@ -1,5 +1,5 @@
 import './index.scss';
-import { EventEmitter, debounce } from '@plantarium/helpers';
+import { EventEmitter, debounce, logger } from '@plantarium/helpers';
 import SettingsTemplate from './SettingsTemplate';
 
 import storage from 'localforage';

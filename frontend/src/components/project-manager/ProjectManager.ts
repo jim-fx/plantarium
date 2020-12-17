@@ -22,7 +22,7 @@ window.getAll = async () => {
 
 const log = logger('projectManager');
 // logger.setFilter('PM');
-logger.setLevel(2);
+logger.setLevel(0);
 
 const PTP_PREFIX = 'pt_project_';
 
@@ -101,8 +101,6 @@ export default class ProjectManager extends EventEmitter {
     const project = await this.getProject(id);
 
     project.meta = { ...project.meta, ...meta };
-
-    console.log(project.meta);
 
     this.saveProject(project);
   }

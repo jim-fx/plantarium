@@ -63,5 +63,7 @@ export default (settings: PlantariumSettings) => {
     lastCtx = createContext(settings);
   }
 
+  lastCtx.refresh();
+
   return lastCtx;
 };

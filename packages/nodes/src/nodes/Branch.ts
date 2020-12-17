@@ -44,7 +44,7 @@ const node: PlantNode = {
     amount: {
       type: 'number',
       min: 0,
-      max: 20,
+      max: 64,
       value: 1,
     },
   },
