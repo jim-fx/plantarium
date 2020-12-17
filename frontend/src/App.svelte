@@ -88,7 +88,7 @@
 
   <div class="right">
     <ClickOutside on:clickoutside={() => (sShow = false)}>
-      <div class="settings-wrapper">
+      <div class="settings-wrapper" class:active={sShow}>
         <Button icon="Cog" cls="settings-icon" bind:active={sShow} />
 
         {#if settingsManager && sLoad}

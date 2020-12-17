@@ -46,7 +46,6 @@ const createContext = (s: PlantariumSettings): GeneratorContext => {
     refresh() {
       currentNoise = 0;
       if (s?.useRandomSeed) {
-        console.log('new seed');
         seed = Math.floor(Math.random() * 100000);
         noise.seed = seed;
       }

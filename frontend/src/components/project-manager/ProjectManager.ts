@@ -31,6 +31,7 @@ export default class ProjectManager extends EventEmitter {
   private settingsManager: SettingsManager;
   public activeProjectId: string;
   private projects: { [key: string]: PlantProject } = {};
+  private loadingActiveProject: Promise<PlantProject>;
   public store: Writable<PlantProject[]> = writable([]);
   private nodeSystem: NodeSystem;
 
@@ -137,14 +138,21 @@ export default class ProjectManager extends EventEmitter {
   }
 
   async setActiveProject(id: string) {
-    if (id === this?.activeProjectId) return;
-    const project = await this.getProject(id);
-    if (project) {
+    if (this.loadingActiveProject || id === this?.activeProjectId) return;
+
+    this.activeProjectId === id;
+
+    this.loadingActiveProject = this.getProject(id);
+
+    const project = await this.loadingActiveProject;
+
+    if (this.loadingActiveProject) {
       await storage.setItem('pt_active_id', id);
       this.activeProjectId = id;
       this.nodeSystem.load(project);
       this.saveProject(project);
       log('set active project to id: ' + id);
+      this.loadingActiveProject = undefined;
     } else {
       log.warn('cant find plant with id: ' + id);
     }
