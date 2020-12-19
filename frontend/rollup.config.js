@@ -11,6 +11,10 @@ import glslify from "rollup-plugin-glslify";
 import svg from "rollup-plugin-svg-import";
 import analyze from 'rollup-plugin-analyzer'
 
+import iife from "rollup-plugin-iife";
+import OMT from "@surma/rollup-plugin-off-main-thread";
+
+
 // eslint-disable-next-line no-undef
 const production = !process.env.ROLLUP_WATCH;
 
@@ -72,6 +76,9 @@ export default {
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
 		production && terser(),
+
+		iife(),
+		OMT(),
 
 		analyze({
 			hideDeps: false,

@@ -124,6 +124,22 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
+"@rollup/pluginutils@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@rollup/pluginutils/-/pluginutils-4.1.0.tgz#0dcc61c780e39257554feb7f77207dceca13c838"
+  integrity sha512-TrBhfJkFxA+ER+ew2U2/fHbebhLT/l/2pRk0hfj9KusXUuRXd2v0R58AfaZK9VXDQ4TogOSEmICVrQAA3zFnHQ==
+  dependencies:
+    estree-walker "^2.0.1"
+    picomatch "^2.2.2"
+
+"@surma/rollup-plugin-off-main-thread@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@surma/rollup-plugin-off-main-thread/-/rollup-plugin-off-main-thread-1.4.2.tgz#e6786b6af5799f82f7ab3a82e53f6182d2b91a58"
+  integrity sha512-yBMPqmd1yEJo/280PAMkychuaALyQ9Lkb5q1ck3mjJrFuEobIfhnQ4J3mbvBoISmR3SWMWV+cGB/I0lCQee79A==
+  dependencies:
+    ejs "^2.6.1"
+    magic-string "^0.25.0"
+
 "@tsconfig/svelte@^1.0.0":
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/@tsconfig/svelte/-/svelte-1.0.10.tgz#30ec7feeee0bdf38b12a50f0686f8a2e7b6b9dc0"
@@ -562,10 +578,15 @@ camelcase@^2.0.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-2.1.1.tgz#7c1d16d679a1bbe59ca02cacecfb011e201f5a1f"
   integrity sha1-fB0W1nmhu+WcoCys7PsBHiAfWh8=
 
-camelcase@^5.0.0:
+camelcase@^5.0.0, camelcase@^5.3.1:
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.3.1.tgz#e3c9b31569e106811df242f715725a1f4c494320"
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
+
+camelcase@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-6.2.0.tgz#924af881c9d525ac9d87f40d964e5cea982a1809"
+  integrity sha512-c7wVvbw3f37nuobQNtgsgG9POC9qMbNuMQmTCqZv23b6MIz0fcYpBiOlv9gEN/hdLdnZTDQhg6e9Dq5M1vKvfg==
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -843,6 +864,11 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
+ejs@^2.6.1:
+  version "2.7.4"
+  resolved "https://registry.yarnpkg.com/ejs/-/ejs-2.7.4.tgz#48661287573dcc53e366c7a1ae52c3a120eec9ba"
+  integrity sha512-7vmuyh5+kuUyJKePhQfRQBhXV5Ce+RnaeeQArKu1EAMpL3WbgMt5WG6uQZpEVvYSSsxMXRKOewtDk9RaTKXRlA==
+
 emoji-regex@^7.0.1:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-7.0.3.tgz#933a04052860c85e83c122479c4748a8e4c72156"
@@ -891,6 +917,17 @@ es-abstract@^1.18.0-next.1:
     object.assign "^4.1.1"
     string.prototype.trimend "^1.0.1"
     string.prototype.trimstart "^1.0.1"
+
+es-iife@^0.2.0:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/es-iife/-/es-iife-0.2.1.tgz#59532614e6fc6f3ab85f1425db79c3686dde9610"
+  integrity sha512-tB0Q4IdZYt6VYc+nwESuFRlG0dgs2XSQNoqPzGTahCxW5nuE4JhAKKxHVRzydssFcxunhVtUtUpwqw83Hx1t0w==
+  dependencies:
+    "@rollup/pluginutils" "^4.1.0"
+    camelcase "^6.2.0"
+    estree-walker "^2.0.1"
+    is-reference "^1.2.1"
+    magic-string "^0.25.7"
 
 es-to-primitive@^1.2.1:
   version "1.2.1"
@@ -1875,7 +1912,7 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-magic-string@^0.25.7:
+magic-string@^0.25.0, magic-string@^0.25.7:
   version "0.25.7"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.25.7.tgz#3f497d6fd34c669c6798dcb821f2ef31f5445051"
   integrity sha512-4CrMT5DOHTDk4HYDlzmwu4FVCcIYI8gauveasrdCu2IKIFOJ3f0v/8MDGJCDL9oD2ppz/Av1b0Nj345H9M+XIA==
@@ -2577,6 +2614,14 @@ rollup-plugin-glslify@^1.2.0:
   dependencies:
     glslify "^7.0.0"
     rollup-pluginutils "^2.8.2"
+
+rollup-plugin-iife@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-iife/-/rollup-plugin-iife-0.3.1.tgz#a98718375bb1fe76a974a9f18c23bc48e17b8361"
+  integrity sha512-OI8o+BT+vTwYo8VuEhHdaZUSO1NQrRLfAWyRyp0Lx+PR2lG+JwTvxrjWlk24CrKJH6NbMFBh0IDzL4GBZqBvPw==
+  dependencies:
+    camelcase "^5.3.1"
+    es-iife "^0.2.0"
 
 rollup-plugin-livereload@^2.0.0:
   version "2.0.0"
