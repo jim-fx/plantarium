@@ -24,7 +24,7 @@ export default {
 	input: 'src/main.ts',
 	output: {
 		sourcemap: true,
-		format: "es",
+		format: "amd",
 		name: 'app',
 		dir: "public/build"
 	},

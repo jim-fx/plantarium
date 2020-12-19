@@ -4,6 +4,25 @@
   "main": "src/index.ts",
   "source": "src/index.ts",
   "license": "MIT",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^16.0.0",
+    "@rollup/plugin-node-resolve": "^10.0.0",
+    "@rollup/plugin-typescript": "^6.0.0",
+    "rollup": "^2.3.4",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-scss": "^2.6.1",
+    "rollup-plugin-serve": "^1.1.0",
+    "rollup-plugin-svelte": "^7.0.0",
+    "rollup-plugin-svg-import": "^1.5.1",
+    "rollup-plugin-terser": "^7.0.0",
+    "sass": "^1.30.0",
+    "svelte-preprocess": "^4.0.0",
+    "tslib": "^2.0.0"
+  },
   "dependencies": {
     "shortid": "^2.2.16",
     "svelte-color-picker": "^1.0.7"

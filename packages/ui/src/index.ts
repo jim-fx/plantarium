@@ -41,7 +41,7 @@ export function stateToElement(
   delete props.inputType;
   delete props.internal;
 
-  props.value = value as string | number | boolean | Vec2[];
+  props.value = value as string | number | boolean | Vector2[];
 
   return new component({ target, props: { ...props } });
 }
