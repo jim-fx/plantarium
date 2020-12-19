@@ -1,4 +1,9 @@
+import type { NodeSystem } from '..';
+
 let longestModuleName = 0;
+class dummyClass {
+  system: NodeSystem;
+}
 
 export default class Logger {
   module: unknown;
@@ -7,7 +12,7 @@ export default class Logger {
   length: number;
   isGrouped = false;
   constructor(
-    module: any,
+    module: dummyClass | NodeSystem,
     logLevel: number = 'system' in module ? module.system.log.level : 2,
   ) {
     this.module = module;
