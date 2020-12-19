@@ -11,6 +11,8 @@
   }
 </style>
 
+<svelte:options tag="plant-color" />
+
 <div id="main">
   <HsvPicker
     on:colorChange={(ev) => dispatch('change', ev)}

@@ -167,12 +167,16 @@
     background-color: #4b4b4b;
     border-radius: 2px;
     overflow: hidden;
+    max-width: 150px;
+    max-height: 150px;
   }
 
   canvas {
     width: 100%;
   }
 </style>
+
+<svelte:options tag="plant-curve" />
 
 <svelte:window
   on:mouseup={() => {

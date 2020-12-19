@@ -73,6 +73,8 @@
   }
 </style>
 
+<svelte:options tag="plant-select" />
+
 <div id="main" bind:this={main}>
   {#if value !== undefined}
     <div id="selected-value" on:click={handleOpen}>{value}</div>

@@ -120,6 +120,7 @@
 </style>
 
 <svelte:options tag="plant-slider" />
+
 <div>
   <output
     class:isActive

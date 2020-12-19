@@ -54,6 +54,8 @@
   }
 </style>
 
+<svelte:options tag="plant-checkbox" />
+
 <div>
   <!-- <span class="tooltip-text">Enables syncing of projects to the cloud</span> -->
   <input type="checkbox" bind:checked={value} {id} />

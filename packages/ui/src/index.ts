@@ -4,6 +4,7 @@ import InputSelect from './InputSelect.svelte';
 import InputCurve from './InputCurve.svelte';
 import InputShape from './InputShape.svelte';
 import InputCheckbox from './InputCheckbox.svelte';
+import InputColor from './InputColor.svelte';
 import Button from './Button.svelte';
 import Icon from './Icon.svelte';
 import Section from './Section.svelte';
@@ -14,6 +15,7 @@ export {
   InputSelect,
   InputCurve,
   InputShape,
+  InputColor,
   Button,
   Icon,
   Section,

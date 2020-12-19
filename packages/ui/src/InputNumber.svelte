@@ -87,6 +87,7 @@
   }
 </style>
 
+<svelte:options tag="plant-number" />
 <div>
   <button on:click={() => handleChange(-step)} />
 

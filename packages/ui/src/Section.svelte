@@ -1,43 +1,40 @@
 <script>
-
   let open = false;
 
-  export let name = "";
-
+  export let name = '';
 </script>
 
 <style>
-
-  .wrapper{
+  .wrapper {
     width: 100%;
   }
 
-  .content{
+  .content {
     max-height: 0px;
     overflow: hidden;
     opacity: 0;
     transition: max-height 0.3s ease, opacity 0.3s ease;
   }
 
-  .open > .content{
+  .open > .content {
     opacity: 1;
     max-height: 1000px;
   }
 
-  .header{
+  .header {
     cursor: pointer;
     display: grid;
     grid-template-columns: auto 1fr;
   }
 
-  svg{
+  svg {
     margin-left: -7px;
     margin-top: -2px;
     transform: rotate(0deg);
     transition: transform 0.2s ease, margin-top 0.3s ease;
   }
 
-  .open > .header > svg{
+  .open > .header > svg {
     margin-top: -4px;
     transform: rotate(90deg);
   }
@@ -47,42 +44,42 @@
     fill: #303030;
   }
 
-  h3{
-    user-select:none;
+  h3 {
+    user-select: none;
   }
-  
-  .border{
+
+  .border {
     padding-bottom: 5px;
     border-bottom: solid thin #30303000;
     transition: padding-bottom 0.3s ease, border-bottom 0.3s ease;
   }
-  
+
   .open > .header > .border {
     border-bottom: solid thin #30303055;
     padding-bottom: 10px;
   }
 </style>
 
+<svelte:options tag="plant-section" />
 
 <div class="wrapper" class:open>
-
   <div class="header" on:click={() => (open = !open)}>
-  
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" >
-      <path d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"/>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width="24"
+      height="24">
+      <path
+        d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z" />
     </svg>
 
-    
     {#if name}
       <div class="border">
         <h3>{name}</h3>
       </div>
     {/if}
-
   </div>
   <div class="content">
-    <slot/>
+    <slot />
   </div>
-
-
 </div>

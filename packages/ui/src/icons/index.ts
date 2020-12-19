@@ -1,7 +1,7 @@
-export { default as Arrow } from './arrow.svg';
-export { default as Branch } from './branch.svg';
-export { default as Cog } from './cog.svg';
-export { default as Cross } from './cross.svg';
-export { default as Leaf } from './leaf.svg';
-export { default as Stem } from './stem.svg';
-export { default as Triangle } from './triangle.svg';
+export { default as arrow } from './arrow.svg';
+export { default as branch } from './branch.svg';
+export { default as cog } from './cog.svg';
+export { default as cross } from './cross.svg';
+export { default as leaf } from './leaf.svg';
+export { default as stem } from './stem.svg';
+export { default as triangle } from './triangle.svg';

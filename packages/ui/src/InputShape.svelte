@@ -232,6 +232,8 @@
   }
 </style>
 
+<svelte:options tag="plant-shape" />
+
 <svelte:window
   on:mouseup={() => {
     setTimeout(() => {
