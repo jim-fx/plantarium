@@ -8,9 +8,13 @@ import typescript from '@rollup/plugin-typescript';
 import scss from 'rollup-plugin-scss';
 import sass from "sass";
 import glslify from "rollup-plugin-glslify";
-import svg from "rollup-plugin-svg-import"
+import svg from "rollup-plugin-svg-import";
+import analyze from 'rollup-plugin-analyzer'
 
+// eslint-disable-next-line no-undef
 const production = !process.env.ROLLUP_WATCH;
+
+let i = 0;
 
 export default {
 	input: 'src/main.ts',
@@ -21,6 +25,8 @@ export default {
 		dir: "public/build"
 	},
 	plugins: [
+
+
 		svelte({
 			preprocess: sveltePreprocess(),
 			compilerOptions: {
@@ -48,7 +54,7 @@ export default {
 		// https://github.com/rollup/plugins/tree/master/packages/commonjs
 		resolve({
 			browser: true,
-			dedupe: ['svelte', "@plantarium/renderer"],
+			dedupe: ['svelte'],
 			moduleDirectory: [ // as array
 				'../packages/*',
 			]
@@ -65,7 +71,14 @@ export default {
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
-		production && terser()
+		production && terser(),
+
+		analyze({
+			hideDeps: false,
+			filterSummary: false,
+			filter: () => i++ < 5
+		}),
+
 	],
 	watch: {
 		clearScreen: false

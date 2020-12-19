@@ -83,7 +83,9 @@ const node: PlantNode = {
           const [_vx, _vy, _vz] = interpolateSkeletonVec(skelly, a);
 
           //Normalized Vector along stem
-          const [nvx, nvy, nvz] = normalize3D(_vx, _vy, _vz);
+          const nv = normalize3D(_vx, _vy, _vz);
+          const nvx = nv[0];
+          const nvz = nv[2];
 
           //Rotate Vector along stem by 90deg
           const [vx, vz] = rotate2D(nvx, nvz, isLeft ? 90 : -90);
