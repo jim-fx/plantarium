@@ -1,7 +1,7 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "svelte3"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -9,11 +9,16 @@
   ],
   "overrides": [
     {
-      "files": ["src/**/*.ts"]
+      "files": ["*.ts"]
+    },
+    {
+      "files": ["*.svelte"],
+      "processor": "svelte3/svelte3"
     }
   ],
   "rules": {
     "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
     "@typescript-eslint/no-explicit-any": 1
   }
 }

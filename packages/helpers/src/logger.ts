@@ -1,6 +1,6 @@
 interface Logger {
-  (...args: any[]): void;
-  warn(...args: any[]): void;
+  (...args: unknown[]): void;
+  warn(...args: unknown[]): void;
   error(err: Error): void;
 }
 

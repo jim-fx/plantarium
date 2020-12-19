@@ -36,12 +36,12 @@ export function stateToElement(
 
   const component = stateToComponent(template, value);
 
-  const props = { ...template };
+  const props: Partial<ValueTemplate> = { ...template };
   delete props.type;
   delete props.inputType;
   delete props.internal;
 
-  props.value = value as any;
+  props.value = value as string | number | boolean | Vec2[];
 
   return new component({ target, props: { ...props } });
 }
@@ -67,7 +67,5 @@ export function stateToComponent(template: ValueTemplate, value: unknown) {
     return InputNumber;
   }
 
-  if (template.type === 'boolean' || typeof value === 'boolean') {
-    return InputCheckbox;
-  }
+  return InputCheckbox;
 }

@@ -1,4 +1,4 @@
-import { Vec3 } from 'ogl-typescript';
+import { Vec3 } from 'ogl';
 
 export default function (origin: Vec3 = new Vec3(0, 0, 0), size = 1) {
   //Final model

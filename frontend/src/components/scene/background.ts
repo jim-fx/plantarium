@@ -1,11 +1,4 @@
-import {
-  Mesh,
-  Plane,
-  Program,
-  Color,
-  Geometry,
-  OGLRenderingContext,
-} from 'ogl-typescript';
+import { Mesh, Plane, Program, Color, Geometry } from 'ogl';
 import type Scene from '.';
 import type { ProjectManager } from '../project-manager';
 import { ground } from '@plantarium/generator';
@@ -33,7 +26,7 @@ const createGround = (settings: PlantariumSettings) => {
 
 export default class BackgroundScene {
   private scene: Scene;
-  private gl: OGLRenderingContext;
+  private gl: WebGL2RenderingContext;
   private settings: PlantariumSettings;
 
   private ground: Mesh;
@@ -48,7 +41,7 @@ export default class BackgroundScene {
     this.setSettings(pm.getSettings());
   }
 
-  async initMeshes() {
+  initMeshes(): void {
     const groundGeometry = new Plane(this.gl);
     const groundTexture = loader.texture(
       this.gl,

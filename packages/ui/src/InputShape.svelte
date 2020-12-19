@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { Vec2 } from 'ogl-typescript';
+  import { Vec2 } from 'ogl';
   import { curve } from '@plantarium/helpers';
 
   export let points = [

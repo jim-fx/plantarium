@@ -25,7 +25,7 @@ class OutputView extends NodeView {
 
     const d = document.createElement('p');
 
-    node.on('computedData', (data: any) => {
+    node.on('computedData', (data) => {
       d.innerHTML = JSON.stringify(data, null, 2);
     });
 

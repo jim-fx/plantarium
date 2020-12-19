@@ -1,4 +1,4 @@
-import { Vec3 } from 'ogl-typescript';
+import { Vec3 } from 'ogl';
 
 let lastNormal: Vec3;
 

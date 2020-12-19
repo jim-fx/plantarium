@@ -60,7 +60,7 @@ export default class ColorStore extends EventEmitter {
     this.emit(socketType, this.colors[socketType]);
   }
 
-  on(socketType: string, cb: (color: string) => any) {
+  on(socketType: string, cb: (color: string) => unknown) {
     this.setType(socketType);
     cb(this.colors[socketType]);
     return super.on(socketType, cb);

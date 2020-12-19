@@ -46,7 +46,7 @@ export default class NodeConnection {
     this.output.node.system.save();
   }
 
-  remove() {
+  remove(): void {
     if (this.view) this.view.remove();
     this.input.removeConnection();
     this.output.removeConnection(this);
@@ -60,11 +60,11 @@ export default class NodeConnection {
     };
   }
 
-  get indexOut() {
+  get indexOut(): number {
     return this.output.node.outputs.indexOf(this.output);
   }
 
-  get indexIn() {
+  get indexIn(): string {
     return this.input.key;
   }
 }

@@ -5,24 +5,7 @@ import { Writable, writable } from 'svelte/store';
 import storage from 'localforage';
 import createId from 'shortid';
 
-//@ts-ignore
-window.clearAll = () => {
-  storage.clear();
-};
-
-//@ts-ignore
-window.getAll = async () => {
-  const keys = await storage.keys();
-  const values = await Promise.all(keys.map((key) => storage.getItem(key)));
-
-  keys.forEach((key, i) => {
-    console.log(key, values[i]);
-  });
-};
-
 const log = logger('projectManager');
-// logger.setFilter('PM');
-logger.setLevel(0);
 
 const PTP_PREFIX = 'pt_project_';
 
@@ -31,7 +14,7 @@ export default class ProjectManager extends EventEmitter {
   private settingsManager: SettingsManager;
   public activeProjectId: string;
   private projects: { [key: string]: PlantProject } = {};
-  private loadingActiveProject: Promise<PlantProject>;
+  private loadingActiveProject?: Promise<PlantProject>;
   public store: Writable<PlantProject[]> = writable([]);
   private nodeSystem: NodeSystem;
 
@@ -93,12 +76,15 @@ export default class ProjectManager extends EventEmitter {
     return plant;
   }
 
-  public createNew() {
+  public createNew(): void {
     const plant = this.createNewProject();
     this.saveProject(plant);
   }
 
-  async updateProjectMeta(id: string, meta: Partial<PlantProjectMeta>) {
+  async updateProjectMeta(
+    id: string,
+    meta: Partial<PlantProjectMeta>,
+  ): Promise<void> {
     const project = await this.getProject(id);
 
     project.meta = { ...project.meta, ...meta };
@@ -125,7 +111,7 @@ export default class ProjectManager extends EventEmitter {
     return project;
   }
 
-  async deleteProject(id: string) {
+  async deleteProject(id: string): Promise<void> {
     if (id in this.projects) {
       delete this.projects[id];
       await storage.removeItem(PTP_PREFIX + id);
@@ -152,7 +138,7 @@ export default class ProjectManager extends EventEmitter {
       this.nodeSystem.load(project);
       this.saveProject(project);
       log('set active project to id: ' + id);
-      this.loadingActiveProject = undefined;
+      delete this.loadingActiveProject;
     } else {
       log.warn('cant find plant with id: ' + id);
     }

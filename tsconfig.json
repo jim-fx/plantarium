@@ -2,6 +2,7 @@
   "extends": "@tsconfig/svelte/tsconfig.json",
   "compilerOptions": {
     "lib": ["ES2019", "DOM"],
-    "sourceMap": true
+    "sourceMap": true,
+    "module": "ESNEXT"
   }
 }

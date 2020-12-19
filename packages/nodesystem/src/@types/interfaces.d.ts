@@ -27,7 +27,7 @@ interface CustomMouseEvent {
  */
 interface NodeProps {
   attributes: NodeAttributes;
-  state?: any;
+  state?: unknown;
 }
 
 interface NodeSystemData {

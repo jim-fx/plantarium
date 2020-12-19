@@ -1,6 +1,6 @@
 <script lang="typescript">
   import { onMount, createEventDispatcher } from 'svelte';
-  import { Vec2 } from 'ogl-typescript';
+  import { Vec2 } from 'ogl';
   import { curve, throttle } from '@plantarium/helpers';
 
   const dispatch = createEventDispatcher();

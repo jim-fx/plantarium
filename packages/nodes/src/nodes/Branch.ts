@@ -113,7 +113,7 @@ const node: PlantNode = {
     };
   },
 
-  computeGeometry(part, ctx) {
+  computeGeometry(part) {
     const stemResX = 16;
     const {
       parameters: { input },

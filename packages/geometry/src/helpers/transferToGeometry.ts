@@ -1,6 +1,9 @@
-import { Geometry, OGLRenderingContext } from 'ogl-typescript';
+import { Geometry } from 'ogl';
 
-export default function (gl: OGLRenderingContext, transfer: TransferGeometry) {
+export default function (
+  gl: WebGL2RenderingContext,
+  transfer: TransferGeometry,
+) {
   return new Geometry(gl, {
     position: { size: 3, data: new Float32Array(transfer.position) },
     normal: { size: 3, data: new Float32Array(transfer.normal) },

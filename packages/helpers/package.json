@@ -5,7 +5,6 @@
   "license": "MIT",
   "dependencies": {
     "file-saver": "^2.0.5",
-    "ogl": "^0.0.60",
-    "ogl-typescript": "^0.1.20"
+    "ogl": "^0.0.60"
   }
 }

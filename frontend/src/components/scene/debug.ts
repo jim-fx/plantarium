@@ -1,10 +1,4 @@
-import {
-  Mesh,
-  Program,
-  OGLRenderingContext,
-  Geometry,
-  Sphere,
-} from 'ogl-typescript';
+import { Mesh, Program, Geometry, Sphere } from 'ogl';
 
 import type Scene from '.';
 import type { ProjectManager } from '../project-manager';
@@ -16,7 +10,7 @@ export default class DebugScene {
   private plant: GeometryResult;
   private settings: PlantariumSettings;
 
-  private gl: OGLRenderingContext;
+  private gl: WebGL2RenderingContext;
 
   private m: { [key: string]: Mesh } = {};
 

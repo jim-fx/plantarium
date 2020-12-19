@@ -1,4 +1,4 @@
-import { Mesh, Box, Program, OGLRenderingContext } from 'ogl-typescript';
+import { Mesh, Box, Program } from 'ogl';
 
 import type Scene from '.';
 import type { ProjectManager } from '../project-manager';
@@ -12,7 +12,7 @@ export default class ForegroundScene {
   private settings: PlantariumSettings;
   private dbg: DebugScene;
 
-  private gl: OGLRenderingContext;
+  private gl: WebGL2RenderingContext;
 
   private mesh: Mesh;
 

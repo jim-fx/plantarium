@@ -64,13 +64,13 @@ interface ValueTemplate {
 
 type ValueResult = NodeResult | ParameterResult | string;
 
-interface Vec2 {
+interface Vector2 {
   x: number;
   y: number;
   pinned?: boolean;
 }
 
-interface Vec3 {
+interface Vector3 {
   x: number;
   y: number;
   z: number;
@@ -79,7 +79,7 @@ interface Vec3 {
 
 interface NodeProps {
   attributes: NodeAttributes;
-  state?: any;
+  state?: Record<string, unknown>;
 }
 
 interface PlantProject {
@@ -136,6 +136,7 @@ interface PlantNode {
     [key: string]: ValueTemplate;
   };
 
+  compute?(parameters: { [key: string]: ValueResult }): NodeResult;
   computeNode?(parameters: { [key: string]: ValueResult }): NodeResult;
   computeSkeleton?(part: GeometryResult, ctx: GeneratorContext);
   computeGeometry?(part: GeometryResult, ctx: GeneratorContext);

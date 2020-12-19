@@ -3,13 +3,15 @@ import { debounce } from '@plantarium/helpers';
 let savedState;
 
 try {
-  savedState = JSON.parse(localStorage.getItem('pt_local_state'));
-} catch (error) {}
+  savedState = JSON.parse(localStorage.getItem('pt_local_state') as string);
+} catch (error) {
+  console.log(error);
+}
 
 const state = { ...savedState };
 
-const set: (...args: any[]) => void = debounce(
-  (key: string, value: any) => {
+const set: (...args: unknown[]) => void = debounce(
+  (key: string, value: unknown) => {
     state[key] = value;
     localStorage.setItem('pt_local_state', JSON.stringify(state));
   },
@@ -18,7 +20,7 @@ const set: (...args: any[]) => void = debounce(
 );
 
 export default {
-  get(key: string) {
+  get(key: string): unknown {
     return state[key];
   },
   set,

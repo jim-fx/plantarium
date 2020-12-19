@@ -5,6 +5,7 @@ export {
   rotate3D,
   calculateNormals,
   interpolateSkeleton,
+  interpolateArray,
   noise,
 } from './helpers';
 export { tube } from './shapes';

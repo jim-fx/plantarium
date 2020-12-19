@@ -1,5 +1,5 @@
 import { noise } from '@plantarium/geometry';
-import { interpolateArray } from '@plantarium/geometry/src/helpers';
+import { interpolateArray } from '@plantarium/geometry';
 import { curve } from '@plantarium/helpers';
 
 let lastSettings = '';
@@ -54,7 +54,7 @@ const createContext = (s: PlantariumSettings): GeneratorContext => {
   };
 };
 
-export default (settings: PlantariumSettings) => {
+export default (settings: PlantariumSettings): GeneratorContext => {
   const s = JSON.stringify(settings);
 
   if (s !== lastSettings) {

@@ -3,11 +3,13 @@ import { EventEmitter, debounce, logger } from '@plantarium/helpers';
 import SettingsTemplate from './SettingsTemplate';
 
 import storage from 'localforage';
-import { Writable, writable } from 'svelte/store';
+import { writable } from 'svelte/store';
+
+const obj = {};
 
 const templateToSettings = (
   template: SettingsTemplate,
-  store?: { [key: string]: any },
+  store?: typeof obj,
 ): PlantariumSettings => {
   const settings = {} as PlantariumSettings;
 
@@ -23,7 +25,7 @@ const templateToSettings = (
   return settings;
 };
 
-const resolveDeep = (object: any, path: string[]) => {
+const resolveDeep = (object: typeof obj, path: string[]) => {
   const current = path.shift();
   if (current && current in object) {
     if (!path.length) return object[current];
@@ -38,7 +40,7 @@ const keyToPath = (key: string) => (key.includes('.') ? key.split('.') : [key]);
 export default class SettingsManager extends EventEmitter {
   private settings: PlantariumSettings = {} as PlantariumSettings;
 
-  public store: Writable<any> = writable({});
+  public store = writable({});
 
   private _save: () => void;
 
@@ -65,7 +67,8 @@ export default class SettingsManager extends EventEmitter {
   }
 
   async loadFromLocal() {
-    const s = (await storage.getItem('pt_settings')) || {};
+    const s =
+      ((await storage.getItem('pt_settings')) as PlantariumSettings) || {};
 
     this.settings = templateToSettings(SettingsTemplate, s);
 
@@ -76,12 +79,12 @@ export default class SettingsManager extends EventEmitter {
     this.emit('settings', this.settings);
   }
 
-  set(key: string, value: any) {
-    let path = keyToPath(key);
+  set(key: string, value: unknown) {
+    const path = keyToPath(key);
 
     if (path.length > 1) {
-      let finalKey = path.pop();
-      let obj = resolveDeep(this.settings, path);
+      const finalKey: string = path.pop() as string;
+      const obj = resolveDeep(this.settings, path);
       if (obj) {
         obj[finalKey] = value;
       }
