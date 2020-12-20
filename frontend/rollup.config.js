@@ -24,22 +24,16 @@ export default {
 	input: 'src/main.ts',
 	output: {
 		sourcemap: true,
-		format: "amd",
-		name: 'app',
+		format: "esm",
 		dir: "public/build"
 	},
 	plugins: [
-
-
 		svelte({
 			preprocess: sveltePreprocess(),
 			compilerOptions: {
-				// enable run-time checks when not in production
-				dev: !production
+				dev: !production,
 			}
 		}),
-		// we'll extract any component CSS out into
-		// a separate file - better for performance
 		scss({
 			sass,
 			output: "public/build/bundle.css"
@@ -50,12 +44,6 @@ export default {
 		svg({
 			stringify: true
 		}),
-
-		// If you have external dependencies installed from
-		// npm, you'll most likely need these plugins. In
-		// some cases you'll need additional configuration -
-		// consult the documentation for details:
-		// https://github.com/rollup/plugins/tree/master/packages/commonjs
 		resolve({
 			browser: true,
 			dedupe: ['svelte'],
@@ -69,15 +57,11 @@ export default {
 			include: ["../packages/**/*.ts", "src/**/*.ts"]
 		}),
 
-		// Watch the `public` directory and refresh the
-		// browser on changes when not in production
 		!production && livereload('public'),
 
-		// If we're building for production (npm run build
-		// instead of npm run dev), minify
 		production && terser(),
 
-		iife(),
+		// iife(),
 		OMT(),
 
 		analyze({

@@ -2,6 +2,7 @@
   import * as icons from './icons';
 
   export let name: string = 'stem';
+  name = name.toLowerCase();
 
   export let active = false;
 
