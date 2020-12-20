@@ -1,5 +1,6 @@
 <script lang="ts">
   import { stateToComponent, Section } from '@plantarium/ui';
+  import sectionOpen from './sectionOpen';
   import type { SettingsManager } from '.';
 
   type SettingsTemplate = {
@@ -15,6 +16,8 @@
   // We need to cheat here because sveltes {if else}
   // does not work with typescript types
   let _template: ValueTemplate = (template as unknown) as ValueTemplate;
+
+  const isOpen = sectionOpen();
 
   const templateToProps = (t: ValueTemplate) => {
     const c = { ...t };
@@ -50,7 +53,10 @@
 
 <div class="wrapper">
   {#if template.options}
-    <Section name={key}>
+    <Section
+      name={key}
+      open={isOpen.get()}
+      on:toggle={({ detail }) => isOpen.set(detail)}>
       {#each Object.entries(value) as [_key, _value]}
         {#if _key in template.options}
           <svelte:self

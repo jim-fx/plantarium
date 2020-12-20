@@ -52,6 +52,7 @@
 
   .settings-wrapper {
     position: relative;
+    z-index: 2;
   }
 
   .settings-wrapper.active {

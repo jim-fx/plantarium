@@ -1,7 +1,16 @@
-<script>
-  let open = false;
+<script lang="ts">
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher();
+
+  export let open: boolean = false;
 
   export let name = '';
+
+  const toggle = () => {
+    open = !open;
+    dispatch('toggle', open);
+  };
 </script>
 
 <style>
@@ -63,7 +72,7 @@
 <svelte:options tag="plant-section" />
 
 <div class="wrapper" class:open>
-  <div class="header" on:click={() => (open = !open)}>
+  <div class="header" on:click={toggle}>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
