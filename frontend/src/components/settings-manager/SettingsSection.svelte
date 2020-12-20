@@ -12,6 +12,9 @@
   export let path: string = '';
   path = path + (path.length ? '.' : '') + key;
   export let template: SettingsTemplate;
+  // We need to cheat here because sveltes {if else}
+  // does not work with typescript types
+  let _template: ValueTemplate = (template as unknown) as ValueTemplate;
 
   const templateToProps = (t: ValueTemplate) => {
     const c = { ...t };
@@ -65,9 +68,9 @@
     <h3>{key}</h3>
 
     <svelte:component
-      this={stateToComponent(template, value)}
+      this={stateToComponent(_template, value)}
       {value}
-      {...templateToProps(template)}
+      {...templateToProps(_template)}
       on:change={(ev) => sm.set(path, ev.detail)} />
   {/if}
 </div>
