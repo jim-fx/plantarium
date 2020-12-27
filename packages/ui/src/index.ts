@@ -8,6 +8,8 @@ import InputColor from './InputColor.svelte';
 import Button from './Button.svelte';
 import Icon from './Icon.svelte';
 import Section from './Section.svelte';
+import Alert from './alert/Alert.svelte';
+import { createAlert } from './alert/AlertStore';
 
 export {
   InputNumber,
@@ -19,6 +21,8 @@ export {
   Button,
   Icon,
   Section,
+  Alert,
+  createAlert,
 };
 
 // *****************************************

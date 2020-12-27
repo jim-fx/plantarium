@@ -5,7 +5,7 @@
   // Model components
   import { NodeSystem } from '@plantarium/nodesystem';
   import Nodes from '@plantarium/nodes';
-  import { Button } from '@plantarium/ui';
+  import { Button, Alert } from '@plantarium/ui';
   import { lazyLoad } from './helpers';
 
   // View components
@@ -55,15 +55,15 @@
     z-index: 2;
   }
 
-  .settings-wrapper.active {
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  }
-
-  .project-wrapper.active {
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    opacity: 0.95;
+  .settings-wrapper,
+  .project-wrapper {
+    &.active {
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    }
   }
 </style>
+
+<Alert />
 
 <header>
   <div class="left">

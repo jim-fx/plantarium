@@ -13,7 +13,10 @@
 
   const { store } = pm;
 
-  const { width = 'unset', height = 'unset' } = localState.get('pmSize') || {};
+  const { width = 'unset', height = 'unset' } = localState.get('pmSize') || {
+    width: 'unset',
+    height: 'unset',
+  };
 </script>
 
 <style lang="scss">
@@ -59,7 +62,8 @@
     left: 0px;
     background: linear-gradient(0deg, #65e29f00 0%, #65e29f 50%);
 
-    > * {
+    > button,
+    input {
       height: 100%;
       border-radius: 5px;
       padding: 0px 10px;
@@ -110,7 +114,11 @@
     <button class="add-new" on:click={() => pm.createNew()}>
       <p>new</p>
     </button>
-    <input type="text" class="search" placeholder="Search" />
+    {#if $store.length > 3}
+      <input type="text" class="search" placeholder="Search" />
+    {:else}
+      <div />
+    {/if}
     <InputSelect values={['Date', 'Test', 'Test2']} />
     <button class="close" on:click={() => dispatch('close')}>
       <p>x</p>

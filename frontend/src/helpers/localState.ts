@@ -20,7 +20,7 @@ const set: (key: string, value: unknown) => void = debounce(
 );
 
 export default {
-  get(key: string): unknown {
+  get(key: string) {
     return state[key];
   },
   set,
