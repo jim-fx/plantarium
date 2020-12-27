@@ -11,6 +11,8 @@
 </script>
 
 <style lang="scss">
+  @import './global.scss';
+
   input[type='checkbox'] {
     opacity: 0;
     position: absolute;
@@ -38,7 +40,7 @@
 
 <svelte:options tag="plant-checkbox" />
 
-<plant-component padding="5px" height="20px">
+<div class="component-wrapper">
   <!-- <span class="tooltip-text">Enables syncing of projects to the cloud</span> -->
   <input type="checkbox" bind:checked={value} {id} />
   <!-- svelte-ignore a11y-label-has-associated-control -->
@@ -61,4 +63,4 @@
         y2="100" />
     </svg>
   </label>
-</plant-component>
+</div>

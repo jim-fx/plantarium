@@ -21,11 +21,6 @@
   $: sLoad = sLoad || sShow || false;
   const settingsManager = new SettingsManager();
 
-  //@ts-ignore
-  window.s = settingsManager;
-
-  const db = 'APP: imported projectManager';
-
   onMount(() => {
     const nodeSystem = new NodeSystem({
       wrapper: nodeSystemWrapper,
@@ -47,6 +42,7 @@
 
   header {
     display: flex;
+    z-index: 2;
     justify-content: space-between;
   }
 

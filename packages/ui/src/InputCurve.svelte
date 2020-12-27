@@ -161,7 +161,8 @@
   });
 </script>
 
-<style>
+<style lang="scss">
+  @import './global.scss';
   div {
     width: 100%;
     background-color: #4b4b4b;
@@ -184,7 +185,7 @@
     }, 100);
   }} />
 
-<plant-component padding="0px">
+<div class="component-wrapper">
   <div
     bind:this={el}
     on:mouseover={() => {
@@ -198,4 +199,4 @@
     on:mousedown={handleMouseDown}>
     <canvas bind:this={canvas} width={cWidth} height={cHeight} />
   </div>
-</plant-component>
+</div>

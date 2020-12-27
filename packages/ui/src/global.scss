@@ -1,0 +1,12 @@
+.component-wrapper {
+  position: relative;
+  background-color: #4b4b4b;
+  border-radius: 2px;
+  user-select: none;
+  transition: box-shadow 0.3s ease;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0);
+}
+
+.component-wrapper:hover {
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.4);
+}

@@ -24,8 +24,6 @@
     "tslib": "^2.0.0"
   },
   "dependencies": {
-    "shortid": "^2.2.16",
-    "svelte-chroma-picker": "^1.1.0",
-    "svelte-color-picker": "^1.0.7"
+    "shortid": "^2.2.16"
   }
 }

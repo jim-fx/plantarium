@@ -36,7 +36,8 @@
   }
 </script>
 
-<style>
+<style lang="scss">
+  @import './global.scss';
   #main {
     color: white;
     max-width: 200px;
@@ -73,7 +74,7 @@
 
 <svelte:options tag="plant-select" />
 
-<plant-component padding="10px">
+<div class="component-wrapper">
   <div id="main" bind:this={main}>
     {#if value !== undefined}
       <div id="selected-value" on:click={handleOpen}>{value}</div>
@@ -94,4 +95,4 @@
       </div>
     {/if}
   </div>
-</plant-component>
+</div>

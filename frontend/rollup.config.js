@@ -11,7 +11,6 @@ import glslify from "rollup-plugin-glslify";
 import svg from "rollup-plugin-svg-import";
 import analyze from 'rollup-plugin-analyzer'
 
-import iife from "rollup-plugin-iife";
 import OMT from "@surma/rollup-plugin-off-main-thread";
 
 
@@ -61,7 +60,6 @@ export default {
 
 		production && terser(),
 
-		// iife(),
 		OMT(),
 
 		analyze({

@@ -415,6 +415,8 @@
 </script>
 
 <style lang="scss">
+  @import './global.scss';
+
   .main-container {
     width: 240px;
   }
@@ -632,7 +634,7 @@
 
 <svelte:options tag="plant-color" />
 
-<plant-component>
+<div class="component-wrapper">
   <div class="main-container">
     <div class="colorsquare size" bind:this={colorSquare}>
       <div class="saturation-gradient">
@@ -691,4 +693,4 @@
       </div>
     {/if}
   </div>
-</plant-component>
+</div>

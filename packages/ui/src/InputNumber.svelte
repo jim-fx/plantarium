@@ -19,7 +19,8 @@
   $: value !== undefined && dispatch('change', parseFloat(value + ''));
 </script>
 
-<style>
+<style lang="scss">
+  @import './global.scss';
   input[type='number'] {
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
@@ -86,7 +87,7 @@
 
 <svelte:options tag="plant-number" />
 
-<plant-component>
+<div class="component-wrapper">
   <div>
     <button on:click={() => handleChange(-step)} />
 
@@ -94,4 +95,4 @@
 
     <button on:click={() => handleChange(+step)} class="plus" />
   </div>
-</plant-component>
+</div>
