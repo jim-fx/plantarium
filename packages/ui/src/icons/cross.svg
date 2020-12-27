@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.2" baseProfile="tiny" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-	 x="0px" y="0px" width="100px" height="100px" viewBox="0 0 100 100" xml:space="preserve">
-<line fill="none" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="10" x1="27.836" y1="72.164" x2="72.164" y2="27.836"/>
-<line fill="none" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="10" x1="27.836" y1="27.988" x2="72.164" y2="72.012"/>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 0 100 100">
+  <line fill="none" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="10" x1="27.836" y1="72.164" x2="72.164" y2="27.836"/>
+  <line fill="none" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="10" x1="27.836" y1="27.988" x2="72.164" y2="72.012"/>
 </svg>

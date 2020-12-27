@@ -28,6 +28,8 @@
   }
 </style>
 
+<svelte:options tag={null} />
+
 {#if $store}
   <div class="alert-container" transition:fade>
     <div

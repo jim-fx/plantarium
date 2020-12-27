@@ -15,41 +15,106 @@
 
 <body>
   <main>
-    <h2>Button</h2>
-    <plant-button></plant-button>
 
-    <h2>Icon</h2>
-    <plant-icon name="stem"></plant-icon>
+    <section>
+      <h3>Button</h3>
+      <plant-button icon="Cog" name="Projects" cls="projects-icon" />
+    </section>
 
-    <h2>Checkbox</h2>
-    <plant-checkbox></plant-checkbox>
+    <section>
+      <h3>Icon</h3>
+      <table>
+        <!-- <tr>
+          <td>arrow</td>
+          <td>
+            <plant-icon name="arrow"></plant-icon>
+          </td>
+        </tr> -->
+        <tr>
+          <td>branch</td>
+          <td>
+            <plant-icon name="branch"></plant-icon>
+          </td>
+        </tr>
+        <tr>
+          <td>cog</td>
+          <td>
+            <plant-icon name="cog"></plant-icon>
+          </td>
+        </tr>
+        <tr>
+          <td>cross</td>
+          <td>
+            <plant-icon name="cross"></plant-icon>
+          </td>
+        </tr>
+        <tr>
+          <td>leaf</td>
+          <td>
+            <plant-icon name="leaf"></plant-icon>
+          </td>
+        </tr>
+        <tr>
+          <td>stem</td>
+          <td>
+            <plant-icon name="stem"></plant-icon>
+          </td>
+        </tr>
+        <tr>
+          <td>triangle</td>
+          <td>
+            <plant-icon name="triangle"></plant-icon>
+          </td>
+        </tr>
+      </table>
 
-    <h2>Color</h2>
-    <plant-color></plant-color>
+    </section>
 
-    <h2>Curve</h2>
-    <plant-curve></plant-curve>
+    <section>
+      <h3>Checkbox</h3>
+      <plant-checkbox></plant-checkbox>
+    </section>
 
-    <h2>Number</h2>
-    <plant-number></plant-number>
+    <section>
+      <h3>Color</h3>
+      <plant-color></plant-color>
+    </section>
 
-    <h2>Select</h2>
-    <plant-select id="test"></plant-select>
+    <section>
+      <h3>Curve</h3>
+      <plant-curve></plant-curve>
+    </section>
 
-    <h2>Shape</h2>
-    <plant-shape></plant-shape>
+    <section>
+      <h3>Number</h3>
+      <plant-number></plant-number>
+    </section>
 
-    <h2>Slider</h2>
-    <plant-slider></plant-slider>
+    <section>
+      <h3>Select</h3>
+      <plant-select></plant-select>
+    </section>
 
-    <h2>Section</h2>
-    <plant-section name="TestSection">
+    <section>
+      <h3>Shape</h3>
+      <plant-shape></plant-shape>
+    </section>
 
-      <h2>Test1</h2>
-      <h2>Test2</h2>
-      <h2>Test3</h2>
+    <section>
+      <h3>Slider</h3>
+      <plant-slider></plant-slider>
+    </section>
 
-    </plant-section>
+    <section>
+      <h3>Section</h3>
+      <plant-section name="TestSection">
+
+        <h3>Test1</h3>
+        <h3>Test2</h3>
+        <h3>Test3</h3>
+
+      </plant-section>
+    </section>
 
   </main>
 
@@ -57,10 +122,7 @@
 
   <script src="./build/bundle.js"></script>
   <script>
-
-    const s = document.getElementById("test");
-    s.setItems(["test", "one", "two"]);
-
+    document.querySelector("plant-select").setItems(["test", "one", "two"]);
   </script>
 </body>
 

@@ -12,7 +12,6 @@ import serve from 'rollup-plugin-serve'
 // eslint-disable-next-line no-undef
 const production = !process.env.ROLLUP_WATCH;
 
-
 export default {
   input: 'src/index.ts',
   output: {
@@ -22,8 +21,6 @@ export default {
     file: "public/build/bundle.js"
   },
   plugins: [
-
-
     svelte({
       preprocess: sveltePreprocess(),
       compilerOptions: {

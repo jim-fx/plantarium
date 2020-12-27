@@ -222,8 +222,6 @@
   #main {
     width: 200px;
     height: 200px;
-    background-color: #4b4b4b;
-    border-radius: 2px;
     overflow: hidden;
   }
 
@@ -241,16 +239,18 @@
     }, 100);
   }} />
 
-<div
-  id="main"
-  on:mouseover={() => {
-    isHovered = true;
-    render();
-  }}
-  on:mouseleave={() => {
-    isHovered = false;
-  }}
-  on:mousemove={handleMouseMove}
-  on:mousedown={handleMouseDown}>
-  <canvas bind:this={canvas} width={cWidth} height={cHeight} />
-</div>
+<plant-component padding="0px">
+  <div
+    id="main"
+    on:mouseover={() => {
+      isHovered = true;
+      render();
+    }}
+    on:mouseleave={() => {
+      isHovered = false;
+    }}
+    on:mousemove={handleMouseMove}
+    on:mousedown={handleMouseDown}>
+    <canvas bind:this={canvas} width={cWidth} height={cHeight} />
+  </div>
+</plant-component>

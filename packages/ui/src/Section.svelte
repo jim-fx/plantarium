@@ -14,6 +14,10 @@
 </script>
 
 <style>
+  h3 {
+    margin: 0px;
+  }
+
   .wrapper {
     width: 100%;
   }

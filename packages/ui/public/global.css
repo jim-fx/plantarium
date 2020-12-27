@@ -4,7 +4,29 @@ main {
 }
 
 body {
-  background-color: gray;
+  background-color: rgb(31, 31, 31);
+  color: white;
   font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Oxygen-Sans', Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+}
+
+section {
+  padding: 50px 0px;
+  border-bottom: solid thin gray;
+}
+
+h3 {
+  margin-top: 0px;
+}
+
+tr {
+  border-bottom: solid thin gray;
+}
+
+tr > td:first-child {
+  text-align: right;
+}
+
+tr > td:last-child {
+  padding: 5px 10px;
 }

@@ -5,58 +5,40 @@
 
   export let value = false;
 
-  const id = createId();
+  export let id = createId();
 
   $: value !== undefined && dispatch('change', !!value);
 </script>
 
-<style>
+<style lang="scss">
   input[type='checkbox'] {
     opacity: 0;
-    cursor: pointer;
     position: absolute;
+
+    &:checked + label > svg {
+      opacity: 1;
+    }
   }
 
   svg {
-    width: 100%;
-    height: 100%;
+    width: 16px;
+    height: 16px;
     opacity: 0;
+    margin: 2px;
+    stroke: white;
+    stroke-width: 2px;
     pointer-events: none;
   }
 
-  input:checked + label > svg {
-    opacity: 1;
-  }
-
   label {
-    padding-left: 0px !important;
-    padding: 2px;
-    cursor: pointer;
-  }
-
-  div {
     position: relative;
-    width: 100%;
-    display: flex;
-    background-color: #4b4b4b;
-    border-radius: 2px;
-
-    width: 20px;
-    height: 20px;
-
-    font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-      Roboto, 'Oxygen-Sans', Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-  }
-
-  div,
-  div * {
-    box-sizing: border-box;
+    cursor: pointer;
   }
 </style>
 
 <svelte:options tag="plant-checkbox" />
 
-<div>
+<plant-component padding="5px" height="20px">
   <!-- <span class="tooltip-text">Enables syncing of projects to the cloud</span> -->
   <input type="checkbox" bind:checked={value} {id} />
   <!-- svelte-ignore a11y-label-has-associated-control -->
@@ -66,17 +48,17 @@
       <line
         vector-effect="non-scaling-stroke"
         class="b0ff5687-6367-498c-a1f2-615cbbb6ed44"
-        x1="27.84"
-        y1="74.16"
-        x2="72.16"
-        y2="29.84" />
+        x1="0"
+        y1="100"
+        x2="100"
+        y2="0" />
       <line
         vector-effect="non-scaling-stroke"
         class="b0ff5687-6367-498c-a1f2-615cbbb6ed44"
-        x1="27.84"
-        y1="29.99"
-        x2="72.16"
-        y2="74.01" />
+        x1="0"
+        y1="0"
+        x2="100"
+        y2="100" />
     </svg>
   </label>
-</div>
+</plant-component>

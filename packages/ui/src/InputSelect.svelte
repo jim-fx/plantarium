@@ -38,11 +38,9 @@
 
 <style>
   #main {
-    background-color: #4b4b4b;
     color: white;
-    border-radius: 2px;
-    position: relative;
-    padding: 8%;
+    max-width: 200px;
+    box-sizing: border-box;
   }
 
   #selected-value {
@@ -61,7 +59,7 @@
   }
 
   .item {
-    padding: 8%;
+    padding: 10px;
     margin: 0;
     background-color: #4b4b4b;
     cursor: pointer;
@@ -75,23 +73,25 @@
 
 <svelte:options tag="plant-select" />
 
-<div id="main" bind:this={main}>
-  {#if value !== undefined}
-    <div id="selected-value" on:click={handleOpen}>{value}</div>
-  {:else}
-    <div id="selected-value" on:click={handleOpen}>none</div>
-  {/if}
+<plant-component padding="10px">
+  <div id="main" bind:this={main}>
+    {#if value !== undefined}
+      <div id="selected-value" on:click={handleOpen}>{value}</div>
+    {:else}
+      <div id="selected-value" on:click={handleOpen}>none</div>
+    {/if}
 
-  {#if open}
-    <div id="item-wrapper">
-      {#each values as item}
-        <p
-          style={`opacity: ${item === value ? 0.5 : 1}`}
-          class="item"
-          on:click={() => setSelected(item)}>
-          {item}
-        </p>
-      {/each}
-    </div>
-  {/if}
-</div>
+    {#if open}
+      <div id="item-wrapper">
+        {#each values as item}
+          <p
+            style={`opacity: ${item === value ? 0.5 : 1}`}
+            class="item"
+            on:click={() => setSelected(item)}>
+            {item}
+          </p>
+        {/each}
+      </div>
+    {/if}
+  </div>
+</plant-component>

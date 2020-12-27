@@ -32,6 +32,8 @@
   }
 
   div {
+    box-sizing: border-box;
+    max-width: 200px;
     position: relative;
     width: 100%;
     display: flex;
@@ -42,11 +44,6 @@
 
     font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
       Roboto, 'Oxygen-Sans', Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-  }
-
-  div,
-  div * {
-    box-sizing: border-box;
   }
 
   div button {
@@ -88,10 +85,13 @@
 </style>
 
 <svelte:options tag="plant-number" />
-<div>
-  <button on:click={() => handleChange(-step)} />
 
-  <input bind:value {step} {max} {min} type="number" />
+<plant-component>
+  <div>
+    <button on:click={() => handleChange(-step)} />
 
-  <button on:click={() => handleChange(+step)} class="plus" />
-</div>
+    <input bind:value {step} {max} {min} type="number" />
+
+    <button on:click={() => handleChange(+step)} class="plus" />
+  </div>
+</plant-component>

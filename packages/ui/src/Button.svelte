@@ -52,21 +52,23 @@
 
 <svelte:options tag="plant-button" />
 
-<button
-  on:click={() => (active = !active)}
-  class={cls}
-  class:active
-  class:only-icon={!name}
-  class:has-icon={!!icon}>
-  {#if icon}
-    <Icon name={icon} {active} />
-  {/if}
+<plant-component>
+  <button
+    on:click={() => (active = !active)}
+    class={cls}
+    class:active
+    class:only-icon={!name}
+    class:has-icon={!!icon}>
+    {#if icon}
+      <Icon name={icon} {active} />
+    {/if}
 
-  {#if name}
-    <p>{name}</p>
-  {/if}
+    {#if name}
+      <p>{name}</p>
+    {/if}
 
-  <div class="content">
-    <slot />
-  </div>
-</button>
+    <div class="content">
+      <slot />
+    </div>
+  </button>
+</plant-component>

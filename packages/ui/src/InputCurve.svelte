@@ -167,8 +167,7 @@
     background-color: #4b4b4b;
     border-radius: 2px;
     overflow: hidden;
-    max-width: 150px;
-    max-height: 150px;
+    max-width: 200px;
   }
 
   canvas {
@@ -185,16 +184,18 @@
     }, 100);
   }} />
 
-<div
-  bind:this={el}
-  on:mouseover={() => {
-    isHovered = true;
-    render();
-  }}
-  on:mouseleave={() => {
-    isHovered = false;
-  }}
-  on:mousemove={handleMouseMove}
-  on:mousedown={handleMouseDown}>
-  <canvas bind:this={canvas} width={cWidth} height={cHeight} />
-</div>
+<plant-component padding="0px">
+  <div
+    bind:this={el}
+    on:mouseover={() => {
+      isHovered = true;
+      render();
+    }}
+    on:mouseleave={() => {
+      isHovered = false;
+    }}
+    on:mousemove={handleMouseMove}
+    on:mousedown={handleMouseDown}>
+    <canvas bind:this={canvas} width={cWidth} height={cHeight} />
+  </div>
+</plant-component>

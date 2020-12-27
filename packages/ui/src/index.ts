@@ -6,12 +6,14 @@ import InputShape from './InputShape.svelte';
 import InputCheckbox from './InputCheckbox.svelte';
 import InputColor from './InputColor.svelte';
 import Button from './Button.svelte';
+import Component from './Component.svelte';
 import Icon from './Icon.svelte';
 import Section from './Section.svelte';
 import Alert from './alert/Alert.svelte';
 import { createAlert } from './alert/AlertStore';
 
 export {
+  Component,
   InputNumber,
   InputSlider,
   InputSelect,
