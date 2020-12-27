@@ -5,6 +5,13 @@ export { default as aggregate } from './aggregate';
 export { default as memoize } from './memoize';
 export { default as inputChanged } from './inputChanged';
 
+// Error handling
+export { default as ComposableError } from './composeableError';
+
+// Geometry Stuff
+export { default as loader } from './loader';
+
+// Misc
 export { default as logger } from './logger';
 export * as download from './download';
 export { default as getSeed } from './getSeed';
@@ -18,6 +25,3 @@ export { default as genId } from './genId';
 export { default as convertHexToRGB } from './convertHexToRGB';
 export * as curve from './curve';
 export * as humane from './humane';
-
-// Geometry Stuff
-export { default as loader } from './loader';
