@@ -13,20 +13,18 @@
 
   const { store } = pm;
 
-  const { width = 'unset', height = 'unset' } = localState.get('pmSize') || {
-    width: 'unset',
-    height: 'unset',
-  };
+  const { width = 'unset', height = 'unset' } = localState.get('pmSize');
 </script>
 
 <style lang="scss">
   @import '../../themes.scss';
   .wrapper {
-    position: relative;
+    position: absolute;
     margin-top: -8px;
     width: fit-content;
     background-color: $light-green;
-    opacity: 0;
+    display: none;
+
     pointer-events: none;
     resize: both;
     border-radius: 0px 5px 5px 5px;
@@ -43,7 +41,7 @@
   }
 
   .visible {
-    opacity: 1;
+    display: block;
     pointer-events: all;
   }
 
@@ -71,11 +69,6 @@
       color: white;
       font-size: 1em;
       border: none;
-
-      > p {
-        padding: 0px;
-        color: white;
-      }
     }
 
     > :global(#main > *) {
