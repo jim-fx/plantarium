@@ -5,7 +5,10 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "lint": "eslint src/**/*"
+    "lint": "eslint src/**/*",
+    "test": "echo 'not implemented'",
+    "coverage": "nyc yarn test",
+    "clean": "rm -rf coverage .nyc_output"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^16.0.0",

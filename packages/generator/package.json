@@ -2,5 +2,10 @@
   "name": "@plantarium/generator",
   "version": "1.0.0",
   "main": "src/index.ts",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "test": "echo 'not implemented'",
+    "coverage": "nyc yarn test",
+    "clean": "rm -rf coverage .nyc_output"
+  }
 }
