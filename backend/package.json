@@ -6,8 +6,6 @@
     "start": "node dist/index.js",
     "build": "tsc",
     "dev": "ts-node-dev src",
-    "test": "echo 'not implemented'",
-    "coverage": "nyc yarn test",
     "clean": "rm -rf coverage .nyc_output"
   },
   "dependencies": {

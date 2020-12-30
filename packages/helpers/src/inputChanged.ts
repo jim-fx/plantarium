@@ -4,12 +4,13 @@
  * @param func Function to proxy
  */
 export default function memoize(func: (...args: unknown[]) => unknown) {
-  const lastArgs = '';
+  let lastArgs = '';
 
   return (...args: unknown[]) => {
     const newArgs = JSON.stringify(args);
 
     if (newArgs !== lastArgs) {
+      lastArgs = newArgs;
       return func(...args);
     }
   };
