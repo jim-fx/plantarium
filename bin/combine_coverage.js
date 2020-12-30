@@ -20,9 +20,7 @@ const execute = (command) => new Promise((resolve, reject) => {
 
 async function init() {
 
-  console.log(process.env);
-
-  const input = await execute("yarn workspaces info");
+  const input = (await execute("yarn workspaces info")).match(/\{[\s\S]*\}/)[0];
 
   const data = JSON.parse(input);
 
