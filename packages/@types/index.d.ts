@@ -25,6 +25,12 @@ interface ParameterResult {
   curve?: Vec2[];
 }
 
+interface Vec2 {
+  x: number;
+  y: number;
+  pinned?: boolean;
+}
+
 /**
  * Output of a node
  */
