@@ -1,3 +1,9 @@
+interface Vec2 {
+  x: number;
+  y: number;
+  pinned?: boolean;
+}
+
 const tension = 0.4;
 
 function plotCBez(

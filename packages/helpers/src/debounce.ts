@@ -11,7 +11,7 @@ export default function debounce(
     };
     const callNow = immediate && !timeout;
     clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
+    timeout = (window ? window.setTimeout : setTimeout)(later, wait);
     if (callNow) func(...args);
   };
 }

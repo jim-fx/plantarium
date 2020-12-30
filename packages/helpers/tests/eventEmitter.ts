@@ -22,48 +22,36 @@ test('listener works', () => {
 });
 
 test('emitting with data works', () => {
-  let receivedData = 'false';
-
   const e = new EventEmitter();
 
-  e.on('test', (data) => {
-    receivedData = data;
+  e.on('test', (data: string) => {
+    assert.equal(data, 'send_data');
   });
 
   e.emit('test', 'send_data');
-
-  assert.equal(receivedData, 'send_data');
 });
 
 test('emitting once with data works', () => {
-  let receivedData = 'false';
-
   const e = new EventEmitter();
 
-  e.once('test', (data) => {
-    receivedData = data;
+  e.once('test', (data: string) => {
+    assert.equal(data, 'send_data_first');
   });
 
   e.emit('test', 'send_data_first');
   e.emit('test', 'send_data_second');
-
-  assert.equal(receivedData, 'send_data_first');
 });
 
 test('removing listeners works', () => {
-  let receivedData = 'false';
-
   const e = new EventEmitter();
 
-  const removeListener = e.on('test', (data) => {
-    receivedData = data;
+  const removeListener = e.on('test', (data: string) => {
+    assert.equal(data, 'send_data_first');
   });
 
   e.emit('test', 'send_data_first');
   removeListener();
   e.emit('test', 'send_data_second');
-
-  assert.equal(receivedData, 'send_data_first');
 });
 
 test.run();
