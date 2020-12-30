@@ -6,8 +6,6 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "lint": "eslint src/**/*",
-    "test": "echo 'not implemented'",
-    "coverage": "nyc yarn test",
     "clean": "rm -rf coverage .nyc_output"
   },
   "devDependencies": {

@@ -7,8 +7,6 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "test": "echo 'not implemented'",
-    "coverage": "nyc yarn test",
     "clean": "rm -rf coverage .nyc_output"
   },
   "devDependencies": {
