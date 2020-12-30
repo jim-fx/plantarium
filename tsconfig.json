@@ -3,6 +3,7 @@
   "compilerOptions": {
     "lib": ["ES2019", "DOM"],
     "sourceMap": true,
-    "module": "ESNEXT"
+    "module": "ESNEXT",
+    "typeRoots": ["packages/@types"]
   }
 }

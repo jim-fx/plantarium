@@ -7,6 +7,7 @@
     "clean": "rm -rf coverage .nyc_output"
   },
   "dependencies": {
+    "gl-matrix": "^3.3.0",
     "open-simplex-noise": "^2.4.0-pre4"
   }
 }
