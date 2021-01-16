@@ -1,3 +1,6 @@
+name: default
+kind: pipeline
+
 steps:
   - name: build
     image: node:alpine
