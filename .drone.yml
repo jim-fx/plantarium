@@ -11,16 +11,15 @@ steps:
     image: node:alpine
     failure: ignore
     commands:
-      - ls -la
-      - pwd
-      - ls -la bin
       - yarn coverage
   - name: deploy
     image: alpacadb/docker-lftp
     failure: ignore
+    environment:
+      FTP_USERNAME:
+        from_secret: FTP_USERNAME
+      FTP_PASSWORD:
+        from_secret: FTP_PASSWORD
     commands:
       - cd frontend/public
-      - ls -la
-      - echo $FTP_PASSWORD
-      - echo $FTP_USERNAME
-      #- lftp -e "set sftp:auto-confirm true; set ftp:ssl-force true; set xfer:timeout 10000; debug 3; open -u $FTP_USERNAME,$FTP_PASSWORD sftp://ssh.jim-fx.com:2221; cd share; mirror -p --scan-all-first --overwrite --verbose -R --skip-noaccess; quit;"
+      - lftp -e "set sftp:auto-confirm true; set ftp:ssl-force true; set xfer:timeout 10000; debug 3; open -u $FTP_USERNAME,$FTP_PASSWORD sftp://ssh.jim-fx.com:2221; mkdir -p share/plant; cd share/plant; mirror -p --scan-all-first --overwrite --verbose -R --skip-noaccess; quit;"
