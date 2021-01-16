@@ -8,30 +8,34 @@ import typescript from '@rollup/plugin-typescript';
 import scss from 'rollup-plugin-scss';
 import sass from "sass";
 import glslify from "rollup-plugin-glslify";
-import svg from "rollup-plugin-svg-import"
+import svg from "rollup-plugin-svg-import";
+import analyze from 'rollup-plugin-analyzer'
 
+import OMT from "@surma/rollup-plugin-off-main-thread";
+
+
+// eslint-disable-next-line no-undef
 const production = !process.env.ROLLUP_WATCH;
+
+let i = 0;
 
 export default {
 	input: 'src/main.ts',
 	output: {
 		sourcemap: true,
-		format: 'iife',
-		name: 'app',
-		file: 'public/build/bundle.js'
+		format: "esm",
+		dir: "public/build"
 	},
 	plugins: [
 		svelte({
 			preprocess: sveltePreprocess(),
 			compilerOptions: {
-				// enable run-time checks when not in production
-				dev: !production
+				dev: !production,
 			}
 		}),
-		// we'll extract any component CSS out into
-		// a separate file - better for performance
 		scss({
-			sass
+			sass,
+			output: "public/build/bundle.css"
 		}),
 
 		glslify(),
@@ -39,15 +43,9 @@ export default {
 		svg({
 			stringify: true
 		}),
-
-		// If you have external dependencies installed from
-		// npm, you'll most likely need these plugins. In
-		// some cases you'll need additional configuration -
-		// consult the documentation for details:
-		// https://github.com/rollup/plugins/tree/master/packages/commonjs
 		resolve({
 			browser: true,
-			dedupe: ['svelte', "@plantarium/renderer"],
+			dedupe: ['svelte'],
 			moduleDirectory: [ // as array
 				'../packages/*',
 			]
@@ -58,13 +56,18 @@ export default {
 			include: ["../packages/**/*.ts", "src/**/*.ts"]
 		}),
 
-		// Watch the `public` directory and refresh the
-		// browser on changes when not in production
 		!production && livereload('public'),
 
-		// If we're building for production (npm run build
-		// instead of npm run dev), minify
-		production && terser()
+		production && terser(),
+
+		OMT(),
+
+		analyze({
+			hideDeps: false,
+			filterSummary: false,
+			filter: () => i++ < 5
+		}),
+
 	],
 	watch: {
 		clearScreen: false

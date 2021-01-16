@@ -9,15 +9,17 @@
   export let step = 1;
   export let value = 50;
 
+  $: alpha = (value - min) / Math.abs(min - max);
+
   let isActive = false;
 </script>
 
-<style>
+<style lang="scss">
+  $thumbSize: 10px;
+
   div {
     position: relative;
-    margin: 0px;
-    margin-bottom: 12px;
-    padding-top: 6px;
+    width: 100%;
   }
 
   input[type='range'] {
@@ -38,8 +40,8 @@
     border-radius: 1.4px;
   }
   input[type='range']::-webkit-slider-thumb {
-    height: 8px;
-    width: 8px;
+    height: $thumbSize;
+    width: $thumbSize;
     border-radius: 50px;
     background: #4b4b4b;
     cursor: pointer;
@@ -63,8 +65,8 @@
     border: 0px solid rgba(1, 1, 1, 0);
   }
   input[type='range']::-moz-range-thumb {
-    height: 8px;
-    width: 8px;
+    height: $thumbSize;
+    width: $thumbSize;
     border-radius: 50px;
     background: #4b4b4b;
     cursor: pointer;
@@ -79,15 +81,15 @@
   }
   input[type='range']::-ms-fill-lower {
     background: #3e3e3e;
-    border-radius: 2.8px;
+    border-radius: $thumbSize / 2;
   }
   input[type='range']::-ms-fill-upper {
     background: #4b4b4b;
-    border-radius: 2.8px;
+    border-radius: $thumbSize / 2;
   }
   input[type='range']::-ms-thumb {
-    height: 8px;
-    width: 8px;
+    height: $thumbSize;
+    width: $thumbSize;
     border-radius: 50px;
     background: #4b4b4b;
     cursor: pointer;
@@ -108,20 +110,23 @@
     text-shadow: 0px 0px 2px black;
     top: -1.2em;
     opacity: 0;
-    transform: translateY(5px);
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    top: -15px;
+    transition: opacity 0.3s ease, top 0.3s ease;
   }
 
   div:hover > output {
-    transform: translateY(0px);
+    top: -25px;
+    transform: translateX(-50%);
     opacity: 1;
   }
 </style>
 
+<svelte:options tag="plant-slider" />
+
 <div>
   <output
     class:isActive
-    style={`left: ${((value - min) / Math.abs(min - max)) * 90}%`}>
+    style={`left: ${alpha * 100}%; transform: translateX(-${alpha * 66.66}%)`}>
     {value}
   </output>
 

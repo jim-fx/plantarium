@@ -1,4 +1,4 @@
-import { Mesh, Box, Program, OGLRenderingContext } from 'ogl-typescript';
+import { Mesh, Box, Program } from 'ogl';
 
 import type Scene from '.';
 import type { ProjectManager } from '../project-manager';
@@ -12,7 +12,7 @@ export default class ForegroundScene {
   private settings: PlantariumSettings;
   private dbg: DebugScene;
 
-  private gl: OGLRenderingContext;
+  private gl: WebGL2RenderingContext;
 
   private mesh: Mesh;
 
@@ -31,7 +31,7 @@ export default class ForegroundScene {
   }
 
   initGeometry() {
-    const geometry = new Box(this.scene.gl);
+    const geometry = new Box(this.scene.gl, { width: 0, height: 0, depth: 0 });
     const program = new Program(this.gl, {
       vertex: BasicShader.vertex,
       fragment: BasicShader.fragment,
@@ -56,6 +56,8 @@ export default class ForegroundScene {
     if (!p || !s) return;
 
     const result = plant(p, s);
+
+    this.mesh.mode = s?.debug?.wireframe ? this.gl.LINES : this.gl.TRIANGLES;
 
     this.dbg.setPlant(result);
 

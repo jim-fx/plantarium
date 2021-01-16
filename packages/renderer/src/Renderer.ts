@@ -1,11 +1,4 @@
-import {
-  Renderer as oRenderer,
-  Camera,
-  Orbit,
-  Vec3,
-  Transform,
-  OGLRenderingContext,
-} from 'ogl-typescript';
+import { Renderer as oRenderer, Camera, Orbit, Vec3, Transform } from 'ogl';
 
 import { convertHexToRGB, EventEmitter } from '@plantarium/helpers';
 
@@ -17,12 +10,12 @@ interface RendererOptions {
 export default class Renderer extends EventEmitter {
   canvas: HTMLCanvasElement;
 
-  gl: OGLRenderingContext;
+  gl: WebGL2RenderingContext;
 
   renderer: oRenderer;
   scene: Transform = new Transform();
   camera: Camera;
-  controls: typeof Orbit;
+  controls: Orbit;
 
   private lastCamPos: Vec3 = new Vec3(0, 0, 0);
 
@@ -71,7 +64,7 @@ export default class Renderer extends EventEmitter {
     this.render();
   }
 
-  render() {
+  render(): void {
     requestAnimationFrame(this.render.bind(this));
 
     if (!this.lastCamPos.equals(this.camera.position)) {
@@ -79,8 +72,8 @@ export default class Renderer extends EventEmitter {
       this.emit('camPos', this.camera.position.toArray());
     }
 
-    //@ts-ignore
     this.controls.update();
+
     this.renderer.render({ scene: this.scene, camera: this.camera });
   }
 

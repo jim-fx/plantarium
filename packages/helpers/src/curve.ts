@@ -1,4 +1,9 @@
-//@ts-nocheck
+interface Vec2 {
+  x: number;
+  y: number;
+  pinned?: boolean;
+}
+
 const tension = 0.4;
 
 function plotCBez(
@@ -106,7 +111,10 @@ export function computeControlPoints(points: Vec2[]) {
   });
 }
 
-export function drawLinear(ctx: CanvasRenderingContext2D, points: Vec2[]) {
+export function drawLinear(
+  ctx: CanvasRenderingContext2D,
+  points: Vec2[],
+): void {
   ctx.save();
   ctx.beginPath();
   points.forEach((p, i, a) => {
@@ -123,7 +131,7 @@ export function drawLinear(ctx: CanvasRenderingContext2D, points: Vec2[]) {
 export function drawControlPoints(
   ctx: CanvasRenderingContext2D,
   points: Vec2[],
-) {
+): void {
   computeControlPoints(points).forEach((p, i) => {
     if ('rx' in p && 'ry' in p) {
       ctx.fillRect(p.rx - 1, p.ry - 1, 2, 2);

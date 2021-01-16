@@ -5,23 +5,7 @@ import { Writable, writable } from 'svelte/store';
 import storage from 'localforage';
 import createId from 'shortid';
 
-//@ts-ignore
-window.clearAll = () => {
-  storage.clear();
-};
-//@ts-ignore
-window.getAll = async () => {
-  const keys = await storage.keys();
-  const values = await Promise.all(keys.map((key) => storage.getItem(key)));
-
-  keys.forEach((key, i) => {
-    console.log(key, values[i]);
-  });
-};
-
-const log = logger('PM');
-logger.setFilter('PM');
-logger.setLevel(0);
+const log = logger('projectManager');
 
 const PTP_PREFIX = 'pt_project_';
 
@@ -30,6 +14,7 @@ export default class ProjectManager extends EventEmitter {
   private settingsManager: SettingsManager;
   public activeProjectId: string;
   private projects: { [key: string]: PlantProject } = {};
+  private loadingActiveProject?: Promise<PlantProject>;
   public store: Writable<PlantProject[]> = writable([]);
   private nodeSystem: NodeSystem;
 
@@ -91,17 +76,18 @@ export default class ProjectManager extends EventEmitter {
     return plant;
   }
 
-  public createNew() {
+  public createNew(): void {
     const plant = this.createNewProject();
     this.saveProject(plant);
   }
 
-  async updateProjectMeta(id: string, meta: Partial<PlantProjectMeta>) {
+  async updateProjectMeta(
+    id: string,
+    meta: Partial<PlantProjectMeta>,
+  ): Promise<void> {
     const project = await this.getProject(id);
 
     project.meta = { ...project.meta, ...meta };
-
-    console.log(project.meta);
 
     this.saveProject(project);
   }
@@ -125,7 +111,7 @@ export default class ProjectManager extends EventEmitter {
     return project;
   }
 
-  async deleteProject(id: string) {
+  async deleteProject(id: string): Promise<void> {
     if (id in this.projects) {
       delete this.projects[id];
       await storage.removeItem(PTP_PREFIX + id);
@@ -138,14 +124,21 @@ export default class ProjectManager extends EventEmitter {
   }
 
   async setActiveProject(id: string) {
-    if (id === this?.activeProjectId) return;
-    const project = await this.getProject(id);
-    if (project) {
+    if (this.loadingActiveProject || id === this?.activeProjectId) return;
+
+    this.activeProjectId === id;
+
+    this.loadingActiveProject = this.getProject(id);
+
+    const project = await this.loadingActiveProject;
+
+    if (this.loadingActiveProject) {
       await storage.setItem('pt_active_id', id);
       this.activeProjectId = id;
       this.nodeSystem.load(project);
       this.saveProject(project);
       log('set active project to id: ' + id);
+      delete this.loadingActiveProject;
     } else {
       log.warn('cant find plant with id: ' + id);
     }
@@ -179,7 +172,6 @@ export default class ProjectManager extends EventEmitter {
       this.setActiveProject(projectIds[0]);
     }
 
-    console.log(this.projects);
     this.store.set(Object.values(this.projects));
   }
 

@@ -1,7 +1,5 @@
-const get = (key:string, def:any) => {
-  return (key in process.env) ? process.env[key]:def;
-}
+const get = (key: string, def: unknown) => {
+  return key in process.env ? process.env[key] : def;
+};
 
-export {
-  get
-}
+export { get };

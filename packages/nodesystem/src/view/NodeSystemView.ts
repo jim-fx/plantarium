@@ -136,7 +136,7 @@ export default class NodeSystemView extends EventEmitter {
 
       if (this.activeNode.outputs.length) {
         const debugNode = this.system.createNode({
-          state: [],
+          state: {},
           attributes: {
             type: 'debug',
             id: '0',
@@ -228,8 +228,8 @@ export default class NodeSystemView extends EventEmitter {
     this.y = y;
     this.s = s;
 
-    const one = s * 100;
-    const four = s * 4;
+    // const one = s * 100;
+    // const four = s * 4;
 
     // this.wrapper.style.backgroundSize = `1px ${one}px, ${one}px ${one}px, ${four}px ${four}px, ${four}px ${four}px`;
 

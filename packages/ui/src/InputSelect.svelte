@@ -2,11 +2,11 @@
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
 
-  export let selectedValue = undefined;
+  export let value = undefined;
   let open = false;
   let main;
 
-  $: selectedValue && dispatch('change', selectedValue);
+  $: value && dispatch('change', value);
 
   function handleOpen() {
     open = true;
@@ -21,8 +21,8 @@
     }, 50);
   }
 
-  function setSelected(value) {
-    selectedValue = value;
+  function setSelected(v) {
+    value = v;
     open = false;
   }
 
@@ -32,17 +32,16 @@
   }
 
   export function setValue(v) {
-    selectedValue = v;
+    value = v;
   }
 </script>
 
-<style>
+<style lang="scss">
+  @import './global.scss';
   #main {
-    background-color: #4b4b4b;
     color: white;
-    border-radius: 2px;
-    position: relative;
-    padding: 8%;
+    max-width: 200px;
+    box-sizing: border-box;
   }
 
   #selected-value {
@@ -61,7 +60,7 @@
   }
 
   .item {
-    padding: 8%;
+    padding: 10px;
     margin: 0;
     background-color: #4b4b4b;
     cursor: pointer;
@@ -73,23 +72,27 @@
   }
 </style>
 
-<div id="main" bind:this={main}>
-  {#if selectedValue !== undefined}
-    <div id="selected-value" on:click={handleOpen}>{selectedValue}</div>
-  {:else}
-    <div id="selected-value" on:click={handleOpen}>none</div>
-  {/if}
+<svelte:options tag="plant-select" />
 
-  {#if open}
-    <div id="item-wrapper">
-      {#each values as item}
-        <p
-          style={`opacity: ${item === selectedValue ? 0.5 : 1}`}
-          class="item"
-          on:click={() => setSelected(item)}>
-          {item}
-        </p>
-      {/each}
-    </div>
-  {/if}
+<div class="component-wrapper">
+  <div id="main" bind:this={main}>
+    {#if value !== undefined}
+      <div id="selected-value" on:click={handleOpen}>{value}</div>
+    {:else}
+      <div id="selected-value" on:click={handleOpen}>none</div>
+    {/if}
+
+    {#if open}
+      <div id="item-wrapper">
+        {#each values as item}
+          <p
+            style={`opacity: ${item === value ? 0.5 : 1}`}
+            class="item"
+            on:click={() => setSelected(item)}>
+            {item}
+          </p>
+        {/each}
+      </div>
+    {/if}
+  </div>
 </div>

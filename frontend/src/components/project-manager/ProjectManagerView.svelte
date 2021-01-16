@@ -13,17 +13,18 @@
 
   const { store } = pm;
 
-  const { width = 'unset', height = 'unset' } = localState.get('pmSize') || {};
+  const { width = 'unset', height = 'unset' } = localState.get('pmSize');
 </script>
 
 <style lang="scss">
   @import '../../themes.scss';
   .wrapper {
-    position: relative;
+    position: absolute;
     margin-top: -8px;
     width: fit-content;
     background-color: $light-green;
-    opacity: 0;
+    display: none;
+
     pointer-events: none;
     resize: both;
     border-radius: 0px 5px 5px 5px;
@@ -40,7 +41,7 @@
   }
 
   .visible {
-    opacity: 1;
+    display: block;
     pointer-events: all;
   }
 
@@ -59,7 +60,8 @@
     left: 0px;
     background: linear-gradient(0deg, #65e29f00 0%, #65e29f 50%);
 
-    > * {
+    > button,
+    input {
       height: 100%;
       border-radius: 5px;
       padding: 0px 10px;
@@ -67,11 +69,6 @@
       color: white;
       font-size: 1em;
       border: none;
-
-      > p {
-        padding: 0px;
-        color: white;
-      }
     }
 
     > :global(#main > *) {
@@ -110,7 +107,11 @@
     <button class="add-new" on:click={() => pm.createNew()}>
       <p>new</p>
     </button>
-    <input type="text" class="search" placeholder="Search" />
+    {#if $store.length > 3}
+      <input type="text" class="search" placeholder="Search" />
+    {:else}
+      <div />
+    {/if}
     <InputSelect values={['Date', 'Test', 'Test2']} />
     <button class="close" on:click={() => dispatch('close')}>
       <p>x</p>

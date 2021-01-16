@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node dist/index.js",
     "build": "tsc",
-    "dev": "ts-node-dev src"
+    "dev": "ts-node-dev src",
+    "clean": "rm -rf coverage .nyc_output"
   },
   "dependencies": {
     "@types/polka": "^0.5.1",

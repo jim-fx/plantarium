@@ -6,8 +6,8 @@ export default function (input: string) {
 
   let hash = 0;
   for (let i = 0; i < input.length; i++) {
-    hash = (hash << 5) - hash + input.charCodeAt(i); // tslint:disable-line no-bitwise
-    hash = hash & hash; // tslint:disable-line no-bitwise
+    hash = (hash << 5) - hash + input.charCodeAt(i);
+    hash = hash & hash;
   }
 
   return hash;

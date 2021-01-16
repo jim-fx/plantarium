@@ -19,7 +19,8 @@
   $: value !== undefined && dispatch('change', parseFloat(value + ''));
 </script>
 
-<style>
+<style lang="scss">
+  @import './global.scss';
   input[type='number'] {
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
@@ -32,6 +33,8 @@
   }
 
   div {
+    box-sizing: border-box;
+    max-width: 200px;
     position: relative;
     width: 100%;
     display: flex;
@@ -42,11 +45,6 @@
 
     font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
       Roboto, 'Oxygen-Sans', Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-  }
-
-  div,
-  div * {
-    box-sizing: border-box;
   }
 
   div button {
@@ -87,10 +85,14 @@
   }
 </style>
 
-<div>
-  <button on:click={() => handleChange(-step)} />
+<svelte:options tag="plant-number" />
 
-  <input bind:value {step} {max} {min} type="number" />
+<div class="component-wrapper">
+  <div>
+    <button on:click={() => handleChange(-step)} />
 
-  <button on:click={() => handleChange(+step)} class="plus" />
+    <input bind:value {step} {max} {min} type="number" />
+
+    <button on:click={() => handleChange(+step)} class="plus" />
+  </div>
 </div>

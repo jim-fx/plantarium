@@ -55,7 +55,7 @@ const node: PlantNode = {
     skeletons.forEach((skelly, j) => {
       const amount = skelly.length / 4;
 
-      const a = j / skeletons.length;
+      // const a = j / skeletons.length;
 
       const ox = skelly[0];
       const oy = skelly[1];

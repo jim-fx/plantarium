@@ -1,0 +1,12 @@
+{
+  "extends": "@istanbuljs/nyc-config-typescript",
+  "reporter": [
+    "lcov",
+    "text"
+  ],
+  "all": true,
+  "include": [
+    "src/**"
+  ],
+  "excludeNodeModules": true
+}

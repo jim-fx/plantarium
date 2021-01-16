@@ -1,9 +1,9 @@
-import { noise, rotate3D } from '@plantarium/geometry';
-import { logger } from '@plantarium/helpers';
-import { Vec3 } from 'ogl-typescript';
+import { rotate3D } from '@plantarium/geometry';
+// import { logger } from '@plantarium/helpers';
+import { Vec3 } from 'ogl';
 import rotate2D from '@plantarium/geometry/src/helpers/rotate2D';
 
-const log = logger('node.gravity');
+// const log = logger('node.gravity');
 
 const node: PlantNode = {
   title: 'Gravity',
@@ -37,7 +37,7 @@ const node: PlantNode = {
   },
   computeSkeleton(node, ctx) {
     const { parameters } = node;
-    const { input, type, limit = true } = parameters;
+    const { input, type } = parameters;
 
     const {
       result: { skeletons },
@@ -73,7 +73,7 @@ const node: PlantNode = {
           const x = skelly[i * 4 + 0];
           const y = skelly[i * 4 + 1];
           const z = skelly[i * 4 + 2];
-          const t = skelly[i * 4 + 2];
+          // const t = skelly[i * 4 + 2];
 
           const px = skelly[(i - 1) * 4 + 0];
           const py = skelly[(i - 1) * 4 + 1];

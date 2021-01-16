@@ -1,6 +1,6 @@
 <script lang="typescript">
   import { onMount, createEventDispatcher } from 'svelte';
-  import { Vec2 } from 'ogl-typescript';
+  import { Vec2 } from 'ogl';
   import { curve, throttle } from '@plantarium/helpers';
 
   const dispatch = createEventDispatcher();
@@ -161,18 +161,22 @@
   });
 </script>
 
-<style>
+<style lang="scss">
+  @import './global.scss';
   div {
     width: 100%;
     background-color: #4b4b4b;
     border-radius: 2px;
     overflow: hidden;
+    max-width: 200px;
   }
 
   canvas {
     width: 100%;
   }
 </style>
+
+<svelte:options tag="plant-curve" />
 
 <svelte:window
   on:mouseup={() => {
@@ -181,16 +185,18 @@
     }, 100);
   }} />
 
-<div
-  bind:this={el}
-  on:mouseover={() => {
-    isHovered = true;
-    render();
-  }}
-  on:mouseleave={() => {
-    isHovered = false;
-  }}
-  on:mousemove={handleMouseMove}
-  on:mousedown={handleMouseDown}>
-  <canvas bind:this={canvas} width={cWidth} height={cHeight} />
+<div class="component-wrapper">
+  <div
+    bind:this={el}
+    on:mouseover={() => {
+      isHovered = true;
+      render();
+    }}
+    on:mouseleave={() => {
+      isHovered = false;
+    }}
+    on:mousemove={handleMouseMove}
+    on:mousedown={handleMouseDown}>
+    <canvas bind:this={canvas} width={cWidth} height={cHeight} />
+  </div>
 </div>

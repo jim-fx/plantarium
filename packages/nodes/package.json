@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "src/index.ts",
   "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf coverage .nyc_output"
+  },
   "dependencies": {
     "@plantarium/geometry": "1.0.0"
   }

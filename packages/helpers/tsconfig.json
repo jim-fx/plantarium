@@ -1,7 +1,20 @@
 {
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "commonjs"
+    },
+    "include": ["tests/**/*"]
+  },
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "composite": true,
-    "rootDir": "src"
-  }
+    "outDir": "build",
+    "allowSyntheticDefaultImports": true,
+    "target": "esnext",
+    "module": "esnext",
+    "rootDirs": ["src", "tests"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }

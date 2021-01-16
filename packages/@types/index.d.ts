@@ -25,6 +25,12 @@ interface ParameterResult {
   curve?: Vec2[];
 }
 
+interface Vec2 {
+  x: number;
+  y: number;
+  pinned?: boolean;
+}
+
 /**
  * Output of a node
  */
@@ -43,6 +49,10 @@ interface GeneratorContext {
   refresh(): void;
 }
 
+type SettingsTemplate = {
+  [key: string]: ValueTemplate | { options: SettingsTemplate };
+};
+
 interface ValueTemplate {
   type: string | string[];
   label?: boolean | string;
@@ -60,13 +70,13 @@ interface ValueTemplate {
 
 type ValueResult = NodeResult | ParameterResult | string;
 
-interface Vec2 {
+interface Vector2 {
   x: number;
   y: number;
   pinned?: boolean;
 }
 
-interface Vec3 {
+interface Vector3 {
   x: number;
   y: number;
   z: number;
@@ -75,7 +85,7 @@ interface Vec3 {
 
 interface NodeProps {
   attributes: NodeAttributes;
-  state?: any;
+  state?: Record<string, unknown>;
 }
 
 interface PlantProject {
@@ -132,14 +142,15 @@ interface PlantNode {
     [key: string]: ValueTemplate;
   };
 
+  compute?(parameters: { [key: string]: ValueResult }): NodeResult;
   computeNode?(parameters: { [key: string]: ValueResult }): NodeResult;
   computeSkeleton?(part: GeometryResult, ctx: GeneratorContext);
   computeGeometry?(part: GeometryResult, ctx: GeneratorContext);
 }
 
 interface PlantariumSettings {
-  useRandomSeed: boolean;
   seed: number;
+  useRandomSeed: boolean;
 
   stemResX: number;
   stemResY: number;
@@ -154,14 +165,17 @@ interface PlantariumSettings {
 
   forceUpdate: boolean;
 
-  debugWireframe: boolean;
-  debugIndices: boolean;
-  debugRenderPerf: boolean;
-  debugGeneratePerf: boolean;
-  debugPd: boolean;
-  debugSkeleton: boolean;
-  debugDisableModel: boolean;
-  debugUv: number;
+  debug: {
+    wireframe: boolean;
+    indices: boolean;
+    renderPerf: boolean;
+    generatePerf: boolean;
+    pd: boolean;
+    logLevel: number;
+    skeleton: boolean;
+    disableModel: boolean;
+    uv: number;
+  };
 
   ground: {
     enable: boolean;

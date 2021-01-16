@@ -1,4 +1,4 @@
-import type { Vec3 } from 'ogl-typescript';
+import type { Vec3 } from 'ogl';
 
 export default function (origin: Vec3, radius: number, resolution = 3) {
   //General parameters

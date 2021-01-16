@@ -5,8 +5,6 @@ import {
 } from '@plantarium/geometry/src/helpers';
 import rotate2D from '@plantarium/geometry/src/helpers/rotate2D';
 
-const branchRes = 50;
-
 const node: PlantNode = {
   title: 'Branches',
   type: 'branch',
@@ -46,7 +44,7 @@ const node: PlantNode = {
     amount: {
       type: 'number',
       min: 0,
-      max: 20,
+      max: 64,
       value: 1,
     },
   },
@@ -64,6 +62,8 @@ const node: PlantNode = {
     const { input } = parameters;
 
     const { skeletons: inputSkeletons } = input.result;
+
+    const branchRes = ctx.getSetting('stemResX');
 
     const skeletons = inputSkeletons
       .map((skelly) => {
@@ -83,7 +83,9 @@ const node: PlantNode = {
           const [_vx, _vy, _vz] = interpolateSkeletonVec(skelly, a);
 
           //Normalized Vector along stem
-          const [nvx, nvy, nvz] = normalize3D(_vx, _vy, _vz);
+          const nv = normalize3D(_vx, _vy, _vz);
+          const nvx = nv[0];
+          const nvz = nv[2];
 
           //Rotate Vector along stem by 90deg
           const [vx, vz] = rotate2D(nvx, nvz, isLeft ? 90 : -90);
@@ -113,7 +115,7 @@ const node: PlantNode = {
     };
   },
 
-  computeGeometry(part, ctx) {
+  computeGeometry(part) {
     const stemResX = 16;
     const {
       parameters: { input },

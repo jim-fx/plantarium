@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { Vec2 } from 'ogl-typescript';
+  import { Vec2 } from 'ogl';
   import { curve } from '@plantarium/helpers';
 
   export let points = [
@@ -218,12 +218,11 @@
   });
 </script>
 
-<style>
+<style lang="scss">
+  @import './global.scss';
   #main {
     width: 200px;
     height: 200px;
-    background-color: #4b4b4b;
-    border-radius: 2px;
     overflow: hidden;
   }
 
@@ -232,6 +231,8 @@
   }
 </style>
 
+<svelte:options tag="plant-shape" />
+
 <svelte:window
   on:mouseup={() => {
     setTimeout(() => {
@@ -239,16 +240,18 @@
     }, 100);
   }} />
 
-<div
-  id="main"
-  on:mouseover={() => {
-    isHovered = true;
-    render();
-  }}
-  on:mouseleave={() => {
-    isHovered = false;
-  }}
-  on:mousemove={handleMouseMove}
-  on:mousedown={handleMouseDown}>
-  <canvas bind:this={canvas} width={cWidth} height={cHeight} />
+<div class="component-wrapper">
+  <div
+    id="main"
+    on:mouseover={() => {
+      isHovered = true;
+      render();
+    }}
+    on:mouseleave={() => {
+      isHovered = false;
+    }}
+    on:mousemove={handleMouseMove}
+    on:mousedown={handleMouseDown}>
+    <canvas bind:this={canvas} width={cWidth} height={cHeight} />
+  </div>
 </div>

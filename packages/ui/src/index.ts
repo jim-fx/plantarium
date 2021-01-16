@@ -4,8 +4,12 @@ import InputSelect from './InputSelect.svelte';
 import InputCurve from './InputCurve.svelte';
 import InputShape from './InputShape.svelte';
 import InputCheckbox from './InputCheckbox.svelte';
+import InputColor from './InputColor.svelte';
 import Button from './Button.svelte';
 import Icon from './Icon.svelte';
+import Section from './Section.svelte';
+import Alert from './alert/Alert.svelte';
+import { createAlert } from './alert/AlertStore';
 
 export {
   InputNumber,
@@ -13,8 +17,12 @@ export {
   InputSelect,
   InputCurve,
   InputShape,
+  InputColor,
   Button,
   Icon,
+  Section,
+  Alert,
+  createAlert,
 };
 
 // *****************************************
@@ -32,60 +40,38 @@ export function stateToElement(
     value = template.value;
   }
 
+  const component = stateToComponent(template, value);
+
+  const props: Partial<ValueTemplate> = { ...template };
+  delete props.type;
+  delete props.inputType;
+  delete props.internal;
+
+  props.value = value as string | number | boolean | Vector2[];
+
+  return new component({ target, props: { ...props } });
+}
+
+export function stateToComponent(template: ValueTemplate, value: unknown) {
   if (template.inputType === 'select' || Array.isArray(template.values)) {
-    return new InputSelect({
-      target,
-      props: {
-        values: template.values,
-        selectedValue: value,
-      },
-    });
+    return InputSelect;
   }
 
-  if (template.inputType === 'slider' || template.step) {
-    return new InputSlider({
-      target,
-      props: {
-        max: template.max,
-        min: template.min,
-        step: template.step,
-        value: template.value,
-      },
-    });
+  if (template.inputType === 'slider' || 'step' in template) {
+    return InputSlider;
   }
 
   if (template.inputType === 'curve') {
-    return new InputCurve({
-      target,
-      props: { points: value || template.value },
-    });
+    return InputCurve;
   }
 
   if (template.inputType === 'shape') {
-    return new InputShape({
-      target,
-      props: {
-        points: template.value,
-      },
-    });
+    return InputShape;
   }
 
   if (template.type === 'number' || typeof value === 'number') {
-    return new InputNumber({
-      target,
-      props: {
-        max: template.max,
-        min: template.min,
-        step: template.step,
-        value: template.value,
-      },
-    });
+    return InputNumber;
   }
 
-  if (template.type === 'boolean' || typeof value === 'boolean') {
-    return new InputCheckbox({
-      target,
-      props: { value: template.value },
-    });
-  }
+  return InputCheckbox;
 }

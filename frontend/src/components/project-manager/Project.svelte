@@ -77,15 +77,22 @@
   </div>
   <div class="project-content">
     <div class="project-content-header">
-      <h3
+      <input
         contenteditable
+        value={project.meta.name}
+        on:keydown={function (ev) {
+          if (ev.key === 'Enter') {
+            const value = this.value.split('\n').join('').trim();
+            this.blur();
+            ev.preventDefault();
+            pm.updateProjectMeta(project.meta.id, { name: value });
+          }
+        }}
         on:input={function (ev) {
-          pm.updateProjectMeta(project.meta.id, {
-            name: ev.currentTarget.innerText,
-          });
-        }}>
-        {project.meta.name}
-      </h3>
+          const value = this.value.split('\n').join('').trim();
+          pm.updateProjectMeta(project.meta.id, { name: value });
+        }} />
+
       <p>{humane.time(Date.now() - project.meta.lastSaved)} ago</p>
     </div>
     <div class="project-content-main" />

@@ -1,5 +1,5 @@
 import { noise } from '@plantarium/geometry';
-import { interpolateArray } from '@plantarium/geometry/src/helpers';
+import { interpolateArray } from '@plantarium/geometry';
 import { curve } from '@plantarium/helpers';
 
 let lastSettings = '';
@@ -46,7 +46,6 @@ const createContext = (s: PlantariumSettings): GeneratorContext => {
     refresh() {
       currentNoise = 0;
       if (s?.useRandomSeed) {
-        console.log('new seed');
         seed = Math.floor(Math.random() * 100000);
         noise.seed = seed;
       }
@@ -55,13 +54,15 @@ const createContext = (s: PlantariumSettings): GeneratorContext => {
   };
 };
 
-export default (settings: PlantariumSettings) => {
+export default (settings: PlantariumSettings): GeneratorContext => {
   const s = JSON.stringify(settings);
 
   if (s !== lastSettings) {
     lastSettings = s;
     lastCtx = createContext(settings);
   }
+
+  lastCtx.refresh();
 
   return lastCtx;
 };

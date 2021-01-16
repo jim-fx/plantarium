@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="build/bundle.css">
+  <link rel="stylesheet" href="global.css">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,700&display=swap" />
+
+</head>
+
+<body>
+  <main>
+
+    <section>
+      <h3>Button</h3>
+      <plant-button icon="Cog" name="Projects" cls="projects-icon" />
+    </section>
+
+    <section>
+      <h3>Icon</h3>
+      <table>
+        <!-- <tr>
+          <td>arrow</td>
+          <td>
+            <plant-icon name="arrow"></plant-icon>
+          </td>
+        </tr> -->
+        <tr>
+          <td>branch</td>
+          <td>
+            <plant-icon name="branch"></plant-icon>
+          </td>
+        </tr>
+        <tr>
+          <td>cog</td>
+          <td>
+            <plant-icon name="cog"></plant-icon>
+          </td>
+        </tr>
+        <tr>
+          <td>cross</td>
+          <td>
+            <plant-icon name="cross"></plant-icon>
+          </td>
+        </tr>
+        <tr>
+          <td>leaf</td>
+          <td>
+            <plant-icon name="leaf"></plant-icon>
+          </td>
+        </tr>
+        <tr>
+          <td>stem</td>
+          <td>
+            <plant-icon name="stem"></plant-icon>
+          </td>
+        </tr>
+        <tr>
+          <td>triangle</td>
+          <td>
+            <plant-icon name="triangle"></plant-icon>
+          </td>
+        </tr>
+      </table>
+
+    </section>
+
+    <section>
+      <h3>Checkbox</h3>
+      <plant-checkbox></plant-checkbox>
+    </section>
+
+    <section>
+      <h3>Color</h3>
+      <plant-color></plant-color>
+    </section>
+
+    <section>
+      <h3>Curve</h3>
+      <plant-curve></plant-curve>
+    </section>
+
+    <section>
+      <h3>Number</h3>
+      <plant-number></plant-number>
+    </section>
+
+    <section>
+      <h3>Select</h3>
+      <plant-select></plant-select>
+    </section>
+
+    <section>
+      <h3>Shape</h3>
+      <plant-shape></plant-shape>
+    </section>
+
+    <section>
+      <h3>Slider</h3>
+      <plant-slider></plant-slider>
+    </section>
+
+    <section>
+      <h3>Section</h3>
+      <plant-section name="TestSection">
+
+        <h3>Test1</h3>
+        <h3>Test2</h3>
+        <h3>Test3</h3>
+
+      </plant-section>
+    </section>
+
+  </main>
+
+
+
+  <script src="./build/bundle.js"></script>
+  <script>
+    document.querySelector("plant-select").setItems(["test", "one", "two"]);
+  </script>
+</body>
+
+</html>
