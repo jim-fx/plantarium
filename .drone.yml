@@ -1,0 +1,20 @@
+image: node:alpine
+
+steps:
+  - name: build
+    commands:
+      - yarn install --ignore-optional
+      - yarn build
+  - name: test
+    commands:
+      - yarn coverage
+      - node bin/combine_coverage
+- name: deploy
+    image: alpacadb/docker-lftp
+    failure: ignore
+    commands:
+      - cd /drone/src/public
+      - ls -la
+      - echo $FTP_PASSWORD
+      - echo $FTP_USERNAME
+      #- lftp -e "set sftp:auto-confirm true; set ftp:ssl-force true; set xfer:timeout 10000; debug 3; open -u $FTP_USERNAME,$FTP_PASSWORD sftp://ssh.jim-fx.com:2221; cd share; mirror -p --scan-all-first --overwrite --verbose -R --skip-noaccess; quit;"
