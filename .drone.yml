@@ -8,7 +8,7 @@ steps:
     commands:
       - yarn coverage
       - node bin/combine_coverage
-- name: deploy
+  - name: deploy
     image: alpacadb/docker-lftp
     failure: ignore
     commands:
