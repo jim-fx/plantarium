@@ -8,6 +8,7 @@ steps:
       - yarn install --ignore-optional
       - yarn build
   - name: test
+    image: node:alpine
     commands:
       - yarn coverage
       - node bin/combine_coverage
