@@ -9,6 +9,7 @@ steps:
       - yarn build
   - name: test
     image: node:alpine
+    failure: ignore
     commands:
       - ls -la
       - pwd
