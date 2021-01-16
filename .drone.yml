@@ -10,11 +10,10 @@ steps:
   - name: test
     image: node:alpine
     commands:
-      - yarn coverage
       - ls -la
       - pwd
       - ls -la bin
-      - node bin/combine_coverage
+      - yarn coverage
   - name: deploy
     image: alpacadb/docker-lftp
     failure: ignore
