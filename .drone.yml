@@ -1,7 +1,6 @@
-image: node:alpine
-
 steps:
   - name: build
+    image: node:alpine
     commands:
       - yarn install --ignore-optional
       - yarn build
