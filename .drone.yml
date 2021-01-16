@@ -19,7 +19,7 @@ steps:
     image: alpacadb/docker-lftp
     failure: ignore
     commands:
-      - cd /drone/src/public
+      - cd frontend/public
       - ls -la
       - echo $FTP_PASSWORD
       - echo $FTP_USERNAME
