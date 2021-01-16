@@ -12,6 +12,7 @@ steps:
     failure: ignore
     commands:
       - yarn coverage
+      - mv coverage frontend/public/
   - name: deploy
     image: alpacadb/docker-lftp
     failure: ignore
