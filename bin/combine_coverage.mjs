@@ -3,7 +3,6 @@
 import { exec } from "child_process";
 import { existsSync } from "fs"
 import { rmdir, mkdir } from "fs/promises";
-import combine from "istanbul-combine";
 
 const execute = (command) => new Promise((resolve, reject) => {
 
