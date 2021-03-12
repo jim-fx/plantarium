@@ -58,7 +58,8 @@ async function init() {
     base: 'src',                        // base directory for resolving absolute paths, see karma bug
     reporters: {
       html: {},
-      lcov: {}
+      lcov: {},
+      xml: {},
     }
   }).then(console.log).catch(console.warn);
 

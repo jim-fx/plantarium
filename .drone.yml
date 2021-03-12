@@ -14,11 +14,14 @@ steps:
     commands:
       - yarn coverage
       - mv coverage frontend/public/
-  - name: codecov
-    image: robertstettner/drone-codecov
-    secrets: [ CODECOV_TOKEN ]
-    files:
-      - coverage/lcov.info
+  - name: coverage
+    image: plugins/codecov
+    settings:
+      name: plantarium
+      token:
+        from_secret: CODECOV_TOKEN
+      paths:
+        - coverage
   - name: deploy
     image: alpacadb/docker-lftp
     failure: ignore
