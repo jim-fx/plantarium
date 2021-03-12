@@ -23,6 +23,8 @@ steps:
         - frontend/public/coverage
   - name: deploy
     image: alpacadb/docker-lftp
+    when:
+      branch: main
     environment:
       FTP_USERNAME:
         from_secret: FTP_USERNAME

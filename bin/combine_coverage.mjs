@@ -37,14 +37,16 @@ async function init() {
   const data = JSON.parse(input);
 
   const packages = Object.entries(data).map(([key, entry]) => {
+    const s = key.split("/");
+    const name = s[s.length - 1];
     return {
-      name: key,
+      name,
       nycOutputFolder: entry.location + "/.nyc_output"
     }
   }).filter(pkg => existsSync(pkg.nycOutputFolder));
 
 
-  await Promise.all(packages.map(({ nycOutputFolder }) => execute(`yarn nyc merge ${nycOutputFolder} .nyc_output/combined.json`)));
+  await Promise.all(packages.map(({ nycOutputFolder, name }) => execute(`yarn nyc merge ${nycOutputFolder} .nyc_output/${name}.json`)));
 
 }
 

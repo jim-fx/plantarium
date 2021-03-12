@@ -6,8 +6,5 @@
     "html"
   ],
   "all": true,
-  "include": [
-    "src/**"
-  ],
   "excludeNodeModules": true
 }
