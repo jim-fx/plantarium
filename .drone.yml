@@ -6,6 +6,7 @@ steps:
     image: node:alpine
     commands:
       - yarn install --ignore-optional
+      - yarn clean
       - yarn build
   - name: test
     image: node:alpine
@@ -13,6 +14,11 @@ steps:
     commands:
       - yarn coverage
       - mv coverage frontend/public/
+  - name: codecov
+    image: robertstettner/drone-codecov
+    secrets: [ CODECOV_TOKEN ]
+    files:
+      - coverage/lcov.info
   - name: deploy
     image: alpacadb/docker-lftp
     failure: ignore
