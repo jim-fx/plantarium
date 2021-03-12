@@ -15,7 +15,7 @@
     "@rollup/plugin-typescript": "^6.0.0",
     "rollup": "^2.3.4",
     "rollup-plugin-livereload": "^2.0.0",
-    "rollup-plugin-scss": "^2.6.1",
+    "rollup-plugin-scss": "^3.0.0-rc1",
     "rollup-plugin-serve": "^1.1.0",
     "rollup-plugin-svelte": "^7.0.0",
     "rollup-plugin-svg-import": "^1.5.1",
