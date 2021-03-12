@@ -10,7 +10,6 @@ steps:
       - yarn build
   - name: test
     image: node:alpine
-    failure: ignore
     commands:
       - yarn coverage
       - mv coverage frontend/public/
@@ -21,7 +20,7 @@ steps:
       token:
         from_secret: CODECOV_TOKEN
       paths:
-        - coverage
+        - frontend/public/coverage
   - name: deploy
     image: alpacadb/docker-lftp
     environment:
