@@ -25,8 +25,8 @@ export default {
       preprocess: sveltePreprocess(),
       compilerOptions: {
         // enable run-time checks when not in production
+        customElement: true,
         dev: !production,
-        customElement: true
       }
     }),
     // we'll extract any component CSS out into

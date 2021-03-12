@@ -1,5 +1,4 @@
-import { noise } from '@plantarium/geometry';
-import { interpolateArray } from '@plantarium/geometry';
+import { noise, interpolateArray } from '@plantarium/geometry';
 import { curve } from '@plantarium/helpers';
 
 let lastSettings = '';
