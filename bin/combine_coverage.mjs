@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { exec } from "child_process";
 import { existsSync } from "fs"
 import { rmdir, mkdir } from "fs/promises";
@@ -21,7 +23,15 @@ const execute = (command) => new Promise((resolve, reject) => {
 
 const wait = time => new Promise((res) => setTimeout(res, time));
 
+const clear = async path => {
+  await rmdir(".nyc_output", { recursive: true })
+  await mkdir(".nyc_output")
+}
+
 async function init() {
+
+  // Clean old coverage reports
+  await clear(".nyc_output");
 
   const input = (await execute("yarn workspaces info")).match(/\{[\s\S]*\}/)[0];
 
@@ -30,38 +40,12 @@ async function init() {
   const packages = Object.entries(data).map(([key, entry]) => {
     return {
       name: key,
-      loc: entry.location
+      nycOutputFolder: entry.location + "/.nyc_output"
     }
-  });
-
-  // Clean old coverage reports
-  await rmdir("coverage", { recursive: true })
-  await mkdir("coverage")
-
-  await wait(200);
-
-  // FIlter out packages with no coverage report
-  const paths = packages
-    .map(({ loc }) => loc + "/.nyc_output")
-    .filter(loc => existsSync(loc))
-    .map(loc => loc + "/*.json");
-
-  console.log("Combining", paths);
+  }).filter(pkg => existsSync(pkg.nycOutputFolder));
 
 
-
-  // Combine all the found coverage reports
-  combine({
-    dir: 'coverage',                       // output directory for combined report(s)
-    pattern: paths.join(" "),   // json reports to be combined 
-    print: 'both',                      // print to the console (summary, detail, both, none) 
-    base: 'src',                        // base directory for resolving absolute paths, see karma bug
-    reporters: {
-      html: {},
-      lcov: {},
-      xml: {},
-    }
-  }).then(console.log).catch(console.warn);
+  await Promise.all(packages.map(({ nycOutputFolder }) => execute(`yarn nyc merge ${nycOutputFolder} .nyc_output/combined.json`)));
 
 }
 

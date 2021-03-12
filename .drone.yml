@@ -24,7 +24,6 @@ steps:
         - coverage
   - name: deploy
     image: alpacadb/docker-lftp
-    failure: ignore
     environment:
       FTP_USERNAME:
         from_secret: FTP_USERNAME

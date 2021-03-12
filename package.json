@@ -18,8 +18,8 @@
     "dev": "run-p backend:dev frontend:dev",
     "start": "yarn build && yarn backend:start",
     "test": "wsrun -am test",
-    "coverage": "wsrun -am coverage && node bin/combine_coverage.mjs",
-    "clean": "wsrun -am clean && rimraf coverage"
+    "coverage": "wsrun -am coverage && node bin/combine_coverage.mjs && nyc report",
+    "clean": "wsrun -am clean && rimraf coverage .nyc_output"
   },
   "dependencies": {
     "npm-run-all": "^4.1.5",

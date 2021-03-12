@@ -2,7 +2,8 @@
   "extends": "@istanbuljs/nyc-config-typescript",
   "reporter": [
     "lcov",
-    "text"
+    "text",
+    "html"
   ],
   "all": true,
   "include": [
