@@ -18,7 +18,7 @@ export default {
     sourcemap: true,
     format: "iife",
     name: 'app',
-    file: "public/build/bundle.js"
+    file: "public/dist/bundle.js"
   },
   plugins: [
     svelte({
@@ -33,7 +33,7 @@ export default {
     // a separate file - better for performance
     scss({
       sass,
-      output: "public/build/bundle.css"
+      output: "public/dist/bundle.css"
     }),
 
     svg({

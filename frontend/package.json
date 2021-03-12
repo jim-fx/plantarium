@@ -6,7 +6,7 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "lint": "eslint src/**/*",
-    "clean": "rm -rf coverage .nyc_output"
+    "clean": "rimraf coverage .nyc_output public/build"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^16.0.0",

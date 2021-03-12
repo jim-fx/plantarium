@@ -4,6 +4,6 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "clean": "rm -rf coverage .nyc_output"
+    "clean": "rimraf dist"
   }
 }

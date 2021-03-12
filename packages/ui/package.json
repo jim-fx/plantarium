@@ -7,7 +7,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "clean": "rm -rf coverage .nyc_output"
+    "clean": "rimraf coverage .nyc_output public/dist"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^16.0.0",

@@ -5,7 +5,7 @@
   "source": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "clean": "rm -rf coverage .nyc_output"
+    "clean": "rimraf coverage .nyc_output"
   },
   "dependencies": {
     "@plantarium/ui": "1.0.0"
