@@ -1,6 +1,7 @@
 {
-  "name": "plantarium",
+  "name": "@plantarium/root",
   "version": "0.0.1",
+  "published": "true",
   "workspaces": [
     "packages/*",
     "frontend",
