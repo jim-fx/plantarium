@@ -1,5 +1,6 @@
 {
   "name": "plantarium",
+  "version": "0.0.1",
   "workspaces": [
     "packages/*",
     "frontend",
