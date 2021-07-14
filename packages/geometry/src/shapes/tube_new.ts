@@ -1,13 +1,12 @@
+import { identity, rotate } from 'gl-matrix/mat4';
 import {
-  transformMat4,
   add,
-  subtract,
-  normalize,
   cross,
   dot,
+  normalize,
+  subtract,
+  transformMat4,
 } from 'gl-matrix/vec3';
-
-import { identity, rotate } from 'gl-matrix/mat4';
 
 const s = 0.005;
 
@@ -66,7 +65,7 @@ export default function (
     v = [],
     axis = [];
 
-  // skeleton = Float32Array.from([0, 0, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0]);
+  skeleton = Float32Array.from([0, 0, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0]);
 
   console.log(skeleton);
 
@@ -84,6 +83,7 @@ export default function (
   // Input shape as 2D vectors
   const positions = defaultPositions;
   if (!positions) throw new Error('positions not provided');
+
   // Edges (indices of the input shape)
   const edges = defaultEdges;
   if (!edges) throw new Error('edges not provided');

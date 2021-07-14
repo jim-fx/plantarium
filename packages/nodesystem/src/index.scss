@@ -1,4 +1,4 @@
-@import './variables.scss';
+@use './variables.scss';
 
 html {
   height: 100%;
@@ -13,7 +13,7 @@ label {
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
   background: transparent;
-  color: $border;
+  color: variables.$border;
   border: none;
 }
 
@@ -24,7 +24,7 @@ label {
 .nodesystem-wrapper {
   position: relative;
   height: 100%;
-  background: $bg;
+  background: variables.$bg;
   margin: 0;
   padding: 0;
   -webkit-user-select: none; /* Chrome all / Safari all */

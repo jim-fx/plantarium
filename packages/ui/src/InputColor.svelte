@@ -1,5 +1,7 @@
+<svelte:options tag="plant-color" />
+
 <script lang="ts">
-  import { onMount, createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
 
   export let startColor = '#FF0000';
 
@@ -414,6 +416,69 @@
   }
 </script>
 
+<div class="component-wrapper">
+  <div class="main-container">
+    <div class="colorsquare size" bind:this={colorSquare}>
+      <div class="saturation-gradient">
+        <div class="value-gradient">
+          <div id="colorsquare-picker" bind:this={colorSquarePicker} />
+          <div
+            id="colorsquare-event"
+            on:mousedown={csDown}
+            on:touchstart={csDownTouch}
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="hue-selector">
+      <div id="hue-picker" bind:this={huePicker} />
+      <div id="hue-event" on:mousedown={hueDown} on:touchstart={hueDownTouch} />
+    </div>
+
+    {#if showAlpha}
+      <div class="alpha-selector">
+        <div class="alpha-value" />
+        <div id="alpha-picker" bind:this={alphaPicker} />
+        <div
+          id="alpha-event"
+          on:mousedown={alphaDown}
+          on:touchstart={alphaDownTouch}
+        />
+      </div>
+    {/if}
+
+    {#if showOutput}
+      <div class="color-info-box">
+        <div class="color-picked-bg">
+          <div class="color-picked" bind:this={pickedColor} />
+        </div>
+
+        <div class="hex-text-block">
+          <p class="text">{hexValue}</p>
+        </div>
+
+        <div class="rgb-text-div">
+          <div class="rgb-text-block">
+            <p class="text">{r}</p>
+            <p class="text-label">R</p>
+          </div>
+
+          <div class="rgb-text-block">
+            <p class="text">{g}</p>
+            <p class="text-label">G</p>
+          </div>
+
+          <div class="rgb-text-block">
+            <p class="text">{b}</p>
+            <p class="text-label">B</p>
+          </div>
+        </div>
+      </div>
+    {/if}
+  </div>
+</div>
+
 <style lang="scss">
   @import './global.scss';
 
@@ -630,67 +695,10 @@
   //   -ms-user-select: all;
   //   user-select: all;
   // }
+
+  .component-wrapper {
+    width: fit-content;
+    padding: 10px;
+    padding-bottom: 6px;
+  }
 </style>
-
-<svelte:options tag="plant-color" />
-
-<div class="component-wrapper">
-  <div class="main-container">
-    <div class="colorsquare size" bind:this={colorSquare}>
-      <div class="saturation-gradient">
-        <div class="value-gradient">
-          <div id="colorsquare-picker" bind:this={colorSquarePicker} />
-          <div
-            id="colorsquare-event"
-            on:mousedown={csDown}
-            on:touchstart={csDownTouch} />
-        </div>
-      </div>
-    </div>
-
-    <div class="hue-selector">
-      <div id="hue-picker" bind:this={huePicker} />
-      <div id="hue-event" on:mousedown={hueDown} on:touchstart={hueDownTouch} />
-    </div>
-
-    {#if showAlpha}
-      <div class="alpha-selector">
-        <div class="alpha-value" />
-        <div id="alpha-picker" bind:this={alphaPicker} />
-        <div
-          id="alpha-event"
-          on:mousedown={alphaDown}
-          on:touchstart={alphaDownTouch} />
-      </div>
-    {/if}
-
-    {#if showOutput}
-      <div class="color-info-box">
-        <div class="color-picked-bg">
-          <div class="color-picked" bind:this={pickedColor} />
-        </div>
-
-        <div class="hex-text-block">
-          <p class="text">{hexValue}</p>
-        </div>
-
-        <div class="rgb-text-div">
-          <div class="rgb-text-block">
-            <p class="text">{r}</p>
-            <p class="text-label">R</p>
-          </div>
-
-          <div class="rgb-text-block">
-            <p class="text">{g}</p>
-            <p class="text-label">G</p>
-          </div>
-
-          <div class="rgb-text-block">
-            <p class="text">{b}</p>
-            <p class="text-label">B</p>
-          </div>
-        </div>
-      </div>
-    {/if}
-  </div>
-</div>

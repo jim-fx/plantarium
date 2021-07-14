@@ -1,8 +1,8 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src/**/*", "../**/*"],
+  "include": ["src/**/*.ts", "src/**/*.svelte"],
   "compilerOptions": {
     "module": "ESNext"
   },
-  "exclude": ["node_modules/*", "__sapper__/*", "public/*"]
+  "exclude": ["node_modules/*", "public/*"]
 }

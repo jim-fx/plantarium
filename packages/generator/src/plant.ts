@@ -1,9 +1,8 @@
-import { logger } from '@plantarium/helpers';
 import { calculateNormals } from '@plantarium/geometry';
-
-import executeSkeletonNode from './executeSkeletonNode';
-import executeGeometryNode from './executeGeometryNode';
+import { logger } from '@plantarium/helpers';
 import createContext from './createContext';
+import executeGeometryNode from './executeGeometryNode';
+import executeSkeletonNode from './executeSkeletonNode';
 
 const log = logger('gen.plant');
 
@@ -61,7 +60,7 @@ export default function plant(rootNode: NodeResult, s: PlantariumSettings) {
 
   result.geometry = calculateNormals(result.geometry);
 
-  log('generated in ', performance.now() - a);
+  log('generated in ', Math.floor((performance.now() - a) * 10) / 10, 'ms');
 
   return result;
 }

@@ -1,20 +1,53 @@
 <script lang="ts">
   import { InputSelect } from '@plantarium/ui';
-  import { createEventDispatcher } from 'svelte';
   import ResizeObserer from 'svelte-resize-observer';
-  const dispatch = createEventDispatcher();
-
-  import type ProjectManager from './ProjectManager';
-  import Project from './Project.svelte';
   import { localState } from '../../helpers';
+  import Project from './Project.svelte';
+  import type ProjectManager from './ProjectManager';
   export let pm: ProjectManager;
 
   export let visible = false;
 
   const { store } = pm;
 
-  const { width = 'unset', height = 'unset' } = localState.get('pmSize');
+  const { width, height } = localState.get('pmSize', {
+    width: 'unset',
+    height: 'unset',
+  });
 </script>
+
+<div
+  class="wrapper"
+  class:visible
+  style={`width: ${width}px; height: ${height}px;`}
+>
+  <ResizeObserer
+    on:resize={(ev) =>
+      localState.set('pmSize', {
+        width: ev.detail.contentRect.width,
+        height: ev.detail.contentRect.height,
+      })}
+  />
+  <div class="header">
+    <button class="add-new" on:click={() => pm.createNew()}>
+      <p>new</p>
+    </button>
+    {#if $store.length > 3}
+      <input type="text" class="search" placeholder="Search" />
+    {:else}
+      <div />
+    {/if}
+    <InputSelect values={['Date', 'Test', 'Test2']} />
+  </div>
+
+  {#if visible}
+    <div class="project-list">
+      {#each $store as project}
+        <Project {project} {pm} />
+      {/each}
+    </div>
+  {/if}
+</div>
 
 <style lang="scss">
   @import '../../themes.scss';
@@ -81,10 +114,6 @@
     }
   }
 
-  .close {
-    width: 30px;
-  }
-
   .project-list {
     overflow-y: hidden;
     overflow-x: hidden;
@@ -93,36 +122,3 @@
     padding-top: 7px;
   }
 </style>
-
-<div
-  class="wrapper"
-  class:visible
-  style={`width: ${width}px; height: ${height}px;`}>
-  <ResizeObserer
-    on:resize={(ev) => localState.set('pmSize', {
-        width: ev.detail.contentRect.width,
-        height: ev.detail.contentRect.height,
-      })} />
-  <div class="header">
-    <button class="add-new" on:click={() => pm.createNew()}>
-      <p>new</p>
-    </button>
-    {#if $store.length > 3}
-      <input type="text" class="search" placeholder="Search" />
-    {:else}
-      <div />
-    {/if}
-    <InputSelect values={['Date', 'Test', 'Test2']} />
-    <button class="close" on:click={() => dispatch('close')}>
-      <p>x</p>
-    </button>
-  </div>
-
-  {#if visible}
-    <div class="project-list">
-      {#each $store as project}
-        <Project {project} {pm} />
-      {/each}
-    </div>
-  {/if}
-</div>

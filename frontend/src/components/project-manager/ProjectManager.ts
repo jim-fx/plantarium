@@ -1,9 +1,9 @@
 import { EventEmitter, logger } from '@plantarium/helpers';
 import type { NodeSystem } from '@plantarium/nodesystem';
-import type { SettingsManager } from '../settings-manager';
-import { Writable, writable } from 'svelte/store';
 import storage from 'localforage';
 import createId from 'shortid';
+import { Writable, writable } from 'svelte/store';
+import type { SettingsManager } from '../settings-manager';
 
 const log = logger('projectManager');
 

@@ -3,17 +3,17 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "node dist/index.js",
-    "build": "tsc",
-    "dev": "ts-node-dev src",
+    "start": "ts-eager src/index.ts",
+    "dev": "nodemon",
     "clean": "rimraf coverage .nyc_output dist"
   },
   "dependencies": {
-    "@types/polka": "^0.5.1",
+    "@types/polka": "^0.5.3",
     "polka": "^0.5.2",
-    "sirv": "^1.0.10"
+    "sirv": "^1.0.12"
   },
   "devDependencies": {
-    "ts-node-dev": "^1.1.1"
+    "nodemon": "^2.0.12",
+    "ts-eager": "^2.0.2"
   }
 }

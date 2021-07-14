@@ -1,3 +1,4 @@
+@use "sass:map";
 $dark-gray: #303030;
 $medium-gray: #4b4b4b;
 $light-gray: #cccccc;
@@ -45,8 +46,8 @@ $themes: (
     .theme-#{$theme} & {
       $theme-map: () !global;
       @each $key, $submap in $map {
-        $value: map-get(map-get($themes, $theme), '#{$key}');
-        $theme-map: map-merge(
+        $value: map.get(map.get($themes, $theme), '#{$key}');
+        $theme-map: map.merge(
           $theme-map,
           (
             $key: $value,
@@ -60,5 +61,5 @@ $themes: (
 }
 
 @function themed($key) {
-  @return map-get($theme-map, $key);
+  @return map.get($theme-map, $key);
 }

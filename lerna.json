@@ -1,9 +1,0 @@
-{
-  "packages": ["packages/*", "frontend"],
-  "version": "0.0.0",
-  "command": {
-    "run": {
-      "npmClient": "yarn"
-    }
-  }
-}

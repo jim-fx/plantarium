@@ -1,5 +1,4 @@
-import { Mesh, Program, Geometry, Sphere } from 'ogl';
-
+import { Geometry, Mesh, Program, Sphere } from 'ogl';
 import type Scene from '.';
 import type { ProjectManager } from '../project-manager';
 import { InstanceShader, WireFrameShader } from './shaders';

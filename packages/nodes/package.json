@@ -7,6 +7,6 @@
     "clean": "rimraf coverage .nyc_output public/dist"
   },
   "dependencies": {
-    "@plantarium/geometry": "1.0.0"
+    "@plantarium/geometry": "workspace:1.0.0"
   }
 }

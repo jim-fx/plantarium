@@ -2,37 +2,37 @@
   "name": "@plantarium/root",
   "version": "0.0.1",
   "published": "true",
-  "workspaces": [
-    "packages/*",
-    "frontend",
-    "backend"
-  ],
   "scripts": {
-    "backend": "yarn workspace @plantarium/backend",
-    "frontend": "yarn workspace @plantarium/frontend",
-    "frontend:dev": "yarn frontend dev",
-    "frontend:build": "yarn frontend build",
-    "backend:dev": "yarn backend dev",
-    "backend:start": "yarn backend start",
-    "backend:build": "yarn backend build",
-    "build": "run-p frontend:build backend:build",
-    "dev": "run-p backend:dev frontend:dev",
-    "start": "yarn build && yarn backend:start",
-    "test": "wsrun -am test",
-    "coverage": "wsrun -am coverage && node bin/combine_coverage.mjs && nyc report",
-    "clean": "wsrun -am clean && rimraf coverage .nyc_output"
-  },
-  "dependencies": {
-    "npm-run-all": "^4.1.5",
-    "svelte": "^3.0.0"
+    "frontend:dev": "pnpm --filter=frontend dev",
+    "frontend:build": "pnpm --filter=frontend build",
+    "backend:dev": "pnpm --filter=backend dev",
+    "backend:start": "pnpm --filter=backend start",
+    "backend:build": "pnpm --filter=backend build",
+    "build": "pnpm m build",
+    "dev": "pnpm dev -r --filter !@plantarium/ui",
+    "start": "pnpm build && pnpm backend:start",
+    "test": "pnpm m test",
+    "coverage": "pnpm m coverage && node bin/combine_coverage.mjs && nyc report",
+    "clean": "pnpm m clean && rimraf coverage .nyc_output"
   },
   "devDependencies": {
-    "@tsconfig/svelte": "^1.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.10.0",
-    "@typescript-eslint/parser": "^4.10.0",
-    "eslint": "^7.15.0",
-    "eslint-plugin-svelte3": "^3.0.0",
-    "typescript": "^4.1.3",
-    "wsrun": "^5.2.4"
-  }
+    "@tsconfig/svelte": "^2.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.28.3",
+    "@typescript-eslint/parser": "^4.28.3",
+    "eslint": "^7.30.0",
+    "eslint-plugin-svelte3": "^3.2.0",
+    "typescript": "^4.3.5"
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jim-fx/plantarium.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jim-fx/plantarium/issues"
+  },
+  "homepage": "https://github.com/jim-fx/plantarium#readme",
+  "description": ""
 }

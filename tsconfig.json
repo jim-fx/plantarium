@@ -5,6 +5,6 @@
     "lib": ["ES2019", "DOM"],
     "sourceMap": true,
     "module": "ESNEXT",
-    "typeRoots": ["packages/@types"]
+    "typeRoots": ["./packages/@types"]
   }
 }

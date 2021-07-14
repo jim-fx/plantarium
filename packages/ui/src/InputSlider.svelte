@@ -1,3 +1,5 @@
+<svelte:options tag="plant-slider" />
+
 <script>
   import { createEventDispatcher } from 'svelte';
 
@@ -14,7 +16,29 @@
   let isActive = false;
 </script>
 
+<div>
+  <output
+    class:isActive
+    style={`left: ${alpha * 100}%; transform: translateX(-${alpha * 66.66}%)`}
+  >
+    {value}
+  </output>
+
+  <input
+    type="range"
+    on:focus={() => (isActive = true)}
+    on:blur={() => (isActive = false)}
+    on:input={dispatch('change', value)}
+    bind:value
+    {min}
+    {step}
+    {max}
+  />
+</div>
+
 <style lang="scss">
+  @use 'sass:math';
+
   $thumbSize: 10px;
 
   div {
@@ -81,11 +105,11 @@
   }
   input[type='range']::-ms-fill-lower {
     background: #3e3e3e;
-    border-radius: $thumbSize / 2;
+    border-radius: math.div($thumbSize, 2);
   }
   input[type='range']::-ms-fill-upper {
     background: #4b4b4b;
-    border-radius: $thumbSize / 2;
+    border-radius: math.div($thumbSize, 2);
   }
   input[type='range']::-ms-thumb {
     height: $thumbSize;
@@ -120,23 +144,3 @@
     opacity: 1;
   }
 </style>
-
-<svelte:options tag="plant-slider" />
-
-<div>
-  <output
-    class:isActive
-    style={`left: ${alpha * 100}%; transform: translateX(-${alpha * 66.66}%)`}>
-    {value}
-  </output>
-
-  <input
-    type="range"
-    on:focus={() => (isActive = true)}
-    on:blur={() => (isActive = false)}
-    on:input={dispatch('change', value)}
-    bind:value
-    {min}
-    {step}
-    {max} />
-</div>

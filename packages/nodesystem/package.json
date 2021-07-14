@@ -8,6 +8,7 @@
     "clean": "rimraf coverage .nyc_output"
   },
   "dependencies": {
-    "@plantarium/ui": "1.0.0"
+    "@plantarium/ui": "link:../ui",
+    "@plantarium/helpers": "link:../helpers"
   }
 }

@@ -1,7 +1,9 @@
+<svelte:options tag="plant-curve" />
+
 <script lang="typescript">
-  import { onMount, createEventDispatcher } from 'svelte';
-  import { Vec2 } from 'ogl';
   import { curve, throttle } from '@plantarium/helpers';
+  import { Vec2 } from 'ogl';
+  import { createEventDispatcher, onMount } from 'svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -161,29 +163,13 @@
   });
 </script>
 
-<style lang="scss">
-  @import './global.scss';
-  div {
-    width: 100%;
-    background-color: #4b4b4b;
-    border-radius: 2px;
-    overflow: hidden;
-    max-width: 200px;
-  }
-
-  canvas {
-    width: 100%;
-  }
-</style>
-
-<svelte:options tag="plant-curve" />
-
 <svelte:window
   on:mouseup={() => {
     setTimeout(() => {
       activePoint = undefined;
     }, 100);
-  }} />
+  }}
+/>
 
 <div class="component-wrapper">
   <div
@@ -196,7 +182,24 @@
       isHovered = false;
     }}
     on:mousemove={handleMouseMove}
-    on:mousedown={handleMouseDown}>
+    on:mousedown={handleMouseDown}
+  >
     <canvas bind:this={canvas} width={cWidth} height={cHeight} />
   </div>
 </div>
+
+<style lang="scss">
+  @import './global.scss';
+  div {
+    width: 100%;
+    background-color: #4b4b4b;
+    border-radius: 2px;
+    overflow: hidden;
+    max-width: 200px;
+  }
+
+  canvas {
+    width: 100%;
+    display: block;
+  }
+</style>

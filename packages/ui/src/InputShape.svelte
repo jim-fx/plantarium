@@ -1,7 +1,8 @@
+<svelte:options tag="plant-shape" />
+
 <script>
-  import { onMount } from 'svelte';
   import { Vec2 } from 'ogl';
-  import { curve } from '@plantarium/helpers';
+  import { onMount } from 'svelte';
 
   export let points = [
     { x: 0.5, y: 1, locked: true },
@@ -218,27 +219,13 @@
   });
 </script>
 
-<style lang="scss">
-  @import './global.scss';
-  #main {
-    width: 200px;
-    height: 200px;
-    overflow: hidden;
-  }
-
-  #main > canvas {
-    width: 100%;
-  }
-</style>
-
-<svelte:options tag="plant-shape" />
-
 <svelte:window
   on:mouseup={() => {
     setTimeout(() => {
       activePoint = undefined;
     }, 100);
-  }} />
+  }}
+/>
 
 <div class="component-wrapper">
   <div
@@ -251,7 +238,26 @@
       isHovered = false;
     }}
     on:mousemove={handleMouseMove}
-    on:mousedown={handleMouseDown}>
+    on:mousedown={handleMouseDown}
+  >
     <canvas bind:this={canvas} width={cWidth} height={cHeight} />
   </div>
 </div>
+
+<style lang="scss">
+  @import './global.scss';
+  #main {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+  }
+
+  #main > canvas {
+    width: 100%;
+  }
+
+  .component-wrapper {
+    width: fit-content;
+    padding: 10px;
+  }
+</style>

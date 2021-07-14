@@ -1,4 +1,4 @@
-@import './themes.scss';
+@use './themes.scss';
 
 // Basic styling
 html,
@@ -25,9 +25,9 @@ body {
 
 main,
 header {
-  @include themify($themes) {
-    outline: solid themed('outlineColor') thin;
-    background-color: themed('backgroundColor');
+  @include themes.themify(themes.$themes) {
+    outline: solid themes.themed('outlineColor') thin;
+    background-color: themes.themed('backgroundColor');
   }
 }
 
@@ -36,8 +36,8 @@ header {
 }
 
 #nodesystem-view {
-  @include themify($themes) {
-    border-left: solid themed('outlineColor') thin;
+  @include themes.themify(themes.$themes) {
+    border-left: solid themes.themed('outlineColor') thin;
   }
 }
 
@@ -66,8 +66,8 @@ canvas {
 }
 
 p#version {
-  @include themify($themes) {
-    color: themed('textColor');
+  @include themes.themify(themes.$themes) {
+    color: themes.themed('textColor');
   }
 }
 
@@ -86,10 +86,10 @@ p#version {
 .component {
   outline: solid 1px;
   height: 100%;
-  @include themify($themes) {
-    outline-color: themed('outlineColor');
-    color: themed('textColor');
-    background-color: themed('backgroundColor');
+  @include themes.themify(themes.$themes) {
+    outline-color: themes.themed('outlineColor');
+    color: themes.themed('textColor');
+    background-color: themes.themed('backgroundColor');
   }
 }
 
@@ -108,10 +108,10 @@ textarea {
   box-sizing: border-box;
   border: 1px solid #ccc;
 
-  @include themify($themes) {
-    border-color: themed('outlineColor');
+  @include themes.themify(themes.$themes) {
+    border-color: themes.themed('outlineColor');
   }
-  border-radius: $border-radius;
+  border-radius: themes.$border-radius;
 }
 
 input:disabled {
@@ -148,8 +148,8 @@ button:focus {
   overflow-y: scroll;
 
   border-left: solid thin;
-  @include themify($themes) {
-    border-color: themed('outlineColor');
+  @include themes.themify(themes.$themes) {
+    border-color: themes.themed('outlineColor');
   }
 }
 
@@ -179,22 +179,22 @@ button:focus {
 }
 ::-webkit-scrollbar-thumb {
   margin-right: 5px;
-  @include themify($themes) {
-    background: themed('foregroundColor');
+  @include themes.themify(themes.$themes) {
+    background: themes.themed('foregroundColor');
   }
-  border-radius: $border-radius;
+  border-radius: themes.$border-radius;
 }
 
 button.active {
-  background-color: $light-green !important;
+  background-color: themes.$light-green !important;
 }
 
 button.active > p {
-  color: $dark-gray !important;
+  color: themes.$dark-gray !important;
 }
 
 button.active > .icon-wrapper > svg > * {
-  stroke: $dark-gray !important;
+  stroke: themes.$dark-gray !important;
 }
 
 button > .icon-wrapper > svg {
@@ -249,8 +249,8 @@ svg {
   stroke-width: 1.5px;
   fill: none;
   transition: stroke 0.3s ease;
-  @include themify($themes) {
-    stroke: themed('textColor');
+  @include themes.themify(themes.$themes) {
+    stroke: themes.themed('textColor');
   }
 }
 .only-icon {

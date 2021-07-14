@@ -5,18 +5,18 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "test": "uvu -r ts-node/register tests",
+    "test": "uvu -r ts-eager/register tests",
     "coverage": "nyc yarn test",
     "clean": "rm -rf coverage .nyc_output"
   },
   "dependencies": {
-    "file-saver": "^2.0.5",
-    "ogl": "^0.0.60"
+    "file-saver": "^2.0.5"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "nyc": "^15.1.0",
-    "ts-node": "^9.1.1",
+    "ogl": "^0.0.73",
+    "ts-eager": "^2.0.2",
     "uvu": "^0.5.1"
   }
 }

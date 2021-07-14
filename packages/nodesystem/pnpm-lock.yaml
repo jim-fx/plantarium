@@ -1,0 +1,7 @@
+lockfileVersion: 5.3
+
+specifiers:
+  '@plantarium/ui': 1.0.0
+
+dependencies:
+  '@plantarium/ui': link:../ui

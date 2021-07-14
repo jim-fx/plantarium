@@ -4,10 +4,12 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
+    "build": "esbuild src/index.ts",
     "clean": "rimraf coverage .nyc_output"
   },
   "dependencies": {
     "gl-matrix": "^3.3.0",
-    "open-simplex-noise": "^2.4.0-pre4"
+    "open-simplex-noise": "^2.5.0",
+    "@plantarium/helpers": "../helpers"
   }
 }

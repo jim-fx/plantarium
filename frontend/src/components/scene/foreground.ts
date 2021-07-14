@@ -1,11 +1,10 @@
-import { Mesh, Box, Program } from 'ogl';
-
-import type Scene from '.';
-import type { ProjectManager } from '../project-manager';
 import { plant } from '@plantarium/generator';
 import { transferToGeometry } from '@plantarium/geometry';
-import { BasicShader } from './shaders';
+import { Box, Mesh, Program } from 'ogl';
+import type Scene from '.';
+import type { ProjectManager } from '../project-manager';
 import DebugScene from './debug';
+import { BasicShader } from './shaders';
 
 export default class ForegroundScene {
   private plant: NodeResult;

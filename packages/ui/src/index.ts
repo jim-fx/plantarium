@@ -1,15 +1,15 @@
-import InputSlider from './InputSlider.svelte';
-import InputNumber from './InputNumber.svelte';
-import InputSelect from './InputSelect.svelte';
-import InputCurve from './InputCurve.svelte';
-import InputShape from './InputShape.svelte';
-import InputCheckbox from './InputCheckbox.svelte';
-import InputColor from './InputColor.svelte';
-import Button from './Button.svelte';
-import Icon from './Icon.svelte';
-import Section from './Section.svelte';
 import Alert from './alert/Alert.svelte';
 import { createAlert } from './alert/AlertStore';
+import Button from './Button.svelte';
+import Icon from './Icon.svelte';
+import InputCheckbox from './InputCheckbox.svelte';
+import InputColor from './InputColor.svelte';
+import InputCurve from './InputCurve.svelte';
+import InputNumber from './InputNumber.svelte';
+import InputSelect from './InputSelect.svelte';
+import InputShape from './InputShape.svelte';
+import InputSlider from './InputSlider.svelte';
+import Section from './Section.svelte';
 
 export {
   InputNumber,

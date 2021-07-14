@@ -1,3 +1,5 @@
+@use '../../themes.scss';
+
 #settings-wrapper {
   position: absolute;
 
@@ -15,7 +17,7 @@
     pointer-events: all;
   }
 
-  @include themify($themes) {
-    background-color: themed('backgroundColor');
+  @include themes.themify(themes.$themes) {
+    background-color: themes.themed('backgroundColor');
   }
 }

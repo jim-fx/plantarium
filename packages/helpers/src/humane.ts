@@ -3,7 +3,7 @@ const getPluralS = (amount: number) => (amount > 1 ? 's' : '');
 const time = (millis: number) => {
   if (typeof millis !== 'number' || isNaN(millis)) return 'never';
 
-  if (millis < 1000) return millis + ' millisecond' + getPluralS(millis);
+  if (millis < 1000) return '< 1 second';
 
   const seconds = Math.floor(millis / 1000);
   if (seconds < 60) return seconds + ' second' + getPluralS(seconds);

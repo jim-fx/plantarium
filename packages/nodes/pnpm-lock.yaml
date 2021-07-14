@@ -1,0 +1,7 @@
+lockfileVersion: 5.3
+
+specifiers:
+  '@plantarium/geometry': 1.0.0
+
+dependencies:
+  '@plantarium/geometry': link:../geometry
