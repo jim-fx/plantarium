@@ -4,16 +4,16 @@
   "published": "true",
   "scripts": {
     "frontend:dev": "pnpm --filter=frontend dev",
-    "frontend:build": "pnpm --filter=frontend build",
+    "frontend:build": "pnpm --filter=./frontend build",
     "backend:dev": "pnpm --filter=backend dev",
     "backend:start": "pnpm --filter=backend start",
     "backend:build": "pnpm --filter=backend build",
-    "build": "pnpm m build",
+    "build": "pnpm build -r",
     "dev": "pnpm dev -r --filter !@plantarium/ui",
-    "start": "pnpm build && pnpm backend:start",
-    "test": "pnpm m test",
-    "coverage": "pnpm m coverage && node bin/combine_coverage.mjs && nyc report",
-    "clean": "pnpm m clean && rimraf coverage .nyc_output"
+    "start": "pnpm build -r && pnpm backend:start",
+    "test": "pnpm test -r",
+    "coverage": "pnpm coverage -r && node bin/combine_coverage.mjs && nyc report",
+    "clean": "pnpm clean -r && rimraf coverage .nyc_output"
   },
   "devDependencies": {
     "@tsconfig/svelte": "^2.0.1",

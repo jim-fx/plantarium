@@ -149,8 +149,10 @@ importers:
   packages/nodes:
     specifiers:
       '@plantarium/geometry': workspace:1.0.0
+      ogl: ^0.0.73
     dependencies:
       '@plantarium/geometry': link:../geometry
+      ogl: 0.0.73
 
   packages/nodesystem:
     specifiers:
