@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geometry</title>
+
+</head>
+
+<body>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    #container {
+      height: 100%
+    }
+
+    #3d {
+      position: relative;
+    }
+
+    #3d>canvas {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+
+  <script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
+
+  <div class="wrapper">
+    <div id="3d">
+      <canvas id="render-canvas"></canvas>
+    </div>
+    <div id="container"></div>
+  </div>
+
+
+  <script type="module" src="./main.js"></script>
+</body>
+
+</html>

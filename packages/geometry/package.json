@@ -4,12 +4,19 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "build": "esbuild src/index.ts",
-    "clean": "rimraf coverage .nyc_output"
+    "build": "esbuild src/index.ts --bundle --format=esm --outdir=public/dist && pnpm build:types",
+    "dev": "esbuild src/index.ts --bundle --format=esm --outdir=public/dist --servedir=public",
+    "build:types": "tsc && dts-bundle --main public/dist/index.d.ts --name geometry --out bundle.d.ts",
+    "clean": "rimraf coverage .nyc_output public/dist"
   },
   "dependencies": {
+    "@plantarium/helpers": "link:../helpers",
     "gl-matrix": "^3.3.0",
-    "open-simplex-noise": "^2.5.0",
-    "@plantarium/helpers": "../helpers"
+    "ogl": "^0.0.73",
+    "open-simplex-noise": "^2.5.0"
+  },
+  "devDependencies": {
+    "dts-bundle": "^0.7.3",
+    "rimraf": "^3.0.2"
   }
 }

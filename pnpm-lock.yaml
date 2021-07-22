@@ -114,13 +114,20 @@ importers:
 
   packages/geometry:
     specifiers:
-      '@plantarium/helpers': ../helpers
+      '@plantarium/helpers': link:../helpers
+      dts-bundle: ^0.7.3
       gl-matrix: ^3.3.0
+      ogl: ^0.0.73
       open-simplex-noise: ^2.5.0
+      rimraf: ^3.0.2
     dependencies:
       '@plantarium/helpers': link:../helpers
       gl-matrix: 3.3.0
+      ogl: 0.0.73
       open-simplex-noise: 2.5.0
+    devDependencies:
+      dts-bundle: 0.7.3
+      rimraf: 3.0.2
 
   packages/helpers:
     specifiers:
@@ -665,6 +672,10 @@ packages:
       '@types/node': 16.3.2
     dev: false
 
+  /@types/detect-indent/0.1.30:
+    resolution: {integrity: sha1-3GgrtBK05lugmOcO2tc7SDP7kQ0=}
+    dev: true
+
   /@types/estree/0.0.39:
     resolution: {integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==}
     dev: true
@@ -690,6 +701,13 @@ packages:
       '@types/serve-static': 1.13.10
     dev: false
 
+  /@types/glob/5.0.30:
+    resolution: {integrity: sha1-ECZAnFYlqGiQdGAoCNCCsoZ7ilE=}
+    dependencies:
+      '@types/minimatch': 3.0.5
+      '@types/node': 8.0.0
+    dev: true
+
   /@types/json-schema/7.0.8:
     resolution: {integrity: sha512-YSBPTLTVm2e2OoQIDYx8HaeWJ5tTToLH67kXR7zYNGupXMEHa2++G8k+DczX2cFVgalypqtyZIcU19AFcmOpmg==}
     dev: true
@@ -698,8 +716,20 @@ packages:
     resolution: {integrity: sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==}
     dev: false
 
+  /@types/minimatch/3.0.5:
+    resolution: {integrity: sha512-Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==}
+    dev: true
+
+  /@types/mkdirp/0.3.29:
+    resolution: {integrity: sha1-fyrX7FX5FEgvybHsS7GuYCjUYGY=}
+    dev: true
+
   /@types/node/16.3.2:
     resolution: {integrity: sha512-jJs9ErFLP403I+hMLGnqDRWT0RYKSvArxuBVh2veudHV7ifEC1WAmjJADacZ7mRbA2nWgHtn8xyECMAot0SkAw==}
+
+  /@types/node/8.0.0:
+    resolution: {integrity: sha512-j2tekvJCO7j22cs+LO6i0kRPhmQ9MXaPZ55TzOc1lzkN5b6BWqq4AFjl04s1oRRQ1v5rSe+KEvnLUSTonuls/A==}
+    dev: true
 
   /@types/polka/0.5.3:
     resolution: {integrity: sha512-Myj8ztBAH63xXhff5OMGiHIj37O4RG7GTDmFL/Amb05BAdG8IYFC90vp9IpdN7hjpZ5tkepsSvQkPvWwB8IRwQ==}
@@ -1287,6 +1317,15 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
+  /detect-indent/0.2.0:
+    resolution: {integrity: sha1-BCkUSYl5rC2fPHPk/z5od9O8krY=}
+    engines: {node: '>=0.10.0'}
+    hasBin: true
+    dependencies:
+      get-stdin: 0.1.0
+      minimist: 0.1.0
+    dev: true
+
   /detect-indent/6.1.0:
     resolution: {integrity: sha512-reYkTUJAZb9gUuZ2RvVCNhVHdg62RHnJ7WJl8ftMi4diZ6NWlciOzQN88pUhSELEwflJht4oQDv0F0BMlwaYtA==}
     engines: {node: '>=8'}
@@ -1316,6 +1355,21 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       is-obj: 2.0.0
+    dev: true
+
+  /dts-bundle/0.7.3:
+    resolution: {integrity: sha1-Nyt7tpyCB4LmOC9ABzmmnc7T1Zo=}
+    engines: {node: '>= 0.10.0'}
+    hasBin: true
+    dependencies:
+      '@types/detect-indent': 0.1.30
+      '@types/glob': 5.0.30
+      '@types/mkdirp': 0.3.29
+      '@types/node': 8.0.0
+      commander: 2.20.3
+      detect-indent: 0.2.0
+      glob: 6.0.4
+      mkdirp: 0.5.5
     dev: true
 
   /duplexer3/0.1.4:
@@ -1717,6 +1771,11 @@ packages:
     engines: {node: '>=8.0.0'}
     dev: true
 
+  /get-stdin/0.1.0:
+    resolution: {integrity: sha1-WZivJKr8gC0VyCxoVlfuuLENSpE=}
+    engines: {node: '>=0.10.0'}
+    dev: true
+
   /get-stream/4.1.0:
     resolution: {integrity: sha512-GMat4EJ5161kIy2HevLlr4luNjBgvmj413KaQA7jt4V8B4RDsfpHk7WQ9GVqfYyyx8OS/L66Kox+rJRNklLK7w==}
     engines: {node: '>=6'}
@@ -1744,6 +1803,16 @@ packages:
 
   /glob-regex/0.3.2:
     resolution: {integrity: sha512-m5blUd3/OqDTWwzBBtWBPrGlAzatRywHameHeekAZyZrskYouOGdNB8T/q6JucucvJXtOuyHIn0/Yia7iDasDw==}
+    dev: true
+
+  /glob/6.0.4:
+    resolution: {integrity: sha1-DwiGD2oVUSey+t1PnOJLGqtuTSI=}
+    dependencies:
+      inflight: 1.0.6
+      inherits: 2.0.4
+      minimatch: 3.0.4
+      once: 1.4.0
+      path-is-absolute: 1.0.1
     dev: true
 
   /glob/7.1.7:
@@ -2432,8 +2501,19 @@ packages:
       brace-expansion: 1.1.11
     dev: true
 
+  /minimist/0.1.0:
+    resolution: {integrity: sha1-md9lelJXTCHJBXSX33QnkLK0wN4=}
+    dev: true
+
   /minimist/1.2.5:
     resolution: {integrity: sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==}
+    dev: true
+
+  /mkdirp/0.5.5:
+    resolution: {integrity: sha512-NKmAlESf6jMGym1++R0Ra7wvhV+wFW63FaSOFPwRahvea0gMUcGUhVeAg/0BC0wiv9ih5NYPB1Wn1UEI1/L+xQ==}
+    hasBin: true
+    dependencies:
+      minimist: 1.2.5
     dev: true
 
   /mri/1.1.6:
