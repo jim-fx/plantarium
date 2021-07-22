@@ -116,6 +116,7 @@ importers:
     specifiers:
       '@plantarium/helpers': link:../helpers
       dts-bundle: ^0.7.3
+      esbuild: ^0.12.15
       gl-matrix: ^3.3.0
       ogl: ^0.0.73
       open-simplex-noise: ^2.5.0
@@ -127,6 +128,7 @@ importers:
       open-simplex-noise: 2.5.0
     devDependencies:
       dts-bundle: 0.7.3
+      esbuild: 0.12.15
       rimraf: 3.0.2
 
   packages/helpers:

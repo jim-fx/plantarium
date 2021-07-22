@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "dts-bundle": "^0.7.3",
+    "esbuild": "^0.12.15",
     "rimraf": "^3.0.2"
   }
 }
