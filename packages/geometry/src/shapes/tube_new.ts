@@ -7,8 +7,9 @@ import {
   subtract,
   transformMat4,
 } from 'gl-matrix/vec3';
+import { extrudePath } from '../helpers';
 
-const s = 0.05;
+const s = 0.01;
 
 const defaultPositions = [
   [0, 0],
@@ -65,6 +66,9 @@ export default function (
     v = [],
     axis = [];
 
+  // Skeleton
+  // [x,y,z,t,x,y,z,t];
+
   // skeleton = Float32Array.from([0, 0, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0]);
 
   const outputVertices = [];
@@ -75,8 +79,29 @@ export default function (
 
   //Transform the skeleton into the path
   for (let i = 0; i < skeleton.length / 4; i++) {
-    path[i] = [skeleton[i + 0], skeleton[i + 1], skeleton[i + 2]];
+    path[i] = [skeleton[i * 4 + 0], skeleton[i * 4 + 1], skeleton[i * 4 + 2]];
   }
+
+  const path1 = [];
+  for (let i = 0; i <= 8; i++) {
+    const theta = (i / 8) * 2 * Math.PI;
+    path1.push([Math.cos(theta), 0, Math.sin(theta)]);
+  }
+
+  const m = extrudePath({ path: path });
+  const _pos = Float32Array.from(
+    m.position.map((arr) => arr.splice(0, 3)).flat(),
+  );
+  const _ind = Uint16Array.from(m.index.flat());
+
+  return {
+    position: _pos,
+    index: _ind,
+    normal: new Float32Array(),
+    uv: new Float32Array(),
+  };
+
+  console.log(_pos, _ind);
 
   // Input shape as 2D vectors
   const positions = defaultPositions;
@@ -93,7 +118,7 @@ export default function (
     edgeAmount = edges.length;
 
   for (let i = 0; i < pathAmount; i++) {
-    const n = [0, 0, 1];
+    const n = [0, 1, 0];
 
     if (closed) {
       subtract(
@@ -182,8 +207,6 @@ export default function (
     index[i * 4 + 1] = outputIndices[i][1];
     index[i * 4 + 2] = outputIndices[i][2];
   }
-
-  console.log(position, index);
 
   return {
     position,

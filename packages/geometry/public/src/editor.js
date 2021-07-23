@@ -25,7 +25,13 @@ let proxy = URL.createObjectURL(
 );
 
 const importLine = `import * as g from "geometry";\n`;
-const code = localStorage.getItem('code') ?? `${importLine}`;
+let code = importLine;
+
+if (window.location.hash.length > 5) {
+  code = decodeURIComponent(
+    escape(window.atob(window.location.hash.replace(/^#/, ''))),
+  );
+}
 
 const cbs = [];
 export function onValueChange(cb) {
@@ -93,7 +99,7 @@ async function initEditor(monaco) {
   const handleChange = debounce(() => {
     const value = editor.getValue();
 
-    localStorage.setItem('code', value);
+    window.location.hash = window.btoa(unescape(encodeURIComponent(value)));
 
     cbs.forEach((cb) => cb(value.replace(importLine, '')));
   }, 500);

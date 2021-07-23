@@ -36,7 +36,10 @@ const controls = new Orbit(camera);
 const particles = createParticle(gl);
 particles.setParent(scene);
 
-const obj = new Mesh(gl, { geometry: new Box(gl), program: green(gl) });
+const obj = new Mesh(gl, {
+  geometry: new Box(gl, { size: 0 }),
+  program: green(gl),
+});
 obj.setParent(scene);
 
 requestAnimationFrame(update);

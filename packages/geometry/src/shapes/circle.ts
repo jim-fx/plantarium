@@ -17,7 +17,7 @@ export default function (origin: Vec3, radius: number, resolution = 3) {
   position[1] = origin[1];
   position[2] = origin[2];
 
-  for (let i = 1; i < resolution; i++) {
+  for (let i = 0; i <= resolution; i++) {
     const _angle = angle * i;
 
     const x =
