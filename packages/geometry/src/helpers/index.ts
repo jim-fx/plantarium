@@ -11,6 +11,7 @@ export { default as transferToGeometry } from './transferToGeometry';
 
 export { default as rotate2D } from './rotate2D';
 export { default as rotate3D } from './rotate3D';
+export { default as rotateMesh3D } from './rotateMesh3D';
 
 export { default as length2D } from './length2D';
 export { default as length3D } from './length3D';

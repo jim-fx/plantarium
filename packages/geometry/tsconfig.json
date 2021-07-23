@@ -2,11 +2,12 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "public/dist",
+    "lib": ["ESNEXT", "DOM"],
     "target": "esnext",
     "module": "esnext",
     "declaration": true,
     "emitDeclarationOnly": true
   },
-  "include": ["src/**/*", "../@types/*.d.ts"],
+  "include": ["src/**/*", "../@types/*.d.ts", "public/*.js"],
   "exclude": ["node_modules"]
 }

@@ -8,7 +8,7 @@ import {
   transformMat4,
 } from 'gl-matrix/vec3';
 
-const s = 0.005;
+const s = 0.05;
 
 const defaultPositions = [
   [0, 0],
@@ -65,9 +65,7 @@ export default function (
     v = [],
     axis = [];
 
-  skeleton = Float32Array.from([0, 0, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0]);
-
-  console.log(skeleton);
+  // skeleton = Float32Array.from([0, 0, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0]);
 
   const outputVertices = [];
   const outputIndices = [];

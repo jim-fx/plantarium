@@ -1,3 +1,9 @@
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference path="monaco.d.ts"/>
+
+import debounce from './debounce.js';
+
+// var require = require ?? null;
 require.config({
   paths: { vs: 'https://unpkg.com/monaco-editor@latest/min/vs' },
 });
@@ -18,24 +24,19 @@ let proxy = URL.createObjectURL(
   ),
 );
 
-const importLine = `import * as g from "geometry";`;
-const code =
-  localStorage.getItem('code') ??
-  `${importLine}
-`;
-
-const scene = {
-  add: (f) => {
-    console.log('SCENE:ADD', f);
-  },
-};
+const importLine = `import * as g from "geometry";\n`;
+const code = localStorage.getItem('code') ?? `${importLine}`;
 
 const cbs = [];
 export function onValueChange(cb) {
   cbs.push(cb);
 }
 
-require(['vs/editor/editor.main'], async function () {
+/**
+ *
+ * @param {monaco} monaco
+ */
+async function initEditor(monaco) {
   const typeContent = await (await fetch('dist/bundle.d.ts')).text();
 
   monaco.languages.typescript.typescriptDefaults.addExtraLib(
@@ -61,7 +62,13 @@ require(['vs/editor/editor.main'], async function () {
     noLib: true,
   });
 
-  let editor = monaco.editor.create(document.getElementById('container'), {
+  const model = monaco.editor.createModel(
+    code,
+    'typescript',
+    new monaco.Uri('dist'),
+  );
+
+  const editor = monaco.editor.create(document.getElementById('container'), {
     language: 'typescript',
     theme: 'vs-dark',
     automaticLayout: true,
@@ -69,11 +76,7 @@ require(['vs/editor/editor.main'], async function () {
     minimap: {
       enabled: false,
     },
-    model: monaco.editor.createModel(
-      code,
-      'typescript',
-      new monaco.Uri('dist'),
-    ),
+    model,
   });
 
   const readonlyRange = new monaco.Range(1, 0, 2, 0);
@@ -87,11 +90,20 @@ require(['vs/editor/editor.main'], async function () {
     }
   });
 
-  editor.onDidChangeModelContent(function (e) {
+  const handleChange = debounce(() => {
     const value = editor.getValue();
 
     localStorage.setItem('code', value);
 
     cbs.forEach((cb) => cb(value.replace(importLine, '')));
-  });
-});
+  }, 500);
+
+  model.onDidChangeContent(handleChange);
+
+  {
+    const value = editor.getValue();
+    cbs.forEach((cb) => cb(value.replace(importLine, '')));
+  }
+}
+
+require(['vs/editor/editor.main'], initEditor);

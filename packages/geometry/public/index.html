@@ -38,19 +38,37 @@
       width: 100%;
       height: 100%;
     }
+
+    #debug-wrapper {
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      width: 100%;
+      font-size: 0.8em;
+      display: flex;
+    }
+
+    #debug-wrapper>* {
+      margin: 0;
+    }
   </style>
 
   <script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
 
   <div class="wrapper">
     <div id="3d">
+      <div id="debug-wrapper">
+        <label for="show-points">Show Points</label>
+        <input type="checkbox" id="show-points" checked="false"></input>
+        <p id="debug"></p>
+      </div>
       <canvas id="render-canvas"></canvas>
     </div>
     <div id="container"></div>
   </div>
 
 
-  <script type="module" src="./main.js"></script>
+  <script type="module" src="./src/index.js"></script>
 </body>
 
 </html>

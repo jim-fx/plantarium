@@ -485,3 +485,7 @@ declare module 'ogl' {
     update: () => void;
   }
 }
+
+declare namespace ogl {
+  Vec2;
+}

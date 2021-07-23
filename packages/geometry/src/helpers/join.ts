@@ -1,4 +1,5 @@
 export default function (...geometries: TransferGeometry[]): TransferGeometry {
+  console.log('joining', geometries);
   if (geometries.length === 1) return geometries[0];
 
   const position = new Float32Array(

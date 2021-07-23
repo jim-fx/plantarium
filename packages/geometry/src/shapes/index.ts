@@ -1,3 +1,4 @@
+export { default as box } from './box';
 export { default as circle } from './circle';
 export { default as ring } from './ring';
 export { default as triangle } from './triangle';
