@@ -29,9 +29,10 @@ steps:
   - name: test
     image: node:alpine
     commands:
+      - rm -rf coverage
       - npm i -g pnpm
       - pnpm coverage
-      - mv coverage frontend/public/
+      - mv coverage frontend/dist/coverage
   - name: coverage-publish
     image: plugins/codecov
     failure: ignore
