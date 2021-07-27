@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "test": "uvu -r ts-eager/register tests",
-    "coverage": "nyc yarn test",
+    "coverage": "nyc pnpm test",
     "clean": "rm -rf coverage .nyc_output"
   },
   "dependencies": {

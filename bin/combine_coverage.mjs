@@ -32,7 +32,7 @@ async function init() {
   // Clean old coverage reports
   await clear(".nyc_output");
 
-  const input = (await execute("yarn workspaces info")).match(/\{[\s\S]*\}/)[0];
+  const input = (await execute("pnpm workspaces info")).match(/\{[\s\S]*\}/)[0];
 
   const data = JSON.parse(input);
 

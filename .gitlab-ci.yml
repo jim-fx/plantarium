@@ -17,8 +17,8 @@ stages:
 build:frontend:
   stage: build
   script:
-    - yarn install --ignore-optional
-    - yarn build
+    - pnpm install --ignore-optional
+    - pnpm build
   artifacts:
     paths:
       - frontend/public/build
@@ -26,7 +26,7 @@ build:frontend:
 test:
   stage: test
   script:
-    - yarn coverage
+    - pnpm coverage
     - node bin/combine_coverage
   artifacts:
     paths:

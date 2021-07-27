@@ -16,6 +16,6 @@
   "forwardPorts": [
     8080
   ],
-  "postCreateCommand": "yarn install",
+  "postCreateCommand": "install",
   "remoteUser": "node"
 }
