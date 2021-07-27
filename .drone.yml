@@ -30,7 +30,7 @@ steps:
       - pnpm coverage
       - mv coverage frontend/dist/coverage
     depends_on:
-      - clone
+      - build
   - name: build
     image: node:alpine
     commands:
