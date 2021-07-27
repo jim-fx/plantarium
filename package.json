@@ -12,7 +12,7 @@
     "dev": "pnpm dev -r --filter !@plantarium/ui",
     "start": "pnpm build -r && pnpm backend:start",
     "test": "pnpm test -r",
-    "coverage": "pnpm coverage -r && node bin/combine_coverage.mjs && nyc report",
+    "coverage": "pnpm coverage -r && node bin/combine_coverage.mjs && pnpm nyc report",
     "clean": "pnpm clean -r && rimraf coverage .nyc_output"
   },
   "devDependencies": {
@@ -21,6 +21,7 @@
     "@typescript-eslint/parser": "^4.28.3",
     "eslint": "^7.30.0",
     "eslint-plugin-svelte3": "^3.2.0",
+    "nyc": "^15.1.0",
     "typescript": "^4.3.5"
   },
   "main": "index.js",

@@ -2,7 +2,7 @@
 
 import { exec } from "child_process";
 import { existsSync } from "fs"
-import { rmdir, mkdir } from "fs/promises";
+import { rm, mkdir } from "fs/promises";
 
 const execute = (command) => new Promise((resolve, reject) => {
 
@@ -20,11 +20,11 @@ const execute = (command) => new Promise((resolve, reject) => {
 
 });
 
-const wait = time => new Promise((res) => setTimeout(res, time));
+//const wait = time => new Promise((res) => setTimeout(res, time));
 
 const clear = async path => {
-  await rmdir(".nyc_output", { recursive: true })
-  await mkdir(".nyc_output")
+  existsSync(path) && await rm(path, { recursive: true })
+  await mkdir(path)
 }
 
 async function init() {
@@ -32,21 +32,23 @@ async function init() {
   // Clean old coverage reports
   await clear(".nyc_output");
 
-  const input = (await execute("pnpm workspaces info")).match(/\{[\s\S]*\}/)[0];
+  const input = await execute("pnpm ls -r --depth -1 --long --parseable");
 
-  const data = JSON.parse(input);
+  const packages = input.split("\n").filter(line => line.length > 1).map(line => {
+    console.log(line);
+    let [packagePath, packageName] = line.split("@");
+    packagePath = packagePath.replace(":", "");
+    packageName = "@"+packageName.replace("/", "_");
+    console.log(packagePath, packageName);
 
-  const packages = Object.entries(data).map(([key, entry]) => {
-    const s = key.split("/");
-    const name = s[s.length - 1];
     return {
-      name,
-      nycOutputFolder: entry.location + "/.nyc_output"
+      name:packageName,
+      nycOutputFolder: packagePath + "/.nyc_output"
     }
   }).filter(pkg => existsSync(pkg.nycOutputFolder));
 
 
-  await Promise.all(packages.map(({ nycOutputFolder, name }) => execute(`yarn nyc merge ${nycOutputFolder} .nyc_output/${name}.json`)));
+  await Promise.all(packages.map(({ nycOutputFolder, name }) => execute(`pnpm nyc merge ${nycOutputFolder} .nyc_output/${name}.json`)));
 
 }
 
