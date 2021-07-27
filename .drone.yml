@@ -22,6 +22,14 @@ steps:
       - git reset --hard origin/main
     depends_on:
       - restore-cache
+  - name: build
+    image: node:alpine
+    commands:
+      - npm i -g pnpm
+      - pnpm install
+      - pnpm build
+    depends_on:
+      - clone
   - name: test
     image: node:alpine
     commands:
@@ -31,14 +39,6 @@ steps:
       - mv coverage frontend/dist/coverage
     depends_on:
       - build
-  - name: build
-    image: node:alpine
-    commands:
-      - npm i -g pnpm
-      - pnpm install
-      - pnpm build
-    depends_on:
-      - clone
   - name: coverage-publish
     image: plugins/codecov
     failure: ignore
