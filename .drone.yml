@@ -20,12 +20,6 @@ steps:
       - "[ ! -d '.git' ] && git clone --depth 1 --progress $DRONE_REMOTE_URL ."
       - git fetch --depth 1 --progress
       - git reset --hard origin/main
-  - name: build
-    image: node:alpine
-    commands:
-      - npm i -g pnpm
-      - pnpm install
-      - pnpm build
   - name: test
     image: node:alpine
     commands:
@@ -33,6 +27,12 @@ steps:
       - npm i -g pnpm
       - pnpm coverage
       - mv coverage frontend/dist/coverage
+  - name: build
+    image: node:alpine
+    commands:
+      - npm i -g pnpm
+      - pnpm install
+      - pnpm build
   - name: coverage-publish
     image: plugins/codecov
     failure: ignore
@@ -42,6 +42,8 @@ steps:
         from_secret: CODECOV_TOKEN
       paths:
         - frontend/public/coverage
+    depends_on:
+      - test
   - name: deploy
     image: alpacadb/docker-lftp
     when:
@@ -55,6 +57,8 @@ steps:
       - cp -r packages/geometry/public frontend/dist/geometry
       - cd frontend/dist
       - lftp -e "set sftp:auto-confirm true; set ftp:ssl-force true; set xfer:timeout 10000; debug 3; open -u $FTP_USERNAME,$FTP_PASSWORD sftp://ssh.jim-fx.com:2221; mkdir -p share/plant; cd share/plant; mirror -p --scan-all-first --overwrite --verbose -R --skip-noaccess; quit;"
+    depends_on:
+      - test
   - name: rebuild-cache
     image: drillster/drone-volume-cache
     volumes:
