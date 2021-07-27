@@ -7,7 +7,8 @@ import {
   Orbit,
   Renderer,
   Transform,
-} from 'https://cdn.skypack.dev/ogl';
+} from '../ogl.js';
+
 import { join, transferToGeometry } from '../dist/index.js';
 import createParticle from './particles.js';
 import { green } from './shaders.js';

@@ -1,4 +1,4 @@
-import { Geometry, Mesh } from 'https://cdn.skypack.dev/ogl';
+import { Geometry, Mesh } from '../ogl.js';
 import { particle } from './shaders.js';
 
 export default (gl) => {

@@ -1,4 +1,4 @@
-import { Program, Texture } from 'https://cdn.skypack.dev/ogl';
+import { Program, Texture } from '../ogl.js';
 
 export const blue = (gl) =>
   new Program(gl, {

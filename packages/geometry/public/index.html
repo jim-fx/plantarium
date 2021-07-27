@@ -53,12 +53,14 @@
     }
   </style>
 
-  <script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
+  <script src="monaco/loader.min.js"></script>
 
   <div class="wrapper">
     <div id="3d">
       <div id="debug-wrapper">
-        <label for="show-points">Show Points</label>
+        <label for="show-wires">Wireframe</label>
+        <input type="checkbox" id="show-wires" checked="false"></input>
+         <label for="show-points">Show Points</label>
         <input type="checkbox" id="show-points" checked="false"></input>
         <p id="debug"></p>
       </div>
@@ -68,7 +70,7 @@
   </div>
 
 
-  <script type="module" src="./src/index.js"></script>
+  <script type="module" src="src/index.js"></script>
 </body>
 
 </html>

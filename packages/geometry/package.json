@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "esbuild src/index.ts --bundle --format=esm --outdir=public/dist && pnpm build:types",
-    "build:types": "tsc && bundle:types",
+    "build:types": "tsc && pnpm bundle:types",
     "dev:build": "esbuild src/index.ts --bundle --format=esm --outdir=public/dist --servedir=public",
     "dev:types": "tsc-watch --noClear --onSuccess 'pnpm bundle:types'",
     "dev": "run-p dev:build dev:types",

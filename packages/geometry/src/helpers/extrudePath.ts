@@ -1,10 +1,3 @@
-// import add from 'gl-vec3/add';
-// import cross from 'gl-vec3/cross';
-// import dot from 'gl-vec3/dot';
-// import normalize from 'gl-vec3/normalize';
-// import subtract from 'gl-vec3/subtract';
-// import trmat from 'gl-vec3/transformMat4';
-
 import { identity, rotate } from 'gl-matrix/mat4';
 import {
   add,

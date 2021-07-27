@@ -5,7 +5,7 @@ import debounce from './debounce.js';
 
 // var require = require ?? null;
 require.config({
-  paths: { vs: 'https://unpkg.com/monaco-editor@latest/min/vs' },
+  paths: { vs: 'http://localhost:8000/monaco' },
 });
 
 self.MonacoEnvironment = { getWorkerUrl: () => proxy };
@@ -15,22 +15,26 @@ let proxy = URL.createObjectURL(
     [
       `
 	self.MonacoEnvironment = {
-		baseUrl: 'https://unpkg.com/monaco-editor@latest/min/'
+    baseUrl: 'http://localhost:8000/monaco'
 	};
-	importScripts('https://unpkg.com/monaco-editor@latest/min/vs/base/worker/workerMain.js');
+	importScripts('http://localhost:8000/monaco/workerMain.js');
 `,
     ],
     { type: 'text/javascript' },
   ),
 );
 
-const importLine = `import * as g from "geometry";\n`;
-let code = importLine;
+const importLine = `import * as g from "geometry";`;
+let code = importLine + "\n";
 
 if (window.location.hash.length > 5) {
   code = decodeURIComponent(
     escape(window.atob(window.location.hash.replace(/^#/, ''))),
   );
+
+  if(code === importLine){
+    code = code + "\n";
+  }
 }
 
 const cbs = [];
@@ -96,13 +100,19 @@ async function initEditor(monaco) {
     }
   });
 
-  const handleChange = debounce(() => {
-    const value = editor.getValue();
-
+  const handleSave = debounce((value) => {
     window.location.hash = window.btoa(unescape(encodeURIComponent(value)));
-
     cbs.forEach((cb) => cb(value.replace(importLine, '')));
   }, 500);
+
+
+  const handleChange = () => {
+    const value = editor.getValue();
+    if(value === importLine){ 
+      editor.getModel().setValue(value+"\n")
+    }
+    handleSave(value);
+  }
 
   model.onDidChangeContent(handleChange);
 

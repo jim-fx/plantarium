@@ -1,0 +1,14 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 error pnpm": {
+    "code": "ERR_PNPM_REGISTRIES_MISMATCH",
+    "err": {
+      "name": "Error",
+      "message": "This modules directory was created using the following registries configuration: {\"default\":\"http://localhost:4873/\"}. The current configuration is {\"default\":\"https://registry.yarnpkg.com/\"}. To recreate the modules directory using the new settings, run \"pnpm install\".",
+      "code": "ERR_PNPM_REGISTRIES_MISMATCH",
+      "stack": "Error: This modules directory was created using the following registries configuration: {\"default\":\"http://localhost:4873/\"}. The current configuration is {\"default\":\"https://registry.yarnpkg.com/\"}. To recreate the modules directory using the new settings, run \"pnpm install\".\n    at validateModules (/home/jim/.asdf/installs/nodejs/16.4.1/.npm/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:90681:15)\n    at async Object.getContext [as default] (/home/jim/.asdf/installs/nodejs/16.4.1/.npm/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:90553:28)\n    at async Object.mutateModules (/home/jim/.asdf/installs/nodejs/16.4.1/.npm/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:113065:19)\n    at async Object.handler [as default] (/home/jim/.asdf/installs/nodejs/16.4.1/.npm/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:115978:35)\n    at async /home/jim/.asdf/installs/nodejs/16.4.1/.npm/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:125161:20\n    at async run (/home/jim/.asdf/installs/nodejs/16.4.1/.npm/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:125136:34)\n    at async runPnpm (/home/jim/.asdf/installs/nodejs/16.4.1/.npm/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:125346:5)\n    at async /home/jim/.asdf/installs/nodejs/16.4.1/.npm/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:125338:7"
+    }
+  }
+}
