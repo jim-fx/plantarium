@@ -5,7 +5,7 @@ import debounce from './debounce.js';
 
 // var require = require ?? null;
 require.config({
-  paths: { vs: 'http://localhost:8000/monaco' },
+  paths: { vs: window.location.href+'/monaco' },
 });
 
 self.MonacoEnvironment = { getWorkerUrl: () => proxy };
@@ -15,9 +15,9 @@ let proxy = URL.createObjectURL(
     [
       `
 	self.MonacoEnvironment = {
-    baseUrl: 'http://localhost:8000/monaco'
+    baseUrl: '${window.location.href}/monaco'
 	};
-	importScripts('http://localhost:8000/monaco/workerMain.js');
+	importScripts('${window.location.href}/monaco/workerMain.js');
 `,
     ],
     { type: 'text/javascript' },
