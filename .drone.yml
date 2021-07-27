@@ -20,6 +20,8 @@ steps:
       - "[ ! -d '.git' ] && git clone --depth 1 --progress $DRONE_REMOTE_URL ."
       - git fetch --depth 1 --progress
       - git reset --hard origin/main
+    depends_on:
+      - restore-cache
   - name: test
     image: node:alpine
     commands:
@@ -27,12 +29,16 @@ steps:
       - npm i -g pnpm
       - pnpm coverage
       - mv coverage frontend/dist/coverage
+    depends_on:
+      - clone
   - name: build
     image: node:alpine
     commands:
       - npm i -g pnpm
       - pnpm install
       - pnpm build
+    depends_on:
+      - clone
   - name: coverage-publish
     image: plugins/codecov
     failure: ignore
@@ -59,6 +65,7 @@ steps:
       - lftp -e "set sftp:auto-confirm true; set ftp:ssl-force true; set xfer:timeout 10000; debug 3; open -u $FTP_USERNAME,$FTP_PASSWORD sftp://ssh.jim-fx.com:2221; mkdir -p share/plant; cd share/plant; mirror -p --scan-all-first --overwrite --verbose -R --skip-noaccess; quit;"
     depends_on:
       - test
+      - build
   - name: rebuild-cache
     image: drillster/drone-volume-cache
     volumes:
@@ -68,6 +75,8 @@ steps:
       rebuild: true
       mount:
         - .
+    depends_on:
+      - build
 volumes:
   - name: cache
     host:
