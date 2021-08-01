@@ -2,9 +2,11 @@ const totalSize = 102;
 const slopeLength = 2;
 const groundHeight = 1;
 
-export default function (size: number, resX = 12, resY = 12): TransferGeometry {
+export default function (size = 1, resX = 12, resY = 12): TransferGeometry {
+  resY += 1;
+
   //General parameters
-  const angle = (360 * (Math.PI / 180)) / resY; // Convert to radians
+  const angle = (360 * (Math.PI / 180)) / (resY - 1); // Convert to radians
 
   //Final model
   const position = new Float32Array(resX * resY * 3 + 3);
@@ -69,15 +71,9 @@ export default function (size: number, resX = 12, resY = 12): TransferGeometry {
 
   //For the center circle
   for (let i = 0; i < resY; i++) {
-    if (i === resY - 1) {
-      index[(resY - 1) * 3 + 0] = 0;
-      index[(resY - 1) * 3 + 1] = 1;
-      index[(resY - 1) * 3 + 2] = resY;
-    } else {
-      index[i * 3 + 0] = i + 0;
-      index[i * 3 + 1] = i + 1;
-      index[i * 3 + 2] = i + 2;
-    }
+    index[i * 3 + 0] = 0;
+    index[i * 3 + 1] = i + 2;
+    index[i * 3 + 2] = i + 1;
   }
 
   for (let i = 0; i < resX; i++) {
