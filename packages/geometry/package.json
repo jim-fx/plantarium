@@ -6,7 +6,7 @@
   "scripts": {
     "build": "esbuild src/index.ts --bundle --format=esm --outdir=public/dist && pnpm build:types",
     "build:types": "tsc && pnpm bundle:types",
-    "dev:build": "esbuild src/index.ts --bundle --format=esm --outdir=public/dist --servedir=public",
+    "dev:build": "esbuild src/index.ts --bundle --format=esm --outdir=public/dist --servedir=public --serve=8082",
     "dev:types": "tsc-watch --noClear --onSuccess 'pnpm bundle:types'",
     "dev": "run-p dev:build dev:types",
     "bundle:types": "dts-bundle --main public/dist/index.d.ts --name geometry --out bundle.d.ts",
