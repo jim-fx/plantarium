@@ -1,5 +1,7 @@
+<svelte:options tag="plant-icon" />
+
 <script lang="ts">
-  import * as icons from './icons';
+  import * as icons from './icons/index.ts';
 
   export let name: string = 'stem';
   name = name.toLowerCase();
@@ -8,6 +10,10 @@
 
   const icon = name in icons ? icons[name] : name + ' icon not found';
 </script>
+
+<div class="icon-wrapper" class:active>
+  {@html icon}
+</div>
 
 <style>
   .icon-wrapper {
@@ -27,9 +33,3 @@
     transition: stroke 0.1s ease;
   }
 </style>
-
-<svelte:options tag="plant-icon" />
-
-<div class="icon-wrapper" class:active>
-  {@html icon}
-</div>

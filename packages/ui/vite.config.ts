@@ -3,7 +3,10 @@ import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
-  plugins: [tsconfigPaths(), svelte()],
+  plugins: [
+    tsconfigPaths(),
+    svelte({ compilerOptions: { customElement: true } }),
+  ],
   build: {
     minify: 'esbuild',
     brotliSize: false,

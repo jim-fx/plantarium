@@ -8,13 +8,19 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "test": "uvu -r ts-eager/register tests",
+    "test": "uvu tests -r esm -r tests/setup/register -i setup",
     "coverage": "nyc pnpm test",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "clean": "rimraf coverage .nyc_output public/dist"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.15",
+    "@testing-library/svelte": "^3.0.3",
+    "cosmiconfig": "^7.0.0",
+    "esm": "^3.2.25",
+    "inline-svg-register": "^1.0.0",
+    "jest": "^27.0.6",
+    "jsdom": "^16.6.0",
     "nyc": "^15.1.0",
     "ogl": "^0.0.73",
     "rollup": "^2.55.1",
@@ -32,5 +38,8 @@
   "dependencies": {
     "@plantarium/helpers": "link:../helpers",
     "shortid": "^2.2.16"
+  },
+  "jest": {
+    "testRegex": "./tests/.*.ts$"
   }
 }

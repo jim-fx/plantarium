@@ -1,3 +1,5 @@
+<svelte:options tag="plant-button" />
+
 <script lang="ts">
   import Icon from './Icon.svelte';
 
@@ -6,6 +8,26 @@
   export let cls: string = '';
   export let active = false;
 </script>
+
+<button
+  on:click={() => (active = !active)}
+  class={cls}
+  class:active
+  class:only-icon={!name}
+  class:has-icon={!!icon}
+>
+  {#if icon}
+    <Icon name={icon} {active} />
+  {/if}
+
+  {#if name}
+    <p>{name}</p>
+  {/if}
+
+  <div class="content">
+    <slot />
+  </div>
+</button>
 
 <style lang="scss">
   @import './global.scss';
@@ -51,24 +73,3 @@
     overflow: visible;
   }
 </style>
-
-<svelte:options tag="plant-button" />
-
-<button
-  on:click={() => (active = !active)}
-  class={cls}
-  class:active
-  class:only-icon={!name}
-  class:has-icon={!!icon}>
-  {#if icon}
-    <Icon name={icon} {active} />
-  {/if}
-
-  {#if name}
-    <p>{name}</p>
-  {/if}
-
-  <div class="content">
-    <slot />
-  </div>
-</button>
