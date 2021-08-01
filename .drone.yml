@@ -47,7 +47,7 @@ steps:
       token:
         from_secret: CODECOV_TOKEN
       paths:
-        - frontend/public/coverage
+        - frontend/dist/coverage
     depends_on:
       - test
   - name: deploy
