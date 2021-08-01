@@ -4,10 +4,13 @@ import * as scene from './scene.js';
 
 const debugEl = document.getElementById('debug');
 const particlesVisibleEl = document.getElementById('show-points');
+const wireframeVisibleEl = document.getElementById('show-wireframe');
 particlesVisibleEl.addEventListener('input', () => {
   scene.setParticleVisible(particlesVisibleEl.checked);
 });
-
+wireframeVisibleEl.addEventListener('input', () => {
+  scene.setWireframeVisible(wireframeVisibleEl.checked);
+});
 onValueChange((v) => {
   let generatorTime = 0;
   try {

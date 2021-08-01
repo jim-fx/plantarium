@@ -1,17 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="../../../@types/ogl.d.ts"/>
-import {
-  Box,
-  Camera,
-  Mesh,
-  Orbit,
-  Renderer,
-  Transform,
-} from '../ogl.js';
-
 import { join, transferToGeometry } from '../dist/index.js';
+import { Box, Camera, Mesh, Orbit, Renderer, Transform } from '../ogl.js';
 import createParticle from './particles.js';
-import { green } from './shaders.js';
+import { green, wireframe } from './shaders.js';
 
 const renderer = new Renderer({
   dpr: 2,
@@ -36,6 +28,13 @@ const controls = new Orbit(camera);
 
 const particles = createParticle(gl);
 particles.setParent(scene);
+
+const wireMesh = new Mesh(gl, {
+  geometry: new Box(gl, { size: 0 }),
+  program: wireframe(gl),
+  mode: gl.LINE_LOOP,
+});
+wireMesh.setParent(scene);
 
 const obj = new Mesh(gl, {
   geometry: new Box(gl, { size: 0 }),
@@ -62,7 +61,8 @@ export function add(o) {
 export function commit() {
   if (tempScene.length) {
     const geo = tempScene.length > 1 ? join(...tempScene) : tempScene[0];
-    obj.geometry = transferToGeometry(gl, geo);
+    console.log(geo);
+    obj.geometry = wireMesh.geometry = transferToGeometry(gl, geo);
     obj.visible = true;
     if (particles.visible) {
       particles.setPositions(obj.geometry.attributes.position.data);
@@ -80,4 +80,8 @@ export function getVertices() {
 
 export function setParticleVisible(visible) {
   particles.visible = visible;
+}
+
+export function setWireframeVisible(visible) {
+  wireMesh.visible = visible;
 }

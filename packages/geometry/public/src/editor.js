@@ -2,10 +2,11 @@
 /// <reference path="monaco.d.ts"/>
 
 import debounce from './debounce.js';
+const currentUrl = window.location.href.replace(window.location.hash, '');
 
 // var require = require ?? null;
 require.config({
-  paths: { vs: window.location.href+'/monaco' },
+  paths: { vs: currentUrl + '/monaco' },
 });
 
 self.MonacoEnvironment = { getWorkerUrl: () => proxy };
@@ -14,27 +15,34 @@ let proxy = URL.createObjectURL(
   new Blob(
     [
       `
-	self.MonacoEnvironment = {
-    baseUrl: '${window.location.href}/monaco'
-	};
-	importScripts('${window.location.href}/monaco/workerMain.js');
-`,
+      self.MonacoEnvironment = {
+        baseUrl: '${currentUrl}/monaco'
+      };
+      importScripts('${currentUrl}/monaco/workerMain.js');
+      `,
     ],
     { type: 'text/javascript' },
   ),
 );
+console.log('monaco');
 
 const importLine = `import * as g from "geometry";`;
-let code = importLine + "\n";
+let code = importLine + '\n';
 
-if (window.location.hash.length > 5) {
-  code = decodeURIComponent(
-    escape(window.atob(window.location.hash.replace(/^#/, ''))),
-  );
-
-  if(code === importLine){
-    code = code + "\n";
+if (false && window.location.hash.length > 5) {
+  try {
+    const decoded = window.atob(window.location.hash.replace(/^#/, ''));
+    const escaped = escape(decoded);
+    code = decodeURIComponent(escaped);
+  } catch (err) {
+    console.log(err.message);
   }
+}
+
+if("code" in localStorage){
+  
+  code = localStorage.getItem("code");
+  
 }
 
 const cbs = [];
@@ -102,17 +110,17 @@ async function initEditor(monaco) {
 
   const handleSave = debounce((value) => {
     window.location.hash = window.btoa(unescape(encodeURIComponent(value)));
+    localStorage.setItem("code", value);
     cbs.forEach((cb) => cb(value.replace(importLine, '')));
   }, 500);
 
-
   const handleChange = () => {
     const value = editor.getValue();
-    if(value === importLine){ 
-      editor.getModel().setValue(value+"\n")
+    if (value === importLine) {
+      editor.getModel().setValue(value + '\n');
     }
     handleSave(value);
-  }
+  };
 
   model.onDidChangeContent(handleChange);
 

@@ -1,5 +1,66 @@
 import { Program, Texture } from '../ogl.js';
 
+export const wireframe = (gl) =>
+  new Program(gl, {
+    vertex: `attribute vec3 position;
+            attribute vec3 normal;
+            uniform mat4 modelViewMatrix;
+            uniform mat4 projectionMatrix;
+            uniform mat3 normalMatrix;
+            void main() {
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+`,
+    fragment: `
+    precision highp float;
+    varying vec3 vNormal;
+    void main() {
+        gl_FragColor.rgb = vec3(0.0, 0.0, 0.0);
+        gl_FragColor.a = 0.5;
+    }
+  `,
+    depthTest: false,
+    transparent: true,
+  });
+
+export const text = (gl) =>
+  new Program(gl, {
+    vertex: `#version 300 es
+    #define attribute in
+    #define varying out
+    attribute vec2 uv;
+    attribute vec3 position;
+    uniform mat4 modelViewMatrix;
+    uniform mat4 projectionMatrix;
+    varying vec2 vUv;
+    void main() {
+        vUv = uv;
+        
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+`,
+    fragment: `#version 300 es
+    precision highp float;
+    #define varying in
+    #define texture2D texture
+    #define gl_FragColor FragColor
+    out vec4 FragColor;
+    uniform sampler2D tMap;
+    varying vec2 vUv;
+    void main() {
+        vec3 tex = texture2D(tMap, vUv).rgb;
+        float signedDist = max(min(tex.r, tex.g), min(max(tex.r, tex.g), tex.b)) - 0.5;
+        float d = fwidth(signedDist);
+        float alpha = smoothstep(-d, d, signedDist);
+        if (alpha < 0.01) discard;
+        gl_FragColor.rgb = vec3(0.0);
+        gl_FragColor.a = alpha;
+    }
+  `,
+    depthTest: false,
+    transparent: true,
+  });
+
 export const blue = (gl) =>
   new Program(gl, {
     vertex: `attribute vec3 position;
