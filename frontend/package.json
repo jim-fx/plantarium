@@ -11,23 +11,13 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^20.0.0",
-    "@rollup/plugin-node-resolve": "^13.0.4",
-    "@rollup/plugin-typescript": "^8.2.5",
-    "@surma/rollup-plugin-off-main-thread": "^2.2.2",
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.15",
     "rollup": "^2.55.1",
-    "rollup-plugin-analyzer": "^4.0.0",
     "rollup-plugin-glslify": "^1.2.0",
-    "rollup-plugin-livereload": "^2.0.5",
-    "rollup-plugin-scss": "^3.0.0",
-    "rollup-plugin-svelte": "^7.1.0",
     "rollup-plugin-svg-import": "^1.5.1",
-    "rollup-plugin-terser": "^7.0.2",
     "sass": "^1.37.0",
     "svelte-preprocess": "^4.7.4",
     "svelte-preprocess-esbuild": "^2.0.0",
-    "tslib": "^2.3.0",
     "vite": "^2.4.4",
     "vite-tsconfig-paths": "^3.3.13"
   },
