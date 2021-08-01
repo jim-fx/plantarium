@@ -9,7 +9,7 @@
   "dependencies": {
     "@plantarium/helpers": "workspace:1.0.0",
     "resize-observer-polyfill": "^1.5.1",
-    "svelte": "^3.38.3"
+    "svelte": "^3.41.0"
   },
   "devDependencies": {
     "ogl": "^0.0.73"
