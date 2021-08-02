@@ -1,9 +1,13 @@
 import type { Vec3 } from 'ogl';
 
-export default function (origin: Vec3, radius: number, resolution = 3) {
+export default function (
+  origin: Vec3 | [number, number, number] = [0, 0, 0],
+  radius = 1,
+  resolution = 3,
+) {
   //General parameters
-  const positionAmount = resolution * 3;
-  const angle = (360 * (Math.PI / 180)) / resolution; // Convert to radians
+  const positionAmount = resolution * 3 + 1;
+  const angle = (360 * (Math.PI / 180)) / (resolution - 1); // Convert to radians
   const startPoint = [origin[0], origin[1], origin[2] + radius];
 
   //Final model
@@ -17,7 +21,7 @@ export default function (origin: Vec3, radius: number, resolution = 3) {
   position[1] = origin[1];
   position[2] = origin[2];
 
-  for (let i = 0; i <= resolution; i++) {
+  for (let i = 1; i <= resolution + 1; i++) {
     const _angle = angle * i;
 
     const x =
@@ -35,8 +39,8 @@ export default function (origin: Vec3, radius: number, resolution = 3) {
     position[i * 3 + 2] = z;
   }
 
-  for (let i = 0; i < resolution; i++) {
-    if (i < resolution - 1) {
+  for (let i = 1; i <= resolution + 1; i++) {
+    if (i <= resolution - 1) {
       index[i * 3 + 0] = 0;
       index[i * 3 + 1] = i + 2;
       index[i * 3 + 2] = i + 1;
