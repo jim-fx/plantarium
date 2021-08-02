@@ -1,9 +1,9 @@
+import { EventEmitter, memoize } from '@plantarium/helpers';
 import type NodeView from '../view/NodeView';
-import type NodeOutput from './NodeOutput';
 import NodeConnection from './NodeConnection';
-import { memoize, EventEmitter } from '@plantarium/helpers';
-import type NodeSystem from './NodeSystem';
+import type NodeOutput from './NodeOutput';
 import type NodeState from './NodeState';
+import type NodeSystem from './NodeSystem';
 
 export default class Node extends EventEmitter {
   system: NodeSystem;
@@ -42,12 +42,7 @@ export default class Node extends EventEmitter {
     this.attributes = attributes;
     this.id = attributes.id;
 
-    this._compute = memoize((_state = this._state) => {
-      if (Object.keys(_state).length > 0) {
-        return this.compute(_state);
-      }
-      return;
-    });
+    this._compute = memoize((_state = this._state) => this.compute(_state));
   }
 
   get state() {

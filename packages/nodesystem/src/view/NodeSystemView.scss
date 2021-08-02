@@ -55,6 +55,15 @@
   width: 100%;
   overflow: hidden;
 
+  --node-editor-bg: #1a1a1a;
+  --node-editor-grid-size: 1.5rem;
+  --node-editor-grid-width: 1px;
+
+  background-image: radial-gradient(#ffffff11 var(--node-editor-grid-width), 
+    transparent var(--node-editor-grid-width)
+  );
+  background-size: var(--node-editor-grid-size) var(--node-editor-grid-size);
+
   &.nodesystem-state-dragging {
     cursor: grab;
   }

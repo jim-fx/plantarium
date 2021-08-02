@@ -4,7 +4,7 @@ import { Box, Mesh, Program } from 'ogl';
 import type Scene from '.';
 import type { ProjectManager } from '../project-manager';
 import DebugScene from './debug';
-import { BasicShader } from './shaders';
+import { BasicShader, MatCapShader } from './shaders';
 
 export default class ForegroundScene {
   private plant: NodeResult;
@@ -37,7 +37,7 @@ export default class ForegroundScene {
     });
     this.mesh = this.scene.addMesh({
       geometry,
-      program,
+      program:MatCapShader(this.gl),
     });
   }
 

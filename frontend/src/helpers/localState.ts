@@ -4,6 +4,7 @@ let savedState: { [key: string]: unknown };
 
 try {
   savedState = JSON.parse(localStorage.getItem('pt_local_state') as string);
+  console.log(savedState);
 } catch (error) {
   console.log(error);
 }

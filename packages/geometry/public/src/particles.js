@@ -12,11 +12,7 @@ export default (gl) => {
     program: particle(gl),
   });
 
-  particles.setPositions = (pos) => {
-    particles.geometry = new Geometry(gl, {
-      position: { size: 3, data: pos },
-    });
-  };
+  particles.setPositions = (pos) => particles.geometry.addAttribute("position", { size: 3, data: pos });
 
   return particles;
 };

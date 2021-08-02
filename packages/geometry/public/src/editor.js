@@ -43,8 +43,15 @@ if("code" in localStorage){
   
   code = localStorage.getItem("code");
   
+  } else if (window.location.hash.length > 5) {
+  try {
+    const decoded = window.atob(window.location.hash.replace(/^#/, ''));
+    const escaped = escape(decoded);
+    code = decodeURIComponent(escaped);
+  } catch (err) {
+    console.log(err.message);
+  }
 }
-
 const cbs = [];
 export function onValueChange(cb) {
   cbs.push(cb);

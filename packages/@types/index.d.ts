@@ -178,7 +178,7 @@ interface PlantariumSettings {
   };
 
   ground: {
-    enable: boolean;
+    enabled: boolean;
     resX: number;
     resY: number;
     scale: number;

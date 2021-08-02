@@ -1,4 +1,6 @@
 import { join, tube } from '@plantarium/geometry';
+import { logger } from '@plantarium/helpers';
+const log = logger('nodes.stem');
 
 const node: PlantNode = {
   title: 'Stem',
@@ -45,6 +47,9 @@ const node: PlantNode = {
   },
 
   computeSkeleton(part, ctx) {
+
+    log(part);
+
     const amount = ctx.handleParameter(part.parameters.amount);
 
     const amountPoints = ctx.getSetting('stemResY');

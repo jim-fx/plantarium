@@ -1,5 +1,5 @@
-import { inputChanged } from '@plantarium/helpers';
 import Nodes from '@plantarium/nodes';
+import { inputChanged } from '../../helpers/src';
 
 const nodes: { [type: string]: PlantNode } = {};
 

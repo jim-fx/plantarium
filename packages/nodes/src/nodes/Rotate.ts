@@ -46,6 +46,8 @@ const node: PlantNode = {
     const { parameters } = node;
     const { input, type, spread } = parameters;
 
+    //TODO: Somehow the spread option gets lost after reload
+
     const {
       result: { skeletons },
     } = input;
@@ -61,7 +63,7 @@ const node: PlantNode = {
       const oy = skelly[1];
       const oz = skelly[2];
 
-      const _a = j / (skeletons.length - 1);
+      const _a = j / (skeletons.length );
 
       const angle =
         ctx.handleParameter(parameters.angle, _a) * (spread ? _a : 1);

@@ -44,6 +44,9 @@ const handleGeometryNode = (node, ctx) => {
 };
 
 export default function plant(rootNode: NodeResult, s: PlantariumSettings) {
+
+  console.log("------------------------------")
+
   const a = performance.now();
 
   const ctx = createContext(s);

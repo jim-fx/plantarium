@@ -1,14 +1,14 @@
-import './NodeSystemView.scss';
-
-import AddMenu from './AddMenu';
-import FloatingConnectionView from './FloatingConnectionView';
 import { EventEmitter, throttle } from '@plantarium/helpers';
-import type NodeSystem from '../model/NodeSystem';
-import type NodeInput from '../model/NodeInput';
 import type Node from '../model/Node';
+import type NodeInput from '../model/NodeInput';
 import type NodeOutput from '../model/NodeOutput';
+import type NodeSystem from '../model/NodeSystem';
+import AddMenu from './AddMenu';
 import BoxSelection from './BoxSelection';
+import FloatingConnectionView from './FloatingConnectionView';
+import './NodeSystemView.scss';
 import ColorStore from './socketColorStore';
+
 
 export default class NodeSystemView extends EventEmitter {
   system: NodeSystem;
@@ -242,6 +242,8 @@ export default class NodeSystemView extends EventEmitter {
       translateY(${y}px)
       scale(${s})
     `;
+
+    this.wrapper.style.backgroundPosition=`${x}px ${y}px`;
 
     this.emit('transform', { x, y, s });
   }

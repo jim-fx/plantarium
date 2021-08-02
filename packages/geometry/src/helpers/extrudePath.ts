@@ -6,7 +6,7 @@ import {
   mul,
   normalize,
   subtract,
-  transformMat4,
+  transformMat4
 } from 'gl-matrix/vec3';
 
 function createCircle(res: number) {
@@ -17,7 +17,7 @@ function createCircle(res: number) {
   });
 
   const index = new Array(res).fill(null).map((_, i) => {
-    return [i, (i + 1) % res];
+    return [i, (i + 1) % res,(i + 2) % res];
   });
 
   return { position, index };

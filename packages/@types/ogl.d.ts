@@ -349,18 +349,18 @@ declare module 'ogl' {
   export class Texture {
     constructor(
       gl: WebGL2RenderingContext,
-      object: {
-        image?: HTMLImageElement;
-        generateMipmaps?: boolean;
-        premultiplyAlpha?: boolean;
-        unpackAlignment?: number;
-        wrapS?: number;
-        wrapT?: number;
-        flip?: boolean;
-        level?: number;
-        width?: number; // used for RenderTargets or Data Textures
-        height?: number;
-      },
+      object?: Partial<{
+        image: HTMLImageElement;
+        generateMipmaps: boolean;
+        premultiplyAlpha: boolean;
+        unpackAlignment: number;
+        wrapS: number;
+        wrapT: number;
+        flip: boolean;
+        level: number;
+        width: number; // used for RenderTargets or Data Textures
+        height: number;
+      }>,
     );
 
     image: HTMLImageElement;
@@ -384,7 +384,7 @@ declare module 'ogl' {
 
     setIndex: (value: Uint16Array | Uint32Array) => void;
 
-    addAttribute: (key: string, attribute: AttributeMap) => void;
+    addAttribute: (key: string, attribute: Partial<Attribute>) => void;
 
     updateAttribute: (attr: AttributeMap) => void;
 

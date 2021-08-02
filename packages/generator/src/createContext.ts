@@ -1,4 +1,4 @@
-import { noise, interpolateArray } from '@plantarium/geometry';
+import { interpolateArray, noise } from '@plantarium/geometry';
 import { curve } from '@plantarium/helpers';
 
 let lastSettings = '';
@@ -12,17 +12,20 @@ const createContext = (s: PlantariumSettings): GeneratorContext => {
     handleParameter(param: ParameterResult | number = 0, alpha = 0) {
       if (typeof param === 'number') return param;
 
+      const isCurve = "curve" in param;
+
       let value = param.value || 0;
       let variation = param.variation || 0;
 
-      if (typeof value === 'object') value = this.handleParameter(param, alpha);
-      if (typeof variation === 'object')
-        variation = this.handleParameter(variation, alpha);
-
-      if ('curve' in param) {
+      if (isCurve) {
         const v = curve.toArray(param.curve).map((v) => v.y);
         value = interpolateArray(v, alpha);
       }
+
+      if (typeof value === 'object' && isCurve) value = this.handleParameter(param, alpha);
+      if (typeof variation === 'object')
+        variation = this.handleParameter(variation, alpha);
+
 
       if (variation) {
         value +=

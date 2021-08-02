@@ -1,5 +1,6 @@
 import { noise } from '@plantarium/geometry';
-
+import { logger } from '@plantarium/helpers';
+const log = logger('nodes.noise');
 const node: PlantNode = {
   title: 'Noise',
   type: 'noise',
@@ -37,6 +38,9 @@ const node: PlantNode = {
   },
 
   computeSkeleton(node, ctx) {
+
+    log(node)
+
     const { parameters } = node;
     const { input } = parameters;
 
@@ -46,13 +50,13 @@ const node: PlantNode = {
     const { skeletons } = input.result;
 
     skeletons.forEach((skelly, j) => {
-      const length = skelly.length / 4;
+      const pathLength = skelly.length / 4;
 
       const lastVec = [skelly[0], skelly[1], skelly[2]];
       let distance = 0;
 
-      for (let i = 0; i < length; i++) {
-        const a = i / length;
+      for (let i = 0; i < pathLength; i++) {
+        const a = i / pathLength;
 
         distance +=
           (Math.abs(lastVec[0] - skelly[i * 4 + 0]) +

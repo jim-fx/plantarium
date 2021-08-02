@@ -1,17 +1,13 @@
 <script lang="ts">
+  import Nodes from '@plantarium/nodes';
+  import { NodeSystem } from '@plantarium/nodesystem';
+  import { Alert, Button } from '@plantarium/ui';
   import { onMount } from 'svelte';
   import ClickOutside from 'svelte-click-outside';
-
-  // Model components
-  import { NodeSystem } from '@plantarium/nodesystem';
-  import Nodes from '@plantarium/nodes';
-  import { Button, Alert } from '@plantarium/ui';
-  import { lazyLoad } from './helpers';
-
-  // View components
   import { ProjectManager } from './components/project-manager';
-  import { SettingsManager } from './components/settings-manager';
   import Scene from './components/scene/Scene.svelte';
+  import { SettingsManager } from './components/settings-manager';
+  import { lazyLoad } from './helpers';
 
   let nodeSystemWrapper: HTMLDivElement;
   let projectManager: ProjectManager;
@@ -26,12 +22,62 @@
       wrapper: nodeSystemWrapper,
       view: true,
       defaultNodes: false,
-      registerNodes: (Nodes as unknown) as NodeTypeData[],
+      registerNodes: Nodes as unknown as NodeTypeData[],
     });
 
     projectManager = new ProjectManager(nodeSystem, settingsManager);
   });
 </script>
+
+<Alert />
+
+<header>
+  <div class="left">
+    <ClickOutside on:clickoutside={() => (showPM = false)}>
+      <div class="project-wrapper" class:active={showPM}>
+        <Button
+          icon="Cog"
+          name="Projects"
+          cls="projects-icon"
+          bind:active={showPM}
+        />
+        {#if projectManager && pmLoad}
+          {#await lazyLoad('pmv') then ProjectManagerView}
+            <svelte:component
+              this={ProjectManagerView}
+              pm={projectManager}
+              visible={showPM}
+              on:close={() => (showPM = false)}
+            />
+          {/await}
+        {/if}
+      </div>
+    </ClickOutside>
+  </div>
+
+  <div class="right">
+    <ClickOutside on:clickoutside={() => (sShow = false)}>
+      <div class="settings-wrapper" class:active={sShow}>
+        <Button icon="Cog" cls="settings-icon" bind:active={sShow} />
+
+        {#if settingsManager && sLoad}
+          {#await lazyLoad('smv') then SettingsManagerView}
+            <svelte:component
+              this={SettingsManagerView}
+              sm={settingsManager}
+              visible={sShow}
+              on:close={() => (sLoad = false)}
+            />
+          {/await}
+        {/if}
+      </div>
+    </ClickOutside>
+  </div>
+</header>
+<main>
+  <Scene pm={projectManager} />
+  <div id="nodesystem-view" bind:this={nodeSystemWrapper} />
+</main>
 
 <style lang="scss">
   main {
@@ -58,50 +104,3 @@
     }
   }
 </style>
-
-<Alert />
-
-<header>
-  <div class="left">
-    <ClickOutside on:clickoutside={() => (showPM = false)}>
-      <div class="project-wrapper" class:active={showPM}>
-        <Button
-          icon="Cog"
-          name="Projects"
-          cls="projects-icon"
-          bind:active={showPM} />
-        {#if projectManager && pmLoad}
-          {#await lazyLoad('pmv') then ProjectManagerView}
-            <svelte:component
-              this={ProjectManagerView}
-              pm={projectManager}
-              visible={showPM}
-              on:close={() => (showPM = false)} />
-          {/await}
-        {/if}
-      </div>
-    </ClickOutside>
-  </div>
-
-  <div class="right">
-    <ClickOutside on:clickoutside={() => (sShow = false)}>
-      <div class="settings-wrapper" class:active={sShow}>
-        <Button icon="Cog" cls="settings-icon" bind:active={sShow} />
-
-        {#if settingsManager && sLoad}
-          {#await lazyLoad('smv') then SettingsManagerView}
-            <svelte:component
-              this={SettingsManagerView}
-              sm={settingsManager}
-              visible={sShow}
-              on:close={() => (sLoad = false)} />
-          {/await}
-        {/if}
-      </div>
-    </ClickOutside>
-  </div>
-</header>
-<main>
-  <Scene pm={projectManager} />
-  <div id="nodesystem-view" bind:this={nodeSystemWrapper} />
-</main>

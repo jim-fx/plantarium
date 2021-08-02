@@ -101,6 +101,8 @@ export default class ProjectManager extends EventEmitter {
 
     log('saved plant id: ', project.meta.id);
 
+    console.log("save project", project);
+
     this.store.set(Object.values(this.projects));
   }
 
@@ -135,6 +137,7 @@ export default class ProjectManager extends EventEmitter {
     if (this.loadingActiveProject) {
       await storage.setItem('pt_active_id', id);
       this.activeProjectId = id;
+      console.log("load project", project)
       this.nodeSystem.load(project);
       this.saveProject(project);
       log('set active project to id: ' + id);

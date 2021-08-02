@@ -13,7 +13,7 @@ export default function (skeleton: Float32Array, resX = 8): TransferGeometry {
   const path = groupArray(skeleton, 4);
 
   const m = extrudePath(path, resX);
-  console.log(m);
+  
   const _pos = Float32Array.from(
     m.position.map((arr) => arr.splice(0, 3)).flat(),
   );

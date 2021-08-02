@@ -1,9 +1,9 @@
-import './index.scss';
-import { EventEmitter, debounce, logger } from '@plantarium/helpers';
-import SettingsTemplate from './SettingsTemplate';
-
+import { debounce, EventEmitter, logger } from '@plantarium/helpers';
 import storage from 'localforage';
 import { writable } from 'svelte/store';
+import './index.scss';
+import SettingsTemplate from './SettingsTemplate';
+
 
 const obj = {};
 
@@ -18,7 +18,7 @@ const templateToSettings = (
     if ('options' in _template) {
       settings[key] = templateToSettings(_template.options, value);
     } else {
-      settings[key] = value || (_template.defaultValue ?? _template.value);
+      settings[key] = value ?? (_template.defaultValue ?? _template.value);
     }
   });
 
