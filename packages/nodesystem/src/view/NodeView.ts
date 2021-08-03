@@ -1,9 +1,9 @@
-import './NodeView.scss';
 import { EventEmitter } from '@plantarium/helpers';
-import type InputView from './NodeInputView';
-import type OutputView from './NodeOutputView';
 import type Node from '../model/Node';
 import type System from '../model/NodeSystem';
+import type InputView from './NodeInputView';
+import type OutputView from './NodeOutputView';
+import './NodeView.scss';
 
 export default class NodeView extends EventEmitter {
   node: Node;
@@ -26,7 +26,7 @@ export default class NodeView extends EventEmitter {
   mDownY = 0;
 
   height = 50;
-  width = 70;
+  width = 91;
   _state: string | undefined;
   system: System;
 
@@ -72,7 +72,8 @@ export default class NodeView extends EventEmitter {
     this.bindEventListeners();
 
     setTimeout(() => {
-      this.width = this.wrapper.getBoundingClientRect().width;
+      this.width =
+        this.wrapper.getBoundingClientRect().width / this.system.view.s;
     }, 100);
   }
 

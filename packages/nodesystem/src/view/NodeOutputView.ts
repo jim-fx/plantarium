@@ -1,7 +1,7 @@
-import './NodeOutputView.scss';
 import type Node from '../model/Node';
 import type NodeOutput from '../model/NodeOutput';
 import type NodeConnectionView from './NodeConnectionView';
+import './NodeOutputView.scss';
 
 export default class NodeOutputView {
   node: Node;
