@@ -1,4 +1,5 @@
 import { svelte } from '@sveltejs/vite-plugin-svelte';
+import path from 'path';
 import glslify from 'rollup-plugin-glslify';
 import svg from 'rollup-plugin-svg-import';
 import { visualizer } from 'rollup-plugin-visualizer';
@@ -13,9 +14,7 @@ export default defineConfig({
     svg(),
     visualizer({
       filename: 'dist/stats.html',
-      projectRoot: '../',
-      sourcemap: true,
-      template: 'sunburst',
+      projectRoot: path.resolve('../'),
     }),
   ],
   base: '',
