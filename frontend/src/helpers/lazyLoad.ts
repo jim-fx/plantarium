@@ -1,4 +1,7 @@
+import { logger } from '@plantarium/helpers';
 import type { SvelteComponent } from 'svelte';
+
+const log = logger('app');
 
 const components = {
   pmv: {
@@ -16,7 +19,7 @@ const components = {
 export default async (name: string): Promise<SvelteComponent> => {
   if (name in components) {
     const comp = await components[name].import();
-    console.log('[APP] loaded ' + name + ' component');
+    log('lazy loaded ' + name + ' component');
     return comp.default;
   }
 };
