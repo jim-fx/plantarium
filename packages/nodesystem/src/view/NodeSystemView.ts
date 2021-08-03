@@ -9,7 +9,6 @@ import FloatingConnectionView from './FloatingConnectionView';
 import './NodeSystemView.scss';
 import ColorStore from './socketColorStore';
 
-
 export default class NodeSystemView extends EventEmitter {
   system: NodeSystem;
   wrapper: HTMLElement;
@@ -243,7 +242,7 @@ export default class NodeSystemView extends EventEmitter {
       scale(${s})
     `;
 
-    this.wrapper.style.backgroundPosition=`${x}px ${y}px`;
+    this.wrapper.style.backgroundPosition = `${x}px ${y}px`;
 
     this.emit('transform', { x, y, s });
   }
@@ -289,8 +288,8 @@ export default class NodeSystemView extends EventEmitter {
     let vy = 0;
 
     if (this.mouseDown) {
-      vx = (this.mdx - x) / this.s;
-      vy = (this.mdy - y) / this.s;
+      vx = this.mdx - x;
+      vy = this.mdy - y;
       if (this.keyMap.space || button === 2) {
         this.setTransform({
           x: this.dx - vx,
@@ -454,9 +453,8 @@ export default class NodeSystemView extends EventEmitter {
             return x1 + y1 < x2 + y2 ? -1 : 1;
           });
 
-          let {
-            pos: { x: offsetX = 0, y: offsetY = 0 } = {},
-          } = sorted[0].attributes;
+          let { pos: { x: offsetX = 0, y: offsetY = 0 } = {} } =
+            sorted[0].attributes;
 
           const { x: mx, y: my } = this.convertAbsoluteToRelative(
             this.mx,
