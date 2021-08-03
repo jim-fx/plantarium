@@ -108,7 +108,6 @@ importers:
       ogl: ^0.0.73
       open-simplex-noise: ^2.5.0
       rimraf: ^3.0.2
-      tsc: ^2.0.3
       tsc-watch: ^4.4.0
       typescript: ^4.3.5
     dependencies:
@@ -121,7 +120,6 @@ importers:
       esbuild: 0.12.17
       npm-run-all: 4.1.5
       rimraf: 3.0.2
-      tsc: 2.0.3
       tsc-watch: 4.4.0_typescript@4.3.5
       typescript: 4.3.5
 
@@ -5656,11 +5654,6 @@ packages:
       string-argv: 0.1.2
       strip-ansi: 6.0.0
       typescript: 4.3.5
-    dev: true
-
-  /tsc/2.0.3:
-    resolution: {integrity: sha512-SN+9zBUtrpUcOpaUO7GjkEHgWtf22c7FKbKCA4e858eEM7Qz86rRDpgOU2lBIDf0fLCsEg65ms899UMUIB2+Ow==}
-    hasBin: true
     dev: true
 
   /tsconfig-paths/3.10.1:

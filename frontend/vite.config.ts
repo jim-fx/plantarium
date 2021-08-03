@@ -11,7 +11,12 @@ export default defineConfig({
     glslify(),
     svelte(),
     svg(),
-    visualizer({ filename: 'dist/stats.html', projectRoot: '../' }),
+    visualizer({
+      filename: 'dist/stats.html',
+      projectRoot: '../',
+      sourcemap: true,
+      template: 'sunburst',
+    }),
   ],
   base: '',
   build: {
