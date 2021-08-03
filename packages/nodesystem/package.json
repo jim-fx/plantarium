@@ -5,7 +5,8 @@
   "source": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "clean": "rimraf coverage .nyc_output"
+    "clean": "rimraf coverage .nyc_output",
+    "build": ""
   },
   "dependencies": {
     "@plantarium/ui": "link:../ui",
