@@ -1,3 +1,5 @@
+<svelte:options tag="plant-select" />
+
 <script>
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
@@ -36,21 +38,46 @@
   }
 </script>
 
+<div class="component-wrapper">
+  <div id="main" bind:this={main}>
+    {#if value !== undefined}
+      <div id="selected-value" on:click={handleOpen}>{value}</div>
+    {:else}
+      <div id="selected-value" on:click={handleOpen}>none</div>
+    {/if}
+
+    {#if open}
+      <div id="item-wrapper">
+        {#each values as item}
+          <p
+            style={`opacity: ${item === value ? 0.5 : 1}`}
+            class="item"
+            on:click={() => setSelected(item)}
+          >
+            {item}
+          </p>
+        {/each}
+      </div>
+    {/if}
+  </div>
+</div>
+
 <style lang="scss">
   @import './global.scss';
   #main {
     color: white;
     max-width: 200px;
+    width: fit-content;
     box-sizing: border-box;
   }
 
   #selected-value {
-    padding: 0px 2px;
+    padding: 6px;
   }
 
   #item-wrapper {
     position: absolute;
-    width: 100%;
+    width: fit-content;
     background-color: #4b4b4b;
     border-radius: 2px;
     overflow: hidden;
@@ -71,28 +98,3 @@
     background-color: #3d3d3d;
   }
 </style>
-
-<svelte:options tag="plant-select" />
-
-<div class="component-wrapper">
-  <div id="main" bind:this={main}>
-    {#if value !== undefined}
-      <div id="selected-value" on:click={handleOpen}>{value}</div>
-    {:else}
-      <div id="selected-value" on:click={handleOpen}>none</div>
-    {/if}
-
-    {#if open}
-      <div id="item-wrapper">
-        {#each values as item}
-          <p
-            style={`opacity: ${item === value ? 0.5 : 1}`}
-            class="item"
-            on:click={() => setSelected(item)}>
-            {item}
-          </p>
-        {/each}
-      </div>
-    {/if}
-  </div>
-</div>

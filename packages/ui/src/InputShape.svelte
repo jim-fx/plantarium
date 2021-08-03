@@ -230,6 +230,13 @@
 <div class="component-wrapper">
   <div
     id="main"
+    on:focus={() => {
+      isHovered = true;
+      render();
+    }}
+    on:blur={() => {
+      isHovered = false;
+    }}
     on:mouseover={() => {
       isHovered = true;
       render();

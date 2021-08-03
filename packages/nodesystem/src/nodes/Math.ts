@@ -7,15 +7,18 @@ const node: NodeTypeData = {
       type: 'whatever',
       internal: true,
       inputType: 'selection',
+      label: false,
       values: ['add', 'multiply', 'subtract'],
     },
     a: {
       type: 'number',
       defaultValue: 0,
+      label: false,
     },
     b: {
       type: 'number',
       defaultValue: 0,
+      label: false,
     },
   },
   compute({ mode, a, b }: { a: number; b: number; mode: string }) {

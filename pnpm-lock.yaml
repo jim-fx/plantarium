@@ -152,11 +152,20 @@ importers:
 
   packages/nodesystem:
     specifiers:
+      '@es-pack/esbuild-sass-plugin': ^1.0.4
       '@plantarium/helpers': link:../helpers
       '@plantarium/ui': link:../ui
+      esbuild: ^0.12.17
+      esbuild-svelte: ^0.5.3
+      svelte-preprocess: ^4.7.4
     dependencies:
       '@plantarium/helpers': link:../helpers
       '@plantarium/ui': link:../ui
+    devDependencies:
+      '@es-pack/esbuild-sass-plugin': 1.0.4_esbuild@0.12.17
+      esbuild: 0.12.17
+      esbuild-svelte: 0.5.3_esbuild@0.12.17
+      svelte-preprocess: 4.7.4
 
   packages/renderer:
     specifiers:
@@ -598,6 +607,16 @@ packages:
 
   /@cush/relative/1.0.0:
     resolution: {integrity: sha512-RpfLEtTlyIxeNPGKcokS+p3BZII/Q3bYxryFRglh5H3A3T8q9fsLYm72VYAMEOOIBLEa8o93kFLiBDUWKrwXZA==}
+    dev: true
+
+  /@es-pack/esbuild-sass-plugin/1.0.4_esbuild@0.12.17:
+    resolution: {integrity: sha512-9A5PA/VEeT/R130k9WwL3tfVNtimRh4J74Weyj7BGmbHfnH5RID+x2V0xB3FhTTC6G3EGH+z4RtykUcwP6tHew==}
+    engines: {node: '>=12.9.0'}
+    peerDependencies:
+      esbuild: ^0.11.0
+    dependencies:
+      esbuild: 0.12.17
+      sass: 1.32.8
     dev: true
 
   /@eslint/eslintrc/0.4.3:
@@ -2282,6 +2301,15 @@ packages:
 
   /es6-error/4.1.1:
     resolution: {integrity: sha512-Um/+FxMr9CISWh0bi5Zv0iOD+4cFh5qLeks1qhAopKVAJw3drgKbKySikp7wGhDL0HPeaja0P5ULZrxLkniUVg==}
+    dev: true
+
+  /esbuild-svelte/0.5.3_esbuild@0.12.17:
+    resolution: {integrity: sha512-KByKD/yt8QaqKjLu32MG3MXBExJYlDM0QwzW3pzKLJR4eev0923DrUKRHPBBjB+OVirUtZnEJE/qitjdW/WyAw==}
+    peerDependencies:
+      esbuild: '>=0.9.6'
+    dependencies:
+      esbuild: 0.12.17
+      svelte: 3.41.0
     dev: true
 
   /esbuild/0.11.23:
@@ -5025,6 +5053,14 @@ packages:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: true
 
+  /sass/1.32.8:
+    resolution: {integrity: sha512-Sl6mIeGpzjIUZqvKnKETfMf0iDAswD9TNlv13A7aAF3XZlRPMq4VvJWBC2N2DXbp94MQVdNSFG6LfF/iOXrPHQ==}
+    engines: {node: '>=8.9.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.5.2
+    dev: true
+
   /sass/1.37.2:
     resolution: {integrity: sha512-+XMg8QOg7OGLo4F5R3fLYEti/3MxFkyX0NxYbqWycU8xYMAhPDN5FuCO2ZJudnM1wcnZ3CeJRnpqUBZpLOitCQ==}
     engines: {node: '>=8.9.0'}
@@ -5429,6 +5465,53 @@ packages:
       svelte: '>=3.5.0'
     dependencies:
       svelte: 3.41.0
+    dev: true
+
+  /svelte-preprocess/4.7.4:
+    resolution: {integrity: sha512-mDAmaltQl6e5zU2VEtoWEf7eLTfuOTGr9zt+BpA3AGHo8MIhKiNSPE9OLTCTOMgj0vj/uL9QBbaNmpG4G1CgIA==}
+    engines: {node: '>= 9.11.2'}
+    requiresBuild: true
+    peerDependencies:
+      '@babel/core': ^7.10.2
+      coffeescript: ^2.5.1
+      less: ^3.11.3
+      node-sass: '*'
+      postcss: ^7 || ^8
+      postcss-load-config: ^2.1.0 || ^3.0.0
+      pug: ^3.0.0
+      sass: ^1.26.8
+      stylus: ^0.54.7
+      sugarss: ^2.0.0
+      svelte: ^3.23.0
+      typescript: ^3.9.5 || ^4.0.0
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      coffeescript:
+        optional: true
+      less:
+        optional: true
+      node-sass:
+        optional: true
+      postcss:
+        optional: true
+      postcss-load-config:
+        optional: true
+      pug:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@types/pug': 2.0.5
+      '@types/sass': 1.16.1
+      detect-indent: 6.1.0
+      strip-indent: 3.0.0
     dev: true
 
   /svelte-preprocess/4.7.4_sass@1.37.2+svelte@3.41.0:

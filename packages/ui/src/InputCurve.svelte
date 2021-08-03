@@ -1,6 +1,6 @@
 <svelte:options tag="plant-curve" />
 
-<script lang="typescript">
+<script lang="ts">
   import { curve, throttle } from '@plantarium/helpers';
   import { Vec2 } from 'ogl';
   import { createEventDispatcher, onMount } from 'svelte';
@@ -174,6 +174,13 @@
 <div class="component-wrapper">
   <div
     bind:this={el}
+    on:focus={() => {
+      isHovered = true;
+      render();
+    }}
+    on:blur={() => {
+      isHovered = false;
+    }}
     on:mouseover={() => {
       isHovered = true;
       render();

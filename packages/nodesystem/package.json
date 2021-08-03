@@ -6,10 +6,17 @@
   "license": "MIT",
   "scripts": {
     "clean": "rimraf coverage .nyc_output",
-    "build": ""
+    "build": "node build.js",
+    "dev": "node build.js --dev"
   },
   "dependencies": {
-    "@plantarium/ui": "link:../ui",
-    "@plantarium/helpers": "link:../helpers"
+    "@plantarium/helpers": "link:../helpers",
+    "@plantarium/ui": "link:../ui"
+  },
+  "devDependencies": {
+    "@es-pack/esbuild-sass-plugin": "^1.0.4",
+    "esbuild": "^0.12.17",
+    "esbuild-svelte": "^0.5.3",
+    "svelte-preprocess": "^4.7.4"
   }
 }

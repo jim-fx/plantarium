@@ -21,6 +21,10 @@ label {
   font-size: 0.5em;
 }
 
+.node-state-input > plant-select > #shadow-root > .component-wrapper {
+  width: 100%;
+}
+
 .nodesystem-wrapper {
   position: relative;
   height: 100%;

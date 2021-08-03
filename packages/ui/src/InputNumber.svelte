@@ -1,3 +1,5 @@
+<svelte:options tag="plant-number" />
+
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
@@ -19,6 +21,23 @@
   $: value !== undefined && dispatch('change', parseFloat(value + ''));
 </script>
 
+<div class="component-wrapper">
+  <div>
+    <button on:click={() => handleChange(-step)} />
+
+    <input
+      bind:value
+      {step}
+      {max}
+      {min}
+      type="number"
+      style={`width:${Math.max((value?.toString().length ?? 1) * 8, 30)}px;`}
+    />
+
+    <button on:click={() => handleChange(+step)} class="plus" />
+  </div>
+</div>
+
 <style lang="scss">
   @import './global.scss';
   input[type='number'] {
@@ -36,12 +55,14 @@
     box-sizing: border-box;
     max-width: 200px;
     position: relative;
-    width: 100%;
+    width: fit-content;
     display: flex;
     background-color: #4b4b4b;
     border-radius: 2px;
 
     padding: 3px 1px;
+    padding-right: 6px;
+    padding-left: 4px;
 
     font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
       Roboto, 'Oxygen-Sans', Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
@@ -76,7 +97,7 @@
   div input[type='number'] {
     color: white;
     background-color: transparent;
-    padding: 8%;
+    padding: 2px;
     width: 72%;
     font-weight: bold;
     text-align: center;
@@ -84,15 +105,3 @@
     border-style: none;
   }
 </style>
-
-<svelte:options tag="plant-number" />
-
-<div class="component-wrapper">
-  <div>
-    <button on:click={() => handleChange(-step)} />
-
-    <input bind:value {step} {max} {min} type="number" />
-
-    <button on:click={() => handleChange(+step)} class="plus" />
-  </div>
-</div>

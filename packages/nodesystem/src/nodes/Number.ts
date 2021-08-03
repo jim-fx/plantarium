@@ -5,7 +5,8 @@ export default {
   parameters: {
     value: {
       type: 'number',
-      external: false,
+      internal: true,
+      label: false,
       defaultValue: 0,
     },
   },

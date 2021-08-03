@@ -52,17 +52,21 @@
   }
 
   svg {
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
     opacity: 0;
     margin: 2px;
     stroke: white;
     stroke-width: 2px;
     pointer-events: none;
+    margin-left: 4px;
+    margin-top: 4px;
   }
 
   label {
-    position: relative;
+    height: 21px;
+    width: 21px;
+    position: absolute;
     cursor: pointer;
   }
 

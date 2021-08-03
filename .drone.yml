@@ -62,6 +62,7 @@ steps:
     commands:
       - cp -r packages/geometry/public frontend/dist/geometry
       - cp -r packages/ui/dist frontend/dist/ui
+      - cp -r packages/nodesystem/public frontend/dist/nodes
       - cd frontend/dist
       - lftp -e "set sftp:auto-confirm true; set ftp:ssl-force true; set xfer:timeout 10000; debug 3; open -u $FTP_USERNAME,$FTP_PASSWORD sftp://ssh.jim-fx.com:2221; mkdir -p share/plant; cd share/plant; mirror -p --scan-all-first --overwrite --verbose -R --skip-noaccess; quit;"
     depends_on:

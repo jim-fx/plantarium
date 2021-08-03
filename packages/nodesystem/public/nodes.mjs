@@ -1,36 +1,58 @@
 //Boolean Operations
 const boolops = {
-  name: 'boolops',
-  inputs: [['boolean'], ['boolean']],
+  title: 'Boolops',
+  type: 'boolops',
   outputs: ['boolean'],
-  state: {
-    id: 'mode',
-    values: ['and', 'or'],
+  parameters: {
+    mode: {
+      type: 'select',
+      values: ['and', 'or'],
+      internal: true,
+    },
+    a: {
+      type: 'boolean',
+      defaultValue: false,
+    },
+    b: {
+      type: 'boolean',
+      defaultValue: false,
+    },
   },
-  compute: function ([input1 = false, input2 = false], { mode = 'and' }) {
-    if (mode === 'and') return input1 && input2;
-    if (mode === 'or') return input1 || input2;
+  compute({ a, b, mode }, objs) {
+    console.log(...arguments);
+    if (mode === 'and') return a && b;
+    if (mode === 'or') return a || b;
     return false;
   },
 };
 
 //Compare numbers
 const compare = {
-  name: 'compare',
-  inputs: [['number'], ['number']],
+  title: 'compare',
   outputs: ['boolean'],
-  state: {
-    id: 'mode',
-    value: ['>', '<', '='],
+  parameters: {
+    mode: {
+      type: 'select',
+      values: ['>', '<', '='],
+      internal: true,
+    },
+    a: {
+      type: 'number',
+      defaultValue: 0,
+    },
+    b: {
+      type: 'number',
+      defaultValue: 0,
+    },
   },
-  compute: function ([first = 0, second = 0], { mode = '=' }) {
+  compute: function ({ a, b, mode }) {
     switch (mode) {
       case '=':
-        return first === second;
+        return a === b;
       case '>':
-        return first > second;
+        return a > b;
       case '<':
-        return first < second;
+        return a < b;
     }
     return false;
   },
@@ -38,7 +60,7 @@ const compare = {
 
 //Picker
 const picker = {
-  name: 'picker',
+  title: 'picker',
   inputs: [['boolean'], ['number'], ['number']],
   outputs: ['number'],
   compute: function ([selectFirst = true, input1 = 0, input2 = 0]) {
