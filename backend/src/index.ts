@@ -6,7 +6,7 @@ const app = polka();
 
 app.use(files('../frontend/public', { dev: true }));
 
-const PORT = get('PORT', 8080);
+const PORT = get('PORT', 8083);
 
 app.listen(PORT, () => {
   console.log('[SERVER] listening on port ' + PORT);
