@@ -44,8 +44,7 @@ const handleGeometryNode = (node, ctx) => {
 };
 
 export default function plant(rootNode: NodeResult, s: PlantariumSettings) {
-
-  console.log("------------------------------")
+  log('generator started ------------------------------');
 
   const a = performance.now();
 
