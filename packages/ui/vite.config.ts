@@ -7,6 +7,7 @@ export default defineConfig({
     tsconfigPaths(),
     svelte({ compilerOptions: { customElement: true } }),
   ],
+  base: '',
   build: {
     minify: 'esbuild',
     brotliSize: false,
