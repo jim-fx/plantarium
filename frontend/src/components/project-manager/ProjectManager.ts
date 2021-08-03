@@ -1,11 +1,11 @@
-import { EventEmitter, logger } from '@plantarium/helpers';
+import { debounceDecorator, EventEmitter, logger } from '@plantarium/helpers';
 import type { NodeSystem } from '@plantarium/nodesystem';
 import storage from 'localforage';
 import createId from 'shortid';
 import { Writable, writable } from 'svelte/store';
 import type { SettingsManager } from '../settings-manager';
 
-const log = logger('projectManager');
+const log = logger('ProjectManager');
 
 const PTP_PREFIX = 'pt_project_';
 
@@ -25,11 +25,7 @@ export default class ProjectManager extends EventEmitter {
     this.nodeSystem = nodeSystem;
 
     nodeSystem.on('result', this.setProject.bind(this), 50);
-    nodeSystem.on(
-      'save',
-      (project: PlantProject) => this.saveProject(project),
-      1000,
-    );
+    nodeSystem.on('save', (project: PlantProject) => this.saveProject(project));
 
     this.setProject(nodeSystem.result as NodeResult);
 
@@ -90,9 +86,12 @@ export default class ProjectManager extends EventEmitter {
 
     project.meta = { ...project.meta, ...meta };
 
+    log('update meta', id);
+
     this.saveProject(project);
   }
 
+  @debounceDecorator(10)
   private async saveProject(project: PlantProject) {
     this.projects[project.meta.id] = project;
 
@@ -103,8 +102,6 @@ export default class ProjectManager extends EventEmitter {
     await storage.setItem(PTP_PREFIX + project.meta.id, project);
 
     log('saved plant id: ', project.meta.id);
-
-    console.log('save project', project);
 
     this.store.set(Object.values(this.projects));
   }
@@ -129,9 +126,9 @@ export default class ProjectManager extends EventEmitter {
   }
 
   async setActiveProject(id: string) {
-    if (this.loadingActiveProject || id === this?.activeProjectId) return;
+    if (this.loadingActiveProject || id === this.activeProjectId) return;
 
-    this.activeProjectId === id;
+    this.activeProjectId = id;
 
     this.loadingActiveProject = this.getProject(id);
 
@@ -140,7 +137,6 @@ export default class ProjectManager extends EventEmitter {
     if (this.loadingActiveProject) {
       await storage.setItem('pt_active_id', id);
       this.activeProjectId = id;
-      console.log('load project', project);
       this.nodeSystem.load(project);
       this.saveProject(project);
       this.activeProject.set(project);
@@ -155,7 +151,7 @@ export default class ProjectManager extends EventEmitter {
     const projectIds =
       ((await storage.getItem('pt_project_ids')) as string[]) || [];
 
-    log(projectIds);
+    log('loaded project ids', projectIds);
 
     const activeProjectId = (await storage.getItem('pt_active_id')) as string;
 
