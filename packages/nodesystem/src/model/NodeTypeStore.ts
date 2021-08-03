@@ -1,5 +1,7 @@
-import { EventEmitter } from '@plantarium/helpers';
+import { EventEmitter, logger } from '@plantarium/helpers';
 import type NodeType from './NodeType';
+
+const log = logger('nodes.typestore');
 
 export default class NodeTypeStore extends EventEmitter {
   types: NodeType[] = [];
@@ -10,7 +12,7 @@ export default class NodeTypeStore extends EventEmitter {
   }
 
   add(type: NodeType) {
-    console.trace('ADD TYPE', type);
+    log('register new type ' + type.title, type);
 
     this.types = [
       ...this.types.filter(
