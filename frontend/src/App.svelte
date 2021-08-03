@@ -20,7 +20,9 @@
 
   let activeProject: Writable<PlantProject | undefined>;
 
-  onMount(() => {
+  onMount(async () => {
+    await settingsManager.loadFromLocal();
+
     const nodeSystem = new NodeSystem({
       wrapper: nodeSystemWrapper,
       view: true,
