@@ -12,13 +12,14 @@
 }
 
 .socket-state-highlight {
-  outline: solid thick hotpink;
+  // outline: solid thick hotpink;
+  box-shadow: 0px 0px 5px hotpink;
 }
 
 .socket-state-potential {
-  outline: solid thick green;
+  box-shadow: 0px 0px 5px green;
 }
 
 .socket-state-middle {
-  outline: solid thick orangered;
+  box-shadow: 0px 0px 5px orangered;
 }

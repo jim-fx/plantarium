@@ -1,7 +1,6 @@
 import Node from '../model/Node';
 import NodeState from '../model/NodeState';
 import type NodeSystem from '../model/NodeSystem';
-
 import NodeView from '../view/NodeView';
 
 class OutputNode extends Node {
@@ -24,6 +23,11 @@ class OutputView extends NodeView {
     super(node);
 
     const d = document.createElement('p');
+
+    d.style.margin = '0px';
+    d.style.padding = '4px';
+    d.style.color = 'white';
+    d.style.fontWeight = 'bold';
 
     node.on('computedData', (data) => {
       d.innerHTML = JSON.stringify(data, null, 2);

@@ -1,23 +1,30 @@
 const dev = {
   meta: {
     lastSaved: Date.now(),
+    transform: {
+      x: 0,
+      y: 0,
+      s: 2,
+    },
   },
   nodes: [
     {
       attributes: {
         pos: {
-          x: 146,
-          y: -1,
+          x: 127,
+          y: -46,
         },
         type: 'output',
         id: '0',
+        refs: [],
       },
+      state: {},
     },
     {
       attributes: {
         pos: {
-          x: 27,
-          y: -1,
+          x: -15,
+          y: -59,
         },
         type: 'math',
         id: '1',
@@ -25,19 +32,21 @@ const dev = {
           {
             id: '0',
             out: 0,
-            in: 0,
+            in: 'input',
           },
         ],
       },
       state: {
         mode: 'multiply',
+        a: 0,
+        b: 0,
       },
     },
     {
       attributes: {
         pos: {
-          x: -80,
-          y: -60,
+          x: -157,
+          y: -120,
         },
         type: 'number',
         id: '2',
@@ -45,7 +54,7 @@ const dev = {
           {
             id: '1',
             out: 0,
-            in: 0,
+            in: 'a',
           },
         ],
       },
@@ -56,8 +65,8 @@ const dev = {
     {
       attributes: {
         pos: {
-          x: -80,
-          y: 60,
+          x: -159,
+          y: 48,
         },
         type: 'number',
         id: '3',
@@ -65,7 +74,7 @@ const dev = {
           {
             id: '1',
             out: 0,
-            in: 1,
+            in: 'b',
           },
         ],
       },
@@ -89,7 +98,7 @@ const stressTest = {
     {
       attributes: {
         pos: {
-          x: -280,
+          x: -300,
           y: 0,
         },
         type: 'number',
@@ -98,12 +107,12 @@ const stressTest = {
           {
             id: '1',
             out: 0,
-            in: 0,
+            in: 'a',
           },
           {
             id: '1',
             out: 0,
-            in: 1,
+            in: 'b',
           },
         ],
       },
@@ -127,20 +136,20 @@ const grid = new Array(gridSize)
         attributes: {
           id,
           pos: {
-            x: -200 + x * 80,
-            y: y * 60,
+            x: -200 + x * 100,
+            y: y * 150,
           },
           type: 'math',
           refs: [
             {
               id: (i + 1).toString(),
               out: 0,
-              in: 0,
+              in: 'a',
             },
             {
               id: (i + 1).toString(),
               out: 0,
-              in: 1,
+              in: 'b',
             },
           ],
         },
@@ -155,8 +164,8 @@ stressTest.nodes.push(...grid.flat().flat(), {
   attributes: {
     id: (gridSize * gridSize + 1).toString(),
     pos: {
-      x: -200 + gridSize * 80,
-      y: (gridSize - 1) * 60,
+      x: -200 + gridSize * 100,
+      y: (gridSize - 1) * 150,
     },
     type: 'output',
     refs: [],
@@ -165,5 +174,13 @@ stressTest.nodes.push(...grid.flat().flat(), {
     value: 2,
   },
 });
+
+stressTest.nodes[stressTest.nodes.length - 2].attributes.refs = [
+  {
+    id: (gridSize * gridSize + 1).toString(),
+    out: 0,
+    in: 'input',
+  },
+];
 
 export { dev, stressTest };
