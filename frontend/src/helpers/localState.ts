@@ -4,7 +4,6 @@ let savedState: { [key: string]: unknown };
 
 try {
   savedState = JSON.parse(localStorage.getItem('pt_local_state') as string);
-  console.log(savedState);
 } catch (error) {
   console.log(error);
 }
@@ -21,7 +20,7 @@ const set: (key: string, value: unknown) => void = debounce(
 );
 
 export default {
-  get(key: string, defaultValue?: unknown): unknown {
+  get<T>(key: string, defaultValue?: T): T {
     state[key] = state[key] ?? defaultValue;
     return state[key] as typeof defaultValue;
   },

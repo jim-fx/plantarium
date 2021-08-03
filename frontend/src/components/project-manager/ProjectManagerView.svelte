@@ -11,8 +11,8 @@
   const { store } = pm;
 
   const { width, height } = localState.get('pmSize', {
-    width: 'unset',
-    height: 'unset',
+    width: 300,
+    height: window.innerHeight / 2,
   });
 </script>
 
@@ -22,11 +22,13 @@
   style={`width: ${width}px; height: ${height}px;`}
 >
   <ResizeObserer
-    on:resize={(ev) =>
-      localState.set('pmSize', {
-        width: ev.detail.contentRect.width,
-        height: ev.detail.contentRect.height,
-      })}
+    on:resize={(ev) => {
+      visible &&
+        localState.set('pmSize', {
+          width: ev.detail.contentRect.width,
+          height: ev.detail.contentRect.height,
+        });
+    }}
   />
   <div class="header">
     <button class="add-new" on:click={() => pm.createNew()}>
