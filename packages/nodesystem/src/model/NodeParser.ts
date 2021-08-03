@@ -1,9 +1,9 @@
-import Node from './Node';
 import NodeView from '../view/NodeView';
+import Node from './Node';
 import NodeOutput from './NodeOutput';
+import NodeState from './NodeState';
 import type NodeSystem from './NodeSystem';
 import type NodeType from './NodeType';
-import NodeState from './NodeState';
 
 export default class NodeParser {
   system: NodeSystem;

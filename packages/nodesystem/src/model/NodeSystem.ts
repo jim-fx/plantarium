@@ -1,13 +1,12 @@
-import NodeParser from './NodeParser';
-import NodeSystemView from '../view/NodeSystemView';
-import NodeFactory from './NodeFactory';
-import type Node from './Node';
-import NodeTypeStore from './NodeTypeStore';
-
+import { debounceDecorator, EventEmitter } from '@plantarium/helpers';
 import DefaultNodes from '../nodes';
-import type NodeType from './NodeType';
-import { EventEmitter } from '@plantarium/helpers';
+import NodeSystemView from '../view/NodeSystemView';
 import Logger from './Logger';
+import type Node from './Node';
+import NodeFactory from './NodeFactory';
+import NodeParser from './NodeParser';
+import type NodeType from './NodeType';
+import NodeTypeStore from './NodeTypeStore';
 
 /**
  * @ignore
@@ -32,6 +31,7 @@ export default class NodeSystem extends EventEmitter {
   store: NodeTypeStore;
 
   log: Logger;
+  isLoaded: boolean = false;
 
   nodes: Node[] = [];
   _result: unknown;
@@ -50,7 +50,7 @@ export default class NodeSystem extends EventEmitter {
       wrapper = document.body,
       defaultNodes = false,
       registerNodes = false,
-      logLevel = 2,
+      logLevel = 5,
     } = options;
     this.options = { view, wrapper };
 
@@ -106,6 +106,7 @@ export default class NodeSystem extends EventEmitter {
   }
 
   load(systemData: NodeSystemData) {
+    this.isLoaded = false;
     this.nodes.forEach((n) => (n.enableUpdates = false));
     this.nodes.forEach((n) => n.remove());
     this.factory.reset();
@@ -120,6 +121,8 @@ export default class NodeSystem extends EventEmitter {
       systemData,
     );
 
+    this.isLoaded = true;
+
     return this;
   }
 
@@ -130,10 +133,13 @@ export default class NodeSystem extends EventEmitter {
     };
   }
 
+  @debounceDecorator(1000)
   save() {
-    this.meta.lastSaved = Date.now();
-    this.log.info('save system', this.serialize());
-    this.emit('save', this.serialize());
+    if (this.isLoaded) {
+      this.meta.lastSaved = Date.now();
+      this.log.info('save system', this.serialize());
+      this.emit('save', this.serialize());
+    }
   }
 
   addNodes(nodes: Node[]) {
