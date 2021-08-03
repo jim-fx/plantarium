@@ -5,6 +5,7 @@ export { default as ComposableError } from './composeableError';
 export { default as convertHexToRGB } from './convertHexToRGB';
 export * as curve from './curve';
 export { default as debounce } from './debounce';
+export { default as debounceDecorator } from './debounceDecorator';
 export * as download from './download';
 export { default as EventEmitter } from './EventEmitter';
 export { default as fastHash } from './fastHash';
