@@ -1,7 +1,6 @@
 import { NodeSystem } from './dist/index.esm.js';
-
-import { dev, stressTest } from './projects.mjs';
-import nodes from './nodes.mjs';
+import nodes from './nodes.js';
+import { dev, stressTest } from './projects.js';
 
 const system = new NodeSystem({
   view: true,
