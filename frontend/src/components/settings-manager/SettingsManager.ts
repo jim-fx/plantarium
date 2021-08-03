@@ -7,6 +7,8 @@ import SettingsTemplate from './SettingsTemplate';
 
 const obj = {};
 
+const log = logger('SettingsManager');
+
 const templateToSettings = (
   template: SettingsTemplate,
   store?: typeof obj,
@@ -54,8 +56,6 @@ export default class SettingsManager extends EventEmitter {
       500,
       false,
     );
-
-    this.loadFromLocal();
   }
 
   save() {
@@ -63,6 +63,8 @@ export default class SettingsManager extends EventEmitter {
 
     logger.setLevel(this.settings?.debug?.logLevel ?? 2);
     this.store.set(this.settings);
+
+    log('save settings', this.settings);
 
     this._save();
   }
@@ -76,6 +78,8 @@ export default class SettingsManager extends EventEmitter {
     logger.setLevel(this.settings?.debug?.logLevel ?? 2);
 
     this.store.set(this.settings);
+
+    log('loaded settings from local', this.settings);
 
     this.emit('settings', this.settings);
   }
