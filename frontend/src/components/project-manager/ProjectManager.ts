@@ -13,6 +13,7 @@ export default class ProjectManager extends EventEmitter {
   private plant: NodeResult;
   private settingsManager: SettingsManager;
   public activeProjectId: string;
+  public activeProject: Writable<PlantProject | undefined> = writable();
   private projects: { [key: string]: PlantProject } = {};
   private loadingActiveProject?: Promise<PlantProject>;
   public store: Writable<PlantProject[]> = writable([]);
@@ -95,13 +96,15 @@ export default class ProjectManager extends EventEmitter {
   private async saveProject(project: PlantProject) {
     this.projects[project.meta.id] = project;
 
+    this.emit('save', project);
+
     await storage.setItem('pt_project_ids', Object.keys(this.projects));
 
     await storage.setItem(PTP_PREFIX + project.meta.id, project);
 
     log('saved plant id: ', project.meta.id);
 
-    console.log("save project", project);
+    console.log('save project', project);
 
     this.store.set(Object.values(this.projects));
   }
@@ -137,9 +140,10 @@ export default class ProjectManager extends EventEmitter {
     if (this.loadingActiveProject) {
       await storage.setItem('pt_active_id', id);
       this.activeProjectId = id;
-      console.log("load project", project)
+      console.log('load project', project);
       this.nodeSystem.load(project);
       this.saveProject(project);
+      this.activeProject.set(project);
       log('set active project to id: ' + id);
       delete this.loadingActiveProject;
     } else {

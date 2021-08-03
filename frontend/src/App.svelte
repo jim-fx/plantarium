@@ -4,6 +4,7 @@
   import { Alert, Button } from '@plantarium/ui';
   import { onMount } from 'svelte';
   import ClickOutside from 'svelte-click-outside';
+  import type { Writable } from 'svelte/store';
   import { ProjectManager } from './components/project-manager';
   import Scene from './components/scene/Scene.svelte';
   import { SettingsManager } from './components/settings-manager';
@@ -17,6 +18,8 @@
   $: sLoad = sLoad || sShow || false;
   const settingsManager = new SettingsManager();
 
+  let activeProject: Writable<PlantProject | undefined>;
+
   onMount(() => {
     const nodeSystem = new NodeSystem({
       wrapper: nodeSystemWrapper,
@@ -26,6 +29,7 @@
     });
 
     projectManager = new ProjectManager(nodeSystem, settingsManager);
+    activeProject = projectManager.activeProject;
   });
 </script>
 
@@ -55,6 +59,8 @@
     </ClickOutside>
   </div>
 
+  <h3>{$activeProject?.meta.name ?? ''}</h3>
+
   <div class="right">
     <ClickOutside on:clickoutside={() => (sShow = false)}>
       <div class="settings-wrapper" class:active={sShow}>
@@ -75,20 +81,26 @@
   </div>
 </header>
 <main>
-  <Scene pm={projectManager} />
+  <Scene pm={projectManager} sm={settingsManager} />
   <div id="nodesystem-view" bind:this={nodeSystemWrapper} />
 </main>
 
 <style lang="scss">
+  @import './themes.scss';
   main {
     height: 100%;
     display: grid;
     grid-template-columns: minmax(50vw, 25%) 1fr;
   }
 
+  h3 {
+    color: $light-green;
+  }
+
   header {
     display: flex;
     z-index: 2;
+    align-items: center;
     justify-content: space-between;
   }
 

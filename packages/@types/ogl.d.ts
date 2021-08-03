@@ -305,6 +305,7 @@ declare module 'ogl' {
         uniforms?: Record<string, unknow>;
         depthTest?: boolean;
         cullFace?: number;
+        transparent?: boolean;
       },
     );
 

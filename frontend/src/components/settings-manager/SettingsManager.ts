@@ -1,9 +1,9 @@
 import { debounce, EventEmitter, logger } from '@plantarium/helpers';
 import storage from 'localforage';
+import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
 import './index.scss';
 import SettingsTemplate from './SettingsTemplate';
-
 
 const obj = {};
 
@@ -18,7 +18,7 @@ const templateToSettings = (
     if ('options' in _template) {
       settings[key] = templateToSettings(_template.options, value);
     } else {
-      settings[key] = value ?? (_template.defaultValue ?? _template.value);
+      settings[key] = value ?? _template.defaultValue ?? _template.value;
     }
   });
 
@@ -40,7 +40,7 @@ const keyToPath = (key: string) => (key.includes('.') ? key.split('.') : [key]);
 export default class SettingsManager extends EventEmitter {
   private settings: PlantariumSettings = {} as PlantariumSettings;
 
-  public store = writable({});
+  public store: Writable<PlantariumSettings> = writable(this.settings);
 
   private _save: () => void;
 
@@ -62,6 +62,7 @@ export default class SettingsManager extends EventEmitter {
     this.emit('settings', this.settings);
 
     logger.setLevel(this.settings?.debug?.logLevel ?? 2);
+    this.store.set(this.settings);
 
     this._save();
   }
