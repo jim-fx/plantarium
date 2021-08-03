@@ -1,3 +1,4 @@
+import { logger } from '@plantarium/helpers';
 import type { NodeSystem } from '..';
 
 let longestModuleName = 0;
@@ -11,6 +12,7 @@ export default class Logger {
   level: number;
   length: number;
   isGrouped = false;
+  output = logger('logger');
   constructor(
     module: dummyClass | NodeSystem,
     logLevel: number = 'system' in module ? module.system.log.level : 2,
@@ -20,12 +22,11 @@ export default class Logger {
     this.length = this.name.length;
     longestModuleName = Math.max(longestModuleName, this.length);
     this.level = logLevel;
+    this.output = logger(this.getModuleName());
   }
 
   private getModuleName() {
-    return this.isGrouped
-      ? ''
-      : `[${this.name.padEnd(longestModuleName, ' ')}]:`;
+    return this.isGrouped ? '' : `${this.name.padEnd(longestModuleName, ' ')}`;
   }
 
   private handle(
@@ -47,39 +48,31 @@ export default class Logger {
   // level: 3
   info(message: unknown, ...args: unknown[]): void {
     if (this.level >= 3) {
-      // tslint:disable-next-line
-      this.handle(console.info, message, args);
+      this.output(message, ...args);
     }
   }
   // level: 2
   log(message: string | unknown, ...args: unknown[]): void {
     if (this.level >= 2) {
-      // tslint:disable-next-line
-      this.handle(console.log, message, args);
+      this.output(message, ...args);
     }
   }
   // level: 1
   warn(message: string | unknown, ...args: unknown[]): void {
     if (this.level >= 1) {
-      // tslint:disable-next-line
-      this.handle(console.warn, message, args);
+      this.output.warn(message, ...args);
     }
   }
   // level: 0
-  error(message: string | unknown, ...args: unknown[]) {
+  error(message: Error, ...args: unknown[]) {
     if (this.level >= 0) {
-      // tslint:disable-next-line
-      this.handle(console.error, message, args);
+      this.output.error(message);
     }
   }
 
   group(message: string) {
-    // tslint:disable-next-line
-    if (this.level >= 0) {
-      // tslint:disable-next-line
-      this.handle(console.groupCollapsed, message);
-      this.isGrouped = true;
-    }
+    this.output.group(message);
+    this.isGrouped = true;
   }
 
   groupEnd() {
