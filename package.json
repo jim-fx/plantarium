@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "published": "true",
   "scripts": {
-    "frontend:dev": "pnpm --filter=frontend dev",
+    "frontend:dev": "pnpm --filter=./frontend dev",
     "frontend:build": "pnpm --filter=./frontend build",
     "backend:dev": "pnpm --filter=backend dev",
     "backend:start": "pnpm --filter=backend start",
