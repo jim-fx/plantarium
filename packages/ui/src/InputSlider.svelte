@@ -44,6 +44,7 @@
   div {
     position: relative;
     width: 100%;
+    height: 10px;
   }
 
   input[type='range'] {
@@ -52,6 +53,7 @@
     width: 100%;
     background: transparent;
     margin: 0;
+    height: 10px;
   }
   input[type='range']:focus {
     outline: none;

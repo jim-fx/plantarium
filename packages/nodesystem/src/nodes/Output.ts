@@ -8,7 +8,11 @@ class OutputNode extends Node {
     super(system, props);
 
     this.states = {
-      input: new NodeState(this, 'input', { type: '*', external: true }),
+      input: new NodeState(this, 'input', {
+        type: '*',
+        external: true,
+        label: false,
+      }),
     };
     this.outputs = [];
   }

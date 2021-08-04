@@ -59,7 +59,8 @@
   --node-editor-grid-size: 1.5rem;
   --node-editor-grid-width: 1px;
 
-  background-image: radial-gradient(#ffffff11 var(--node-editor-grid-width), 
+  background-image: radial-gradient(
+    #ffffff11 var(--node-editor-grid-width),
     transparent var(--node-editor-grid-width)
   );
   background-size: var(--node-editor-grid-size) var(--node-editor-grid-size);

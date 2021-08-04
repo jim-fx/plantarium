@@ -19,6 +19,7 @@ const node: PlantNode = {
     },
     type: {
       internal: true,
+      label: false,
       type: 'select',
       values: ['Y', 'X', 'Z'],
     },
@@ -63,7 +64,7 @@ const node: PlantNode = {
       const oy = skelly[1];
       const oz = skelly[2];
 
-      const _a = j / (skeletons.length );
+      const _a = j / skeletons.length;
 
       const angle =
         ctx.handleParameter(parameters.angle, _a) * (spread ? _a : 1);

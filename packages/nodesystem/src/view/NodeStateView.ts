@@ -1,6 +1,6 @@
-import './NodeStateView.scss';
-import type NodeState from '../model/NodeState';
 import { stateToElement } from '@plantarium/ui';
+import type NodeState from '../model/NodeState';
+import './NodeStateView.scss';
 
 export default class NodeStateView {
   wrapper = document.createElement('div');
@@ -26,6 +26,8 @@ export default class NodeStateView {
         template,
         nodeState.getValue(),
       );
+
+      element.fullWidth = true;
 
       if (element) {
         element.$on('change', ({ detail }) => {

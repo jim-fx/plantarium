@@ -1,10 +1,11 @@
-<svelte:options tag="plant-select" />
+<svelte:options tag="plant-select" accessors />
 
 <script>
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
 
   export let value = undefined;
+  export let fullWidth = false;
   let open = false;
   let main;
 
@@ -38,7 +39,7 @@
   }
 </script>
 
-<div class="component-wrapper">
+<div class="component-wrapper" class:open class:fullWidth>
   <div id="main" bind:this={main}>
     {#if value !== undefined}
       <div id="selected-value" on:click={handleOpen}>{value}</div>
@@ -46,9 +47,9 @@
       <div id="selected-value" on:click={handleOpen}>none</div>
     {/if}
 
-    {#if open}
-      <div id="item-wrapper">
-        {#each values as item}
+    <div id="item-wrapper">
+      {#each values as item}
+        {#if item !== value}
           <p
             style={`opacity: ${item === value ? 0.5 : 1}`}
             class="item"
@@ -56,38 +57,75 @@
           >
             {item}
           </p>
-        {/each}
-      </div>
-    {/if}
+        {/if}
+      {/each}
+    </div>
   </div>
 </div>
 
 <style lang="scss">
   @import './global.scss';
+
+  .component-wrapper {
+    height: 30px;
+  }
+
+  .open.component-wrapper {
+    overflow: visible;
+    z-index: 99;
+  }
+
   #main {
     color: white;
-    max-width: 200px;
+    min-width: 100%;
+    border-radius: 2px;
     width: fit-content;
     box-sizing: border-box;
+    background-color: #4b4b4b;
+    cursor: pointer;
+  }
+  .open #main {
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.4);
+  }
+
+  #main::before {
+    content: '⌝';
+    position: absolute;
+    left: -1px;
+    top: 7px;
+    transform: rotate(45deg) translate(0px, 0px);
+    border-radius: 2px;
+  }
+
+  .open #main::before {
+    transform: rotate(135deg) translate(-8px, 1px);
   }
 
   #selected-value {
     padding: 6px;
+    padding-left: 18px;
   }
 
   #item-wrapper {
-    position: absolute;
     width: fit-content;
+    min-width: 100%;
     background-color: #4b4b4b;
     border-radius: 2px;
+
     overflow: hidden;
     top: 0;
     z-index: 99;
     left: 0;
+
+    height: 0px;
+  }
+
+  .open #item-wrapper {
+    height: auto;
   }
 
   .item {
-    padding: 10px;
+    padding: 6px;
     margin: 0;
     background-color: #4b4b4b;
     cursor: pointer;

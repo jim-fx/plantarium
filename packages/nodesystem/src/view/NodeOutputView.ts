@@ -57,6 +57,6 @@ export default class NodeOutputView {
   }
 
   get y() {
-    return this.node.view.y + 7;
+    return this.node.view.y + 10;
   }
 }

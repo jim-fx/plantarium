@@ -1,4 +1,4 @@
-<svelte:options tag="plant-number" />
+<svelte:options tag="plant-number" accessors />
 
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
@@ -9,6 +9,8 @@
   export let max = Infinity;
   export let step = 1;
   export let value = 0;
+
+  export let fullWidth = false;
 
   function handleChange(change) {
     value = Math.max(min, Math.min(+value + change, max));
@@ -21,7 +23,7 @@
   $: value !== undefined && dispatch('change', parseFloat(value + ''));
 </script>
 
-<div class="component-wrapper">
+<div class="component-wrapper" class:fullWidth>
   <div>
     <button on:click={() => handleChange(-step)} />
 
@@ -86,7 +88,7 @@
     content: '';
     width: 80%;
     height: 1.5px;
-    background-color: white;
+    background-color: rgb(190, 190, 190);
     border-radius: 4px;
     transform: translate(-50%, -50%);
   }
