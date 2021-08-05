@@ -10,6 +10,7 @@
     { x: 0.2, y: 0.3 },
     { x: 0.5, y: 0, locked: true },
   ];
+  export let fullWidth = false;
 
   let canvas, ctx;
 
@@ -227,7 +228,7 @@
   }}
 />
 
-<div class="component-wrapper">
+<div class="component-wrapper" class:fullWidth>
   <div
     id="main"
     on:focus={() => {

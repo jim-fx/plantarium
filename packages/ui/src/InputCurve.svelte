@@ -7,6 +7,8 @@
 
   const dispatch = createEventDispatcher();
 
+  export let fullWidth = false;
+
   export let points = [
     { x: 0, y: 1, pinned: true },
     { x: 1, y: 0, pinned: true },
@@ -171,7 +173,7 @@
   }}
 />
 
-<div class="component-wrapper">
+<div class="component-wrapper" class:fullWidth>
   <div
     bind:this={el}
     on:focus={() => {

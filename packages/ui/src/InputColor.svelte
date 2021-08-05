@@ -5,6 +5,8 @@
 
   export let startColor = '#FF0000';
 
+  export let fullWidth = false;
+
   onMount(() => {
     document.addEventListener('mouseup', mouseUp);
     document.addEventListener('touchend', mouseUp);
@@ -416,7 +418,7 @@
   }
 </script>
 
-<div class="component-wrapper">
+<div class="component-wrapper" class:fullWidth>
   <div class="main-container">
     <div class="colorsquare size" bind:this={colorSquare}>
       <div class="saturation-gradient">
