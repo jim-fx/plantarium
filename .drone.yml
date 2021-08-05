@@ -22,19 +22,27 @@ steps:
       - git reset --hard origin/main
     depends_on:
       - restore-cache
-  - name: build
+  - name: install
     image: node:alpine
     commands:
       - npm i -g pnpm
       - pnpm install
+  - name: lint
+    image: node:alpine
+    commands:
+      - pnpm lint
+    depends_on:
+      - install
+  - name: build
+    image: node:alpine
+    commands:
       - pnpm build
     depends_on:
-      - clone
+      - lint
   - name: test
     image: node:alpine
     commands:
       - rm -rf coverage
-      - npm i -g pnpm
       - pnpm coverage
       - mv coverage frontend/dist/coverage
     depends_on:
