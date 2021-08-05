@@ -1,6 +1,10 @@
 {
+  "extends": "../../.nycrc",
   "include": [
     "src/**/*.ts",
     "src/**/*.svelte"
+  ],
+  "reporter": [
+    "json"
   ]
 }
