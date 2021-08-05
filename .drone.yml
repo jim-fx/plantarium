@@ -18,7 +18,7 @@ steps:
     image: alpine/git
     commands:
       - "[ ! -d '.git' ] && git clone $DRONE_REMOTE_URL ."
-      - git fetch
+      - git fetch --all
       - git reset --hard origin/main
       - echo "[$(git log --pretty=format:'{\"id\":\"%h\",\"subject\":\"%s\",\"date\":\"%cD\"},')]" | sed "s/,]/]/g" > frontend/dist/commits.json
     depends_on:
