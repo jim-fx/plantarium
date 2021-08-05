@@ -5,7 +5,7 @@
   let canvas: HTMLCanvasElement;
 
   onMount(() => {
-    const renderer = new Renderer(canvas);
+    new Renderer(canvas);
   });
 </script>
 
