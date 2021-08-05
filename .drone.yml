@@ -27,6 +27,8 @@ steps:
     commands:
       - npm i -g pnpm
       - pnpm install
+    depends_on:
+      - clone
   - name: lint
     image: node:alpine
     commands:
