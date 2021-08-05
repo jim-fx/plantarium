@@ -25,8 +25,9 @@ export default class NodeInput extends EventEmitter {
   }
 
   removeConnection() {
+    const conn = this.connection;
     delete this.connection;
-    delete this.view.connection;
+    conn && conn.remove();
     this.node.setStateValue(this.key, undefined);
     this.emit('disconnected');
   }
@@ -42,5 +43,6 @@ export default class NodeInput extends EventEmitter {
 
   remove() {
     if (this.view) this.view.remove();
+    this.removeConnection();
   }
 }

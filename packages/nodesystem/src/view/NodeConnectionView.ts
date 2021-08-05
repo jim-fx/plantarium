@@ -32,7 +32,11 @@ export default class NodeConnectionView extends ConnectionView {
 
     this.hoverPath.addEventListener('mouseover', () => {
       const { activeNode } = this.system.view;
-      if (activeNode && activeNode.view.hoveredConnection !== this) {
+      if (
+        activeNode &&
+        activeNode.view.active &&
+        activeNode.view.hoveredConnection !== this
+      ) {
         if (this.isNodeJoinable(activeNode)) {
           activeNode.view.hoveredConnection = this;
           this.path.classList.add('hover-active');

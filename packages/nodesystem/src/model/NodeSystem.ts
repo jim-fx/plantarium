@@ -157,8 +157,9 @@ export default class NodeSystem extends EventEmitter {
     node.view.remove();
 
     Object.values(node.states).forEach((i) => i.remove());
+
     node.outputs.forEach((o) => o.remove());
-    node.getInputs().forEach((o) => o.remove());
+    node.getInputs().forEach((i) => i.remove());
 
     this.nodes = this.nodes.filter((n) => n !== node);
 
