@@ -25,6 +25,7 @@ steps:
   - name: install
     image: node:alpine
     commands:
+      - export PNPM_STORE_DIR=$(pwd)/.store
       - npm i -g pnpm
       - pnpm install
     depends_on:
