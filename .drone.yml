@@ -33,18 +33,21 @@ steps:
   - name: lint
     image: node:alpine
     commands:
+      - npm i -g pnpm
       - pnpm lint
     depends_on:
       - install
   - name: build
     image: node:alpine
     commands:
+      - npm i -g pnpm
       - pnpm build
     depends_on:
       - lint
   - name: test
     image: node:alpine
     commands:
+      - npm i -g pnpm
       - rm -rf coverage
       - pnpm coverage
       - mv coverage frontend/dist/coverage
