@@ -70,11 +70,13 @@ const node: PlantNode = {
         const branches: Float32Array[] = [];
 
         const amount = ctx.handleParameter(parameters.amount);
-        const length = ctx.handleParameter(parameters.length);
-        const thiccness = ctx.handleParameter(parameters.thiccness);
+
         const lowestBranch = ctx.handleParameter(parameters.lowestBranch);
 
         for (let i = 0; i < amount; i++) {
+          const length = ctx.handleParameter(parameters.length);
+          const thiccness = ctx.handleParameter(parameters.thiccness);
+
           const _a = i / amount;
           const a = lowestBranch + (1 - lowestBranch) * _a;
           const isLeft = i % 2 === 0;

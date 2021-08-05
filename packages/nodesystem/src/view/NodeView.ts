@@ -88,7 +88,6 @@ export default class NodeView extends EventEmitter {
     this._unsubscribeMouseMove = this.system.view.on(
       'mousemove',
       (ev: CustomMouseEvent) => this.handleMouseMove(ev),
-      5,
     );
     this._unsubscribeMouseUp = this.system.view.on('mouseup', () =>
       this.handleMouseUp(),
@@ -144,7 +143,7 @@ export default class NodeView extends EventEmitter {
     this.active = false;
 
     if (this.hoveredConnection) {
-      this.hoveredConnection.joinNode(this.node);
+      this.hoveredConnection.connection.joinNode(this.node);
       delete this.hoveredConnection;
     }
   }

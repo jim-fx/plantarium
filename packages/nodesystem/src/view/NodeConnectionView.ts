@@ -2,7 +2,6 @@ import ConnectionView from './ConnectionView';
 import type NodeInputView from './NodeInputView';
 import type NodeOutputView from './NodeOutputView';
 import type NodeConnection from '../model/NodeConnection';
-import type { Node } from '..';
 
 export default class NodeConnectionView extends ConnectionView {
   connection!: NodeConnection;
@@ -15,6 +14,7 @@ export default class NodeConnectionView extends ConnectionView {
 
   constructor(conn: NodeConnection) {
     super({}, conn.input.node.system);
+    this.connection = conn;
 
     this.input = conn.input.view;
     this.output = conn.output.view;
@@ -37,7 +37,7 @@ export default class NodeConnectionView extends ConnectionView {
         activeNode.view.active &&
         activeNode.view.hoveredConnection !== this
       ) {
-        if (this.isNodeJoinable(activeNode)) {
+        if (this.connection.isNodeJoinable(activeNode)) {
           activeNode.view.hoveredConnection = this;
           this.path.classList.add('hover-active');
         }
@@ -71,49 +71,6 @@ export default class NodeConnectionView extends ConnectionView {
       },
       5,
     );
-
-    setTimeout(() => {
-      const { x: x1, y: y1 } = conn.input.view;
-      const { x: x2, y: y2 } = conn.output.view;
-
-      this.setPosition({ x1, y1, x2, y2 });
-    }, 20);
-  }
-
-  public joinNode(node: Node) {
-    if (!this.isNodeJoinable(node)) return;
-
-    this.remove();
-    //TODO(max) better handle getting the index of which input/output it should connect to
-
-    this.output.node.connectTo(node, 0, node.getInputs()[0].key);
-    node.connectTo(this.input.node, 0, this.input.node.getInputs()[0].key);
-  }
-
-  private isNodeJoinable(node: Node) {
-    const outputType = this.input.input.type;
-    const inputType = this.output.output.type;
-
-    const nodeInputs = node.getInputs();
-    if (
-      !nodeInputs.length ||
-      !nodeInputs.find((input) => input.type.includes(inputType))
-    ) {
-      return false;
-    }
-
-    const nodeOutputs = node.outputs;
-    if (
-      !nodeOutputs.length ||
-      !nodeOutputs.find(
-        (output) =>
-          outputType.includes(output.type) || outputType.includes('*'),
-      )
-    ) {
-      return false;
-    }
-
-    return true;
   }
 
   remove() {

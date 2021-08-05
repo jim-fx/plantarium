@@ -1,4 +1,4 @@
-<svelte:options tag="plant-curve" />
+<svelte:options tag="plant-curve" accessors />
 
 <script lang="ts">
   import { curve, throttle } from '@plantarium/helpers';
