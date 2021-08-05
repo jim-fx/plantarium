@@ -8,8 +8,9 @@ const minMax = (min: number, max: number) => (num: number) =>
 const limitSafe = minMax(-100000, 100000);
 
 export default class ConnectionView {
-  private path: SVGPathElement;
-  private system: NodeSystem;
+  path: SVGPathElement;
+  hoverPath: SVGPathElement;
+  system: NodeSystem;
 
   x1 = 0;
   y1 = 0;
@@ -27,7 +28,6 @@ export default class ConnectionView {
     this.path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     this.path.classList.add('node-connection-path');
     this.path.setAttribute('vector-effect', 'non-scaling-stroke');
-
     this.system.view.svg.append(this.path);
 
     this.setPosition();
@@ -56,10 +56,20 @@ export default class ConnectionView {
         ${this.x2}  ${this.y2}
       `,
     );
+    this?.hoverPath?.setAttribute(
+      'd',
+      `
+      M ${this.x1}  ${this.y1}
+      C ${c1x} ${c1y}
+        ${c2x} ${c2y}
+        ${this.x2}  ${this.y2}
+      `,
+    );
   }
 
   remove() {
     this.path.remove();
+    this?.hoverPath?.remove();
     this.system.save();
   }
 }

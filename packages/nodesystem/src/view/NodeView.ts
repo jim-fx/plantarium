@@ -1,6 +1,8 @@
 import { EventEmitter } from '@plantarium/helpers';
 import type Node from '../model/Node';
 import type System from '../model/NodeSystem';
+import type ConnectionView from './ConnectionView';
+import type NodeConnectionView from './NodeConnectionView';
 import type InputView from './NodeInputView';
 import type OutputView from './NodeOutputView';
 import './NodeView.scss';
@@ -29,6 +31,8 @@ export default class NodeView extends EventEmitter {
   width = 91;
   _state: string | undefined;
   system: System;
+
+  hoveredConnection: NodeConnectionView;
 
   title!: HTMLElement;
 
@@ -138,6 +142,11 @@ export default class NodeView extends EventEmitter {
 
   handleMouseUp() {
     this.active = false;
+
+    if (this.hoveredConnection) {
+      this.hoveredConnection.joinNode(this.node);
+      delete this.hoveredConnection;
+    }
   }
 
   handleMouseMove({ x: _x, y: _y, keys }: CustomMouseEvent) {

@@ -3,4 +3,19 @@
   stroke: grey;
   stroke-width: 0.1em;
   stroke-linecap: butt;
+  pointer-events: none;
+}
+.node-connection-hover {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0);
+  stroke-width: 1em;
+  pointer-events: all;
+}
+
+.node-connection-hover:hover {
+  opacity: 0.8;
+}
+
+.node-connection-path.hover-active {
+  filter: drop-shadow(0px 0px 2px hotpink);
 }
