@@ -78,7 +78,7 @@ export default class NodeView extends EventEmitter {
     setTimeout(() => {
       this.width =
         this.wrapper.getBoundingClientRect().width / this.system.view.s;
-    }, 100);
+    }, 20);
   }
 
   bindEventListeners() {

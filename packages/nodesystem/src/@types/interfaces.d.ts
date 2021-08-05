@@ -74,7 +74,7 @@ interface NodeTypeData {
 
   type: string;
 
-  outputs: string | string[];
+  outputs: string[];
 
   meta?: {
     description?: string;

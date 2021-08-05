@@ -127,6 +127,8 @@ interface GeometryResult extends NodeResult {
   parameters: {
     [key: string]: ParameterResult;
     input?: GeometryResult;
+    inputA?: GeometryResult;
+    inputB?: GeometryResult;
     type?: string;
     origin?: Vec3;
   };

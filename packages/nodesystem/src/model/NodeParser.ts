@@ -51,7 +51,7 @@ export default class NodeParser {
   parseType(typeData: NodeTypeData): NodeType {
     const { compute, meta, outputs, title: name, parameters } = typeData;
 
-    const N = class TempNode extends Node {
+    const N = class extends Node {
       constructor(system: NodeSystem, props: NodeProps) {
         super(system, props);
         if (compute) this.compute = compute;
@@ -67,6 +67,10 @@ export default class NodeParser {
       }
     };
 
+    const inputs = Object.values(parameters)
+      .filter((p) => p.internal !== true)
+      .map((p) => p.type);
+
     if (this.system.options.view) {
       const V = class TempView extends NodeView {
         initView: () => void;
@@ -76,6 +80,8 @@ export default class NodeParser {
       };
 
       return {
+        ...typeData,
+        inputs,
         title: name,
         meta,
         node: N,
@@ -84,6 +90,8 @@ export default class NodeParser {
     }
 
     return {
+      inputs,
+      ...typeData,
       title: name,
       meta,
       node: N,

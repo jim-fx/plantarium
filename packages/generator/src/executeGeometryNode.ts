@@ -5,9 +5,8 @@ const nodes: { [type: string]: PlantNode } = {};
 
 Nodes.forEach((n) => {
   nodes[n.type] = n;
-  const { computeGeometry } = n;
-  if (computeGeometry) {
-    n.computeGeometry = inputChanged(computeGeometry);
+  if ('computeGeometry' in n) {
+    n.computeGeometry = inputChanged(n.computeGeometry);
   }
 });
 

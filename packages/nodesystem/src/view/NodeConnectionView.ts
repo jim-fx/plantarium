@@ -71,6 +71,13 @@ export default class NodeConnectionView extends ConnectionView {
       },
       5,
     );
+
+    setTimeout(() => {
+      const { x: x1, y: y1 } = conn.input.view;
+      const { x: x2, y: y2 } = conn.output.view;
+
+      this.setPosition({ x1, y1, x2, y2 });
+    }, 20);
   }
 
   public joinNode(node: Node) {

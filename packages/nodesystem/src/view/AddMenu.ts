@@ -127,6 +127,7 @@ export default class RightClickMenu {
   }
 
   updateTypes(types: NodeType[]) {
+    console.log('addmenu', types);
     this.containers.forEach((c) => c.destroy());
     this.containers.push(
       ...types.map((type) => {
@@ -155,10 +156,7 @@ export default class RightClickMenu {
 
     this.view.system.store.on(
       'types',
-      (types: NodeType[]) =>
-        this.updateTypes(
-          types.filter((type: NodeType) => type.title !== 'output'),
-        ),
+      (types: NodeType[]) => this.updateTypes(types),
       20,
     );
 
@@ -276,10 +274,12 @@ export default class RightClickMenu {
 
     // Hide all containers
     this.containers.forEach((c) => c.hide());
+    console.log(socket);
     // get all possible containers
     this.possibleContainers = !socket
       ? this.containers
       : this.containers.filter((c) => {
+          console.log(c.type.node);
           if (socket instanceof NodeInput) {
             const { type } = socket;
             if (!c.type.outputs || !c.type.outputs.length) return false;

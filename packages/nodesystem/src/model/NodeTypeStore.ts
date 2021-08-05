@@ -1,7 +1,7 @@
 import { EventEmitter, logger } from '@plantarium/helpers';
 import type NodeType from './NodeType';
 
-const log = logger('nodes.typestore');
+const log = logger('NodeTypeStore');
 
 export default class NodeTypeStore extends EventEmitter {
   types: NodeType[] = [];
