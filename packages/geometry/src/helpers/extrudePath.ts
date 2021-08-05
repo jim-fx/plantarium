@@ -6,7 +6,7 @@ import {
   mul,
   normalize,
   subtract,
-  transformMat4
+  transformMat4,
 } from 'gl-matrix/vec3';
 
 function createCircle(res: number) {
@@ -16,11 +16,7 @@ function createCircle(res: number) {
     return [Math.cos(angle * i), Math.sin(angle * i)];
   });
 
-  const index = new Array(res).fill(null).map((_, i) => {
-    return [i, (i + 1) % res,(i + 2) % res];
-  });
-
-  return { position, index };
+  return position;
 }
 
 export default function (path, resolution) {
@@ -30,11 +26,10 @@ export default function (path, resolution) {
 
   const mesh = { position: [], index: [] };
 
-  const { position, index } = createCircle(resolution);
+  const position = createCircle(resolution);
 
   const positionAmount = position.length,
-    pathLength = path.length,
-    edgeAmount = index.length;
+    pathLength = path.length;
 
   for (let i = 0; i < pathLength; i++) {
     const n = [0, 0, 1];
@@ -61,43 +56,6 @@ export default function (path, resolution) {
       mesh.position.push(pt);
     }
   }
-
-  for (let i = 0; i < pathLength - 1; i++) {
-    for (let j = 0; j < edgeAmount; j++) {
-      const e = index[j];
-      mesh.index.push([
-        i * positionAmount + e[0],
-        i * positionAmount + e[1],
-        (i + 1) * positionAmount + e[0],
-      ]);
-      mesh.index.push([
-        i * positionAmount + e[1],
-        (i + 1) * positionAmount + e[0],
-        (i + 1) * positionAmount + e[1],
-      ]);
-    }
-  }
-  // if (cells && !closed && startCap !== false && caps !== false) {
-  //   for (let i = 0; i < cells.length; i++) {
-  //     const c = [],
-  //       len = cells[i].length;
-  //     for (let j = 0; j < len; j++) {
-  //       c.push(cells[i][j]);
-  //     }
-  //     mesh.cells.push(c);
-  //   }
-  // }
-
-  // if (cells && !closed && endCap !== false && caps !== false) {
-  //   for (let i = 0; i < cells.length; i++) {
-  //     const c = [],
-  //       len = cells[i].length;
-  //     for (let j = 0; j < len; j++) {
-  //       c.push(cells[i][j] + (pl - 1) * spl);
-  //     }
-  //     mesh.cells.push(c);
-  //   }
-  // }
 
   return mesh;
 }
