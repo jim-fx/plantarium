@@ -43,7 +43,7 @@ steps:
       - npm i -g pnpm
       - pnpm build
     depends_on:
-      - lint
+      - install
   - name: test
     image: node:alpine
     commands:
@@ -52,7 +52,7 @@ steps:
       - pnpm coverage
       - mv coverage frontend/dist/coverage
     depends_on:
-      - build
+      - lint
   - name: coverage-publish
     image: plugins/codecov
     failure: ignore
