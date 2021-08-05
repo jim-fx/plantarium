@@ -12,7 +12,7 @@
     "dev": "pnpm dev -r --filter !@plantarium/ui",
     "start": "pnpm build -r && pnpm backend:start",
     "test": "pnpm test -r",
-    "coverage": "pnpm coverage -r && node bin/combine_coverage.mjs && pnpm nyc report",
+    "coverage": "pnpm coverage -r && node bin/combine_coverage.js",
     "clean": "pnpm clean -r && rimraf coverage .nyc_output",
     "lint": "pnpm lint -r"
   },
@@ -22,7 +22,12 @@
     "@typescript-eslint/parser": "^4.29.0",
     "eslint": "^7.32.0",
     "eslint-plugin-svelte3": "^3.2.0",
-    "nyc": "^15.1.0"
+    "istanbul-lib-coverage": "^3.0.0",
+    "istanbul-lib-report": "^3.0.0",
+    "istanbul-reporter-html-monorepo": "^1.1.3",
+    "istanbul-reports": "^3.0.2",
+    "nyc": "^15.1.0",
+    "rimraf": "^3.0.2"
   },
   "main": "index.js",
   "repository": {

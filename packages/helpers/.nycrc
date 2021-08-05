@@ -1,3 +1,8 @@
 {
-  "extends": "../../.nycrc"
+  "extension": [
+    ".ts"
+  ],
+  "reporter": [
+    "json"
+  ]
 }

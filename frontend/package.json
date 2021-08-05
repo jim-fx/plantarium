@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint src/**/*",
-    "clean": "rimraf coverage .nyc_output public/build",
+    "clean": "rimraf dist",
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",

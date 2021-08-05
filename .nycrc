@@ -1,10 +1,14 @@
 {
   "extends": "@istanbuljs/nyc-config-typescript",
+  "extension": [
+    ".svelte",
+    ".ts"
+  ],
   "reporter": [
     "lcov",
     "text",
-    "html"
+    "html",
+    "json"
   ],
-  "all": true,
-  "excludeNodeModules": true
+  "all": true
 }

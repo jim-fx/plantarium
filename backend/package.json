@@ -4,8 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-eager src/index.ts",
-    "dev": "nodemon",
-    "clean": "rimraf coverage .nyc_output dist"
+    "dev": "nodemon"
   },
   "dependencies": {
     "@types/polka": "^0.5.3",
