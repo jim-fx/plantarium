@@ -18,6 +18,8 @@ steps:
     image: alpine/git
     commands:
       - "[ ! -d '.git' ] && git clone --depth 1 --progress $DRONE_REMOTE_URL ."
+      - echo "[$(git log --pretty=format:'{"id":"%h","subject":"%s","date":"%cD"},')]"
+      - echo "[$$(git log --pretty=format:'{"id":"%h","subject":"%s","date":"%cD"},')]"
       - echo "[$(git log --pretty=format:'{"id":"%h","subject":"%s","date":"%cD"},')]" | sed "s/,]/]/g" > frontend/dist/commits.json
       - git fetch --depth 1 --progress
       - git reset --hard origin/main
