@@ -3,9 +3,7 @@
 <script lang="ts">
   import { curve, throttle } from '@plantarium/helpers';
   import { Vec2 } from 'ogl';
-  import { createEventDispatcher, onMount } from 'svelte';
-
-  const dispatch = createEventDispatcher();
+  import { onMount } from 'svelte';
 
   export let fullWidth = false;
 
@@ -19,10 +17,10 @@
   let ctx;
 
   const hoverDistance = 0.1;
-  const tension = 0.4;
+  // const tension = 0.4;
 
   let isHovered = false;
-  let isRendering = false;
+  // let isRendering = false;
   let activePoint = undefined;
 
   const mousePos = new Vec2(0, 0);

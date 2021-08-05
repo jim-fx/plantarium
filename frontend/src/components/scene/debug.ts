@@ -1,9 +1,7 @@
-import { Geometry, Mesh, Program, Sphere } from 'ogl';
+import { Geometry, Mesh, Program } from 'ogl';
 import type Scene from '.';
 import type { ProjectManager } from '../project-manager';
 import { ParticleShader, WireFrameShader } from './shaders';
-
-let sphere: Sphere;
 
 export default class DebugScene {
   private plant: GeometryResult;
@@ -20,12 +18,6 @@ export default class DebugScene {
     this.initGeometry();
 
     this.setSettings(pm.getSettings());
-
-    sphere = new Sphere(this.scene.gl, {
-      radius: 0.01,
-      widthSegments: 8,
-      heightSegments: 8,
-    });
 
     pm.on('settings', this.setSettings.bind(this));
   }
@@ -57,10 +49,9 @@ export default class DebugScene {
         fragment: WireFrameShader.fragment,
         depthTest: false,
       }),
-      mode: this.gl.LINE_STRIP
+      mode: this.gl.LINE_STRIP,
     });
     // this.m.skeleton.mode = this.gl.LINES;
-
 
     this.m.vertices = this.scene.addMesh({
       mode: this.gl.POINTS,
@@ -71,7 +62,7 @@ export default class DebugScene {
         vertex: ParticleShader.vertex,
         fragment: ParticleShader.fragment,
         depthTest: false,
-        transparent:true
+        transparent: true,
       }),
     });
   }
@@ -97,7 +88,6 @@ export default class DebugScene {
     if (p['skeletons'] && s.debug?.skeleton) {
       const skeletons: Float32Array[] = p['skeletons'];
       const amountPos = skeletons.reduce((acc, cur) => acc + cur.length, 0) / 4;
-
 
       const positions = new Float32Array(amountPos * 3);
       const uv = new Float32Array(amountPos * 2);
@@ -135,7 +125,10 @@ export default class DebugScene {
         index: { size: 1, data: indeces },
       });
 
-      this.m.vertices.geometry.addAttribute("position", { size: 3, data: positions })
+      this.m.vertices.geometry.addAttribute('position', {
+        size: 3,
+        data: positions,
+      });
     }
 
     /* if (p['skeletons'] && s.debugSkeleton && false) {

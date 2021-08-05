@@ -1,0 +1,8 @@
+{
+  "extends": "../../.eslintrc.js",
+  "settings": {
+    "svelte3/compiler-options": {
+      "customElement": true
+    }
+  }
+}

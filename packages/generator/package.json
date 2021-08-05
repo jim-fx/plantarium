@@ -4,7 +4,8 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "lint": "eslint src/**/*"
   },
   "dependencies": {
     "@plantarium/geometry": "link:../geometry",

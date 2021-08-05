@@ -67,6 +67,7 @@ export default class Logger {
   error(message: Error, ...args: unknown[]) {
     if (this.level >= 0) {
       this.output.error(message);
+      this.output(...args);
     }
   }
 

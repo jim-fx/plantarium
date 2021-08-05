@@ -1,10 +1,9 @@
 {
   "extends": "../tsconfig.json",
-  "include": ["src/**/*", "../packages/**/*", "../packages/*"],
+  "include": ["../packages/@types/*.d.ts", "src/**/*.ts"],
   "compilerOptions": {
-    "module": "ESNext",
     "esModuleInterop": true,
     "experimentalDecorators": true
   },
-  "exclude": ["node_modules/*", "__sapper__/*", "public/*"]
+  "exclude": ["node_modules/*", "public/*"]
 }

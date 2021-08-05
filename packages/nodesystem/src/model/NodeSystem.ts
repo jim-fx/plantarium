@@ -31,7 +31,7 @@ export default class NodeSystem extends EventEmitter {
   store: NodeTypeStore;
 
   log: Logger;
-  isLoaded: boolean = false;
+  isLoaded = false;
 
   nodes: Node[] = [];
   _result: unknown;

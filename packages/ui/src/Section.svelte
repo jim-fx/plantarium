@@ -3,7 +3,7 @@
 
   const dispatch = createEventDispatcher();
 
-  export let open: boolean = false;
+  export let open = false;
 
   export let name = '';
 

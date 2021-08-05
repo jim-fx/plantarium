@@ -1,22 +1,20 @@
-export default function Debounce(wait: number, immediate: boolean = false) {
+export default function Debounce(wait: number, immediate = false) {
   return function (
-    target: any,
+    target,
     propertyKey: string | symbol,
     descriptor: PropertyDescriptor,
   ) {
-    var timeout: any;
-    var originalMethod = descriptor.value;
-    descriptor.value = function () {
-      var context = this;
-      var args = arguments;
-      var later = function () {
+    let timeout;
+    const originalMethod = descriptor.value;
+    descriptor.value = function (...args) {
+      const later = () => {
         timeout = null;
-        if (!immediate) originalMethod.apply(context, args);
+        if (!immediate) originalMethod.apply(this, args);
       };
-      var callNow = immediate && !timeout;
+      const callNow = immediate && !timeout;
       clearTimeout(timeout);
       timeout = setTimeout(later, wait);
-      if (callNow) originalMethod.apply(context, args);
+      if (callNow) originalMethod.apply(this, args);
     };
     return descriptor;
   };

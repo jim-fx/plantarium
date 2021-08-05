@@ -41,7 +41,7 @@ const node: PlantNode = {
       skeletons: [...skeletonsA, ...skeletonsB],
     };
   },
-  computeGeometry(part, ctx) {
+  computeGeometry(part) {
     const { inputA, inputB } = part.parameters;
 
     const { geometry: geometryA } = inputA.result;

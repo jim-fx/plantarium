@@ -1,10 +1,6 @@
 export default function (...geometries: TransferGeometry[]): TransferGeometry {
   if (geometries.length === 1) return geometries[0];
 
-  if(geometries[0] === undefined){
-    debugger;
-  }
-
   const position = new Float32Array(
     geometries.reduce((a, b) => a + b.position.length, 0),
   );

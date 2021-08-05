@@ -3,7 +3,7 @@
 <script lang="ts">
   import * as icons from './icons/index.ts';
 
-  export let name: string = 'stem';
+  export let name = 'stem';
   name = name.toLowerCase();
 
   export let active = false;

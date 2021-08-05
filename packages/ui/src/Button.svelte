@@ -3,9 +3,9 @@
 <script lang="ts">
   import Icon from './Icon.svelte';
 
-  export let icon: string = '';
-  export let name: string = '';
-  export let cls: string = '';
+  export let icon = '';
+  export let name = '';
+  export let cls = '';
   export let active = false;
 </script>
 

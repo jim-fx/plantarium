@@ -15,10 +15,10 @@
   let canvas, ctx;
 
   const hoverDistance = 0.1;
-  const tension = 0.4;
+  // const tension = 0.4;
 
   let isHovered = false;
-  let isRendering = false;
+  // let isRendering = false;
   let activePoint = undefined;
   let gradient;
 

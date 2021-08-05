@@ -16,10 +16,6 @@
     value = Math.max(min, Math.min(+value + change, max));
   }
 
-  function strip(number) {
-    return parseFloat(number).toPrecision(4);
-  }
-
   $: value !== undefined && dispatch('change', parseFloat(value + ''));
 </script>
 

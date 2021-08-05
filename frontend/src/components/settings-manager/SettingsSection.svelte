@@ -8,14 +8,14 @@
   };
 
   export let sm: SettingsManager;
-  export let value: any;
+  export let value: unknown;
   export let key: string;
-  export let path: string = '';
+  export let path = '';
   path = path + (path.length ? '.' : '') + key;
   export let template: SettingsTemplate;
   // We need to cheat here because sveltes {if else}
   // does not work with typescript types
-  let _template: ValueTemplate = (template as unknown) as ValueTemplate;
+  let _template: ValueTemplate = template as unknown as ValueTemplate;
 
   const isOpen = sectionOpen();
 
@@ -28,6 +28,39 @@
     return c;
   };
 </script>
+
+<div class="wrapper">
+  {#if template.options}
+    <Section
+      name={key}
+      open={isOpen.get()}
+      on:toggle={({ detail }) => isOpen.set(detail)}
+    >
+      {#each Object.entries(value) as [_key, _value]}
+        {#if _key in template.options}
+          <svelte:self
+            {sm}
+            {path}
+            value={_value}
+            key={_key}
+            template={template.options[_key]}
+          />
+        {:else}
+          <p>error</p>
+        {/if}
+      {/each}
+    </Section>
+  {:else}
+    <h3>{key}</h3>
+
+    <svelte:component
+      this={stateToComponent(_template, value)}
+      {value}
+      {...templateToProps(_template)}
+      on:change={(ev) => sm.set(path, ev.detail)}
+    />
+  {/if}
+</div>
 
 <style>
   .wrapper {
@@ -50,33 +83,3 @@
     width: fit-content;
   }
 </style>
-
-<div class="wrapper">
-  {#if template.options}
-    <Section
-      name={key}
-      open={isOpen.get()}
-      on:toggle={({ detail }) => isOpen.set(detail)}>
-      {#each Object.entries(value) as [_key, _value]}
-        {#if _key in template.options}
-          <svelte:self
-            {sm}
-            {path}
-            value={_value}
-            key={_key}
-            template={template.options[_key]} />
-        {:else}
-          <p>error</p>
-        {/if}
-      {/each}
-    </Section>
-  {:else}
-    <h3>{key}</h3>
-
-    <svelte:component
-      this={stateToComponent(_template, value)}
-      {value}
-      {...templateToProps(_template)}
-      on:change={(ev) => sm.set(path, ev.detail)} />
-  {/if}
-</div>

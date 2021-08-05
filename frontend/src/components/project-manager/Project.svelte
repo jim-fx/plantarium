@@ -6,6 +6,47 @@
   export let project: PlantProject;
 </script>
 
+<div
+  class="project-wrapper"
+  class:active={project.meta.id === pm.activeProjectId}
+  on:resize={alert}
+  on:click={() => pm.setActiveProject(project.meta.id)}
+>
+  <div class="project-image">
+    <!--  -->
+  </div>
+  <div class="project-content">
+    <div class="project-content-header">
+      <input
+        contenteditable
+        value={project.meta.name}
+        on:keydown={function (ev) {
+          if (ev.key === 'Enter') {
+            const value = this.value.split('\n').join('').trim();
+            this.blur();
+            ev.preventDefault();
+            pm.updateProjectMeta(project.meta.id, { name: value });
+          }
+        }}
+        on:input={function () {
+          const value = this.value.split('\n').join('').trim();
+          pm.updateProjectMeta(project.meta.id, { name: value });
+        }}
+      />
+
+      <p>{humane.time(Date.now() - project.meta.lastSaved)} ago</p>
+    </div>
+    <div class="project-content-main" />
+    <div class="project-content-footer">
+      <button
+        class="delete"
+        on:click|stopPropagation={() => pm.deleteProject(project.meta.id)}
+        >delete</button
+      >
+    </div>
+  </div>
+</div>
+
 <style lang="scss">
   @import '../../themes.scss';
 
@@ -66,40 +107,3 @@
     }
   }
 </style>
-
-<div
-  class="project-wrapper"
-  class:active={project.meta.id === pm.activeProjectId}
-  on:resize={alert}
-  on:click={() => pm.setActiveProject(project.meta.id)}>
-  <div class="project-image">
-    <!--  -->
-  </div>
-  <div class="project-content">
-    <div class="project-content-header">
-      <input
-        contenteditable
-        value={project.meta.name}
-        on:keydown={function (ev) {
-          if (ev.key === 'Enter') {
-            const value = this.value.split('\n').join('').trim();
-            this.blur();
-            ev.preventDefault();
-            pm.updateProjectMeta(project.meta.id, { name: value });
-          }
-        }}
-        on:input={function (ev) {
-          const value = this.value.split('\n').join('').trim();
-          pm.updateProjectMeta(project.meta.id, { name: value });
-        }} />
-
-      <p>{humane.time(Date.now() - project.meta.lastSaved)} ago</p>
-    </div>
-    <div class="project-content-main" />
-    <div class="project-content-footer">
-      <button
-        class="delete"
-        on:click|stopPropagation={() => pm.deleteProject(project.meta.id)}>delete</button>
-    </div>
-  </div>
-</div>

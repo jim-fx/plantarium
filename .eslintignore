@@ -1,1 +1,4 @@
-frontend/public/build/*
+**/node_modules/*
+**/coverage/*
+**/dist/*
+*.svg

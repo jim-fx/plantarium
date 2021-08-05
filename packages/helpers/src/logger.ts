@@ -62,12 +62,12 @@ const colors = [
 function log(scope: string): Logger {
   longestName = Math.max(longestName, scope.length);
 
-  let myIndex = currentIndex;
+  const myIndex = currentIndex;
 
   scopes[scope] = colors[currentIndex];
   currentIndex++;
 
-  const log = (...args: any[]) => {
+  const log = (...args: unknown[]) => {
     if ((!filters.length || filters.includes(scope)) && level === 0) {
       // Make some logs better to read
       if (typeof args[0] === 'string' && typeof args[1] === 'object') {

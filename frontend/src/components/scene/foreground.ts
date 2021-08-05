@@ -1,10 +1,10 @@
 import { plant } from '@plantarium/generator';
 import { transferToGeometry } from '@plantarium/geometry';
-import { Box, Mesh, Program } from 'ogl';
+import { Box, Mesh } from 'ogl';
 import type Scene from '.';
 import type { ProjectManager } from '../project-manager';
 import DebugScene from './debug';
-import { BasicShader, MatCapShader } from './shaders';
+import { MatCapShader } from './shaders';
 
 export default class ForegroundScene {
   private plant: NodeResult;
@@ -31,13 +31,9 @@ export default class ForegroundScene {
 
   initGeometry() {
     const geometry = new Box(this.scene.gl, { width: 0, height: 0, depth: 0 });
-    const program = new Program(this.gl, {
-      vertex: BasicShader.vertex,
-      fragment: BasicShader.fragment,
-    });
     this.mesh = this.scene.addMesh({
       geometry,
-      program:MatCapShader(this.gl),
+      program: MatCapShader(this.gl),
     });
   }
 

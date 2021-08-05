@@ -13,7 +13,8 @@
     "start": "pnpm build -r && pnpm backend:start",
     "test": "pnpm test -r",
     "coverage": "pnpm coverage -r && node bin/combine_coverage.mjs && pnpm nyc report",
-    "clean": "pnpm clean -r && rimraf coverage .nyc_output"
+    "clean": "pnpm clean -r && rimraf coverage .nyc_output",
+    "lint": "pnpm lint -r"
   },
   "devDependencies": {
     "@tsconfig/svelte": "^2.0.1",

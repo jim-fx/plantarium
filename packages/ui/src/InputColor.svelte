@@ -121,7 +121,7 @@
       let mouseX = event.clientX;
       let mouseY = event.clientY;
       let trackedPos = tracked.getBoundingClientRect();
-      let xPercentage, yPercentage, picker;
+      let xPercentage, yPercentage;
       switch (tracked.id) {
         case 'colorsquare-event':
           xPercentage = ((mouseX - trackedPos.x) / 240) * 100;
@@ -177,7 +177,7 @@
       let mouseX = event.touches[0].clientX;
       let mouseY = event.touches[0].clientY;
       let trackedPos = tracked.getBoundingClientRect();
-      let xPercentage, yPercentage, picker;
+      let xPercentage, yPercentage;
       switch (tracked.id) {
         case 'colorsquare-event':
           xPercentage = ((mouseX - trackedPos.x) / 240) * 100;
@@ -257,7 +257,7 @@
     colorChange();
   }
 
-  function mouseUp(event) {
+  function mouseUp() {
     tracked = null;
   }
 

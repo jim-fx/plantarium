@@ -126,6 +126,14 @@ export default class NodeView extends EventEmitter {
     this.downY = this.node.attributes?.pos?.y || 0;
 
     this.active = true;
+
+    // Set mouse down for all selected nodes, this makes it possible to move multiple nodes at the same time
+    if (this.system.view.selectedNodes.length) {
+      this.system.view.selectedNodes.forEach((node) => {
+        node.view.mDownX = x;
+        node.view.mDownY = y;
+      });
+    }
   }
 
   handleMouseUp() {

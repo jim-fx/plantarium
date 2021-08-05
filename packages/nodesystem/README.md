@@ -1,4 +1,4 @@
-# Extensible Node System à la Blender
+# @Plantarium/Nodesystem
 
 <div align="center">
 
@@ -10,9 +10,9 @@
     Extensible/Serializable visual NodeSystem Library à la Blender.
     <br />
     <br />
-    <a href="https://jim-fx.gitlab.io/plantarium-nodes/">Demo</a>
+    <a href="https://jim-fx.com/plant/nodes/">Demo</a>
      ·
-    <a href="https://jim-fx.gitlab.io/plantarium-nodes/docs/">Docs</a>
+    <a href="https://jim-fx.com/plant/nodes/">Docs</a>
   </p>
 
 </div>
@@ -65,6 +65,30 @@ system.registerNodeType({
   },
 });
 ```
+
+
+```typescript
+interface NodeTypeData {
+  title: string;
+
+  type: string;
+
+  outputs: string | string[];
+
+  meta?: {
+    description?: string;
+    tags?: string[];
+  };
+
+  parameters: {
+    [key: string]: ValueTemplate;
+  };
+
+  compute(parameters: { [key: string]: unknown }): unknown;
+}
+
+```
+
 
 Saving and loading of systems
 
