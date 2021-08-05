@@ -7,6 +7,7 @@ const options = {
   entryPoints: ['./src/index.ts'],
   bundle: true,
   format: 'esm',
+  logLevel: 'info',
   loader: {
     '.svg': 'text',
   },
@@ -25,8 +26,13 @@ const devOptions = {
   ...options,
 };
 
+const port = 8084;
+
 if (process.argv[2] === '--dev') {
-  serve({ port: 8085, servedir: 'public' }, options);
+  serve({ port, servedir: 'public' }, options).then((result) => {
+    // Call "stop" on the result when you're done
+  });
+  console.log('Serving on port', port);
 } else {
   build(options).catch((err) => {
     process.stderr.write(err.stderr);
