@@ -20,7 +20,6 @@ steps:
       - "[ ! -d '.git' ] && git clone $DRONE_REMOTE_URL ."
       - git fetch --all
       - git reset --hard origin/main
-      - mkdir -p frontend/dist
       - echo "[$(git log --pretty=format:'{"id":"%h","subject":"%s","date":"%cD"},')]" | sed 's/,]/]/g' > frontend/public/commits.json
     depends_on:
       - restore-cache
@@ -63,6 +62,8 @@ steps:
       token:
         from_secret: CODECOV_TOKEN
       paths:
+        - .nyc_output
+        - coverage
         - frontend/dist/coverage
     depends_on:
       - test
