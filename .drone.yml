@@ -21,7 +21,7 @@ steps:
       - git fetch --all
       - git reset --hard origin/main
       - mkdir -p frontend/dist
-      - echo "[$(git log --pretty=format:'{\"id\":\"%h\",\"subject\":\"%s\",\"date\":\"%cD\"},')]" | sed -e 's/,]/]/g' -e 's/\\//g' > frontend/public/commits.json
+      - echo "[$(git log --pretty=format:'{\"id\":\"%h\",\"subject\":\"%s\",\"date\":\"%cD\"},')]" | sed -e 's/,]/]/g' -e 's/\\"/\"/g' > frontend/public/commits.json
     depends_on:
       - restore-cache
   - name: install
