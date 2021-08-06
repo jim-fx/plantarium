@@ -90,4 +90,6 @@ async function generateMonorepoReport(projects) {
     defaultProjectName: false,
   });
   htmlReport.execute(context);
+
+  createReport('lcov').execute(context);
 }
