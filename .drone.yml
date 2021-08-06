@@ -22,7 +22,7 @@ steps:
       - git reset --hard origin/main
       - mkdir -p frontend/dist
       - git log --pretty=format:'{\"id\":\"%h\",\"subject\":\"%s\",\"date\":\"%cD\"},'
-      - echo "[$(git log --pretty=format:'{\"id\":\"%h\",\"subject\":\"%s\",\"date\":\"%cD\"},')]" | sed "s/,]/]/g" > frontend/dist/commits.json
+      - echo "[$(git log --pretty=format:'{\"id\":\"%h\",\"subject\":\"%s\",\"date\":\"%cD\"},')]" | sed "s/,]/]/g" > frontend/public/commits.json
     depends_on:
       - restore-cache
   - name: install
