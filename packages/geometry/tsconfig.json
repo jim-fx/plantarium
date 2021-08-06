@@ -8,6 +8,6 @@
     "declaration": true,
     "emitDeclarationOnly": true
   },
-  "include": ["src/**/*", "../@types/*.d.ts", "public/*.js"],
+  "include": ["src/**/*.ts", "../@types/*.d.ts"],
   "exclude": ["node_modules"]
 }
