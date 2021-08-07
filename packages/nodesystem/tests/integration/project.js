@@ -1,23 +1,22 @@
 export default {
-  meta: {
-    lastSaved: 0,
-  },
   nodes: [
     {
       attributes: {
         pos: {
-          x: 146,
-          y: -1,
+          x: 127,
+          y: -46,
         },
         type: 'output',
         id: '0',
+        refs: [],
       },
+      state: {},
     },
     {
       attributes: {
         pos: {
-          x: 27,
-          y: -1,
+          x: -15,
+          y: -59,
         },
         type: 'math',
         id: '1',
@@ -25,19 +24,21 @@ export default {
           {
             id: '0',
             out: 0,
-            in: 0,
+            in: 'input',
           },
         ],
       },
       state: {
         mode: 'multiply',
+        a: 0,
+        b: 0,
       },
     },
     {
       attributes: {
         pos: {
-          x: -80,
-          y: -60,
+          x: -157,
+          y: -120,
         },
         type: 'number',
         id: '2',
@@ -45,7 +46,7 @@ export default {
           {
             id: '1',
             out: 0,
-            in: 0,
+            in: 'a',
           },
         ],
       },
@@ -56,8 +57,8 @@ export default {
     {
       attributes: {
         pos: {
-          x: -80,
-          y: 60,
+          x: -159,
+          y: 48,
         },
         type: 'number',
         id: '3',
@@ -65,7 +66,7 @@ export default {
           {
             id: '1',
             out: 0,
-            in: 1,
+            in: 'b',
           },
         ],
       },

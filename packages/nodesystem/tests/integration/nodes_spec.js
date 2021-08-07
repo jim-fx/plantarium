@@ -4,15 +4,15 @@ describe('Node Tests', () => {
   const system = new NodeSystem({ view: true, defaultNodes: true });
 
   it('Register default NodeTypes', () => {
-    const types = system.getNodeTypes().map((type) => type.name);
+    const types = system.getNodeTypes().map((nodeType) => nodeType.type);
 
     expect(0).to.be.lessThan(types.length);
 
-    expect(types).to.contain('Boolean');
+    expect(types).to.contain('boolean');
 
-    expect(types).to.contain('Number');
+    expect(types).to.contain('number');
 
-    expect(types).to.contain('Math');
+    expect(types).to.contain('math');
   });
 
   it('Move nodes', () => {
@@ -81,7 +81,7 @@ describe('Node Tests', () => {
       done();
     });
 
-    node.setState({ value: 1337 });
+    node.setStateValue('value', 1337);
   });
 
   it('Test BooleanNode', (done) => {
@@ -100,7 +100,7 @@ describe('Node Tests', () => {
       done();
     });
 
-    node.setState({ value: true });
+    node.setStateValue('value', true);
   });
 
   it('Test MathNode', (done) => {
@@ -114,20 +114,20 @@ describe('Node Tests', () => {
       },
     });
 
-    node.setInput(0, 5);
-    node.setInput(1, 5);
+    node.setStateValue('a', 5);
+    node.setStateValue('b', 5);
     cy.wait(10);
     expect(node.computedData).to.equal(25);
 
-    node.setInput(0, 17);
-    node.setInput(1, 11);
-    node.setState({ mode: 'subtract' });
+    node.setStateValue('a', 17);
+    node.setStateValue('b', 11);
+    node.setStateValue('mode', 'subtract');
     cy.wait(10);
     expect(node.computedData).to.equal(6);
 
-    node.setInput(0, 17);
-    node.setInput(1, 11);
-    node.setState({ mode: 'add' });
+    node.setStateValue('a', 17);
+    node.setStateValue('b', 11);
+    node.setStateValue('mode', 'add');
     cy.wait(10);
     expect(node.computedData).to.equal(28);
 
@@ -137,11 +137,7 @@ describe('Node Tests', () => {
   it('Test DebugNode', (done) => {
     const node = system.createNode({
       attributes: {
-        id: '0',
         type: 'debug',
-      },
-      state: {
-        mode: 'multiply',
       },
     });
 
@@ -150,6 +146,6 @@ describe('Node Tests', () => {
       done();
     });
 
-    node.setInput(0, 'This is a random string');
+    node.setStateValue('input', 'This is a random string');
   });
 });

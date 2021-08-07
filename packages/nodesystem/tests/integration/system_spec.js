@@ -20,7 +20,7 @@ describe('System Tests', () => {
   });
 
   it('Register default node types', () => {
-    const types = system.getNodeTypes().map((type) => type.name);
+    const types = system.getNodeTypes().map((type) => type.title);
 
     expect(0).to.be.lessThan(types.length);
 
@@ -41,6 +41,7 @@ describe('System Tests', () => {
 
   it('Correct output', () => {
     cy.wait(50);
+    console.log(system);
     expect(system.result).to.equal(25);
   });
 

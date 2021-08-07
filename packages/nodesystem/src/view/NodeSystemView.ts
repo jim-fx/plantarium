@@ -299,7 +299,7 @@ export default class NodeSystemView extends EventEmitter {
 
     if (this.selectedNodes.length) {
       if (this.keyMap.g || this.mouseDown) {
-        if (this.selectedNodes.length) {
+        if (this.selectedNodes.length && this.selectedNodesDown.length) {
           this.selectedNodes.forEach((_n, i) =>
             _n.view.setPosition(
               this.selectedNodesDown[i][0] - vx,

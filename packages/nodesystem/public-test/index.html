@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="apple-touch-icon" sizes="57x57" href="./assets/apple-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="60x60" href="./assets/apple-icon-60x60.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="./assets/apple-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="./assets/apple-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="./assets/apple-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="./assets/apple-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="./assets/apple-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="./assets/apple-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-icon-180x180.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./assets/android-icon-192x192.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="./assets/favicon-96x96.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="msapplication-TileColor" content="#ffffff" />
+  <meta name="msapplication-TileImage" content="./assets/ms-icon-144x144.png" />
+  <meta name="theme-color" content="#ffffff" />
+
+  <title>@Plantarium/Nodesystem</title>
+
+  <link rel="stylesheet" href="./index.css" />
+  <link rel="stylesheet" href="./dist/index.esm.css" />
+
+  <style>
+    :root {
+      font-family: Arial;
+    }
+
+    .link-wrapper {
+      position: absolute;
+      top: 5vh;
+      left: 5.5vw;
+      font-size: 0.8em;
+    }
+
+    .link-wrapper>a {
+      margin-left: 5px;
+      position: relative;
+      z-index: 999;
+      float: left;
+      background-color: white;
+      color: gray;
+      text-decoration: none;
+      padding: 4px;
+      border-radius: 2px;
+      margin: 2px;
+      margin-top: 5px;
+      box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+    }
+
+    html,
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #nodesystem-wrapper {
+      box-sizing: content-box;
+
+    }
+  </style>
+</head>
+
+<body>
+  <!--<div class="link-wrapper">
+    <a href="docs">DOCS</a>
+    <a href="cov">COV</a>
+  </div>-->
+  <div id="nodesystem-wrapper"></div>
+</body>
+
+<script type="module" src="index.js"></script>
+
+</html>

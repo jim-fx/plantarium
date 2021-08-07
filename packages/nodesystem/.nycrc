@@ -1,0 +1,10 @@
+{
+  "extends": "../../.nycrc",
+  "sourceMap": true,
+  "produce-source-map": true,
+  "reporter": [
+    "json",
+    "lcov",
+    "html"
+  ]
+}
