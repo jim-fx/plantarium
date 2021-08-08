@@ -1,7 +1,6 @@
 import { EventEmitter } from '@plantarium/helpers';
 import type Node from '../model/Node';
 import type System from '../model/NodeSystem';
-import type ConnectionView from './ConnectionView';
 import type NodeConnectionView from './NodeConnectionView';
 import type InputView from './NodeInputView';
 import type OutputView from './NodeOutputView';
