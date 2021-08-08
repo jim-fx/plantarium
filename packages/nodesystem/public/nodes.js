@@ -61,9 +61,19 @@ const compare = {
 //Picker
 const picker = {
   title: 'picker',
-  inputs: [['boolean'], ['number'], ['number']],
   outputs: ['number'],
-  compute: function ([selectFirst = true, input1 = 0, input2 = 0]) {
+  parameters: {
+    selectFirst: {
+      type: 'boolean',
+    },
+    inputA: {
+      type: 'number',
+    },
+    inputB: {
+      type: 'number',
+    },
+  },
+  compute: function ({ selectFirst = true, input1 = 0, input2 = 0 }) {
     return selectFirst ? input1 : input2;
   },
 };

@@ -11,17 +11,15 @@ describe('View Layer Tests', () => {
   });
 
   it('BoxSelection', () => {
-    system.view.emit('mousedown', {
-      x: 0,
-      y: 0,
-      keys: { shiftKey: false, ctrlKey: false, which: 0, space: false },
-    });
+    cy.visit('/');
+    system.view.handleMouseDown({ clientX: -10000, clientY: -1000 });
 
-    cy.wait(20)
+    cy.wait(100)
       .then(() => {
-        system.view.emit('mousemove', { x: 1000, y: 1000 });
+        system.view.handleMouseMove({ clientX: 1000, clientY: 1000 });
+        console.log(system.view);
       })
-      .then(() => cy.wait(20))
+      .then(() => cy.wait(100))
       .then(() => {
         system.view.emit('mouseup', { x: 1000, y: 1000 });
 
@@ -48,11 +46,11 @@ describe('View Layer Tests', () => {
       },
     });
 
-    const { x, y } = system.outputNode.inputs[0].view;
+    const { x, y } = system.outputNode.getInputs()[0].view;
 
     expect(() => {
+      console.log(node);
       system.view.createFloatingConnection(node.outputs[0]);
-      // @ts-ignore
       system.view.handleMouseMove({
         clientX: x,
         clientY: y,
@@ -84,19 +82,16 @@ describe('View Layer Tests', () => {
 
   it('Mocks events', () => {
     expect(() => {
-      // @ts-ignore
-      system.view.handleKeyDown({ keyCode: 65 });
-      // @ts-ignore
-      system.view.handleKeyDown({ keyCode: 70 });
-      // @ts-ignore
-      system.view.handleKeyDown({ keyCode: 88 });
-      // @ts-ignore
-      system.view.handleKeyDown({ keyCode: 86 });
-      // @ts-ignore
-      system.view.handleKeyDown({ keyCode: 67 });
-      // @ts-ignore
+      system.view.handleKeyDown({ key: 'A' });
+
+      system.view.handleKeyDown({ key: 'F' });
+
+      system.view.handleKeyDown({ key: 'X' });
+
+      system.view.handleKeyDown({ key: 'V' });
+
       system.view.handleScroll({ deltaY: 67 });
-      // @ts-ignore
+
       system.view.handleMouseDown({ clientX: 67, clientY: 100, ctrlKey: true });
     }).not.to.throw();
   });

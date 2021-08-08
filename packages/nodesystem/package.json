@@ -5,12 +5,14 @@
   "source": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "clean": "rimraf coverage .nyc_output",
+    "clean": "rimraf coverage .nyc_output public-test public/dist",
     "build": "node build.js",
+    "build:test": "pnpm build && cp -r public public-test && nyc instrument public/dist public-test/dist",
     "dev": "node build.js --dev",
-    "test": "run-p --race dev cy:run",
-    "cy:run": "wait-on http://localhost:8084 && pnpm cypress run",
-    "cy:open": "wait-on http://localhost:8084 && pnpm cypress open",
+    "serve": "sirv public-test -p 8084",
+    "test": "pnpm build:test && run-p --race serve cy:run",
+    "cy:run": "wait-on http-get://localhost:8084 && pnpm cypress run",
+    "cy:open": "wait-on http-get://localhost:8084 && pnpm cypress open",
     "lint": "eslint src/**/*.ts"
   },
   "dependencies": {
@@ -19,11 +21,14 @@
     "panzoom": "^9.4.2"
   },
   "devDependencies": {
+    "@cypress/code-coverage": "^3.9.10",
     "@es-pack/esbuild-sass-plugin": "^1.0.4",
     "cypress": "^8.2.0",
     "esbuild": "^0.12.18",
     "esbuild-svelte": "^0.5.3",
     "npm-run-all": "^4.1.5",
+    "sirv-cli": "^1.0.12",
+    "source-map-support": "^0.5.19",
     "svelte-preprocess": "^4.7.4",
     "wait-on": "^6.0.0"
   }

@@ -3,7 +3,6 @@ import NodeStateView from '../view/NodeStateView';
 import type Node from './Node';
 import NodeInput from './NodeInput';
 
-
 export default class NodeState extends EventEmitter {
   isExternal = false;
   private input: NodeInput;
@@ -31,7 +30,7 @@ export default class NodeState extends EventEmitter {
 
   setIsExternal(isExternal = false) {
     this.isExternal = isExternal;
-    this.view.setActive(!isExternal);
+    this?.view?.setActive(!isExternal);
   }
 
   getValue() {
