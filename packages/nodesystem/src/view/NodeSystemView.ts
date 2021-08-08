@@ -1,4 +1,5 @@
 import { EventEmitter, throttle } from '@plantarium/helpers';
+import createPanZoom from 'panzoom';
 import type Node from '../model/Node';
 import type NodeInput from '../model/NodeInput';
 import type NodeOutput from '../model/NodeOutput';
@@ -91,6 +92,8 @@ export default class NodeSystemView extends EventEmitter {
 
     this.ogHeight = this.height;
     this.ogWidth = this.width;
+
+    createPanZoom(this.transformWrapper);
   }
 
   createFloatingConnection(
@@ -236,11 +239,11 @@ export default class NodeSystemView extends EventEmitter {
     //   this.height / 2 + y
     // }px`;
 
-    this.transformWrapper.style.transform = `
-      translateX(${x}px)
-      translateY(${y}px)
-      scale(${s})
-    `;
+    // this.transformWrapper.style.transform = `
+    //   translateX(${x}px)
+    //   translateY(${y}px)
+    //   scale(${s})
+    // `;
 
     this.wrapper.style.backgroundPosition = `${x}px ${y}px`;
 

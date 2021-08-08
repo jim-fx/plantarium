@@ -67,6 +67,7 @@ export default class NodeParser {
       }
     };
 
+    console.log(typeData, parameters);
     const inputs = Object.values(parameters)
       .filter((p) => p.internal !== true)
       .map((p) => p.type);

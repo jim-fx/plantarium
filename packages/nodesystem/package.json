@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "@plantarium/helpers": "link:../helpers",
-    "@plantarium/ui": "link:../ui"
+    "@plantarium/ui": "link:../ui",
+    "panzoom": "^9.4.2"
   },
   "devDependencies": {
     "@es-pack/esbuild-sass-plugin": "^1.0.4",
