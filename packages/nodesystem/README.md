@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="public/assets/ms-icon-310x310.png" width="30%"/>
+<img src="./public/assets/ms-icon-310x310.png" width="30%"/>
 
   <h3 align="center">@plantarium/nodesystem</h3>
 
@@ -28,6 +28,24 @@
 ## About The Project
 
 This project came out of another project where i needed a node interface.
+
+## Installation
+
+Without a package manager:
+
+```html
+<script type="module">
+  import { Nodesystem } from 'https://cdn.skypack.dev/@plantarium/nodesystem';
+</script>
+```
+
+With a package manager:
+
+```shell
+npm install @plantarium/nodesystem
+yarn add @plantarium/nodesystem
+pnpm add @plantarium/nodesystem
+```
 
 ## Usage
 
@@ -66,6 +84,7 @@ system.registerNodeType({
 });
 ```
 
+### All Options to register a NodeType:
 
 ```typescript
 interface NodeTypeData {
@@ -86,9 +105,27 @@ interface NodeTypeData {
 
   compute(parameters: { [key: string]: unknown }): unknown;
 }
-
 ```
 
+### All options for a single parameter
+
+```typescript
+interface ValueTemplate {
+  type: string;
+  label?: boolean | string;
+  value?: boolean | string | number;
+  values?: string[];
+  points?: Vec2[];
+  isAccessible?: boolean;
+  external?: boolean;
+  internal?: boolean;
+  inputType?: string;
+  min?: number;
+  max?: number;
+  step?: number;
+  defaultValue?: number | string | boolean;
+}
+```
 
 Saving and loading of systems
 

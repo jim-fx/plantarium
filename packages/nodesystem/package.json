@@ -3,11 +3,23 @@
   "version": "1.0.0",
   "main": "src/index.ts",
   "source": "src/index.ts",
+  "keywords": [
+    "procedural",
+    "ui",
+    "math",
+    "nodes"
+  ],
   "license": "MIT",
+  "type": "module",
+  "types": "./public/dist/index.d.ts",
+  "exports": {
+    "import": "./public/dist/index.esm.js"
+  },
   "scripts": {
     "clean": "rimraf coverage .nyc_output public-test public/dist",
-    "build": "node build.js",
+    "build": "node build.js && pnpm build:types",
     "build:test": "pnpm build && cp -r public public-test && nyc instrument public/dist public-test/dist",
+    "build:types": "tsc",
     "dev": "node build.js --dev",
     "serve": "sirv public-test -p 8084",
     "test": "pnpm build:test && run-p --race serve cy:run",
@@ -30,6 +42,7 @@
     "sirv-cli": "^1.0.12",
     "source-map-support": "^0.5.19",
     "svelte-preprocess": "^4.7.4",
+    "typescript": "^4.3.5",
     "wait-on": "^6.0.0"
   }
 }

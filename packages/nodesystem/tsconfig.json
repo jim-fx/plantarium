@@ -2,7 +2,10 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "lib": ["DOM", "ESNext"],
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "outDir": "public/dist",
+    "emitDeclarationOnly": true,
+    "declaration": true
   },
   "include": ["src/**/*", "../@types/**/*.d.ts"],
   "exclude": ["node_modules"]
