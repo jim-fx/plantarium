@@ -19,12 +19,56 @@ function createCircle(res: number) {
   return position;
 }
 
+function createIndeces(resX:number, stemLength: number){
+
+  const index = new Uint16Array(resX * (stemLength-1) * 6);
+
+  for (let i = 0; i < stemLength; i++) {
+    const indexOffset = i * resX * 6;
+    const positionOffset = i * resX;
+    for (let j = 0; j < resX; j++) {
+      const _indexOffset = indexOffset + j * 6;
+      const _positionOffset = positionOffset + j;
+
+      index[_indexOffset + 0] = _positionOffset;
+      index[_indexOffset + 1] = _positionOffset - resX + 1;
+      index[_indexOffset + 2] = _positionOffset + 1;
+
+      index[_indexOffset + 3] = _positionOffset + 1;
+      index[_indexOffset + 4] = _positionOffset + resX;
+      index[_indexOffset + 5] = _positionOffset;
+
+
+      if (j === resX - 1) {
+        index[_indexOffset + 0] = _positionOffset;
+        index[_indexOffset + 1] = _positionOffset - resX + 1;
+        index[_indexOffset + 2] = _positionOffset + 1;
+
+        index[_indexOffset + 3] = _positionOffset + 1;
+        index[_indexOffset + 4] = _positionOffset + resX;
+        index[_indexOffset + 5] = _positionOffset;
+      } else {
+        index[_indexOffset + 0] = _positionOffset;
+        index[_indexOffset + 1] = _positionOffset + 1;
+        index[_indexOffset + 2] = _positionOffset + resX + 1;
+
+        index[_indexOffset + 3] = _positionOffset + resX + 1;
+        index[_indexOffset + 4] = _positionOffset + resX;
+        index[_indexOffset + 5] = _positionOffset;
+      }
+    }
+  }
+
+  return index;
+
+}
+
 export default function (path, resolution) {
   const mat = [],
     v = [],
     axis = [];
 
-  const mesh = { position: [], index: [] };
+  const mesh = { position: [], index:createIndeces(resolution, path.length)};
 
   const position = createCircle(resolution);
 
@@ -56,6 +100,7 @@ export default function (path, resolution) {
       mesh.position.push(pt);
     }
   }
+
 
   return mesh;
 }

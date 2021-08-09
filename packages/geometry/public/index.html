@@ -30,11 +30,11 @@
       height: 100%
     }
 
-    #3d {
+    #view {
       position: relative;
     }
 
-    #3d>canvas {
+    #view>canvas {
       width: 100%;
       height: 100%;
     }
@@ -51,19 +51,29 @@
     #debug-wrapper>* {
       margin: 0;
     }
+
+    #debug-canvas{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events:none;
+    }
   </style>
 
   <script src="monaco/loader.min.js"></script>
 
   <div class="wrapper">
-    <div id="3d">
+    <div id="view">
       <div id="debug-wrapper">
-        <label for="show-wireframe">Wireframe</label>
+        <label for="show-indeces">Indeces</label>
+        <input type="checkbox" id="show-indeces" checked="false"></input>
+         <label for="show-wireframe">Wireframe</label>
         <input type="checkbox" id="show-wireframe" checked="false"></input>
         <label for="show-points">Show Points</label>
         <input type="checkbox" id="show-points" checked="false"></input>
         <p id="debug"></p>
       </div>
+      <canvas id="debug-canvas"></canvas>
       <canvas id="render-canvas"></canvas>
     </div>
     <div id="container"></div>

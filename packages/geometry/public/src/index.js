@@ -3,10 +3,15 @@ import { onValueChange } from './editor.js';
 import * as scene from './scene.js';
 
 const debugEl = document.getElementById('debug');
+const indecesVisibleEl = document.getElementById('show-indeces');
 const particlesVisibleEl = document.getElementById('show-points');
 const wireframeVisibleEl = document.getElementById('show-wireframe');
 particlesVisibleEl.addEventListener('input', () => {
   scene.setParticleVisible(particlesVisibleEl.checked);
+});
+
+indecesVisibleEl.addEventListener('input', () => {
+  scene.setIndecesVisible(indecesVisibleEl.checked);
 });
 wireframeVisibleEl.addEventListener('input', () => {
   scene.setWireframeVisible(wireframeVisibleEl.checked);

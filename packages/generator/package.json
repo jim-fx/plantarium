@@ -10,6 +10,6 @@
   "dependencies": {
     "@plantarium/geometry": "link:../geometry",
     "@plantarium/nodes": "link:../nodes",
-    "@plantarium/helpers": "../helpers"
+    "@plantarium/helpers": "link:../helpers"
   }
 }

@@ -4,6 +4,7 @@ import { join, transferToGeometry } from '../dist/index.js';
 import { Box, Camera, Mesh, Orbit, Renderer, Transform } from '../ogl.js';
 import createParticle from './particles.js';
 import { green, wireframe } from './shaders.js';
+import debug from "./debug.js"
 
 const renderer = new Renderer({
   dpr: 2,
@@ -15,6 +16,7 @@ gl.clearColor(1, 1, 1, 1);
 const camera = new Camera(gl, { fov: 35 });
 camera.position.set(5, 3, 6);
 camera.lookAt([0, 0, 0]);
+debug.setCamera(camera);
 
 function resize() {
   renderer.setSize(window.innerWidth / 2, window.innerHeight);
@@ -41,6 +43,7 @@ const obj = new Mesh(gl, {
   program: green(gl),
 });
 obj.setParent(scene);
+debug.setModel(obj)
 
 requestAnimationFrame(update);
 function update() {
@@ -48,6 +51,7 @@ function update() {
 
   controls.update();
   renderer.render({ scene, camera });
+  debug.render();
 }
 
 update();

@@ -17,46 +17,12 @@ export default function (skeleton: Float32Array, resX = 8): TransferGeometry {
   const _pos = Float32Array.from(
     m.position.map((arr) => arr.splice(0, 3)).flat(),
   );
-  const index = new Uint16Array(resX * skeleton.length * 3);
 
-  for (let i = 0; i < path.length; i++) {
-    const indexOffset = i * resX * 6;
-    const positionOffset = i * resX;
-    for (let j = 0; j < resX; j++) {
-      const _indexOffset = indexOffset + j * 6;
-      const _positionOffset = positionOffset + j;
-
-      if (j === resX - 1) {
-        index[_indexOffset + 0] = _positionOffset;
-        index[_indexOffset + 1] = _positionOffset - resX + 1;
-        index[_indexOffset + 2] = _positionOffset + 1;
-
-        index[_indexOffset + 3] = _positionOffset + 1;
-        index[_indexOffset + 4] = _positionOffset + resX;
-        index[_indexOffset + 5] = _positionOffset;
-      } else if (j + i !== 0) {
-        index[_indexOffset + 0] = _positionOffset;
-        index[_indexOffset + 1] = _positionOffset + 1;
-        index[_indexOffset + 2] = _positionOffset + resX + 1;
-
-        index[_indexOffset + 3] = _positionOffset + resX + 1;
-        index[_indexOffset + 4] = _positionOffset + resX;
-        index[_indexOffset + 5] = _positionOffset;
-      } else {
-        index[_indexOffset + 0] = _positionOffset;
-        index[_indexOffset + 1] = _positionOffset + 1;
-        index[_indexOffset + 2] = _positionOffset + resX + 1;
-
-        index[_indexOffset + 5] = _positionOffset + resX + 1;
-        index[_indexOffset + 4] = _positionOffset + resX;
-        index[_indexOffset + 3] = _positionOffset;
-      }
-    }
-  }
+    console.log(_pos, m.index);
 
   return {
     position: _pos,
-    index,
+    index: m.index,
     normal: new Float32Array(),
     uv: new Float32Array(),
   };
