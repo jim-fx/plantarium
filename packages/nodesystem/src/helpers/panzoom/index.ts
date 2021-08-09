@@ -450,8 +450,6 @@ export function createPanZoom(
   }
 
   function onKeyDown(e) {
-    console.log('Ezzzz');
-
     let x = 0,
       y = 0,
       z = 0;

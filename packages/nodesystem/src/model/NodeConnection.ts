@@ -54,12 +54,17 @@ export default class NodeConnection {
     //TODO:(max) better handle getting the index of which input/output it should connect to
 
     this.output.node.connectTo(node, 0, node.getInputs()[0].key);
-    node.connectTo(this.input.node, 0, this.input.node.getInputs()[0].key);
+    const inputs = this.input.node.getInputs();
+    const indexIn = inputs.indexOf(this.input);
+    const keyIn = inputs[indexIn].key;
+    node.connectTo(this.input.node, 0, keyIn);
   }
 
   public isNodeJoinable(node: Node) {
     const outputType = this.input.type;
     const inputType = this.output.type;
+
+    if (this.input.node === node || this.output.node === node) return false;
 
     const nodeInputs = node.getInputs();
     if (

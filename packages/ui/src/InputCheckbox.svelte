@@ -5,7 +5,7 @@
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
 
-  export const fullWidth = false;
+  export let fullWidth = false;
   export let value = false;
 
   export let id = createId();
@@ -13,7 +13,7 @@
   $: value !== undefined && dispatch('change', !!value);
 </script>
 
-<div class="component-wrapper" class:fullWidth>
+<div class="component-wrapper" class:fullWidth={fullWidth && false}>
   <!-- <span class="tooltip-text">Enables syncing of projects to the cloud</span> -->
   <input type="checkbox" bind:checked={value} {id} />
   <!-- svelte-ignore a11y-label-has-associated-control -->

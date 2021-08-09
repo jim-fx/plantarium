@@ -2,6 +2,7 @@ import ConnectionView from './ConnectionView';
 import type NodeInputView from './NodeInputView';
 import type NodeOutputView from './NodeOutputView';
 import type NodeConnection from '../model/NodeConnection';
+import type Node from '../model/Node';
 
 export default class NodeConnectionView extends ConnectionView {
   connection!: NodeConnection;
@@ -37,19 +38,13 @@ export default class NodeConnectionView extends ConnectionView {
         activeNode.view.active &&
         activeNode.view.hoveredConnection !== this
       ) {
-        if (this.connection.isNodeJoinable(activeNode)) {
-          activeNode.view.hoveredConnection = this;
-          this.path.classList.add('hover-active');
-        }
+        this.handleNodeOver(activeNode);
       }
     });
 
     this.hoverPath.addEventListener('mouseout', () => {
       const { activeNode } = this.system.view;
-      if (activeNode && activeNode.view.hoveredConnection === this) {
-        delete activeNode.view.hoveredConnection;
-      }
-      this.path.classList.remove('hover-active');
+      this.handleNodeOut(activeNode);
     });
 
     this.setPosition({ x1, y1, x2, y2 });
@@ -71,6 +66,20 @@ export default class NodeConnectionView extends ConnectionView {
       },
       5,
     );
+  }
+
+  handleNodeOver(node: Node) {
+    if (this.connection.isNodeJoinable(node)) {
+      node.view.hoveredConnection = this;
+      this.path.classList.add('hover-active');
+    }
+  }
+
+  handleNodeOut(node: Node) {
+    if (node && node.view.hoveredConnection === this) {
+      delete node.view.hoveredConnection;
+    }
+    this.path.classList.remove('hover-active');
   }
 
   remove() {

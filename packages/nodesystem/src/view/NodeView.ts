@@ -102,7 +102,11 @@ export default class NodeView extends EventEmitter {
   }
 
   set state(s: string | undefined) {
-    this.wrapper.classList.remove('node-active', 'node-selected');
+    this.wrapper.classList.remove(
+      'node-active',
+      'node-selected',
+      'node-dragging',
+    );
     this.wrapper.classList.add('node-' + s);
     this._state = s;
   }
@@ -112,7 +116,7 @@ export default class NodeView extends EventEmitter {
   }
 
   handleMouseDown(ev: MouseEvent) {
-    if (this.system.view.keyMap.space || ev.which === 2) return;
+    if (this.system.view.keyMap.space || ev.button === 2) return;
     if (ev.target !== ev.currentTarget) return;
     ev.stopImmediatePropagation();
     ev.stopPropagation();
@@ -149,6 +153,7 @@ export default class NodeView extends EventEmitter {
 
   handleMouseMove({ x: _x, y: _y, keys }: CustomMouseEvent) {
     if (this.active) {
+      this.state = 'dragging';
       const precision = keys.ctrlKey ? 0.02 : 1;
 
       let vx = this.mDownX - _x;

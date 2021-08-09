@@ -28,7 +28,11 @@
 
   &.node-active {
     box-shadow: 0px 0px 0px 1px white;
-    // pointer-events: none;
+  }
+
+  &.node-dragging {
+    pointer-events: none;
+    box-shadow: 0px 0px 0px 1px white;
   }
 
   &.node-selected {
