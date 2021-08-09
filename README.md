@@ -22,17 +22,17 @@
                                             +---------------+
 ```
 
-### ProjectManager
+### [ProjectManager](frontend/src/components/project-manager)
 
-### SettingsManager
+### [SettingsManager](<(frontend/src/components/settings-manager)>)
 
-### [NodeSystem](packages/nodesystem/README.md)
+### [NodeSystem](packages/nodesystem)
 
 ### DataService
 
-### Scene
+### [Scene](frontend/src/components/scene)
 
-- ### Generator
-- ### Renderer
+- ### [Generator](packages/generator)
+- ### [Renderer](packages/renderer)
 
-### Backend
+### [Backend](backend)
