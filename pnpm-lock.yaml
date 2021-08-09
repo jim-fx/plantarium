@@ -211,6 +211,7 @@ importers:
       '@plantarium/helpers': link:../helpers
       '@sveltejs/vite-plugin-svelte': ^1.0.0-next.15
       '@testing-library/svelte': ^3.0.3
+      '@tsconfig/svelte': ^2.0.1
       cosmiconfig: ^7.0.0
       esm: ^3.2.25
       inline-svg-register: ^1.0.0
@@ -236,6 +237,7 @@ importers:
     devDependencies:
       '@sveltejs/vite-plugin-svelte': 1.0.0-next.15_svelte@3.42.1+vite@2.4.4
       '@testing-library/svelte': 3.0.3_svelte@3.42.1
+      '@tsconfig/svelte': 2.0.1
       cosmiconfig: 7.0.0
       esm: 3.2.25
       inline-svg-register: 1.0.0

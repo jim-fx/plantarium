@@ -47,7 +47,7 @@ export default class NodeView extends EventEmitter {
 
     this.wrapper = document.createElement('div');
     this.wrapper.style.minHeight = this.height + 'px';
-    this.wrapper.style.minWidth = this.width + 'px';
+    this.wrapper.style.width = this.width + 'px';
     this.wrapper.classList.add(
       'node-wrapper',
       'node-type-' + node.attributes.type.toLowerCase(),

@@ -6,25 +6,20 @@
   export let project: PlantProject;
 
   let active = false;
-  function fakeActive(){
-
-    console.log("Active");
-
+  function fakeActive() {
     active = true;
     setTimeout(() => {
       active = false;
-    }, 100)
-
+    }, 100);
     return true;
   }
-
 </script>
 
 <div
   class="project-wrapper"
   class:active={project.meta.id === pm.activeProjectId || active}
   on:resize={alert}
-  on:click={() => fakeActive()&&pm.setActiveProject(project.meta.id)}
+  on:click={() => fakeActive() && pm.setActiveProject(project.meta.id)}
 >
   <div class="project-image">
     <!--  -->

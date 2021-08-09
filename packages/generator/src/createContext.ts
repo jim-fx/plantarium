@@ -5,27 +5,48 @@ let lastSettings = '';
 let lastCtx;
 let currentNoise = 0;
 
+const uniqID = (() => {
+  let id = Math.random();
+
+  return () => {
+    id = id > 0 ? id - Math.random() : id + Math.random();
+    return id.toString().split('.')[1];
+  };
+})();
+
 const createContext = (s: PlantariumSettings): GeneratorContext => {
   let seed = 0;
   noise.seed = 0;
+  let buildId = uniqID();
   return {
-    handleParameter(param: ParameterResult | number = 0, alpha = 0) {
+    handleParameter(param: ParameterResult | number = 0, alpha = 1) {
       if (typeof param === 'number') return param;
 
-      const isCurve = "curve" in param;
-
-      let value = param.value || 0;
+      let value: any = param.value || 0;
       let variation = param.variation || 0;
 
+      const isCurve =
+        Array.isArray(value) &&
+        value.length &&
+        typeof value[0]?.pinned === 'boolean';
+
       if (isCurve) {
-        const v = curve.toArray(param.curve).map((v) => v.y);
-        value = interpolateArray(v, alpha);
+        let values = [];
+
+        if (param['cache'] && param['cache'].buildId === buildId) {
+          values = param['cache'].values;
+        } else {
+          values = curve.toArray(value).map((v) => v.y);
+          param['cache'] = { values, buildId };
+        }
+
+        value = interpolateArray(values, alpha);
       }
 
-      if (typeof value === 'object' && isCurve) value = this.handleParameter(param, alpha);
+      if (typeof value === 'object' && isCurve)
+        value = this.handleParameter(param, alpha);
       if (typeof variation === 'object')
         variation = this.handleParameter(variation, alpha);
-
 
       if (variation) {
         value +=
@@ -51,6 +72,7 @@ const createContext = (s: PlantariumSettings): GeneratorContext => {
         seed = Math.floor(Math.random() * 100000);
         noise.seed = seed;
       }
+      buildId = uniqID();
       return;
     },
   };

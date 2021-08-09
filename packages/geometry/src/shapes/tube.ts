@@ -18,8 +18,6 @@ export default function (skeleton: Float32Array, resX = 8): TransferGeometry {
     m.position.map((arr) => arr.splice(0, 3)).flat(),
   );
 
-    console.log(_pos, m.index);
-
   return {
     position: _pos,
     index: m.index,

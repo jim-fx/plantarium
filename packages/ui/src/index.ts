@@ -11,6 +11,8 @@ import InputShape from './InputShape.svelte';
 import InputSlider from './InputSlider.svelte';
 import Section from './Section.svelte';
 
+import type { SvelteComponent } from 'svelte/internal/index';
+
 export {
   InputNumber,
   InputSlider,
@@ -47,12 +49,15 @@ export function stateToElement(
   delete props.inputType;
   delete props.internal;
 
-  props.value = value as string | number | boolean | Vector2[];
+  props.value = value as any;
 
   return new component({ target, props: { ...props } });
 }
 
-export function stateToComponent(template: ValueTemplate, value: unknown) {
+export function stateToComponent(
+  template: ValueTemplate,
+  value: unknown,
+): typeof SvelteComponent {
   if (template.inputType === 'select' || Array.isArray(template.values)) {
     return InputSelect;
   }

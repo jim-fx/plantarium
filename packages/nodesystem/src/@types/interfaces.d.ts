@@ -1,8 +1,3 @@
-declare module '*.svelte' {
-  const content = '';
-  export default content;
-}
-
 /**
  * Common attributes across all nodes
  * should not have an effect on computing

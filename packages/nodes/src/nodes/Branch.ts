@@ -2,6 +2,7 @@ import { join, tube, interpolateSkeleton } from '@plantarium/geometry';
 import {
   interpolateSkeletonVec,
   normalize3D,
+  normalize2D,
 } from '@plantarium/geometry/src/helpers';
 import rotate2D from '@plantarium/geometry/src/helpers/rotate2D';
 
@@ -74,23 +75,20 @@ const node: PlantNode = {
         const lowestBranch = ctx.handleParameter(parameters.lowestBranch);
 
         for (let i = 0; i < amount; i++) {
-          const length = ctx.handleParameter(parameters.length);
-          const thiccness = ctx.handleParameter(parameters.thiccness);
-
           const _a = i / amount;
+          const length = ctx.handleParameter(parameters.length, _a);
+          const thiccness = ctx.handleParameter(parameters.thiccness, _a);
+
           const a = lowestBranch + (1 - lowestBranch) * _a;
           const isLeft = i % 2 === 0;
 
           //Vector along stem
-          const [_vx, _vy, _vz] = interpolateSkeletonVec(skelly, a);
+          const [_vx, _, _vz] = interpolateSkeletonVec(skelly, a);
 
-          //Normalized Vector along stem
-          const nv = normalize3D(_vx, _vy, _vz);
-          const nvx = nv[0];
-          const nvz = nv[2];
+          const nv = normalize2D([_vx, _vz]);
 
           //Rotate Vector along stem by 90deg
-          const [vx, vz] = rotate2D(nvx, nvz, isLeft ? 90 : -90);
+          const [vx, vz] = rotate2D(nv[0], nv[1], isLeft ? 90 : -90);
 
           // Point along skeleton
           const [px, py, pz, pt] = interpolateSkeleton(skelly, a);

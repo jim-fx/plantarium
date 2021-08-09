@@ -3,14 +3,19 @@
 <script lang="ts">
   import { curve, throttle } from '@plantarium/helpers';
   import { Vec2 } from 'ogl';
-  import { onMount } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
+
+  const dispatch = createEventDispatcher();
 
   export let fullWidth = false;
 
-  export let points = [
+  export let value;
+
+  let points = [
     { x: 0, y: 1, pinned: true },
     { x: 1, y: 0, pinned: true },
   ];
+  $: points = value;
 
   let canvas: HTMLCanvasElement;
   let el: HTMLDivElement;
@@ -33,16 +38,7 @@
   let cWidth = width;
   let cHeight = height;
 
-  const updateValue = throttle(() => {
-    const event = new CustomEvent('change', {
-      detail: JSON.parse(JSON.stringify(points)),
-      bubbles: true,
-      cancelable: true,
-      composed: true, // makes the event jump shadow DOM boundary
-    });
-
-    el.dispatchEvent(event);
-  }, 50);
+  const updateValue = () => dispatch('change', points);
 
   const handleMouseMove = (ev) => {
     if (isHovered) {

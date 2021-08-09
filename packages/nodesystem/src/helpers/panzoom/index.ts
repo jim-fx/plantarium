@@ -619,6 +619,9 @@ export function createPanZoom(
       e.stopPropagation();
       return false;
     }
+
+    if (e.target !== owner && e.target !== domElement) return;
+
     // for IE, left click == 1
     // for Firefox, left click == 0
     const isLeftButton =
@@ -646,7 +649,7 @@ export function createPanZoom(
 
     if (e.ctrlKey) return;
 
-    if (e.target !== domElement) return;
+    if (e.target !== owner && e.target !== domElement) return;
 
     triggerPanStart();
 

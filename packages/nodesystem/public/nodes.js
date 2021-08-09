@@ -18,8 +18,7 @@ const boolops = {
       defaultValue: false,
     },
   },
-  compute({ a, b, mode }, objs) {
-    console.log(...arguments);
+  compute({ a, b, mode }) {
     if (mode === 'and') return a && b;
     if (mode === 'or') return a || b;
     return false;

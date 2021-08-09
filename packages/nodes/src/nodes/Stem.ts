@@ -47,7 +47,6 @@ const node: PlantNode = {
   },
 
   computeSkeleton(part, ctx) {
-
     log(part);
 
     const amount = ctx.handleParameter(part.parameters.amount);
@@ -62,11 +61,15 @@ const node: PlantNode = {
       const oz = ctx.handleParameter(part.parameters.origin?.z);
 
       const height = ctx.handleParameter(part.parameters.height);
-      const thiccness = ctx.handleParameter(part.parameters.thiccness);
 
       const skeleton = new Float32Array(amountPoints * 4);
 
       for (let j = 0; j < amountPoints; j++) {
+        const thiccness = ctx.handleParameter(
+          part.parameters.thiccness,
+          j / amountPoints,
+        );
+
         const a = j / amountPoints;
 
         //Create point
