@@ -253,7 +253,13 @@ export default class NodeSystemView extends EventEmitter {
     );
 
     this.panzoom = createPanZoom(this.transformWrapper, {
+      maxZoom: 5,
+      minZoom: 0.2,
       onTransform: ({ x, y, scale: s }) => {
+        this.x = x;
+        this.y = y;
+        this.s = s;
+        console.log(x, y, s);
         this.wrapper.style.backgroundPosition = `${x}px ${y}px`;
         this.emit('transform', { x, y, s });
       },
