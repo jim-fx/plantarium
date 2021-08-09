@@ -94,8 +94,6 @@ export default class NodeSystemView extends EventEmitter {
 
     this.ogHeight = this.height;
     this.ogWidth = this.width;
-
-    createPanZoom(this.transformWrapper, { smooth: false });
   }
 
   createFloatingConnection(
@@ -231,25 +229,7 @@ export default class NodeSystemView extends EventEmitter {
     this.x = x;
     this.y = y;
     this.s = s;
-
-    // const one = s * 100;
-    // const four = s * 4;
-
-    // this.wrapper.style.backgroundSize = `1px ${one}px, ${one}px ${one}px, ${four}px ${four}px, ${four}px ${four}px`;
-
-    // this.wrapper.style.backgroundPosition = `${this.width / 2 + x}px ${
-    //   this.height / 2 + y
-    // }px`;
-
-    // this.transformWrapper.style.transform = `
-    //   translateX(${x}px)
-    //   translateY(${y}px)
-    //   scale(${s})
-    // `;
-
-    this.wrapper.style.backgroundPosition = `${x}px ${y}px`;
-
-    this.emit('transform', { x, y, s });
+    this.panzoom.setTransform(x, y, s);
   }
 
   bindEventListeners() {
@@ -271,15 +251,25 @@ export default class NodeSystemView extends EventEmitter {
       'resize',
       throttle(() => this.handleResize(), 10),
     );
-    this.wrapper.addEventListener(
-      'wheel',
-      throttle((ev) => this.handleScroll(ev), 10),
-    );
+
+    this.panzoom = createPanZoom(this.transformWrapper, {
+      maxZoom: 5,
+      minZoom: 0.2,
+      beforeMouseDown: (ev: MouseEvent) => {
+        return (
+          ev.target !== this.transformWrapper && ev.target !== this.wrapper
+        );
+      },
+      onTransform: ({ x, y, scale: s }) => {
+        this.wrapper.style.backgroundPosition = `${x}px ${y}px`;
+        this.emit('transform', { x, y, s });
+      },
+    });
   }
 
   handleMouseMove(ev: MouseEvent) {
     this.ev = ev;
-    const { clientX, clientY, shiftKey, ctrlKey, button } = ev;
+    const { clientX, clientY, shiftKey, ctrlKey } = ev;
 
     // e = Mouse click event.
     const x = clientX - this.left; //x position within the element.
@@ -294,12 +284,6 @@ export default class NodeSystemView extends EventEmitter {
     if (this.mouseDown) {
       vx = this.mdx - x;
       vy = this.mdy - y;
-      if (this.keyMap.space || button === 2) {
-        this.setTransform({
-          x: this.dx - vx,
-          y: this.dy - vy,
-        });
-      }
     }
 
     if (this.selectedNodes.length) {
@@ -484,10 +468,5 @@ export default class NodeSystemView extends EventEmitter {
     }
 
     this.emit('keydown', { key, keys: { ...this.keyMap, ctrlKey } });
-  }
-
-  handleScroll({ deltaY }: WheelEvent) {
-    const s = Math.min(Math.max(this.s - deltaY / 1000, 0.5), 4);
-    this.setTransform({ s });
   }
 }

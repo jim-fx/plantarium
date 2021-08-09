@@ -1,12 +1,10 @@
-'use strict';
 /**
  * Allows to drag and zoom svg elements
  */
 import makeDomController from './domController';
 import kinetic from './kinetic';
-import Transform from './transform';
 
-const defaultZoomSpeed = 1;
+const defaultZoomSpeed = 0.2;
 
 /**
  * Creates a new instance of panzoom, so that an object can be panned and zoomed
@@ -25,7 +23,11 @@ export function createPanZoom(domElement, options) {
   const storedCTMResult = { x: 0, y: 0 };
 
   let isDirty = false;
-  const transform = new Transform();
+  const transform = {
+    x: 0,
+    y: 0,
+    scale: 1,
+  };
 
   const filterKey =
     typeof options.filterKey === 'function' ? options.filterKey : noop;
@@ -33,18 +35,18 @@ export function createPanZoom(domElement, options) {
   const pinchSpeed =
     typeof options.pinchSpeed === 'number' ? options.pinchSpeed : 1;
   const bounds = options.bounds;
-  let maxZoom =
+  const maxZoom =
     typeof options.maxZoom === 'number'
       ? options.maxZoom
       : Number.POSITIVE_INFINITY;
-  let minZoom = typeof options.minZoom === 'number' ? options.minZoom : 0;
+  const minZoom = typeof options.minZoom === 'number' ? options.minZoom : 0;
 
   const boundsPadding =
     typeof options.boundsPadding === 'number' ? options.boundsPadding : 0.05;
 
   const beforeWheel = options.beforeWheel || noop;
   const beforeMouseDown = options.beforeMouseDown || noop;
-  let speed =
+  const speed =
     typeof options.zoomSpeed === 'number'
       ? options.zoomSpeed
       : defaultZoomSpeed;
@@ -74,32 +76,24 @@ export function createPanZoom(domElement, options) {
   listenForEvents();
 
   const api = {
-    dispose: dispose,
-    moveBy: internalMoveBy,
-    moveTo: moveTo,
-    smoothMoveTo: smoothMoveTo,
-    centerOn: centerOn,
+    dispose,
+    moveBy,
+    moveTo,
+    smoothMoveTo,
+    centerOn,
     zoomTo: publicZoomTo,
-    zoomAbs: zoomAbs,
-    showRectangle: showRectangle,
+    zoomAbs,
 
-    pause: pause,
-    resume: resume,
-    isPaused: isPaused,
+    pause,
+    resume,
+    isPaused,
 
     getTransform: getTransformModel,
 
-    getMinZoom: getMinZoom,
-    setMinZoom: setMinZoom,
+    setTransform,
 
-    getMaxZoom: getMaxZoom,
-    setMaxZoom: setMaxZoom,
-
-    getTransformOrigin: getTransformOrigin,
-    setTransformOrigin: setTransformOrigin,
-
-    getZoomSpeed: getZoomSpeed,
-    setZoomSpeed: setZoomSpeed,
+    getTransformOrigin,
+    setTransformOrigin,
   };
 
   const initialX =
@@ -137,25 +131,6 @@ export function createPanZoom(domElement, options) {
     return paused;
   }
 
-  function showRectangle(rect) {
-    // TODO: this duplicates autocenter. I think autocenter should go.
-    const clientRect = owner.getBoundingClientRect();
-    const size = transformToScreen(clientRect.width, clientRect.height);
-
-    const rectWidth = rect.right - rect.left;
-    const rectHeight = rect.bottom - rect.top;
-    if (!Number.isFinite(rectWidth) || !Number.isFinite(rectHeight)) {
-      throw new Error('Invalid rectangle');
-    }
-
-    const dw = size.x / rectWidth;
-    const dh = size.y / rectHeight;
-    const scale = Math.min(dw, dh);
-    transform.x = -(rect.left + rectWidth / 2) * scale + size.x / 2;
-    transform.y = -(rect.top + rectHeight / 2) * scale + size.y / 2;
-    transform.scale = scale;
-  }
-
   function transformToScreen(x, y) {
     storedCTMResult.x = x;
     storedCTMResult.y = y;
@@ -163,25 +138,16 @@ export function createPanZoom(domElement, options) {
     return storedCTMResult;
   }
 
+  function setTransform(x, y, s) {
+    transform.x = x;
+    transform.y = y;
+    transform.scale = s;
+    makeDirty();
+  }
+
   function getTransformModel() {
     // TODO: should this be read only?
     return transform;
-  }
-
-  function getMinZoom() {
-    return minZoom;
-  }
-
-  function setMinZoom(newMinZoom) {
-    minZoom = newMinZoom;
-  }
-
-  function getMaxZoom() {
-    return maxZoom;
-  }
-
-  function setMaxZoom(newMaxZoom) {
-    maxZoom = newMaxZoom;
   }
 
   function getTransformOrigin() {
@@ -190,17 +156,6 @@ export function createPanZoom(domElement, options) {
 
   function setTransformOrigin(newTransformOrigin) {
     transformOrigin = parseTransformOrigin(newTransformOrigin);
-  }
-
-  function getZoomSpeed() {
-    return speed;
-  }
-
-  function setZoomSpeed(newSpeed) {
-    if (!Number.isFinite(newSpeed)) {
-      throw new Error('Zoom speed should be a number');
-    }
-    speed = newSpeed;
   }
 
   function getPoint() {
@@ -305,6 +260,7 @@ export function createPanZoom(domElement, options) {
 
   function makeDirty() {
     isDirty = true;
+
     frameAnimation = window.requestAnimationFrame(frame);
   }
 
@@ -402,14 +358,14 @@ export function createPanZoom(domElement, options) {
   }
 
   function listenForEvents() {
-    owner.addEventListener('mousedown', onMouseDown, { passive: false });
-    owner.addEventListener('dblclick', onDoubleClick, { passive: false });
-    owner.addEventListener('touchstart', onTouch, { passive: false });
-    owner.addEventListener('keydown', onKeyDown, { passive: false });
+    owner.addEventListener('mousedown', onMouseDown, { passive: true });
+    owner.addEventListener('dblclick', onDoubleClick, { passive: true });
+    owner.addEventListener('touchstart', onTouch, { passive: true });
+    owner.addEventListener('keydown', onKeyDown, { passive: true });
 
     // Need to listen on the owner container, so that we are not limited
     // by the size of the scrollable domElement
-    owner.addEventListener('wheel', onMouseWheel, { passive: false });
+    owner.addEventListener('wheel', onMouseWheel, { passive: true });
 
     makeDirty();
   }
@@ -445,6 +401,10 @@ export function createPanZoom(domElement, options) {
     panController.applyTransform(transform);
 
     frameAnimation = 0;
+
+    if (options.onTransform) {
+      options.onTransform(transform);
+    }
   }
 
   function onKeyDown(e) {
@@ -713,7 +673,6 @@ export function createPanZoom(domElement, options) {
         ? getTransformOriginOffset()
         : getOffsetXY(e);
       publicZoomTo(offset.x, offset.y, scaleMultiplier);
-      e.preventDefault();
     }
   }
 
@@ -825,47 +784,3 @@ function isNaN(value) {
 
   return value !== value;
 }
-
-function autoRun() {
-  if (typeof document === 'undefined') return;
-
-  const scripts = document.getElementsByTagName('script');
-  if (!scripts) return;
-  let panzoomScript;
-
-  for (let i = 0; i < scripts.length; ++i) {
-    const x = scripts[i];
-    if (x.src && x.src.match(/\bpanzoom(\.min)?\.js/)) {
-      panzoomScript = x;
-      break;
-    }
-  }
-
-  if (!panzoomScript) return;
-
-  const query = panzoomScript.getAttribute('query');
-  if (!query) return;
-
-  const globalName = panzoomScript.getAttribute('name') || 'pz';
-  const started = Date.now();
-
-  tryAttach();
-
-  function tryAttach() {
-    const el = document.querySelector(query);
-    if (!el) {
-      const now = Date.now();
-      const elapsed = now - started;
-      if (elapsed < 2000) {
-        // Let's wait a bit
-        setTimeout(tryAttach, 100);
-        return;
-      }
-      // If we don't attach within 2 seconds to the target element, consider it a failure
-      console.error('Cannot find the panzoom element', globalName);
-      return;
-    }
-  }
-}
-
-autoRun();

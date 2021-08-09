@@ -96,7 +96,6 @@ export default class ProjectManager extends EventEmitter {
 
     const project = JSON.parse(JSON.stringify(_project));
 
-    console.log(this.activeProject, project.meta.id);
     this.projects[project.meta.id] = project;
 
     this.emit('save', project);
