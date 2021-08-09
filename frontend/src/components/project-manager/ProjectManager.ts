@@ -92,7 +92,11 @@ export default class ProjectManager extends EventEmitter {
   }
 
   @debounceDecorator(10)
-  private async saveProject(project: PlantProject) {
+  private async saveProject(_project: PlantProject) {
+
+    const project = JSON.parse(JSON.stringify(_project));
+
+    console.log(this.activeProject, project.meta.id);
     this.projects[project.meta.id] = project;
 
     this.emit('save', project);
@@ -135,11 +139,11 @@ export default class ProjectManager extends EventEmitter {
     const project = await this.loadingActiveProject;
 
     if (this.loadingActiveProject) {
-      await storage.setItem('pt_active_id', id);
       this.activeProjectId = id;
       this.nodeSystem.load(project);
       this.saveProject(project);
       this.activeProject.set(project);
+      await storage.setItem('pt_active_id', id);
       log('set active project to id: ' + id);
       delete this.loadingActiveProject;
     } else {
