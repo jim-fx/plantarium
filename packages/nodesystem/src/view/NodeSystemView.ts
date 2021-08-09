@@ -259,7 +259,6 @@ export default class NodeSystemView extends EventEmitter {
         this.x = x;
         this.y = y;
         this.s = s;
-        console.log(x, y, s);
         this.wrapper.style.backgroundPosition = `${x}px ${y}px`;
         this.emit('transform', { x, y, s });
       },
