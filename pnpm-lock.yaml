@@ -101,7 +101,7 @@ importers:
   packages/generator:
     specifiers:
       '@plantarium/geometry': link:../geometry
-      '@plantarium/helpers': ../helpers
+      '@plantarium/helpers': link:../helpers
       '@plantarium/nodes': link:../nodes
     dependencies:
       '@plantarium/geometry': link:../geometry
@@ -174,11 +174,12 @@ importers:
       sirv-cli: ^1.0.12
       source-map-support: ^0.5.19
       svelte-preprocess: ^4.7.4
+      typescript: ^4.3.5
       wait-on: ^6.0.0
     dependencies:
       '@plantarium/helpers': link:../helpers
       '@plantarium/ui': link:../ui
-      panzoom: registry.npmjs.org/panzoom/9.4.2
+      panzoom: 9.4.2
     devDependencies:
       '@cypress/code-coverage': 3.9.10_cypress@8.2.0
       '@es-pack/esbuild-sass-plugin': 1.0.4_esbuild@0.12.18
@@ -188,7 +189,8 @@ importers:
       npm-run-all: 4.1.5
       sirv-cli: 1.0.12
       source-map-support: 0.5.19
-      svelte-preprocess: 4.7.4
+      svelte-preprocess: 4.7.4_typescript@4.3.5
+      typescript: 4.3.5
       wait-on: 6.0.0
 
   packages/renderer:
@@ -2270,6 +2272,12 @@ packages:
       uri-js: 4.4.1
     dev: true
 
+  /amator/1.1.0:
+    resolution: {integrity: sha1-CMa2C8k67Cthu/wMTWd9MDI8wPE=, registry: https://registry.yarnpkg.com/, tarball: https://registry.yarnpkg.com/amator/-/amator-1.1.0.tgz}
+    dependencies:
+      bezier-easing: 2.1.0
+    dev: false
+
   /ansi-align/3.0.0:
     resolution: {integrity: sha512-ZpClVKqXN3RGBmKibdfWzqCY4lnjEuoNzU5T0oEFpfd/z5qJHVarukridD4juLO2FXMiwUQxr9WqQtaYa8XRYw==}
     dependencies:
@@ -2705,6 +2713,10 @@ packages:
     dependencies:
       tweetnacl: 0.14.5
     dev: true
+
+  /bezier-easing/2.1.0:
+    resolution: {integrity: sha1-wE3+i5JtbsrKGBPWn/F5t8ICXYY=, registry: https://registry.yarnpkg.com/, tarball: https://registry.yarnpkg.com/bezier-easing/-/bezier-easing-2.1.0.tgz}
+    dev: false
 
   /binary-extensions/1.13.1:
     resolution: {integrity: sha512-Un7MIEDdUC5gNpcGDV97op1Ywk748MpHcFTHoYs6qnj1Z3j7I53VG3nwZhKzoBZmbdRNnb6WRdFlwl7tSDuZGw==}
@@ -6703,6 +6715,10 @@ packages:
     resolution: {integrity: sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=}
     dev: true
 
+  /ngraph.events/1.2.1:
+    resolution: {integrity: sha512-D4C+nXH/RFxioGXQdHu8ELDtC6EaCiNsZtih0IvyGN81OZSUby4jXoJ5+RNWasfsd0FnKxxpAROyUMzw64QNsw==, registry: https://registry.yarnpkg.com/, tarball: https://registry.yarnpkg.com/ngraph.events/-/ngraph.events-1.2.1.tgz}
+    dev: false
+
   /nice-try/1.0.5:
     resolution: {integrity: sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==}
     dev: true
@@ -7043,6 +7059,14 @@ packages:
   /pako/1.0.11:
     resolution: {integrity: sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==}
     dev: true
+
+  /panzoom/9.4.2:
+    resolution: {integrity: sha512-sQLr0t6EmNFXpZHag0HQVtOKqF9xjF7iZdgWg3Ss1o7uh2QZLvcrz7S0Cl8M0d2TkPZ69JfPJdknXN3I0e/2aQ==, registry: https://registry.yarnpkg.com/, tarball: https://registry.yarnpkg.com/panzoom/-/panzoom-9.4.2.tgz}
+    dependencies:
+      amator: 1.1.0
+      ngraph.events: 1.2.1
+      wheel: 1.0.0
+    dev: false
 
   /parent-module/1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
@@ -8374,53 +8398,6 @@ packages:
       svelte: 3.42.1
     dev: true
 
-  /svelte-preprocess/4.7.4:
-    resolution: {integrity: sha512-mDAmaltQl6e5zU2VEtoWEf7eLTfuOTGr9zt+BpA3AGHo8MIhKiNSPE9OLTCTOMgj0vj/uL9QBbaNmpG4G1CgIA==}
-    engines: {node: '>= 9.11.2'}
-    requiresBuild: true
-    peerDependencies:
-      '@babel/core': ^7.10.2
-      coffeescript: ^2.5.1
-      less: ^3.11.3
-      node-sass: '*'
-      postcss: ^7 || ^8
-      postcss-load-config: ^2.1.0 || ^3.0.0
-      pug: ^3.0.0
-      sass: ^1.26.8
-      stylus: ^0.54.7
-      sugarss: ^2.0.0
-      svelte: ^3.23.0
-      typescript: ^3.9.5 || ^4.0.0
-    peerDependenciesMeta:
-      '@babel/core':
-        optional: true
-      coffeescript:
-        optional: true
-      less:
-        optional: true
-      node-sass:
-        optional: true
-      postcss:
-        optional: true
-      postcss-load-config:
-        optional: true
-      pug:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      typescript:
-        optional: true
-    dependencies:
-      '@types/pug': 2.0.5
-      '@types/sass': 1.16.1
-      detect-indent: 6.1.0
-      strip-indent: 3.0.0
-    dev: true
-
   /svelte-preprocess/4.7.4_sass@1.37.5+svelte@3.42.1:
     resolution: {integrity: sha512-mDAmaltQl6e5zU2VEtoWEf7eLTfuOTGr9zt+BpA3AGHo8MIhKiNSPE9OLTCTOMgj0vj/uL9QBbaNmpG4G1CgIA==}
     engines: {node: '>= 9.11.2'}
@@ -8468,6 +8445,54 @@ packages:
       sass: 1.37.5
       strip-indent: 3.0.0
       svelte: 3.42.1
+    dev: true
+
+  /svelte-preprocess/4.7.4_typescript@4.3.5:
+    resolution: {integrity: sha512-mDAmaltQl6e5zU2VEtoWEf7eLTfuOTGr9zt+BpA3AGHo8MIhKiNSPE9OLTCTOMgj0vj/uL9QBbaNmpG4G1CgIA==}
+    engines: {node: '>= 9.11.2'}
+    requiresBuild: true
+    peerDependencies:
+      '@babel/core': ^7.10.2
+      coffeescript: ^2.5.1
+      less: ^3.11.3
+      node-sass: '*'
+      postcss: ^7 || ^8
+      postcss-load-config: ^2.1.0 || ^3.0.0
+      pug: ^3.0.0
+      sass: ^1.26.8
+      stylus: ^0.54.7
+      sugarss: ^2.0.0
+      svelte: ^3.23.0
+      typescript: ^3.9.5 || ^4.0.0
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      coffeescript:
+        optional: true
+      less:
+        optional: true
+      node-sass:
+        optional: true
+      postcss:
+        optional: true
+      postcss-load-config:
+        optional: true
+      pug:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@types/pug': 2.0.5
+      '@types/sass': 1.16.1
+      detect-indent: 6.1.0
+      strip-indent: 3.0.0
+      typescript: 4.3.5
     dev: true
 
   /svelte-prismjs/1.0.2:
@@ -9125,6 +9150,10 @@ packages:
       webidl-conversions: 6.1.0
     dev: true
 
+  /wheel/1.0.0:
+    resolution: {integrity: sha512-XiCMHibOiqalCQ+BaNSwRoZ9FDTAvOsXxGHXChBugewDj7HC8VBIER71dEOiRH1fSdLbRCQzngKTSiZ06ZQzeA==, registry: https://registry.yarnpkg.com/, tarball: https://registry.yarnpkg.com/wheel/-/wheel-1.0.0.tgz}
+    dev: false
+
   /which-boxed-primitive/1.0.2:
     resolution: {integrity: sha512-bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg==}
     dependencies:
@@ -9299,39 +9328,3 @@ packages:
       buffer-crc32: 0.2.13
       fd-slicer: 1.1.0
     dev: true
-
-  registry.npmjs.org/amator/1.1.0:
-    resolution: {integrity: sha1-CMa2C8k67Cthu/wMTWd9MDI8wPE=, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/amator/-/amator-1.1.0.tgz}
-    name: amator
-    version: 1.1.0
-    dependencies:
-      bezier-easing: registry.npmjs.org/bezier-easing/2.1.0
-    dev: false
-
-  registry.npmjs.org/bezier-easing/2.1.0:
-    resolution: {integrity: sha1-wE3+i5JtbsrKGBPWn/F5t8ICXYY=, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/bezier-easing/-/bezier-easing-2.1.0.tgz}
-    name: bezier-easing
-    version: 2.1.0
-    dev: false
-
-  registry.npmjs.org/ngraph.events/1.2.1:
-    resolution: {integrity: sha512-D4C+nXH/RFxioGXQdHu8ELDtC6EaCiNsZtih0IvyGN81OZSUby4jXoJ5+RNWasfsd0FnKxxpAROyUMzw64QNsw==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/ngraph.events/-/ngraph.events-1.2.1.tgz}
-    name: ngraph.events
-    version: 1.2.1
-    dev: false
-
-  registry.npmjs.org/panzoom/9.4.2:
-    resolution: {integrity: sha512-sQLr0t6EmNFXpZHag0HQVtOKqF9xjF7iZdgWg3Ss1o7uh2QZLvcrz7S0Cl8M0d2TkPZ69JfPJdknXN3I0e/2aQ==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/panzoom/-/panzoom-9.4.2.tgz}
-    name: panzoom
-    version: 9.4.2
-    dependencies:
-      amator: registry.npmjs.org/amator/1.1.0
-      ngraph.events: registry.npmjs.org/ngraph.events/1.2.1
-      wheel: registry.npmjs.org/wheel/1.0.0
-    dev: false
-
-  registry.npmjs.org/wheel/1.0.0:
-    resolution: {integrity: sha512-XiCMHibOiqalCQ+BaNSwRoZ9FDTAvOsXxGHXChBugewDj7HC8VBIER71dEOiRH1fSdLbRCQzngKTSiZ06ZQzeA==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/wheel/-/wheel-1.0.0.tgz}
-    name: wheel
-    version: 1.0.0
-    dev: false

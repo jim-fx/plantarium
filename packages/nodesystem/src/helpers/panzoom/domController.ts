@@ -1,4 +1,4 @@
-export default function makeDomController(domElement, options) {
+export default function makeDomController(domElement) {
   const elementValid = isDomElement(domElement);
   if (!elementValid) {
     throw new Error(
@@ -8,10 +8,6 @@ export default function makeDomController(domElement, options) {
 
   const owner = domElement.parentElement;
   domElement.scrollTop = 0;
-
-  if (!options.disableKeyboardInteraction) {
-    owner.setAttribute('tabindex', 0);
-  }
 
   const api = {
     getBBox: getBBox,

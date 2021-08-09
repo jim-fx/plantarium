@@ -1,8 +1,53 @@
-/**
- * Allows to drag and zoom svg elements
- */
+import type NodeSystemView from '../../view/NodeSystemView';
 import makeDomController from './domController';
 import kinetic from './kinetic';
+
+interface Bounds {
+  left: number;
+  top: number;
+  right: number;
+  bottom: number;
+}
+export interface Transform {
+  x: number;
+  y: number;
+  scale: number;
+}
+
+export interface TransformOrigin {
+  x: number;
+  y: number;
+}
+export interface PanZoomController {
+  getOwner: () => Element;
+  applyTransform: (transform: Transform) => void;
+}
+
+interface PanZoomOptions {
+  filterKey?: () => boolean;
+  bounds?: boolean | Bounds;
+  maxZoom?: number;
+  minZoom?: number;
+  boundsPadding?: number;
+  zoomDoubleClickSpeed?: number;
+  zoomSpeed?: number;
+  initialX?: number;
+  initialY?: number;
+  initialZoom?: number;
+  pinchSpeed?: number;
+  beforeWheel?: (e: WheelEvent) => void;
+  beforeMouseDown?: (e: MouseEvent) => void;
+  autocenter?: boolean;
+  onTouch?: (e: TouchEvent) => void;
+  onTransform?: (t: Transform) => void;
+  onDoubleClick?: (e: Event) => void;
+  smoothScroll?: boolean;
+  controller?: PanZoomController;
+  enableTextSelection?: boolean;
+  disableKeyboardInteraction?: boolean;
+  transformOrigin?: TransformOrigin;
+  view?: NodeSystemView;
+}
 
 const defaultZoomSpeed = 0.2;
 
@@ -12,10 +57,11 @@ const defaultZoomSpeed = 0.2;
  * @param {DOMElement} domElement where panzoom should be attached.
  * @param {Object} options that configure behavior.
  */
-export function createPanZoom(domElement, options) {
-  options = options || {};
-
-  const panController = makeDomController(domElement, options);
+export function createPanZoom(
+  domElement: HTMLElement,
+  options: PanZoomOptions,
+) {
+  const panController = makeDomController(domElement);
 
   const owner = panController.getOwner();
   // just to avoid GC pressure, every time we do intermediate transform
@@ -29,8 +75,6 @@ export function createPanZoom(domElement, options) {
     scale: 1,
   };
 
-  const filterKey =
-    typeof options.filterKey === 'function' ? options.filterKey : noop;
   // TODO: likely need to unite pinchSpeed with zoomSpeed
   const pinchSpeed =
     typeof options.pinchSpeed === 'number' ? options.pinchSpeed : 1;
@@ -44,8 +88,6 @@ export function createPanZoom(domElement, options) {
   const boundsPadding =
     typeof options.boundsPadding === 'number' ? options.boundsPadding : 0.05;
 
-  const beforeWheel = options.beforeWheel || noop;
-  const beforeMouseDown = options.beforeMouseDown || noop;
   const speed =
     typeof options.zoomSpeed === 'number'
       ? options.zoomSpeed
@@ -359,9 +401,9 @@ export function createPanZoom(domElement, options) {
 
   function listenForEvents() {
     owner.addEventListener('mousedown', onMouseDown, { passive: true });
-    owner.addEventListener('dblclick', onDoubleClick, { passive: true });
+    owner.addEventListener('dblclick', onDoubleClick, { passive: false });
     owner.addEventListener('touchstart', onTouch, { passive: true });
-    owner.addEventListener('keydown', onKeyDown, { passive: true });
+    owner.addEventListener('keydown', onKeyDown);
 
     // Need to listen on the owner container, so that we are not limited
     // by the size of the scrollable domElement
@@ -408,6 +450,8 @@ export function createPanZoom(domElement, options) {
   }
 
   function onKeyDown(e) {
+    console.log('Ezzzz');
+
     let x = 0,
       y = 0,
       z = 0;
@@ -425,11 +469,6 @@ export function createPanZoom(domElement, options) {
     } else if (e.keyCode === 187 || e.keyCode === 107) {
       // EQUAL SIGN or ADD
       z = -1; // `=` - zoom in (equal sign on US layout is under `+`)
-    }
-
-    if (filterKey(e, x, y, z)) {
-      // They don't want us to handle the key: https://github.com/anvaka/panzoom/issues/45
-      return;
     }
 
     if (x || y) {
@@ -477,25 +516,11 @@ export function createPanZoom(domElement, options) {
   }
 
   function beforeTouch(e) {
-    // TODO: Need to unify this filtering names. E.g. use `beforeTouch`
-    if (options.onTouch && !options.onTouch(e)) {
-      // if they return `false` from onTouch, we don't want to stop
-      // events propagation. Fixes https://github.com/anvaka/panzoom/issues/12
-      return;
-    }
-
     e.stopPropagation();
     e.preventDefault();
   }
 
   function beforeDoubleClick(e) {
-    // TODO: Need to unify this filtering names. E.g. use `beforeDoubleClick``
-    if (options.onDoubleClick && !options.onDoubleClick(e)) {
-      // if they return `false` from onTouch, we don't want to stop
-      // events propagation. Fixes https://github.com/anvaka/panzoom/issues/46
-      return;
-    }
-
     e.preventDefault();
     e.stopPropagation();
   }
@@ -590,9 +615,6 @@ export function createPanZoom(domElement, options) {
   }
 
   function onMouseDown(e) {
-    // if client does not want to handle this event - just ignore the call
-    if (beforeMouseDown(e)) return;
-
     if (touchInProgress) {
       // modern browsers will fire mousedown for touch events too
       // we do not want this: touch is handled separately.
@@ -620,9 +642,11 @@ export function createPanZoom(domElement, options) {
     return false;
   }
 
-  function onMouseMove(e) {
+  function onMouseMove(e: MouseEvent) {
     // no need to worry about mouse events when touch is happening
     if (touchInProgress) return;
+
+    if (e.ctrlKey) return;
 
     triggerPanStart();
 
@@ -658,9 +682,6 @@ export function createPanZoom(domElement, options) {
   }
 
   function onMouseWheel(e) {
-    // if client does not want to handle this event - just ignore the call
-    if (beforeWheel(e)) return;
-
     smoothScroll.cancel();
 
     let delta = e.deltaY;
@@ -751,9 +772,6 @@ function failTransformOrigin(options?: unknown) {
     ].join('\n'),
   );
 }
-
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-function noop() {}
 
 function validateBounds(bounds) {
   const boundsType = typeof bounds;

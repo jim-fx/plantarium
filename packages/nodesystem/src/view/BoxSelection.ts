@@ -29,7 +29,8 @@ export default class BoxSelectionView extends EventEmitter {
     this.view.wrapper.append(this.wrapper);
 
     this.view.on('mousedown', ({ target, x, y, keys }) => {
-      if (keys.space || keys.shift || keys.button === 2) return;
+      if (keys.space || keys.shiftKey || keys.button === 2 || !keys.ctrlKey)
+        return;
 
       if (target && !target?.className?.includes('nodesystem')) return;
 
