@@ -10,7 +10,6 @@
     "nodes"
   ],
   "license": "MIT",
-  "type": "module",
   "styles": "./public/dist/index.esm.css",
   "types": "./public/dist/index.d.ts",
   "exports": {

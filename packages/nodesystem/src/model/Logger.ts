@@ -12,7 +12,7 @@ export default class Logger {
   level: number;
   length: number;
   isGrouped = false;
-  output = logger('logger');
+  output: ReturnType<typeof logger> = logger('logger');
   constructor(
     module: dummyClass | NodeSystem,
     logLevel: number = 'system' in module ? module.system.log.level : 2,
