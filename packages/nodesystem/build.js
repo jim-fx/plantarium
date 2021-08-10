@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { sassPlugin } = require('@es-pack/esbuild-sass-plugin');
 const { build, serve } = require('esbuild');
 const sveltePlugin = require('esbuild-svelte');
 const sveltePreprocess = require('svelte-preprocess');
-
+const { typescript } = require('svelte-preprocess-esbuild');
 const options = {
   entryPoints: ['./src/index.ts'],
   bundle: true,
@@ -15,7 +16,7 @@ const options = {
   sourcemap: true,
   plugins: [
     sveltePlugin({
-      preprocess: sveltePreprocess(),
+      preprocess: [typescript(), sveltePreprocess({ typescript: false })],
       compileOptions: { customElement: true },
     }),
     sassPlugin(),

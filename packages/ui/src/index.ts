@@ -11,7 +11,7 @@ import InputShape from './InputShape.svelte';
 import InputSlider from './InputSlider.svelte';
 import Section from './Section.svelte';
 
-import type { SvelteComponent } from 'svelte/internal/index';
+import type { SvelteComponentDev } from 'svelte/internal/index';
 
 export {
   InputNumber,
@@ -33,11 +33,15 @@ export {
 // * in the index.html file to simulate the end-user experience.
 // ******************************************
 
-export function stateToElement(
-  target: HTMLElement,
-  template: ValueTemplate,
-  value: unknown,
-) {
+export function stateToElement({
+  target,
+  template,
+  value,
+}: {
+  target: HTMLElement;
+  template: ValueTemplate;
+  value: unknown;
+}) {
   if (value === undefined && 'value' in template) {
     value = template.value;
   }
@@ -49,7 +53,9 @@ export function stateToElement(
   delete props.inputType;
   delete props.internal;
 
-  props.value = value as any;
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
+  props['value'] = value;
 
   return new component({ target, props: { ...props } });
 }
@@ -57,7 +63,7 @@ export function stateToElement(
 export function stateToComponent(
   template: ValueTemplate,
   value: unknown,
-): typeof SvelteComponent {
+): typeof SvelteComponentDev {
   if (template.inputType === 'select' || Array.isArray(template.values)) {
     return InputSelect;
   }

@@ -25,7 +25,7 @@
     "jsdom": "^16.7.0",
     "nyc": "^15.1.0",
     "ogl": "^0.0.73",
-    "rollup": "^2.56.0",
+    "rollup": "^2.56.2",
     "rollup-plugin-svg-import": "^1.5.1",
     "sass": "^1.37.5",
     "svelte": "^3.42.1",

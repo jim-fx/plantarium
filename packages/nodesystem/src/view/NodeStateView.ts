@@ -20,14 +20,14 @@ export default class NodeStateView {
       this.wrapper.appendChild(labelEl);
     }
 
-    if (!template.external) {
-      const element = stateToElement(
-        this.input,
-        template,
-        nodeState.getValue(),
-      );
+    template['fullWidth'] = true;
 
-      element.fullWidth = true;
+    if (!template.external) {
+      const element = stateToElement({
+        target: this.input,
+        template,
+        value: nodeState.getValue(),
+      });
 
       if (element) {
         element.$on('change', ({ detail }) => {

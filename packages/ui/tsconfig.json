@@ -1,8 +1,14 @@
 {
-  "extends": "@tsconfig/svelte/tsconfig.json",
-  "include": ["src/**/*", "../@types/*.d.ts"],
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "ESNext"
+    "lib": ["DOM", "ESNext"],
+    "experimentalDecorators": true,
+    "outDir": "dist",
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "baseUrl": "src",
+    "types": ["svelte"]
   },
-  "exclude": ["node_modules/*", "public/*"]
+  "include": ["src/**/*", "../@types/**/*.d.ts"],
+  "exclude": ["node_modules"]
 }

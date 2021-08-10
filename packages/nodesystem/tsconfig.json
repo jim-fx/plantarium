@@ -5,7 +5,8 @@
     "experimentalDecorators": true,
     "outDir": "public/dist",
     "emitDeclarationOnly": true,
-    "declaration": true
+    "declaration": true,
+    "types": ["svelte"]
   },
   "include": ["src/**/*", "../@types/**/*.d.ts"],
   "exclude": ["node_modules"]
