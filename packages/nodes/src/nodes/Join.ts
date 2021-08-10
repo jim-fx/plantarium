@@ -32,6 +32,10 @@ const node: PlantNode = {
     const { parameters } = node;
     const { inputA, inputB } = parameters;
 
+    if (!inputA || !inputB) {
+      return inputA ? inputA.result : inputB.result;
+    }
+
     const { skeletons: skeletonsA } = inputA.result;
     const { skeletons: skeletonsB } = inputB.result;
 
@@ -43,6 +47,10 @@ const node: PlantNode = {
   },
   computeGeometry(part) {
     const { inputA, inputB } = part.parameters;
+
+    if (!inputA || !inputB) {
+      return inputA ? inputA.result : inputB.result;
+    }
 
     const { geometry: geometryA } = inputA.result;
     const { geometry: geometryB } = inputB.result;
