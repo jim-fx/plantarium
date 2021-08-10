@@ -1,6 +1,4 @@
 <script lang="ts">
-  import Prism from 'svelte-prismjs';
-  import 'prismjs/components/prism-json.js';
   import Scene from '.';
   import type { ProjectManager } from '../project-manager';
   import type { SettingsManager } from '../settings-manager';
@@ -35,7 +33,7 @@
   {#if $settings?.debug?.pd && pd}
     <pre>
     <code>
-      <Prism showLineNumbers={true} language="json" code={JSON.stringify(pd, null, 2)} />
+      {JSON.stringify(pd,null,2)}
     </code>
   </pre>
   {/if}
@@ -43,7 +41,7 @@
 </div>
 
 <style lang="scss">
-  @import "../../themes.scss";
+  @import '../../themes.scss';
   pre {
     position: absolute;
     font-size: 0.8em;
@@ -59,7 +57,7 @@
     text-shadow: 0 1px #0000001f;
   }
 
-  :global(.token.string){
+  :global(.token.string) {
     color: $dark-green;
   }
   .scene-wrapper {

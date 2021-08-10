@@ -23,7 +23,7 @@ export default defineConfig({
     brotliSize: false,
   },
   optimizeDeps: {
-    include: ['@plantarium/ui'],
+    include: ['rainbow-code'],
   },
   server: {
     host: '0.0.0.0',

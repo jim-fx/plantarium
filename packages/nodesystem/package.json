@@ -26,8 +26,7 @@
   },
   "dependencies": {
     "@plantarium/helpers": "link:../helpers",
-    "@plantarium/ui": "link:../ui",
-    "panzoom": "^9.4.2"
+    "@plantarium/ui": "link:../ui"
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.9.10",

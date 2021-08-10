@@ -32,11 +32,10 @@
     "@plantarium/ui": "link:../packages/ui",
     "localforage": "^1.9.0",
     "ogl": "^0.0.73",
-    "prismjs": "^1.24.1",
+    "rainbow-code": "^2.1.7",
     "shortid": "^2.2.16",
     "svelte": "^3.42.1",
     "svelte-click-outside": "^1.0.0",
-    "svelte-prismjs": "^1.0.2",
     "svelte-resize-observer": "^1.1.0"
   }
 }

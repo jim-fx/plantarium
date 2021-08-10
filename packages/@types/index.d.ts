@@ -20,7 +20,7 @@ interface InstancedGeometry {
 }
 
 interface ParameterResult {
-  value: number;
+  value: number | Vec2[];
   variation?: number;
   curve?: Vec2[];
 }
@@ -42,7 +42,7 @@ interface NodeResult {
 }
 
 interface GeneratorContext {
-  handleParameter(param: ParameterResult | number = 0, alpha?: number): number;
+  handleParameter(param: ParameterResult, alpha?: number): number;
   getSetting(key: string, defaultValue?: number): number;
   readonly settings: PlantariumSettings;
   readonly seed: number;

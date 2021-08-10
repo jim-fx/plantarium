@@ -1,7 +1,6 @@
 import { join, tube, interpolateSkeleton } from '@plantarium/geometry';
 import {
   interpolateSkeletonVec,
-  normalize3D,
   normalize2D,
 } from '@plantarium/geometry/src/helpers';
 import rotate2D from '@plantarium/geometry/src/helpers/rotate2D';
@@ -83,7 +82,7 @@ const node: PlantNode = {
           const isLeft = i % 2 === 0;
 
           //Vector along stem
-          const [_vx, _, _vz] = interpolateSkeletonVec(skelly, a);
+          const [_vx, _vy, _vz] = interpolateSkeletonVec(skelly, a);
 
           const nv = normalize2D([_vx, _vz]);
 

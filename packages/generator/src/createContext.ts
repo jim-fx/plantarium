@@ -19,18 +19,15 @@ const createContext = (s: PlantariumSettings): GeneratorContext => {
   noise.seed = 0;
   let buildId = uniqID();
   return {
-    handleParameter(param: ParameterResult | number = 0, alpha = 1) {
+    handleParameter(param: ParameterResult, alpha = 1) {
       if (typeof param === 'number') return param;
 
-      let value: any = param.value || 0;
-      let variation = param.variation || 0;
+      let value = param.value;
+      let variation = param.variation;
 
-      const isCurve =
-        Array.isArray(value) &&
-        value.length &&
-        typeof value[0]?.pinned === 'boolean';
+      const isCurve = Array.isArray(value);
 
-      if (isCurve) {
+      if (Array.isArray(value)) {
         let values = [];
 
         if (param['cache'] && param['cache'].buildId === buildId) {
@@ -49,13 +46,13 @@ const createContext = (s: PlantariumSettings): GeneratorContext => {
         variation = this.handleParameter(variation, alpha);
 
       if (variation) {
-        value +=
+        (value as number) +=
           noise.n1d(currentNoise++ * 200) *
           param.variation *
-          Math.max(value, 1);
+          Math.max(value as number, 1);
       }
 
-      return value;
+      return value as number;
     },
     getSetting(key: string) {
       return s[key];

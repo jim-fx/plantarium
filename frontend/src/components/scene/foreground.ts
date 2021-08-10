@@ -57,5 +57,9 @@ export default class ForegroundScene {
     this.dbg.setPlant(result);
 
     this.mesh.geometry = transferToGeometry(this.gl, result.geometry);
+
+    this.mesh.geometry.computeBoundingBox();
+
+    this.scene.renderer.setControlTarget(this.mesh.geometry.bounds.center);
   }
 }

@@ -16,6 +16,7 @@ export default class Renderer extends EventEmitter {
   scene: Transform = new Transform();
   camera: Camera;
   controls: Orbit;
+  controlTarget: Vec3;
 
   private lastCamPos: Vec3 = new Vec3(0, 0, 0);
 
@@ -64,12 +65,27 @@ export default class Renderer extends EventEmitter {
     this.render();
   }
 
+  setControlTarget(vec: Vec3) {
+    if (!this.controlTarget) {
+      this.controls.target = vec;
+    }
+    this.controlTarget = vec;
+  }
+
   render(): void {
     requestAnimationFrame(this.render.bind(this));
 
     if (!this.lastCamPos.equals(this.camera.position)) {
       this.lastCamPos.set(this.camera.position);
       this.emit('camPos', this.camera.position.toArray());
+    }
+
+    if (this.controlTarget) {
+      if (this.controlTarget.squaredDistance(this.controls.target) < 0.001) {
+        this.controls.target = this.controlTarget;
+      } else {
+        this.controls.target.lerp(this.controlTarget, 0.05);
+      }
     }
 
     this.controls.update();
