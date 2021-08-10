@@ -22,9 +22,6 @@ export default defineConfig({
     minify: 'esbuild',
     brotliSize: false,
   },
-  optimizeDeps: {
-    include: ['rainbow-code'],
-  },
   server: {
     host: '0.0.0.0',
     port: 8080,

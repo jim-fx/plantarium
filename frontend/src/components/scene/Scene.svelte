@@ -62,5 +62,6 @@
   }
   .scene-wrapper {
     position: relative;
+    max-height: calc(100vh - 50px);
   }
 </style>

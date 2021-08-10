@@ -1,6 +1,11 @@
 import { Renderer as oRenderer, Camera, Orbit, Vec3, Transform } from 'ogl';
 
-import { convertHexToRGB, EventEmitter } from '@plantarium/helpers';
+import {
+  convertHexToRGB,
+  debounceDecorator,
+  EventEmitter,
+  throttle,
+} from '@plantarium/helpers';
 
 interface RendererOptions {
   clearColor: string;
@@ -94,17 +99,16 @@ export default class Renderer extends EventEmitter {
   }
 
   bindEventlisteners() {
-    // const resize = throttle(this.handleResize.bind(this), 500);
-    // const resizeObserver = new ResizeObserver(resize);
-    // resizeObserver.observe(this.canvas.parentElement);
+    window.addEventListener(
+      'resize',
+      throttle(() => this.handleResize(), 500),
+    );
   }
 
   handleResize() {
     const wrapper = this.canvas.parentElement;
     const { width, height } = wrapper.getBoundingClientRect();
     this.renderer.setSize(width, height);
-    this.canvas.style.height = '';
-    this.canvas.style.width = '';
     this.camera.perspective({
       aspect: this.gl.canvas.width / this.gl.canvas.height,
     });

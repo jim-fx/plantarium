@@ -27,7 +27,7 @@
       wrapper: nodeSystemWrapper,
       view: true,
       defaultNodes: false,
-      registerNodes: Nodes as unknown as NodeTypeData[],
+      registerNodes: Nodes,
     });
 
     projectManager = new ProjectManager(nodeSystem, settingsManager);
@@ -91,6 +91,7 @@
   @import './themes.scss';
   main {
     height: 100%;
+    max-height: calc(100vh - 50px);
     display: grid;
     grid-template-columns: minmax(50vw, 25%) 1fr;
   }
