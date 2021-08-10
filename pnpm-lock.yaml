@@ -55,7 +55,6 @@ importers:
       '@sveltejs/vite-plugin-svelte': ^1.0.0-next.15
       localforage: ^1.9.0
       ogl: ^0.0.73
-      prismjs: ^1.24.1
       rainbow-code: ^2.1.7
       rollup: ^2.56.2
       rollup-plugin-glslify: ^1.2.0
@@ -69,6 +68,7 @@ importers:
       svelte-preprocess-esbuild: ^2.0.0
       svelte-resize-observer: ^1.1.0
       vite: ^2.4.4
+      vite-plugin-external-worker: ^0.1.0
       vite-tsconfig-paths: ^3.3.13
     dependencies:
       '@plantarium/generator': link:../packages/generator
@@ -80,7 +80,6 @@ importers:
       '@plantarium/ui': link:../packages/ui
       localforage: 1.9.0
       ogl: 0.0.73
-      prismjs: 1.24.1
       rainbow-code: 2.1.7
       shortid: 2.2.16
       svelte: 3.42.1
@@ -96,6 +95,7 @@ importers:
       svelte-preprocess: 4.7.4_sass@1.37.5+svelte@3.42.1
       svelte-preprocess-esbuild: 2.0.0_svelte@3.42.1
       vite: 2.4.4
+      vite-plugin-external-worker: 0.1.0_vite@2.4.4
       vite-tsconfig-paths: 3.3.13_vite@2.4.4
 
   packages/generator:
@@ -103,10 +103,13 @@ importers:
       '@plantarium/geometry': link:../geometry
       '@plantarium/helpers': link:../helpers
       '@plantarium/nodes': link:../nodes
+      comlink: ^4.3.1
     dependencies:
       '@plantarium/geometry': link:../geometry
       '@plantarium/helpers': link:../helpers
       '@plantarium/nodes': link:../nodes
+    devDependencies:
+      comlink: 4.3.1
 
   packages/geometry:
     specifiers:
@@ -171,7 +174,6 @@ importers:
       esbuild: ^0.12.19
       esbuild-svelte: ^0.5.4
       npm-run-all: ^4.1.5
-      panzoom: ^9.4.2
       sirv-cli: ^1.0.12
       source-map-support: ^0.5.19
       svelte: ^3.42.1
@@ -182,7 +184,6 @@ importers:
     dependencies:
       '@plantarium/helpers': link:../helpers
       '@plantarium/ui': link:../ui
-      panzoom: 9.4.2
     devDependencies:
       '@cypress/code-coverage': 3.9.10_cypress@8.2.0
       '@es-pack/esbuild-sass-plugin': 1.0.4_esbuild@0.12.19
@@ -217,7 +218,6 @@ importers:
       '@plantarium/helpers': link:../helpers
       '@sveltejs/vite-plugin-svelte': ^1.0.0-next.15
       '@testing-library/svelte': ^3.0.3
-      '@tsconfig/svelte': ^2.0.1
       cosmiconfig: ^7.0.0
       esm: ^3.2.25
       inline-svg-register: ^1.0.0
@@ -243,7 +243,6 @@ importers:
     devDependencies:
       '@sveltejs/vite-plugin-svelte': 1.0.0-next.15_svelte@3.42.1+vite@2.4.4
       '@testing-library/svelte': 3.0.3_svelte@3.42.1
-      '@tsconfig/svelte': 2.0.1
       cosmiconfig: 7.0.0
       esm: 3.2.25
       inline-svg-register: 1.0.0
@@ -2271,12 +2270,6 @@ packages:
       uri-js: 4.4.1
     dev: true
 
-  /amator/1.1.0:
-    resolution: {integrity: sha1-CMa2C8k67Cthu/wMTWd9MDI8wPE=}
-    dependencies:
-      bezier-easing: 2.1.0
-    dev: false
-
   /ansi-align/3.0.0:
     resolution: {integrity: sha512-ZpClVKqXN3RGBmKibdfWzqCY4lnjEuoNzU5T0oEFpfd/z5qJHVarukridD4juLO2FXMiwUQxr9WqQtaYa8XRYw==}
     dependencies:
@@ -2715,10 +2708,6 @@ packages:
       tweetnacl: 0.14.5
     dev: true
 
-  /bezier-easing/2.1.0:
-    resolution: {integrity: sha1-wE3+i5JtbsrKGBPWn/F5t8ICXYY=}
-    dev: false
-
   /binary-extensions/1.13.1:
     resolution: {integrity: sha512-Un7MIEDdUC5gNpcGDV97op1Ywk748MpHcFTHoYs6qnj1Z3j7I53VG3nwZhKzoBZmbdRNnb6WRdFlwl7tSDuZGw==}
     engines: {node: '>=0.10.0'}
@@ -2956,7 +2945,7 @@ packages:
     dependencies:
       caniuse-lite: 1.0.30001249
       colorette: 1.2.2
-      electron-to-chromium: 1.3.800
+      electron-to-chromium: 1.3.801
       escalade: 3.1.1
       node-releases: 1.1.73
     dev: true
@@ -3311,6 +3300,10 @@ packages:
     engines: {node: '>= 0.8'}
     dependencies:
       delayed-stream: 1.0.0
+    dev: true
+
+  /comlink/4.3.1:
+    resolution: {integrity: sha512-+YbhUdNrpBZggBAHWcgQMLPLH1KDF3wJpeqrCKieWQ8RL7atmgsgTQko1XEBK6PsecfopWNntopJ+ByYG1lRaA==}
     dev: true
 
   /commander/2.20.3:
@@ -3869,8 +3862,8 @@ packages:
       safer-buffer: 2.1.2
     dev: true
 
-  /electron-to-chromium/1.3.800:
-    resolution: {integrity: sha512-qagikPjZJSDWP85uWoxs32oK/xk/y3MhDZELfKRCWI7pBc0ZFlmjnXb+3+aNMaiqboeDJJa0v7CJd5cO1HKwEQ==}
+  /electron-to-chromium/1.3.801:
+    resolution: {integrity: sha512-xapG8ekC+IAHtJrGBMQSImNuN+dm+zl7UP1YbhvTkwQn8zf/yYuoxfTSAEiJ9VDD+kjvXaAhNDPSxJ+VImtAJA==}
     dev: true
 
   /elliptic/6.5.4:
@@ -6705,10 +6698,6 @@ packages:
     resolution: {integrity: sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=}
     dev: true
 
-  /ngraph.events/1.2.1:
-    resolution: {integrity: sha512-D4C+nXH/RFxioGXQdHu8ELDtC6EaCiNsZtih0IvyGN81OZSUby4jXoJ5+RNWasfsd0FnKxxpAROyUMzw64QNsw==}
-    dev: false
-
   /nice-try/1.0.5:
     resolution: {integrity: sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==}
     dev: true
@@ -7051,14 +7040,6 @@ packages:
     resolution: {integrity: sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==}
     dev: true
 
-  /panzoom/9.4.2:
-    resolution: {integrity: sha512-sQLr0t6EmNFXpZHag0HQVtOKqF9xjF7iZdgWg3Ss1o7uh2QZLvcrz7S0Cl8M0d2TkPZ69JfPJdknXN3I0e/2aQ==}
-    dependencies:
-      amator: 1.1.0
-      ngraph.events: 1.2.1
-      wheel: 1.0.0
-    dev: false
-
   /parent-module/1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
     engines: {node: '>=6'}
@@ -7278,10 +7259,6 @@ packages:
       ansi-styles: 5.2.0
       react-is: 17.0.2
     dev: true
-
-  /prismjs/1.24.1:
-    resolution: {integrity: sha512-mNPsedLuk90RVJioIky8ANZEwYm5w9LcvCXrxHlwf4fNVSn8jEipMybMkWUyyF0JhnC+C4VcOVSBuHRKs1L5Ow==}
-    dev: false
 
   /private/0.1.8:
     resolution: {integrity: sha512-VvivMrbvd2nKkiG38qjULzlc+4Vx4wm/whI9pQD35YrARNnhxeiRktSOhSukRLFNlzg6Br/cJPet5J/u19r/mg==}
@@ -9049,6 +9026,14 @@ packages:
       extsprintf: 1.3.0
     dev: true
 
+  /vite-plugin-external-worker/0.1.0_vite@2.4.4:
+    resolution: {integrity: sha512-54UTtTQ0r18DC/V8LUla5kW4yHnWM7GBVsfR1RL8AvFsRIEQ+O77EHQpzsp6/1U1dPcJPk7c7UarbhiVxX5SpA==}
+    peerDependencies:
+      vite: ^1.0.0-beta.8
+    dependencies:
+      vite: 2.4.4
+    dev: true
+
   /vite-tsconfig-paths/3.3.13_vite@2.4.4:
     resolution: {integrity: sha512-G7OO+1g2H6xVN61RIp1xFjvciqJoF5cGKcWfP6ZOZFeA8QRy2X7yaGUZLhXtKxNLEsR2MthDm7KwSNTKQHzwvA==}
     peerDependencies:
@@ -9158,10 +9143,6 @@ packages:
       tr46: 2.1.0
       webidl-conversions: 6.1.0
     dev: true
-
-  /wheel/1.0.0:
-    resolution: {integrity: sha512-XiCMHibOiqalCQ+BaNSwRoZ9FDTAvOsXxGHXChBugewDj7HC8VBIER71dEOiRH1fSdLbRCQzngKTSiZ06ZQzeA==}
-    dev: false
 
   /which-boxed-primitive/1.0.2:
     resolution: {integrity: sha512-bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg==}

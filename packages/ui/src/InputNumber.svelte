@@ -20,20 +20,18 @@
 </script>
 
 <div class="component-wrapper" class:fullWidth>
-  <div>
-    <button on:click={() => handleChange(-step)} />
+  <button on:click={() => handleChange(-step)} />
 
-    <input
-      bind:value
-      {step}
-      {max}
-      {min}
-      type="number"
-      style={`width:${Math.max((value?.toString().length ?? 1) * 8, 30)}px;`}
-    />
+  <input
+    bind:value
+    {step}
+    {max}
+    {min}
+    type="number"
+    style={`width:${Math.max((value?.toString().length ?? 1) * 8, 30)}px;`}
+  />
 
-    <button on:click={() => handleChange(+step)} class="plus" />
-  </div>
+  <button on:click={() => handleChange(+step)} class="plus" />
 </div>
 
 <style lang="scss">

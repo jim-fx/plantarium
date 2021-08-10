@@ -1,4 +1,4 @@
-import { plant } from '@plantarium/generator';
+import { worker } from '@plantarium/generator';
 import { transferToGeometry } from '@plantarium/geometry';
 import { Box, Mesh } from 'ogl';
 import type Scene from '.';
@@ -14,6 +14,8 @@ export default class ForegroundScene {
   private gl: WebGL2RenderingContext;
 
   private mesh: Mesh;
+
+  private worker = worker();
 
   constructor(private scene: Scene, private pm: ProjectManager) {
     this.gl = scene.renderer.gl;
@@ -47,10 +49,12 @@ export default class ForegroundScene {
     this.update();
   }
 
-  update(p = this.plant, s = this.settings) {
+  async update(p = this.plant, s = this.settings) {
     if (!p || !s) return;
 
-    const result = plant(p, s);
+    const result = await this.worker.plant(p, s);
+
+    if (!result) return;
 
     this.mesh.mode = s?.debug?.wireframe ? this.gl.LINES : this.gl.TRIANGLES;
 

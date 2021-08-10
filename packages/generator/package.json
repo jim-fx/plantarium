@@ -9,7 +9,10 @@
   },
   "dependencies": {
     "@plantarium/geometry": "link:../geometry",
-    "@plantarium/nodes": "link:../nodes",
-    "@plantarium/helpers": "link:../helpers"
+    "@plantarium/helpers": "link:../helpers",
+    "@plantarium/nodes": "link:../nodes"
+  },
+  "devDependencies": {
+    "comlink": "^4.3.1"
   }
 }
