@@ -17,21 +17,27 @@
   }
 
   $: value !== undefined && dispatch('change', parseFloat(value + ''));
+
+  $: width = Number.isFinite(value)
+    ? Math.max((value?.toString().length ?? 1) * 8, 30) + 'px'
+    : 100 + '%';
 </script>
 
 <div class="component-wrapper" class:fullWidth>
-  <button on:click={() => handleChange(-step)} />
+  <div>
+    <button on:click={() => handleChange(-step)} />
 
-  <input
-    bind:value
-    {step}
-    {max}
-    {min}
-    type="number"
-    style={`width:${Math.max((value?.toString().length ?? 1) * 8, 30)}px;`}
-  />
+    <input
+      bind:value
+      {step}
+      {max}
+      {min}
+      type="number"
+      style={`width:${width};`}
+    />
 
-  <button on:click={() => handleChange(+step)} class="plus" />
+    <button on:click={() => handleChange(+step)} class="plus" />
+  </div>
 </div>
 
 <style lang="scss">

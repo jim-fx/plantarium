@@ -42,7 +42,7 @@
     <ClickOutside on:clickoutside={() => (showPM = false)}>
       <div class="project-wrapper" class:active={showPM}>
         <Button
-          icon="Cog"
+          icon="folder"
           name="Projects"
           cls="projects-icon"
           bind:active={showPM}

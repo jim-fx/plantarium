@@ -1,6 +1,6 @@
 const node: PlantNode = {
   title: 'Vec3',
-  type: 'Vec3',
+  type: 'vec3',
   outputs: ['vec3'],
   parameters: {
     x: {

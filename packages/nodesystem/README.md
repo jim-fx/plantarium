@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="public/assets/ms-icon-310x310.png" width="30%"/>
+<img src="public/assets/favicon.svg" width="30%"/>
 
   <h3 align="center">@plantarium/nodesystem</h3>
 

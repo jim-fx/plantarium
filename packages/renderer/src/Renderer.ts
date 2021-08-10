@@ -86,7 +86,7 @@ export default class Renderer extends EventEmitter {
     }
 
     if (this.controlTarget) {
-      if (this.controlTarget.squaredDistance(this.controls.target) < 0.001) {
+      if (this.controlTarget.squaredDistance(this.controls.target) < 0.01) {
         this.controls.target = this.controlTarget;
       } else {
         this.controls.target.lerp(this.controlTarget, 0.05);

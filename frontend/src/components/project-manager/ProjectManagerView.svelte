@@ -10,6 +10,21 @@
 
   const { store } = pm;
 
+  let searchTerm: string;
+
+  function showProject(search, project: PlantProject) {
+    if (!search || search.length < 1) return true;
+
+    const projectName = project.meta.name.toLowerCase();
+    search = search.toLowerCase();
+
+    if (projectName.includes(search) || search.includes(projectName)) {
+      return true;
+    }
+
+    return false;
+  }
+
   const { width, height } = localState.get('pmSize', {
     width: 300,
     height: window.innerHeight / 2,
@@ -35,7 +50,12 @@
       <p>new</p>
     </button>
     {#if $store.length > 3}
-      <input type="text" class="search" placeholder="Search" />
+      <input
+        type="text"
+        class="search"
+        placeholder="Search"
+        bind:value={searchTerm}
+      />
     {:else}
       <div />
     {/if}
@@ -45,7 +65,9 @@
   {#if visible}
     <div class="project-list">
       {#each $store as project}
-        <Project {project} {pm} />
+        {#if showProject(searchTerm, project)}
+          <Project {project} {pm} />
+        {/if}
       {/each}
     </div>
   {/if}

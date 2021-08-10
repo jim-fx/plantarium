@@ -1,7 +1,7 @@
 <svelte:options tag="plant-icon" />
 
 <script lang="ts">
-  import * as icons from './icons/index.ts';
+  import * as icons from './icons';
 
   export let name = 'stem';
   name = name.toLowerCase();

@@ -22,8 +22,8 @@ const createContext = (s: PlantariumSettings): GeneratorContext => {
     handleParameter(param: ParameterResult, alpha = 1) {
       if (typeof param === 'number') return param;
 
-      let value = param.value;
-      let variation = param.variation;
+      let value = param.value || 0;
+      let variation = param.variation || 0;
 
       const isCurve = Array.isArray(value);
 
