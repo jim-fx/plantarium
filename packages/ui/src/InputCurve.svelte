@@ -34,6 +34,12 @@
     });
   };
 
+  const removePoint = (p) => {
+    if (p.pinned) return;
+    points.splice(points.indexOf(activePoint), 1);
+    updateValue();
+  };
+
   const handleMouseMove = (ev) => {
     if (isHovered) {
       mousePosX = ev.offsetX;
@@ -71,8 +77,8 @@
 
   const handleMouseUp = () => {
     if (activePoint) {
-      points.splice(points.indexOf(activePoint), 1);
-      updateValue();
+      removePoint(activePoint);
+      activePoint = undefined;
     }
 
     draggingPoint = undefined;
@@ -95,12 +101,21 @@
     };
   };
 
+  function lerp(x, y, a) {
+    return x * a + y * (1 - a);
+  }
+
+  function lerpVector(v1, v2, a) {
+    return [lerp(v1.x, v2.x, a), lerp(v1.y, v2.y, a)];
+  }
+
   const controlPoint = (current, previous, next, reverse = false) => {
     // When 'current' is the first or last point of the array
     // 'previous' or 'next' don't exist.
     // Replace with 'current'
     const p = previous || current;
     const n = next || current;
+
     // The smoothing ratio
     const smoothing = 0.2;
     // Properties of the opposed-line
@@ -108,10 +123,24 @@
     // If is end-control-point, add PI to the angle to go backward
     const angle = o.angle + (reverse ? Math.PI : 0);
     const length = o.length * smoothing;
-    // The control point position is relative to the current point
-    const x = current.x + Math.cos(angle) * length;
-    const y = current.y + Math.sin(angle) * length;
-    return [x, y];
+
+    console.log(p.y, current.y, n.y);
+
+    const isExtremPoint =
+      1 - (Math.abs(current.y - p.y) + Math.abs(current.y - n.y) / 2);
+
+    console.log(isExtremPoint);
+
+    // For ExtremPoints
+    const x1 = current.x + (current.x - (reverse ? p.x : n.x)) * -0.5;
+    const y1 = current.y;
+
+    // For other points
+
+    const x2 = current.x + Math.cos(angle) * length;
+    const y2 = current.y + Math.sin(angle) * length;
+
+    return lerpVector({ x: x1, y: y1 }, { x: x2, y: y2 }, isExtremPoint);
   };
 
   const bezierCommand = (point, i, a) => {
@@ -229,6 +258,7 @@
   }
 
   #debug {
+    pointer-events: none;
     display: block;
   }
 
