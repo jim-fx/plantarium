@@ -91,9 +91,7 @@ export default class ProjectManager extends EventEmitter {
     this.saveProject(project);
   }
 
-  @debounceDecorator(10)
   private async saveProject(_project: PlantProject) {
-
     const project = JSON.parse(JSON.stringify(_project));
 
     this.projects[project.meta.id] = project;

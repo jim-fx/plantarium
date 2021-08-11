@@ -71,6 +71,7 @@ export default class Renderer extends EventEmitter {
   }
 
   setControlTarget(vec: Vec3) {
+    if (Number.isNaN(vec.x)) return;
     if (!this.controlTarget) {
       this.controls.target = vec;
     }

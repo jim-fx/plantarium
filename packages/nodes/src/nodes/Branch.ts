@@ -75,7 +75,7 @@ const node: PlantNode = {
 
         for (let i = 0; i < amount; i++) {
           const _a = i / amount;
-          const length = ctx.handleParameter(parameters.length, _a);
+          const length = ctx.handleParameter(parameters.length, _a) * (1 - _a);
           const thiccness = ctx.handleParameter(parameters.thiccness, _a);
 
           const a = lowestBranch + (1 - lowestBranch) * _a;

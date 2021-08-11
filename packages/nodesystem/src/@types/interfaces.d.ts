@@ -15,6 +15,8 @@ interface CustomMouseEvent {
   y: number;
   vx?: number;
   vy?: number;
+  mx: number;
+  my: number;
   keys: {
     shiftKey: boolean;
     ctrlKey: boolean;

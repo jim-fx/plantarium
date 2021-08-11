@@ -64,12 +64,11 @@ const node: PlantNode = {
 
       const skeleton = new Float32Array(amountPoints * 4);
 
+      const thiccness = ctx.handleParameter(
+        part.parameters.thiccness,
+        i / amount,
+      );
       for (let j = 0; j < amountPoints; j++) {
-        const thiccness = ctx.handleParameter(
-          part.parameters.thiccness,
-          j / amountPoints,
-        );
-
         const a = j / amountPoints;
 
         //Create point

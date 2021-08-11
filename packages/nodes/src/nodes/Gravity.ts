@@ -49,10 +49,10 @@ const node: PlantNode = {
 
         // Loop over every single joint in the skeleton
         for (let i = 1; i < amount; i++) {
-          const y = skelly[i * 4 + 1];
           const a = i / amount;
+          const y = skelly[i * 4 + 1];
           const strength = ctx.handleParameter(parameters?.strength, a);
-          skelly[i * 4 + 1] = y - y * a * strength;
+          skelly[i * 4 + 1] = y - y * a * a * a * strength;
         }
 
         return skelly;
