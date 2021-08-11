@@ -1,271 +1,171 @@
-<svelte:options tag="plant-shape" />
+<svelte:options tag="plant-curve" accessors />
 
-<script>
-  import { Vec2 } from 'ogl';
-  import { onMount } from 'svelte';
+<script lang="ts">
+  import { createEventDispatcher } from 'svelte';
 
-  export let points = [
-    { x: 0.5, y: 1, locked: true },
-    { x: 0.2, y: 0.6 },
-    { x: 0.2, y: 0.3 },
-    { x: 0.5, y: 0, locked: true },
-  ];
+  const dispatch = createEventDispatcher();
+
   export let fullWidth = false;
 
-  let canvas, ctx;
+  export let value = [
+    { x: 1, y: 0, pinned: true },
+    { x: 0.5, y: 0.5, pinned: true },
+    { x: 1, y: 1, pinned: true },
+  ];
+  console.log(value);
+  $: points = value;
 
-  const hoverDistance = 0.1;
   // const tension = 0.4;
 
   let isHovered = false;
   // let isRendering = false;
   let activePoint = undefined;
-  let gradient;
+  let draggingPoint = undefined;
 
-  const mousePos = new Vec2(0, 0);
-  const mouseDownPos = new Vec2(0, 0);
-  const pointDownPos = new Vec2(0, 0);
+  let mousePosX = 0;
+  let mousePosY = 0;
 
-  const width = 200;
-  const height = 200;
+  const updateValue = () => {
+    requestAnimationFrame(() => {
+      dispatch('change', points);
 
-  let cWidth = width;
-  let cHeight = height;
+      points = points.sort((a, b) => (a.y > b.y ? -1 : 1));
+    });
+  };
+
+  const removePoint = (p) => {
+    if (p.pinned) return;
+    points.splice(points.indexOf(activePoint), 1);
+    updateValue();
+  };
 
   const handleMouseMove = (ev) => {
     if (isHovered) {
-      mousePos.x = ev.offsetX / width;
-      mousePos.y = ev.offsetY / height;
+      mousePosX = ev.offsetX;
+      mousePosY = ev.offsetY;
 
       if (activePoint) {
-        if (activePoint.locked) {
-          activePoint.x = Math.min(0.5, mousePos.x);
-        } else {
-          activePoint.x = Math.min(0.5, mousePos.x);
-          activePoint.y = mousePos.y;
-        }
+        draggingPoint = activePoint;
+        activePoint = undefined;
+      }
+
+      if (draggingPoint) {
+        draggingPoint.x = mousePosX / 50;
+        draggingPoint.y = mousePosY / 100;
+        updateValue();
       }
     }
   };
 
   const handleMouseDown = (ev) => {
-    if (activePoint) {
-      points.splice(points.indexOf(activePoint), 1);
-    } else {
-      const _points = points
-        .map((p, i) => {
-          return {
-            i,
-            d: Math.abs(p.x - mousePos.x) + Math.abs(p.y - mousePos.y),
-          };
-        })
-        .sort((a, b) => {
-          return a.d < b.d ? -1 : 1;
-        });
+    if (!activePoint) {
+      const point = {
+        x: mousePosX / 50,
+        y: mousePosY / 100,
+        pinned: false,
+      };
 
-      if (_points[0].d < hoverDistance) {
-        activePoint = points[_points[0].i];
-        pointDownPos.x = activePoint.x;
-        pointDownPos.y = activePoint.y;
-        mouseDownPos.x = ev.offsetX / cWidth;
-        mouseDownPos.y = (cHeight - ev.offsetY) / cHeight;
-      } else {
-        const point = {
-          x: mousePos.x,
-          y: mousePos.y,
-          locked: false,
-        };
-        activePoint = point;
-        pointDownPos.x = activePoint.x;
-        pointDownPos.y = activePoint.y;
-        mouseDownPos.x = ev.offsetX / cWidth;
-        mouseDownPos.y = (cHeight - ev.offsetY) / cHeight;
-        points.push(point);
-      }
+      activePoint = point;
+
+      points.push(activePoint);
+      updateValue();
     }
   };
 
-  function render() {
-    ctx.clearRect(0, 0, cWidth, cHeight);
-
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = 'white';
-    ctx.fillStyle = 'white';
-
-    points = points.sort(({ y: ay, x: ax }, { y: by, x: bx }) => {
-      if (ay === by) {
-        if (ay < 0.5) {
-          return ax > bx ? 1 : -1;
-        } else {
-          return ax > bx ? -1 : 1;
-        }
-      }
-
-      return ay > by ? 1 : -1;
-    });
-
-    if (points[0].x !== 0.5) {
-      delete points[0].locked;
-      points = [
-        {
-          x: 0.5,
-          y: 0,
-          locked: true,
-        },
-        ...points,
-      ];
+  const handleMouseUp = () => {
+    if (activePoint) {
+      removePoint(activePoint);
+      activePoint = undefined;
     }
 
-    if (points[points.length - 1].x !== 0.5) {
-      delete points[points.length - 1].locked;
-      points = [
-        ...points,
-        {
-          x: 0.5,
-          y: 1,
-          locked: true,
-        },
-      ];
-    }
+    draggingPoint = undefined;
+  };
 
-    points = points.sort(({ y: ay, x: ax }, { y: by, x: bx }) => {
-      if (ay === by) {
-        if (ay < 0.5) {
-          return ax > bx ? -1 : 1;
-        } else {
-          return ax > bx ? 1 : -1;
-        }
-      }
+  const handleMouseOver = () => {
+    isHovered = true;
+  };
 
-      return ay > by ? 1 : -1;
-    });
+  const handleMouseOut = () => {
+    isHovered = false;
+  };
 
-    const absPoints = points.map(({ x, y, locked = false }) => {
-      return { x: x * cWidth, y: y * cHeight, locked };
-    });
+  const lineCommand = (point) => `L ${point.x * 100} ${point.y * 200 - 50}`;
 
-    drawLines(absPoints);
-    drawShape(absPoints);
-
-    if (isHovered) {
-      requestAnimationFrame(render);
-      drawControlPoints(absPoints);
-    }
+  function renderPath(points) {
+    console.log(points);
+    // build the d attributes by looping over the points
+    return points.reduce(
+      (acc, point, i, a) =>
+        i === 0
+          ? // if first point
+            `M ${point.x * 100},${point.y * 200 - 50}`
+          : // else
+            `${acc} ${lineCommand(point)}`,
+      '',
+    );
   }
 
-  function drawControlPoints(pts) {
-    pts.forEach((p, i) => {
-      if (i === 0) return;
-      ctx.beginPath();
-
-      const mouseDistance =
-        Math.abs(points[i].x - mousePos.x) + Math.abs(points[i].y - mousePos.y);
-
-      if (mouseDistance < hoverDistance) {
-        ctx.arc(p.x, p.y, 5, 0, 2 * Math.PI);
-        ctx.fillStyle = 'white';
-        ctx.fill();
-      } else {
-        ctx.arc(p.x, p.y, 4, 0, 2 * Math.PI);
-        ctx.fillStyle = '#4b4b4b';
-        ctx.fill();
-
-        ctx.arc(p.x, p.y, 4, 0, 2 * Math.PI);
-        ctx.lineWidth = 2;
-        ctx.stroke();
-      }
-    });
-  }
-
-  function drawLines(pts) {
-    ctx.beginPath();
-    ctx.moveTo(pts[0].x, pts[0].y);
-    pts.forEach((p, i) => {
-      // Skip first point
-      if (i === 0) return;
-      ctx.lineTo(pts[i].x, pts[i].y);
-    });
-
-    ctx.closePath();
-    ctx.stroke();
-  }
-
-  function drawShape(pts) {
-    ctx.beginPath();
-    ctx.moveTo(cWidth - pts[0].x, pts[0].y);
-    pts.forEach((p, i) => {
-      // Skip first point
-      if (i === 0) return;
-      ctx.lineTo(cWidth - pts[i].x, pts[i].y);
-    });
-
-    ctx.closePath();
-    ctx.fillStyle = gradient;
-    ctx.fill();
-  }
-
-  onMount(() => {
-    ctx = canvas.getContext('2d');
-
-    const { devicePixelRatio } = window;
-    if (devicePixelRatio) {
-      cWidth = width * devicePixelRatio;
-      cHeight = height * devicePixelRatio;
-    }
-
-    gradient = ctx.createLinearGradient(0, 0, 0, cHeight);
-    gradient.addColorStop(0, '#65e2a0');
-    gradient.addColorStop(1, '#337150');
-
-    setTimeout(render, 50);
-  });
+  $: path = renderPath(points);
 </script>
 
-<svelte:window
-  on:mouseup={() => {
-    setTimeout(() => {
-      activePoint = undefined;
-    }, 100);
-  }}
-/>
-
 <div class="component-wrapper" class:fullWidth>
-  <div
-    id="main"
-    on:focus={() => {
-      isHovered = true;
-      render();
-    }}
-    on:blur={() => {
-      isHovered = false;
-    }}
-    on:mouseover={() => {
-      isHovered = true;
-      render();
-    }}
-    on:mouseleave={() => {
-      isHovered = false;
-    }}
-    on:mousemove={handleMouseMove}
+  <svg
+    viewBox="0 0 100 100"
+    width="50"
+    height="100"
     on:mousedown={handleMouseDown}
+    on:mousemove={handleMouseMove}
+    on:mouseover={handleMouseOver}
+    on:mouseout={handleMouseOut}
+    on:mouseup={handleMouseUp}
+    on:focus={handleMouseOver}
+    on:blur={handleMouseOut}
   >
-    <canvas bind:this={canvas} width={cWidth} height={cHeight} />
-  </div>
+    <path d={path} fill="none" stroke="#65E2A0" />
+
+    {#each points as p}
+      <circle
+        cx={p.x * 100}
+        cy={p.y * 200 - 50}
+        r="2"
+        class:pinned={p.pinned}
+        on:mousedown={() => {
+          activePoint = p;
+        }}
+      />
+    {/each}
+  </svg>
+  <svg id="right" viewBox="0 0 100 100" width="50" height="100">
+    <defs>
+      <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#65E2A0;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#469C6E;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+    <path d={path} fill="url(#grad1)" stroke="grey" />
+  </svg>
 </div>
 
 <style lang="scss">
   @import './global.scss';
-  #main {
-    width: 200px;
-    height: 200px;
-    overflow: hidden;
+
+  svg {
+    width: 50%;
   }
 
-  #main > canvas {
-    width: 100%;
+  svg > circle:hover {
+    fill: white;
+    cursor: pointer;
+  }
+
+  #right {
+    transform: scaleX(-1);
+    & > path {
+      stroke: none;
+    }
   }
 
   .component-wrapper {
-    width: fit-content;
+    display: flex;
   }
 </style>

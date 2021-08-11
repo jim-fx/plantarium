@@ -9,8 +9,9 @@ const node: PlantNode = {
       internal: true,
       label: false,
       value: [
-        { x: 0, y: 1, pinned: true },
         { x: 1, y: 0, pinned: true },
+        { x: 0.5, y: 0.5, pinned: true },
+        { x: 1, y: 1, pinned: true },
       ],
     },
   },

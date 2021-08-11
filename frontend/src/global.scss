@@ -14,6 +14,10 @@ input {
     Roboto, 'Oxygen-Sans', Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 }
 
+:focus {
+  outline: solid thin #65e2a0 !important;
+}
+
 body {
   margin: 0px;
   overflow: hidden;
@@ -76,16 +80,6 @@ p#version {
   right: 0;
   top: 0;
   white-space: pre-wrap;
-}
-
-.component {
-  outline: solid 1px;
-  height: 100%;
-  @include themes.themify(themes.$themes) {
-    outline-color: themes.themed('outlineColor');
-    color: themes.themed('textColor');
-    background-color: themes.themed('backgroundColor');
-  }
 }
 
 label {
