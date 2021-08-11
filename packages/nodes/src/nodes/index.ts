@@ -9,3 +9,4 @@ export { default as Rotate } from './Rotate';
 export { default as Slider } from './Slider';
 export { default as Stem } from './Stem';
 export { default as Vec3 } from './Vec3';
+export { default as Shape } from './Shape';

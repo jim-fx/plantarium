@@ -1,24 +1,17 @@
 const node: PlantNode = {
-  title: 'Curve',
-  type: 'curve',
-  outputs: ['number'],
+  title: 'Shape',
+  type: 'shape',
+  outputs: ['shape'],
   parameters: {
     value: {
-      type: 'curve',
-      inputType: 'curve',
+      type: 'shape',
+      inputType: 'shape',
       internal: true,
       label: false,
       value: [
         { x: 0, y: 1, pinned: true },
         { x: 1, y: 0, pinned: true },
       ],
-    },
-    min: {
-      type: 'number',
-    },
-    max: {
-      type: 'number',
-      defaultValue: 1,
     },
   },
 };

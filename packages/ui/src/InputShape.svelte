@@ -155,6 +155,7 @@
 
   function drawControlPoints(pts) {
     pts.forEach((p, i) => {
+      if (i === 0) return;
       ctx.beginPath();
 
       const mouseDistance =
@@ -266,6 +267,5 @@
 
   .component-wrapper {
     width: fit-content;
-    padding: 10px;
   }
 </style>

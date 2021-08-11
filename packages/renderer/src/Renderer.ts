@@ -93,6 +93,8 @@ export default class Renderer extends EventEmitter {
       }
     }
 
+    window['target'] = this.controls.target;
+
     this.controls.update();
 
     this.renderer.render({ scene: this.scene, camera: this.camera });
