@@ -1,8 +1,10 @@
 <svelte:options tag="plant-curve" accessors />
 
 <script lang="ts">
-  import { Vec2 } from 'ogl';
   import { createEventDispatcher } from 'svelte';
+  import spline from '@yr/monotone-cubic-spline';
+
+  console.log(spline);
 
   const dispatch = createEventDispatcher();
 
@@ -44,8 +46,6 @@
     if (isHovered) {
       mousePosX = ev.offsetX;
       mousePosY = ev.offsetY;
-
-      console.log(draggingPoint);
 
       if (activePoint) {
         draggingPoint = activePoint;
@@ -92,90 +92,13 @@
     isHovered = false;
   };
 
-  const line = (pointA, pointB) => {
-    const lengthX = pointB.x - pointA.x;
-    const lengthY = pointB.y - pointA.y;
-    return {
-      length: Math.sqrt(Math.pow(lengthX, 2) + Math.pow(lengthY, 2)),
-      angle: Math.atan2(lengthY, lengthX),
-    };
-  };
-
-  function lerp(x, y, a) {
-    return x * a + y * (1 - a);
+  function renderPath(points) {
+    const pts = spline.points(points.map((p) => [p.x * 100, p.y * 100]));
+    console.log(pts);
+    return spline.svgPath(pts);
   }
 
-  function lerpVector(v1, v2, a) {
-    return [lerp(v1.x, v2.x, a), lerp(v1.y, v2.y, a)];
-  }
-
-  const controlPoint = (current, previous, next, reverse = false) => {
-    // When 'current' is the first or last point of the array
-    // 'previous' or 'next' don't exist.
-    // Replace with 'current'
-    const p = previous || current;
-    const n = next || current;
-
-    // The smoothing ratio
-    const smoothing = 0.2;
-    // Properties of the opposed-line
-    const o = line(p, n);
-    // If is end-control-point, add PI to the angle to go backward
-    const angle = o.angle + (reverse ? Math.PI : 0);
-    const length = o.length * smoothing;
-
-    console.log(p.y, current.y, n.y);
-
-    const isExtremPoint =
-      1 - (Math.abs(current.y - p.y) + Math.abs(current.y - n.y) / 2);
-
-    console.log(isExtremPoint);
-
-    // For ExtremPoints
-    const x1 = current.x + (current.x - (reverse ? p.x : n.x)) * -0.5;
-    const y1 = current.y;
-
-    // For other points
-
-    const x2 = current.x + Math.cos(angle) * length;
-    const y2 = current.y + Math.sin(angle) * length;
-
-    return lerpVector({ x: x1, y: y1 }, { x: x2, y: y2 }, isExtremPoint);
-  };
-
-  const bezierCommand = (point, i, a) => {
-    // start control point
-    const [cpsX, cpsY] = controlPoint(a[i - 1], a[i - 2], point);
-    // end control point
-    const [cpeX, cpeY] = controlPoint(point, a[i - 1], a[i + 1], true);
-    controlPoints.push({ x: cpsX, y: cpsY }, { x: cpeX, y: cpeY });
-    return `C ${cpsX * 100},${cpsY * 100} ${cpeX * 100},${cpeY * 100} ${
-      point.x * 100
-    },${point.y * 100}`;
-  };
-
-  const linearPath = (p) => `L ${p.x * 100} ${p.y * 100}`;
-
-  const renderPath = (pts, command) => {
-    controlPoints = [];
-
-    // console.log(pts);
-
-    // build the d attributes by looping over the points
-    const d = pts.reduce(
-      (acc, point, i, a) =>
-        i === 0
-          ? // if first point
-            `M ${point.x * 100},${point.y * 100}`
-          : // else
-            `${acc} ${command(point, i, a)}`,
-      '',
-    );
-    controlPoints = controlPoints;
-    return d;
-  };
-
-  $: path = renderPath(points, bezierCommand);
+  $: path = renderPath(points);
 </script>
 
 <div class="component-wrapper" class:fullWidth>
