@@ -78,7 +78,7 @@ export default class NodeView extends EventEmitter {
       const { width, height } = this.wrapper.getBoundingClientRect();
       this.width = width / this.system.view.s;
       this.height = height / this.system.view.s;
-    }, 20);
+    }, 50);
   }
 
   bindEventListeners() {

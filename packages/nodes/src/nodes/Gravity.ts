@@ -51,7 +51,7 @@ const node: PlantNode = {
         for (let i = 1; i < amount; i++) {
           const y = skelly[i * 4 + 1];
           const a = i / amount;
-          const strength = ctx.handleParameter(parameters.strength, a);
+          const strength = ctx.handleParameter(parameters?.strength, a);
           skelly[i * 4 + 1] = y - y * a * strength;
         }
 
