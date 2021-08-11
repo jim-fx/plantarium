@@ -649,8 +649,6 @@ export function createPanZoom(
 
     if (e.ctrlKey) return;
 
-    if (e.target !== owner && e.target !== domElement) return;
-
     triggerPanStart();
 
     const offset = getOffsetXY(e);

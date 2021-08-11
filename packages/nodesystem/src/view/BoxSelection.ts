@@ -16,6 +16,9 @@ export default class BoxSelectionView extends EventEmitter {
   mDownX = 0;
   mDownY = 0;
 
+  downX = 0;
+  downY = 0;
+
   isShiftKey = false;
 
   resolve!: (nodes: Node[]) => void;
@@ -28,17 +31,20 @@ export default class BoxSelectionView extends EventEmitter {
     this.wrapper.classList.add('box-selection-wrapper');
     this.view.wrapper.append(this.wrapper);
 
-    this.view.on('mousedown', ({ target, x, y, keys }) => {
+    this.view.on('mousedown', ({ target, mx, x, my, y, keys }) => {
       if (keys.space || keys.shiftKey || keys.button === 2 || !keys.ctrlKey)
         return;
 
       if (target && !target?.className?.includes('nodesystem')) return;
 
-      this.mDownX = x;
-      this.mDownY = y;
+      this.mDownX = mx;
+      this.mDownY = my;
 
-      this.wrapper.style.left = x + 'px';
-      this.wrapper.style.top = y + 'px';
+      this.downX = x;
+      this.downY = y;
+
+      this.wrapper.style.left = mx + 'px';
+      this.wrapper.style.top = my + 'px';
       this.wrapper.style.width = '0px';
       this.wrapper.style.height = '0px';
 
@@ -51,20 +57,24 @@ export default class BoxSelectionView extends EventEmitter {
   show() {
     this.wrapper.classList.add('box-selection-visible');
 
-    const { s } = this.view;
-
     const rects: HitBox[] = this.view.system.nodes.map((n) => {
       const { width, height } = n.view;
 
-      const { x, y } = this.view.convertRelativeToAbsolute(n.view.x, n.view.y);
+      const { x, y } = n.view;
+
+      const x1 = x + this.view.width / 2;
+      const y1 = y + this.view.height / 2;
+
+      const x2 = x1 + width;
+      const y2 = y1 + height;
 
       return {
         n,
         state: n.view.state,
-        x1: x,
-        x2: x + (width / 2) * s,
-        y1: y,
-        y2: y + (height / 2) * s,
+        x1,
+        y1,
+        x2,
+        y2,
       };
     });
 
@@ -72,25 +82,33 @@ export default class BoxSelectionView extends EventEmitter {
 
     const unsubMove = this.view.on(
       'mousemove',
-      ({ x, y }) => {
-        const { mDownX, mDownY, isShiftKey } = this;
+      ({ mx, my, x, y }) => {
+        const { mDownX, mDownY, downX, downY, isShiftKey } = this;
 
+        // UnProjected box for updateing html elemeent
         const box: Rect = {
-          x1: Math.min(x, mDownX),
-          x2: Math.max(x, mDownX),
-          y1: Math.min(y, mDownY),
-          y2: Math.max(y, mDownY),
+          x1: Math.min(mx, mDownX),
+          x2: Math.max(mx, mDownX),
+          y1: Math.min(my, mDownY),
+          y2: Math.max(my, mDownY),
         };
 
         this.wrapper.style.left = box.x1 + 'px';
         this.wrapper.style.top = box.y1 + 'px';
 
-        this.wrapper.style.width = Math.abs(mDownX - x) + 'px';
-        this.wrapper.style.height = Math.abs(mDownY - y) + 'px';
+        this.wrapper.style.width = Math.abs(mDownX - mx) + 'px';
+        this.wrapper.style.height = Math.abs(mDownY - my) + 'px';
+
+        const projectedBox: Rect = {
+          x1: Math.min(x, downX),
+          x2: Math.max(x, downX),
+          y1: Math.min(y, downY),
+          y2: Math.max(y, downY),
+        };
 
         nodes = rects
           .filter((r) => {
-            if (rectanglesIntersect(box, r)) {
+            if (rectanglesIntersect(projectedBox, r)) {
               return true;
             } else {
               if (!isShiftKey) {
@@ -117,6 +135,18 @@ export default class BoxSelectionView extends EventEmitter {
       this.hide();
       this.emit('selection', nodes);
     });
+  }
+
+  private projectBox(b: Rect) {
+    const { x: x1, y: y1 } = this.view.projectMouseCoords(b.x1, b.y1);
+    const { x: x2, y: y2 } = this.view.projectMouseCoords(b.x2, b.y2);
+
+    return {
+      x1,
+      y1,
+      x2,
+      y2,
+    };
   }
 
   hide() {

@@ -1,6 +1,7 @@
 import NodeOutputView from '../view/NodeOutputView';
 import type Node from './Node';
 import type NodeConnection from './NodeConnection';
+import type NodeInput from './NodeInput';
 
 export default class NodeOutput {
   node: Node;
@@ -18,6 +19,11 @@ export default class NodeOutput {
 
   bindView() {
     this.view = new NodeOutputView(this);
+  }
+
+  connectTo(input: NodeInput) {
+    const indexOut = this.node.outputs.indexOf(this);
+    return this.node.connectTo(input.node, indexOut, input.key);
   }
 
   removeConnection(conn: NodeConnection) {

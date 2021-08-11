@@ -3,6 +3,7 @@ import type Node from './Node';
 import type NodeInput from './NodeInput';
 import type NodeSystem from './NodeSystem';
 import NodeConnectionView from '../view/NodeConnectionView';
+import { canSocketsConnect } from '../helpers';
 
 interface ConnectionOptions {
   output: NodeOutput;
@@ -29,7 +30,7 @@ export default class NodeConnection {
 
     if (children.includes(output.node)) throw new Error('Circular reference');
 
-    if (!input.type.includes(output.type) && !input.type.includes('*'))
+    if (!canSocketsConnect(output, input))
       throw new Error(
         "Can't connect type " + input.type + ' to ' + output.type,
       );
@@ -51,7 +52,6 @@ export default class NodeConnection {
     if (!this.isNodeJoinable(node)) return;
 
     this.remove();
-    //TODO:(max) better handle getting the index of which input/output it should connect to
 
     this.output.node.connectTo(node, 0, node.getInputs()[0].key);
     const inputs = this.input.node.getInputs();
@@ -88,7 +88,7 @@ export default class NodeConnection {
     return true;
   }
 
-  remove(): void {
+  remove() {
     if (this.view) this.view.remove();
     this.input.removeConnection();
     this.output.removeConnection(this);

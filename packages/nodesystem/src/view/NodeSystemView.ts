@@ -29,20 +29,23 @@ export default class NodeSystemView extends EventEmitter {
 
   x = 0;
   y = 0;
-  dx = 0;
-  dy = 0;
   s = 1;
-  ds = 1;
 
   mx = 0;
   my = 0;
   mdx = 0;
   mdy = 0;
 
-  ev: MouseEvent;
+  /**
+   * Unprojected mouse x coordinate
+   */
+  rmx = 0;
+  /**
+   * Unprojected mouse y coordinate
+   */
+  rmy = 0;
 
-  ogWidth = 0;
-  ogHeight = 0;
+  ev: MouseEvent;
 
   mouseDown = false;
 
@@ -55,6 +58,8 @@ export default class NodeSystemView extends EventEmitter {
   clipboard: NodeProps[] = [];
 
   panzoom: ReturnType<typeof createPanZoom>;
+
+  debug: HTMLElement;
 
   constructor(system: NodeSystem) {
     super();
@@ -89,11 +94,16 @@ export default class NodeSystemView extends EventEmitter {
       this.selectedNodes = nodes;
     });
 
+    this.debug = document.createElement('div');
+    this.debug.style.position = 'absolute';
+    this.debug.style.width = '5px';
+    this.debug.style.height = '5px';
+    this.debug.style.backgroundColor = 'red';
+    this.debug.style.pointerEvents = 'none';
+    this.wrapper.appendChild(this.debug);
+
     this.bindEventListeners();
     this.handleResize();
-
-    this.ogHeight = this.height;
-    this.ogWidth = this.width;
   }
 
   createFloatingConnection(
@@ -202,27 +212,18 @@ export default class NodeSystemView extends EventEmitter {
     const scaledX = offsetX * this.s;
     const scaledY = offsetY * this.s;
 
-    //center Coords
-    const centerX = scaledX + this.width / 2;
-    const centerY = scaledY + this.height / 2;
-
-    return { x: centerX, y: centerY };
+    return { x: scaledX, y: scaledY };
   }
 
-  convertAbsoluteToRelative(x: number, y: number) {
-    //center Coords
-    const centerX = x - this.width / 2;
-    const centerY = y - this.height / 2;
-
-    //Scaled coords
-    const scaledX = centerX / this.s;
-    const scaledY = centerY / this.s;
-
+  projectMouseCoords(x: number, y: number) {
     //Offset coords
-    const offsetX = scaledX - this.x;
-    const offsetY = scaledY - this.y;
+    const offsetX = x - this.x;
+    const offsetY = y - this.y;
+    //Scaled coords
+    const scaledX = offsetX / this.s;
+    const scaledY = offsetY / this.s;
 
-    return { x: offsetX, y: offsetY };
+    return { x: scaledX, y: scaledY };
   }
 
   setTransform({ x = this.x, y = this.y, s = this.s } = {}) {
@@ -253,8 +254,8 @@ export default class NodeSystemView extends EventEmitter {
     );
 
     this.panzoom = createPanZoom(this.transformWrapper, {
-      maxZoom: 5,
       minZoom: 0.2,
+      maxZoom: 5,
       onTransform: ({ x, y, scale: s }) => {
         this.x = x;
         this.y = y;
@@ -262,45 +263,6 @@ export default class NodeSystemView extends EventEmitter {
         this.wrapper.style.backgroundPosition = `${x}px ${y}px`;
         this.emit('transform', { x, y, s });
       },
-    });
-  }
-
-  handleMouseMove(ev: MouseEvent) {
-    this.ev = ev;
-    const { clientX, clientY, shiftKey, ctrlKey } = ev;
-
-    // e = Mouse click event.
-    const x = clientX - this.left; //x position within the element.
-    const y = clientY - this.top; //y position within the element.
-
-    this.mx = x;
-    this.my = y;
-
-    let vx = 0;
-    let vy = 0;
-
-    if (this.mouseDown) {
-      vx = this.mdx - x;
-      vy = this.mdy - y;
-    }
-
-    if (this.selectedNodes.length) {
-      if (this.keyMap.g || this.mouseDown) {
-        if (this.selectedNodes.length && this.selectedNodesDown.length) {
-          this.selectedNodes.forEach((_n, i) =>
-            _n.view.setPosition(
-              this.selectedNodesDown[i][0] - vx,
-              this.selectedNodesDown[i][1] - vy,
-            ),
-          );
-        }
-      }
-    }
-
-    this.emit('mousemove', {
-      x,
-      y,
-      keys: { ...this.keyMap, shiftKey, ctrlKey },
     });
   }
 
@@ -313,21 +275,41 @@ export default class NodeSystemView extends EventEmitter {
     this.emit('resize', { width, height });
   }
 
+  handleMouseMove(ev: MouseEvent) {
+    this.ev = ev;
+    const { clientX, clientY, shiftKey, ctrlKey } = ev;
+
+    this.rmx = clientX - this.left;
+    this.rmy = clientY - this.top;
+
+    const { x, y } = this.projectMouseCoords(this.rmx, this.rmy);
+
+    this.mx = x;
+    this.my = y;
+
+    this.emit('mousemove', {
+      x,
+      y,
+      mx: this.rmx,
+      my: this.rmy,
+      keys: { ...this.keyMap, shiftKey, ctrlKey },
+    });
+  }
+
   handleMouseDown(ev: MouseEvent) {
     const { shiftKey, ctrlKey, clientX, clientY, button, target } = ev;
 
     if (!shiftKey) this.setActive();
 
-    const x = clientX - this.left; //x position within the element.
-    const y = clientY - this.top; //y position within the element.
-
     this.mouseDown = true;
-    this.mdx = x;
-    this.mdy = y;
 
-    this.dx = this.x;
-    this.dy = this.y;
-    this.ds = this.s;
+    this.rmx = clientX - this.left;
+    this.rmy = clientY - this.top;
+
+    const { x, y } = this.projectMouseCoords(this.rmx, this.rmy);
+
+    this.mx = x;
+    this.my = y;
 
     this.selectedNodesDown = this.selectedNodes.map((_n) => [
       _n.view.x,
@@ -337,6 +319,8 @@ export default class NodeSystemView extends EventEmitter {
     this.emit('mousedown', {
       x,
       y,
+      mx: this.rmx,
+      my: this.rmy,
       target,
       keys: {
         ...this.keyMap,
@@ -379,7 +363,10 @@ export default class NodeSystemView extends EventEmitter {
       case 'a':
         if (shiftKey) {
           this.addMenu
-            .show({ x: this.mx, y: this.my })
+            .show({
+              x: this.rmx,
+              y: this.rmy,
+            })
             .then((props) => {
               this.system.createNode(props);
             })
@@ -416,7 +403,13 @@ export default class NodeSystemView extends EventEmitter {
         break;
       // x
       case 'x':
-        if (this.activeNode) this.system.removeNode(this.activeNode);
+        if (this.activeNode) {
+          if (ctrlKey) {
+            this.system.spliceNode(this.activeNode);
+          } else {
+            this.system.removeNode(this.activeNode);
+          }
+        }
         this.selectedNodes.forEach((n) => n.remove());
         break;
       // z
@@ -442,10 +435,7 @@ export default class NodeSystemView extends EventEmitter {
           let { pos: { x: offsetX = 0, y: offsetY = 0 } = {} } =
             sorted[0].attributes;
 
-          const { x: mx, y: my } = this.convertAbsoluteToRelative(
-            this.mx,
-            this.my,
-          );
+          const { x: mx, y: my } = this.projectMouseCoords(this.mx, this.my);
 
           offsetX -= mx;
           offsetY -= my;

@@ -8,6 +8,7 @@ const node: NodeTypeData = {
       internal: true,
       inputType: 'selection',
       label: false,
+      defaultValue: 'add',
       values: ['add', 'multiply', 'subtract'],
     },
     a: {

@@ -91,6 +91,7 @@ export default class RightClickMenu {
 
   x = 0;
   y = 0;
+
   visible = false;
   log: Logger;
 
@@ -216,12 +217,12 @@ export default class RightClickMenu {
   resolve() {
     const type = this.activeContainer?.type;
 
-    if (type) {
-      const { x, y } = this.system.view.convertAbsoluteToRelative(
-        this.x,
-        this.y,
-      );
+    const { x: rx, y: ry } = this.view.projectMouseCoords(this.x, this.y);
 
+    const x = rx - this.view.width / 2;
+    const y = ry - this.view.height / 2;
+
+    if (type) {
       this.res({
         attributes: {
           pos: {
@@ -255,7 +256,7 @@ export default class RightClickMenu {
     this.searchInput.disabled = true;
   }
 
-  show({ x = this.x, y = this.y, socket }: ContextOptions): Promise<NodeProps> {
+  show({ x, y, socket }: ContextOptions): Promise<NodeProps> {
     this.x = x;
     this.y = y;
     this.socket = socket;

@@ -19,9 +19,6 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
   width: number;
   height: number;
 
-  ogWidth: number;
-  ogHeight: number;
-
   mdx: number;
   mdy: number;
 
@@ -49,9 +46,6 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
 
     this.height = this.view.height;
     this.width = this.view.width;
-
-    this.ogHeight = this.view.ogHeight;
-    this.ogWidth = this.view.ogWidth;
 
     this.isInput = socket instanceof NodeInput;
 
@@ -169,8 +163,8 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
       this.mdy = my;
     }
 
-    const x2 = this.dx2 + (mx - this.mdx) / this.view.s;
-    const y2 = this.dy2 + (my - this.mdy) / this.view.s;
+    const x2 = this.dx2 + (mx - this.mdx);
+    const y2 = this.dy2 + (my - this.mdy);
 
     const distance = 20;
 

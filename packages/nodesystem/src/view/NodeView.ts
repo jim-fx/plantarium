@@ -75,8 +75,9 @@ export default class NodeView extends EventEmitter {
     this.bindEventListeners();
 
     setTimeout(() => {
-      this.width =
-        this.wrapper.getBoundingClientRect().width / this.system.view.s;
+      const { width, height } = this.wrapper.getBoundingClientRect();
+      this.width = width / this.system.view.s;
+      this.height = height / this.system.view.s;
     }, 20);
   }
 
@@ -123,7 +124,7 @@ export default class NodeView extends EventEmitter {
 
     this.node.system.view.setActive(this.node, ev);
 
-    const { mx: x, my: y } = this.system.view;
+    const { rmx: x, rmy: y } = this.system.view;
 
     this.mDownX = x;
     this.mDownY = y;
@@ -151,7 +152,7 @@ export default class NodeView extends EventEmitter {
     }
   }
 
-  handleMouseMove({ x: _x, y: _y, keys }: CustomMouseEvent) {
+  handleMouseMove({ mx: _x, my: _y, keys }) {
     if (this.active) {
       this.state = 'dragging';
       const precision = keys.ctrlKey ? 0.02 : 1;

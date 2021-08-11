@@ -171,6 +171,23 @@ export default class NodeSystem extends EventEmitter {
     );
   }
 
+  spliceNode(node: Node) {
+    const leftSockets = node.getInputs().map((i) => i.connection.output);
+    const rightSockets = node.outputs
+      .map((o) => o.connections)
+      .flat()
+      .map((c) => c.input);
+
+    for (let i = 0; i < leftSockets.length; i++) {
+      const leftSocket = leftSockets[i];
+      const rightSocket = rightSockets[i];
+      if (!rightSocket || !leftSocket) continue;
+      leftSocket.connectTo(rightSocket);
+    }
+
+    return this.removeNode(node);
+  }
+
   getSockets(type?: string) {
     const sockets = this.nodes.map((n) => [...n.getSockets()]).flat();
     if (!type) return sockets;
