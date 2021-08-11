@@ -92,7 +92,6 @@
   const lineCommand = (point) => `L ${point.x * 100} ${point.y * 200 - 50}`;
 
   function renderPath(points) {
-    console.log(points);
     // build the d attributes by looping over the points
     return points.reduce(
       (acc, point, i, a) =>
