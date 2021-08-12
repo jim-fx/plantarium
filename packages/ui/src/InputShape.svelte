@@ -1,4 +1,4 @@
-<svelte:options tag="plant-curve" accessors />
+<svelte:options tag="plant-shape" accessors />
 
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
