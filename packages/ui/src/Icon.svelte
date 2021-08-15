@@ -47,10 +47,6 @@
     stroke: var(--color, white);
   }
 
-  .icon-wrapper > :global(path) {
-    stroke: white;
-  }
-
   .active :global(*) {
     color: var(--text-color, white);
   }
@@ -61,7 +57,6 @@
   }
   .icon-wrapper :global(svg > *) {
     transition: stroke 0.1s ease;
-    stroke: white;
     stroke-width: 5px;
   }
 </style>

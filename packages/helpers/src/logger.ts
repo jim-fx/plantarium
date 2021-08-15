@@ -8,6 +8,8 @@ interface Logger {
 let filters: string[] = [];
 let level = 2;
 
+if (typeof window === 'undefined') level = 0;
+
 let longestName = 0;
 
 const scopes = {};

@@ -5,8 +5,8 @@
   width: 100%;
   box-sizing: border-box;
   &.focused {
-    background-color: variables.$border;
-    color: variables.$bg;
+    background-color: variables.$fg;
+    color: variables.$text;
   }
 }
 

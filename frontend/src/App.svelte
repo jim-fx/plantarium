@@ -63,6 +63,7 @@
           icon="folder"
           name="Projects"
           cls="projects-icon"
+          --background-color="transparent"
           --color={$ThemeStore['text-color']}
           bind:active={showPM}
         />
@@ -88,6 +89,7 @@
         <Button
           icon="cog"
           cls="settings-icon"
+          --background-color="transparent"
           --color={$ThemeStore['text-color']}
           bind:active={sShow}
         />
