@@ -74,7 +74,6 @@ export default class Renderer extends EventEmitter {
   }
 
   setClearColor(clearColor: string) {
-    console.log(convertHexToRGB(clearColor));
     this.gl.clearColor(...convertHexToRGB(clearColor), 1);
   }
 

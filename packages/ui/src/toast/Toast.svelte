@@ -9,8 +9,6 @@
   import { MessageType } from '../helpers/IMessage';
   export let toast: Message;
 
-  $: console.log(toast);
-
   let animateProgress = false;
 
   $: icon = toast && getIcon();

@@ -7,12 +7,7 @@ if (!themeNames.includes(activeTheme)) activeTheme = themeNames[0];
 
 export const store = writable(themes[activeTheme]);
 
-store.subscribe((s) => {
-  console.log('Eyyy');
-});
-
 export const setTheme = (style: string) => {
-  console.log('Eyyyy');
   if (themeNames.includes(style)) {
     store.set(themes[style]);
     localStorage.setItem('theme', style);

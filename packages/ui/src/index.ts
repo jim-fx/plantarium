@@ -57,6 +57,7 @@ export function stateToElement({
   const props: Partial<ValueTemplate> = { ...template };
   delete props.type;
   delete props.inputType;
+  delete props.defaultValue;
   delete props.internal;
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
