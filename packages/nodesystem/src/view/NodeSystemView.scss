@@ -55,7 +55,7 @@
   width: 100%;
   overflow: hidden;
 
-  --node-editor-bg: #1a1a1a;
+  --node-editor-bg: var(--text-color);
   --node-editor-grid-size: 1.5rem;
   --node-editor-grid-width: 1px;
 
@@ -68,11 +68,4 @@
   &.nodesystem-state-dragging {
     cursor: grab;
   }
-
-  /* background-size: 1px 100px, 100px 100px, 4px 4px, 4px 4px;
-  background-position: 0px 0px;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px); */
 }

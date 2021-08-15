@@ -39,7 +39,7 @@ const resolveDeep = (object: typeof obj, path: string[]) => {
 
 const keyToPath = (key: string) => (key.includes('.') ? key.split('.') : [key]);
 
-export default class SettingsManager extends EventEmitter {
+export default new (class SettingsManager extends EventEmitter {
   private settings: PlantariumSettings = {} as PlantariumSettings;
 
   public store: Writable<PlantariumSettings> = writable(this.settings);
@@ -97,6 +97,10 @@ export default class SettingsManager extends EventEmitter {
       this.settings[path[0]] = value;
     }
 
+    log(`Set ${path}`, value);
+
+    this.emit(path + '.update', value);
+
     this.save();
   }
 
@@ -107,4 +111,4 @@ export default class SettingsManager extends EventEmitter {
   getSettings() {
     return JSON.parse(JSON.stringify(this.settings)) as PlantariumSettings;
   }
-}
+})();

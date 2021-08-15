@@ -2,8 +2,8 @@
 
 <script lang="ts">
   import Icon from './Icon.svelte';
-
-  export let icon = '';
+  import type { IconType } from './Icon.svelte';
+  export let icon: IconType;
   export let name = '';
   export let cls = '';
   export let active = false;
@@ -61,7 +61,7 @@
   }
 
   p {
-    color: white;
+    color: var(--text-color, white);
     font-weight: bolder;
     padding: 0px 5px;
   }

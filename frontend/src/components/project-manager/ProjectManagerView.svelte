@@ -74,12 +74,13 @@
 </div>
 
 <style lang="scss">
-  @import '../../themes.scss';
+  @use '~@plantarium/theme/src/themes.module.scss';
+
   .wrapper {
     position: absolute;
     margin-top: -8px;
     width: fit-content;
-    background-color: $light-green;
+    background-color: themes.$light-green;
     display: none;
 
     pointer-events: none;
@@ -122,14 +123,14 @@
       height: 100%;
       border-radius: 5px;
       padding: 0px 10px;
-      background-color: $dark-green;
+      background-color: themes.$dark-green;
       color: white;
       font-size: 1em;
       border: none;
     }
 
     > :global(#main > *) {
-      background-color: $dark-green;
+      background-color: themes.$dark-green;
       font-size: 1em;
     }
 

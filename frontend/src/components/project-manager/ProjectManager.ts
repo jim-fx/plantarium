@@ -1,4 +1,4 @@
-import { debounceDecorator, EventEmitter, logger } from '@plantarium/helpers';
+import { EventEmitter, logger } from '@plantarium/helpers';
 import type { NodeSystem } from '@plantarium/nodesystem';
 import storage from 'localforage';
 import createId from 'shortid';
@@ -11,7 +11,7 @@ const PTP_PREFIX = 'pt_project_';
 
 export default class ProjectManager extends EventEmitter {
   private plant: NodeResult;
-  private settingsManager: SettingsManager;
+  private settingsManager: typeof SettingsManager;
   public activeProjectId: string;
   public activeProject: Writable<PlantProject | undefined> = writable();
   private projects: { [key: string]: PlantProject } = {};
@@ -19,7 +19,7 @@ export default class ProjectManager extends EventEmitter {
   public store: Writable<PlantProject[]> = writable([]);
   private nodeSystem: NodeSystem;
 
-  constructor(nodeSystem: NodeSystem, settingsManager: SettingsManager) {
+  constructor(nodeSystem: NodeSystem, settingsManager: typeof SettingsManager) {
     super();
 
     this.nodeSystem = nodeSystem;

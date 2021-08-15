@@ -1,5 +1,7 @@
-$bg: #1d1d1d;
-$border: #707070;
+$bg: var(--background-color);
+$fg: var(--foreground-color);
+$border: var(--outline-color);
+$text: var(--text-color);
 $green_light: #65e2a0;
 $green_dark: #469c6e;
 $green_gradient: linear-gradient(to right, $green_light, $green_dark);

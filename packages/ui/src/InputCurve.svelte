@@ -4,8 +4,6 @@
   import { createEventDispatcher } from 'svelte';
   import spline from '@yr/monotone-cubic-spline';
 
-  console.log(spline);
-
   const dispatch = createEventDispatcher();
 
   export let fullWidth = false;
@@ -94,7 +92,6 @@
 
   function renderPath(points) {
     const pts = spline.points(points.map((p) => [p.x * 100, p.y * 100]));
-    console.log(pts);
     return spline.svgPath(pts);
   }
 

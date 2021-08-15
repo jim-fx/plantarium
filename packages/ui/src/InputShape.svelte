@@ -12,7 +12,7 @@
     { x: 0.5, y: 0.5, pinned: true },
     { x: 1, y: 1, pinned: true },
   ];
-  console.log(value);
+
   $: points = value;
 
   // const tension = 0.4;

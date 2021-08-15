@@ -1,4 +1,6 @@
 export default (input: string): [number, number, number] => {
+  if (input[0] === '#') input = input.replace('#', '');
+
   if (input.length === 3)
     input = input[0] + input[0] + input[1] + input[1] + input[2] + input[2];
 

@@ -41,7 +41,8 @@
 </div>
 
 <style lang="scss">
-  @import '../../themes.scss';
+  @use '~@plantarium/theme/src/themes.module.scss';
+
   pre {
     position: absolute;
     font-size: 0.8em;
@@ -58,7 +59,7 @@
   }
 
   :global(.token.string) {
-    color: $dark-green;
+    color: themes.$dark-green;
   }
   .scene-wrapper {
     position: relative;

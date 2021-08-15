@@ -57,7 +57,7 @@
 </div>
 
 <style lang="scss">
-  @import '../../themes.scss';
+  @use '~@plantarium/theme/src/themes.module.scss';
 
   .project-wrapper {
     position: relative;
@@ -105,7 +105,7 @@
           margin-right: 5px;
 
           &.delete {
-            background-color: $light-red;
+            background-color: themes.$light-red;
           }
         }
       }

@@ -1,11 +1,6 @@
 import { Renderer as oRenderer, Camera, Orbit, Vec3, Transform } from 'ogl';
 
-import {
-  convertHexToRGB,
-  debounceDecorator,
-  EventEmitter,
-  throttle,
-} from '@plantarium/helpers';
+import { convertHexToRGB, EventEmitter, throttle } from '@plantarium/helpers';
 
 interface RendererOptions {
   clearColor: string;
@@ -76,6 +71,11 @@ export default class Renderer extends EventEmitter {
       this.controls.target = vec;
     }
     this.controlTarget = vec;
+  }
+
+  setClearColor(clearColor: string) {
+    console.log(convertHexToRGB(clearColor));
+    this.gl.clearColor(...convertHexToRGB(clearColor), 1);
   }
 
   render(): void {

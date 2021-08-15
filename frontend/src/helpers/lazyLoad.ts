@@ -16,7 +16,9 @@ const components = {
   },
 };
 
-export default async (name: string): Promise<SvelteComponent> => {
+export default async (
+  name: keyof typeof components,
+): Promise<typeof SvelteComponent> => {
   if (name in components) {
     const comp = await components[name].import();
     log('lazy loaded ' + name + ' component');

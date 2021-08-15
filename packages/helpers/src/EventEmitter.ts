@@ -32,6 +32,7 @@ export default class EventEmitter {
       [event]: [...(this.cbs[event] || []), cb],
     });
     this.cbs = cbs;
+    // console.log('New EventEmitter ', this.constructor.name);
     return () => {
       cbs[event].splice(cbs[event].indexOf(cb), 1);
     };

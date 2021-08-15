@@ -20,3 +20,8 @@ declare module '*?worker=external' {
   export default function (): Worker;
   export let url: string;
 }
+
+declare module '*.scss' {
+  const content: Record<string, string>;
+  export default content;
+}

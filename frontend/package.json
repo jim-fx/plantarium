@@ -27,6 +27,7 @@
     "@plantarium/generator": "link:../packages/generator",
     "@plantarium/geometry": "link:../packages/geometry",
     "@plantarium/helpers": "link:../packages/helpers",
+    "@plantarium/theme": "link:../packages/theme",
     "@plantarium/nodes": "link:../packages/nodes",
     "@plantarium/nodesystem": "link:../packages/nodesystem",
     "@plantarium/renderer": "link:../packages/renderer",

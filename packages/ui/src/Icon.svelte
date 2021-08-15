@@ -1,17 +1,21 @@
 <svelte:options tag="plant-icon" />
 
-<script lang="ts">
+<script context="module" lang="ts">
   import * as icons from './icons';
 
-  export let name = 'stem';
-  name = name.toLowerCase();
+  export type IconType = keyof typeof icons;
+</script>
+
+<script lang="ts">
+  export let name: IconType = 'stem';
 
   export let active = false;
+  export let dark = false;
 
   const icon = name in icons ? icons[name] : name + ' icon not found';
 </script>
 
-<div class="icon-wrapper" class:active>
+<div class="icon-wrapper" class:active class:dark>
   {@html icon}
 </div>
 
@@ -25,10 +29,18 @@
     min-height: 20px;
   }
 
-  .active :global(*) {
-    stroke: red;
+  .icon-wrapper > :global(*) {
+    stroke: var(--color, white);
   }
 
+  .active :global(*) {
+    color: var(--text-color, white);
+  }
+
+  .dark :global(*) {
+    stroke: #303030;
+    color: var(--text-color, white);
+  }
   .icon-wrapper :global(svg > *) {
     transition: stroke 0.1s ease;
   }

@@ -3,19 +3,25 @@
   import SettingsSection from './SettingsSection.svelte';
   import SettingsTemplate from './SettingsTemplate';
 
-  export let sm: SettingsManager;
+  export let sm: typeof SettingsManager;
   export let visible = false;
 
   const store = sm.store;
 </script>
 
+<div class="wrapper" class:visible>
+  {#each Object.entries($store) as [key, value]}
+    <SettingsSection {sm} {key} {value} template={SettingsTemplate[key]} />
+  {/each}
+</div>
+
 <style lang="scss">
-  @import '../../themes.scss';
+  @use '~@plantarium/theme/src/themes.module.scss';
   .wrapper {
     position: absolute;
     right: 0px;
     width: fit-content;
-    background-color: $light-green;
+    background-color: themes.$light-green;
     opacity: 0;
     pointer-events: none;
     resize: both;
@@ -40,9 +46,3 @@
     pointer-events: all;
   }
 </style>
-
-<div class="wrapper" class:visible>
-  {#each Object.entries($store) as [key, value]}
-    <SettingsSection {sm} {key} {value} template={SettingsTemplate[key]} />
-  {/each}
-</div>

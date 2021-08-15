@@ -7,6 +7,10 @@ const template: SettingsTemplate = {
     type: 'boolean',
     defaultValue: false,
   },
+  theme: {
+    type: 'select',
+    values: ['dark', 'light'],
+  },
   debug: {
     options: {
       pd: {

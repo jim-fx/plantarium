@@ -30,6 +30,12 @@
           </td>
         </tr> -->
           <tr>
+            <td>checkmark</td>
+            <td>
+              <plant-icon name="checkmark"></plant-icon>
+            </td>
+          </tr>
+          <tr>
             <td>branch</td>
             <td>
               <plant-icon name="branch"></plant-icon>
@@ -119,7 +125,13 @@
       </section>
     </main>
 
-    <script type="module" src="./src/index.ts"></script>
+    <plant-toast-wrapper />
+
+    <script type="module">
+      import { createToast } from './src';
+
+      createToast('Eyyyyyy');
+    </script>
     <script>
       window.onload = function () {
         document.querySelector('plant-select').setItems(['test', 'one', 'two']);

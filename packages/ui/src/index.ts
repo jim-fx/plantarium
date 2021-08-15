@@ -1,5 +1,9 @@
-import Alert from './alert/Alert.svelte';
+import AlertWrapper from './alert/AlertWrapper.svelte';
 import { createAlert } from './alert/AlertStore';
+
+import ToastWrapper from './toast/ToastWrapper.svelte';
+import { createToast } from './toast/ToastStore';
+
 import Button from './Button.svelte';
 import Icon from './Icon.svelte';
 import InputCheckbox from './InputCheckbox.svelte';
@@ -23,8 +27,10 @@ export {
   Button,
   Icon,
   Section,
-  Alert,
+  AlertWrapper,
   createAlert,
+  ToastWrapper,
+  createToast,
 };
 
 // *****************************************
