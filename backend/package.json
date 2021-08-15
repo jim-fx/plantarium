@@ -9,7 +9,7 @@
   "dependencies": {
     "@types/polka": "^0.5.3",
     "polka": "^0.5.2",
-    "sirv": "^1.0.12"
+    "sirv": "^1.0.14"
   },
   "devDependencies": {
     "nodemon": "^2.0.12",

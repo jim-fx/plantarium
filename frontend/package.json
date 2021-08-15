@@ -11,7 +11,7 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.15",
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.17",
     "rollup": "^2.56.2",
     "rollup-plugin-glslify": "^1.2.0",
     "rollup-plugin-svg-import": "^1.5.1",
@@ -27,10 +27,10 @@
     "@plantarium/generator": "link:../packages/generator",
     "@plantarium/geometry": "link:../packages/geometry",
     "@plantarium/helpers": "link:../packages/helpers",
-    "@plantarium/theme": "link:../packages/theme",
     "@plantarium/nodes": "link:../packages/nodes",
     "@plantarium/nodesystem": "link:../packages/nodesystem",
     "@plantarium/renderer": "link:../packages/renderer",
+    "@plantarium/theme": "link:../packages/theme",
     "@plantarium/ui": "link:../packages/ui",
     "localforage": "^1.9.0",
     "ogl": "^0.0.73",
