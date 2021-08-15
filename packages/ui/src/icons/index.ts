@@ -7,3 +7,5 @@ export { default as stem } from './stem.svg?raw';
 export { default as triangle } from './triangle.svg?raw';
 export { default as checkmark } from './checkmark.svg?raw';
 export { default as folder } from './folder.svg?raw';
+export { default as warning } from './warning.svg?raw';
+export { default as exclamation } from './exclamation.svg?raw';

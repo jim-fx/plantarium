@@ -19,7 +19,7 @@
         themeWrapper.innerHTML = `:root{${styles}}`;
         isAnimating = false;
       }, 200);
-    }, 200);
+    }, 1);
   }
 
   onMount(() => {

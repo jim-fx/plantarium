@@ -3,14 +3,22 @@
 <script lang="ts">
   import Icon from './Icon.svelte';
   import type { IconType } from './Icon.svelte';
-  export let icon: IconType;
+  import { createEventDispatcher } from 'svelte';
+  export let icon: IconType | undefined = undefined;
   export let name = '';
   export let cls = '';
   export let active = false;
+
+  const dispatch = createEventDispatcher();
+
+  const handleClick = () => {
+    active = !active;
+    dispatch('click');
+  };
 </script>
 
 <button
-  on:click={() => (active = !active)}
+  on:click={handleClick}
   class={cls}
   class:active
   class:only-icon={!name}
@@ -41,6 +49,7 @@
     outline: none;
     transition: none;
     cursor: pointer;
+    background-color: var(--background-color, #303030);
   }
 
   button.only-icon {
@@ -64,6 +73,7 @@
     color: var(--text-color, white);
     font-weight: bolder;
     padding: 0px 5px;
+    margin: 0;
   }
 
   .content {

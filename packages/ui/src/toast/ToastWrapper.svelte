@@ -3,6 +3,7 @@
 <script lang="ts">
   import { store } from './ToastStore';
   import { slide } from 'svelte/transition';
+  import { backInOut } from 'svelte/easing';
   import Toast from './Toast.svelte';
   import { onMount } from 'svelte';
 
@@ -15,8 +16,8 @@
 </script>
 
 <div id="toast-wrapper" bind:this={el}>
-  {#each $store as toast}
-    <div transition:slide>
+  {#each $store as toast (toast.id)}
+    <div transition:slide={{ easing: backInOut }}>
       {#if isCustomElement}
         <plant-toast {toast} />
       {:else}

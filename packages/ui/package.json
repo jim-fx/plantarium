@@ -28,6 +28,7 @@
     "rollup": "^2.56.2",
     "rollup-plugin-svg-import": "^1.5.1",
     "sass": "^1.37.5",
+    "shortid": "^2.2.16",
     "svelte": "^3.42.1",
     "svelte-preprocess": "^4.7.4",
     "svelte-preprocess-esbuild": "^2.0.0",
@@ -39,8 +40,7 @@
   },
   "dependencies": {
     "@plantarium/helpers": "link:../helpers",
-    "CanvasSpliner": "github:jonathanlurie/CanvasSpliner",
-    "shortid": "^2.2.16"
+    "CanvasSpliner": "github:jonathanlurie/CanvasSpliner"
   },
   "jest": {
     "testRegex": "./tests/.*.ts$"

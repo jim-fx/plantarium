@@ -7,19 +7,20 @@
 </script>
 
 <script lang="ts">
-  export let name: IconType = 'stem';
+  export let name: IconType;
 
   export let active = false;
   export let dark = false;
+  export let circle = false;
 
-  const icon = name in icons ? icons[name] : name + ' icon not found';
+  $: icon = name in icons ? icons[name] : name + ' icon not found';
 </script>
 
-<div class="icon-wrapper" class:active class:dark>
+<div class="icon-wrapper" class:active class:dark class:circle>
   {@html icon}
 </div>
 
-<style>
+<style lang="scss">
   .icon-wrapper {
     height: 100%;
     width: fit-content;
@@ -27,10 +28,27 @@
 
     min-width: 20px;
     min-height: 20px;
+
+    stroke: var(--color);
+
+    &.circle {
+      border-radius: 50%;
+      border: solid medium white;
+    }
+  }
+
+  .circle::after {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
   }
 
   .icon-wrapper > :global(*) {
     stroke: var(--color, white);
+  }
+
+  .icon-wrapper > :global(path) {
+    stroke: white;
   }
 
   .active :global(*) {
@@ -43,5 +61,7 @@
   }
   .icon-wrapper :global(svg > *) {
     transition: stroke 0.1s ease;
+    stroke: white;
+    stroke-width: 5px;
   }
 </style>

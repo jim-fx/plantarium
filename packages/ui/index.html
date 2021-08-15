@@ -114,6 +114,14 @@
         <h3>Slider</h3>
         <plant-slider></plant-slider>
       </section>
+      <section>
+        <h3>Toasts / Alerts</h3>
+        <plant-button name="Info Toast" id="toast-info"></plant-button>
+        <plant-button name="Success Toast" id="toast-success"></plant-button>
+        <plant-button name="Select Toast" id="toast-select"></plant-button>
+        <plant-button name="Warning Toast" id="toast-warning"></plant-button>
+        <plant-button name="Error Toast" id="toast-error"></plant-button>
+      </section>
 
       <section>
         <h3>Section</h3>
@@ -130,7 +138,37 @@
     <script type="module">
       import { createToast } from './src';
 
-      createToast('Eyyyyyy');
+      document.getElementById('toast-info').addEventListener('click', () =>
+        createToast(
+          'Easdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aasdasdayyy asdasdasdasd',
+          {
+            timeout: 3000,
+          },
+        ),
+      );
+      document.getElementById('toast-success').addEventListener('click', () =>
+        createToast(
+          'Easdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aasdasdayyy asdasdasdasd',
+          {
+            type: 'success',
+          },
+        ),
+      );
+      document.getElementById('toast-select').addEventListener('click', () =>
+        createToast('Select on of the following values', {
+          values: ['A', 'B', 'C'],
+        }).then((v) => createToast(`You selected ${v}`)),
+      );
+      document.getElementById('toast-warning').addEventListener('click', () =>
+        createToast('This is something the user should be warned about', {
+          type: 'warning',
+        }),
+      );
+      document.getElementById('toast-error').addEventListener('click', () =>
+        createToast(new Error('Something went really wrong'), {
+          values: ['Help', 'Me', 'Recover', 'Report Error'],
+        }),
+      );
     </script>
     <script>
       window.onload = function () {

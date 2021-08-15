@@ -6,10 +6,11 @@ export enum MessageType {
 }
 
 export interface Message {
+  id: string;
   type: MessageType;
   content: string;
   title: string;
-  values?: unknown[];
+  values?: string[];
   timeout?: number;
   resolve?: (answer: boolean | string | unknown) => void;
   reject?: () => void;
@@ -18,7 +19,7 @@ export interface Message {
 export interface MessageOptions {
   content: string;
   title: string;
-  options: unknown[];
+  values: string[];
   type: string;
   timeout: number;
   callback: (answer: boolean | string | unknown) => void;

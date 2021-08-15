@@ -257,7 +257,6 @@ importers:
     dependencies:
       '@plantarium/helpers': link:../helpers
       CanvasSpliner: github.com/jonathanlurie/CanvasSpliner/549d3ca8778e2f45edcb4442f246d7f619ab445a
-      shortid: 2.2.16
     devDependencies:
       '@sveltejs/vite-plugin-svelte': 1.0.0-next.17_svelte@3.42.1+vite@2.4.4
       '@testing-library/svelte': 3.0.3_svelte@3.42.1
@@ -272,6 +271,7 @@ importers:
       rollup: 2.56.2
       rollup-plugin-svg-import: 1.5.1_rollup@2.56.2
       sass: 1.37.5
+      shortid: 2.2.16
       svelte: 3.42.1
       svelte-preprocess: 4.7.4_sass@1.37.5+svelte@3.42.1
       svelte-preprocess-esbuild: 2.0.0_svelte@3.42.1
@@ -6762,7 +6762,6 @@ packages:
 
   /nanoid/2.1.11:
     resolution: {integrity: sha512-s/snB+WGm6uwi0WjsZdaVcuf3KJXlfGl2LcxgwkEwJF0D/BWzVWAZW/XY4bFaiR7s0Jk3FPvlnepg1H1b1UwlA==}
-    dev: false
 
   /nanoid/3.1.25:
     resolution: {integrity: sha512-rdwtIXaXCLFAQbnfqDRnI6jaRHp9fTcYBjtFKE8eezcZ7LuLjhUaQGNeMXf1HmRoCH32CLz6XwX0TtxEOS/A3Q==}
@@ -7988,7 +7987,6 @@ packages:
     resolution: {integrity: sha512-Ugt+GIZqvGXCIItnsL+lvFJOiN7RYqlGy7QE41O3YC1xbNSeDGIRO7xg2JJXIAj1cAGnOeC1r7/T9pgrtQbv4g==}
     dependencies:
       nanoid: 2.1.11
-    dev: false
 
   /side-channel/1.0.4:
     resolution: {integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==}

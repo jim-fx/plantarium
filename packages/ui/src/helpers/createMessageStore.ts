@@ -1,65 +1,79 @@
 import { Writable, writable } from 'svelte/store';
 import { Message, MessageOptions, MessageType } from './IMessage';
+import createId from 'shortid';
 
 const createMessageFactory =
   (store: Writable<Message[]>) =>
-  (content: string, options?: Partial<MessageOptions>) => {
+  (content: string | Error, options?: Partial<MessageOptions>) => {
     if (!content && !options) return;
 
-    let res, rej;
-    const p = new Promise((_res, _rej) => {
-      res = _res;
-      rej = _rej;
-    });
+    const hasValues = Array.isArray(options?.values);
 
     const message: Message = {
+      id: createId(),
       type: MessageType.INFO,
-      content,
+      content: typeof content === 'string' ? content : '',
       title: options?.type,
-      values: options?.options,
+      values: options?.values,
       timeout: options?.timeout,
-      reject: rej,
-      resolve: res,
     };
 
-    if (options) {
-      if ('type' in options) {
-        const t = options.type.toLowerCase();
-        Object.values(MessageType).forEach((v) => {
-          if (t === v) message.type = v;
-        });
+    const p = new Promise((_res, _rej) => {
+      message.resolve = _res;
+      message.reject = _rej;
+    });
+    p.finally(() =>
+      store.update((msgs) => msgs.filter((m) => m.id !== message.id)),
+    );
+
+    // Find out type
+
+    if (options && 'type' in options) {
+      const t = options.type.toLowerCase();
+      Object.values(MessageType).forEach((v) => {
+        if (t === v) message.type = v;
+      });
+    }
+
+    if (content instanceof Error) {
+      message.type = MessageType.ERROR;
+      message.content = content.message;
+    }
+
+    if (typeof message.timeout === 'undefined') {
+      let timeout;
+
+      if (message.type === MessageType.SUCCESS) {
+        timeout = 3000;
       }
 
-      if (!('timeout' in options) || typeof options.timeout === 'undefined') {
-        if (
-          message.type === MessageType.INFO ||
-          message.type === MessageType.WARNING
-        ) {
-          message.timeout = 2000;
-          setTimeout(message.resolve, 2000);
-        }
+      if (message.type === MessageType.INFO) {
+        timeout = 2000;
       }
 
-      if (!options.title) {
-        switch (message.type) {
-          case MessageType.ERROR:
-            message.title = message.title || 'Error';
-            break;
-          case MessageType.WARNING:
-            message.title = message.title || 'Warning';
-            break;
-          case MessageType.INFO:
-            message.title = message.title || 'Info';
-            break;
-        }
+      if (message.type === MessageType.WARNING) {
+        timeout = 7000;
       }
+
+      console.log(timeout);
+
+      if (timeout && !hasValues) {
+        message.timeout = timeout;
+      }
+    }
+
+    if (!message.title) {
+      message.title =
+        message.type.toUpperCase().slice(0, 1) + message.type.slice(1);
     }
 
     store.update((messages) => [...messages, message]);
 
-    console.log(message);
+    if (message.timeout) {
+      setTimeout(message.resolve, message.timeout);
+    }
 
-    p.finally(() => store.update((msgs) => msgs.filter((m) => m !== message)));
+    console.log(message, hasValues);
 
     return p;
   };
