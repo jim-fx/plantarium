@@ -35,11 +35,12 @@
     "ts-eager": "^2.0.2",
     "tslib": "^2.3.1",
     "uvu": "^0.5.1",
-    "vite": "^2.4.4",
+    "vite": "^2.5.0",
     "vite-tsconfig-paths": "^3.3.13"
   },
   "dependencies": {
     "@plantarium/helpers": "link:../helpers",
+    "@plantarium/theme": "link:../theme",
     "CanvasSpliner": "github:jonathanlurie/CanvasSpliner"
   },
   "jest": {
