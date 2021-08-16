@@ -4,16 +4,19 @@ const node: PlantNode = {
   outputs: ['vec3'],
   parameters: {
     x: {
+      label: false,
       type: 'number',
       value: 0,
       defaultValue: 0,
     },
     y: {
+      label: false,
       type: 'number',
       value: 0,
       defaultValue: 0,
     },
     z: {
+      label: false,
       type: 'number',
       value: 0,
       defaultValue: 0,

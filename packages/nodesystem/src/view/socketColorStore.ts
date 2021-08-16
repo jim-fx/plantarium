@@ -1,27 +1,7 @@
 import { EventEmitter } from '@plantarium/helpers';
 
 const COLORS = [
-  { color: '#00ffff', name: 'aqua' },
-  { color: '#f0ffff', name: 'azure' },
-  { color: '#f5f5dc', name: 'beige' },
-  { color: '#000000', name: 'black' },
-  { color: '#0000ff', name: 'blue' },
   { color: '#a52a2a', name: 'brown' },
-  { color: '#00ffff', name: 'cyan' },
-  { color: '#00008b', name: 'darkblue' },
-  { color: '#008b8b', name: 'darkcyan' },
-  { color: '#a9a9a9', name: 'darkgrey' },
-  { color: '#006400', name: 'darkgreen' },
-  { color: '#bdb76b', name: 'darkkhaki' },
-  { color: '#8b008b', name: 'darkmagenta' },
-  { color: '#556b2f', name: 'darkolivegreen' },
-  { color: '#ff8c00', name: 'darkorange' },
-  { color: '#9932cc', name: 'darkorchid' },
-  { color: '#8b0000', name: 'darkred' },
-  { color: '#e9967a', name: 'darksalmon' },
-  { color: '#9400d3', name: 'darkviolet' },
-  { color: '#ff00ff', name: 'fuchsia' },
-  { color: '#ffd700', name: 'gold' },
   { color: '#008000', name: 'green' },
   { color: '#4b0082', name: 'indigo' },
   { color: '#f0e68c', name: 'khaki' },
@@ -46,7 +26,12 @@ const COLORS = [
 ];
 
 export default class ColorStore extends EventEmitter {
-  colors: { [type: string]: string } = {};
+  colors: { [type: string]: string } = {
+    boolean: '#f00',
+    number: '#fff',
+    plant: '#65e2a0',
+    vec3: '#6363C7',
+  };
   index = 0;
   constructor() {
     super();

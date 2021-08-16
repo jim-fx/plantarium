@@ -19,17 +19,9 @@ const node: PlantNode = {
     },
   },
 
-  computeNode(parameters) {
-    return {
-      type: 'join',
-      parameters,
-    };
-  },
+  computeSkeleton(parameters, ctx) {
+    log('compute skeleton', parameters, ctx);
 
-  computeSkeleton(node, ctx) {
-    log('compute skeleton', node, ctx);
-
-    const { parameters } = node;
     const { inputA, inputB } = parameters;
 
     if (!inputA || !inputB) {
@@ -45,8 +37,8 @@ const node: PlantNode = {
       skeletons: [...skeletonsA, ...skeletonsB],
     };
   },
-  computeGeometry(part) {
-    const { inputA, inputB } = part.parameters;
+  computeGeometry(parameters) {
+    const { inputA, inputB } = parameters;
 
     if (!inputA || !inputB) {
       return inputA ? inputA.result : inputB.result;

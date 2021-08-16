@@ -1,10 +1,9 @@
 import NodeInputView from '../view/NodeInputView';
-import { EventEmitter } from '@plantarium/helpers';
 import type NodeConnection from './NodeConnection';
 import type Node from './Node';
 import type NodeState from './NodeState';
 
-export default class NodeInput extends EventEmitter {
+export default class NodeInput {
   node: Node;
   view: NodeInputView;
   connection!: NodeConnection;
@@ -15,7 +14,6 @@ export default class NodeInput extends EventEmitter {
     type: string[] | string,
     public key: string,
   ) {
-    super();
     this.node = state.node;
     this.type = Array.isArray(type) ? type : [type];
   }
@@ -29,7 +27,7 @@ export default class NodeInput extends EventEmitter {
     delete this.connection;
     conn && conn.remove();
     this.node.setStateValue(this.key, undefined);
-    this.emit('disconnected');
+    this.state.setIsExternal(false);
   }
 
   setConnection(conn: NodeConnection) {
@@ -38,7 +36,7 @@ export default class NodeInput extends EventEmitter {
     }
     this.connection = conn;
     if (this.view) this.view.connection = conn.view;
-    this.emit('connected');
+    this.state.setIsExternal(true);
   }
 
   remove() {

@@ -37,17 +37,8 @@ const node: PlantNode = {
       value: 0,
     },
   },
-  computeNode(parameters) {
-    return {
-      type: 'rotate',
-      parameters,
-    };
-  },
-  computeSkeleton(node, ctx) {
-    const { parameters } = node;
+  computeSkeleton(parameters, ctx) {
     const { input, type, spread } = parameters;
-
-    //TODO: Somehow the spread option gets lost after reload
 
     const {
       result: { skeletons },
@@ -98,6 +89,9 @@ const node: PlantNode = {
     return {
       skeletons,
     };
+  },
+  computeGeometry(parameters) {
+    return parameters.input.result;
   },
 };
 

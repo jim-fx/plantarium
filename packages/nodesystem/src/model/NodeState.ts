@@ -23,8 +23,6 @@ export default class NodeState extends EventEmitter {
 
     if (!this.template.internal) {
       this.input = new NodeInput(this, template.type, key);
-      this.input.on('connected', () => this.setIsExternal(true));
-      this.input.on('disconnected', () => this.setIsExternal(false));
     }
   }
 

@@ -33,6 +33,14 @@ const node: PlantNode = {
       step: 0.01,
       value: 0.8,
     },
+    offsetSingle: {
+      type: 'number',
+      inputType: 'slider',
+      min: 0,
+      max: 1,
+      step: 0.01,
+      value: 0.5,
+    },
     lowestBranch: {
       type: 'number',
       inputType: 'slider',
@@ -49,21 +57,10 @@ const node: PlantNode = {
     },
   },
 
-  computeNode(parameters) {
-    return {
-      type: 'branch',
-      parameters,
-    };
-  },
+  computeSkeleton(parameters, ctx) {
+    const { skeletons: inputSkeletons } = parameters.input.result;
 
-  computeSkeleton(part, ctx) {
-    const { parameters } = part;
-
-    const { input } = parameters;
-
-    const { skeletons: inputSkeletons } = input.result;
-
-    const branchRes = ctx.getSetting('stemResX');
+    const branchRes = ctx.getSetting('stemResY');
 
     const skeletons = inputSkeletons
       .map((skelly) => {
@@ -77,9 +74,12 @@ const node: PlantNode = {
           const _a = i / amount;
           const length = ctx.handleParameter(parameters.length, _a) * (1 - _a);
           const thiccness = ctx.handleParameter(parameters.thiccness, _a);
+          const offsetSingle = ctx.handleParameter(parameters.offsetSingle, _a);
 
-          const a = lowestBranch + (1 - lowestBranch) * _a;
           const isLeft = i % 2 === 0;
+          let a = lowestBranch + (1 - lowestBranch) * _a;
+
+          a -= (1 / amount) * offsetSingle * (isLeft ? -1 : 1);
 
           //Vector along stem
           const [_vx, _vy, _vz] = interpolateSkeletonVec(skelly, a);
@@ -87,7 +87,11 @@ const node: PlantNode = {
           const nv = normalize2D([_vx, _vz]);
 
           //Rotate Vector along stem by 90deg
-          const [vx, vz] = rotate2D(nv[0], nv[1], isLeft ? 90 : -90);
+          const [vx, vz] = rotate2D(
+            nv[0],
+            nv[1],
+            isLeft ? -Math.PI / 2 : Math.PI / 2,
+          );
 
           // Point along skeleton
           const [px, py, pz, pt] = interpolateSkeleton(skelly, a);
@@ -114,16 +118,15 @@ const node: PlantNode = {
     };
   },
 
-  computeGeometry(part) {
-    const stemResX = 16;
-    const {
-      parameters: { input },
-      result: { skeletons },
-    } = part;
+  computeGeometry(parameters, result, ctx) {
+    const stemResX = ctx.getSetting('stemResX');
+
+    const { geometry } = parameters.input.result;
+    const { skeletons } = result;
 
     return {
       geometry: join(
-        input.result.geometry,
+        geometry,
         ...skeletons.map((skeleton) => tube(skeleton, stemResX)),
       ),
     };

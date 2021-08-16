@@ -1,58 +1,31 @@
-import { interpolateArray, noise } from '@plantarium/geometry';
-import { curve } from '@plantarium/helpers';
+import { noise } from '@plantarium/geometry';
+import { walkValueNode } from './walkNode';
+import isNode from './helpers/isNode';
+import uniqID from './helpers/uniqID';
 
 let lastSettings = '';
 let lastCtx;
 let currentNoise = 0;
-
-const uniqID = (() => {
-  let id = Math.random();
-
-  return () => {
-    id = id > 0 ? id - Math.random() : id + Math.random();
-    return id.toString().split('.')[1];
-  };
-})();
 
 const createContext = (s: PlantariumSettings): GeneratorContext => {
   let seed = 0;
   noise.seed = 0;
   let buildId = uniqID();
   return {
-    handleParameter(param: ParameterResult, alpha = 1) {
+    handleParameter(param: ParameterResult | GeneratorContextNode, alpha = 1) {
       if (typeof param === 'number') return param;
 
-      let value = param.value || 0;
-      let variation = param.variation || 0;
-
-      const isCurve = Array.isArray(value);
-
-      if (Array.isArray(value)) {
-        let values = [];
-
-        if (param['cache'] && param['cache'].buildId === buildId) {
-          values = param['cache'].values;
-        } else {
-          values = curve.toArray(value).map((v) => v.y);
-          param['cache'] = { values, buildId };
-        }
-
-        value = interpolateArray(values, alpha);
+      // Handle if parameter is node
+      if (isNode(param)) {
+        return walkValueNode(param, this, alpha);
       }
 
-      if (typeof value === 'object' && isCurve)
-        value = this.handleParameter(param, alpha);
-      if (typeof variation === 'object')
-        variation = this.handleParameter(variation, alpha);
+      // If we are here its probably a vector
 
-      if (variation) {
-        (value as number) +=
-          noise.n1d(currentNoise++ * 200) *
-          param.variation *
-          Math.max(value as number, 1);
-      }
-
-      return value as number;
+      return param;
+    },
+    n1d(scale) {
+      return noise.n1d(currentNoise++ * scale);
     },
     getSetting(key: string) {
       return s[key];

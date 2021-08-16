@@ -1,6 +1,18 @@
 import throttle from './throttle';
 
+const debug = { amountEmitters: 0, amountCallbacks: 0, emitters: [] };
+
+if ('window' in self) {
+  window['debug'] = debug;
+}
+
 export default class EventEmitter {
+  index = 0;
+  constructor() {
+    this.index = debug.amountEmitters;
+    debug.amountEmitters++;
+  }
+
   private cbs: { [key: string]: ((data?: unknown) => unknown)[] } = {};
   private cbsOnce: { [key: string]: ((data?: unknown) => unknown)[] } = {};
 
@@ -32,9 +44,25 @@ export default class EventEmitter {
       [event]: [...(this.cbs[event] || []), cb],
     });
     this.cbs = cbs;
+
+    debug.emitters[this.index] = {
+      name: this.constructor.name,
+      cbs: Object.fromEntries(
+        Object.keys(this.cbs).map((key) => [key, this.cbs[key].length]),
+      ),
+    };
+    debug.amountCallbacks++;
+
     // console.log('New EventEmitter ', this.constructor.name);
     return () => {
-      cbs[event].splice(cbs[event].indexOf(cb), 1);
+      debug.amountCallbacks--;
+      cbs[event]?.splice(cbs[event].indexOf(cb), 1);
+      debug.emitters[this.index] = {
+        name: this.constructor.name,
+        cbs: Object.fromEntries(
+          Object.keys(this.cbs).map((key) => [key, this.cbs[key].length]),
+        ),
+      };
     };
   }
 
@@ -49,5 +77,18 @@ export default class EventEmitter {
     return () => {
       this.cbsOnce[event].splice(this.cbsOnce[event].indexOf(cb), 1);
     };
+  }
+
+  public destroyEventEmitter() {
+    console.log('DestroyEventListener');
+    debug.amountEmitters--;
+    Object.keys(this.cbs).forEach((key) => {
+      debug.amountCallbacks -= this.cbs[key].length;
+      delete this.cbs[key];
+    });
+    Object.keys(this.cbsOnce).forEach((key) => delete this.cbsOnce[key]);
+    this.cbs = {};
+    this.cbsOnce = {};
+    delete debug.emitters[this.index];
   }
 }

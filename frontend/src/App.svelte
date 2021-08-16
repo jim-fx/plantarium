@@ -13,7 +13,6 @@
   import { ProjectManager } from './components/project-manager';
   import Scene from './components/scene/Scene.svelte';
   import { SettingsManager } from './components/settings-manager';
-  import { lazyLoad } from './helpers';
   import { setTheme, ThemeStore, ThemeProvider } from '@plantarium/theme';
 
   let nodeSystemWrapper: HTMLDivElement;
@@ -51,7 +50,6 @@
 </script>
 
 <ThemeProvider />
-
 <AlertWrapper />
 <ToastWrapper />
 
@@ -68,7 +66,7 @@
           bind:active={showPM}
         />
         {#if projectManager && pmLoad}
-          {#await lazyLoad('pmv') then ProjectManagerView}
+          {#await import('./components/project-manager/ProjectManagerView.svelte') then { default: ProjectManagerView }}
             <svelte:component
               this={ProjectManagerView}
               pm={projectManager}
@@ -95,7 +93,7 @@
         />
 
         {#if SettingsManager && sLoad}
-          {#await lazyLoad('smv') then SettingsManagerView}
+          {#await import('./components/settings-manager/SettingsManagerView.svelte') then { default: SettingsManagerView }}
             <svelte:component
               this={SettingsManagerView}
               sm={SettingsManager}

@@ -4,7 +4,7 @@
   import type { SettingsManager } from '../settings-manager';
 
   export let pm: ProjectManager;
-  export let sm: SettingsManager;
+  export let sm: typeof SettingsManager;
 
   let canvas: HTMLCanvasElement;
 
@@ -18,16 +18,11 @@
     unsub && unsub();
     unsub = pm.on('save', (plant) => (pd = plant));
   }
-  let settings: SettingsManager['store'];
+  let settings: typeof SettingsManager.store;
   $: if (sm) {
     settings = sm.store;
   }
 </script>
-
-<!-- 
-<svelte:head>
-  {@html github}
-</svelte:head> -->
 
 <div class="scene-wrapper">
   {#if $settings?.debug?.pd && pd}
@@ -42,6 +37,17 @@
 
 <style lang="scss">
   @use '~@plantarium/theme/src/themes.module.scss';
+
+  canvas {
+    width: 100% !important;
+    height: 100% !important;
+    filter: blur(0px);
+    transition: filter 0.3s ease;
+
+    &:global(.resizing) {
+      filter: blur(5px);
+    }
+  }
 
   pre {
     position: absolute;

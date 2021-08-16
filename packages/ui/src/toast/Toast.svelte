@@ -126,7 +126,6 @@
 
       > .toast-icon {
         width: 100%;
-        border: solid medium var(--text-color);
       }
 
       > .toast-text {

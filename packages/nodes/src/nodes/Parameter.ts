@@ -16,6 +16,14 @@ const node: PlantNode = {
       step: 0.05,
     },
   },
+  computeValue(parameters, ctx) {
+    const { value = 0, variation = 0 } = parameters;
+
+    if (variation) {
+      return value + ctx.n1d(200) * variation * Math.max(value, 1);
+    }
+    return value;
+  },
 };
 
 export default node;

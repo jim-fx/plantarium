@@ -36,7 +36,7 @@ export default class NodeOutputView {
         .getPropertyValue('background-color');
 
       this.wrapper.style.backgroundColor =
-        col !== 'rgba(0, 0, 0, 0)' ? col : color;
+        col !== 'rgba(0, 0, 0, 0)' && col !== 'rgb(0,0,0)' ? col : color;
     });
   }
 

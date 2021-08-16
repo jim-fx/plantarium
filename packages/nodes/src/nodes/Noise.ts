@@ -30,18 +30,9 @@ const node: PlantNode = {
     },
   },
 
-  computeNode(parameters) {
-    return {
-      type: 'noise',
-      parameters,
-    };
-  },
+  computeSkeleton(parameters, ctx) {
+    log(parameters);
 
-  computeSkeleton(node, ctx) {
-
-    log(node)
-
-    const { parameters } = node;
     const { input } = parameters;
 
     const size = ctx.handleParameter(parameters.size);
@@ -83,6 +74,10 @@ const node: PlantNode = {
     return {
       skeletons,
     };
+  },
+
+  computeGeometry(parameters) {
+    return parameters.input.result;
   },
 };
 

@@ -57,14 +57,12 @@
     box-sizing: border-box;
     max-width: 200px;
     position: relative;
-    width: fit-content;
+    width: 100%;
+    padding: 1px;
     display: flex;
+    justify-content: space-around;
     background-color: #4b4b4b;
     border-radius: 2px;
-
-    padding: 3px 1px;
-    padding-right: 6px;
-    padding-left: 4px;
 
     font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
       Roboto, 'Oxygen-Sans', Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;

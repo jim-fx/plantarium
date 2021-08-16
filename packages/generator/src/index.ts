@@ -1,6 +1,6 @@
 import { default as plant } from './plant';
 import { ground } from '@plantarium/geometry';
-import worker from './createWebWorker';
+import worker from './webworker/createWebWorker';
 export { plant, ground, worker };
 export default {
   plant,

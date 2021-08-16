@@ -126,7 +126,7 @@
       <circle
         cx={p.x * 100}
         cy={p.y * 200 - 50}
-        r="2"
+        r="4"
         class:pinned={p.pinned}
         on:mousedown={() => {
           activePoint = p;
@@ -146,14 +146,20 @@
 </div>
 
 <style lang="scss">
+  @use '~@plantarium/theme/src/themes.module.scss';
   @import './global.scss';
 
   svg {
     width: 50%;
   }
 
+  svg > circle {
+    fill: #4b4b4b;
+    stroke: themes.$light-green;
+  }
+
   svg > circle:hover {
-    fill: white;
+    fill: themes.$light-green;
     cursor: pointer;
   }
 

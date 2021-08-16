@@ -148,13 +148,17 @@ export default class NodeSystem extends EventEmitter {
 
   addNode(node: Node) {
     this.nodes.push(node);
-    node.on('attributes', () => this.save(), 500);
-    node.on('data', () => this.save(), 500);
+    node['removeEventListeners'] = [
+      node.on('attributes', () => this.save(), 500),
+      node.on('data', () => this.save(), 500),
+    ];
     this.save();
   }
 
   removeNode(node: Node) {
     node.view.remove();
+
+    node['removeEventListeners'].forEach((cb) => cb());
 
     Object.values(node.states).forEach((i) => i.remove());
 

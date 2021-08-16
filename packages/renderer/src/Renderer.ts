@@ -86,7 +86,7 @@ export default class Renderer extends EventEmitter {
     }
 
     if (this.controlTarget) {
-      if (this.controlTarget.squaredDistance(this.controls.target) < 0.01) {
+      if (this.controlTarget.squaredDistance(this.controls.target) < 0.00005) {
         this.controls.target = this.controlTarget;
       } else {
         this.controls.target.lerp(this.controlTarget, 0.05);
@@ -101,10 +101,11 @@ export default class Renderer extends EventEmitter {
   }
 
   bindEventlisteners() {
-    window.addEventListener(
-      'resize',
-      throttle(() => this.handleResize(), 500),
-    );
+    const _throttle = throttle(() => this.handleResize(), 500);
+    window.addEventListener('resize', () => {
+      this.canvas.classList.add('resizing');
+      _throttle();
+    });
   }
 
   handleResize() {
@@ -114,5 +115,6 @@ export default class Renderer extends EventEmitter {
     this.camera.perspective({
       aspect: this.gl.canvas.width / this.gl.canvas.height,
     });
+    this.canvas.classList.remove('resizing');
   }
 }

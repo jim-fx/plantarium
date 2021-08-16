@@ -66,6 +66,10 @@ export default class NodeConnectionView extends ConnectionView {
       },
       5,
     );
+
+    conn.input.node.system.view.colorStore.on(conn.input.type[0], (color) => {
+      this.path.style.stroke = color;
+    });
   }
 
   handleNodeOver(node: Node) {

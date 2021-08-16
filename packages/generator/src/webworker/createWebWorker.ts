@@ -1,6 +1,6 @@
 import createWebWorker from './webWorker?worker=external';
 import { wrap } from 'comlink';
-import type plant from './plant';
+import type plant from '../plant';
 
 export default () => {
   const worker = createWebWorker();

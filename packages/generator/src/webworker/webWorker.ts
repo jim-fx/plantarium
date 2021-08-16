@@ -1,5 +1,5 @@
 import { expose } from 'comlink';
-import plant from './plant';
+import plant from '../plant';
 
 const obj = {
   plant,

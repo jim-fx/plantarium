@@ -1,3 +1,6 @@
+import { curve } from '@plantarium/helpers';
+import { interpolateArray } from '@plantarium/geometry';
+
 const node: PlantNode = {
   title: 'Curve',
   type: 'curve',
@@ -13,13 +16,10 @@ const node: PlantNode = {
         { x: 1, y: 0, pinned: true },
       ],
     },
-    min: {
-      type: 'number',
-    },
-    max: {
-      type: 'number',
-      defaultValue: 1,
-    },
+  },
+  computeValue(parameters, ctx, alpha) {
+    const values = curve.toArray(parameters.value).map((v) => v.y);
+    return interpolateArray(values, 1 - alpha);
   },
 };
 

@@ -114,6 +114,7 @@ export default class Node extends EventEmitter {
   remove() {
     if (this._unsubscribeNodeMove) this._unsubscribeNodeMove();
     this.system.removeNode(this);
+    this.destroyEventEmitter();
   }
 
   connectTo(

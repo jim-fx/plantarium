@@ -29,19 +29,10 @@ const node: PlantNode = {
       step: 0.05,
     },
   },
-  computeNode(parameters) {
-    return {
-      type: 'gravity',
-      parameters,
-    };
-  },
-  computeSkeleton(node, ctx) {
-    const { parameters } = node;
-    const { input, type } = parameters;
+  computeSkeleton(parameters, ctx) {
+    const { input, type, strength } = parameters;
 
-    const {
-      result: { skeletons },
-    } = input;
+    const { skeletons } = input.result;
 
     if (type === 'simple') {
       skeletons.forEach((skelly) => {
@@ -51,8 +42,8 @@ const node: PlantNode = {
         for (let i = 1; i < amount; i++) {
           const a = i / amount;
           const y = skelly[i * 4 + 1];
-          const strength = ctx.handleParameter(parameters?.strength, a);
-          skelly[i * 4 + 1] = y - y * a * a * a * strength;
+          const _strength = ctx.handleParameter(strength, a);
+          skelly[i * 4 + 1] = y - y * a * a * a * _strength;
         }
 
         return skelly;
@@ -67,7 +58,7 @@ const node: PlantNode = {
         for (let i = 1; i < amount; i++) {
           const a = i / amount;
 
-          const strength = ctx.handleParameter(parameters.strength, a);
+          const _strength = ctx.handleParameter(strength, a);
 
           //Current point at skeleton
           const x = skelly[i * 4 + 0];
@@ -104,7 +95,7 @@ const node: PlantNode = {
             let [rx, ry, rz] = rotate3D(
               [ox, oy, oz],
               [vx, vy, vz],
-              strength * a,
+              _strength * a,
             );
 
             // if (limit) {
@@ -145,11 +136,11 @@ const node: PlantNode = {
 
           const a = i / amount;
 
-          const strength = ctx.handleParameter(parameters.strength, a);
+          const _strength = ctx.handleParameter(strength, a);
 
           //Rotate all the other joints
           for (let j = i; j < amount; j++) {
-            const rot = rotate3D([x, y, z], axis, a * strength);
+            const rot = rotate3D([x, y, z], axis, a * _strength);
 
             skelly[j * 4 + 0] = rot[0];
             skelly[j * 4 + 1] = rot[1];
@@ -164,6 +155,9 @@ const node: PlantNode = {
     return {
       skeletons,
     };
+  },
+  computeGeometry(parameters) {
+    return parameters.input.result;
   },
 };
 

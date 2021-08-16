@@ -10,3 +10,5 @@ export { default as Slider } from './Slider';
 export { default as Stem } from './Stem';
 export { default as Vec3 } from './Vec3';
 export { default as Shape } from './Shape';
+export { default as Leaf } from './Leaf';
+export { default as Math } from './Math';

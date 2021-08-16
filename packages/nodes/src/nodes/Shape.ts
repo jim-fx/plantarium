@@ -1,10 +1,10 @@
 const node: PlantNode = {
   title: 'Shape',
   type: 'shape',
-  outputs: ['shape'],
+  outputs: ['leaf'],
   parameters: {
     value: {
-      type: 'shape',
+      type: 'leaf',
       inputType: 'shape',
       internal: true,
       label: false,

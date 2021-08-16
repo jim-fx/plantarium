@@ -14,11 +14,8 @@ const node: PlantNode = {
       value: 0,
     },
   },
-  computeNode(parameters) {
-    return {
-      type: 'slider',
-      parameters,
-    };
+  computeValue(parameters) {
+    return parameters.value;
   },
 };
 
