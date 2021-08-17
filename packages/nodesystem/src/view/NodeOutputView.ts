@@ -52,6 +52,15 @@ export default class NodeOutputView {
     if (v && v.length) this.wrapper.classList.add('socket-state-' + v);
   }
 
+  private rect: DOMRect;
+  updatePosition() {
+    this.rect = this.wrapper.getBoundingClientRect();
+
+    this.output.connections.forEach((c) =>
+      c.view.setPosition({ x2: this.x, y2: this.y }),
+    );
+  }
+
   get x() {
     return this.node.view.x + this.node.view.width;
   }

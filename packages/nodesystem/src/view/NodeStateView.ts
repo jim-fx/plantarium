@@ -40,15 +40,20 @@ export default class NodeStateView {
     this.wrapper.appendChild(this.input);
   }
 
+  private rect: DOMRect;
+
+  updatePosition() {
+    this.rect = this.wrapper.getBoundingClientRect();
+
+    this.nodeState.getInput()?.view?.updatePosition();
+  }
+
   get y() {
-    return (
-      this.wrapper.getBoundingClientRect().y -
-      this.nodeState.node.view.wrapper.getBoundingClientRect().y
-    );
+    return this.rect.y - this.nodeState.node.view.y;
   }
 
   get height() {
-    return this.wrapper.getBoundingClientRect().height;
+    return this.rect.height;
   }
 
   setActive(isActive: boolean) {

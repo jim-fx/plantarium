@@ -138,8 +138,8 @@ export default class BoxSelectionView extends EventEmitter {
   }
 
   private projectBox(b: Rect) {
-    const { x: x1, y: y1 } = this.view.projectMouseCoords(b.x1, b.y1);
-    const { x: x2, y: y2 } = this.view.projectMouseCoords(b.x2, b.y2);
+    const { x: x1, y: y1 } = this.view.projectWindowToLocal(b.x1, b.y1);
+    const { x: x2, y: y2 } = this.view.projectWindowToLocal(b.x2, b.y2);
 
     return {
       x1,

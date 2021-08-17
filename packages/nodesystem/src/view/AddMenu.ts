@@ -217,7 +217,7 @@ export default class RightClickMenu {
   resolve() {
     const type = this.activeContainer?.type;
 
-    const { x: rx, y: ry } = this.view.projectMouseCoords(this.x, this.y);
+    const { x: rx, y: ry } = this.view.projectWindowToLocal(this.x, this.y);
 
     const x = rx - this.view.width / 2;
     const y = ry - this.view.height / 2;

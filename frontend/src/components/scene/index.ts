@@ -1,6 +1,9 @@
 import type { ProjectManager } from '../project-manager';
 import Renderer from '@plantarium/renderer';
-import { Transform, Program, Mesh, MeshOptions } from 'ogl';
+import { Transform, Program, Mesh } from 'ogl';
+import type { MeshOptions } from 'ogl';
+import type { Writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 
 import BackgroundScene from './background';
 import ForegroundScene from './foreground';
@@ -12,6 +15,8 @@ export default class Scene {
   fg: ForegroundScene;
   scene: Transform;
   wrapper: HTMLElement;
+
+  isLoading: Writable<boolean> = writable(false);
 
   program: Program;
   mesh: Mesh;

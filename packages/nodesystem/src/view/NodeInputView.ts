@@ -51,8 +51,13 @@ export default class NodeInputView {
       this.wrapper.style.backgroundColor =
         col !== 'rgba(0, 0, 0, 0)' ? col : color;
     });
+  }
 
-    this._y = input.state.view.y + input.state.view.height / 2;
+  private rect: DOMRect;
+  updatePosition() {
+    this.rect = this.wrapper.getBoundingClientRect();
+
+    this?.connection?.setPosition({ x1: this.x, y1: this.y });
   }
 
   remove() {
@@ -72,6 +77,10 @@ export default class NodeInputView {
   }
 
   get y() {
-    return this.node.view.y + this._y;
+    const system = this.node.system.view;
+    const y =
+      (this.rect.y + this.rect.height / 2 - system.y - system.top) / system.s -
+      system.height / 2;
+    return y;
   }
 }

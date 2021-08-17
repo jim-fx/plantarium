@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { Icon } from '@plantarium/ui';
+
   import Scene from '.';
   import type { ProjectManager } from '../project-manager';
   import type { SettingsManager } from '../settings-manager';
@@ -8,10 +10,12 @@
 
   let canvas: HTMLCanvasElement;
 
-  let scene;
+  let scene: Scene;
   let pd;
 
   $: if (canvas && pm && !scene) scene = new Scene(pm, canvas);
+
+  $: isLoading = scene && scene.isLoading;
 
   let unsub;
   $: if (pm) {
@@ -32,7 +36,13 @@
     </code>
   </pre>
   {/if}
+
   <canvas bind:this={canvas} />
+  {#if $isLoading}
+    <div class="is-loading">
+      <p>Is Loading</p>
+    </div>
+  {/if}
 </div>
 
 <style lang="scss">
@@ -47,6 +57,13 @@
     &:global(.resizing) {
       filter: blur(5px);
     }
+  }
+
+  .is-loading {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 99;
   }
 
   pre {

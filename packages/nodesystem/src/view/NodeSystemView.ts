@@ -206,7 +206,7 @@ export default class NodeSystemView extends EventEmitter {
     }
   }
 
-  convertRelativeToAbsolute(x: number, y: number) {
+  projectLocalToWindow(x: number, y: number) {
     //Offset coords
     const offsetX = x + this.x;
     const offsetY = y + this.y;
@@ -218,7 +218,7 @@ export default class NodeSystemView extends EventEmitter {
     return { x: scaledX, y: scaledY };
   }
 
-  projectMouseCoords(x: number, y: number) {
+  projectWindowToLocal(x: number, y: number) {
     //Offset coords
     const offsetX = x - this.x;
     const offsetY = y - this.y;
@@ -264,7 +264,7 @@ export default class NodeSystemView extends EventEmitter {
         this.y = y;
         this.s = s;
         this.wrapper.style.backgroundPosition = `${x}px ${y}px`;
-        this.emit('transform', { x, y, s });
+        this.system.setMetaData({ transform: { x, y, s } });
       },
     });
   }
@@ -285,7 +285,7 @@ export default class NodeSystemView extends EventEmitter {
     this.rmx = clientX - this.left;
     this.rmy = clientY - this.top;
 
-    const { x, y } = this.projectMouseCoords(this.rmx, this.rmy);
+    const { x, y } = this.projectWindowToLocal(this.rmx, this.rmy);
 
     this.mx = x;
     this.my = y;
@@ -309,7 +309,7 @@ export default class NodeSystemView extends EventEmitter {
     this.rmx = clientX - this.left;
     this.rmy = clientY - this.top;
 
-    const { x, y } = this.projectMouseCoords(this.rmx, this.rmy);
+    const { x, y } = this.projectWindowToLocal(this.rmx, this.rmy);
 
     this.mx = x;
     this.my = y;
@@ -438,7 +438,7 @@ export default class NodeSystemView extends EventEmitter {
           let { pos: { x: offsetX = 0, y: offsetY = 0 } = {} } =
             sorted[0].attributes;
 
-          const { x: mx, y: my } = this.projectMouseCoords(this.mx, this.my);
+          const { x: mx, y: my } = this.projectWindowToLocal(this.mx, this.my);
 
           offsetX -= mx;
           offsetY -= my;

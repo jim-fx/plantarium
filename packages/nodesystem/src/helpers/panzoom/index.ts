@@ -368,26 +368,7 @@ export function createPanZoom(
   }
 
   function internalMoveBy(dx, dy, smooth = false) {
-    if (!smooth) {
-      return moveBy(dx, dy);
-    }
-
-    // if (moveByAnimation) moveByAnimation.cancel();
-
-    // TODO: remimplement animation?
-    // const from = { x: 0, y: 0 };
-    // const to = { x: dx, y: dy };
-    // let lastX = 0;
-    // let lastY = 0;
-
-    // moveByAnimation = animate(from, to, {
-    //   step: function (v) {
-    //     moveBy(v.x - lastX, v.y - lastY);
-
-    //     lastX = v.x;
-    //     lastY = v.y;
-    //   },
-    // });
+    return moveBy(dx, dy);
   }
 
   function scroll(x, y) {

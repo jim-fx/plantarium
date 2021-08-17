@@ -1,4 +1,3 @@
-import { EventEmitter } from '@plantarium/helpers';
 import type Node from '../model/Node';
 import type System from '../model/NodeSystem';
 import type NodeConnectionView from './NodeConnectionView';
@@ -6,7 +5,7 @@ import type InputView from './NodeInputView';
 import type OutputView from './NodeOutputView';
 import './NodeView.scss';
 
-export default class NodeView extends EventEmitter {
+export default class NodeView {
   node: Node;
   wrapper: HTMLDivElement;
   inputWrapper: HTMLDivElement;
@@ -39,8 +38,6 @@ export default class NodeView extends EventEmitter {
   _unsubscribeMouseUp!: () => void;
 
   constructor(node: Node) {
-    super();
-
     this.node = node;
 
     this.system = node.system;
@@ -70,11 +67,10 @@ export default class NodeView extends EventEmitter {
 
     const { pos: { x = 0, y = 0 } = {} } = node.attributes;
 
-    this.setPosition(x, y);
-
     this.bindEventListeners();
 
     setTimeout(() => {
+      this.setPosition(x, y);
       const { width, height } = this.wrapper.getBoundingClientRect();
       this.width = width / this.system.view.s;
       this.height = height / this.system.view.s;
@@ -187,18 +183,16 @@ export default class NodeView extends EventEmitter {
     this.x = x;
     this.y = y;
 
-    const vx = this.downX - x;
-    const vy = this.downY - y;
-
     this.wrapper.style.left = x + 'px';
     this.wrapper.style.top = y + 'px';
 
-    this.emit('move', { x, y, vx, vy });
+    Object.values(this.node.states).forEach((s) => s?.view?.updatePosition());
+    this.node.outputs.forEach((o) => o.view.updatePosition());
+    this.node.setAttributes({ pos: { x, y } });
   }
 
   remove() {
     this.removeEventListeners();
-    this.destroyEventEmitter();
     this.wrapper.remove();
   }
 }

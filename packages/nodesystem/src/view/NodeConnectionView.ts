@@ -20,9 +20,6 @@ export default class NodeConnectionView extends ConnectionView {
     this.input = conn.input.view;
     this.output = conn.output.view;
 
-    const { x: x1, y: y1 } = conn.input.view;
-    const { x: x2, y: y2 } = conn.output.view;
-
     this.hoverPath = document.createElementNS(
       'http://www.w3.org/2000/svg',
       'path',
@@ -47,26 +44,6 @@ export default class NodeConnectionView extends ConnectionView {
       this.handleNodeOut(activeNode);
     });
 
-    this.setPosition({ x1, y1, x2, y2 });
-
-    this._unsubscribeMoveOut = conn.input.node.view.on(
-      'move',
-      () => {
-        const { x, y } = conn.input.view;
-        if (x && y) this.setPosition({ x1: x, y1: y });
-      },
-      5,
-    );
-
-    this._unsubscribeMoveIn = conn.output.node.view.on(
-      'move',
-      () => {
-        const { x, y } = conn.output.view;
-        if (x && y) this.setPosition({ x2: x, y2: y });
-      },
-      5,
-    );
-
     conn.input.node.system.view.colorStore.on(conn.input.type[0], (color) => {
       this.path.style.stroke = color;
     });
@@ -87,8 +64,6 @@ export default class NodeConnectionView extends ConnectionView {
   }
 
   remove() {
-    this._unsubscribeMoveIn();
-    this._unsubscribeMoveOut();
     super.remove();
   }
 }

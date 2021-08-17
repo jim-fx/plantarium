@@ -45,16 +45,23 @@ export default class ForegroundScene {
   }
 
   setPlant(plant: NodeResult) {
-    this.plant = plant ? JSON.parse(JSON.stringify(plant)) : plant;
+    console.log('GOT PLANT', plant);
+    if (!plant) return;
+    console.log('Eyyyyyy');
+    this.plant = JSON.parse(JSON.stringify(plant));
     this.update();
   }
 
   async update(p = this.plant, s = this.settings) {
     if (!p || !s) return;
 
+    this.scene.isLoading.set(true);
+
     const result = await this.worker.plant(p, s);
 
     if (!result) return;
+
+    this.scene.isLoading.set(false);
 
     this.mesh.mode = s?.debug?.wireframe ? this.gl.LINES : this.gl.TRIANGLES;
 

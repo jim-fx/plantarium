@@ -20,7 +20,7 @@
 
   $: width = Number.isFinite(value)
     ? Math.max((value?.toString().length ?? 1) * 8, 30) + 'px'
-    : 100 + '%';
+    : '20px';
 </script>
 
 <div class="component-wrapper" class:fullWidth>

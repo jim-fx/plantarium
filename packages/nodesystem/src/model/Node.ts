@@ -54,11 +54,11 @@ export default class Node extends EventEmitter {
 
     this.outputs.forEach((o) => o.bindView());
     Object.values(this.states).forEach((i) => i.bindView());
+  }
 
-    this._unsubscribeNodeMove = this.view.on('move', ({ x, y }) => {
-      this.attributes.pos = { x, y };
-      this.emit('attributes', this.attributes);
-    });
+  setAttributes(attrib: Partial<NodeAttributes>) {
+    this.attributes = { ...this.attributes, ...attrib };
+    this.save();
   }
 
   compute(paramaters: unknown): unknown {
@@ -128,6 +128,9 @@ export default class Node extends EventEmitter {
     if (!input) return;
 
     const connection = new NodeConnection(this.system, { output, input });
+
+    output.view.updatePosition();
+    input.view.updatePosition();
 
     // Check if node already has a connection to this node
 

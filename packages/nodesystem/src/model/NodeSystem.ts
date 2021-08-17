@@ -32,6 +32,7 @@ export default class NodeSystem extends EventEmitter {
 
   log: Logger;
   isLoaded = false;
+  isPaused = false;
 
   nodes: Node[] = [];
   _result: unknown;
@@ -61,14 +62,6 @@ export default class NodeSystem extends EventEmitter {
 
     if (view) {
       this.view = new NodeSystemView(this);
-      this.view.on(
-        'transform',
-        (transform) => {
-          this.meta = Object.assign({}, this.meta, { transform });
-          this.save();
-        },
-        100,
-      );
     }
 
     if (defaultNodes) {
@@ -101,12 +94,18 @@ export default class NodeSystem extends EventEmitter {
   }
 
   set result(res) {
-    this.emit('result', res);
     this._result = res;
+    if (this.isLoaded) this.emit('result', res);
+  }
+
+  setMetaData(data: Partial<NodeSystemMeta>) {
+    this.meta = { ...this.meta, ...data };
+    this.save();
   }
 
   load(systemData: NodeSystemData) {
     this.isLoaded = false;
+    this.isPaused = true;
     this.nodes.forEach((n) => (n.enableUpdates = false));
     this.nodes.forEach((n) => n.remove());
     this.factory.reset();
@@ -121,7 +120,10 @@ export default class NodeSystem extends EventEmitter {
       systemData,
     );
 
+    this.isPaused = false;
     this.isLoaded = true;
+
+    this.result = this._result;
 
     return this;
   }
@@ -148,17 +150,11 @@ export default class NodeSystem extends EventEmitter {
 
   addNode(node: Node) {
     this.nodes.push(node);
-    node['removeEventListeners'] = [
-      node.on('attributes', () => this.save(), 500),
-      node.on('data', () => this.save(), 500),
-    ];
     this.save();
   }
 
   removeNode(node: Node) {
     node.view.remove();
-
-    node['removeEventListeners'].forEach((cb) => cb());
 
     Object.values(node.states).forEach((i) => i.remove());
 

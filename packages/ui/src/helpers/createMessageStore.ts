@@ -1,5 +1,7 @@
-import { Writable, writable } from 'svelte/store';
-import { Message, MessageOptions, MessageType } from './IMessage';
+import { writable } from 'svelte/store';
+import type { Writable } from 'svelte/store';
+import type { Message, MessageOptions } from './IMessage';
+import { MessageType } from './IMessage';
 import createId from 'shortid';
 
 const createMessageFactory =
