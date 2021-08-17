@@ -41,7 +41,6 @@ describe('System Tests', () => {
 
   it('Correct output', () => {
     cy.wait(50);
-    console.log(system);
     expect(system.result).to.equal(25);
   });
 

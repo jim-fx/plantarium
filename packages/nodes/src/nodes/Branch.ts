@@ -115,6 +115,7 @@ const node: PlantNode = {
 
     return {
       skeletons,
+      allSkeletons: [...skeletons, ...inputSkeletons],
     };
   },
 

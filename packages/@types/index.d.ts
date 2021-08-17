@@ -116,6 +116,7 @@ type Parameter = ParameterResult | GeometryResult | Vec3 | number | Vec2;
 
 interface GeometryResult extends NodeResult {
   skeletons?: Float32Array[];
+  allSkeletons: Float32Array[];
   geometry?: TransferGeometry;
   debugVectors?: Float32Array[];
   debugNormals?: Float32Array[];

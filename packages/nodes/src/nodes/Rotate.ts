@@ -41,7 +41,7 @@ const node: PlantNode = {
     const { input, type, spread } = parameters;
 
     const {
-      result: { skeletons },
+      result: { skeletons, allSkeletons },
     } = input;
 
     const rotationAxis = getRotationAxis(type as string);
@@ -88,6 +88,7 @@ const node: PlantNode = {
 
     return {
       skeletons,
+      allSkeletons,
     };
   },
   computeGeometry(parameters) {

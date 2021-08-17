@@ -80,7 +80,6 @@ export default class EventEmitter {
   }
 
   public destroyEventEmitter() {
-    console.log('DestroyEventListener');
     debug.amountEmitters--;
     Object.keys(this.cbs).forEach((key) => {
       debug.amountCallbacks -= this.cbs[key].length;

@@ -57,8 +57,6 @@ const createMessageFactory =
         timeout = 7000;
       }
 
-      console.log(timeout);
-
       if (timeout && !hasValues) {
         message.timeout = timeout;
       }

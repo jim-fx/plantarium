@@ -49,7 +49,7 @@ export default class DebugScene {
         fragment: WireFrameShader.fragment,
         depthTest: false,
       }),
-      mode: this.gl.LINE_STRIP,
+      mode: this.gl.LINES,
     });
     // this.m.skeleton.mode = this.gl.LINES;
 
@@ -85,85 +85,43 @@ export default class DebugScene {
     if (!p || !s) return;
 
     //Convert skeletons to Geometry
-    if (p['skeletons'] && s.debug?.skeleton) {
-      const skeletons: Float32Array[] = p['skeletons'];
-      const amountPos = skeletons.reduce((acc, cur) => acc + cur.length, 0) / 4;
+    if ((p.allSkeletons || p.skeletons) && s.debug?.skeleton) {
+      const skeletons: Float32Array[] = p.allSkeletons ?? p.skeletons;
+      let amountPos = 0;
+      for (const skelly of skeletons) {
+        amountPos += (skelly.length / 4) * 3;
+      }
 
-      const positions = new Float32Array(amountPos * 3);
-      const uv = new Float32Array(amountPos * 2);
-      const indeces = new Uint32Array(amountPos * 2 - 4);
+      const positions = new Float32Array(amountPos);
+      const indeces = new Uint32Array((amountPos / 3 - 1) * 2);
 
       // Transfer positions;
       let offset = 0;
-      skeletons.forEach((skelly) => {
+      skeletons.forEach((skelly, j) => {
         const amount = skelly.length / 4;
+
         for (let i = 0; i < amount; i++) {
-          positions[offset + i * 3 + 0] = skelly[i * 4 + 0];
-          positions[offset + i * 3 + 1] = skelly[i * 4 + 1];
-          positions[offset + i * 3 + 2] = skelly[i * 4 + 2];
+          positions[offset * 3 + i * 3 + 0] = skelly[i * 4 + 0];
+          positions[offset * 3 + i * 3 + 1] = skelly[i * 4 + 1];
+          positions[offset * 3 + i * 3 + 2] = skelly[i * 4 + 2];
         }
+
+        for (let i = 0; i < amount - 1; i++) {
+          indeces[offset * 2 + i * 2] = offset + i;
+          indeces[offset * 2 + i * 2 + 1] = offset + i + 1;
+        }
+
         offset += amount;
       });
 
-      // Create uv
-      const amountUV = amountPos * 2;
-      for (let i = 0; i < amountUV; i++) {
-        uv[i * 2 + 0] = i / amountUV;
-        uv[i * 2 + 1] = 0.5;
-      }
-
-      // Create indeces
-      indeces[0] = 0;
-      for (let i = 1; i < amountPos * 2; i++) {
-        indeces[i] = i;
-        indeces[i + 1] = i;
-      }
-
       this.m.skeleton.geometry = new Geometry(this.gl, {
         position: { size: 3, data: positions },
-        uv: { size: 2, data: uv },
         index: { size: 1, data: indeces },
       });
 
-      this.m.vertices.geometry.addAttribute('position', {
-        size: 3,
-        data: positions,
+      this.m.vertices.geometry = new Geometry(this.gl, {
+        position: { size: 3, data: positions },
       });
     }
-
-    /* if (p['skeletons'] && s.debugSkeleton && false) {
-      const num = 20;
-
-      let offset = new Float32Array(num * 3);
-      let random = new Float32Array(num * 3);
-      for (let i = 0; i < num; i++) {
-        offset.set(
-          [Math.random() * 2 - 1, Math.random() * 2 - 1, Math.random() * 2 - 1],
-          i * 3,
-        );
-
-        // unique random values are always handy for instances.
-        // Here they will be used for rotation, scale and movement.
-        random.set([Math.random(), Math.random(), Math.random()], i * 3);
-      }
-
-      const geometry = new Geometry(this.gl, {
-        position: { size: 3, data: new Float32Array(data.position) },
-        uv: { size: 2, data: new Float32Array(data.uv) },
-        normal: { size: 3, data: new Float32Array(data.normal) },
-
-        // simply add the 'instanced' property to flag as an instanced attribute.
-        // set the value as the divisor number
-        offset: { instanced: 1, size: 3, data: offset },
-        random: { instanced: 1, size: 3, data: random },
-      });
-
-      this.m.skeleton.geometry = new Geometry(this.gl, {
-        position: { size: 3, data: positions },
-        normal: { size: 3, data: normal },
-        uv: { size: 2, data: uv },
-        index: { size: 1, data: indeces },
-      });
-    } */
   }
 }

@@ -45,9 +45,7 @@ export default class ForegroundScene {
   }
 
   setPlant(plant: NodeResult) {
-    console.log('GOT PLANT', plant);
     if (!plant) return;
-    console.log('Eyyyyyy');
     this.plant = JSON.parse(JSON.stringify(plant));
     this.update();
   }

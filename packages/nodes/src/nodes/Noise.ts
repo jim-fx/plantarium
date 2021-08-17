@@ -73,6 +73,7 @@ const node: PlantNode = {
 
     return {
       skeletons,
+      allSkeletons: input.result.allSkeletons,
     };
   },
 
