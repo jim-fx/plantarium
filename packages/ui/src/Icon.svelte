@@ -1,7 +1,7 @@
 <svelte:options tag="plant-icon" />
 
 <script context="module" lang="ts">
-  import * as icons from './icons';
+  import * as icons from './icons/index.ts';
 
   export type IconType = keyof typeof icons;
 </script>

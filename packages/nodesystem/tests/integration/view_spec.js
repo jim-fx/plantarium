@@ -12,16 +12,26 @@ describe('View Layer Tests', () => {
 
   it('BoxSelection', () => {
     cy.visit('/');
-    system.view.handleMouseDown({ clientX: -10000, clientY: -1000 });
 
     cy.wait(100)
       .then(() => {
-        system.view.handleMouseMove({ clientX: 1000, clientY: 1000 });
-        console.log(system.view);
+        system.view.handleMouseDown({
+          ctrlKey: true,
+          clientX: -1000,
+          clientY: -1000,
+        });
       })
       .then(() => cy.wait(100))
       .then(() => {
-        system.view.emit('mouseup', { x: 1000, y: 1000 });
+        system.view.handleMouseMove({
+          ctrlKey: true,
+          clientX: 1000,
+          clientY: 1000,
+        });
+      })
+      .then(() => cy.wait(100))
+      .then(() => {
+        system.view.emit('mouseup');
 
         expect(system.view.selectedNodes.length).to.equal(system.nodes.length);
       });
@@ -89,8 +99,6 @@ describe('View Layer Tests', () => {
       system.view.handleKeyDown({ key: 'X' });
 
       system.view.handleKeyDown({ key: 'V' });
-
-      system.view.handleScroll({ deltaY: 67 });
 
       system.view.handleMouseDown({ clientX: 67, clientY: 100, ctrlKey: true });
     }).not.to.throw();

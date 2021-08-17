@@ -55,7 +55,7 @@
   width: 100%;
   overflow: hidden;
 
-  --node-editor-bg: var(--text-color);
+  --node-editor-bg: var(--text-color, #303030);
   --node-editor-grid-size: 1.5rem;
   --node-editor-grid-width: 1px;
 

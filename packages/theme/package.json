@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "styles": "src/theme.module.scss",
   "keywords": [],
   "author": "",

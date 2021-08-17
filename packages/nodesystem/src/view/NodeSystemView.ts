@@ -27,8 +27,8 @@ export default class NodeSystemView extends EventEmitter {
   top = 0;
   left = 0;
 
-  x = 0;
-  y = 0;
+  x = window.innerWidth / 2;
+  y = window.innerHeight / 2;
   s = 1;
 
   mx = 0;
@@ -104,6 +104,9 @@ export default class NodeSystemView extends EventEmitter {
 
     this.bindEventListeners();
     this.handleResize();
+    setTimeout(() => {
+      this.setTransform({ x: 0, y: 0, s: 1 });
+    }, 1);
   }
 
   createFloatingConnection(

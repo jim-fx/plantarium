@@ -2,7 +2,7 @@ import throttle from './throttle';
 
 const debug = { amountEmitters: 0, amountCallbacks: 0, emitters: [] };
 
-if ('window' in self) {
+if (typeof self !== 'undefined' && 'window' in self) {
   window['debug'] = debug;
 }
 
