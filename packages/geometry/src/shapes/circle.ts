@@ -6,8 +6,8 @@ export default function (
   resolution = 3,
 ) {
   //General parameters
-  const positionAmount = resolution * 3 + 1;
-  const angle = (360 * (Math.PI / 180)) / (resolution - 1); // Convert to radians
+  const positionAmount = (resolution + 1) * 3;
+  const angle = (360 * (Math.PI / 180)) / resolution; // Convert to radians
   const startPoint = [origin[0], origin[1], origin[2] + radius];
 
   //Final model
@@ -22,7 +22,7 @@ export default function (
   position[2] = origin[2];
 
   for (let i = 1; i <= resolution + 1; i++) {
-    const _angle = angle * i;
+    const _angle = angle * (i - 1);
 
     const x =
       Math.cos(_angle) * (startPoint[0] - origin[0]) -
@@ -39,15 +39,15 @@ export default function (
     position[i * 3 + 2] = z;
   }
 
-  for (let i = 1; i <= resolution + 1; i++) {
-    if (i <= resolution - 1) {
+  for (let i = 0; i < resolution; i++) {
+    if (i === resolution - 1) {
       index[i * 3 + 0] = 0;
-      index[i * 3 + 1] = i + 2;
-      index[i * 3 + 2] = i + 1;
+      index[i * 3 + 1] = resolution;
+      index[i * 3 + 2] = 1;
     } else {
       index[i * 3 + 0] = 0;
-      index[i * 3 + 1] = 1;
-      index[i * 3 + 2] = i + 1;
+      index[i * 3 + 1] = i + 1;
+      index[i * 3 + 2] = i + 2;
     }
   }
 
