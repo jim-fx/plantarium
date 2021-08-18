@@ -53,7 +53,7 @@ If i really trust you, i could provide you with an account for this website. Oth
 - [ ] Preview Renders [#21](https://git.jim-fx.com/max/plantarium/issues/21)
 - [ ] Add some more nodes
   - [x] ~~Shape Node~~ [#23](https://git.jim-fx.com/max/plantarium/issues/23)
-  - [ ] Curve Node
+  - [x] ~~Curve Node~~
   - [ ] Leaf Node [#22](https://git.jim-fx.com/max/plantarium/issues/22)
 
 ### [1.1](https://git.jim-fx.com/max/plantarium/milestone/2)
