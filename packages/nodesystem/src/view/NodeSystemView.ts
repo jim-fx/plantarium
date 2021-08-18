@@ -61,6 +61,8 @@ export default class NodeSystemView extends EventEmitter {
 
   debug: HTMLElement;
 
+  dpr: number;
+
   constructor(system: NodeSystem) {
     super();
 
@@ -101,6 +103,8 @@ export default class NodeSystemView extends EventEmitter {
     this.debug.style.backgroundColor = 'red';
     this.debug.style.pointerEvents = 'none';
     this.wrapper.appendChild(this.debug);
+
+    this.dpr = window.devicePixelRatio ?? 1;
 
     this.bindEventListeners();
     this.handleResize();
@@ -232,8 +236,9 @@ export default class NodeSystemView extends EventEmitter {
   setTransform({ x = this.x, y = this.y, s = this.s } = {}) {
     this.x = x;
     this.y = y;
-    this.s = s;
-    this.panzoom.setTransform(x, y, s);
+    console.log(this.dpr);
+    this.s = s / this.dpr;
+    this.panzoom.setTransform(x, y, s / this.dpr);
   }
 
   bindEventListeners() {
