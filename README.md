@@ -7,60 +7,59 @@
 <a href="https://jim-fx.com/plant/"><h2 align="center">Plantarium</h2></a>
 
   <p align="center">
-    Tool for the procedural generation of 3D plants.
+    Plantarium is a Tool for the procedural generation of 3D plants.
   </p>
 
 </div>
 
-## What is Plantarium?
+# Table of contents
+
+- [What is Plantarium](#WhatisPlantarium?)
+- [Architecture](#Architecture)
+- [Developing](#Developing)
+- [Contributing](#Contributing)
+- [Roadmap](#Roadmap)
+
+# What is Plantarium?
 
 Plantarium is a web app that allows the user to procedurally define and generate 3D plant geometry.
 
-## Architecture
+# Architecture
 
-<img src="design/architecture.svg" width="100%"/>
+See [Architecture.md](./ARCHITECTURE.md)
 
-## Components
+# Developing
 
-### [ProjectManager](frontend/src/components/project-manager)
+# Contributing
 
-The project manager is responsible for loading/storing/uploading projects.
+If i really trust you, i could provide you with an account for this website. Other than that you can create a pull request over at [github](https://github.com/jim-fx/plantarium)
 
-### [Settings](frontend/src/components/settings-manager)
+# Roadmap
 
-Settings are a bunch of global settings, which are not bound to one single project.
+### 0.1
 
-### [NodeSystem](packages/nodesystem)
+- [x] ~~Implement node base interface~~
+- [x] ~~Implement Projects~~
 
-The NodeSystem is doing all the changes to a project. When a change is done the output of the nodesystem is send to the project manager;
+### [1.0](https://git.jim-fx.com/max/plantarium/milestone/1)
 
-### [Scene](frontend/src/components/scene)
+---
 
-The scene is responsible for taking the output of the nodesystem and the current settings and generating and displaying the final 3d model.
+- [x] ~~Theme Support~~ [#28](https://git.jim-fx.com/max/plantarium/issues/28)
+- [x] ~~Move Generator to WebWorker~~ [#1](https://git.jim-fx.com/max/plantarium/issues/1)
+- [ ] Tutorial Mode [#27](https://git.jim-fx.com/max/plantarium/issues/27)
+- [ ] Bug Report Feature [#26](https://git.jim-fx.com/max/plantarium/issues/26)
+- [ ] Undo System [#14](https://git.jim-fx.com/max/plantarium/issues/14)
+- [ ] Preview Renders [#21](https://git.jim-fx.com/max/plantarium/issues/21)
+- [ ] Add some more nodes
+  - [x] ~~Shape Node~~ [#23](https://git.jim-fx.com/max/plantarium/issues/23)
+  - [ ] Curve Node
+  - [ ] Leaf Node [#22](https://git.jim-fx.com/max/plantarium/issues/22)
 
-- ### [Generator](packages/generator)
-- ### [Renderer](packages/renderer)
+### [1.1](https://git.jim-fx.com/max/plantarium/milestone/2)
 
-### [UI](packages/ui)
+---
 
-The ui package consists of individual Svelte components used across the project.
-
-### [Renderer](packages/renderer)
-
-The Renderer renders a 3d model to a canvas element.
-
-### [Nodes](packages/nodes)
-
-The Nodes Package contains all the nodes which are loaded by the nodesystem.
-
-### [Geometry](packages/geometry)
-
-The Geometry package consists of many functions which create 3D elements.
-
-### [Helpers](packages/helpers)
-
-The Helpers package contains a lot of helper functions used across the plantarium project.
-
-### [Backend](backend)
-
-The Backend contains the server code.
+- [ ] Synchronize Projects with a Backend
+- [ ] Add some more nodes
+  - [ ] Split Branch Node
