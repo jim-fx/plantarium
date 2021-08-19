@@ -85,7 +85,7 @@ steps:
     depends_on:
       - test
       - build
-  - name: deploy
+  - name: deploy-dev-branch
     image: alpacadb/docker-lftp
     when:
       branch:
