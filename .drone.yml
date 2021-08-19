@@ -85,6 +85,25 @@ steps:
     depends_on:
       - test
       - build
+  - name: deploy
+    image: alpacadb/docker-lftp
+    when:
+      branch:
+        exclude: main
+    environment:
+      FTP_USERNAME:
+        from_secret: FTP_USERNAME
+      FTP_PASSWORD:
+        from_secret: FTP_PASSWORD
+    commands:
+      - cp -r packages/geometry/public frontend/dist/geometry
+      - cp -r packages/ui/dist frontend/dist/ui
+      - cp -r packages/nodesystem/public frontend/dist/nodes
+      - cd frontend/dist
+      - lftp -e "set sftp:auto-confirm true; set ftp:ssl-force true; set xfer:timeout 10000; debug 3; open -u $FTP_USERNAME,$FTP_PASSWORD sftp://ssh.jim-fx.com:2221; mkdir -p share/plant/branch/$DRONE_BRANCH; cd share/plant/branch/$DRONE_BRANCH; mirror -p --scan-all-first --overwrite --verbose -R --skip-noaccess; quit;"
+    depends_on:
+      - test
+      - build
   - name: rebuild-cache
     image: drillster/drone-volume-cache
     volumes:
