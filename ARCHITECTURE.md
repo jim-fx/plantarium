@@ -2,11 +2,13 @@
 
 <img src="design/architecture.svg" width="100%"/>
 
-## Components
+This Repository is split into several packages, which are manage with pnpm, and bundled using vite.
+
+## Modules
 
 ### [ProjectManager](frontend/src/components/project-manager)
 
-The project manager is responsible for loading/storing/uploading projects.
+The projectmanager is responsible for loading/storing/uploading projects.
 
 ### [Settings](frontend/src/components/settings-manager)
 

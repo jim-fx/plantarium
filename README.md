@@ -30,6 +30,23 @@ See [Architecture.md](./ARCHITECTURE.md)
 
 # Developing
 
+### Install prerequesits:
+
+- Node.js
+- pnpm
+
+### Install dependancies
+
+```bash
+$ pnpm i -r
+```
+
+### Start the dev server
+
+```bash
+$ pnpm dev
+```
+
 # Contributing
 
 If i really trust you, i could provide you with an account for this website. Other than that you can create a pull request over at [github](https://github.com/jim-fx/plantarium)
