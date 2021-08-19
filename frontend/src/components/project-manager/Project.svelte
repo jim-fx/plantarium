@@ -29,6 +29,10 @@
       <input
         contenteditable
         value={project.meta.name}
+        on:blur={function (ev) {
+          const value = this.value.split('\n').join('').trim();
+          pm.updateProjectMeta(project.meta.id, { name: value });
+        }}
         on:keydown={function (ev) {
           if (ev.key === 'Enter') {
             const value = this.value.split('\n').join('').trim();
@@ -36,10 +40,6 @@
             ev.preventDefault();
             pm.updateProjectMeta(project.meta.id, { name: value });
           }
-        }}
-        on:input={function () {
-          const value = this.value.split('\n').join('').trim();
-          pm.updateProjectMeta(project.meta.id, { name: value });
         }}
       />
 
