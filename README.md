@@ -47,7 +47,7 @@ If i really trust you, i could provide you with an account for this website. Oth
 
 - [x] ~~Theme Support~~ [#28](https://git.jim-fx.com/max/plantarium/issues/28)
 - [x] ~~Move Generator to WebWorker~~ [#1](https://git.jim-fx.com/max/plantarium/issues/1)
-- [ ] Tutorial Mode [#27](https://git.jim-fx.com/max/plantarium/issues/27)
+- [x] ~~Tutorial Mode~~ [#27](https://git.jim-fx.com/max/plantarium/issues/27)
 - [ ] Bug Report Feature [#26](https://git.jim-fx.com/max/plantarium/issues/26)
 - [ ] Undo System [#14](https://git.jim-fx.com/max/plantarium/issues/14)
 - [ ] Preview Renders [#21](https://git.jim-fx.com/max/plantarium/issues/21)
