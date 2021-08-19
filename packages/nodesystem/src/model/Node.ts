@@ -129,8 +129,8 @@ export default class Node extends EventEmitter {
 
     const connection = new NodeConnection(this.system, { output, input });
 
-    output.view.updatePosition();
-    input.view.updatePosition();
+    output?.view?.updatePosition();
+    input?.view?.updatePosition();
 
     // Check if node already has a connection to this node
 

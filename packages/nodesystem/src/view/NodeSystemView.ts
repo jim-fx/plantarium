@@ -59,8 +59,6 @@ export default class NodeSystemView extends EventEmitter {
 
   panzoom: ReturnType<typeof createPanZoom>;
 
-  debug: HTMLElement;
-
   dpr: number;
 
   constructor(system: NodeSystem) {
@@ -95,14 +93,6 @@ export default class NodeSystemView extends EventEmitter {
     this.boxSelection.on('selection', (nodes: Node[]) => {
       this.selectedNodes = nodes;
     });
-
-    this.debug = document.createElement('div');
-    this.debug.style.position = 'absolute';
-    this.debug.style.width = '5px';
-    this.debug.style.height = '5px';
-    this.debug.style.backgroundColor = 'red';
-    this.debug.style.pointerEvents = 'none';
-    this.wrapper.appendChild(this.debug);
 
     this.dpr = window.devicePixelRatio ?? 1;
 
@@ -268,6 +258,9 @@ export default class NodeSystemView extends EventEmitter {
         this.y = y;
         this.s = s;
         this.wrapper.style.backgroundPosition = `${x}px ${y}px`;
+        this.wrapper.style.backgroundSize =
+          s * this.height * 0.02 + '% ' + s * this.width * 0.02 + '%';
+        this.wrapper.style.backgroundOrigin = `${x}px ${y}px`;
         this.system.setMetaData({ transform: { x, y, s } });
       },
     });

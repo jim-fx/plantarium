@@ -5,8 +5,7 @@
   let canvas: HTMLCanvasElement;
 
   onMount(() => {
-    canvas.style.widows;
-    new Renderer(canvas);
+    new Renderer({ canvas });
   });
 </script>
 

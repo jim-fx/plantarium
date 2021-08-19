@@ -62,13 +62,14 @@ export default class NodeOutputView {
   }
 
   get x() {
-    return (
-      (this.node.view.x + this.node.view.width) / this.node.system.view.dpr
-    );
+    return this.node.view.x + this.node.view.width;
   }
 
   get y() {
     const system = this.node.system.view;
-    return (this.node.view.y + 10) / system.dpr;
+    const y =
+      (this.rect.y + this.rect.height / 2 - system.y - system.top) / system.s -
+      system.height / 2;
+    return y;
   }
 }

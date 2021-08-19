@@ -1,13 +1,12 @@
-import type { ProjectManager } from '../project-manager';
 import Renderer from '@plantarium/renderer';
-import { Transform, Program, Mesh } from 'ogl';
 import type { MeshOptions } from 'ogl';
+import { Mesh, Program, Transform } from 'ogl';
 import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
-
+import { localState } from '../../helpers';
+import type { ProjectManager } from '../project-manager';
 import BackgroundScene from './background';
 import ForegroundScene from './foreground';
-import { localState } from '../../helpers';
 
 export default class Scene {
   renderer: Renderer;
@@ -23,7 +22,8 @@ export default class Scene {
   gl: WebGL2RenderingContext;
 
   constructor(pm: ProjectManager, canvas: HTMLCanvasElement) {
-    this.renderer = new Renderer(canvas, {
+    this.renderer = new Renderer({
+      canvas,
       camPos: localState.get('camPos') as [number, number, number],
     });
     this.renderer.on('camPos', (camPos) => localState.set('camPos', camPos));

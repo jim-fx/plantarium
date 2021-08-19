@@ -9,8 +9,6 @@ export default class NodeInputView {
   wrapper: HTMLDivElement;
   connection!: NodeConnectionView;
 
-  private _y = 0;
-
   constructor(input: NodeInput) {
     if (!input || !input.node) throw new Error('Somethings missing');
 

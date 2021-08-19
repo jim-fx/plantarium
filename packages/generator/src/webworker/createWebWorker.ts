@@ -1,6 +1,6 @@
-import createWebWorker from './webWorker?worker=external';
 import { wrap } from 'comlink';
 import type plant from '../plant';
+import createWebWorker from './webWorker?worker=external';
 
 export default () => {
   const worker = createWebWorker();
@@ -14,7 +14,10 @@ export default () => {
 
   let isRunning = false;
 
-  async function plantProxy(rootNode: NodeResult, s: PlantariumSettings) {
+  async function plantProxy(
+    rootNode: NodeResult,
+    s: Partial<PlantariumSettings>,
+  ) {
     if (isRunning) return;
     isRunning = true;
 

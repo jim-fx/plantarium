@@ -1,4 +1,4 @@
-import { join, tube, interpolateSkeleton } from '@plantarium/geometry';
+import { interpolateSkeleton, join, tube } from '@plantarium/geometry';
 import {
   interpolateSkeletonVec,
   normalize2D,
@@ -96,9 +96,11 @@ const node: PlantNode = {
           // Point along skeleton
           const [px, py, pz, pt] = interpolateSkeleton(skelly, a);
 
-          const branch = new Float32Array(branchRes * 4);
-          for (let j = 0; j < branchRes * 4; j++) {
-            const _a = j / branchRes;
+          const pointAmount = Math.max(Math.floor(branchRes * length * 10), 4);
+
+          const branch = new Float32Array(pointAmount * 4);
+          for (let j = 0; j < pointAmount * 4; j++) {
+            const _a = j / pointAmount;
 
             branch[j * 4 + 0] = px + vx * _a * length;
             branch[j * 4 + 1] = py;

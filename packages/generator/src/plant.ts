@@ -5,7 +5,10 @@ import { walkGeometryNode, walkSkeletonNode } from './walkNode';
 
 const log = logger('gen.plant');
 
-export default function plant(rootNode: NodeResult, s: PlantariumSettings) {
+export default function plant(
+  rootNode: NodeResult,
+  s: Partial<PlantariumSettings>,
+) {
   log('-------- ~generator started~ --------');
 
   const a = performance.now();

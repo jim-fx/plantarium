@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { stateToComponent, Section } from '@plantarium/ui';
+  import { Section, stateToComponent } from '@plantarium/ui';
   import sectionOpen from './sectionOpen';
-  import type { SettingsManager } from '.';
 
   type SettingsTemplate = {
     [key: string]: ValueTemplate | { options: SettingsTemplate };
@@ -77,6 +76,7 @@
     padding-top: 10px;
 
     border-bottom: solid thin #30303055;
+    color: #303030;
   }
 
   h3 {

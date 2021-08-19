@@ -18,7 +18,10 @@ const Tutor = {
   },
   next: async function () {
     const currentStep = steps[this.currentIndex];
-    if (!currentStep) return;
+    if (this.currentIndex === steps.length) {
+      localState.set('hasViewedTutorial', true);
+      return;
+    }
     if (currentStep.setup) await currentStep.setup({ pm });
     store.set(currentStep);
     this.currentIndex++;
@@ -73,7 +76,7 @@ const Tutor = {
       // this.currentIndex = 5;
       if (res === 'yes') this.next();
       else this.handleReject();
-    }, 100);
+    }, 10000);
   },
 };
 

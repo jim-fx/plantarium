@@ -1,9 +1,12 @@
-import { Renderer as oRenderer, Camera, Orbit, Vec3, Transform } from 'ogl';
-
 import { convertHexToRGB, EventEmitter, throttle } from '@plantarium/helpers';
+import { Camera, Orbit, Renderer as oRenderer, Transform, Vec3 } from 'ogl';
 
 interface RendererOptions {
   clearColor: string;
+  width: number;
+  height: number;
+  canvas: HTMLCanvasElement;
+  still: boolean;
   camPos: [number, number, number];
 }
 
@@ -20,18 +23,22 @@ export default class Renderer extends EventEmitter {
 
   private lastCamPos: Vec3 = new Vec3(0, 0, 0);
 
-  constructor(
-    canvas: HTMLCanvasElement,
-    {
-      clearColor = 'ffffff',
-      camPos = [0, 2, 4],
-    }: Partial<RendererOptions> = {},
-  ) {
+  constructor({
+    canvas,
+    width,
+    height,
+    clearColor = 'ffffff',
+    camPos = [0, 2, 4],
+  }: Partial<RendererOptions> = {}) {
     super();
 
     this.canvas = canvas;
 
-    const { width, height } = canvas.getBoundingClientRect();
+    if ((!width || !height) && canvas) {
+      const rect = canvas.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+    }
 
     this.renderer = new oRenderer({
       canvas,
@@ -42,6 +49,10 @@ export default class Renderer extends EventEmitter {
     });
     this.gl = this.renderer.gl;
     this.gl.clearColor(...convertHexToRGB(clearColor), 1);
+
+    if (this.renderer.gl.canvas) {
+      this.canvas = this.renderer.gl.canvas;
+    }
 
     // Setup Camera
     this.camera = new Camera(this.gl, { fov: 70, aspect: width / height });
@@ -75,6 +86,10 @@ export default class Renderer extends EventEmitter {
 
   setClearColor(clearColor: string) {
     this.gl.clearColor(...convertHexToRGB(clearColor), 1);
+  }
+
+  renderScene(scene: Transform) {
+    this.renderer.render({ scene, camera: this.camera });
   }
 
   render(): void {

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { ProjectManager } from '.';
   import { humane } from '@plantarium/helpers';
+  import type { ProjectManager } from '.';
 
   export let pm: ProjectManager;
   export let project: PlantProject;
@@ -66,6 +66,7 @@
     border-radius: 10px;
     display: grid;
     grid-template-columns: 100px 1fr;
+    color: #303030;
 
     > .project-image {
       background-image: url('../assets/rocky_dirt1-albedo.jpg');
