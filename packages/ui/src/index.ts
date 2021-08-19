@@ -21,6 +21,7 @@ export {
   InputNumber,
   InputSlider,
   InputSelect,
+  InputCheckbox,
   InputCurve,
   InputShape,
   InputColor,

@@ -97,7 +97,7 @@ export default class DebugScene {
 
       // Transfer positions;
       let offset = 0;
-      skeletons.forEach((skelly, j) => {
+      skeletons.forEach((skelly) => {
         const amount = skelly.length / 4;
 
         for (let i = 0; i < amount; i++) {

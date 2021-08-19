@@ -32,7 +32,7 @@
 </script>
 
 <div
-  class="wrapper"
+  class="wrapper project-manager-wrapper"
   class:visible
   style={`width: ${width}px; height: ${height}px;`}
 >

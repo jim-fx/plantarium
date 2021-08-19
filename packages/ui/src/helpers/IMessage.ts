@@ -1,3 +1,5 @@
+import type { SvelteComponent } from 'svelte';
+
 export enum MessageType {
   INFO = 'info',
   WARNING = 'warning',
@@ -6,9 +8,9 @@ export enum MessageType {
 }
 
 export interface Message {
-  id: string;
+  id: string | Error | unknown;
   type: MessageType;
-  content: string;
+  content: string | Error | typeof SvelteComponent;
   title: string;
   values?: string[];
   timeout?: number;

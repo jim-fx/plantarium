@@ -1,7 +1,7 @@
 <svelte:options tag="plant-icon" />
 
 <script context="module" lang="ts">
-  import * as icons from './icons/index.ts';
+  import * as icons from './icons';
 
   export type IconType = keyof typeof icons;
 </script>
@@ -13,7 +13,7 @@
   export let dark = false;
   export let circle = false;
 
-  $: icon = name in icons ? icons[name] : name + ' icon not found';
+  $: icon = name in icons ? icons[name] : name.toString() + ' icon not found';
 </script>
 
 <div class="icon-wrapper" class:active class:dark class:circle>
@@ -22,8 +22,9 @@
 
 <style lang="scss">
   .icon-wrapper {
-    height: 100%;
-    width: fit-content;
+    width: var(--width, fit-content);
+    height: var(--height, 100%);
+    object-fit: cover;
     box-sizing: border-box;
 
     min-width: 20px;
@@ -35,6 +36,10 @@
       border-radius: 50%;
       border: solid medium white;
     }
+
+    > :global(svg) {
+      width: 100%;
+    }
   }
 
   .circle::after {
@@ -44,7 +49,8 @@
   }
 
   .icon-wrapper > :global(*) {
-    stroke: var(--color, white);
+    stroke: var(--stroke, white);
+    fill: var(--fill, none);
   }
 
   .active :global(*) {
@@ -53,7 +59,6 @@
 
   .dark :global(*) {
     stroke: #303030;
-    color: var(--text-color, white);
   }
   .icon-wrapper :global(svg > *) {
     transition: stroke 0.1s ease;

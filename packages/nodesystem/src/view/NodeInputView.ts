@@ -1,7 +1,7 @@
-import './NodeInputView.scss';
 import type Node from '../model/Node';
 import type NodeInput from '../model/NodeInput';
 import type NodeConnectionView from './NodeConnectionView';
+import './NodeInputView.scss';
 
 export default class NodeInputView {
   node: Node;
@@ -74,15 +74,14 @@ export default class NodeInputView {
 
   get x() {
     const system = this.node.system.view;
-    return this.node.view.x / system.dpr;
+    return this.node.view.x;
   }
 
   get y() {
     const system = this.node.system.view;
     const y =
-      ((this.rect.y + this.rect.height / 2 - system.y - system.top) / system.s -
-        system.height / 2) /
-      system.dpr;
+      (this.rect.y + this.rect.height / 2 - system.y - system.top) / system.s -
+      system.height / 2;
     return y;
   }
 }
