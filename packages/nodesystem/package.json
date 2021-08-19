@@ -11,7 +11,6 @@
   ],
   "license": "MIT",
   "styles": "./public/dist/index.esm.css",
-  "types": "./public/dist/index.d.ts",
   "scripts": {
     "clean": "rimraf coverage .nyc_output public-test public/dist",
     "build": "node build.js && pnpm build:types",

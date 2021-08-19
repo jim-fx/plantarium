@@ -1,19 +1,24 @@
 <script lang="ts">
   import Nodes from '@plantarium/nodes';
   import { NodeSystem } from '@plantarium/nodesystem';
+  import { setTheme, ThemeProvider, ThemeStore } from '@plantarium/theme';
   import {
+    AlertWrapper,
     Button,
     createToast,
     ToastWrapper,
-    AlertWrapper,
   } from '@plantarium/ui';
   import { onMount } from 'svelte';
   import ClickOutside from 'svelte-click-outside';
   import type { Writable } from 'svelte/store';
-  import { ProjectManager } from './components/project-manager';
+  import {
+    ProjectManager,
+    ProjectManagerView,
+  } from './components/project-manager';
   import Scene from './components/scene/Scene.svelte';
   import { SettingsManager } from './components/settings-manager';
-  import { setTheme, ThemeStore, ThemeProvider } from '@plantarium/theme';
+  import SettingsManagerView from './components/settings-manager/SettingsManagerView.svelte';
+  import { Tutor, TutorWrapper } from './components/tutor';
 
   let nodeSystemWrapper: HTMLDivElement;
   let projectManager: ProjectManager;
@@ -46,12 +51,15 @@
 
     projectManager = new ProjectManager(nodeSystem, SettingsManager);
     activeProject = projectManager.activeProject;
+
+    Tutor.init({ projectManager });
   });
 </script>
 
 <ThemeProvider />
 <AlertWrapper />
 <ToastWrapper />
+<TutorWrapper {projectManager} />
 
 <header>
   <div class="left">
@@ -61,19 +69,16 @@
           icon="folder"
           name="Projects"
           cls="projects-icon"
-          --background-color="transparent"
-          --color={$ThemeStore['text-color']}
+          --bg="transparent"
+          --text={$ThemeStore['text-color']}
           bind:active={showPM}
         />
         {#if projectManager && pmLoad}
-          {#await import('./components/project-manager/ProjectManagerView.svelte') then { default: ProjectManagerView }}
-            <svelte:component
-              this={ProjectManagerView}
-              pm={projectManager}
-              visible={showPM}
-              on:close={() => (showPM = false)}
-            />
-          {/await}
+          <ProjectManagerView
+            pm={projectManager}
+            visible={showPM}
+            on:close={() => (showPM = false)}
+          />
         {/if}
       </div>
     </ClickOutside>
@@ -87,20 +92,17 @@
         <Button
           icon="cog"
           cls="settings-icon"
-          --background-color="transparent"
-          --color={$ThemeStore['text-color']}
+          --bg="transparent"
+          --text={$ThemeStore['text-color']}
           bind:active={sShow}
         />
 
         {#if SettingsManager && sLoad}
-          {#await import('./components/settings-manager/SettingsManagerView.svelte') then { default: SettingsManagerView }}
-            <svelte:component
-              this={SettingsManagerView}
-              sm={SettingsManager}
-              visible={sShow}
-              on:close={() => (sLoad = false)}
-            />
-          {/await}
+          <SettingsManagerView
+            sm={SettingsManager}
+            visible={sShow}
+            on:close={() => (sLoad = false)}
+          />
         {/if}
       </div>
     </ClickOutside>

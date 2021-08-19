@@ -1,12 +1,16 @@
-import { writable } from 'svelte/store';
+import createId from 'shortid';
+import type { SvelteComponent } from 'svelte';
 import type { Writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 import type { Message, MessageOptions } from './IMessage';
 import { MessageType } from './IMessage';
-import createId from 'shortid';
 
 const createMessageFactory =
   (store: Writable<Message[]>) =>
-  (content: string | Error, options?: Partial<MessageOptions>) => {
+  (
+    content: string | Error | typeof SvelteComponent,
+    options?: Partial<MessageOptions>,
+  ) => {
     if (!content && !options) return;
 
     const hasValues = Array.isArray(options?.values);
@@ -14,8 +18,8 @@ const createMessageFactory =
     const message: Message = {
       id: createId(),
       type: MessageType.INFO,
-      content: typeof content === 'string' ? content : '',
-      title: options?.type,
+      content,
+      title: options?.title ?? options?.type,
       values: options?.values,
       timeout: options?.timeout,
     };
@@ -62,7 +66,7 @@ const createMessageFactory =
       }
     }
 
-    if (!message.title) {
+    if (!('title' in message)) {
       message.title =
         message.type.toUpperCase().slice(0, 1) + message.type.slice(1);
     }

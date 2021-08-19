@@ -1,12 +1,12 @@
 <svelte:options tag="plant-toast" />
 
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import Icon from '../Icon.svelte';
+  import { onMount, SvelteComponent } from 'svelte';
   import Button from '../Button.svelte';
-  import type { IconType } from '../Icon.svelte';
   import type { Message } from '../helpers/IMessage';
   import { MessageType } from '../helpers/IMessage';
+  import type { IconType } from '../Icon.svelte';
+  import Icon from '../Icon.svelte';
   export let toast: Message;
 
   let animateProgress = false;
@@ -50,8 +50,19 @@
         {/if}
 
         <div class="toast-text">
-          <h3>{toast.title}</h3>
-          <p>{toast.content}</p>
+          {#if toast.title}
+            <h3>{toast.title}</h3>
+          {/if}
+
+          {#if typeof toast.content === 'string'}
+            <p>{@html toast.content}</p>
+          {:else if toast.content instanceof Error}
+            <pre>
+              {toast.content}
+            </pre>
+          {:else if toast.content instanceof SvelteComponent}
+            <svelte:component this={toast.content} />
+          {/if}
 
           {#if toast.values}
             {#each toast.values as v}
@@ -59,14 +70,20 @@
                 {#if isCustomElement}
                   <plant-button on:click={() => toast.resolve(v)} name={v} />
                 {:else}
-                  <Button on:click={() => toast.resolve(v)} name={v} />
+                  <Button
+                    --margin="5px 10px 5px 0"
+                    --text={isInverted ? 'white' : '#1a1a1a'}
+                    --bg={isInverted ? '#1a1a1a' : 'white'}
+                    on:click={() => toast.resolve(v)}
+                    name={v}
+                  />
                 {/if}
               </div>
             {/each}
           {/if}
         </div>
         <div class="toast-close" on:click={() => toast.reject()}>
-          <Icon name="cross" />
+          <Icon name="cross" --height="fit-content" />
         </div>
       </div>
 
@@ -134,7 +151,7 @@
           margin: 0;
         }
         p {
-          line-break: anywhere;
+          white-space: pre-line;
         }
       }
 

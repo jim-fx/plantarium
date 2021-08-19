@@ -1,6 +1,6 @@
 .component-wrapper {
   position: relative;
-  background-color: #4b4b4b;
+  background-color: var(--foreground-color);
   border-radius: 2px;
   width: fit-content;
   user-select: none;

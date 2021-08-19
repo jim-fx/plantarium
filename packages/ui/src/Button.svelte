@@ -1,9 +1,9 @@
 <svelte:options tag="plant-button" />
 
 <script lang="ts">
-  import Icon from './Icon.svelte';
-  import type { IconType } from './Icon.svelte';
   import { createEventDispatcher } from 'svelte';
+  import type { IconType } from './Icon.svelte';
+  import Icon from './Icon.svelte';
   export let icon: IconType | undefined = undefined;
   export let name = '';
   export let cls = '';
@@ -40,16 +40,35 @@
 <style lang="scss">
   @import './global.scss';
 
+  button.active {
+    background-color: #65e2a0 !important;
+  }
+
+  button.active > p {
+    color: #303030 !important;
+  }
+
+  button.active > :global(.icon-wrapper > svg > *) {
+    stroke: #303030 !important;
+  }
+
+  button > .icon-wrapper > svg {
+    stroke-width: 5px;
+  }
+
   button {
     position: relative;
+    display: flex;
+    align-items: center;
     height: 40px;
     border-radius: 5px;
     border: none;
     background-color: transparent;
     outline: none;
+    margin: var(--margin, 0);
     transition: none;
     cursor: pointer;
-    background-color: var(--background-color, #303030);
+    background-color: var(--bg, --foreground-color);
   }
 
   button.only-icon {
@@ -70,7 +89,7 @@
   }
 
   p {
-    color: var(--text-color, white);
+    color: var(--text, --text-color);
     font-weight: bolder;
     padding: 0px 5px;
     margin: 0;

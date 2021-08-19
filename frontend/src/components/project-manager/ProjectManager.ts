@@ -2,8 +2,8 @@ import { EventEmitter, logger } from '@plantarium/helpers';
 import type { NodeSystem } from '@plantarium/nodesystem';
 import storage from 'localforage';
 import createId from 'shortid';
-import { writable } from 'svelte/store';
 import type { Writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 import type { SettingsManager } from '../settings-manager';
 
 const log = logger('ProjectManager');
@@ -19,6 +19,11 @@ export default class ProjectManager extends EventEmitter {
   private loadingActiveProject?: Promise<PlantProject>;
   public store: Writable<PlantProject[]> = writable([]);
   private nodeSystem: NodeSystem;
+
+  once: (
+    type: 'save' | 'delete' | 'update' | 'new',
+    cb: (value: unknown) => void,
+  ) => () => void;
 
   constructor(nodeSystem: NodeSystem, settingsManager: typeof SettingsManager) {
     super();
@@ -76,6 +81,8 @@ export default class ProjectManager extends EventEmitter {
 
   public createNew(): void {
     const plant = this.createNewProject();
+    this.emit('new', plant);
+
     this.saveProject(plant);
   }
 
@@ -88,6 +95,8 @@ export default class ProjectManager extends EventEmitter {
     project.meta = { ...project.meta, ...meta };
 
     log('update meta', id);
+
+    this.emit('update', project);
 
     this.saveProject(project);
   }
@@ -121,6 +130,7 @@ export default class ProjectManager extends EventEmitter {
       await storage.removeItem(PTP_PREFIX + id);
       await storage.setItem('pt_project_ids', Object.keys(this.projects));
       this.store.set(Object.values(this.projects));
+      this.emit('delete', id);
       log('deleted project with id: ' + id);
     } else {
       log.warn('cant delete project with id: ' + id);

@@ -22,7 +22,6 @@
       <title>cross</title>
       <line
         vector-effect="non-scaling-stroke"
-        class="b0ff5687-6367-498c-a1f2-615cbbb6ed44"
         x1="0"
         y1="100"
         x2="100"
@@ -30,7 +29,6 @@
       />
       <line
         vector-effect="non-scaling-stroke"
-        class="b0ff5687-6367-498c-a1f2-615cbbb6ed44"
         x1="0"
         y1="0"
         x2="100"

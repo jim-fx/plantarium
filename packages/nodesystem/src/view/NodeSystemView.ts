@@ -236,7 +236,6 @@ export default class NodeSystemView extends EventEmitter {
   setTransform({ x = this.x, y = this.y, s = this.s } = {}) {
     this.x = x;
     this.y = y;
-    console.log(this.dpr);
     this.s = s / this.dpr;
     this.panzoom.setTransform(x, y, s / this.dpr);
   }
