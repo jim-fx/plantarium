@@ -70,6 +70,7 @@ const Tutor = {
     setTimeout(async () => {
       const res = await createToast(greetings, {
         title: '',
+        timeout: 8000,
         values: ['nah', 'yes'],
       });
 
