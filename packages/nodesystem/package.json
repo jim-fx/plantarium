@@ -12,7 +12,7 @@
   "license": "MIT",
   "styles": "./public/dist/index.esm.css",
   "scripts": {
-    "clean": "rimraf coverage .nyc_output public-test public/dist",
+    "clean": "rimraf coverage .nyc_output public-test public/dist .eslintcache",
     "build": "node build.js && pnpm build:types",
     "build:test": "pnpm build && cp -r public public-test && nyc instrument public/dist public-test/dist",
     "build:types": "tsc",
@@ -21,7 +21,7 @@
     "test": "pnpm build:test && run-p --race serve cy:run",
     "cy:run": "wait-on http-get://localhost:8084 && pnpm cypress run",
     "cy:open": "wait-on http-get://localhost:8084 && pnpm cypress open",
-    "lint": "eslint src/**/*.ts"
+    "lint": "eslint src/**/*.ts --cache"
   },
   "dependencies": {
     "@plantarium/helpers": "link:../helpers",

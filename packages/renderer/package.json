@@ -4,8 +4,8 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "clean": "rimraf coverage .nyc_output public/dist",
-    "lint": "eslint src/**/*"
+    "clean": "rimraf coverage .nyc_output public/dist .eslintcache",
+    "lint": "eslint src/**/* --cache"
   },
   "dependencies": {
     "@plantarium/helpers": "workspace:1.0.0",

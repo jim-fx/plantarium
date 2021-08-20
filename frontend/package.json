@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint src/**/*",
-    "clean": "rimraf dist",
+    "lint": "eslint src/**/* --cache",
+    "clean": "rimraf dist .eslintcache",
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",

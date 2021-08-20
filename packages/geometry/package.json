@@ -10,8 +10,8 @@
     "dev:types": "tsc-watch --noClear --onSuccess 'pnpm bundle:types'",
     "dev": "run-p dev:build dev:types",
     "bundle:types": "dts-bundle --main public/dist/geometry/src/index.d.ts --name geometry --out ../../bundle.d.ts",
-    "clean": "rimraf coverage .nyc_output public/dist",
-    "lint": "eslint src/**/*"
+    "clean": "rimraf coverage .nyc_output public/dist .eslintcache",
+    "lint": "eslint src/**/* --cache"
   },
   "dependencies": {
     "@plantarium/helpers": "link:../helpers",

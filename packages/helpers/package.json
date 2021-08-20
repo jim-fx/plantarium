@@ -7,8 +7,8 @@
   "scripts": {
     "test": "uvu -r ts-eager/register tests",
     "coverage": "nyc pnpm test",
-    "clean": "rm -rf coverage .nyc_output",
-    "lint": "eslint src/**/*"
+    "clean": "rm -rf coverage .nyc_output .eslintcache",
+    "lint": "eslint src/**/* --cache"
   },
   "dependencies": {
     "file-saver": "^2.0.5"

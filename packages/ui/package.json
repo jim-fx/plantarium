@@ -5,14 +5,14 @@
   "source": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint src/**/*{.ts,.svelte}",
+    "lint": "eslint src/**/*{.ts,.svelte} --cache",
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
     "test": "uvu tests -r esm -r tests/setup/register -i setup",
     "coverage": "nyc pnpm test",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "clean": "rimraf coverage .nyc_output public/dist"
+    "clean": "rimraf coverage .nyc_output public/dist .eslintcache"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.17",
