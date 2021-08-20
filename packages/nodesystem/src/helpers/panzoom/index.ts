@@ -360,7 +360,7 @@ export function createPanZoom(
     const dx = container.width / 2 - cx;
     const dy = container.height / 2 - cy;
 
-    internalMoveBy(dx, dy, true);
+    internalMoveBy(dx, dy);
   }
 
   function smoothMoveTo(x, y) {
