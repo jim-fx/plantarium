@@ -70,7 +70,8 @@ steps:
   - name: deploy
     image: alpacadb/docker-lftp
     when:
-      branch: main
+      branch:
+        - main
     environment:
       FTP_USERNAME:
         from_secret: FTP_USERNAME
@@ -85,11 +86,12 @@ steps:
     depends_on:
       - test
       - build
-  - name: deploy-dev-branch
+  - name: deploy-feature-branch
     image: alpacadb/docker-lftp
     when:
       branch:
-        exclude: main
+        include:
+          - feat/*
     environment:
       FTP_USERNAME:
         from_secret: FTP_USERNAME
@@ -100,7 +102,7 @@ steps:
       - cp -r packages/ui/dist frontend/dist/ui
       - cp -r packages/nodesystem/public frontend/dist/nodes
       - cd frontend/dist
-      - lftp -e "set sftp:auto-confirm true; set ftp:ssl-force true; set xfer:timeout 10000; debug 3; open -u $FTP_USERNAME,$FTP_PASSWORD sftp://ssh.jim-fx.com:2221; mkdir -p share/plant/branch/$DRONE_BRANCH; cd share/plant/branch/$DRONE_BRANCH; mirror -p --scan-all-first --overwrite --verbose -R --skip-noaccess; quit;"
+      - lftp -e "set sftp:auto-confirm true; set ftp:ssl-force true; set xfer:timeout 10000; debug 3; open -u $FTP_USERNAME,$FTP_PASSWORD sftp://ssh.jim-fx.com:2221; mkdir -p share/plant/$DRONE_BRANCH; cd share/plant/$DRONE_BRANCH; mirror -p --scan-all-first --overwrite --verbose -R --skip-noaccess; quit;"
     depends_on:
       - test
       - build
