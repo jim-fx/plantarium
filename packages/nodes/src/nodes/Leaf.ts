@@ -1,4 +1,3 @@
-import { join, tube } from '@plantarium/geometry';
 import { logger } from '@plantarium/helpers';
 const log = logger('nodes.leaf');
 
@@ -71,6 +70,9 @@ const node: PlantNode = {
   },
 
   computeSkeleton(parameters, ctx) {
+    const { shape } = parameters;
+    console.log(shape);
+
     return {};
   },
 
@@ -78,10 +80,7 @@ const node: PlantNode = {
     const { input } = parameters;
     const stemResX = ctx.getSetting('stemResX');
     return {
-      geometry: join(
-        input.result.geometry,
-        ...result.skeletons.map((skelly) => tube(skelly, stemResX)),
-      ),
+      geometry: input.result.geometry,
     };
   },
 };

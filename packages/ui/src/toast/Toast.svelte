@@ -78,13 +78,13 @@
           <div class="button-wrapper">
             {#if toast.content instanceof Error}
               <Button
-                --margin="5px 10px 5px 0"
+                --margin="5px 10px 5px -10px"
                 --text={isInverted ? '#1a1a1a' : 'white'}
                 --bg="transparent"
                 on:click={() => {
                   showStackTrace = !showStackTrace;
                 }}
-                name={'> StackTrace'}
+                name="> StackTrace"
               />
             {/if}
 

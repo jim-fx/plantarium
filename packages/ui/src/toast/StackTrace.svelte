@@ -11,7 +11,7 @@
     <pre>
     <code>
       {#each stacktrace.lines as line}
-        at {line.name} {line.alias?`as ${line.alias}`:""}<br>
+        at <strong>{line.name}</strong> {@html line.alias?`as <strong>${line.alias}</strong>`:""}<br>
       {/each}
     </code>
   </pre>
@@ -24,7 +24,7 @@
     padding: 10px;
     margin: 0px;
     border-radius: 5px;
-    overflow-x: scroll;
+    overflow-x: auto;
   }
 
   pre {
