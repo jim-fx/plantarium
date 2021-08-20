@@ -134,6 +134,7 @@
   .click-wrapper {
     position: absolute;
     width: 60px;
+    pointer-events: none;
     transform: rotate(-50deg) translateX(-10px);
     z-index: 10000;
 
