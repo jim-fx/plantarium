@@ -21,6 +21,7 @@ export { default as loader } from './loader';
 export { default as logger } from './logger';
 export { default as makeEditable } from './makeEditable';
 export { default as memoize } from './memoize';
+export { default as parseStackTrace } from './parseStackTrace';
 export { default as resizeTable } from './resizeTable';
 export { default as throttle } from './throttle';
 export { default as versionToNumber } from './versionToNumber';

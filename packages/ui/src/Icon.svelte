@@ -34,7 +34,8 @@
 
     &.circle {
       border-radius: 50%;
-      border: solid medium white;
+      padding: 5px;
+      border: solid 2px white;
     }
 
     > :global(svg) {

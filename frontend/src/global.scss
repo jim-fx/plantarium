@@ -20,7 +20,6 @@ input {
 
 body {
   margin: 0px;
-  overflow: hidden;
   padding: 0px;
 
   display: grid;
@@ -103,18 +102,18 @@ button:focus {
   }
 }
 
-// Style scrollbar
-::-webkit-scrollbar {
-  width: 5px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  margin-right: 5px;
-  background: var(--foregroundColor);
-  border-radius: var(--border-radius);
-}
+// // Style scrollbar
+// ::-webkit-scrollbar {
+//   width: 5px;
+// }
+// ::-webkit-scrollbar-track {
+//   background: transparent;
+// }
+// ::-webkit-scrollbar-thumb {
+//   margin-right: 5px;
+//   background: var(--foregroundColor);
+//   border-radius: var(--border-radius);
+// }
 
 .projects-icon.active {
   border-radius: 5px 5px 0px 0px !important;

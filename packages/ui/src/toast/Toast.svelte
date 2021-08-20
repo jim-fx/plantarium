@@ -1,15 +1,21 @@
 <svelte:options tag="plant-toast" />
 
 <script lang="ts">
+  import { parseStackTrace } from '@plantarium/helpers';
   import { onMount, SvelteComponent } from 'svelte';
+  import { slide } from 'svelte/transition';
   import Button from '../Button.svelte';
   import type { Message } from '../helpers/IMessage';
   import { MessageType } from '../helpers/IMessage';
   import type { IconType } from '../Icon.svelte';
   import Icon from '../Icon.svelte';
+  import StackTrace from './StackTrace.svelte';
+
   export let toast: Message;
 
   let animateProgress = false;
+
+  let showStackTrace = false;
 
   $: icon = toast && getIcon();
 
@@ -45,7 +51,7 @@
       <div class="toast-content" class:hasIcon={!!icon}>
         {#if icon}
           <div class="toast-icon">
-            <Icon name={icon} circle />
+            <Icon name={icon} circle --width="40px" --height="40px" />
           </div>
         {/if}
 
@@ -57,30 +63,49 @@
           {#if typeof toast.content === 'string'}
             <p>{@html toast.content}</p>
           {:else if toast.content instanceof Error}
-            <pre>
-              {toast.content}
-            </pre>
+            <p>
+              {toast.content.message}
+            </p>
+            {#if showStackTrace}
+              <div class="stack-trace" transition:slide>
+                <StackTrace stacktrace={parseStackTrace(toast.content.stack)} />
+              </div>
+            {/if}
           {:else if toast.content instanceof SvelteComponent}
             <svelte:component this={toast.content} />
           {/if}
 
-          {#if toast.values}
-            {#each toast.values as v}
-              <div class="button-spacer">
-                {#if isCustomElement}
-                  <plant-button on:click={() => toast.resolve(v)} name={v} />
-                {:else}
-                  <Button
-                    --margin="5px 10px 5px 0"
-                    --text={isInverted ? 'white' : '#1a1a1a'}
-                    --bg={isInverted ? '#1a1a1a' : 'white'}
-                    on:click={() => toast.resolve(v)}
-                    name={v}
-                  />
-                {/if}
-              </div>
-            {/each}
-          {/if}
+          <div class="button-wrapper">
+            {#if toast.content instanceof Error}
+              <Button
+                --margin="5px 10px 5px 0"
+                --text={isInverted ? '#1a1a1a' : 'white'}
+                --bg="transparent"
+                on:click={() => {
+                  showStackTrace = !showStackTrace;
+                }}
+                name={'> StackTrace'}
+              />
+            {/if}
+
+            {#if toast.values}
+              {#each toast.values as v}
+                <div class="button-spacer">
+                  {#if isCustomElement}
+                    <plant-button on:click={() => toast.resolve(v)} name={v} />
+                  {:else}
+                    <Button
+                      --margin="5px 10px 5px 0"
+                      --text={isInverted ? 'white' : '#1a1a1a'}
+                      --bg={isInverted ? '#1a1a1a' : 'white'}
+                      on:click={() => toast.resolve(v)}
+                      name={v}
+                    />
+                  {/if}
+                </div>
+              {/each}
+            {/if}
+          </div>
         </div>
         <div class="toast-close" on:click={() => toast.reject()}>
           <Icon name="cross" --height="fit-content" />
@@ -97,12 +122,23 @@
 {/if}
 
 <style lang="scss">
+  .stack-trace {
+    margin: 0 !important;
+    max-width: 100%;
+    > pre {
+      overflow-x: auto;
+    }
+  }
   .wrapper {
     padding: 10px;
   }
 
   .button-spacer {
     display: inline-block;
+  }
+
+  .button-wrapper {
+    display: flex;
   }
 
   .isInverted {
@@ -149,9 +185,11 @@
         max-width: max(30vw, 200px);
         h3 {
           margin: 0;
+          margin-bottom: 5px;
         }
         p {
           white-space: pre-line;
+          margin-bottom: 5px;
         }
       }
 
