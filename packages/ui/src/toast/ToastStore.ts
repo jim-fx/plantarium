@@ -1,7 +1,7 @@
 import createMessageStore from '../helpers/createMessageStore';
 import 'svelte/store';
 import type { SvelteComponentDev } from 'svelte/internal';
-import type { MessageOptions } from 'helpers/IMessage';
+import type { MessageOptions } from '../helpers/IMessage';
 
 const { store, createMessage } = createMessageStore();
 
