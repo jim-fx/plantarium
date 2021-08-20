@@ -85,7 +85,6 @@ export default class NodeSystemView extends EventEmitter {
     this.svg.setAttribute('height', '1');
     this.svg.setAttribute('width', '1');
     this.svg.setAttribute('preserveAspectRatio', 'none');
-    this.svg.style.transform = `scale(${window.devicePixelRatio || 1})`;
     this.transformWrapper.appendChild(this.svg);
 
     this.addMenu = new AddMenu(this);
