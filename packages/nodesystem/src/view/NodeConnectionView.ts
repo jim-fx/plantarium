@@ -25,7 +25,7 @@ export default class NodeConnectionView extends ConnectionView {
     this.hoverPath.setAttribute('vector-effect', 'non-scaling-stroke');
     this.system.view.svg.append(this.hoverPath);
 
-    this.hoverPath.addEventListener('click', (ev) => {
+    this.hoverPath.addEventListener('click', () => {
       console.log(this.x1, this.y1);
     });
 

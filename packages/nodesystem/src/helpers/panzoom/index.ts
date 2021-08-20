@@ -364,10 +364,10 @@ export function createPanZoom(
   }
 
   function smoothMoveTo(x, y) {
-    internalMoveBy(x - transform.x, y - transform.y, true);
+    internalMoveBy(x - transform.x, y - transform.y);
   }
 
-  function internalMoveBy(dx, dy, smooth = false) {
+  function internalMoveBy(dx, dy) {
     return moveBy(dx, dy);
   }
 

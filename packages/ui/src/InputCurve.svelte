@@ -1,8 +1,8 @@
 <svelte:options tag="plant-curve" accessors />
 
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
   import spline from '@yr/monotone-cubic-spline';
+  import { createEventDispatcher } from 'svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -20,7 +20,6 @@
   // let isRendering = false;
   let activePoint = undefined;
   let draggingPoint = undefined;
-  let hoverDistance = 0.02;
 
   let mousePosX = 0;
   let mousePosY = 0;
@@ -58,7 +57,7 @@
     }
   };
 
-  const handleMouseDown = (ev) => {
+  const handleMouseDown = () => {
     if (!activePoint) {
       const point = {
         x: mousePosX / 100,
