@@ -105,6 +105,7 @@ steps:
       - test
       - build
   - name: rebuild-cache
+    failure: ignore
     image: drillster/drone-volume-cache
     volumes:
       - name: cache

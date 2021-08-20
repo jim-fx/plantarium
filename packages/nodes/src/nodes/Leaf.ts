@@ -1,6 +1,3 @@
-import { logger } from '@plantarium/helpers';
-const log = logger('nodes.leaf');
-
 const defaultValue = [
   {
     x: 1,
@@ -69,16 +66,15 @@ const node: PlantNode = {
     },
   },
 
-  computeSkeleton(parameters, ctx) {
+  computeSkeleton(parameters) {
     const { shape } = parameters;
     console.log(shape);
 
     return {};
   },
 
-  computeGeometry(parameters, result, ctx) {
+  computeGeometry(parameters) {
     const { input } = parameters;
-    const stemResX = ctx.getSetting('stemResX');
     return {
       geometry: input.result.geometry,
     };
