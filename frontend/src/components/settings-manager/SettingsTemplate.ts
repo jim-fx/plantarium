@@ -13,6 +13,10 @@ const template: SettingsTemplate = {
   },
   debug: {
     options: {
+      reportError: {
+        type: 'boolean',
+        defaultValue: false,
+      },
       pd: {
         type: 'boolean',
         defaultValue: false,

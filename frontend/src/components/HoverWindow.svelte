@@ -6,7 +6,7 @@
   import type { SvelteComponentDev } from 'svelte/internal';
 
   export let name: string;
-  export let right: boolean = false;
+  export let right = false;
   export let icon: IconType;
   export let component: SvelteComponentDev;
 

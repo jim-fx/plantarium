@@ -3,8 +3,6 @@
   import SettingsSection from './SettingsSection.svelte';
   import SettingsTemplate from './SettingsTemplate';
 
-  export let visible = false;
-
   const store = settingsManager.store;
 </script>
 

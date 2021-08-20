@@ -55,38 +55,42 @@ export default class NodeSystem extends EventEmitter {
     } = options;
     this.options = { view, wrapper };
 
-    this.log = new Logger(this, logLevel);
-    this.log.group(`Instantiated id:${this.id}`);
-    this.store = new NodeTypeStore();
-    this.factory = new NodeFactory(this);
+    try {
+      this.log = new Logger(this, logLevel);
+      this.log.group(`Instantiated id:${this.id}`);
+      this.store = new NodeTypeStore();
+      this.factory = new NodeFactory(this);
 
-    if (view) {
-      this.view = new NodeSystemView(this);
-    }
-
-    if (defaultNodes) {
-      const nodesToRegister: (NodeType | NodeTypeData)[] = [];
-
-      if (defaultNodes === true) {
-        nodesToRegister.push(
-          ...Object.entries(DefaultNodes).map((entry) => entry[1]),
-        );
-      } else if (Array.isArray(defaultNodes) && defaultNodes.length) {
-        defaultNodes.forEach((type) => {
-          if (typeof type === 'string' && type in DefaultNodes) {
-            nodesToRegister.push(DefaultNodes[type]);
-          }
-        });
+      if (view) {
+        this.view = new NodeSystemView(this);
       }
 
-      nodesToRegister.forEach((nodeType) => this.registerNodeType(nodeType));
-    }
+      if (defaultNodes) {
+        const nodesToRegister: (NodeType | NodeTypeData)[] = [];
 
-    if (registerNodes && registerNodes.length) {
-      registerNodes.forEach(this.registerNodeType.bind(this));
-    }
+        if (defaultNodes === true) {
+          nodesToRegister.push(
+            ...Object.entries(DefaultNodes).map((entry) => entry[1]),
+          );
+        } else if (Array.isArray(defaultNodes) && defaultNodes.length) {
+          defaultNodes.forEach((type) => {
+            if (typeof type === 'string' && type in DefaultNodes) {
+              nodesToRegister.push(DefaultNodes[type]);
+            }
+          });
+        }
 
-    this.log.groupEnd();
+        nodesToRegister.forEach((nodeType) => this.registerNodeType(nodeType));
+      }
+
+      if (registerNodes && registerNodes.length) {
+        registerNodes.forEach(this.registerNodeType.bind(this));
+      }
+
+      this.log.groupEnd();
+    } catch (error) {
+      this.emit('error', { type: 'init', error });
+    }
   }
 
   get result() {
@@ -104,28 +108,32 @@ export default class NodeSystem extends EventEmitter {
   }
 
   load(systemData: NodeSystemData) {
-    this.isLoaded = false;
-    this.isPaused = true;
-    this.nodes.forEach((n) => (n.enableUpdates = false));
-    this.nodes.forEach((n) => n.remove());
-    this.factory.reset();
-    const nodes = this.parser.parseSystem(systemData);
-    this.addNodes(nodes);
-    this.meta = systemData.meta || { lastSaved: 0 };
-    this.meta.lastSaved = Date.now();
-    if (this.view) this.view.setTransform(this.meta.transform);
+    try {
+      this.isLoaded = false;
+      this.isPaused = true;
+      this.nodes.forEach((n) => (n.enableUpdates = false));
+      this.nodes.forEach((n) => n.remove());
+      this.factory.reset();
+      const nodes = this.parser.parseSystem(systemData);
+      this.addNodes(nodes);
+      this.meta = systemData.meta || { lastSaved: 0 };
+      this.meta.lastSaved = Date.now();
+      if (this.view) this.view.setTransform(this.meta.transform);
 
-    this.log.info(
-      `Loaded NodeSystemData with ${nodes.length} Nodes`,
-      systemData,
-    );
+      this.log.info(
+        `Loaded NodeSystemData with ${nodes.length} Nodes`,
+        systemData,
+      );
 
-    this.isPaused = false;
-    this.isLoaded = true;
+      this.isPaused = false;
+      this.isLoaded = true;
 
-    this.result = this._result;
+      this.result = this._result;
 
-    return this;
+      return this;
+    } catch (error) {
+      this.emit('error', { type: 'loading', error });
+    }
   }
 
   serialize() {

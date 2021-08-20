@@ -1,5 +1,6 @@
 import { worker } from '@plantarium/generator';
 import { transferToGeometry } from '@plantarium/geometry';
+import { createToast } from '@plantarium/ui';
 import { Box, Mesh } from 'ogl';
 import type Scene from '.';
 import { settingsManager } from '..';
@@ -56,20 +57,24 @@ export default class ForegroundScene {
 
     this.scene.isLoading.set(true);
 
-    const result = await this.worker.plant(p, s);
+    try {
+      const result = await this.worker.plant(p, s);
 
-    if (!result) return;
+      if (!result) return;
 
-    this.scene.isLoading.set(false);
+      this.scene.isLoading.set(false);
 
-    this.mesh.mode = s?.debug?.wireframe ? this.gl.LINES : this.gl.TRIANGLES;
+      this.mesh.mode = s?.debug?.wireframe ? this.gl.LINES : this.gl.TRIANGLES;
 
-    this.dbg.setPlant(result);
+      this.dbg.setPlant(result);
 
-    this.mesh.geometry = transferToGeometry(this.gl, result.geometry);
+      this.mesh.geometry = transferToGeometry(this.gl, result.geometry);
 
-    this.mesh.geometry.computeBoundingBox();
+      this.mesh.geometry.computeBoundingBox();
 
-    this.scene.renderer.setControlTarget(this.mesh.geometry.bounds.center);
+      this.scene.renderer.setControlTarget(this.mesh.geometry.bounds.center);
+    } catch (error) {
+      createToast(error);
+    }
   }
 }

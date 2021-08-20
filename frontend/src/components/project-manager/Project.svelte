@@ -29,7 +29,7 @@
       <input
         contenteditable
         value={project.meta.name}
-        on:blur={function (ev) {
+        on:blur={function () {
           const value = this.value.split('\n').join('').trim();
           projectManager.updateProjectMeta(project.meta.id, { name: value });
         }}

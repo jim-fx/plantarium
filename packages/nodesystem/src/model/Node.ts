@@ -28,8 +28,6 @@ export default class Node extends EventEmitter {
   enableUpdates = true;
   _compute: (state: { [key: string]: unknown }) => unknown;
 
-  _unsubscribeNodeMove: (() => void) | undefined;
-
   refs: { node: Node; keyIn: string[]; indexOut: number }[] = [];
 
   constructor(system: NodeSystem, props: NodeProps) {
@@ -112,7 +110,6 @@ export default class Node extends EventEmitter {
   }
 
   remove() {
-    if (this._unsubscribeNodeMove) this._unsubscribeNodeMove();
     this.system.removeNode(this);
     this.destroyEventEmitter();
   }
