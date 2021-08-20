@@ -48,7 +48,7 @@ export default class NodeSystem extends EventEmitter {
     super();
     const {
       view = false,
-      wrapper = document.body,
+      wrapper,
       defaultNodes = false,
       registerNodes = false,
       logLevel = 5,

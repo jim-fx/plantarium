@@ -1,58 +1,22 @@
 <script lang="ts">
-  import Nodes from '@plantarium/nodes';
-  import { NodeSystem } from '@plantarium/nodesystem';
-  import { setTheme, ThemeProvider, ThemeStore } from '@plantarium/theme';
-  import {
-    AlertWrapper,
-    Button,
-    createToast,
-    ToastWrapper,
-  } from '@plantarium/ui';
+  import type { NodeSystem } from '@plantarium/nodesystem';
+  import { ThemeProvider } from '@plantarium/theme';
+  import { AlertWrapper, ToastWrapper } from '@plantarium/ui';
   import { onMount } from 'svelte';
-  import ClickOutside from 'svelte-click-outside';
-  import type { Writable } from 'svelte/store';
-  import {
-    ProjectManager,
-    ProjectManagerView,
-  } from './components/project-manager';
+  import type { ProjectManager } from './components/project-manager';
   import Scene from './components/scene/Scene.svelte';
-  import { SettingsManager } from './components/settings-manager';
-  import SettingsManagerView from './components/settings-manager/SettingsManagerView.svelte';
-  import { Tutor, TutorWrapper } from './components/tutor';
+  import type { SettingsManager } from './components/settings-manager';
+  import { TutorWrapper } from './components/tutor';
+  import Header from './Header.svelte';
 
-  let nodeSystemWrapper: HTMLDivElement;
-  let projectManager: ProjectManager;
-  let showPM = false;
-  $: pmLoad = pmLoad || showPM || false;
-  let sShow = false;
-  $: sLoad = sLoad || sShow || false;
-
-  let activeProject: Writable<PlantProject | undefined>;
+  export let projectManager: ProjectManager;
+  export let settingsManager: SettingsManager;
+  export let nodeSystem: NodeSystem;
+  let nodeSystemWrapper: HTMLElement;
 
   onMount(async () => {
-    await SettingsManager.loadFromLocal();
-
-    setTheme(SettingsManager.get('theme'));
-
-    SettingsManager.on('enableSync.update', (v) => {
-      createToast(`${v ? 'Enabled' : 'Disabled'} sync`, { type: 'success' });
-    });
-
-    SettingsManager.on('theme.update', (v: string) => {
-      setTheme(v);
-    });
-
-    const nodeSystem = new NodeSystem({
-      wrapper: nodeSystemWrapper,
-      view: true,
-      defaultNodes: false,
-      registerNodes: Nodes,
-    });
-
-    projectManager = new ProjectManager(nodeSystem, SettingsManager);
-    activeProject = projectManager.activeProject;
-
-    Tutor.init({ projectManager });
+    nodeSystemWrapper.append(nodeSystem.view.wrapper);
+    nodeSystem.view.handleResize();
   });
 </script>
 
@@ -61,55 +25,10 @@
 <ToastWrapper />
 <TutorWrapper {projectManager} />
 
-<header>
-  <div class="left">
-    <ClickOutside on:clickoutside={() => (showPM = false)}>
-      <div class="project-wrapper" class:active={showPM}>
-        <Button
-          icon="folder"
-          name="Projects"
-          cls="projects-icon"
-          --bg="transparent"
-          --text={$ThemeStore['text-color']}
-          bind:active={showPM}
-        />
-        {#if projectManager && pmLoad}
-          <ProjectManagerView
-            pm={projectManager}
-            visible={showPM}
-            on:close={() => (showPM = false)}
-          />
-        {/if}
-      </div>
-    </ClickOutside>
-  </div>
+<Header {projectManager} {settingsManager} />
 
-  <h3>{$activeProject?.meta.name ?? ''}</h3>
-
-  <div class="right">
-    <ClickOutside on:clickoutside={() => (sShow = false)}>
-      <div class="settings-wrapper" class:active={sShow}>
-        <Button
-          icon="cog"
-          cls="settings-icon"
-          --bg="transparent"
-          --text={$ThemeStore['text-color']}
-          bind:active={sShow}
-        />
-
-        {#if SettingsManager && sLoad}
-          <SettingsManagerView
-            sm={SettingsManager}
-            visible={sShow}
-            on:close={() => (sLoad = false)}
-          />
-        {/if}
-      </div>
-    </ClickOutside>
-  </div>
-</header>
 <main>
-  <Scene pm={projectManager} sm={SettingsManager} />
+  <Scene pm={projectManager} sm={settingsManager} />
   <div id="nodesystem-view" bind:this={nodeSystemWrapper} />
 </main>
 
@@ -121,29 +40,5 @@
     max-height: calc(100vh - 50px);
     display: grid;
     grid-template-columns: minmax(50vw, 25%) 1fr;
-  }
-
-  h3 {
-    color: themes.$light-green;
-  }
-
-  header {
-    display: flex;
-    z-index: 2;
-    align-items: center;
-    justify-content: space-between;
-    background-color: var(--foreground-color);
-  }
-
-  .settings-wrapper {
-    position: relative;
-    z-index: 2;
-  }
-
-  .settings-wrapper,
-  .project-wrapper {
-    &.active {
-      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    }
   }
 </style>

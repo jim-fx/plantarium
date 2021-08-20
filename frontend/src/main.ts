@@ -1,6 +1,6 @@
 import './global.scss';
-import App from './App.svelte';
+import Loader from './Loader.svelte';
 
-export default new App({
+export default new Loader({
   target: document.body,
 });

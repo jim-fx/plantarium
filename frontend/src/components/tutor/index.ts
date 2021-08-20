@@ -10,7 +10,8 @@ let pm;
 
 const Tutor = {
   handleReject: () => {
-    createToast('Perfectly fine, you can reach the tutor under here');
+    localState.set('hasViewedTutorial', true);
+    createToast('The tutorial is accessable under...');
   },
   currentIndex: 0,
   previous: async function () {
@@ -19,12 +20,15 @@ const Tutor = {
   next: async function () {
     const currentStep = steps[this.currentIndex];
     if (this.currentIndex === steps.length) {
-      localState.set('hasViewedTutorial', true);
       return;
     }
     if (currentStep.setup) await currentStep.setup({ pm });
     store.set(currentStep);
     this.currentIndex++;
+
+    if (this.currentIndex > 2) {
+      localState.set('hasViewedTutorial', true);
+    }
 
     currentStep.title =
       currentStep.title ?? `Tutorial (${this.currentIndex}/${steps.length})`;
@@ -78,6 +82,11 @@ const Tutor = {
       if (res === 'yes') this.next();
       else this.handleReject();
     }, 10000);
+  },
+  restart: function () {
+    localState.set('hasViewedTutorial', false);
+    this.currentIndex = 0;
+    this.next();
   },
 };
 

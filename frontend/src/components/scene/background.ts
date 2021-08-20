@@ -2,6 +2,7 @@ import { ground } from '@plantarium/generator';
 import { loader } from '@plantarium/helpers';
 import { Color, Geometry, Mesh, Plane, Program } from 'ogl';
 import type Scene from '.';
+import { settingsManager } from '..';
 import type { ProjectManager } from '../project-manager';
 import { GroundShader } from './shaders';
 
@@ -38,7 +39,7 @@ export default class BackgroundScene {
     this.initMeshes();
 
     pm.on('settings', this.setSettings.bind(this));
-    this.setSettings(pm.getSettings());
+    this.setSettings(settingsManager.getSettings());
   }
 
   initMeshes(): void {
@@ -69,7 +70,6 @@ export default class BackgroundScene {
       program: groundShader,
     });
 
-
     const update = (time = 0) => {
       requestAnimationFrame(update);
       groundShader.uniforms.uTime.value = time;
@@ -81,10 +81,9 @@ export default class BackgroundScene {
   setSettings(settings: PlantariumSettings) {
     this.settings = settings;
 
-    
-    if(settings?.ground?.enabled){
+    if (settings?.ground?.enabled) {
       this.ground.geometry = new Geometry(this.gl, createGround(settings));
     }
-    this.ground.visible = !!settings?.ground?.enabled
+    this.ground.visible = !!settings?.ground?.enabled;
   }
 }

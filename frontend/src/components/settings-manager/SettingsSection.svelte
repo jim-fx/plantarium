@@ -1,12 +1,12 @@
 <script lang="ts">
   import { Section, stateToComponent } from '@plantarium/ui';
+  import { settingsManager } from '..';
   import sectionOpen from './sectionOpen';
 
   type SettingsTemplate = {
     [key: string]: ValueTemplate | { options: SettingsTemplate };
   };
 
-  export let sm: SettingsManager;
   export let value: unknown;
   export let key: string;
   export let path = '';
@@ -38,7 +38,6 @@
       {#each Object.entries(value) as [_key, _value]}
         {#if _key in template.options}
           <svelte:self
-            {sm}
             {path}
             value={_value}
             key={_key}
@@ -56,7 +55,7 @@
       this={stateToComponent(_template, value)}
       {value}
       {...templateToProps(_template)}
-      on:change={(ev) => sm.set(path, ev.detail)}
+      on:change={(ev) => settingsManager.set(path, ev.detail)}
     />
   {/if}
 </div>

@@ -25,16 +25,8 @@ export default class ProjectManager extends EventEmitter {
     cb: (value: unknown) => void,
   ) => () => void;
 
-  constructor(nodeSystem: NodeSystem, settingsManager: typeof SettingsManager) {
+  constructor() {
     super();
-
-    this.nodeSystem = nodeSystem;
-
-    nodeSystem.on('result', this.setProject.bind(this), 50);
-    nodeSystem.on('save', (project: PlantProject) => this.saveProject(project));
-
-    this.settingsManager = settingsManager;
-    settingsManager.on('settings', this.setSettings.bind(this), 50);
 
     this.loadProjects();
   }
@@ -99,7 +91,7 @@ export default class ProjectManager extends EventEmitter {
     this.saveProject(project);
   }
 
-  private async saveProject(_project: PlantProject) {
+  async saveProject(_project: PlantProject) {
     const project = JSON.parse(JSON.stringify(_project));
 
     this.projects[project.meta.id] = project;
@@ -146,11 +138,11 @@ export default class ProjectManager extends EventEmitter {
 
     if (this.loadingActiveProject) {
       this.activeProjectId = id;
-      this.nodeSystem.load(project);
       this.saveProject(project);
       this.activeProject.set(project);
       await storage.setItem('pt_active_id', id);
       log('set active project to id: ' + id);
+      this.emit('load', project);
       delete this.loadingActiveProject;
     } else {
       log.warn('cant find plant with id: ' + id);
@@ -199,9 +191,5 @@ export default class ProjectManager extends EventEmitter {
 
   setSettings(settings: PlantariumSettings) {
     this.emit('settings', settings);
-  }
-
-  getSettings() {
-    return this.settingsManager.getSettings();
   }
 }

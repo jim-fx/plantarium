@@ -1,14 +1,12 @@
 <script lang="ts">
   import { InputSelect } from '@plantarium/ui';
   import ResizeObserer from 'svelte-resize-observer';
+  import { projectManager } from '..';
   import { localState } from '../../helpers';
   import Project from './Project.svelte';
-  import type ProjectManager from './ProjectManager';
-  export let pm: ProjectManager;
 
-  export let visible = false;
-
-  const { store } = pm;
+  const { store } = projectManager;
+  export let visible;
 
   let searchTerm: string;
 
@@ -25,28 +23,27 @@
     return false;
   }
 
-  const { width, height } = localState.get('pmSize', {
+  const { width, height } = localState.get('projectManagerSize', {
     width: 300,
     height: window.innerHeight / 2,
   });
 </script>
 
 <div
-  class="wrapper project-manager-wrapper"
-  class:visible
+  class="project-manager-wrapper"
   style={`width: ${width}px; height: ${height}px;`}
 >
   <ResizeObserer
     on:resize={(ev) => {
       visible &&
-        localState.set('pmSize', {
+        localState.set('projectManagerSize', {
           width: ev.detail.contentRect.width,
           height: ev.detail.contentRect.height,
         });
     }}
   />
   <div class="header">
-    <button class="add-new" on:click={() => pm.createNew()}>
+    <button class="add-new" on:click={() => projectManager.createNew()}>
       <p>new</p>
     </button>
     {#if $store.length > 3}
@@ -66,7 +63,7 @@
     <div class="project-list">
       {#each $store as project}
         {#if showProject(searchTerm, project)}
-          <Project {project} {pm} />
+          <Project {project} />
         {/if}
       {/each}
     </div>
@@ -75,33 +72,6 @@
 
 <style lang="scss">
   @use '~@plantarium/theme/src/themes.module.scss';
-
-  .wrapper {
-    position: absolute;
-    margin-top: -8px;
-    width: fit-content;
-    background-color: themes.$light-green;
-    display: none;
-
-    pointer-events: none;
-    resize: both;
-    border-radius: 0px 5px 5px 5px;
-
-    margin-bottom: 8px;
-
-    resize: both;
-    overflow: auto;
-    min-width: 300px;
-    overflow-x: hidden;
-    min-height: 100px;
-    max-height: 70vh;
-    max-width: 500px;
-  }
-
-  .visible {
-    display: block;
-    pointer-events: all;
-  }
 
   .header {
     position: sticky;

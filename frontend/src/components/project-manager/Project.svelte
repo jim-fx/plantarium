@@ -1,8 +1,7 @@
 <script lang="ts">
   import { humane } from '@plantarium/helpers';
-  import type { ProjectManager } from '.';
+  import { projectManager } from '..';
 
-  export let pm: ProjectManager;
   export let project: PlantProject;
 
   let active = false;
@@ -17,9 +16,10 @@
 
 <div
   class="project-wrapper"
-  class:active={project.meta.id === pm.activeProjectId || active}
+  class:active={project.meta.id === projectManager.activeProjectId || active}
   on:resize={alert}
-  on:click={() => fakeActive() && pm.setActiveProject(project.meta.id)}
+  on:click={() =>
+    fakeActive() && projectManager.setActiveProject(project.meta.id)}
 >
   <div class="project-image">
     <!--  -->
@@ -31,14 +31,14 @@
         value={project.meta.name}
         on:blur={function (ev) {
           const value = this.value.split('\n').join('').trim();
-          pm.updateProjectMeta(project.meta.id, { name: value });
+          projectManager.updateProjectMeta(project.meta.id, { name: value });
         }}
         on:keydown={function (ev) {
           if (ev.key === 'Enter') {
             const value = this.value.split('\n').join('').trim();
             this.blur();
             ev.preventDefault();
-            pm.updateProjectMeta(project.meta.id, { name: value });
+            projectManager.updateProjectMeta(project.meta.id, { name: value });
           }
         }}
       />
@@ -49,8 +49,8 @@
     <div class="project-content-footer">
       <button
         class="delete"
-        on:click|stopPropagation={() => pm.deleteProject(project.meta.id)}
-        >delete</button
+        on:click|stopPropagation={() =>
+          projectManager.deleteProject(project.meta.id)}>delete</button
       >
     </div>
   </div>

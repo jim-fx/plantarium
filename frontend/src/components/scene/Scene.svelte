@@ -1,12 +1,11 @@
 <script lang="ts">
-  import { Icon } from '@plantarium/ui';
-
+  import type { Writable } from 'svelte/store';
   import Scene from '.';
   import type { ProjectManager } from '../project-manager';
   import type { SettingsManager } from '../settings-manager';
 
   export let pm: ProjectManager;
-  export let sm: typeof SettingsManager;
+  export let sm: SettingsManager;
 
   let canvas: HTMLCanvasElement;
 
@@ -22,7 +21,7 @@
     unsub && unsub();
     unsub = pm.on('save', (plant) => (pd = plant));
   }
-  let settings: typeof SettingsManager.store;
+  let settings: Writable<PlantariumSettings>;
   $: if (sm) {
     settings = sm.store;
   }

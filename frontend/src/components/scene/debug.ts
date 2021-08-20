@@ -1,5 +1,6 @@
 import { Geometry, Mesh, Program } from 'ogl';
 import type Scene from '.';
+import { settingsManager } from '..';
 import type { ProjectManager } from '../project-manager';
 import { ParticleShader, WireFrameShader } from './shaders';
 
@@ -17,7 +18,7 @@ export default class DebugScene {
     this.initHTML();
     this.initGeometry();
 
-    this.setSettings(pm.getSettings());
+    this.setSettings(settingsManager.getSettings());
 
     pm.on('settings', this.setSettings.bind(this));
   }

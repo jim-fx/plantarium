@@ -2,6 +2,7 @@ import { worker } from '@plantarium/generator';
 import { transferToGeometry } from '@plantarium/geometry';
 import { Box, Mesh } from 'ogl';
 import type Scene from '.';
+import { settingsManager } from '..';
 import type { ProjectManager } from '../project-manager';
 import DebugScene from './debug';
 import { MatCapShader } from './shaders';
@@ -24,7 +25,7 @@ export default class ForegroundScene {
 
     this.dbg = new DebugScene(scene, pm);
 
-    this.setSettings(pm.getSettings());
+    this.setSettings(settingsManager.getSettings());
     this.setPlant(pm.getActiveProject());
 
     this.pm.on('settings', this.setSettings.bind(this));

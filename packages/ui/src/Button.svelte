@@ -6,8 +6,9 @@
   import Icon from './Icon.svelte';
   export let icon: IconType | undefined = undefined;
   export let name = '';
-  export let cls = '';
   export let active = false;
+  export let useActive = false;
+  export let disabled = false;
 
   const dispatch = createEventDispatcher();
 
@@ -19,8 +20,9 @@
 
 <button
   on:click={handleClick}
-  class={cls}
   class:active
+  class:useActive
+  {disabled}
   class:only-icon={!name}
   class:has-icon={!!icon}
 >
@@ -40,20 +42,14 @@
 <style lang="scss">
   @import './global.scss';
 
-  button.active {
+  button.active.useActive {
     background-color: #65e2a0 !important;
-  }
-
-  button.active > p {
-    color: #303030 !important;
-  }
-
-  button.active > :global(.icon-wrapper > svg > *) {
-    stroke: #303030 !important;
-  }
-
-  button > .icon-wrapper > svg {
-    stroke-width: 5px;
+    > p {
+      color: #303030 !important;
+    }
+    > :global(.icon-wrapper > svg > *) {
+      stroke: #303030 !important;
+    }
   }
 
   button {
@@ -69,6 +65,11 @@
     transition: none;
     cursor: pointer;
     background-color: var(--bg, --foreground-color);
+  }
+
+  button:disabled {
+    opacity: 0.8;
+    pointer-events: none;
   }
 
   button.only-icon {
@@ -92,6 +93,7 @@
     color: var(--text, --text-color);
     font-weight: bolder;
     padding: 0px 5px;
+    white-space: nowrap;
     margin: 0;
   }
 

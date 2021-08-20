@@ -66,7 +66,7 @@ export default class NodeSystemView extends EventEmitter {
 
     this.system = system;
 
-    this.wrapper = system.options?.wrapper || document.createElement('div');
+    this.wrapper = system.options?.wrapper ?? document.createElement('div');
     this.wrapper.classList.add('nodesystem-wrapper');
     if (system.options.parent) {
       system.options.parent.appendChild(this.wrapper);

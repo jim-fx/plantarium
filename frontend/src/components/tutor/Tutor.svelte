@@ -37,7 +37,7 @@
 
   $: isLeft = rect && rect.left + rect.width > window.innerWidth - 100;
 
-  $: x = rect && (isLeft ? rect.left : rect.left + rect.width);
+  $: x = rect && (isLeft ? rect.left - 10 : rect.left + rect.width + 10);
 
   $: checks = $store && $store.checks;
 
@@ -62,14 +62,14 @@
   {#if clickRect}
     <div
       class="click-wrapper"
-      style={`top: ${rect.top + 20}px; left: ${x - (isLeft ? 50 : -5)}px;`}
+      style={`top: ${rect.top + 20}px; left: ${x - (isLeft ? 20 : -0)}px;`}
     >
       <Icon name="pointing" --fill={'#303030'} />
     </div>
   {/if}
 
   {#if active}
-    <div class="wrapper" style={`left: ${x}px; top: ${rect.top}px;`}>
+    <div class="wrapper" style={`left: ${x}px; top: ${rect.top + 20}px;`}>
       <p>{@html $store.description}</p>
 
       {#if checks}
@@ -136,7 +136,7 @@
   .click-wrapper {
     position: absolute;
     width: 60px;
-    transform: rotate(-45deg);
+    transform: rotate(-50deg) translateX(-10px);
     z-index: 10000;
 
     :global(.icon-wrapper) {
@@ -145,7 +145,7 @@
   }
 
   .isLeft .click-wrapper {
-    transform: rotate(30deg);
+    transform: rotate(50deg) translateX(-10px);
   }
 
   .checks-wrapper {
@@ -175,7 +175,7 @@
   }
 
   .isLeft .wrapper {
-    transform: translateX(calc(-100% - 20px));
+    transform: translateX(calc(-100%));
   }
 
   .wrapper {

@@ -9,6 +9,12 @@
 
   $: isInverted =
     alert && (alert.type === 'success' || alert.type === 'warning');
+
+  function handleKeyDown(ev) {
+    if (ev.key === 'Escape') {
+      alert.reject();
+    }
+  }
 </script>
 
 {#if alert}
@@ -43,6 +49,8 @@
     </div>
   </div>
 {/if}
+
+<svelte:window on:keydown={handleKeyDown} />
 
 <style lang="scss">
   .alert-container {
