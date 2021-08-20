@@ -19,7 +19,8 @@ steps:
     commands:
       - "[ ! -d '.git' ] && git clone $DRONE_REMOTE_URL ."
       - git fetch --all
-      - git reset --hard origin/main
+      - git reset --hard $DRONE_BRANCH
+      - git pull
       - echo "[$(git log --pretty=format:'{"id":"%h","subject":"%s","date":"%cD"},')]" | sed 's/,]/]/g' > frontend/public/commits.json
     depends_on:
       - restore-cache
