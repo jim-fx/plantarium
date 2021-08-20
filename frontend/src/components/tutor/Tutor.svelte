@@ -1,9 +1,7 @@
 <script lang="ts">
   import { Button, Icon, InputCheckbox } from '@plantarium/ui';
-  import type { ProjectManager } from '../project-manager';
+  import { projectManager } from '..';
   import store from './store';
-
-  export let projectManager: ProjectManager;
 
   $: selector = $store && $store.selector;
 

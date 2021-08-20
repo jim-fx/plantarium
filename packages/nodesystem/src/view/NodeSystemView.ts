@@ -103,11 +103,11 @@ export default class NodeSystemView extends EventEmitter {
     }, 1);
   }
 
-  createFloatingConnection(
-    socket: NodeInput | NodeOutput,
-    point?: { x: number; y: number },
-  ) {
-    const floatingConnection = new FloatingConnectionView(socket, point);
+  createFloatingConnection(socket: NodeInput | NodeOutput) {
+    const floatingConnection = new FloatingConnectionView(socket, {
+      x: this.mx,
+      y: this.my,
+    });
     floatingConnection.once(
       'connection',
       ({
@@ -261,6 +261,7 @@ export default class NodeSystemView extends EventEmitter {
         this.wrapper.style.backgroundSize =
           s * this.height * 0.02 + '% ' + s * this.width * 0.02 + '%';
         this.wrapper.style.backgroundOrigin = `${x}px ${y}px`;
+        window['t'] = { x, y, s };
         this.system.setMetaData({ transform: { x, y, s } });
       },
     });

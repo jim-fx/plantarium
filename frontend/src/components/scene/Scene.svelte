@@ -1,29 +1,26 @@
 <script lang="ts">
   import type { Writable } from 'svelte/store';
   import Scene from '.';
-  import type { ProjectManager } from '../project-manager';
-  import type { SettingsManager } from '../settings-manager';
-
-  export let pm: ProjectManager;
-  export let sm: SettingsManager;
+  import { projectManager, settingsManager } from '..';
 
   let canvas: HTMLCanvasElement;
 
   let scene: Scene;
   let pd;
 
-  $: if (canvas && pm && !scene) scene = new Scene(pm, canvas);
+  $: if (canvas && projectManager && !scene)
+    scene = new Scene(projectManager, canvas);
 
   $: isLoading = scene && scene.isLoading;
 
   let unsub;
-  $: if (pm) {
+  $: if (projectManager) {
     unsub && unsub();
-    unsub = pm.on('save', (plant) => (pd = plant));
+    unsub = projectManager.on('save', (plant) => (pd = plant));
   }
   let settings: Writable<PlantariumSettings>;
-  $: if (sm) {
-    settings = sm.store;
+  $: if (settingsManager) {
+    settings = settingsManager.store;
   }
 </script>
 

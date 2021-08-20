@@ -41,19 +41,11 @@
   }
 }
 
-.node-inputs-wrapper {
-  left: -7px;
-}
-
 .node-outputs-wrapper {
-  right: -7px;
-}
-
-.node-inputs-wrapper,
-.node-outputs-wrapper {
+  width: 0px;
+  right: 0px;
+  top: 2px;
   position: absolute;
-  top: 12px;
-  width: 10px;
 }
 
 .socket-type-all {

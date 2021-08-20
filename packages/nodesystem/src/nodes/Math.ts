@@ -1,7 +1,7 @@
 const node: NodeTypeData = {
   title: 'Math',
   type: 'math',
-  outputs: ['number'],
+  outputs: ['number', 'number'],
   parameters: {
     mode: {
       type: 'whatever',

@@ -53,19 +53,18 @@ interface Vec2 {
 }
 
 interface ValueTemplate {
-  type: string;
+  type: string | string[];
   label?: boolean | string;
-  value?: boolean | string | number;
+  value?: boolean | string | number | Vec2[];
   values?: string[];
   points?: Vec2[];
-  isAccessible?: boolean;
-  external?: boolean;
   internal?: boolean;
+  external?: boolean;
   inputType?: string;
   min?: number;
   max?: number;
   step?: number;
-  defaultValue?: number | string | boolean;
+  defaultValue?: number | string | boolean | Vec3[] | Vec2[] | Vec3;
 }
 
 /**

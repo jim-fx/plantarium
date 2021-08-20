@@ -1,17 +1,12 @@
 <script lang="ts">
-  import type { NodeSystem } from '@plantarium/nodesystem';
   import { ThemeProvider } from '@plantarium/theme';
   import { AlertWrapper, ToastWrapper } from '@plantarium/ui';
   import { onMount } from 'svelte';
-  import type { ProjectManager } from './components/project-manager';
+  import { nodeSystem } from './components';
   import Scene from './components/scene/Scene.svelte';
-  import type { SettingsManager } from './components/settings-manager';
   import { TutorWrapper } from './components/tutor';
   import Header from './Header.svelte';
 
-  export let projectManager: ProjectManager;
-  export let settingsManager: SettingsManager;
-  export let nodeSystem: NodeSystem;
   let nodeSystemWrapper: HTMLElement;
 
   onMount(async () => {
@@ -23,12 +18,12 @@
 <ThemeProvider />
 <AlertWrapper />
 <ToastWrapper />
-<TutorWrapper {projectManager} />
+<TutorWrapper />
 
-<Header {projectManager} {settingsManager} />
+<Header />
 
 <main>
-  <Scene pm={projectManager} sm={settingsManager} />
+  <Scene />
   <div id="nodesystem-view" bind:this={nodeSystemWrapper} />
 </main>
 

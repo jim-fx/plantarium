@@ -1,7 +1,7 @@
 import { noise } from '@plantarium/geometry';
-import { walkValueNode } from './walkNode';
 import isNode from './helpers/isNode';
 import uniqID from './helpers/uniqID';
+import { walkValueNode } from './walkNode';
 
 let lastSettings = '';
 let lastCtx;
@@ -48,7 +48,7 @@ const createContext = (s: PlantariumSettings): GeneratorContext => {
   };
 };
 
-export default (settings: PlantariumSettings): GeneratorContext => {
+export default (settings: Partial<PlantariumSettings>): GeneratorContext => {
   const s = JSON.stringify(settings);
 
   if (s !== lastSettings) {

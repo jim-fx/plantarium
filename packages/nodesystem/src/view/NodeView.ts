@@ -8,7 +8,6 @@ import './NodeView.scss';
 export default class NodeView {
   node: Node;
   wrapper: HTMLDivElement;
-  inputWrapper: HTMLDivElement;
   outputWrapper: HTMLDivElement;
   stateWrapper: HTMLDivElement;
 
@@ -54,6 +53,10 @@ export default class NodeView {
       'node-view-' + this.system.id + '-' + this.node.id,
     );
 
+    this.outputWrapper = document.createElement('div');
+    this.outputWrapper.classList.add('node-outputs-wrapper');
+    this.wrapper.append(this.outputWrapper);
+
     const title = document.createElement('p');
     title.innerHTML = node.attributes.name || node.attributes.type;
     title.classList.add('node-title');
@@ -70,11 +73,11 @@ export default class NodeView {
     this.bindEventListeners();
 
     setTimeout(() => {
-      this.setPosition(x, y);
       const { width, height } = this.wrapper.getBoundingClientRect();
       this.width = width / this.system.view.s;
       this.height = height / this.system.view.s;
-    }, 50);
+      this.setPosition(x, y);
+    }, 100);
   }
 
   bindEventListeners() {

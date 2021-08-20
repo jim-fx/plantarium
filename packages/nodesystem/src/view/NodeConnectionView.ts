@@ -1,17 +1,14 @@
+import type Node from '../model/Node';
+import type NodeConnection from '../model/NodeConnection';
 import ConnectionView from './ConnectionView';
 import type NodeInputView from './NodeInputView';
 import type NodeOutputView from './NodeOutputView';
-import type NodeConnection from '../model/NodeConnection';
-import type Node from '../model/Node';
 
 export default class NodeConnectionView extends ConnectionView {
   connection!: NodeConnection;
 
   input!: NodeInputView;
   output!: NodeOutputView;
-
-  private _unsubscribeMoveIn: () => void;
-  private _unsubscribeMoveOut: () => void;
 
   constructor(conn: NodeConnection) {
     super({}, conn.input.node.system);
@@ -27,6 +24,10 @@ export default class NodeConnectionView extends ConnectionView {
     this.hoverPath.classList.add('node-connection-hover');
     this.hoverPath.setAttribute('vector-effect', 'non-scaling-stroke');
     this.system.view.svg.append(this.hoverPath);
+
+    this.hoverPath.addEventListener('click', (ev) => {
+      console.log(this.x1, this.y1);
+    });
 
     this.hoverPath.addEventListener('mouseover', () => {
       const { activeNode } = this.system.view;

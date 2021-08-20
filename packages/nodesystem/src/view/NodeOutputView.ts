@@ -18,7 +18,7 @@ export default class NodeOutputView {
     this.wrapper.classList.add(`socket-type-${output.type}`);
     // this.node.view.outputWrapper.appendChild(this.wrapper);
 
-    output.node.view.wrapper.appendChild(this.wrapper);
+    output.node.view.outputWrapper.appendChild(this.wrapper);
 
     this.wrapper.addEventListener(
       'mousedown',
@@ -57,19 +57,19 @@ export default class NodeOutputView {
     this.rect = this.wrapper.getBoundingClientRect();
 
     this.output.connections.forEach((c) =>
-      c.view.setPosition({ x2: this.x, y2: this.y }),
+      c.view.setPosition({ x1: this.x, y1: this.y }),
     );
   }
 
   get x() {
-    return this.node.view.x + this.node.view.width;
+    return this.node.view.x + this.node.view.width + 3;
   }
 
   get y() {
     const system = this.node.system.view;
-    const y =
+    return (
       (this.rect.y + this.rect.height / 2 - system.y - system.top) / system.s -
-      system.height / 2;
-    return y;
+      system.height / 2
+    );
   }
 }

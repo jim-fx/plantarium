@@ -43,7 +43,7 @@ const defaultValue = [
 const node: PlantNode = {
   title: 'Leaf',
   type: 'leaf',
-  outputs: ['plant'],
+  outputs: ['plant', 'leaf'],
   parameters: {
     input: {
       type: 'plant',
@@ -111,11 +111,11 @@ const node: PlantNode = {
   },
 
   computeGeometry(parameters, result, ctx) {
-    const { plant } = parameters;
+    const { input } = parameters;
     const stemResX = ctx.getSetting('stemResX');
     return {
       geometry: join(
-        plant.result.geometry,
+        input.result.geometry,
         ...result.skeletons.map((skelly) => tube(skelly, stemResX)),
       ),
     };

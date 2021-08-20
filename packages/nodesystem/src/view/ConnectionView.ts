@@ -1,11 +1,18 @@
-import './ConnectionView.scss';
-
 import type NodeSystem from '../model/NodeSystem';
+import './ConnectionView.scss';
 
 const minMax = (min: number, max: number) => (num: number) =>
   Math.min(Math.max(num, min), max);
 
+const limitDecimals = (amountDecimals: number) => {
+  const amount = 10 ** amountDecimals;
+  return (num) => Math.floor(num * amount) / amount;
+};
+
 const limitSafe = minMax(-100000, 100000);
+const removeDecimals = limitDecimals(1);
+
+const limit = (num: number) => limitSafe(removeDecimals(num));
 
 export default class ConnectionView {
   path: SVGPathElement;
@@ -34,18 +41,18 @@ export default class ConnectionView {
   }
 
   setPosition({ x1 = this.x1, y1 = this.y1, x2 = this.x2, y2 = this.y2 } = {}) {
-    this.x1 = limitSafe(x1);
-    this.y1 = limitSafe(y1);
-    this.x2 = limitSafe(x2);
-    this.y2 = limitSafe(y2);
+    this.x1 = limit(x1);
+    this.y1 = limit(y1);
+    this.x2 = limit(x2);
+    this.y2 = limit(y2);
 
     const smoothness = 0.5;
 
-    const c1x = limitSafe(x1 + (x2 - x1) * smoothness);
-    const c1y = limitSafe(y1);
+    const c1x = limit(x1 + (x2 - x1) * smoothness);
+    const c1y = limit(y1);
 
-    const c2x = limitSafe(x1 + (x2 - x1) * (1 - smoothness));
-    const c2y = limitSafe(y2);
+    const c2x = limit(x1 + (x2 - x1) * (1 - smoothness));
+    const c2y = limit(y2);
 
     this.path.setAttribute(
       'd',

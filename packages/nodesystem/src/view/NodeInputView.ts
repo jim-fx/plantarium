@@ -31,10 +31,7 @@ export default class NodeInputView {
         const connection = this.input.connection;
         if (connection) {
           connection.remove();
-          this.node.system.view.createFloatingConnection(
-            connection.output,
-            this,
-          );
+          this.node.system.view.createFloatingConnection(connection.output);
         } else {
           this.node.system.view.createFloatingConnection(this.input);
         }
@@ -51,11 +48,11 @@ export default class NodeInputView {
     });
   }
 
-  private rect: DOMRect;
+  rect: DOMRect;
   updatePosition() {
     this.rect = this.wrapper.getBoundingClientRect();
 
-    this?.connection?.setPosition({ x1: this.x, y1: this.y });
+    this?.connection?.setPosition({ x2: this.x, y2: this.y });
   }
 
   remove() {
@@ -71,8 +68,7 @@ export default class NodeInputView {
   }
 
   get x() {
-    const system = this.node.system.view;
-    return this.node.view.x;
+    return this.node.view.x - 3;
   }
 
   get y() {

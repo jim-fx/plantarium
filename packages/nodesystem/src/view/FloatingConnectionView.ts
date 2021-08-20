@@ -1,9 +1,9 @@
-import ConnectionView from './ConnectionView';
+import { aggregate, EventEmitter } from '@plantarium/helpers';
+import type NodeConnection from '../model/NodeConnection';
 import NodeInput from '../model/NodeInput';
 import NodeOutput from '../model/NodeOutput';
-import { EventEmitter, aggregate } from '@plantarium/helpers';
+import ConnectionView from './ConnectionView';
 import type NodeSystemView from './NodeSystemView';
-import type NodeConnection from '../model/NodeConnection';
 
 interface FloatingConnectionView extends ConnectionView, EventEmitter {}
 
@@ -15,9 +15,6 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
   hoveredSocket: (NodeInput | NodeOutput) | undefined;
   isInput: boolean;
   isRightClick!: boolean;
-
-  width: number;
-  height: number;
 
   mdx: number;
   mdy: number;
@@ -38,20 +35,36 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
 
     this.view = system.view;
 
+    this.path.style.zIndex = '999';
+
     const type = Array.isArray(socket.type) ? socket.type[0] : socket.type;
 
     system.view.colorStore.on(type, (color) => {
       this.path.style.stroke = color;
     });
 
-    const { x: x1, y: y1 } = socket.view;
-    const { x: dx2 = x1, y: dy2 = y1 } = point;
-    this.dx2 = dx2;
-    this.dy2 = dy2;
-    this.setPosition({ x1, y1, x2: dx2, y2: dy2 });
+    socket.view.updatePosition();
 
-    this.height = this.view.height;
-    this.width = this.view.width;
+    const x1 = socket.view.x;
+    const y1 = socket.view.y;
+
+    let x2 = x1;
+    let y2 = y1;
+
+    if (point) {
+      x2 = point.x - system.view.width / 2;
+      y2 = point.y - system.view.height / 2;
+    }
+
+    this.setPosition({
+      x1: x1,
+      y1: y1,
+      x2: x2,
+      y2: y2,
+    });
+
+    this.dx2 = this.x2;
+    this.dy2 = this.y2;
 
     this.isInput = socket instanceof NodeInput;
 
@@ -88,6 +101,7 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
     this.potentialSockets = potentialSockets;
 
     // Set all the states on the sockets;
+    this.potentialSockets.forEach((s) => s.view.updatePosition());
     this.potentialSockets.forEach((s) => (s.view.state = 'highlight'));
 
     this._unsubMouseUp = this.view.on('mouseup', this.handleMouseUp.bind(this));
@@ -100,6 +114,7 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
     this.mdy = this.view.my;
 
     this.socket = socket;
+    // socket.view.updatePosition(this);
   }
 
   handleMouseUp(ev: CustomMouseEvent) {
