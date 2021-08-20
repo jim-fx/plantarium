@@ -82,7 +82,7 @@ const node: PlantNode = {
           a -= (1 / amount) * offsetSingle * (isLeft ? -1 : 1);
 
           //Vector along stem
-          const [_vx, _vy, _vz] = interpolateSkeletonVec(skelly, a);
+          const [_vx, , _vz] = interpolateSkeletonVec(skelly, a);
 
           const nv = normalize2D([_vx, _vz]);
 

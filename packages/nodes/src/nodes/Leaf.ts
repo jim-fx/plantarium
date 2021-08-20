@@ -1,7 +1,3 @@
-import { join, tube } from '@plantarium/geometry';
-import { logger } from '@plantarium/helpers';
-const log = logger('nodes.leaf');
-
 const defaultValue = [
   {
     x: 1,
@@ -70,54 +66,17 @@ const node: PlantNode = {
     },
   },
 
-  computeSkeleton(parameters, ctx) {
-    const amount = ctx.handleParameter(parameters.amount);
+  computeSkeleton(parameters) {
+    const { shape } = parameters;
+    console.log(shape);
 
-    const amountPoints = ctx.getSetting('stemResY');
-
-    const skeletons = [];
-
-    for (let i = 0; i < amount; i++) {
-      const ox = ctx.handleParameter(parameters.origin?.x);
-      const oy = ctx.handleParameter(parameters.origin?.y);
-      const oz = ctx.handleParameter(parameters.origin?.z);
-
-      const height = ctx.handleParameter(parameters.height);
-
-      const skeleton = new Float32Array(amountPoints * 4);
-
-      const thiccness = ctx.handleParameter(parameters.thiccness, i / amount);
-
-      for (let j = 0; j < amountPoints; j++) {
-        const a = j / amountPoints;
-
-        //Create point
-        const x = ox;
-        const y = oy + a * height;
-        const z = oz;
-
-        skeleton[j * 4 + 0] = x;
-        skeleton[j * 4 + 1] = y;
-        skeleton[j * 4 + 2] = z;
-        skeleton[j * 4 + 3] = (1 - a) * thiccness;
-      }
-
-      skeletons.push(skeleton);
-    }
-
-    return {
-      skeletons,
-    };
+    return {};
   },
 
-  computeGeometry(parameters, result, ctx) {
+  computeGeometry(parameters) {
     const { input } = parameters;
-    const stemResX = ctx.getSetting('stemResX');
     return {
-      geometry: join(
-        input.result.geometry,
-        ...result.skeletons.map((skelly) => tube(skelly, stemResX)),
-      ),
+      geometry: input.result.geometry,
     };
   },
 };

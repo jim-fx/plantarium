@@ -2,9 +2,9 @@
 /// <reference path="../../../@types/ogl.d.ts"/>
 import { join, transferToGeometry } from '../dist/index.js';
 import { Box, Camera, Mesh, Orbit, Renderer, Transform } from '../ogl.js';
+import debug from './debug.js';
 import createParticle from './particles.js';
 import { green, wireframe } from './shaders.js';
-import debug from "./debug.js"
 
 const renderer = new Renderer({
   dpr: 2,
@@ -43,7 +43,7 @@ const obj = new Mesh(gl, {
   program: green(gl),
 });
 obj.setParent(scene);
-debug.setModel(obj)
+debug.setModel(obj);
 
 requestAnimationFrame(update);
 function update() {
@@ -88,4 +88,7 @@ export function setParticleVisible(visible) {
 
 export function setWireframeVisible(visible) {
   wireMesh.visible = visible;
+}
+export function setIndecesVisible(visible) {
+  debug.setVisible(visible);
 }

@@ -74,7 +74,11 @@ export default class ForegroundScene {
 
       this.scene.renderer.setControlTarget(this.mesh.geometry.bounds.center);
     } catch (error) {
-      createToast(error);
+      console.error(error);
+      createToast(error, {
+        title: 'Error [Generator]',
+        values: ['Report'],
+      });
     }
   }
 }

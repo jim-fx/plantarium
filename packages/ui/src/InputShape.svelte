@@ -57,7 +57,7 @@
     }
   };
 
-  const handleMouseDown = (ev) => {
+  const handleMouseDown = () => {
     if (!activePoint) {
       const point = {
         x: mousePosX / 50,
@@ -94,7 +94,7 @@
   function renderPath(points) {
     // build the d attributes by looping over the points
     return points.reduce(
-      (acc, point, i, a) =>
+      (acc, point, i) =>
         i === 0
           ? // if first point
             `M ${point.x * 100},${point.y * 200 - 50}`

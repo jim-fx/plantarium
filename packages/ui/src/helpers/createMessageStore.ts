@@ -43,7 +43,6 @@ const createMessageFactory =
 
     if (content instanceof Error) {
       message.type = MessageType.ERROR;
-      message.content = content.message;
     }
 
     if (typeof message.timeout === 'undefined') {

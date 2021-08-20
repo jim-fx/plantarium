@@ -19,7 +19,9 @@ steps:
     commands:
       - "[ ! -d '.git' ] && git clone $DRONE_REMOTE_URL ."
       - git fetch --all
-      - git reset --hard origin/main
+      - git checkout $DRONE_BRANCH
+      - git reset --hard
+      - git pull
       - echo "[$(git log --pretty=format:'{"id":"%h","subject":"%s","date":"%cD"},')]" | sed 's/,]/]/g' > frontend/public/commits.json
     depends_on:
       - restore-cache
@@ -107,6 +109,7 @@ steps:
       - test
       - build
   - name: rebuild-cache
+    failure: ignore
     image: drillster/drone-volume-cache
     volumes:
       - name: cache
