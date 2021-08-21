@@ -68,10 +68,10 @@ If i really trust you, i could provide you with an account for this website. Oth
 - [ ] Bug Report Feature [#26](https://git.jim-fx.com/max/plantarium/issues/26)
 - [ ] Undo System [#14](https://git.jim-fx.com/max/plantarium/issues/14)
 - [ ] Preview Renders [#21](https://git.jim-fx.com/max/plantarium/issues/21)
-- [ ] Add some more nodes
+- [x] ~~Add some more nodes~~
   - [x] ~~Shape Node~~ [#23](https://git.jim-fx.com/max/plantarium/issues/23)
   - [x] ~~Curve Node~~
-  - [ ] Leaf Node [#22](https://git.jim-fx.com/max/plantarium/issues/22)
+  - [x] ~~Leaf Node~~ [#22](https://git.jim-fx.com/max/plantarium/issues/22)
 
 ### [1.1](https://git.jim-fx.com/max/plantarium/milestone/2)
 
