@@ -161,9 +161,8 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
             node.connectTo(this.socket.node, indexOut, keyIn);
           }
         })
-        .catch((err) => {
+        .catch(() => {
           // Do nothing^
-          console.error(err);
         })
         .finally(() => {
           this.remove();
