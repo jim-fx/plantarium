@@ -64,7 +64,7 @@ interface ValueTemplate {
   min?: number;
   max?: number;
   step?: number;
-  defaultValue?: number | string | boolean | Vec3[] | Vec2[] | Vec3;
+  defaultValue?: number | string | boolean | Vec3[] | Vec2[] | Vec3 | Vec2;
 }
 
 /**

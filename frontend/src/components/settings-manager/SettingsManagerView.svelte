@@ -4,6 +4,8 @@
   import SettingsTemplate from './SettingsTemplate';
 
   const store = settingsManager.store;
+
+  $: console.log('Settings', $store);
 </script>
 
 {#each Object.entries($store) as [key, value]}

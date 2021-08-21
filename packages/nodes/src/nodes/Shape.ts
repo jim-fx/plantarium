@@ -15,6 +15,9 @@ const node: PlantNode = {
       ],
     },
   },
+  computeValue(parameter) {
+    return parameter.value;
+  },
 };
 
 export default node;

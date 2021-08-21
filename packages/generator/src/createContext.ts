@@ -7,7 +7,7 @@ let lastSettings = '';
 let lastCtx;
 let currentNoise = 0;
 
-const createContext = (s: PlantariumSettings): GeneratorContext => {
+const createContext = (s: Partial<PlantariumSettings>): GeneratorContext => {
   let seed = 0;
   noise.seed = 0;
   let buildId = uniqID();

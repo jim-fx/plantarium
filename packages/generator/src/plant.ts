@@ -1,4 +1,8 @@
-import { calculateNormals } from '@plantarium/geometry';
+import {
+  calculateNormals,
+  convertInstancedGeometry,
+  join,
+} from '@plantarium/geometry';
 import { logger } from '@plantarium/helpers';
 import createContext from './createContext';
 import { walkGeometryNode, walkSkeletonNode } from './walkNode';
@@ -24,6 +28,14 @@ export default function plant(
   log('final geometry', final);
 
   const { result } = final;
+
+  if (result.instances) {
+    const instances = result.instances
+      ?.map((i) => convertInstancedGeometry(i))
+      .flat();
+
+    result.geometry = join(result.geometry, ...instances);
+  }
 
   result.geometry = calculateNormals(result.geometry);
 

@@ -1,9 +1,9 @@
-import isNode from './helpers/isNode';
 import {
   executeGeometryNode,
   executeSkeletonNode,
   executeValueNode,
 } from './executeNode';
+import isNode from './helpers/isNode';
 
 export const walkSkeletonNode = (node, ctx: GeneratorContext) => {
   // Compute all the values for the parameters
@@ -32,6 +32,7 @@ export const walkGeometryNode = (node, ctx) => {
     }
   });
 
+  // We need to merge the result of the previous pass with this one
   node.result = { ...node.result, ...executeGeometryNode(node, ctx) };
 
   return node;

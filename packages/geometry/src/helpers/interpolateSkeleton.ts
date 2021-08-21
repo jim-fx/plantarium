@@ -1,6 +1,9 @@
 import lerp from './lerp';
 
-export default function (skeleton: Float32Array, alpha: number): number[] {
+export default function (
+  skeleton: Float32Array,
+  alpha: number,
+): [number, number, number, number] {
   //alpha = Math.max(Math.min(alpha, 1), 0);
 
   const _alpha = (skeleton.length / 4 - 1) * alpha;

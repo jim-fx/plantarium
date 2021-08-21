@@ -1,4 +1,7 @@
-export default function (shape: Vec2[], res = 1): TransferGeometry {
+export default function (
+  shape: Vec2[],
+  { res = 1, xCurvature = 0.5, yCurvature = 0.2 } = {},
+): TransferGeometry {
   const amountY = shape.length;
   const amountX = 3 + res * 2;
   const amountPoints = amountX * amountY;
@@ -13,13 +16,16 @@ export default function (shape: Vec2[], res = 1): TransferGeometry {
   shape.forEach((s, j) => {
     const offset = j * amountX;
 
-    console.log('Line', j);
-
     // Do the left side of the leaf;
     for (let i = 0; i < amountX; i++) {
       const a = 2 - (i / (amountX - 1)) * 2 - 1;
-      position[offset * 3 + i * 3 + 0] = (s.x - 1) * a;
-      position[offset * 3 + i * 3 + 1] = 0;
+      position[offset * 3 + i * 3 + 0] = (s.x - 1) * a * 0.5;
+
+      const curvedY = -(1 - s.y) * (1 - s.y) * 0.5;
+      const curvedX = Math.sin(Math.abs(a) * Math.PI) * 0.01;
+
+      position[offset * 3 + i * 3 + 1] =
+        curvedX * xCurvature + curvedY * yCurvature;
       position[offset * 3 + i * 3 + 2] = s.y - 1;
 
       uv[offset * 2 + i * 2 + 0] = position[offset * 3 + i * 3 + 0] + 1 / 2;

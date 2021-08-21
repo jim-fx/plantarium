@@ -1,3 +1,11 @@
+import {
+  interpolateSkeleton,
+  interpolateSkeletonVec,
+  leaf
+} from '@plantarium/geometry';
+import { logger } from '@plantarium/helpers';
+const log = logger('nodes.leaf');
+
 const defaultValue = [
   {
     x: 1,
@@ -58,25 +66,101 @@ const node: PlantNode = {
       external: true,
       defaultValue,
     },
+    lowestLeaf: {
+      type: 'number',
+      inputType: 'slider',
+      min: 0,
+      max: 1,
+      step: 0.01,
+      value: 0.5,
+    },
+    curvature: {
+      external: true,
+      type: 'vec2',
+      defaultValue: {
+        x: 0,
+        y: 0,
+      },
+    },
     amount: {
       type: 'number',
       min: 0,
       max: 20,
-      value: 1,
+      value: 10,
     },
   },
 
-  computeSkeleton(parameters) {
-    const { shape } = parameters;
-    console.log(shape);
+  computeSkeleton(parameters, ctx) {
+    const { input } = parameters;
 
-    return {};
+    const { skeletons } = input.result;
+
+    const instances = skeletons.map((skelly, i) => {
+      const alpha = i / skeletons.length;
+
+      const amount = ctx.handleParameter(parameters.amount, alpha);
+
+      const offset = new Float32Array(amount * 3);
+      const scale = new Float32Array(amount * 3);
+      const rotation = new Float32Array(amount * 3);
+
+      for (let i = 0; i < amount; i++) {
+        const _alpha = i / (amount - 1);
+        const size = ctx.handleParameter(parameters.size, 1 - _alpha);
+        const lowestLeaf = ctx.handleParameter(parameters.lowestLeaf, _alpha);
+
+        const a = lowestLeaf + (1 - lowestLeaf) * _alpha;
+
+        const [x, y, z] = interpolateSkeleton(skelly, a);
+        const [vx, , vz] = interpolateSkeletonVec(skelly, a);
+
+        // Find the angle of the vector
+        const angleRadians = Math.atan2(vx, vz);
+
+        offset[i * 3 + 0] = x;
+        offset[i * 3 + 1] = y;
+        offset[i * 3 + 2] = z;
+
+        scale[i * 3 + 0] = size;
+        scale[i * 3 + 1] = 1;
+        scale[i * 3 + 2] = size;
+
+        rotation[i * 3 + 0] = 0;
+        rotation[i * 3 + 1] =
+          angleRadians - (Math.PI / 2) * (i % 2 === 0 ? -1 : 1);
+        rotation[i * 3 + 2] = 0;
+      }
+
+      return {
+        offset,
+        scale,
+        rotation,
+      };
+    });
+
+    return {
+      allSkeletons: input.result.allSkeletons,
+      skeletons,
+      instances,
+    };
   },
 
-  computeGeometry(parameters) {
-    const { input } = parameters;
+  computeGeometry(parameters, result, ctx) {
+    const { shape, input, curvature } = parameters;
+    const { instances } = result;
+
+    const _curvature = ctx.handleParameter(curvature);
+
+    const geometry = leaf(ctx.handleParameter(shape), {
+      res: ctx.getSetting('leafRes', 2),
+      xCurvature: _curvature.x,
+      yCurvature: _curvature.y,
+    });
+
     return {
       geometry: input.result.geometry,
+      // Here we add the resulting geometry to the instances
+      instances: instances.map((i) => ({ ...i, ...geometry })),
     };
   },
 };

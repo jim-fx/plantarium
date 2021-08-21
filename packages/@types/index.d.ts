@@ -7,7 +7,7 @@ interface TransferGeometry {
   uv: Float32Array;
   index: Uint16Array | Uint32Array;
   skeleton?: Float32Array[];
-  leaf?: InstancedGeometry;
+  instances?: InstancedGeometry[];
 }
 interface InstancedGeometry {
   position: Float32Array;
@@ -27,6 +27,17 @@ interface NodeResult {
   parameters: {
     [key: string]: ValueResult;
   };
+}
+/**
+ * Output of a node which produces geometry
+ */
+interface GeometryResult extends NodeResult {
+  skeletons?: Float32Array[];
+  allSkeletons: Float32Array[];
+  geometry?: TransferGeometry;
+  instances: InstancedGeometry[];
+  debugVectors?: Float32Array[];
+  debugNormals?: Float32Array[];
 }
 
 interface GeneratorContext {
@@ -114,14 +125,6 @@ interface ParameterResult {
 
 type Parameter = ParameterResult | GeometryResult | Vec3 | number | Vec2;
 
-interface GeometryResult extends NodeResult {
-  skeletons?: Float32Array[];
-  allSkeletons: Float32Array[];
-  geometry?: TransferGeometry;
-  debugVectors?: Float32Array[];
-  debugNormals?: Float32Array[];
-}
-
 interface PlantNode {
   title: string;
   type: string;
@@ -162,8 +165,7 @@ interface PlantariumSettings {
 
   stemResX: number;
   stemResY: number;
-  leafResX: number;
-  leafResY: number;
+  leafRes: number;
 
   grid: {
     enable: boolean;

@@ -7,6 +7,8 @@ export default function (
   const i = Math.floor(_alpha);
   const j = Math.ceil(_alpha);
 
+  // TODO: we could make this more precise by lerping between the next and the previous vector base on alpha
+
   return [
     skeleton[j * 4 + 0] - skeleton[i * 4 + 0],
     skeleton[j * 4 + 1] - skeleton[i * 4 + 1],

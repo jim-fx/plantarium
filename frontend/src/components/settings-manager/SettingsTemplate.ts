@@ -10,6 +10,7 @@ const template: SettingsTemplate = {
   theme: {
     type: 'select',
     values: ['dark', 'light'],
+    defaultValue: 'dark',
   },
   debug: {
     options: {
@@ -66,12 +67,19 @@ const template: SettingsTemplate = {
       },
     },
   },
+  leafRes: {
+    type: 'number',
+    min: 3,
+    max: 12,
+    step: 1,
+    defaultValue: 2,
+  },
   stemResX: {
     type: 'number',
     min: 3,
     max: 32,
     step: 1,
-    defaultValue: 16,
+    defaultValue: 3,
   },
   stemResY: {
     type: 'number',

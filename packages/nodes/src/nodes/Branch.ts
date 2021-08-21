@@ -53,7 +53,7 @@ const node: PlantNode = {
       type: 'number',
       min: 0,
       max: 64,
-      value: 1,
+      value: 10,
     },
   },
 

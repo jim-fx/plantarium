@@ -11,7 +11,7 @@ canvas.height = h;
 const ctx = canvas.getContext('2d');
 let camera,
   model,
-  visible = true;
+  visible = false;
 
 ctx.fillStyle = 'red';
 ctx.fillRect(0, 0, 50, 50);
