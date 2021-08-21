@@ -36,6 +36,4 @@ export default async function (pd: PlantProject) {
   renderer.renderScene(renderer.scene);
 
   document.body.appendChild(renderer.canvas);
-
-  console.log(nodeResult);
 }

@@ -22,7 +22,5 @@ export default (s: string) => {
     };
   });
 
-  console.log(lines);
-
   return { title, type, lines };
 };
