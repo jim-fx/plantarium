@@ -743,7 +743,6 @@ function parseTransformOrigin(options) {
 }
 
 function failTransformOrigin(options?: unknown) {
-  console.error(options);
   throw new Error(
     [
       'Cannot parse transform origin.',

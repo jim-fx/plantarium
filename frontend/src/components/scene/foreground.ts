@@ -1,5 +1,6 @@
 import { worker } from '@plantarium/generator';
 import { transferToGeometry } from '@plantarium/geometry';
+import { logger } from '@plantarium/helpers';
 import { createToast } from '@plantarium/ui';
 import { Box, Mesh } from 'ogl';
 import type Scene from '.';
@@ -8,6 +9,7 @@ import type { ProjectManager } from '../project-manager';
 import DebugScene from './debug';
 import { MatCapShader } from './shaders';
 
+const log = logger('scene.foreground');
 export default class ForegroundScene {
   private plant: NodeResult;
   private settings: PlantariumSettings;
@@ -74,7 +76,7 @@ export default class ForegroundScene {
 
       this.scene.renderer.setControlTarget(this.mesh.geometry.bounds.center);
     } catch (error) {
-      console.error(error);
+      log.error(error);
       createToast(error, {
         title: 'Error [Generator]',
         values: ['Report'],

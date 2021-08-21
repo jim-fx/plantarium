@@ -1,12 +1,8 @@
 import { debounce } from '@plantarium/helpers';
 
-let savedState: { [key: string]: unknown };
-
-try {
-  savedState = JSON.parse(localStorage.getItem('pt_local_state') as string);
-} catch (error) {
-  console.log(error);
-}
+const savedState: { [key: string]: unknown } = JSON.parse(
+  localStorage.getItem('pt_local_state') as string,
+);
 
 const state = { ...savedState };
 

@@ -420,7 +420,9 @@ export default class NodeSystemView extends EventEmitter {
       case 'l':
         // TODO: implement new log
         if (this.activeNode) {
+          // eslint-disable-next-line no-console
           console.log(this.activeNode);
+          // eslint-disable-next-line no-console
           console.log(this.activeNode.deserialize());
         }
         break;

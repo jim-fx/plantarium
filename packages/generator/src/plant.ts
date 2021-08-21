@@ -29,6 +29,8 @@ export default function plant(
 
   const { result } = final;
 
+  result.geometry = calculateNormals(result.geometry);
+
   if (result.instances) {
     const instances = result.instances
       ?.map((i) => convertInstancedGeometry(i))
@@ -36,8 +38,6 @@ export default function plant(
 
     result.geometry = join(result.geometry, ...instances);
   }
-
-  result.geometry = calculateNormals(result.geometry);
 
   log('generated in ', Math.floor((performance.now() - a) * 10) / 10, 'ms');
 

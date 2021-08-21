@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { logger } from '@plantarium/helpers';
 import type { NodeSystem } from '..';
 
