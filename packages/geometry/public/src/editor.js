@@ -24,7 +24,6 @@ let proxy = URL.createObjectURL(
     { type: 'text/javascript' },
   ),
 );
-console.log('monaco');
 
 const importLine = `import * as g from "geometry";`;
 let code = importLine + '\n';
@@ -39,11 +38,9 @@ if (false && window.location.hash.length > 5) {
   }
 }
 
-if("code" in localStorage){
-  
-  code = localStorage.getItem("code");
-  
-  } else if (window.location.hash.length > 5) {
+if ('code' in localStorage) {
+  code = localStorage.getItem('code');
+} else if (window.location.hash.length > 5) {
   try {
     const decoded = window.atob(window.location.hash.replace(/^#/, ''));
     const escaped = escape(decoded);
@@ -117,7 +114,7 @@ async function initEditor(monaco) {
 
   const handleSave = debounce((value) => {
     window.location.hash = window.btoa(unescape(encodeURIComponent(value)));
-    localStorage.setItem("code", value);
+    localStorage.setItem('code', value);
     cbs.forEach((cb) => cb(value.replace(importLine, '')));
   }, 500);
 
