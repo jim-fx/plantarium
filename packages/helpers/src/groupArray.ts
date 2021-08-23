@@ -1,5 +1,5 @@
-export default function groupArray(arr: ArrayLike<number>, groupSize: number) {
-  const output: number[][] = [];
+export default function groupArray<T>(arr: ArrayLike<T>, groupSize: number) {
+  const output: T[][] = [];
 
   const groupAmount = arr.length / groupSize;
 
