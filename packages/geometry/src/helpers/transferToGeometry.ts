@@ -8,6 +8,6 @@ export default function (
     position: { size: 3, data: transfer.position },
     normal: { size: 3, data: transfer.normal },
     uv: { size: 2, data: transfer.uv },
-    index: { size: 1, data: transfer.index },
+    index: { data: transfer.index },
   });
 }

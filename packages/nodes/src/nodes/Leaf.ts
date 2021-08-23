@@ -1,7 +1,9 @@
 import {
   interpolateSkeleton,
   interpolateSkeletonVec,
-  leaf
+  leaf,
+  normalize2D,
+  rotate2D,
 } from '@plantarium/geometry';
 import { logger } from '@plantarium/helpers';
 const log = logger('nodes.leaf');
@@ -109,13 +111,19 @@ const node: PlantNode = {
         const size = ctx.handleParameter(parameters.size, 1 - _alpha);
         const lowestLeaf = ctx.handleParameter(parameters.lowestLeaf, _alpha);
 
-        const a = lowestLeaf + (1 - lowestLeaf) * _alpha;
+        const a = lowestLeaf + (1 - lowestLeaf) * _alpha - 0.001;
+        const isLeft = i % 2 === 0;
 
         const [x, y, z] = interpolateSkeleton(skelly, a);
-        const [vx, , vz] = interpolateSkeletonVec(skelly, a);
+        const [_vx, , _vz] = interpolateSkeletonVec(skelly, a);
+
+        const nv = normalize2D([_vx, _vz]);
+
+        //Rotate Vector along stem by 90deg
+        const [vx, vz] = rotate2D(nv[0], nv[1], isLeft ? Math.PI : -Math.PI);
 
         // Find the angle of the vector
-        const angleRadians = Math.atan2(vx, vz);
+        const angleRadians = Math.atan2(-nv[0], nv[1]);
 
         offset[i * 3 + 0] = x;
         offset[i * 3 + 1] = y;

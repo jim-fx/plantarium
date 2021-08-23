@@ -1,18 +1,21 @@
-const totalSize = 102;
+const totalSize = 100;
 const slopeLength = 2;
 const groundHeight = 1;
 
-export default function (size = 1, resX = 12, resY = 12): TransferGeometry {
-  resY += 1;
-
+export default function (size = 1, res = 12, resCircle = 12): TransferGeometry {
   //General parameters
-  const angle = (360 * (Math.PI / 180)) / (resY - 1); // Convert to radians
+  const angle = (360 * (Math.PI / 180)) / resCircle; // Convert to radians
+
+  // Plus one for center vertext
+  const amountPositions = res * resCircle + 1;
+
+  const amountTriangles = (res - 1) * resCircle * 2 + resCircle;
 
   //Final model
-  const position = new Float32Array(resX * resY * 3 + 3);
-  const normal = new Float32Array(resX * resY * 3 + 3);
-  const uv = new Float32Array(resX * resY * 2);
-  const index = new Uint16Array(resX * resY * 6 - resY * 3);
+  const position = new Float32Array(amountPositions * 3);
+  const normal = new Float32Array(amountPositions * 3);
+  const uv = new Float32Array(amountPositions * 2);
+  const index = new Uint16Array(amountTriangles * 3);
 
   //Set first point
   position[0] = 0;
@@ -23,11 +26,11 @@ export default function (size = 1, resX = 12, resY = 12): TransferGeometry {
   normal[1] = 1;
   normal[2] = 0;
 
-  uv[0] = 0;
-  uv[1] = 0;
+  uv[0] = 0.5;
+  uv[1] = 0.5;
 
   //Create the positions
-  const xPositions = new Array(resX - 1)
+  const xPositions = new Array(res - 1)
     .fill(null)
     .map((v, i, a) => size + (i / (a.length - 1)) * slopeLength);
 
@@ -40,65 +43,63 @@ export default function (size = 1, resX = 12, resY = 12): TransferGeometry {
   });
 
   //Loop from center out
-  for (let i = 0; i <= resX; i++) {
+  for (let i = 0; i < res; i++) {
     const xPos = xPositions[i];
     const yPos = yPositions[i];
 
-    for (let j = 0; j < resY; j++) {
+    for (let j = 0; j < resCircle; j++) {
       const _angle = angle * j;
 
       const x = Math.cos(_angle) * xPos;
       const y = yPos;
       const z = Math.sin(_angle) * xPos;
 
-      const offset = 3 + i * resY * 3 + j * 3;
+      const lineOffset = i * resCircle;
+      // We need to offset plus to account for the center vertices
+      const offset = lineOffset + j + 1;
 
-      position[offset + 0] = x;
-      position[offset + 1] = y;
-      position[offset + 2] = z;
+      position[offset * 3 + 0] = x;
+      position[offset * 3 + 1] = y;
+      position[offset * 3 + 2] = z;
 
-      normal[offset + 0] = 0;
-      normal[offset + 1] = 1;
-      normal[offset + 2] = 0;
+      normal[offset * 3 + 0] = 0;
+      normal[offset * 3 + 1] = 1;
+      normal[offset * 3 + 2] = 0;
 
-      const uvOffset = 2 + i * resY * 2 + j * 2;
-      uv[uvOffset + 0] = x;
-      uv[uvOffset + 1] = z;
-    }
-  }
+      uv[offset * 2 + 0] = x;
+      uv[offset * 2 + 1] = z;
 
-  //Create the indeces;
+      if (i === 0) {
+        const _offset = (offset - 1) * 3;
 
-  //For the center circle
-  for (let i = 0; i < resY; i++) {
-    index[i * 3 + 0] = 0;
-    index[i * 3 + 1] = i + 2;
-    index[i * 3 + 2] = i + 1;
-  }
+        index[_offset + 0] = 0;
+        index[_offset + 1] = ((j + 1) % resCircle) + 1;
+        index[_offset + 2] = j + 1;
+      } else if (j === resCircle - 1) {
+        const _offset = i * resCircle * 6 + j * 6 - resCircle * 3;
 
-  for (let i = 0; i < resX; i++) {
-    const indexOffset = resY * 3 + i * resY * 6;
-    const positionOffset = 1 + i * resY;
-    for (let j = 0; j < resY; j++) {
-      const _indexOffset = indexOffset + j * 6;
-      const _positionOffset = positionOffset + j;
-      if (j === resY - 1) {
-        index[_indexOffset + 0] = _positionOffset;
-        index[_indexOffset + 1] = _positionOffset - resY + 1;
-        index[_indexOffset + 2] = _positionOffset + 1;
+        index[_offset + 0] = offset;
+        index[_offset + 1] = offset + 1 - resCircle - resCircle;
+        index[_offset + 2] = offset + 1 - resCircle;
 
-        index[_indexOffset + 3] = _positionOffset + 1;
-        index[_indexOffset + 4] = _positionOffset + resY;
-        index[_indexOffset + 5] = _positionOffset;
+        index[_offset + 3] = offset;
+        index[_offset + 4] = offset - resCircle;
+        index[_offset + 5] = offset + 1 - resCircle * 2;
       } else {
-        index[_indexOffset + 0] = _positionOffset;
-        index[_indexOffset + 1] = _positionOffset + 1;
-        index[_indexOffset + 2] = _positionOffset + resY + 1;
+        // For the outer rings we need to create two facecs per point
+        // const _offset = lineOffset;
+        const _offset = i * resCircle * 6 + j * 6 - resCircle * 3;
 
-        index[_indexOffset + 3] = _positionOffset + resY + 1;
-        index[_indexOffset + 4] = _positionOffset + resY;
-        index[_indexOffset + 5] = _positionOffset;
+        index[_offset + 0] = offset;
+        index[_offset + 1] = offset + 1 - resCircle;
+        index[_offset + 2] = offset + 1;
+
+        index[_offset + 3] = offset;
+        index[_offset + 4] = offset - resCircle;
+        index[_offset + 5] = offset + 1 - resCircle;
       }
+
+      // Two triangles per vertice
     }
   }
 

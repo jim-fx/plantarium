@@ -1,4 +1,5 @@
 import { Vec3 } from '../ogl.js';
+import store from './store.js';
 
 const canvas = document.getElementById('debug-canvas');
 
@@ -11,7 +12,7 @@ canvas.height = h;
 const ctx = canvas.getContext('2d');
 let camera,
   model,
-  visible = false;
+  visible = store.get('indecesVisible', false);
 
 ctx.fillStyle = 'red';
 ctx.fillRect(0, 0, 50, 50);
@@ -23,6 +24,7 @@ function setCamera(cam) {
 function setVisible(vis) {
   visible = vis;
   canvas.display = vis ? 'block' : 'none';
+  store.set('indecesVisible', vis);
 }
 
 function setModel(m) {
