@@ -30,23 +30,18 @@ export default function (
 
       uv[offset * 2 + i * 2 + 0] = position[offset * 3 + i * 3 + 0] + 1 / 2;
       uv[offset * 2 + i * 2 + 1] = position[offset * 3 + i * 3 + 2];
-    }
 
-    // Create the indeces per row
-    if (j < shape.length - 1) {
-      const lineOffset = j * (amountX - 1);
+      // Create the indeces per row
+      if (j < shape.length - 1) {
+        const lineOffset = j * (amountX - 1);
 
-      const lineOffset2 = j * amountX;
+        index[lineOffset * 6 + i * 6 + 0] = offset + i + 0;
+        index[lineOffset * 6 + i * 6 + 1] = offset + i + 1;
+        index[lineOffset * 6 + i * 6 + 2] = offset + i + amountX;
 
-      // Create the indeces -- loop per face/2 tris
-      for (let i = 0; i < amountX - 1; i++) {
-        index[lineOffset * 6 + i * 6 + 0] = lineOffset2 + i * 1 + 0;
-        index[lineOffset * 6 + i * 6 + 1] = lineOffset2 + i * 1 + 1;
-        index[lineOffset * 6 + i * 6 + 2] = lineOffset2 + i * 1 + amountX;
-
-        index[lineOffset * 6 + i * 6 + 3] = lineOffset2 + i * 1 + 1;
-        index[lineOffset * 6 + i * 6 + 4] = lineOffset2 + i * 1 + amountX;
-        index[lineOffset * 6 + i * 6 + 5] = lineOffset2 + i * 1 + amountX + 1;
+        index[lineOffset * 6 + i * 6 + 3] = offset + i + 1;
+        index[lineOffset * 6 + i * 6 + 4] = offset + i + amountX;
+        index[lineOffset * 6 + i * 6 + 5] = offset + i + amountX + 1;
       }
     }
   });
