@@ -70,7 +70,7 @@
     <div class="wrapper" style={`left: ${x}px; top: ${rect.top + 20}px;`}>
 
 			<div class="close-wrapper">
-				<Button icon="cross" --bg="transparent" on:click={() => console.log("Close Tutor")} />
+				<Button icon="cross" --bg="transparent" on:click={() => alert("Close Tutor")} />
 			</div>
 
 			<p>{@html $store.description}</p>
