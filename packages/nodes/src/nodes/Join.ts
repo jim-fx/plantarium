@@ -28,13 +28,26 @@ const node: PlantNode = {
       return inputA ? inputA.result : inputB.result;
     }
 
-    const { skeletons: skeletonsA } = inputA.result;
-    const { skeletons: skeletonsB } = inputB.result;
+    const { skeletons: skeletonsA, allSkeletons: allSkeletonsA } =
+      inputA.result;
+    const { skeletons: skeletonsB, allSkeletons: allSkeletonsB } =
+      inputB.result;
 
     log(skeletonsA, skeletonsB);
 
+    const skeletons = [...skeletonsA, ...skeletonsB];
+    const allSkeletons = [];
+
+    if (allSkeletonsA) {
+      allSkeletons.push(...allSkeletonsA);
+    }
+    if (allSkeletonsB) {
+      allSkeletons.push(...allSkeletonsB);
+    }
+
     return {
-      skeletons: [...skeletonsA, ...skeletonsB],
+      allSkeletons,
+      skeletons,
     };
   },
   computeGeometry(parameters) {
@@ -44,14 +57,23 @@ const node: PlantNode = {
       return inputA ? inputA.result : inputB.result;
     }
 
-    const { geometry: geometryA } = inputA.result;
-    const { geometry: geometryB } = inputB.result;
+    const { geometry: geometryA, instances: instancesA } = inputA.result;
+    const { geometry: geometryB, instances: instancesB } = inputB.result;
 
     const result = join(geometryA, geometryB);
 
+    const instances = [];
+
+    if (instancesA) {
+      instances.push(...instancesA);
+    }
+    if (instancesB) {
+      instances.push(...instancesB);
+    }
+
     log('compute geometry', { geometryA, geometryB, result });
 
-    return { geometry: result };
+    return { geometry: result, instances };
   },
 };
 
