@@ -68,7 +68,12 @@
 
   {#if active}
     <div class="wrapper" style={`left: ${x}px; top: ${rect.top + 20}px;`}>
-      <p>{@html $store.description}</p>
+
+			<div class="close-wrapper">
+				<Button icon="cross" --bg="transparent" on:click={() => console.log("Close Tutor")} />
+			</div>
+
+			<p>{@html $store.description}</p>
 
       {#if checks}
         <div class="checks-wrapper">
@@ -81,14 +86,16 @@
         </div>
       {/if}
 
-      <div class="next-wrapper">
-        <Button
-          on:click={() => ($store._isCompleted = true)}
-          name="next"
-          --text={'white'}
-          --bg={'#303030'}
-        />
-      </div>
+			{#if !clickElement}
+				<div class="next-wrapper">
+					<Button
+						on:click={() => ($store._isCompleted = true)}
+						name="next"
+						--text={'white'}
+						--bg={'#303030'}
+					/>
+				</div>
+			{/if}
     </div>
 
     {#if rect && element}
@@ -102,6 +109,13 @@
 
 <style lang="scss">
   @use '~@plantarium/theme/src/themes.module.scss';
+
+	.close-wrapper{
+		width: 40px;
+		position: absolute;
+		right: 5px;
+		top:5px;
+	}
 
   span {
     position: absolute;
@@ -152,7 +166,7 @@
   }
 
   .next-wrapper {
-    margin-top: 10px;
+    padding-top: 25px;
   }
 
   .check-wrapper {
@@ -186,7 +200,7 @@
     z-index: 1000;
     box-sizing: border-box;
 
-    padding: 20px;
+    padding: 30px;
   }
 
   .highlighter {
