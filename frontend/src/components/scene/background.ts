@@ -1,12 +1,16 @@
 import { ground } from '@plantarium/generator';
+import { transferToGeometry } from '@plantarium/geometry';
 import { loader } from '@plantarium/helpers';
-import { Color, Geometry, Mesh, Plane, Program } from 'ogl';
+import { Color, Mesh, Plane, Program } from 'ogl';
 import type Scene from '.';
 import { settingsManager } from '..';
 import type { ProjectManager } from '../project-manager';
 import { GroundShader } from './shaders';
 
-const createGround = (settings: PlantariumSettings) => {
+const createGround = (
+  gl: WebGL2RenderingContext,
+  settings: PlantariumSettings,
+) => {
   const {
     ground: { scale: _scale = 1, resX: _resX = 16, resY: _resY = 16 } = {},
   } = settings || {};
@@ -17,12 +21,7 @@ const createGround = (settings: PlantariumSettings) => {
 
   const geo = ground(scale, resX, resY);
 
-  return {
-    position: { size: 3, data: new Float32Array(geo.position) },
-    normal: { size: 3, data: new Float32Array(geo.normal) },
-    uv: { size: 2, data: new Float32Array(geo.uv) },
-    index: { size: 1, data: new Uint16Array(geo.index) },
-  };
+  return transferToGeometry(gl, geo);
 };
 
 export default class BackgroundScene {
@@ -82,7 +81,7 @@ export default class BackgroundScene {
     this.settings = settings;
 
     if (settings?.ground?.enabled) {
-      this.ground.geometry = new Geometry(this.gl, createGround(settings));
+      this.ground.geometry = createGround(this.gl, settings);
     }
     this.ground.visible = !!settings?.ground?.enabled;
   }
