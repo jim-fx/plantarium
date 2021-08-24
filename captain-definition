@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 2,
+  "dockerfileLines": [
+    "FROM node:alpine ",
+    "RUN mkdir /app ",
+    "ADD ./backend /app/ ",
+    "WORKDIR /app ",
+    "RUN npm i -g pnpm",
+    "RUN pnpm i",
+    "CMD [\"pnpm\", \"start\"]"
+  ]
+}

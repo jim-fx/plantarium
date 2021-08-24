@@ -4,7 +4,9 @@ import { get } from './helpers/env';
 
 const app = polka();
 
-app.use(files('../frontend/public', { dev: true }));
+if (process.env.NODE_ENV === 'development') {
+  app.use(files('../frontend/dist', { dev: true }));
+}
 
 const PORT = get('PORT', 8083);
 
