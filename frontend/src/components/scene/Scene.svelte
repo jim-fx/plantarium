@@ -44,6 +44,16 @@
 <style lang="scss">
   @use '~@plantarium/theme/src/themes.module.scss';
 
+	.scene-wrapper::before{
+		content: "";
+		position:absolute;
+		width: 100%;
+		height:100%;
+		z-index: 1;
+		pointer-events:none;
+		background: radial-gradient(circle, rgba(2, 0, 36, 0) 50%, rgb(0, 0, 0,0.4) 100%);
+	}
+
   canvas {
     width: 100% !important;
     height: 100% !important;
