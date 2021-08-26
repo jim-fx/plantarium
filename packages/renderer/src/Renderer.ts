@@ -124,7 +124,8 @@ export default class Renderer extends EventEmitter {
   }
 
   handleResize() {
-    const wrapper = this.canvas.parentElement;
+    let wrapper = this.canvas.parentElement;
+    if (!wrapper) wrapper = this.canvas;
     const { width, height } = wrapper.getBoundingClientRect();
     this.renderer.setSize(width, height);
     this.camera.perspective({
