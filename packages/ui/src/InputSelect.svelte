@@ -5,7 +5,6 @@
   const dispatch = createEventDispatcher();
 
   export let value = undefined;
-  export let fullWidth = false;
   let open = false;
   let main;
 
@@ -39,7 +38,7 @@
   }
 </script>
 
-<div class="component-wrapper" class:open class:fullWidth>
+<div class="component-wrapper" class:open>
   <div id="main" bind:this={main}>
     {#if value !== undefined}
       <div id="selected-value" on:click={handleOpen}>{value}</div>

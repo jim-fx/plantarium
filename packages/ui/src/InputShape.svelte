@@ -5,8 +5,6 @@
 
   const dispatch = createEventDispatcher();
 
-  export let fullWidth = false;
-
   export let value = [
     { x: 1, y: 0, pinned: true },
     { x: 0.5, y: 0.5, pinned: true },
@@ -107,7 +105,7 @@
   $: path = renderPath(points);
 </script>
 
-<div class="component-wrapper" class:fullWidth>
+<div class="component-wrapper">
   <svg
     viewBox="0 0 100 100"
     width="50"
@@ -172,5 +170,7 @@
 
   .component-wrapper {
     display: flex;
+		width: 100px;
+		max-width: 100%;
   }
 </style>

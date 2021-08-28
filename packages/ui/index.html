@@ -11,24 +11,34 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,700&display=swap"
     />
+
+		<style>
+			:root{
+				--text-color: white !important;
+			}
+
+			td{
+				width: 20px;
+			}
+		</style>
+
   </head>
 
   <body>
     <main>
       <section>
         <h3>Button</h3>
-        <plant-button icon="Cog" name="Projects" cls="projects-icon" />
+        <plant-button icon="cog" name="Projects"/>
       </section>
-
       <section>
         <h3>Icon</h3>
         <table>
-          <!-- <tr>
+          <tr>
           <td>arrow</td>
           <td>
             <plant-icon name="arrow"></plant-icon>
           </td>
-        </tr> -->
+        </tr>
           <tr>
             <td>checkmark</td>
             <td>
@@ -96,11 +106,21 @@
       </section>
 
       <section>
-        <h3>Number</h3>
-        <plant-number></plant-number>
+        <h3>Integer</h3>
+        <plant-integer/>
       </section>
 
       <section>
+        <h3>Float</h3>
+        <plant-float/>
+      </section>
+
+			<section>
+        <h3>Slider</h3>
+        <plant-slider></plant-slider>
+      </section>
+
+			<section>
         <h3>Select</h3>
         <plant-select></plant-select>
       </section>
@@ -109,19 +129,15 @@
         <h3>Shape</h3>
         <plant-shape></plant-shape>
       </section>
-
-      <section>
-        <h3>Slider</h3>
-        <plant-slider></plant-slider>
-      </section>
-      <section>
-        <h3>Toasts / Alerts</h3>
-        <plant-button name="Info Toast" id="toast-info"></plant-button>
+     
+			<section>
+				<h3>Toasts / Alerts</h3>
+        <plant-button name="Info Toast" id="toast-info" style="--text-color:white"></plant-button>
         <plant-button name="Success Toast" id="toast-success"></plant-button>
         <plant-button name="Select Toast" id="toast-select"></plant-button>
         <plant-button name="Warning Toast" id="toast-warning"></plant-button>
         <plant-button name="Error Toast" id="toast-error"></plant-button>
-      </section>
+			</section>
 
       <section>
         <h3>Section</h3>
