@@ -66,7 +66,7 @@ export default class ConnectionView {
     );
     this.svg.appendChild(this.path);
 
-    //this.setPosition();
+    this.setPosition();
   }
 
   setPosition({ x1 = this.x1, y1 = this.y1, x2 = this.x2, y2 = this.y2 } = {}) {
@@ -77,6 +77,16 @@ export default class ConnectionView {
 
     const width = this.x2 - this.x1 + 3.5;
     const height = this.y2 - this.y1;
+
+    this?.hoverPath?.setAttribute(
+      'd',
+      `
+      M 0 0
+      C ${width / 2} 0 
+        ${width / 2} ${height}
+				${width}  ${height}
+      `,
+    );
 
     this.path.setAttribute(
       'd',
