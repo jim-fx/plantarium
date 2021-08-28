@@ -31,7 +31,7 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
   ) {
     const { system } = socket.node;
 
-    super({}, system);
+    super({}, socket);
 
     this.view = system.view;
 

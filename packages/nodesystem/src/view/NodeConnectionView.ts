@@ -11,7 +11,7 @@ export default class NodeConnectionView extends ConnectionView {
   output!: NodeOutputView;
 
   constructor(conn: NodeConnection) {
-    super({}, conn.input.node.system);
+    super({}, conn.output);
     this.connection = conn;
 
     this.input = conn.input.view;
@@ -23,7 +23,7 @@ export default class NodeConnectionView extends ConnectionView {
     );
     this.hoverPath.classList.add('node-connection-hover');
     this.hoverPath.setAttribute('vector-effect', 'non-scaling-stroke');
-    this.system.view.svg.append(this.hoverPath);
+    //this.svg.append(this.hoverPath);
 
     this.hoverPath.addEventListener('mouseover', () => {
       const { activeNode } = this.system.view;

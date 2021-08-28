@@ -1,4 +1,6 @@
 import type NodeSystem from '../model/NodeSystem';
+import type NodeOutput from '../model/NodeOutput';
+import type NodeInput from '../model/NodeInput';
 import './ConnectionView.scss';
 
 const minMax = (min: number, max: number) => (num: number) =>
@@ -18,58 +20,71 @@ export default class ConnectionView {
   path: SVGPathElement;
   hoverPath: SVGPathElement;
   system: NodeSystem;
+  svg: SVGElement;
 
   x1 = 0;
   y1 = 0;
   x2 = 0;
   y2 = 0;
 
-  constructor({ x1 = 0, y1 = 0, x2 = 0, y2 = 0 }, system: NodeSystem) {
+  constructor(
+    { x1 = 0, y1 = 0, x2 = 0, y2 = 0 },
+    socket: NodeOutput | NodeInput,
+  ) {
     this.x1 = x1;
     this.y1 = y1;
     this.x2 = x2;
     this.y2 = y2;
 
-    this.system = system;
+    this.system = socket.node.system;
+
+    this.svg = document.createElementNS(
+      'http://www.w3.org/2000/svg',
+      'svg',
+    ) as SVGElement;
+    this.svg.setAttribute('viewbox', '0 0 100 100');
+    this.svg.setAttribute('width', '100');
+    this.svg.setAttribute('height', '100');
+    this.svg.style.overflow = 'visible';
+    this.svg.style.position = 'absolute';
+    this.svg.style.top = '3.5px';
+    this.svg.style.pointerEvents = 'none';
+    this.svg.style.zIndex = '-1';
+    socket.view.wrapper.append(this.svg);
 
     this.path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     this.path.classList.add('node-connection-path');
     this.path.setAttribute('vector-effect', 'non-scaling-stroke');
-    this.system.view.svg.append(this.path);
+    this.path.setAttribute(
+      'd',
+      `
+      M 0 0
+      C 50 0 
+        50 100
+				100  100
+      `,
+    );
+    this.svg.appendChild(this.path);
 
-    this.setPosition();
+    //this.setPosition();
   }
 
   setPosition({ x1 = this.x1, y1 = this.y1, x2 = this.x2, y2 = this.y2 } = {}) {
-    this.x1 = limit(x1);
-    this.y1 = limit(y1);
-    this.x2 = limit(x2);
-    this.y2 = limit(y2);
+    this.x1 = limitSafe(x1);
+    this.y1 = limitSafe(y1);
+    this.x2 = limitSafe(x2);
+    this.y2 = limitSafe(y2);
 
-    const smoothness = 0.5;
-
-    const c1x = limit(x1 + (x2 - x1) * smoothness);
-    const c1y = limit(y1);
-
-    const c2x = limit(x1 + (x2 - x1) * (1 - smoothness));
-    const c2y = limit(y2);
+    const width = this.x2 - this.x1 + 3.5;
+    const height = this.y2 - this.y1;
 
     this.path.setAttribute(
       'd',
       `
-      M ${this.x1}  ${this.y1}
-      C ${c1x} ${c1y}
-        ${c2x} ${c2y}
-        ${this.x2}  ${this.y2}
-      `,
-    );
-    this?.hoverPath?.setAttribute(
-      'd',
-      `
-      M ${this.x1}  ${this.y1}
-      C ${c1x} ${c1y}
-        ${c2x} ${c2y}
-        ${this.x2}  ${this.y2}
+      M 0 0
+      C ${width / 2} 0 
+        ${width / 2} ${height}
+				${width}  ${height}
       `,
     );
   }
