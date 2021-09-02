@@ -12,12 +12,16 @@ export default class NodeStateView {
 
 		const template = nodeState.template;
 
-		const label = template.label ?? nodeState.key;
+		const label = template.label || nodeState.key;
 		if (typeof label === 'string') {
 			const labelEl = document.createElement('p');
 			labelEl.className = 'state-label';
 			labelEl.innerHTML = label;
 			this.wrapper.appendChild(labelEl);
+		}
+
+		if (template?.label === false) {
+			this.wrapper.classList.add('hide-label');
 		}
 
 		if (!template.external) {
@@ -29,7 +33,11 @@ export default class NodeStateView {
 
 			if (element) {
 				element.$on('change', ({ detail }) => {
-					this.nodeState.setValue(detail);
+					if (typeof detail !== 'undefined' && !Number.isNaN(detail)) {
+						this.nodeState.setValue(detail);
+					} else {
+						console.log('PROBLEM', detail);
+					}
 				});
 			}
 		}
@@ -42,7 +50,6 @@ export default class NodeStateView {
 
 	updatePosition() {
 		this.rect = this.wrapper.getBoundingClientRect();
-
 		this.nodeState.getInput()?.view?.updatePosition();
 	}
 

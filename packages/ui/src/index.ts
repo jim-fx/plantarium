@@ -78,10 +78,6 @@ export function stateToComponent(
 		return InputSelect;
 	}
 
-	if (template.inputType === 'slider' || 'step' in template) {
-		return InputSlider;
-	}
-
 	if (template.inputType === 'curve') {
 		return InputCurve;
 	}

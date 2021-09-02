@@ -9,7 +9,7 @@
   export let max = 1;
 
   function strip(number) {
-    return parseFloat(number).toPrecision(12);
+    return parseFloat(number).toPrecision(2);
   }
 
   const dispatch = createEventDispatcher();
@@ -107,12 +107,12 @@
     text-align: center;
     border: none;
     border-style: none;
-		min-width: 50px;
+    min-width: 100%;
   }
 
-	.is-down > input{
-		cursor: ew-resize !important;
-	}
+  .is-down > input {
+    cursor: ew-resize !important;
+  }
 
   .overlay {
     position: absolute;

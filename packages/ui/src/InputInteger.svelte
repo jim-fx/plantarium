@@ -10,6 +10,12 @@
   export let step = 1;
   export let value = 0;
 
+  $: isClamped =
+    typeof min !== 'undefined' &&
+    typeof max !== 'undefined' &&
+    Number.isFinite(min) &&
+    Number.isFinite(max);
+
   let inputEl: HTMLInputElement;
   $: value !== undefined && dispatch('change', parseFloat(value + ''));
 
@@ -25,8 +31,7 @@
   let downX = 0;
   let downY = 0;
   let downV = 0;
-  let vx = 0;
-  let vy = 0;
+  let rect: DOMRect;
 
   function handleMouseDown(ev: MouseEvent) {
     ev.preventDefault();
@@ -36,6 +41,7 @@
     downV = value;
     downX = ev.clientX;
     downY = ev.clientY;
+    rect = inputEl.getBoundingClientRect();
 
     window.removeEventListener('mousemove', handleMouseMove);
     window.addEventListener('mousemove', handleMouseMove);
@@ -48,6 +54,8 @@
 
     if (downV === value) {
       inputEl.focus();
+    } else {
+      inputEl.blur();
     }
 
     document.body.style.cursor = 'unset';
@@ -56,36 +64,37 @@
   }
 
   function handleMouseMove(ev: MouseEvent) {
-    vx = ev.clientX - downX;
-    vy = ev.clientY - downY;
-
-    value = downV + Math.floor(vx / 10) * step;
+    if (isClamped) {
+      const vx = (ev.clientX - rect.left) / rect.width;
+      value = Math.max(Math.min(Math.floor(min + (max - min) * vx), max), min);
+    } else {
+      const vx = ev.clientX - downX;
+      value = downV + Math.floor(vx / 10);
+    }
   }
 </script>
 
 <div class="component-wrapper">
-  <div>
-    {#if typeof min !== 'undefined' && typeof max !== 'undefined'}
-      <span
-        class="overlay"
-        style={`width: ${((value - min) / (max - min)) * 100}%`}
-      />
-    {/if}
-    <button on:click={() => handleChange(-step)}>-</button>
-    <input
-      bind:value
-      bind:this={inputEl}
-      {step}
-      {max}
-      {min}
-      on:mousedown={handleMouseDown}
-      on:mouseup={handleMouseUp}
-      type="number"
-      style={`width:${width};`}
+  {#if typeof min !== 'undefined' && typeof max !== 'undefined'}
+    <span
+      class="overlay"
+      style={`width: ${((value - min) / (max - min)) * 100}%`}
     />
+  {/if}
+  <button on:click={() => handleChange(-step)}>-</button>
+  <input
+    bind:value
+    bind:this={inputEl}
+    {step}
+    {max}
+    {min}
+    on:mousedown={handleMouseDown}
+    on:mouseup={handleMouseUp}
+    type="number"
+    style={`width:${width};`}
+  />
 
-    <button on:click={() => handleChange(+step)}>+</button>
-  </div>
+  <button on:click={() => handleChange(+step)}>+</button>
 </div>
 
 <style lang="scss">
@@ -113,24 +122,20 @@
   }
 
   div {
-    box-sizing: border-box;
     max-width: 200px;
     position: relative;
     width: 100%;
-    padding: 2px 4px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     background-color: #4b4b4b;
     border-radius: 2px;
-
-    font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-      Roboto, 'Oxygen-Sans', Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   }
 
   div button {
     background-color: transparent;
     border: none;
     cursor: pointer;
+    line-height: 0px;
     margin: 0;
     color: white;
   }

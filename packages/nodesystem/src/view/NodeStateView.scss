@@ -2,6 +2,7 @@
   position: relative;
   padding: 0px 5px;
   margin: 5px 0px;
+	--width: 100%;
 }
 
 .node-state-single-wrapper.disabled > .node-state-input {
@@ -13,4 +14,20 @@
   font-size: smaller;
   margin: 2px 0px;
   opacity: 0.3;
+}
+
+.node-state-single-wrapper.hide-label > .state-label{
+	display:none;
+}
+
+.node-state-single-wrapper.disabled {
+	
+	> .node-state-input {
+		display:none;
+	}
+
+	> .state-label{
+		display:block;
+	}
+
 }
