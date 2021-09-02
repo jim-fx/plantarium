@@ -35,8 +35,6 @@ export default class NodeStateView {
 				element.$on('change', ({ detail }) => {
 					if (typeof detail !== 'undefined' && !Number.isNaN(detail)) {
 						this.nodeState.setValue(detail);
-					} else {
-						console.log('PROBLEM', detail);
 					}
 				});
 			}

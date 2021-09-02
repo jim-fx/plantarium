@@ -2,8 +2,8 @@ import { Options } from '@mikro-orm/core';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 
-let type = 'sqlite';
-let host = 'localhost';
+const type = 'sqlite';
+const host = 'localhost';
 let dbName = 'db.sql';
 
 if (process.env.DB_NAME) {

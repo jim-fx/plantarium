@@ -7,7 +7,7 @@ export class Report extends BaseEntity {
   type: 'bug' | 'feat';
 
   @Property()
-  open: boolean = true;
+  open = true;
 
   @Property()
   description?: string;

@@ -1,6 +1,6 @@
-import type NodeSystem from '../model/NodeSystem';
-import type NodeOutput from '../model/NodeOutput';
 import type NodeInput from '../model/NodeInput';
+import type NodeOutput from '../model/NodeOutput';
+import type NodeSystem from '../model/NodeSystem';
 import './ConnectionView.scss';
 
 const minMax = (min: number, max: number) => (num: number) =>
@@ -70,10 +70,10 @@ export default class ConnectionView {
   }
 
   setPosition({ x1 = this.x1, y1 = this.y1, x2 = this.x2, y2 = this.y2 } = {}) {
-    this.x1 = limitSafe(x1);
-    this.y1 = limitSafe(y1);
-    this.x2 = limitSafe(x2);
-    this.y2 = limitSafe(y2);
+    this.x1 = limit(x1);
+    this.y1 = limit(y1);
+    this.x2 = limit(x2);
+    this.y2 = limit(y2);
 
     const width = this.x2 - this.x1 + 3.5;
     const height = this.y2 - this.y1;

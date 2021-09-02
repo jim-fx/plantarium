@@ -49,7 +49,7 @@
     document.body.style.cursor = 'ew-resize';
   }
 
-  function handleMouseUp(ev) {
+  function handleMouseUp() {
     isMouseDown = false;
 
     if (downV === value) {

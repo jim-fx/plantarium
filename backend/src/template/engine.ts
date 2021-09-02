@@ -1,8 +1,13 @@
 import 'svelte/register';
 
-export function svelteTemplateEngine(filePath: string, options: any, next) {
-  const Component = require(filePath).default;
-  let { html, head, css } = Component.render(options);
+export async function svelteTemplateEngine(
+  filePath: string,
+  options: any,
+  next,
+) {
+  const { default: Component } = await import(filePath);
+  const { html, head: _head, css } = Component.render(options);
+  let head = _head;
   if (css.code) {
     head = `${head}<style>${css.code}</style>`;
   }
