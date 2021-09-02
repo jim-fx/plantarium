@@ -11,15 +11,15 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.17",
-    "rollup": "^2.56.2",
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.21",
+    "rollup": "^2.56.3",
     "rollup-plugin-glslify": "^1.2.0",
     "rollup-plugin-svg-import": "^1.5.1",
     "rollup-plugin-visualizer": "^5.5.2",
-    "sass": "^1.37.5",
-    "svelte-preprocess": "^4.7.4",
+    "sass": "^1.39.0",
+    "svelte-preprocess": "^4.8.0",
     "svelte-preprocess-esbuild": "^2.0.0",
-    "vite": "^2.5.0",
+    "vite": "^2.5.3",
     "vite-plugin-external-worker": "^0.1.0",
     "vite-tsconfig-paths": "^3.3.13"
   },
@@ -32,12 +32,12 @@
     "@plantarium/renderer": "link:../packages/renderer",
     "@plantarium/theme": "link:../packages/theme",
     "@plantarium/ui": "link:../packages/ui",
-    "localforage": "^1.9.0",
-    "ogl": "^0.0.73",
+    "localforage": "^1.10.0",
+    "ogl": "^0.0.74",
     "rainbow-code": "^2.1.7",
     "shortid": "^2.2.16",
-    "svelte": "^3.42.1",
+    "svelte": "^3.42.4",
     "svelte-click-outside": "^1.0.0",
-    "svelte-resize-observer": "^1.1.0"
+    "svelte-resize-observer": "^2.0.0"
   }
 }
