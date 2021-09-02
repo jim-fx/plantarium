@@ -96,6 +96,15 @@ clone:
   disable: true
 
 steps:
+  - name: restore-cache
+    image: drillster/drone-volume-cache
+    volumes:
+      - name: cache
+        path: /cache
+    settings:
+      restore: true
+      mount:
+        - .
   - name: deploy-frontend-feature
     image: alpacadb/docker-lftp
     environment:
@@ -109,8 +118,14 @@ steps:
       - cp -r packages/nodesystem/public frontend/dist/nodes
       - cd frontend/dist
       - lftp -e "set sftp:auto-confirm true; set ftp:ssl-force true; set xfer:timeout 10000; debug 3; open -u $FTP_USERNAME,$FTP_PASSWORD sftp://ssh.jim-fx.com:2221; mkdir -p share/plant/$DRONE_BRANCH; cd share/plant/$DRONE_BRANCH; mirror -p --scan-all-first --overwrite --verbose -R --skip-noaccess; quit;"
+
 depends_on:
   - default
+
+volumes:
+  - name: cache
+    host:
+      path: /tmp/cache
 
 trigger:
   branch:
@@ -125,6 +140,15 @@ clone:
   disable: true
 
 steps:
+  - name: restore-cache
+    image: drillster/drone-volume-cache
+    volumes:
+      - name: cache
+        path: /cache
+    settings:
+      restore: true
+      mount:
+        - .
   - name: deploy-frontend-dev
     image: alpacadb/docker-lftp
     environment:
@@ -142,6 +166,11 @@ steps:
 depends_on:
   - default
 
+volumes:
+  - name: cache
+    host:
+      path: /tmp/cache
+
 trigger:
   branch:
     - dev
@@ -155,6 +184,15 @@ clone:
   disable: true
 
 steps:
+  - name: restore-cache
+    image: drillster/drone-volume-cache
+    volumes:
+      - name: cache
+        path: /cache
+    settings:
+      restore: true
+      mount:
+        - .
   - name: deploy-backend
     image: plugins/webhook
     settings:
@@ -176,6 +214,11 @@ steps:
 
 depends_on:
   - default
+
+volumes:
+  - name: cache
+    host:
+      path: /tmp/cache
 
 trigger:
   branch:
