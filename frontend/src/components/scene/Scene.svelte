@@ -86,7 +86,8 @@
     padding: 10px 20px 10px 0px;
     box-sizing: border-box;
     padding: 5px;
-    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0.8;
+    background-color: var(--foreground-color);
   }
 
   :global(code[class*='language-'], pre[class*='language-'], .token.operator) {

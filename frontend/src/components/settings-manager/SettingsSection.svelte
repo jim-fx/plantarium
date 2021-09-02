@@ -49,7 +49,7 @@
       {/each}
     </Section>
   {:else}
-    <h3>{key}</h3>
+    <p>{key}</p>
 
     <svelte:component
       this={stateToComponent(_template, value)}

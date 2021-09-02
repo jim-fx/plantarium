@@ -3,8 +3,8 @@
 <defs>
 	<style>
 		circle, path{
-		fill:none;
-			stroke: white;
+			fill:none;
+			stroke: var(--text, white);
 			stroke-width: 5px;
 		}
 	</style>
