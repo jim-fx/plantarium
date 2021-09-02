@@ -88,16 +88,20 @@
   }
 
   #main::before {
-    content: '⌝';
+    content: '';
     position: absolute;
-    left: -1px;
-    top: 7px;
-    transform: rotate(45deg) translate(0px, 0px);
+    left: 5px;
+    top: 50%;
+    width: 5px;
+    height: 5px;
+    border-right: solid 1.5px white;
+    border-bottom: solid 1.5px white;
+    transform: rotate(315deg);
     border-radius: 2px;
   }
 
   .open #main::before {
-    transform: rotate(135deg) translate(-8px, 1px);
+    transform: rotate(45deg);
   }
 
   #selected-value {

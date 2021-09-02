@@ -2,135 +2,139 @@ import { convertHexToRGB, EventEmitter, throttle } from '@plantarium/helpers';
 import { Camera, Orbit, Renderer as oRenderer, Transform, Vec3 } from 'ogl';
 
 interface RendererOptions {
-  clearColor: string;
-  width: number;
-  height: number;
-  canvas: HTMLCanvasElement;
-  still: boolean;
-  camPos: [number, number, number];
+	clearColor: string;
+	width: number;
+	height: number;
+	canvas: HTMLCanvasElement;
+	still: boolean;
+	camPos: [number, number, number];
 }
 
 export default class Renderer extends EventEmitter {
-  canvas: HTMLCanvasElement;
+	canvas: HTMLCanvasElement;
 
-  gl: WebGL2RenderingContext;
+	gl: WebGL2RenderingContext;
 
-  renderer: oRenderer;
-  scene: Transform = new Transform();
-  camera: Camera;
-  controls: Orbit;
-  controlTarget: Vec3;
+	renderer: oRenderer;
+	scene: Transform = new Transform();
+	camera: Camera;
+	controls: Orbit;
+	controlTarget: Vec3;
 
-  private lastCamPos: Vec3 = new Vec3(0, 0, 0);
+	private lastCamPos: Vec3 = new Vec3(0, 0, 0);
 
-  constructor({
-    canvas,
-    width,
-    height,
-    clearColor = 'ffffff',
-    camPos = [0, 2, 4],
-  }: Partial<RendererOptions> = {}) {
-    super();
+	constructor({
+		canvas,
+		width,
+		height,
+		clearColor = 'ffffff',
+		camPos = [0, 2, 4],
+	}: Partial<RendererOptions> = {}) {
+		super();
 
-    this.canvas = canvas;
+		this.canvas = canvas;
 
-    if ((!width || !height) && canvas) {
-      const rect = canvas.getBoundingClientRect();
-      width = rect.width;
-      height = rect.height;
-    }
+		if ((!width || !height) && canvas) {
+			const rect = canvas.getBoundingClientRect();
+			width = rect.width;
+			height = rect.height;
+		}
 
-    this.renderer = new oRenderer({
-      canvas,
-      width,
-      height,
-      antialias: true,
-      dpr: 1,
-    });
-    this.gl = this.renderer.gl;
-    this.gl.clearColor(...convertHexToRGB(clearColor), 1);
+		this.renderer = new oRenderer({
+			canvas,
+			width,
+			height,
+			antialias: true,
+			dpr: 1,
+		});
+		this.gl = this.renderer.gl;
+		this.gl.clearColor(...convertHexToRGB(clearColor), 1);
 
-    if (this.renderer.gl.canvas) {
-      this.canvas = this.renderer.gl.canvas;
-    }
+		if (this.renderer.gl.canvas) {
+			this.canvas = this.renderer.gl.canvas;
+		}
 
-    // Setup Camera
-    this.camera = new Camera(this.gl, { fov: 70, aspect: width / height });
-    this.lastCamPos.set(camPos);
-    this.camera.position.set(camPos);
-    this.camera.lookAt(new Vec3(0, 0, 0));
+		// Setup Camera
+		this.camera = new Camera(this.gl, { fov: 70, aspect: width / height });
+		this.lastCamPos.set(camPos);
+		this.camera.position.set(camPos);
+		this.camera.lookAt(new Vec3(0, 0, 0));
 
-    // Setup controls
-    this.controls = new Orbit(this.camera, {
-      element: canvas,
-      target: new Vec3(0, 0.2, 0),
-      maxPolarAngle: 1.6,
-      minDistance: 0.2,
-      maxDistance: 15,
-      ease: 0.7,
-      rotateSpeed: 0.5,
-      inertia: 0.5,
-    });
+		// Setup controls
+		if (canvas) {
+			this.controls = new Orbit(this.camera, {
+				element: canvas,
+				target: new Vec3(0, 0.2, 0),
+				maxPolarAngle: 1.6,
+				minDistance: 0.2,
+				maxDistance: 15,
+				ease: 0.7,
+				rotateSpeed: 0.5,
+				inertia: 0.5,
+			});
+		}
 
-    this.bindEventlisteners();
-    this.render();
-  }
+		this.bindEventlisteners();
+		if (canvas) {
+			this.render();
+		}
+	}
 
-  setControlTarget(vec: Vec3) {
-    if (Number.isNaN(vec.x)) return;
-    if (!this.controlTarget) {
-      this.controls.target = vec;
-    }
-    this.controlTarget = vec;
-  }
+	setControlTarget(vec: Vec3) {
+		if (Number.isNaN(vec.x)) return;
+		if (!this.controlTarget) {
+			this.controls.target = vec;
+		}
+		this.controlTarget = vec;
+	}
 
-  setClearColor(clearColor: string) {
-    this.gl.clearColor(...convertHexToRGB(clearColor), 1);
-  }
+	setClearColor(clearColor: string) {
+		this.gl.clearColor(...convertHexToRGB(clearColor), 1);
+	}
 
-  renderScene(scene: Transform) {
-    this.renderer.render({ scene, camera: this.camera });
-  }
+	renderScene(scene: Transform) {
+		this.renderer.render({ scene, camera: this.camera });
+	}
 
-  render(): void {
-    requestAnimationFrame(this.render.bind(this));
+	render(): void {
+		requestAnimationFrame(this.render.bind(this));
 
-    if (!this.lastCamPos.equals(this.camera.position)) {
-      this.lastCamPos.set(this.camera.position);
-      this.emit('camPos', this.camera.position.toArray());
-    }
+		if (!this.lastCamPos.equals(this.camera.position)) {
+			this.lastCamPos.set(this.camera.position);
+			this.emit('camPos', this.camera.position.toArray());
+		}
 
-    if (this.controlTarget) {
-      if (this.controlTarget.squaredDistance(this.controls.target) < 0.00005) {
-        this.controls.target = this.controlTarget;
-      } else {
-        this.controls.target.lerp(this.controlTarget, 0.05);
-      }
-    }
+		if (this.controlTarget) {
+			if (this.controlTarget.squaredDistance(this.controls.target) < 0.00005) {
+				this.controls.target = this.controlTarget;
+			} else {
+				this.controls.target.lerp(this.controlTarget, 0.05);
+			}
+		}
 
-    window['target'] = this.controls.target;
+		window['target'] = this.controls.target;
 
-    this.controls.update();
+		this.controls.update();
 
-    this.renderer.render({ scene: this.scene, camera: this.camera });
-  }
+		this.renderer.render({ scene: this.scene, camera: this.camera });
+	}
 
-  bindEventlisteners() {
-    const _throttle = throttle(() => this.handleResize(), 500);
-    window.addEventListener('resize', () => {
-      this.canvas.classList.add('resizing');
-      _throttle();
-    });
-  }
+	bindEventlisteners() {
+		const _throttle = throttle(() => this.handleResize(), 500);
+		window.addEventListener('resize', () => {
+			this.canvas.classList.add('resizing');
+			_throttle();
+		});
+	}
 
-  handleResize() {
-    let wrapper = this.canvas.parentElement;
-    if (!wrapper) wrapper = this.canvas;
-    const { width, height } = wrapper.getBoundingClientRect();
-    this.renderer.setSize(width, height);
-    this.camera.perspective({
-      aspect: this.gl.canvas.width / this.gl.canvas.height,
-    });
-    this.canvas.classList.remove('resizing');
-  }
+	handleResize() {
+		let wrapper = this.canvas.parentElement;
+		if (!wrapper) wrapper = this.canvas;
+		const { width, height } = wrapper.getBoundingClientRect();
+		this.renderer.setSize(width, height);
+		this.camera.perspective({
+			aspect: this.gl.canvas.width / this.gl.canvas.height,
+		});
+		this.canvas.classList.remove('resizing');
+	}
 }

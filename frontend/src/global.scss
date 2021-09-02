@@ -26,9 +26,13 @@ body {
   grid-template-rows: 50px 1fr;
 }
 
+main {
+	overflow:hidden;
+}	
+
 main,
 header {
-  outline: solid var(--outline-color) thin;
+	outline: solid var(--outline-color) thin;
 }
 
 header {
@@ -99,18 +103,18 @@ button:focus {
   }
 }
 
-// // Style scrollbar
-// ::-webkit-scrollbar {
-//   width: 5px;
-// }
-// ::-webkit-scrollbar-track {
-//   background: transparent;
-// }
-// ::-webkit-scrollbar-thumb {
-//   margin-right: 5px;
-//   background: var(--foregroundColor);
-//   border-radius: var(--border-radius);
-// }
+// Style scrollbar
+ ::-webkit-scrollbar {
+   width: 5px;
+ }
+ ::-webkit-scrollbar-track {
+   background: transparent;
+ }
+ ::-webkit-scrollbar-thumb {
+   margin-right: 5px;
+   background: var(--foregroundColor,white);
+   border-radius: var(--border-radius, 5px);
+ }
 
 .projects-icon.active {
   border-radius: 5px 5px 0px 0px !important;

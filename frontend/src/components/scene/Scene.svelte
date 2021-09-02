@@ -44,15 +44,19 @@
 <style lang="scss">
   @use '~@plantarium/theme/src/themes.module.scss';
 
-	.scene-wrapper::before{
-		content: "";
-		position:absolute;
-		width: 100%;
-		height:100%;
-		z-index: 1;
-		pointer-events:none;
-		background: radial-gradient(circle, rgba(2, 0, 36, 0) 50%, rgb(0, 0, 0,0.4) 100%);
-	}
+  .scene-wrapper::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(
+      circle,
+      rgba(2, 0, 36, 0) 50%,
+      rgb(0, 0, 0, 0.4) 100%
+    );
+  }
 
   canvas {
     width: 100% !important;
@@ -75,11 +79,14 @@
   pre {
     position: absolute;
     font-size: 0.8em;
-    max-height: 100%;
+    max-height: calc(100% - 30px);
     overflow-y: auto;
     right: 0;
+    z-index: 2;
     padding: 10px 20px 10px 0px;
     box-sizing: border-box;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
   }
 
   :global(code[class*='language-'], pre[class*='language-'], .token.operator) {
