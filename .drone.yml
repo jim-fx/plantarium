@@ -69,7 +69,7 @@ steps:
         - frontend/dist/coverage
     depends_on:
       - test
-  - name: deploy
+  - name: deploy-frontend
     image: alpacadb/docker-lftp
     when:
       branch:
@@ -85,6 +85,17 @@ steps:
       - cp -r packages/nodesystem/public frontend/dist/nodes
       - cd frontend/dist
       - lftp -e "set sftp:auto-confirm true; set ftp:ssl-force true; set xfer:timeout 10000; debug 3; open -u $FTP_USERNAME,$FTP_PASSWORD sftp://ssh.jim-fx.com:2221; mkdir -p share/plant; cd share/plant; mirror -p --scan-all-first --overwrite --verbose -R --skip-noaccess; quit;"
+    depends_on:
+      - test
+      - build
+  - name: deploy-backend
+    image: plugins/webhook
+    when:
+      branch:
+        - main
+    settings:
+      urls:
+        from_secret: BACKEND_WEBHOOK
     depends_on:
       - test
       - build
