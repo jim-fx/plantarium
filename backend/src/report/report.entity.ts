@@ -1,19 +1,23 @@
-import {
-  ArrayType,
-  Collection,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  PrimaryKey,
-  Property,
-  wrap,
-} from '@mikro-orm/core';
+import { Entity, Property } from '@mikro-orm/core';
+import { BaseEntity } from '../entities/BaseEntity';
 
 @Entity()
-export class Report {
-  @PrimaryKey()
-  id: number;
+export class Report extends BaseEntity {
+  @Property()
+  type: 'bug' | 'feat';
 
   @Property()
-  email?: string;
+  open: boolean = true;
+
+  @Property()
+  description?: string;
+
+  @Property()
+  stacktrace?: any;
+
+  @Property()
+  browser?: any;
+
+  @Property()
+  userId?: string;
 }

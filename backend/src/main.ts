@@ -1,14 +1,18 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
-import './mikro-orm.config';
+import { svelteTemplateEngine } from './template/engine';
 
-if (process.env.NODE_ENV === 'production') {
-  async function bootstrap() {
-    const app = await NestFactory.create(AppModule);
-    await app.listen(3000);
-  }
+async function bootstrap() {
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  bootstrap();
+  app.engine('svelte', svelteTemplateEngine);
+  app.setViewEngine('svelte');
+
+  app.useGlobalPipes(new ValidationPipe());
+
+  return app.listen(3000);
 }
 
-export const viteNodeApp = NestFactory.create(AppModule);
+export const viteNodeApp = bootstrap();

@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ReportService } from './report.service';
-import { ReportController } from './report.controller';
+import { ReportController, ReportViewController } from './report.controller';
 import { Report } from './report.entity';
-import { MikroOrmModule } from '@mikro-orm/nestjs';
+import { ReportService } from './report.service';
 
 @Module({
-  imports: [],
-  controllers: [ReportController],
+  imports: [Report],
+  controllers: [ReportController, ReportViewController],
   providers: [ReportService],
 })
 export class ReportModule {}

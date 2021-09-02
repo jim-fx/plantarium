@@ -1,6 +1,6 @@
 import { Options } from '@mikro-orm/core';
-import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
+import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 
 const config: Options = {
   type: 'sqlite',
@@ -8,7 +8,6 @@ const config: Options = {
   dbName: 'db.sql',
   entities: ['dist/**/*.entity.js'],
   entitiesTs: ['src/**/*.entity.ts'],
-  debug: true,
   highlighter: new SqlHighlighter(),
   metadataProvider: TsMorphMetadataProvider,
 };

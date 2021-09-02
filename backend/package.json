@@ -38,6 +38,9 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.3.0",
+    "svelte": "^3.42.4",
+    "svelte-preprocess": "^4.8.0",
+    "svelte-preprocess-esbuild": "^2.0.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
