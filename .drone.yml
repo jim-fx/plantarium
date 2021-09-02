@@ -1,3 +1,4 @@
+---
 name: default
 kind: pipeline
 
@@ -55,7 +56,7 @@ steps:
       - pnpm coverage
       - mv coverage frontend/dist/coverage
     depends_on:
-      - lint
+      - install
   - name: coverage-publish
     image: plugins/codecov
     failure: ignore
@@ -69,56 +70,6 @@ steps:
         - frontend/dist/coverage
     depends_on:
       - test
-  - name: deploy-frontend
-    image: alpacadb/docker-lftp
-    when:
-      branch:
-        - main
-    environment:
-      FTP_USERNAME:
-        from_secret: FTP_USERNAME
-      FTP_PASSWORD:
-        from_secret: FTP_PASSWORD
-    commands:
-      - cp -r packages/geometry/public frontend/dist/geometry
-      - cp -r packages/ui/dist frontend/dist/ui
-      - cp -r packages/nodesystem/public frontend/dist/nodes
-      - cd frontend/dist
-      - lftp -e "set sftp:auto-confirm true; set ftp:ssl-force true; set xfer:timeout 10000; debug 3; open -u $FTP_USERNAME,$FTP_PASSWORD sftp://ssh.jim-fx.com:2221; mkdir -p share/plant; cd share/plant; mirror -p --scan-all-first --overwrite --verbose -R --skip-noaccess; quit;"
-    depends_on:
-      - test
-      - build
-  - name: deploy-backend
-    image: plugins/webhook
-    when:
-      branch:
-        - main
-    settings:
-      urls:
-        from_secret: BACKEND_WEBHOOK
-    depends_on:
-      - test
-      - build
-  - name: deploy-feature-branch
-    image: alpacadb/docker-lftp
-    when:
-      branch:
-        include:
-          - feat/*
-    environment:
-      FTP_USERNAME:
-        from_secret: FTP_USERNAME
-      FTP_PASSWORD:
-        from_secret: FTP_PASSWORD
-    commands:
-      - cp -r packages/geometry/public frontend/dist/geometry
-      - cp -r packages/ui/dist frontend/dist/ui
-      - cp -r packages/nodesystem/public frontend/dist/nodes
-      - cd frontend/dist
-      - lftp -e "set sftp:auto-confirm true; set ftp:ssl-force true; set xfer:timeout 10000; debug 3; open -u $FTP_USERNAME,$FTP_PASSWORD sftp://ssh.jim-fx.com:2221; mkdir -p share/plant/$DRONE_BRANCH; cd share/plant/$DRONE_BRANCH; mirror -p --scan-all-first --overwrite --verbose -R --skip-noaccess; quit;"
-    depends_on:
-      - test
-      - build
   - name: rebuild-cache
     failure: ignore
     image: drillster/drone-volume-cache
@@ -135,3 +86,97 @@ volumes:
   - name: cache
     host:
       path: /tmp/cache
+
+---
+
+name: deploy-feature
+kind: pipeline
+
+clone:
+  disable: true
+
+steps:
+  - name: deploy-frontend-feature
+    image: alpacadb/docker-lftp
+    environment:
+      FTP_USERNAME:
+        from_secret: FTP_USERNAME
+      FTP_PASSWORD:
+        from_secret: FTP_PASSWORD
+    commands:
+      - cp -r packages/geometry/public frontend/dist/geometry
+      - cp -r packages/ui/dist frontend/dist/ui
+      - cp -r packages/nodesystem/public frontend/dist/nodes
+      - cd frontend/dist
+      - lftp -e "set sftp:auto-confirm true; set ftp:ssl-force true; set xfer:timeout 10000; debug 3; open -u $FTP_USERNAME,$FTP_PASSWORD sftp://ssh.jim-fx.com:2221; mkdir -p share/plant/$DRONE_BRANCH; cd share/plant/$DRONE_BRANCH; mirror -p --scan-all-first --overwrite --verbose -R --skip-noaccess; quit;"
+depends_on:
+  - default
+
+trigger:
+  branch:
+    - feat/*
+
+---
+
+name: deploy-dev
+kind: pipeline
+
+clone:
+  disable: true
+
+steps:
+  - name: deploy-frontend-dev
+    image: alpacadb/docker-lftp
+    environment:
+      FTP_USERNAME:
+        from_secret: FTP_USERNAME
+      FTP_PASSWORD:
+        from_secret: FTP_PASSWORD
+    commands:
+      - cp -r packages/geometry/public frontend/dist/geometry
+      - cp -r packages/ui/dist frontend/dist/ui
+      - cp -r packages/nodesystem/public frontend/dist/nodes
+      - cd frontend/dist
+      - lftp -e "set sftp:auto-confirm true; set ftp:ssl-force true; set xfer:timeout 10000; debug 3; open -u $FTP_USERNAME,$FTP_PASSWORD sftp://ssh.jim-fx.com:2221; mkdir -p share/plant/dev; cd share/plant/dev; mirror -p --scan-all-first --overwrite --verbose -R --skip-noaccess; quit;"
+
+depends_on:
+  - default
+
+trigger:
+  branch:
+    - dev
+
+---
+
+name: deploy-prod
+kind: pipeline
+
+clone:
+  disable: true
+
+steps:
+  - name: deploy-backend
+    image: plugins/webhook
+    settings:
+      urls:
+        from_secret: BACKEND_WEBHOOK
+  - name: deploy-frontend
+    image: alpacadb/docker-lftp
+    environment:
+      FTP_USERNAME:
+        from_secret: FTP_USERNAME
+      FTP_PASSWORD:
+        from_secret: FTP_PASSWORD
+    commands:
+      - cp -r packages/geometry/public frontend/dist/geometry
+      - cp -r packages/ui/dist frontend/dist/ui
+      - cp -r packages/nodesystem/public frontend/dist/nodes
+      - cd frontend/dist
+      - lftp -e "set sftp:auto-confirm true; set ftp:ssl-force true; set xfer:timeout 10000; debug 3; open -u $FTP_USERNAME,$FTP_PASSWORD sftp://ssh.jim-fx.com:2221; mkdir -p share/plant; cd share/plant; mirror -p --scan-all-first --overwrite --verbose -R --skip-noaccess; quit;"
+
+depends_on:
+  - default
+
+trigger:
+  branch:
+  - main
