@@ -10,31 +10,81 @@
   export let step = 1;
   export let value = 0;
 
-  function handleChange(change) {
-    value = Math.max(min, Math.min(+value + change, max));
-  }
-
+  let inputEl: HTMLInputElement;
   $: value !== undefined && dispatch('change', parseFloat(value + ''));
 
   $: width = Number.isFinite(value)
     ? Math.max((value?.toString().length ?? 1) * 8, 30) + 'px'
     : '20px';
+
+  function handleChange(change) {
+    value = Math.max(min, Math.min(+value + change, max));
+  }
+
+  let isMouseDown = false;
+  let downX = 0;
+  let downY = 0;
+  let downV = 0;
+  let vx = 0;
+  let vy = 0;
+
+  function handleMouseDown(ev: MouseEvent) {
+    ev.preventDefault();
+
+    isMouseDown = true;
+
+    downV = value;
+    downX = ev.clientX;
+    downY = ev.clientY;
+
+    window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+    document.body.style.cursor = 'ew-resize';
+  }
+
+  function handleMouseUp(ev) {
+    isMouseDown = false;
+
+    if (downV === value) {
+      inputEl.focus();
+    }
+
+    document.body.style.cursor = 'unset';
+    window.removeEventListener('mouseup', handleMouseUp);
+    window.removeEventListener('mousemove', handleMouseMove);
+  }
+
+  function handleMouseMove(ev: MouseEvent) {
+    vx = ev.clientX - downX;
+    vy = ev.clientY - downY;
+
+    value = downV + Math.floor(vx / 10) * step;
+  }
 </script>
 
 <div class="component-wrapper">
   <div>
-    <button on:click={() => handleChange(-step)} />
-
+    {#if typeof min !== 'undefined' && typeof max !== 'undefined'}
+      <span
+        class="overlay"
+        style={`width: ${((value - min) / (max - min)) * 100}%`}
+      />
+    {/if}
+    <button on:click={() => handleChange(-step)}>-</button>
     <input
       bind:value
+      bind:this={inputEl}
       {step}
       {max}
       {min}
+      on:mousedown={handleMouseDown}
+      on:mouseup={handleMouseUp}
       type="number"
       style={`width:${width};`}
     />
 
-    <button on:click={() => handleChange(+step)} class="plus" />
+    <button on:click={() => handleChange(+step)}>+</button>
   </div>
 </div>
 
@@ -44,6 +94,7 @@
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
     appearance: textfield;
+    cursor: pointer;
   }
 
   input[type='number']::-webkit-inner-spin-button,
@@ -51,12 +102,22 @@
     -webkit-appearance: none;
   }
 
+  .overlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    background-color: white;
+    opacity: 0.2;
+    pointer-events: none;
+  }
+
   div {
     box-sizing: border-box;
     max-width: 200px;
     position: relative;
     width: 100%;
-    padding: 1px 5px;
+    padding: 2px 4px;
     display: flex;
     justify-content: space-around;
     background-color: #4b4b4b;
@@ -67,29 +128,11 @@
   }
 
   div button {
-    outline: none;
     background-color: transparent;
     border: none;
-    width: 10%;
     cursor: pointer;
     margin: 0;
-    margin: 0 2%;
-    position: relative;
-  }
-
-  div button:before,
-  div button:after {
-    display: inline-block;
-    position: absolute;
-    content: '';
-    width: 80%;
-    height: 1.5px;
-    background-color: rgb(190, 190, 190);
-    border-radius: 4px;
-    transform: translate(-50%, -50%);
-  }
-  div button.plus:after {
-    transform: translate(-50%, -50%) rotate(90deg);
+    color: white;
   }
 
   div input[type='number'] {
@@ -97,7 +140,7 @@
     background-color: transparent;
     padding: 2px;
     width: 72%;
-    font-weight: bold;
+    font-size: 15pt;
     text-align: center;
     border: none;
     border-style: none;

@@ -19,20 +19,21 @@ import Section from './Section.svelte';
 import type { SvelteComponentDev } from 'svelte/internal/index';
 
 export {
-  InputNumber,
-  InputSlider,
-  InputSelect,
-  InputCheckbox,
-  InputCurve,
-  InputShape,
-  InputColor,
-  Button,
-  Icon,
-  Section,
-  AlertWrapper,
-  createAlert,
-  ToastWrapper,
-  createToast,
+	InputFloat,
+	InputInteger,
+	InputSlider,
+	InputSelect,
+	InputCheckbox,
+	InputCurve,
+	InputShape,
+	InputColor,
+	Button,
+	Icon,
+	Section,
+	AlertWrapper,
+	createAlert,
+	ToastWrapper,
+	createToast,
 };
 
 // *****************************************
@@ -42,56 +43,59 @@ export {
 // ******************************************
 
 export function stateToElement({
-  target,
-  template,
-  value,
+	target,
+	template,
+	value,
 }: {
-  target: HTMLElement;
-  template: ValueTemplate;
-  value: unknown;
+	target: HTMLElement;
+	template: ValueTemplate;
+	value: unknown;
 }) {
-  if (value === undefined && 'value' in template) {
-    value = template.value;
-  }
+	if (value === undefined && 'value' in template) {
+		value = template.value;
+	}
 
-  const component = stateToComponent(template, value);
+	const component = stateToComponent(template, value);
 
-  const props: Partial<ValueTemplate> = { ...template };
-  delete props.type;
-  delete props.inputType;
-  delete props.defaultValue;
-  delete props.internal;
+	const props: Partial<ValueTemplate> = { ...template };
+	delete props.type;
+	delete props.inputType;
+	delete props.defaultValue;
+	delete props.internal;
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //@ts-ignore
-  props['value'] = value;
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	//@ts-ignore
+	props['value'] = value;
 
-  return new component({ target, props: { ...props } });
+	return new component({ target, props: { ...props, '--width': '100%' } });
 }
 
 export function stateToComponent(
-  template: ValueTemplate,
-  value: unknown,
+	template: ValueTemplate,
+	value: unknown,
 ): typeof SvelteComponentDev {
-  if (template.inputType === 'select' || Array.isArray(template.values)) {
-    return InputSelect;
-  }
+	if (template.inputType === 'select' || Array.isArray(template.values)) {
+		return InputSelect;
+	}
 
-  if (template.inputType === 'slider' || 'step' in template) {
-    return InputSlider;
-  }
+	if (template.inputType === 'slider' || 'step' in template) {
+		return InputSlider;
+	}
 
-  if (template.inputType === 'curve') {
-    return InputCurve;
-  }
+	if (template.inputType === 'curve') {
+		return InputCurve;
+	}
 
-  if (template.inputType === 'shape') {
-    return InputShape;
-  }
+	if (template.inputType === 'shape') {
+		return InputShape;
+	}
 
-  if (template.type === 'number' || typeof value === 'number') {
-    return InputNumber;
-  }
+	if (template.type === 'number' || typeof value === 'number') {
+		if (template.step && template.step % 1 != 0) {
+			return InputFloat;
+		}
+		return InputInteger;
+	}
 
-  return InputCheckbox;
+	return InputCheckbox;
 }

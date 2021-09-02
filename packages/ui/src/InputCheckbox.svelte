@@ -53,12 +53,9 @@
     width: 12px;
     height: 12px;
     opacity: 0;
-    margin: 2px;
     stroke: white;
     stroke-width: 2px;
     pointer-events: none;
-    margin-left: 4px;
-    margin-top: 4px;
   }
 
   label {
@@ -66,7 +63,12 @@
     width: 21px;
     position: absolute;
     cursor: pointer;
-  }
+  
+		display:flex;
+		align-items: center;
+    justify-content: center;
+
+	}
 
   .component-wrapper {
     width: 21px;
