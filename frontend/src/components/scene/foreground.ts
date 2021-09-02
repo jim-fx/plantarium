@@ -1,4 +1,4 @@
-import { worker } from '@plantarium/generator';
+import { plant, worker } from '@plantarium/generator';
 import { transferToGeometry } from '@plantarium/geometry';
 import { logger } from '@plantarium/helpers';
 import { createToast } from '@plantarium/ui';
@@ -60,7 +60,10 @@ export default class ForegroundScene {
     this.scene.isLoading.set(true);
 
     try {
-      const result = await this.worker.plant(p, s);
+
+
+      console.log(import.meta.env.MODE)
+      const result = import.meta.env.MODE === "development"?plant(p,s):await this.worker.plant(p, s);
 
       if (!result) return;
 

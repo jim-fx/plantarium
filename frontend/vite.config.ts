@@ -14,7 +14,7 @@ export default defineConfig({
     svg(),
     visualizer({
       filename: 'dist/stats.html',
-      projectRoot: path.resolve('../'),
+      projectRoot: path.resolve('./'),
     }),
   ],
   base: '',
@@ -27,5 +27,4 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 8080,
   },
-	sourcemap:true
 });

@@ -31,7 +31,7 @@
       {#if typeof alert.content === 'string'}
         <p>{@html alert.content}</p>
       {:else}
-        <svelte:component this={alert.content} />
+        <svelte:component this={alert.content} {...alert.props} />
       {/if}
 
       {#if alert.values}

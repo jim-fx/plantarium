@@ -1,7 +1,6 @@
 import {
-  calculateNormals,
   convertInstancedGeometry,
-  join,
+  join
 } from '@plantarium/geometry';
 import { logger } from '@plantarium/helpers';
 import createContext from './createContext';
@@ -29,7 +28,7 @@ export default function plant(
 
   const { result } = final;
 
-  result.geometry = calculateNormals(result.geometry);
+  //result.geometry = calculateNormals(result.geometry);
 
   if (result.instances) {
     const instances = result.instances
