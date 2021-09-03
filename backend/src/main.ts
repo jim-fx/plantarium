@@ -6,18 +6,18 @@ import { svelteTemplateEngine } from './template/engine';
 import * as morgan from 'morgan';
 
 async function bootstrap() {
-	const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-		logger: ['log', 'debug', 'error', 'verbose', 'warn'],
-	});
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    logger: ['log', 'debug', 'error', 'verbose', 'warn'],
+  });
 
-	app.engine('svelte', svelteTemplateEngine);
-	app.setViewEngine('svelte');
+  app.engine('svelte', svelteTemplateEngine);
+  app.setViewEngine('svelte');
 
-	app.use(morgan('tiny'));
+  app.use(morgan('tiny'));
 
-	app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe());
 
-	return app.listen(3000);
+  return app.listen(3000);
 }
 
 export const viteNodeApp = bootstrap();

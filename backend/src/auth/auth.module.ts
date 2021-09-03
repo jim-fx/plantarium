@@ -12,16 +12,16 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Module({
-	imports: [
-		UserModule,
-		PassportModule,
-		JwtModule.register({
-			secret: jwtConstants.secret,
-			signOptions: { expiresIn: '24h' },
-		}),
-	],
-	controllers: [AuthController],
-	providers: [AuthService, LocalStrategy, JwtStrategy],
-	exports: [AuthService],
+  imports: [
+    UserModule,
+    PassportModule,
+    JwtModule.register({
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '24h' },
+    }),
+  ],
+  controllers: [AuthController],
+  providers: [AuthService, LocalStrategy, JwtStrategy],
+  exports: [AuthService],
 })
-export class AuthModule { }
+export class AuthModule {}
