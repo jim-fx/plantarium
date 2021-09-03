@@ -8,5 +8,5 @@
 </svelte:head>
 
 <Layout>
-  <h1>{message}</h1>
+  <h1>Plantarium Backend</h1>
 </Layout>

@@ -1,6 +1,6 @@
 <script>
   import Layout from './Layout.svelte';
-
+  import Report from './components/Report.svelte';
   export let reports;
 </script>
 
@@ -11,6 +11,6 @@
 <Layout>
   <h3>List</h3>
   {#each reports as report}
-    <p>{report.id}</p>
+    <Report {report} />
   {/each}
 </Layout>
