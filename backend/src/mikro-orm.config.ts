@@ -1,28 +1,30 @@
 import { Options } from '@mikro-orm/core';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
+import { MongoHighlighter } from '@mikro-orm/mongo-highlighter';
 
-let type = 'sqlite';
-let dbName = 'db.sql';
-let clientUrl;
-
-if (process.env.DB_NAME) {
-  dbName = process.env.DB_NAME;
-}
+const defaultOptions: Options = {
+	type: 'sqlite',
+	dbName: 'db.sql',
+	highlighter: new SqlHighlighter(),
+};
 
 if (process.env.MONGO_URL) {
-  type = 'mongo';
-  clientUrl = process.env.MONGO_URL;
+	defaultOptions.type = 'mongo';
+	defaultOptions.highlighter = new MongoHighlighter();
+	defaultOptions.clientUrl = process.env.MONGO_URL;
+	defaultOptions.dbName = 'plantarium';
+}
+
+if (process.env.DB_NAME) {
+	defaultOptions.dbName = process.env.DB_NAME;
 }
 
 const config: Options = {
-  type: type as 'sqlite' | 'mongo',
-  dbName,
-  clientUrl,
-  entities: ['dist/**/*.entity.js'],
-  entitiesTs: ['src/**/*.entity.ts'],
-  highlighter: new SqlHighlighter(),
-  metadataProvider: TsMorphMetadataProvider,
+	...defaultOptions,
+	entities: ['dist/**/*.entity.js'],
+	entitiesTs: ['src/**/*.entity.ts'],
+	metadataProvider: TsMorphMetadataProvider,
 };
 
 export default config;

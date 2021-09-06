@@ -1,19 +1,16 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Render,
-  Request,
-  UseGuards,
-} from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { LocalAuthGuard } from './auth/guards/local-auth.guard';
+import { Controller, Get, Render } from '@nestjs/common';
 
 @Controller()
 export class AppController {
-  @Get()
-  @Render('Home')
-  getHello() {
-    return { message: 'NestJS ❤ Svelte' };
-  }
+	@Get('login')
+	@Render('Login')
+	getLogin() {
+		return { message: 'NestJS ❤ Svelte' };
+	}
+
+	@Get()
+	@Render('Home')
+	getHello() {
+		return { message: 'NestJS ❤ Svelte' };
+	}
 }

@@ -1,0 +1,9 @@
+POST {{API_URL}}/api/user
+
+Content-Type: application/json
+
+{
+	"name": "admin",
+	"password":"DeinMuddaStinkt8",
+	"email": "admin@jim-fx.com",
+}

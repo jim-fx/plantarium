@@ -7,31 +7,31 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
-  constructor(
-    @InjectRepository(User) private readonly repository: EntityRepository<User>,
-  ) {}
+	constructor(
+		@InjectRepository(User) private readonly repository: EntityRepository<User>,
+	) { }
 
-  async create(createUserDto: CreateUserDto) {
-    const user = new User();
-    await user.setPassword(createUserDto.password);
-    user.email = createUserDto.email;
-    user.name = createUserDto.name;
-    return this.repository.persistAndFlush(user);
-  }
+	async create(createUserDto: CreateUserDto) {
+		const user = new User();
+		await user.setPassword(createUserDto.password);
+		user.email = createUserDto.email;
+		user.username = createUserDto.name;
+		return this.repository.persistAndFlush(user);
+	}
 
-  findAll() {
-    return this.repository.findAll();
-  }
+	findAll() {
+		return this.repository.findAll();
+	}
 
-  findOne(name: string) {
-    return this.repository.findOne({ name });
-  }
+	findOne(username: string) {
+		return this.repository.findOne({ username });
+	}
 
-  update(id: string, updateUserDto: UpdateUserDto) {
-    return this.repository.nativeUpdate({ id }, updateUserDto);
-  }
+	update(id: string, updateUserDto: UpdateUserDto) {
+		return this.repository.nativeUpdate({ id }, updateUserDto);
+	}
 
-  remove(id: string) {
-    return this.repository.remove({ id });
-  }
+	remove(id: string) {
+		return this.repository.remove({ id });
+	}
 }
