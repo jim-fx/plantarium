@@ -3,12 +3,12 @@ import userStore from './userStore';
 import { browser } from '$app/env';
 
 function parseJwt(token: string) {
-	var base64Url = token.split('.')[1];
-	var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-	var jsonPayload = decodeURIComponent(
+	const base64Url = token.split('.')[1];
+	const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+	const jsonPayload = decodeURIComponent(
 		atob(base64)
 			.split('')
-			.map(function(c) {
+			.map(function (c) {
 				return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
 			})
 			.join('')
@@ -21,7 +21,10 @@ export const store: { token: string } = (() => {
 	let token = browser && localStorage.getItem('token');
 
 	function setUserStore() {
-		if (!token || token.length < 10) return;
+		if (!token || token.length < 10) {
+			userStore.set(undefined);
+			return;
+		}
 		const parsed = parseJwt(token);
 		console.log('Parsed', parsed);
 		userStore.set({ username: parsed.username, id: parsed.sub });
@@ -69,7 +72,9 @@ export async function login(username: string, password: string) {
 	store.token = res.access_token;
 }
 
-export function logout() { }
+export function logout() {
+	store.token = '';
+}
 
 export function get(path: string) {
 	return send({ method: 'GET', path });

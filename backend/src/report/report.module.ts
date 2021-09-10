@@ -4,8 +4,8 @@ import { Report } from './report.entity';
 import { ReportService } from './report.service';
 
 @Module({
-	imports: [Report],
-	controllers: [ReportController],
-	providers: [ReportService],
+  imports: [Report],
+  controllers: [ReportController],
+  providers: [ReportService],
 })
-export class ReportModule { }
+export class ReportModule {}
