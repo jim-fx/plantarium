@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ReportController, ReportViewController } from './report.controller';
+import { ReportController } from './report.controller';
 import { Report } from './report.entity';
 import { ReportService } from './report.service';
 
 @Module({
-  imports: [Report],
-  controllers: [ReportController, ReportViewController],
-  providers: [ReportService],
+	imports: [Report],
+	controllers: [ReportController],
+	providers: [ReportService],
 })
-export class ReportModule {}
+export class ReportModule { }
