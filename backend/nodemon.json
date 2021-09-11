@@ -1,0 +1,11 @@
+{
+  "watch": ["src"],
+  "events": {
+    "restart": "kill-port 8080",
+    "crash": "kill-port 8080"
+  },
+  "ext": "ts,js,json",
+  "ignore": "*.json",
+  "exec": "pnpm start",
+  "delay": "1500"
+}
