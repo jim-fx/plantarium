@@ -56,24 +56,29 @@
   $: active = !!rect;
 </script>
 
-<span class:isLeft class:hasElement={!!element} class:hasClick={!!clickRect}>
-  {#if clickRect}
-    <div
-      class="click-wrapper"
-      style={`top: ${rect.top + 20}px; left: ${x - (isLeft ? 20 : -0)}px;`}
-    >
-      <Icon name="pointing" --fill={'#303030'} />
-    </div>
-  {/if}
+{#if active}
+  <span class:isLeft class:hasElement={!!element} class:hasClick={!!clickRect}>
+    {#if clickRect}
+      <div
+        class="click-wrapper"
+        style={`top: ${rect.top + 20}px; left: ${x - (isLeft ? 20 : -0)}px;`}
+      >
+        <Icon name="pointing" --fill={'#303030'} />
+      </div>
+    {/if}
 
-  {#if active}
     <div class="wrapper" style={`left: ${x}px; top: ${rect.top + 20}px;`}>
+      <div class="close-wrapper">
+        <Button
+          icon="cross"
+          --bg="transparent"
+          on:click={() => {
+            active = false;
+          }}
+        />
+      </div>
 
-			<div class="close-wrapper">
-				<Button icon="cross" --bg="transparent" on:click={() => alert("Close Tutor")} />
-			</div>
-
-			<p>{@html $store.description}</p>
+      <p>{@html $store.description}</p>
 
       {#if checks}
         <div class="checks-wrapper">
@@ -86,16 +91,16 @@
         </div>
       {/if}
 
-			{#if !clickElement}
-				<div class="next-wrapper">
-					<Button
-						on:click={() => ($store._isCompleted = true)}
-						name="next"
-						--text={'white'}
-						--bg={'#303030'}
-					/>
-				</div>
-			{/if}
+      {#if !clickElement}
+        <div class="next-wrapper">
+          <Button
+            on:click={() => ($store._isCompleted = true)}
+            name="next"
+            --text={'white'}
+            --bg={'#303030'}
+          />
+        </div>
+      {/if}
     </div>
 
     {#if rect && element}
@@ -104,18 +109,18 @@
         style={`width: ${rect.width}px; height: ${rect.height}px; left: ${rect.left}px; top: ${rect.top}px;`}
       />
     {/if}
-  {/if}
-</span>
+  </span>
+{/if}
 
 <style lang="scss">
   @use '~@plantarium/theme/src/themes.module.scss';
 
-	.close-wrapper{
-		width: 40px;
-		position: absolute;
-		right: 5px;
-		top:5px;
-	}
+  .close-wrapper {
+    width: 40px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+  }
 
   span {
     position: absolute;

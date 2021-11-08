@@ -1,10 +1,7 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
+import { Roles } from 'auth/decorators/roles.decorator';
+import { Role } from 'auth/enums/role.enum';
 
 @Controller()
-export class AppController {
-  @Get()
-  @Render('Home')
-  getHello() {
-    return { message: 'NestJS ❤ Svelte' };
-  }
-}
+@Roles(Role.ANON)
+export class AppController { }

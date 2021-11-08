@@ -1,4 +1,4 @@
-import { Vec3 } from 'ogl';
+import { Vec3 } from 'ogl/src/math/Vec3';
 
 let lastNormal: Vec3;
 

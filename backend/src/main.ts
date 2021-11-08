@@ -1,18 +1,33 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { NestExpressApplication } from '@nestjs/platform-express';
+import cookieParser from 'cookie-parser';
+import morgan from 'morgan';
 import { AppModule } from './app.module';
-import { svelteTemplateEngine } from './template/engine';
+import {
+	FastifyAdapter,
+	NestFastifyApplication,
+} from '@nestjs/platform-fastify';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+	const app = await NestFactory.create<NestFastifyApplication>(
+		AppModule,
+		new FastifyAdapter(),
+		{
+			logger: ['log', 'debug', 'error', 'verbose', 'warn'],
+		},
+	);
 
-  app.engine('svelte', svelteTemplateEngine);
-  app.setViewEngine('svelte');
+  console.log(process.env);
 
-  app.useGlobalPipes(new ValidationPipe());
+	app.use(cookieParser());
 
-  return app.listen(3000);
+	app.enableCors();
+
+	app.use(morgan('tiny'));
+
+	app.useGlobalPipes(new ValidationPipe());
+
+	return app.listen(3000);
 }
 
 export const viteNodeApp = bootstrap();

@@ -1,5 +1,7 @@
 <script>
-  import { Button } from '@plantarium/ui';
+  import { Button, createAlert } from '@plantarium/ui';
+  import { Changelog } from '../../elements';
+  import Report from '../../elements/Report.svelte';
   import { Tutor } from '../tutor';
 </script>
 
@@ -17,11 +19,32 @@
     icon="exclamation"
     --bg="#303030"
     --text="white"
-    disabled
+    on:click={() =>
+      createAlert(Report, {
+        timeout: 0,
+        title: 'Report Bug',
+        type: 'error',
+        props: { mode: 'bug' },
+      })}
   />
 
-  <Button name="Request Feature" --bg="#303030" --text="white" disabled />
-  <Button name="Changelog" --bg="#303030" --text="white" disabled />
+  <Button
+    name="Request Feature"
+    --bg="#303030"
+    --text="white"
+    on:click={() =>
+      createAlert(Report, {
+        timeout: 0,
+        title: 'Request Feature',
+        props: { mode: 'feat' },
+      })}
+  />
+  <Button
+    name="Changelog"
+    --bg="#303030"
+    --text="white"
+    on:click={() => createAlert(Changelog, { timeout: 0 })}
+  />
 </div>
 
 <style lang="scss">

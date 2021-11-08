@@ -1,23 +1,33 @@
 import { Entity, Property } from '@mikro-orm/core';
 import { BaseEntity } from '../entities/BaseEntity';
+import { PLabel } from './dto/shared-types';
 
 @Entity()
 export class Report extends BaseEntity {
-  @Property()
-  type: 'bug' | 'feat';
+	@Property()
+	type: 'bug' | 'feat';
 
   @Property()
-  open = true;
+  labels: PLabel[];
 
-  @Property()
-  description?: string;
+	@Property()
+	title: string;
 
-  @Property()
-  stacktrace?: any;
+	@Property()
+	gh_issue?: number;
 
-  @Property()
-  browser?: any;
+	@Property()
+	open = true;
 
-  @Property()
-  userId?: string;
+	@Property()
+	description?: string;
+
+	@Property()
+	stacktrace?: any;
+
+	@Property()
+	browser?: any;
+
+	@Property()
+	userId?: string;
 }

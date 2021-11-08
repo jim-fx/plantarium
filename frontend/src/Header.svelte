@@ -1,9 +1,9 @@
 <script lang="ts">
   import { projectManager } from './components';
   import HelpView from './components/help/Help.svelte';
-  import HoverWindow from './components/HoverWindow.svelte';
   import ProjectManagerView from './components/project-manager/ProjectManagerView.svelte';
   import SettingsManagerView from './components/settings-manager/SettingsManagerView.svelte';
+  import HoverWindow from './elements/HoverWindow.svelte';
   const activeProject = projectManager.activeProject;
 
   let showPM = false;

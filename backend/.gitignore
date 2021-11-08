@@ -2,7 +2,6 @@
 /dist
 /node_modules
 /temp
-
 *.sql
 
 # Logs

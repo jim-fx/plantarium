@@ -1,0 +1,8 @@
+POST {{API_URL}}/api/auth/login
+Content-Type: application/json
+
+{
+	"name": "john",
+	"password": "DeinMuddaStinkt8"
+}
+

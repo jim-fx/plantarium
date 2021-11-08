@@ -1,3 +1,5 @@
+<svelte:options tag="plant-section" />
+
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
 
@@ -13,8 +15,32 @@
   };
 </script>
 
+<div class="wrapper" class:open>
+  <div class="header" on:click={toggle}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width="24"
+      height="24"
+    >
+      <path
+        d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"
+      />
+    </svg>
+
+    {#if name}
+      <div class="border">
+        <p>{name}</p>
+      </div>
+    {/if}
+  </div>
+  <div class="content">
+    <slot />
+  </div>
+</div>
+
 <style>
-  h3 {
+  p {
     margin: 0px;
   }
 
@@ -57,7 +83,7 @@
     fill: #303030;
   }
 
-  h3 {
+  p {
     user-select: none;
   }
 
@@ -72,27 +98,3 @@
     padding-bottom: 10px;
   }
 </style>
-
-<svelte:options tag="plant-section" />
-
-<div class="wrapper" class:open>
-  <div class="header" on:click={toggle}>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      width="24"
-      height="24">
-      <path
-        d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z" />
-    </svg>
-
-    {#if name}
-      <div class="border">
-        <h3>{name}</h3>
-      </div>
-    {/if}
-  </div>
-  <div class="content">
-    <slot />
-  </div>
-</div>
