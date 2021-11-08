@@ -17,6 +17,8 @@ async function bootstrap() {
 		},
 	);
 
+  console.log(process.env);
+
 	app.use(cookieParser());
 
 	app.enableCors();

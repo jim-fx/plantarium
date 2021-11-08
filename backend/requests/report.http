@@ -1,3 +1,5 @@
+GET {{API_URL}}/api/report/1dc1817e-511f-434c-88bd-8a286c136988
+
 POST {{API_URL}}/api/report
 Content-Type: application/json
 
@@ -16,3 +18,13 @@ Content-Type: application/json
 	"type": "feat",
 	"labels": ["UI","Nodes"]
 }
+
+
+PUT {{API_URL}}/api/report/1dc1817e-511f-434c-88bd-8a286c136988
+Content-Type: application/json
+
+{
+  "labels": ["UI", "Nodes"]
+}
+
+DEL {{API_URL}}/api/report

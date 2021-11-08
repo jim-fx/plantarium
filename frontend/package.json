@@ -11,17 +11,17 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.23",
-    "rollup": "^2.56.3",
-    "rollup-plugin-glslify": "^1.2.0",
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
+    "rollup": "^2.59.0",
+    "rollup-plugin-glslify": "^1.2.1",
     "rollup-plugin-svg-import": "^1.5.1",
     "rollup-plugin-visualizer": "^5.5.2",
-    "sass": "^1.39.2",
-    "svelte-preprocess": "^4.9.4",
+    "sass": "^1.43.4",
+    "svelte-preprocess": "^4.9.8",
     "svelte-preprocess-esbuild": "^2.0.0",
-    "vite": "^2.5.6",
+    "vite": "^2.6.13",
     "vite-plugin-external-worker": "^0.1.0",
-    "vite-tsconfig-paths": "^3.3.14"
+    "vite-tsconfig-paths": "^3.3.17"
   },
   "dependencies": {
     "@plantarium/generator": "link:../packages/generator",
@@ -36,7 +36,7 @@
     "ogl": "^0.0.76",
     "rainbow-code": "^2.1.7",
     "shortid": "^2.2.16",
-    "svelte": "^3.42.5",
+    "svelte": "^3.44.1",
     "svelte-click-outside": "^1.0.0",
     "svelte-resize-observer": "^2.0.0"
   }

@@ -1,5 +1,5 @@
 import { IsEnum, IsIn, IsOptional, IsString, Length } from 'class-validator';
-import Areas from '../../enums/areas.enum';
+import { PLabel,labels } from './shared-types';
 
 export class CreateReportDto {
 	@IsIn(['bug', 'feat'])
@@ -14,10 +14,13 @@ export class CreateReportDto {
 	readonly stacktrace?: any;
 
 	@IsOptional()
-	@IsIn(['UI', 'Nodes', 'NodeSystem', 'Geometry', 'ProjectManager', 'Scene'], {
+	@IsIn(labels, {
 		each: true,
 	})
-	readonly labels?: string[];
+	readonly labels?: PLabel[];
+
+  @IsOptional()
+  readonly title: string;
 
 	@IsOptional()
 	readonly browser?: any;
