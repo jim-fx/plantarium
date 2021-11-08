@@ -30,6 +30,7 @@
 	"type": "module",
 	"dependencies": {
 		"@plantarium/ui": "link:../packages/ui",
+		"@plantarium/client-api": "link:../packages/client-api",
 		"@sveltejs/adapter-node": "^1.0.0-next.55",
 		"@sveltejs/adapter-static": "^1.0.0-next.21",
 		"dotenv": "^10.0.0",

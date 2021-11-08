@@ -1,11 +1,19 @@
 <svelte:options tag="plant-alert-wrapper" />
 
 <script lang="ts">
+import { isBrowser } from '../helpers/isBrowser';
+
   import { fade, scale } from 'svelte/transition';
   import Button from '../Button.svelte';
   import { store } from './AlertStore';
 
   $: alert = $store[0];
+
+  $: if (alert) {
+    isBrowser && document.body.classList.add('overlay-visible');
+  } else {
+    isBrowser && document.body.classList.remove('overlay-visible');
+  }
 
   $: isInverted =
     alert && (alert.type === 'success' || alert.type === 'warning');
@@ -85,6 +93,7 @@
     border-radius: 30px;
 
     backdrop-filter: blur(10px) contrast(0.5) brightness(1.5);
+    overflow-y: auto;
   }
 
   .options-wrapper {

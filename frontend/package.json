@@ -24,6 +24,7 @@
     "vite-tsconfig-paths": "^3.3.17"
   },
   "dependencies": {
+    "@plantarium/client-api": "link:../packages/client-api",
     "@plantarium/generator": "link:../packages/generator",
     "@plantarium/geometry": "link:../packages/geometry",
     "@plantarium/helpers": "link:../packages/helpers",
@@ -38,6 +39,7 @@
     "shortid": "^2.2.16",
     "svelte": "^3.44.1",
     "svelte-click-outside": "^1.0.0",
+    "svelte-multiselect": "^1.2.3",
     "svelte-resize-observer": "^2.0.0"
   }
 }

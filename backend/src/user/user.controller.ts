@@ -31,12 +31,12 @@ export class UserController {
 	@UseGuards(JwtAuthGuard)
 	@Get('profile')
 	getProfile(@Request() req) {
-		return this.userService.findOne(req.user.sub);
+		return this.userService.findById(req.user.sub || req.user.id);
 	}
 
 	@Get(':id')
 	findOne(@Param('id') id: string) {
-		return this.userService.findOne(id);
+		return this.userService.findById(id);
 	}
 
 	@Patch(':id')

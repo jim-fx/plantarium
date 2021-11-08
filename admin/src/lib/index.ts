@@ -1,2 +1,2 @@
-export * as api from './api';
-export { default as user } from './userStore';
+export * as api from '@plantarium/client-api';
+export { userStore as user } from '@plantarium/client-api';

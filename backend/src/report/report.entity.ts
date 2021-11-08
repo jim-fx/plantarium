@@ -7,7 +7,7 @@ export class Report extends BaseEntity {
 	@Property()
 	type: 'bug' | 'feat';
 
-  @Property()
+  @Property({type:"json"})
   labels: PLabel[];
 
 	@Property()
@@ -22,10 +22,10 @@ export class Report extends BaseEntity {
 	@Property()
 	description?: string;
 
-	@Property()
+	@Property({type:"json"})
 	stacktrace?: any;
 
-	@Property()
+	@Property({type:"json"})
 	browser?: any;
 
 	@Property()
