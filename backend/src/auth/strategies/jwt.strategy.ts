@@ -23,8 +23,6 @@ const extractJwt = (req: Request) => {
     token = req.headers['access-token'].replace('Bearer ', '');
   }
 
-  console.log('JWT', token);
-
   return token;
 };
 
@@ -39,7 +37,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    console.log('PAYLOAD', payload);
-    return { id: payload.sub, username: payload.username };
+    return { sub: payload.sub, username: payload.username };
   }
 }

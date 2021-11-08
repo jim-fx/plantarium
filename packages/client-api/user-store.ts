@@ -8,4 +8,4 @@ interface User {
 
 const user: Writable<User | undefined> = writable();
 
-export default user;
+export const userStore = user;

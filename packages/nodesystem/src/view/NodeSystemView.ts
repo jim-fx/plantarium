@@ -232,8 +232,8 @@ export default class NodeSystemView extends EventEmitter {
   }
 
   bindEventListeners() {
-    document.addEventListener('keydown', (ev) => this.handleKeyDown(ev));
-    document.addEventListener('keyup', (ev) => this.handleKeyUp(ev));
+    window.addEventListener('keydown', (ev) => this.handleKeyDown(ev));
+    window.addEventListener('keyup', (ev) => this.handleKeyUp(ev));
     this.wrapper.addEventListener('mousemove', (ev) =>
       this.handleMouseMove(ev),
     );

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { CreateReportDto } from './dto/create-report.dto';
 import { UpdateReportDto } from './dto/update-report.dto';
 import { Report } from './report.entity';
@@ -16,6 +16,11 @@ export class ReportController {
   @Get()
   public getReports(): Promise<Report[]> {
     return this.reportService.getAll();
+  }
+
+  @Delete("/:id")
+  public deleteReport(@Param("id") id){
+    return this.reportService.deleteReport(id);
   }
 
   @Post()

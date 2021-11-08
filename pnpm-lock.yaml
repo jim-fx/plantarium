@@ -34,6 +34,7 @@ importers:
 
   admin:
     specifiers:
+      '@plantarium/client-api': link:../packages/client-api
       '@plantarium/ui': link:../packages/ui
       '@sveltejs/adapter-node': ^1.0.0-next.55
       '@sveltejs/adapter-static': ^1.0.0-next.21
@@ -57,6 +58,7 @@ importers:
       vite-plugin-windicss: ^1.5.1
       windicss: ^3.2.1
     dependencies:
+      '@plantarium/client-api': link:../packages/client-api
       '@plantarium/ui': link:../packages/ui
       '@sveltejs/adapter-node': 1.0.0-next.55
       '@sveltejs/adapter-static': 1.0.0-next.21
@@ -222,6 +224,7 @@ importers:
 
   frontend:
     specifiers:
+      '@plantarium/client-api': link:../packages/client-api
       '@plantarium/generator': link:../packages/generator
       '@plantarium/geometry': link:../packages/geometry
       '@plantarium/helpers': link:../packages/helpers
@@ -242,6 +245,7 @@ importers:
       shortid: ^2.2.16
       svelte: ^3.44.1
       svelte-click-outside: ^1.0.0
+      svelte-multiselect: ^1.2.3
       svelte-preprocess: ^4.9.8
       svelte-preprocess-esbuild: ^2.0.0
       svelte-resize-observer: ^2.0.0
@@ -249,6 +253,7 @@ importers:
       vite-plugin-external-worker: ^0.1.0
       vite-tsconfig-paths: ^3.3.17
     dependencies:
+      '@plantarium/client-api': link:../packages/client-api
       '@plantarium/generator': link:../packages/generator
       '@plantarium/geometry': link:../packages/geometry
       '@plantarium/helpers': link:../packages/helpers
@@ -263,6 +268,7 @@ importers:
       shortid: 2.2.16
       svelte: 3.44.1
       svelte-click-outside: 1.0.0
+      svelte-multiselect: 1.2.3
       svelte-resize-observer: 2.0.0
     devDependencies:
       '@sveltejs/vite-plugin-svelte': 1.0.0-next.30_svelte@3.44.1+vite@2.6.13
@@ -276,6 +282,12 @@ importers:
       vite: 2.6.13_sass@1.43.4
       vite-plugin-external-worker: 0.1.0_vite@2.6.13
       vite-tsconfig-paths: 3.3.17_vite@2.6.13
+
+  packages/client-api:
+    specifiers:
+      svelte: ^3.44.1
+    dependencies:
+      svelte: 3.44.1
 
   packages/generator:
     specifiers:
@@ -3067,7 +3079,7 @@ packages:
       require-relative: 0.8.7
       svelte: 3.44.1
       svelte-hmr: 0.14.7_svelte@3.44.1
-      vite: 2.6.13
+      vite: 2.6.13_sass@1.43.4
     transitivePeerDependencies:
       - supports-color
     dev: true

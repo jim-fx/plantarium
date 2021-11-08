@@ -60,7 +60,7 @@ export class ReportService {
     return report;
   }
 
-  async deleteReport(id:string){
+  async deleteReport(id: string) {
     const report = await this.getById(id);
     return this.repository.removeAndFlush(report);
   }
@@ -101,7 +101,18 @@ export class ReportService {
       owner: process.env.GH_ORG,
       repo: process.env.GH_REPO,
       title: report.title,
-      body: report.description,
+      body: `## Description:
+${report.description}
+      
+## Browser
+\`\`\`json
+${report.browser ? JSON.stringify(report.browser, null, 2) : "not available"}
+\`\`\`
+
+## StackTrace
+\`\`\`
+${report.stacktrace ? report.stacktrace.lines.map(line => `at *${line.name}* ${line.location}`).join("\n") : ""}
+\`\`\``,
       labels
     });
 
@@ -115,8 +126,6 @@ export class ReportService {
 
   async getById(id: string) {
     const report = await this.repository.findOne({ id });
-
-    report.labels = Array.isArray(report.labels) ? report.labels : JSON.parse(report.labels as unknown as string);
 
     if (!report) {
       throw new NotFoundException();

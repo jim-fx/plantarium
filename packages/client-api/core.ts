@@ -1,6 +1,5 @@
 const { VITE_API_URL = 'http://localhost:3000' } = import.meta.env;
-import userStore from '../userStore';
-import { browser } from '$app/env';
+import { userStore } from './user-store';
 
 function parseJwt(token: string) {
 	const base64Url = token.split('.')[1];
@@ -16,6 +15,17 @@ function parseJwt(token: string) {
 
 	return JSON.parse(jsonPayload);
 }
+
+function getBrowser(){
+  try{
+    const browser = typeof eval("window") !== "undefined";
+    return browser;
+  }catch(err){
+    return false;
+  }
+}
+
+const browser = getBrowser();
 
 export const store: { token: string } = (() => {
 	let token = browser && localStorage.getItem('token');
@@ -49,6 +59,7 @@ interface SendOptions {
 	path: string;
 	data?: any;
 }
+
 export async function send({ method, path, data }: SendOptions) {
 	const opts: { method: string; headers: Record<string, string>; body?: string } = {
 		method,
@@ -77,3 +88,18 @@ export async function send({ method, path, data }: SendOptions) {
 
 }
 
+export function get(path: string) {
+  return send({ method: 'GET', path });
+}
+
+export function del(path: string) {
+  return send({ method: 'DELETE', path });
+}
+
+export function post(path: string, data: any) {
+  return send({ method: 'POST', path, data });
+}
+
+export function put(path: string, data: any) {
+  return send({ method: 'PUT', path, data });
+}
