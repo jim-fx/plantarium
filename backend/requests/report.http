@@ -1,0 +1,18 @@
+POST {{API_URL}}/api/report
+Content-Type: application/json
+
+{
+	"description": "This is my report type",
+	"type": "bug"
+}
+
+
+POST {{API_URL}}/api/report
+Content-Type: application/json
+
+{
+	"title":"split node",
+	"description": "Please add a split node",
+	"type": "feat",
+	"labels": ["UI","Nodes"]
+}

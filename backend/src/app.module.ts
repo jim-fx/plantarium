@@ -20,6 +20,7 @@ const staticAdminPath = resolve('../admin/build');
 		UserModule,
 		AuthModule,
 	],
+
 	controllers: [AppController],
 })
 export class AppModule { }

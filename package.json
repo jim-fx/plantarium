@@ -9,7 +9,7 @@
     "backend:start": "pnpm --filter=backend start",
     "backend:build": "pnpm --filter=backend build",
     "build": "pnpm build -r",
-    "dev": "pnpm dev -r",
+    "dev": "pnpm dev -r --filter=./frontend --filter=./backend --filter=./admin",
     "start": "pnpm build -r && pnpm backend:start",
     "test": "pnpm test -r",
     "coverage": "pnpm coverage -r && node bin/combine_coverage.js",

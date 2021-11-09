@@ -1,5 +1,5 @@
 {
-	"name": "~TODO~",
+	"name": "@plantarium/admin",
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "svelte-kit dev --port 3001",
@@ -19,16 +19,17 @@
 		"eslint-plugin-svelte3": "^3.2.1",
 		"prettier": "~2.4.0",
 		"prettier-plugin-svelte": "^2.4.0",
-		"svelte": "^3.42.4",
+		"svelte": "^3.42.5",
 		"svelte-check": "^2.2.5",
 		"svelte-preprocess": "^4.9.4",
 		"tslib": "^2.3.1",
-		"typescript": "^4.4.2",
+		"typescript": "^4.4.3",
 		"vite-plugin-windicss": "^1.4.2",
 		"windicss": "^3.1.7"
 	},
 	"type": "module",
 	"dependencies": {
+		"@plantarium/ui": "link:../packages/ui",
 		"@sveltejs/adapter-static": "^1.0.0-next.18",
 		"svelte-forms-lib": "^1.10.6",
 		"vite": "^2.5.6"

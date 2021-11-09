@@ -11,7 +11,7 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.22",
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.23",
     "rollup": "^2.56.3",
     "rollup-plugin-glslify": "^1.2.0",
     "rollup-plugin-svg-import": "^1.5.1",
@@ -36,7 +36,7 @@
     "ogl": "^0.0.76",
     "rainbow-code": "^2.1.7",
     "shortid": "^2.2.16",
-    "svelte": "^3.42.4",
+    "svelte": "^3.42.5",
     "svelte-click-outside": "^1.0.0",
     "svelte-resize-observer": "^2.0.0"
   }

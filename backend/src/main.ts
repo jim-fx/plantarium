@@ -1,14 +1,21 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { NestExpressApplication } from '@nestjs/platform-express';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import { AppModule } from './app.module';
+import {
+	FastifyAdapter,
+	NestFastifyApplication,
+} from '@nestjs/platform-fastify';
 
 async function bootstrap() {
-	const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-		logger: ['log', 'debug', 'error', 'verbose', 'warn'],
-	});
+	const app = await NestFactory.create<NestFastifyApplication>(
+		AppModule,
+		new FastifyAdapter(),
+		{
+			logger: ['log', 'debug', 'error', 'verbose', 'warn'],
+		},
+	);
 
 	app.use(cookieParser());
 

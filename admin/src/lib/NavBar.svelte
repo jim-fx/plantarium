@@ -4,15 +4,17 @@
 	import { page } from '$app/stores';
 	import user from './userStore';
 
+	$: isLoggedIn = !!$user?.username;
+
 	$: sites = [
 		['/', 'Home'],
 		['/reports', 'Reports'],
-		['/login', 'Login'],
-		$user?.username ? ['/profile', 'Profile'] : []
+		isLoggedIn ? ['/profile', 'Profile'] : [],
+		isLoggedIn ? ['/logout', 'Logout'] : ['/login', 'Login']
 	];
 </script>
 
-<div class="text-center">
+<div class="text-center my-6">
 	<nav class="rounded bg-white shadow-xl w-auto inline-block p-2 mx-auto object-center">
 		{#each sites as [href, title]}
 			{#if href}

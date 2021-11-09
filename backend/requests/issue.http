@@ -1,0 +1,13 @@
+POST https://api.github.com/repos/jim-fx/plantarium/issues
+Accept: application/vnd.github.v3+json
+Authorization: token {{GH_TOKEN}}
+
+{
+	"title": "Test Issue",
+	"labels": ["UI"]
+}
+
+
+GET https://api.github.com/repos/jim-fx/plantarium/issues/11
+
+GET https://api.github.com/repos/jim-fx/plantarium/issues/11/comments

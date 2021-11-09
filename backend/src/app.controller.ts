@@ -1,4 +1,7 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
+import { Roles } from 'auth/decorators/roles.decorator';
+import { Role } from 'auth/enums/role.enum';
 
 @Controller()
-export class AppController {}
+@Roles(Role.ANON)
+export class AppController { }

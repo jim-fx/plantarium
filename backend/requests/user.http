@@ -1,5 +1,4 @@
 POST {{API_URL}}/api/user
-
 Content-Type: application/json
 
 {

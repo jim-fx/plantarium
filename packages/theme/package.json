@@ -10,7 +10,7 @@
   "dependencies": {
     "esbuild": "^0.12.26",
     "esbuild-plugin-sass": "^0.6.0",
-    "svelte": "^3.42.4"
+    "svelte": "^3.42.5"
   },
   "devDependencies": {
     "css-vars-from-json": "^1.0.0"

@@ -1,26 +1,34 @@
-import { EntityManager } from '@mikro-orm/core';
+import { EntityManager, EntityRepository } from '@mikro-orm/core';
+import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { CreateReportDto } from './dto/create-report.dto';
 import { Report } from './report.entity';
 
 @Injectable()
 export class ReportService {
-  constructor(private readonly em: EntityManager) {}
+	constructor(
+		@InjectRepository(Report)
+		private readonly repository: EntityRepository<Report>,
+	) { }
 
-  create(dto: CreateReportDto): Report {
-    const report = new Report();
+	create(dto: CreateReportDto): Report {
+		const report = new Report();
 
-    report.browser = dto.browser;
-    report.type = dto.type;
-    report.description = dto.description;
-    report.stacktrace = dto.stacktrace;
+		report.browser = dto.browser;
+		report.type = dto.type;
+		report.description = dto.description;
+		report.stacktrace = dto.stacktrace;
 
-    this.em.persistAndFlush(report);
+		this.repository.persistAndFlush(report);
 
-    return report;
-  }
+		return report;
+	}
 
-  async getAll(): Promise<Report[]> {
-    return this.em.find(Report, {});
-  }
+	getById(id: string) {
+		return this.repository.findOne({ id });
+	}
+
+	async getAll(): Promise<Report[]> {
+		return this.repository.findAll();
+	}
 }

@@ -1,15 +1,12 @@
 <script lang="ts">
 	import { api } from '$lib';
-
-	const reportPromise = api.get('api/report');
+	import { ReportCard, SortableTable } from '$lib/components';
 </script>
 
-{#await reportPromise}
-	Loading ...
-{:then reports}
-	<pre>
-		<code>
-	{JSON.stringify(reports, null, 2)}
-	</code>
-	</pre>
-{/await}
+<div class="container w-min mx-auto rounded overflow-hidden">
+	{#await api.get('api/report')}
+		Loading ...
+	{:then reports}
+		<SortableTable items={reports} component={ReportCard} componentKey="report"/>
+	{/await}
+</div>

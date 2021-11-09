@@ -3,21 +3,27 @@ import { BaseEntity } from '../entities/BaseEntity';
 
 @Entity()
 export class Report extends BaseEntity {
-  @Property()
-  type: 'bug' | 'feat';
+	@Property()
+	type: 'bug' | 'feat';
 
-  @Property()
-  open = true;
+	@Property()
+	title: string;
 
-  @Property()
-  description?: string;
+	@Property()
+	gh_issue?: string;
 
-  @Property()
-  stacktrace?: any;
+	@Property()
+	open = true;
 
-  @Property()
-  browser?: any;
+	@Property()
+	description?: string;
 
-  @Property()
-  userId?: string;
+	@Property()
+	stacktrace?: any;
+
+	@Property()
+	browser?: any;
+
+	@Property()
+	userId?: string;
 }

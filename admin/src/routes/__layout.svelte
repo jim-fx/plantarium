@@ -7,8 +7,6 @@
 	if (browser) document.body.classList.add('bg-gray-100');
 </script>
 
-{$user?.username}
-
 <svelte:body class="bg-gray-50" />
 
 <div class="container mx-auto">
