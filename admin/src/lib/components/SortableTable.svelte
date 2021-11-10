@@ -36,7 +36,7 @@ import type { SvelteComponent } from "svelte";
 </script>
 
 <table>
-	<thead class="bg-white rounded shadow-md cursor-pointer select-none	">
+	<thead class="bg-white rounded shadow-md cursor-pointer select-none">
 		{#each _keys as key}
 			<td class="p-2 whitespace-nowrap" on:click={() => handleClick(key)} class:font-bold={key === activeKey}>
 				<span class="text-xs">{key === activeKey?(reverseSort?"⮝":"⮟"):"  "}</span> {key}
@@ -48,6 +48,7 @@ import type { SvelteComponent } from "svelte";
 	<tbody>
 	{#each sortedItems as item (item.id)}
 		<tr class="my-5">
+		<tr>
 			{#if component}
 				<td colspan={component?_keys.length:1} class="py-1">
 					<svelte:component this={component} {...{[componentKey]:item}}/>

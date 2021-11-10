@@ -15,8 +15,9 @@ import InputSelect from './InputSelect.svelte';
 import InputShape from './InputShape.svelte';
 import InputSlider from './InputSlider.svelte';
 import Section from './Section.svelte';
-
+import StackTrace from "./toast/StackTrace.svelte";
 import type { SvelteComponentDev } from 'svelte/internal/index';
+
 
 export {
 	InputFloat,
@@ -34,6 +35,7 @@ export {
 	createAlert,
 	ToastWrapper,
 	createToast,
+  StackTrace
 };
 
 // *****************************************

@@ -1,10 +1,11 @@
 import { plant, worker } from '@plantarium/generator';
 import { transferToGeometry } from '@plantarium/geometry';
 import { logger } from '@plantarium/helpers';
-import { createToast } from '@plantarium/ui';
+import { createAlert, createToast } from '@plantarium/ui';
 import { Box, Mesh } from 'ogl';
 import type Scene from '.';
 import { settingsManager } from '..';
+import { Report } from '../../elements';
 import type { ProjectManager } from '../project-manager';
 import DebugScene from './debug';
 import { MatCapShader } from './shaders';
@@ -59,13 +60,13 @@ export default class ForegroundScene {
 
 		this.scene.isLoading.set(true);
 
-		try {
-			const result =
-				// eslint-disable-next-line
-				//@ts-ignore
-				import.meta.env.MODE === 'development'
-					? plant(p, s)
-					: await this.worker.plant(p, s);
+    try {
+      const result =
+        // eslint-disable-next-line
+        //@ts-ignore
+        import.meta.env.MODE === 'development'
+          ? plant(p, s)
+          : await this.worker.plant(p, s);
 
 			if (!result) return;
 
@@ -78,14 +79,26 @@ export default class ForegroundScene {
 			this.mesh.geometry = transferToGeometry(this.gl, result.geometry);
 
 			this.mesh.geometry.computeBoundingBox();
+      //throw new Error("asdasdasd");
 
-			this.scene.renderer.setControlTarget(this.mesh.geometry.bounds.center);
-		} catch (error) {
-			log.error(error);
-			createToast(error, {
-				title: 'Error [Generator]',
-				values: ['Report'],
-			});
-		}
-	}
+      this.scene.renderer.setControlTarget(this.mesh.geometry.bounds.center);
+    } catch (error) {
+      log.error(error);
+      const res = await createToast(error, {
+        title: 'Error [Generator]',
+        values: ['report'],
+      });
+
+      if (res === "report") {
+
+        createAlert(Report, {
+          timeout: 0,
+          title: 'Report Bug',
+          type: 'error',
+          props: { mode: 'bug',error },
+        })
+      }
+    }
+
+  }
 }

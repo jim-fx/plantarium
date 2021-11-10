@@ -27,6 +27,10 @@ export class UserService implements OnModuleInit {
 		return this.repository.findOne({ username });
 	}
 
+  findById(id:string){
+    return this.repository.findOne({id});
+  }
+
 	update(id: string, updateUserDto: UpdateUserDto) {
 		return this.repository.nativeUpdate({ id }, updateUserDto);
 	}

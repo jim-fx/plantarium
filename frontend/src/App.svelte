@@ -30,6 +30,11 @@
 <style lang="scss">
   @use '~@plantarium/theme/src/themes.module.scss';
 
+  .overlay-visible main {
+    pointer-events: none;
+    user-select: none;
+  }
+
   main {
     height: 100%;
     max-height: calc(100vh - 50px);

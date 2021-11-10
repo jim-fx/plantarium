@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-
 	import { page } from '$app/stores';
-	import user from './userStore';
+	import { api } from '$lib';
+
+	const user = api.userStore;
 
 	$: isLoggedIn = !!$user?.username;
 

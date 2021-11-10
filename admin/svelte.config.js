@@ -20,10 +20,10 @@ const config = {
 			base: BASE_PATH
 		},
 
-		vite: {
-			plugins: [WindiCSS.default()]
-		}
-	}
+    vite: {
+      plugins: [WindiCSS()]
+    }
+  }
 };
 
 export default config;
