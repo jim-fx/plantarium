@@ -143,11 +143,11 @@
   <footer class="flex items-center justify-between mb-10">
     <Detail object={report} />
 
-    {#if $userStore?.permissions?.includes("report.delete")}
-    <button
-      class="bg-red-600 rounded-md text-white px-2 py-1 self-start"
-      on:click={deleteReport}>delete</button
-    >
+    {#if $userStore?.permissions?.includes('report.delete')}
+      <button
+        class="bg-red-600 rounded-md text-white px-2 py-1 self-start"
+        on:click={deleteReport}>delete</button
+      >
     {/if}
   </footer>
 {/if}

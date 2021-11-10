@@ -1,7 +1,7 @@
 import { Entity, Property } from '@mikro-orm/core';
 import { Role } from 'auth/enums/role.enum';
 import { compare, hash } from 'bcrypt';
-import { classToPlain, Exclude } from 'class-transformer';
+import { Exclude } from 'class-transformer';
 import { BaseEntity } from '../entities/BaseEntity';
 
 @Entity()
