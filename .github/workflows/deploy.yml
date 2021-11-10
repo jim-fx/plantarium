@@ -1,6 +1,9 @@
-name: GitHub Actions Demo
+name: Deploy Static App
 
-on: [push]
+on:
+  push:
+    branches:
+      - 'main'
 
 jobs:
   Deploy_Github_Pages:
