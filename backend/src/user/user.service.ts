@@ -1,9 +1,10 @@
 import { EntityManager, EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Role } from 'auth/enums/role.enum';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
+import { User } from './user.entity';
 
 @Injectable()
 export class UserService implements OnModuleInit {
@@ -46,6 +47,7 @@ export class UserService implements OnModuleInit {
       if (!admin) {
         admin = new User();
         admin.username = 'admin';
+        admin.role = Role.ADMIN;
         admin.email = 'test@example.com';
         await admin.setPassword(ADMIN_PASS);
         this.repository.persistAndFlush(admin);

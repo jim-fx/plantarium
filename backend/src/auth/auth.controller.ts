@@ -16,7 +16,6 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 export class AuthController {
   constructor(private readonly service: AuthService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get('profile')
   async profile(@Req() req) {
     return req.user;

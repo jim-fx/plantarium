@@ -20,6 +20,8 @@
   import { onMount } from 'svelte';
   const { reportId } = $page.params;
   import { createAlert, StackTrace } from '@plantarium/ui';
+  import { user } from '$lib/api';
+  import { userStore } from '@plantarium/client-api';
 
   const {
     VITE_API_URL = 'http://localhost:3000',
@@ -61,6 +63,7 @@
   }
 
   onMount(async () => {
+    api.getPermission();
     setTimeout(() => {
       initialized = true;
     }, 500);
@@ -71,10 +74,9 @@
   Loading ... {reportId}
 {:else}
   <header class="flex justify-between border-bottom items-center">
-    <h1 class="text-4xl">
+    <h2 class="text-4xl">
       <b>{report.type}</b>
-      {report.title ? report.title : ''}
-    </h1>
+    </h2>
 
     <div>
       <a href={`${VITE_API_URL}/api/report/${reportId}`}>api</a>
@@ -91,12 +93,15 @@
           href="https://github.com/{VITE_GH_ORG}/{VITE_GH_REPO}/issues/{report.gh_issue}"
           >gh-issue</a
         >
-        <button
-          class="publish"
-          disabled={publishPromise}
-          on:click={togglePublish}>unpublish</button
-        >
-      {:else}
+
+        {#if $userStore?.permissions?.includes('report.update')}
+          <button
+            class="publish"
+            disabled={publishPromise}
+            on:click={togglePublish}>unpublish</button
+          >
+        {/if}
+      {:else if $userStore?.permissions?.includes('report.update')}
         <button
           class="publish"
           disabled={publishPromise}
@@ -108,7 +113,10 @@
 
   <hr class="my-2" />
 
-  <h3>Description:</h3>
+  <h1 class="text-4xl">{report.title ? report.title : ''}</h1>
+
+  <br />
+
   <p>{report.description}</p>
 
   <br />
@@ -134,10 +142,13 @@
 
   <footer class="flex items-center justify-between mb-10">
     <Detail object={report} />
+
+    {#if $userStore?.permissions?.includes("report.delete")}
     <button
       class="bg-red-600 rounded-md text-white px-2 py-1 self-start"
       on:click={deleteReport}>delete</button
     >
+    {/if}
   </footer>
 {/if}
 

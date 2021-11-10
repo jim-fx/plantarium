@@ -13,9 +13,7 @@ interface Request {
 const extractJwt = (req: Request) => {
   let token = null;
 
-  console.log(req.cookies);
-
-  if (req && req.cookies) {
+  if (req?.cookies?.token) {
     token = req.cookies['token'];
   }
 
@@ -37,6 +35,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    return { sub: payload.sub, username: payload.username };
+    return { sub: payload.sub, username: payload.username, role: payload.role };
   }
 }

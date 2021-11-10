@@ -1,5 +1,6 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
@@ -8,13 +9,17 @@ import {
   Post,
   Request,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+import { getPermissionsForRole } from 'auth/enums/permission.enum';
+import { Role } from 'auth/enums/role.enum';
 import { JwtAuthGuard } from 'auth/guards/jwt-auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
 
 @Controller('api/user')
+@UseInterceptors(ClassSerializerInterceptor)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -47,5 +52,19 @@ export class UserController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
+  }
+
+  @Get("role")
+  getRole(@Request() req){
+    const {user:{role = Role.ANON} = {}} = req;
+    console.log("ROLE", role);
+    return role;
+  }
+  
+  @Get("permission")
+  getPermissions(@Request() req){
+    const role = this.getRole(req);
+    const permissions = [...getPermissionsForRole(role)];
+    return permissions;
   }
 }

@@ -1,8 +1,8 @@
 <script>
   import { Button, createAlert } from '@plantarium/ui';
-  import { Changelog } from '../../elements';
-  import Report from '../../elements/Report.svelte';
-  import { Tutor } from '../tutor';
+  import { Changelog } from '.';
+  import Report from './Report.svelte';
+  import { Tutor } from '../components/tutor';
 </script>
 
 <div>

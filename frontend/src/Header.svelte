@@ -1,6 +1,6 @@
 <script lang="ts">
   import { projectManager } from './components';
-  import HelpView from './components/help/Help.svelte';
+  import HelpView from './elements/Help.svelte';
   import ProjectManagerView from './components/project-manager/ProjectManagerView.svelte';
   import SettingsManagerView from './components/settings-manager/SettingsManagerView.svelte';
   import HoverWindow from './elements/HoverWindow.svelte';

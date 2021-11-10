@@ -7,5 +7,7 @@
 {#await profile}
   Loading
 {:then prof}
+  <pre><code>
   {JSON.stringify(prof, null, 2)}
+  </code></pre>
 {/await}
