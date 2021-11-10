@@ -19,7 +19,7 @@
     "sass": "^1.43.4",
     "svelte-preprocess": "^4.9.8",
     "svelte-preprocess-esbuild": "^2.0.0",
-    "vite": "^2.6.13",
+    "vite": "^2.6.14",
     "vite-plugin-external-worker": "^0.1.0",
     "vite-tsconfig-paths": "^3.3.17"
   },
@@ -33,6 +33,8 @@
     "@plantarium/renderer": "link:../packages/renderer",
     "@plantarium/theme": "link:../packages/theme",
     "@plantarium/ui": "link:../packages/ui",
+    "@sveltejs/adapter-static": "^1.0.0-next.21",
+    "@sveltejs/kit": "^1.0.0-next.195",
     "localforage": "^1.10.0",
     "ogl": "^0.0.76",
     "rainbow-code": "^2.1.7",

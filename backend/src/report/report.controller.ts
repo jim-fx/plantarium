@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { CreateReportDto } from './dto/create-report.dto';
 import { UpdateReportDto } from './dto/update-report.dto';
 import { Report } from './report.entity';
@@ -6,7 +14,7 @@ import { ReportService } from './report.service';
 
 @Controller('api/report')
 export class ReportController {
-  constructor(private readonly reportService: ReportService) { }
+  constructor(private readonly reportService: ReportService) {}
 
   @Get('/:id')
   public getReportById(@Param('id') id: string) {
@@ -18,8 +26,8 @@ export class ReportController {
 		return this.reportService.getById(id);
 	}
 
-  @Delete("/:id")
-  public deleteReport(@Param("id") id){
+  @Delete('/:id')
+  public deleteReport(@Param('id') id) {
     return this.reportService.deleteReport(id);
   }
 
@@ -28,9 +36,12 @@ export class ReportController {
     return this.reportService.create(createReportDto);
   }
 
-  @Put("/:id")
-  public updateReport(@Param("id") id: string, @Body() updateReportDto: UpdateReportDto) {
-    console.log("Update", id);
+  @Put('/:id')
+  public updateReport(
+    @Param('id') id: string,
+    @Body() updateReportDto: UpdateReportDto,
+  ) {
+    console.log('Update', id);
     return this.reportService.updateReport(id, updateReportDto);
   }
 
@@ -44,7 +55,7 @@ export class ReportController {
     return this.reportService.unpublishFromGithub(id);
   }
 
-  @Get("/labels")
+  @Get('/labels')
   public listLabels() {
     return this.reportService.getIssueLabels();
   }

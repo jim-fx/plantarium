@@ -17,13 +17,13 @@ const config = {
     target: '#svelte',
 
     paths: {
-      base: BASE_PATH
+      base: BASE_PATH,
     },
 
     vite: {
-      plugins: [WindiCSS()]
-    }
-  }
+      plugins: [WindiCSS()],
+    },
+  },
 };
 
 export default config;
