@@ -56,7 +56,7 @@
     {:else}
       <div />
     {/if}
-    <InputSelect values={['Date', 'Test', 'Test2']} />
+		<!--<InputSelect values={['Date', 'Test', 'Test2']} />-->
   </div>
 
   {#if visible}

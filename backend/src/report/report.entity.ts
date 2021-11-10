@@ -4,30 +4,30 @@ import { PLabel } from './dto/shared-types';
 
 @Entity()
 export class Report extends BaseEntity {
-	@Property()
-	type: 'bug' | 'feat';
+  @Property()
+  type: 'bug' | 'feat';
 
-  @Property({type:"json"})
+  @Property({ type: 'json' })
   labels: PLabel[];
 
-	@Property()
-	title: string;
+  @Property()
+  title: string;
 
-	@Property()
-	gh_issue?: number;
+  @Property()
+  gh_issue?: string;
 
-	@Property()
-	open = true;
+  @Property()
+  open = true;
 
-	@Property()
-	description?: string;
+  @Property()
+  description?: string;
 
-	@Property({type:"json"})
-	stacktrace?: any;
+  @Property()
+  stacktrace?: any;
 
-	@Property({type:"json"})
-	browser?: any;
+  @Property({ type: 'json' })
+  browser?: any;
 
-	@Property()
-	userId?: string;
+  @Property()
+  userId?: string;
 }

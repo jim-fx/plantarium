@@ -1,11 +1,13 @@
 <script lang="ts">
-	import { api } from '$lib';
+  import { api } from '$lib';
 
-	const profile = api.get('api/user/profile');
+  const profile = api.get('api/user/profile');
 </script>
 
 {#await profile}
-	Loading
+  Loading
 {:then prof}
-	{JSON.stringify(prof, null, 2)}
+  <pre><code>
+  {JSON.stringify(prof, null, 2)}
+  </code></pre>
 {/await}

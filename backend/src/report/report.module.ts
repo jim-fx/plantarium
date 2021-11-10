@@ -5,8 +5,8 @@ import { Report } from './report.entity';
 import { ReportService } from './report.service';
 
 @Module({
-	imports: [MikroOrmModule.forFeature([Report])],
-	controllers: [ReportController],
-	providers: [ReportService],
+  imports: [MikroOrmModule.forFeature([Report])],
+  controllers: [ReportController],
+  providers: [ReportService],
 })
-export class ReportModule { }
+export class ReportModule {}

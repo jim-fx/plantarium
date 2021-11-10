@@ -3,5 +3,6 @@ yarn-error.log
 coverage
 .nyc_output
 dist
+.env
 .pnpm-debug.log
 .eslintcache

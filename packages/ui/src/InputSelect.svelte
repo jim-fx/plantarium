@@ -91,7 +91,7 @@
     content: '';
     position: absolute;
     left: 5px;
-    top: 50%;
+    top: calc(50% - 2px);
     width: 5px;
     height: 5px;
     border-right: solid 1.5px white;
@@ -105,8 +105,9 @@
   }
 
   #selected-value {
-    padding: 6px;
-    padding-left: 18px;
+    padding: 3px;
+    padding-left: 20px;
+    padding-right: 10px;
   }
 
   #item-wrapper {
