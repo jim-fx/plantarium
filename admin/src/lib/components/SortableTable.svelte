@@ -7,13 +7,14 @@
   export let component: SvelteComponent | undefined;
   export let componentKey = 'item';
 
-  $: _keys = keys && keys.length ? keys : items.length?Object.keys(items[0]):[];
+  $: _keys =
+    keys && keys.length ? keys : items.length ? Object.keys(items[0]) : [];
 
   $: activeKey = _keys.length && _keys[0];
 
   let reverseSort = false;
 
-  function sortItems(reverse:boolean) {
+  function sortItems(reverse: boolean) {
     const _sort = items.sort((a, b) => {
       return a[activeKey] > b[activeKey] ? -1 : 1;
     });
@@ -34,42 +35,43 @@
 </script>
 
 {#if _keys.length}
-
-<table>
-  <thead class="bg-white rounded shadow-md cursor-pointer select-none">
-    {#each _keys as key}
-      <td
-        class="p-2 whitespace-nowrap"
-        on:click={() => handleClick(key)}
-        class:font-bold={key === activeKey}
-      >
-        <span class="text-xs"
-          >{key === activeKey ? (reverseSort ? '⮝' : '⮟') : '  '}</span
+  <table>
+    <thead class="bg-white rounded shadow-md cursor-pointer select-none">
+      {#each _keys as key}
+        <td
+          class="p-2 whitespace-nowrap"
+          on:click={() => handleClick(key)}
+          class:font-bold={key === activeKey}
         >
-        {key}
-      </td>
-    {/each}
-  </thead>
+          <span class="text-xs"
+            >{key === activeKey ? (reverseSort ? '⮝' : '⮟') : '  '}</span
+          >
+          {key}
+        </td>
+      {/each}
+    </thead>
 
-  <tbody>
-    {#each sortedItems as item (item.id)}
-      <tr class="my-5" /><tr>
-        {#if component}
-          <td colspan={component ? _keys.length : 1} class="py-1">
-            <svelte:component this={component} {...{ [componentKey]: item }} />
-          </td>
-        {:else}
-          {#each _keys as key}
-            <td>
-              {item[key]}
+    <tbody>
+      {#each sortedItems as item (item.id)}
+        <tr class="my-5" /><tr>
+          {#if component}
+            <td colspan={component ? _keys.length : 1} class="py-1">
+              <svelte:component
+                this={component}
+                {...{ [componentKey]: item }}
+              />
             </td>
-          {/each}
-        {/if}
-      </tr>
-    {/each}
-  </tbody>
-</table>
-
+          {:else}
+            {#each _keys as key}
+              <td>
+                {item[key]}
+              </td>
+            {/each}
+          {/if}
+        </tr>
+      {/each}
+    </tbody>
+  </table>
 {:else}
   <p>This table seems empty</p>
 {/if}

@@ -1,4 +1,4 @@
-import { EntityManager, EntityRepository } from '@mikro-orm/core';
+import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Role } from 'auth/enums/role.enum';

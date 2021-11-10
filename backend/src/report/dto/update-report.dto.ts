@@ -1,4 +1,4 @@
-import { IsEnum, IsIn, IsOptional, IsString, Length } from 'class-validator';
+import { IsIn, IsOptional, IsString, Length } from 'class-validator';
 import { labels, PLabel } from './shared-types';
 
 export class UpdateReportDto {
