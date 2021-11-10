@@ -1,7 +1,7 @@
 <svelte:options tag="plant-alert-wrapper" />
 
 <script lang="ts">
-import { isBrowser } from '../helpers/isBrowser';
+  import { isBrowser } from '../helpers/isBrowser';
 
   import { fade, scale } from 'svelte/transition';
   import Button from '../Button.svelte';
@@ -19,7 +19,7 @@ import { isBrowser } from '../helpers/isBrowser';
     alert && (alert.type === 'success' || alert.type === 'warning');
 
   function handleKeyDown(ev) {
-    if (ev.key === 'Escape') {
+    if (ev.key === 'Escape' && alert) {
       alert.reject();
     }
   }
@@ -32,6 +32,17 @@ import { isBrowser } from '../helpers/isBrowser';
       transition:scale
       class:isInverted
     >
+
+      <div class="close-wrapper">
+        <Button
+          icon="cross"
+          --bg="transparent"
+          on:click={() => {
+            alert.reject();
+          }}
+        />
+      </div>
+
       {#if alert.title}
         <h2>{alert.title}</h2>
       {/if}
@@ -72,6 +83,12 @@ import { isBrowser } from '../helpers/isBrowser';
     display: grid;
     place-items: center;
     backdrop-filter: blur(5px) contrast(0.5);
+  }
+
+  .close-wrapper {
+    position: absolute;
+		top:0px;
+		right: 0px;
   }
 
   h2 {

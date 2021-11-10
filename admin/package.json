@@ -2,7 +2,7 @@
   "name": "@plantarium/admin",
   "version": "0.0.1",
   "scripts": {
-    "dev": "svelte-kit dev --port 3001",
+    "dev": "svelte-kit dev --port 8082",
     "build": "svelte-kit build",
     "preview": "svelte-kit preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",

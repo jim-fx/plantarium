@@ -101,7 +101,7 @@
   }
 
   p {
-    color: var(--text, --text-color);
+    color: var(--text-color);
     font-weight: bolder;
     padding: 0px 5px;
     white-space: nowrap;

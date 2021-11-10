@@ -1,20 +1,19 @@
 <script lang="ts">
   import type { SvelteComponent } from 'svelte';
 
-  export let items: any[];
+  export let items: any[] = [];
 
   export let keys: string[] | undefined;
-
   export let component: SvelteComponent | undefined;
   export let componentKey = 'item';
 
-  $: _keys = keys && keys.length ? keys : Object.keys(items[0]);
+  $: _keys = keys && keys.length ? keys : items.length?Object.keys(items[0]):[];
 
   $: activeKey = _keys.length && _keys[0];
 
   let reverseSort = false;
 
-  function sortItems(reverse) {
+  function sortItems(reverse:boolean) {
     const _sort = items.sort((a, b) => {
       return a[activeKey] > b[activeKey] ? -1 : 1;
     });
@@ -33,6 +32,8 @@
     }
   }
 </script>
+
+{#if _keys.length}
 
 <table>
   <thead class="bg-white rounded shadow-md cursor-pointer select-none">
@@ -68,3 +69,7 @@
     {/each}
   </tbody>
 </table>
+
+{:else}
+  <p>This table seems empty</p>
+{/if}

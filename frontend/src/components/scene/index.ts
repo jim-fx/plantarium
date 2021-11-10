@@ -31,7 +31,7 @@ export default class Scene {
     this.scene = this.renderer.scene;
     this.gl = this.renderer.gl;
 
-    this.wrapper = document.getElementById('canvas-wrapper') as HTMLElement;
+    this.wrapper = canvas.parentElement as HTMLElement;
 
     this.bg = new BackgroundScene(this, pm);
     this.fg = new ForegroundScene(this, pm);

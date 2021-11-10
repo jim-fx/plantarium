@@ -1,4 +1,4 @@
-import { EntityManager, EntityRepository } from '@mikro-orm/core';
+import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import {
   ConflictException,
@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { CreateReportDto } from './dto/create-report.dto';
 import { Report } from './report.entity';
-import { Octokit, App } from 'octokit';
+import { Octokit } from 'octokit';
 import { UpdateReportDto } from './dto/update-report.dto';
 
 @Injectable()
@@ -21,19 +21,23 @@ export class ReportService {
     this.octo = new Octokit({ auth: process.env.GH_TOKEN });
   }
 
-  create(dto: CreateReportDto): Report {
+  async create(dto: CreateReportDto): Promise<Report> {
     const report = new Report();
 
-    this.repository.persistAndFlush(report);
+    report.type = dto.type;
+    report.title = dto.title;
+    report.labels = dto.labels;
+    report.description = dto.description;
+    report.browser = dto.browser;
+    report.stacktrace = dto.stacktrace;
+
+    await this.repository.persistAndFlush(report);
 
     return report;
   }
 
   async updateReport(reportId: string, dto: UpdateReportDto): Promise<Report> {
     const report = await this.getById(reportId);
-
-    console.log('UPDATE REPORT', reportId);
-    console.log(report);
 
     if (dto.labels) {
       report.labels = [...new Set(dto.labels)];
@@ -116,13 +120,12 @@ ${report.browser ? JSON.stringify(report.browser, null, 2) : 'not available'}
 
 ## StackTrace
 \`\`\`
-${
-  report.stacktrace
-    ? report.stacktrace.lines
-        .map((line) => `at *${line.name}* ${line.location}`)
-        .join('\n')
-    : ''
-}
+${report.stacktrace
+          ? report.stacktrace.lines
+            .map((line) => `at *${line.name}* ${line.location}`)
+            .join('\n')
+          : ''
+        }
 \`\`\``,
       labels,
     });
