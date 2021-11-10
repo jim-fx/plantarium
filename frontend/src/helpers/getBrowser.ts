@@ -1,3 +1,4 @@
+/* eslint-disable */
 export type DetectedInfoType =
   | 'browser'
   | 'node'

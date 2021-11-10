@@ -1,14 +1,17 @@
 import { EntityManager, EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateReportDto } from './dto/create-report.dto';
 import { Report } from './report.entity';
-import { Octokit, App } from "octokit";
+import { Octokit, App } from 'octokit';
 import { UpdateReportDto } from './dto/update-report.dto';
 
 @Injectable()
 export class ReportService {
-
   private octo: Octokit;
 
   constructor(
@@ -29,7 +32,7 @@ export class ReportService {
   async updateReport(reportId: string, dto: UpdateReportDto): Promise<Report> {
     const report = await this.getById(reportId);
 
-    console.log("UPDATE REPORT", reportId)
+    console.log('UPDATE REPORT', reportId);
     console.log(report);
 
     if (dto.labels) {
@@ -59,12 +62,17 @@ export class ReportService {
   }
 
   async getIssueLabels(): Promise<any> {
-    const response = await this.octo.request('GET /repos/{owner}/{repo}/labels', {
-      owner: process.env.GH_ORG,
-      repo: process.env.GH_REPO,
-    })
+    const response = await this.octo.request(
+      'GET /repos/{owner}/{repo}/labels',
+      {
+        owner: process.env.GH_ORG,
+        repo: process.env.GH_REPO,
+      },
+    );
 
-    const tags = response.data.filter(v => v.name.startsWith("P:")).map(v => v.name.replace("P:", ""));
+    const tags = response.data
+      .filter((v) => v.name.startsWith('P:'))
+      .map((v) => v.name.replace('P:', ''));
 
     return tags;
   }
@@ -88,7 +96,11 @@ export class ReportService {
       throw new ConflictException();
     }
 
-    const labels = [...report.labels.map(v => "P:" + v), report.type === "bug" && "bug", report.type === "feat" && "enhancement"].filter(v => !!v);
+    const labels = [
+      ...report.labels.map((v) => 'P:' + v),
+      report.type === 'bug' && 'bug',
+      report.type === 'feat' && 'enhancement',
+    ].filter((v) => !!v);
 
     const result = await this.octo.rest.issues.create({
       owner: process.env.GH_ORG,
@@ -99,14 +111,20 @@ ${report.description}
       
 ## Browser
 \`\`\`json
-${report.browser ? JSON.stringify(report.browser, null, 2) : "not available"}
+${report.browser ? JSON.stringify(report.browser, null, 2) : 'not available'}
 \`\`\`
 
 ## StackTrace
 \`\`\`
-${report.stacktrace ? report.stacktrace.lines.map(line => `at *${line.name}* ${line.location}`).join("\n") : ""}
+${
+  report.stacktrace
+    ? report.stacktrace.lines
+        .map((line) => `at *${line.name}* ${line.location}`)
+        .join('\n')
+    : ''
+}
 \`\`\``,
-      labels
+      labels,
     });
 
     report.gh_issue = result.data.number;
@@ -114,7 +132,6 @@ ${report.stacktrace ? report.stacktrace.lines.map(line => `at *${line.name}* ${l
     await this.repository.persistAndFlush(report);
 
     return report.gh_issue;
-
   }
 
   async getById(id: string) {

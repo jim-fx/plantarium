@@ -4,4 +4,4 @@ import { Role } from 'auth/enums/role.enum';
 
 @Controller()
 @Roles(Role.ANON)
-export class AppController { }
+export class AppController {}

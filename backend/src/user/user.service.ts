@@ -7,49 +7,49 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService implements OnModuleInit {
-	constructor(
-		@InjectRepository(User) private readonly repository: EntityRepository<User>,
-	) { }
+  constructor(
+    @InjectRepository(User) private readonly repository: EntityRepository<User>,
+  ) {}
 
-	async create(createUserDto: CreateUserDto) {
-		const user = new User();
-		await user.setPassword(createUserDto.password);
-		user.email = createUserDto.email;
-		user.username = createUserDto.name;
-		return this.repository.persistAndFlush(user);
-	}
-
-	findAll() {
-		return this.repository.findAll();
-	}
-
-	findOne(username: string) {
-		return this.repository.findOne({ username });
-	}
-
-  findById(id:string){
-    return this.repository.findOne({id});
+  async create(createUserDto: CreateUserDto) {
+    const user = new User();
+    await user.setPassword(createUserDto.password);
+    user.email = createUserDto.email;
+    user.username = createUserDto.name;
+    return this.repository.persistAndFlush(user);
   }
 
-	update(id: string, updateUserDto: UpdateUserDto) {
-		return this.repository.nativeUpdate({ id }, updateUserDto);
-	}
+  findAll() {
+    return this.repository.findAll();
+  }
 
-	remove(id: string) {
-		return this.repository.remove({ id });
-	}
+  findOne(username: string) {
+    return this.repository.findOne({ username });
+  }
 
-	async onModuleInit() {
-		const { ADMIN_PASS } = process.env;
-		if (ADMIN_PASS) {
-			let admin = await this.repository.findOne({ username: 'admin' });
-			if (!admin) {
-				admin = new User();
-				admin.username = 'admin';
-				admin.email = 'test@example.com';
-				await admin.setPassword(ADMIN_PASS);
-				this.repository.persistAndFlush(admin);
-			}
-		}
-	}
+  findById(id: string) {
+    return this.repository.findOne({ id });
+  }
+
+  update(id: string, updateUserDto: UpdateUserDto) {
+    return this.repository.nativeUpdate({ id }, updateUserDto);
+  }
+
+  remove(id: string) {
+    return this.repository.remove({ id });
+  }
+
+  async onModuleInit() {
+    const { ADMIN_PASS } = process.env;
+    if (ADMIN_PASS) {
+      let admin = await this.repository.findOne({ username: 'admin' });
+      if (!admin) {
+        admin = new User();
+        admin.username = 'admin';
+        admin.email = 'test@example.com';
+        await admin.setPassword(ADMIN_PASS);
+        this.repository.persistAndFlush(admin);
+      }
+    }
+  }
 }

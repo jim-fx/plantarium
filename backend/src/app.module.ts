@@ -11,16 +11,16 @@ import { UserModule } from './user/user.module';
 const staticAdminPath = resolve('../admin/build');
 
 @Module({
-	imports: [
-		MikroOrmModule.forRoot(c),
-		ServeStaticModule.forRoot({
-			rootPath: staticAdminPath,
-		}),
-		ReportModule,
-		UserModule,
-		AuthModule,
-	],
+  imports: [
+    MikroOrmModule.forRoot(c),
+    ServeStaticModule.forRoot({
+      rootPath: staticAdminPath,
+    }),
+    ReportModule,
+    UserModule,
+    AuthModule,
+  ],
 
-	controllers: [AppController],
+  controllers: [AppController],
 })
-export class AppModule { }
+export class AppModule {}

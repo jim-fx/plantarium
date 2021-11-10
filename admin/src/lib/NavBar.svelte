@@ -1,28 +1,34 @@
 <script lang="ts">
-	import { base } from '$app/paths';
-	import { page } from '$app/stores';
-	import { api } from '$lib';
+  import { base } from '$app/paths';
+  import { page } from '$app/stores';
+  import { api } from '$lib';
 
-	const user = api.userStore;
+  const user = api.userStore;
 
-	$: isLoggedIn = !!$user?.username;
+  $: isLoggedIn = !!$user?.username;
 
-	$: sites = [
-		['/', 'Home'],
-		['/reports', 'Reports'],
-		isLoggedIn ? ['/profile', 'Profile'] : [],
-		isLoggedIn ? ['/logout', 'Logout'] : ['/login', 'Login']
-	];
+  $: sites = [
+    ['/', 'Home'],
+    ['/reports', 'Reports'],
+    isLoggedIn ? ['/profile', 'Profile'] : [],
+    isLoggedIn ? ['/logout', 'Logout'] : ['/login', 'Login'],
+  ];
 </script>
 
 <div class="text-center my-6">
-	<nav class="rounded bg-white shadow-xl w-auto inline-block p-2 mx-auto object-center">
-		{#each sites as [href, title]}
-			{#if href}
-				<a class="p-3 rounded" class:underline={href === $page.path} href={base + href}>
-					{title}
-				</a>
-			{/if}
-		{/each}
-	</nav>
+  <nav
+    class="rounded bg-white shadow-xl w-auto inline-block p-2 mx-auto object-center"
+  >
+    {#each sites as [href, title]}
+      {#if href}
+        <a
+          class="p-3 rounded"
+          class:underline={href === $page.path}
+          href={base + href}
+        >
+          {title}
+        </a>
+      {/if}
+    {/each}
+  </nav>
 </div>
