@@ -6,6 +6,6 @@
   },
   "ext": "ts,js,json",
   "ignore": "*.json",
-  "exec": "pnpm start",
+  "exec": "pnpm start:dev",
   "delay": "1500"
 }

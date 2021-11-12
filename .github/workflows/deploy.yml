@@ -6,7 +6,39 @@ on:
       - 'main'
 
 jobs:
-  Deploy_Github_Pages:
+  deploy_backend_image:
+    # run only when code is compiling and tests are passing
+    runs-on: ubuntu-latest
+
+    # steps to perform in job
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # setup Docker buld action
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Log in to registry
+        # This is where you will update the PAT to GITHUB_TOKEN
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build image and push to Docker Hub and GitHub Container Registry
+        uses: docker/build-push-action@v2
+        with:
+          # relative path to the place where source code with Dockerfile is located
+          context: .
+          file: backend/Dockerfile
+          # Note: tags has to be all lower-case
+          tags: |
+            ghcr.io/jim-fx/plantarium-backend:latest
+          # build on feature branches, push only on main branch
+          push: ${{ github.ref == 'refs/heads/main' }}
+
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }} 
+  deploy_gh_pages:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -25,6 +57,10 @@ jobs:
           run_install: true
 
       - run: "pnpm frontend:build"
+
+      - run: "pnpm admin:build"
+
+      - run: "cp -r admin/build frontend/dist/admin"
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
