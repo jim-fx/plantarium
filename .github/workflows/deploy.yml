@@ -32,7 +32,7 @@ jobs:
           file: backend/Dockerfile
           # Note: tags has to be all lower-case
           tags: |
-            ghcr.io/jimfx/plantarium-backend:latest
+            ghcr.io/jim-fx/plantarium-backend:latest
           # build on feature branches, push only on main branch
           push: ${{ github.ref == 'refs/heads/main' }}
 
