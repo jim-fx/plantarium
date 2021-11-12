@@ -13,7 +13,7 @@ COPY package.json ./
 COPY pnpm-* ./
 COPY backend backend
 
-RUN pnpm i -r --frozen-lockfile && pnpm backend:build
+RUN pnpm i -r --frozen-lockfile --filter="./backend" && pnpm backend:build
 
 FROM base AS final
 
