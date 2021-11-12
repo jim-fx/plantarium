@@ -14,7 +14,7 @@ let _user = {};
 
 (() => {
 
-  if(!("sessionStorage" in global)){
+  if(!("sessionStorage" in globalThis)){
     globalThis["sessionStorage"] = {
       getItem:(k) => undefined,
       setItem:(k, v) => {},
