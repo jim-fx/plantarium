@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "published": "true",
   "scripts": {
+    "admin:build": "pnpm --filter=./admin build",
+    "admin:dev": "pnpm --filter=./admin dev",
     "frontend:dev": "pnpm --filter=./frontend dev",
     "frontend:build": "pnpm --filter=./frontend build",
     "backend:dev": "pnpm --filter=backend dev",
