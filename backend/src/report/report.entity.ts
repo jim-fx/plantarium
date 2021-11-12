@@ -8,7 +8,7 @@ export class Report extends BaseEntity {
   type: 'bug' | 'feat';
 
   @Property({ type: 'json' })
-  labels: PLabel[];
+  labels: PLabel[] = [];
 
   @Property()
   title: string;
