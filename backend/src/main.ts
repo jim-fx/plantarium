@@ -8,6 +8,7 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { JwtAuthGuard } from 'auth/guards/jwt-auth.guard';
+import { PORT } from "./config";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -28,7 +29,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  return app.listen(8081);
+  return app.listen(PORT, '0.0.0.0');
 }
 
 export const viteNodeApp = bootstrap();

@@ -1,0 +1,13 @@
+services:
+  backend:
+    image: jimfx/plantarium-backend
+    network_mode: host
+    ports:
+      - 8081:8081
+    environment:
+      PORT: 8081
+      PNPM_REGISTRY: "https://registry.npmjs.org"
+    build:
+      context: ./
+      network: host
+      dockerfile: ./backend/Dockerfile

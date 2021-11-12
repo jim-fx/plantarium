@@ -14,7 +14,7 @@ export class Report extends BaseEntity {
   title: string;
 
   @Property()
-  gh_issue?: string;
+  gh_issue?: number;
 
   @Property()
   open = true;
