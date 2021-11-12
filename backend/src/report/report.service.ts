@@ -9,6 +9,7 @@ import { CreateReportDto } from './dto/create-report.dto';
 import { Report } from './report.entity';
 import { Octokit } from 'octokit';
 import { UpdateReportDto } from './dto/update-report.dto';
+import { GH_TOKEN, GH_ORG, GH_REPO } from "../config";
 
 @Injectable()
 export class ReportService {
@@ -18,7 +19,7 @@ export class ReportService {
     @InjectRepository(Report)
     private readonly repository: EntityRepository<Report>,
   ) {
-    this.octo = new Octokit({ auth: process.env.GH_TOKEN });
+    this.octo = new Octokit({ auth: GH_TOKEN });
   }
 
   async create(dto: CreateReportDto): Promise<Report> {
@@ -69,8 +70,8 @@ export class ReportService {
     const response = await this.octo.request(
       'GET /repos/{owner}/{repo}/labels',
       {
-        owner: process.env.GH_ORG,
-        repo: process.env.GH_REPO,
+        owner: GH_ORG,
+        repo: GH_REPO,
       },
     );
 
@@ -107,8 +108,8 @@ export class ReportService {
     ].filter((v) => !!v);
 
     const result = await this.octo.rest.issues.create({
-      owner: process.env.GH_ORG,
-      repo: process.env.GH_REPO,
+      owner: GH_ORG,
+      repo: GH_REPO,
       title: report.title,
       body: `## Description:
 ${report.description}
