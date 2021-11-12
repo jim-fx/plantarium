@@ -1,4 +1,5 @@
 const { VITE_API_URL = 'http://localhost:3000' } = import.meta.env;
+import { getBrowser } from './helper';
 import { userStore } from './user-store';
 
 function parseJwt(token: string) {
@@ -14,15 +15,6 @@ function parseJwt(token: string) {
   );
 
   return JSON.parse(jsonPayload);
-}
-
-function getBrowser() {
-  try {
-    const browser = typeof eval("window") !== "undefined";
-    return browser;
-  } catch (err) {
-    return false;
-  }
 }
 
 const browser = getBrowser();
