@@ -57,10 +57,13 @@ jobs:
           run_install: true
 
       - run: "pnpm frontend:build"
+        env:
+          VITE_API_URL: "https://plant-api.jim-fx.com"
 
       - run: "pnpm admin:build"
         env:
-          BASE_PATH: /plantarium/admin
+          VITE_API_URL: "https://plant-api.jim-fx.com"
+          BASE_PATH: /admin
 
       - run: "cp -r admin/build frontend/dist/admin"
 
