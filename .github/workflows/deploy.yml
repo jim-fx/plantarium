@@ -59,6 +59,8 @@ jobs:
       - run: "pnpm frontend:build"
 
       - run: "pnpm admin:build"
+        env:
+          - ADMIN_PATH: "plantarium/admin"
 
       - run: "cp -r admin/build frontend/dist/admin"
 
