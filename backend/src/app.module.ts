@@ -1,6 +1,5 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
-import { ServeStaticModule } from '@nestjs/serve-static';
 import { resolve } from 'path';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
@@ -13,9 +12,6 @@ const staticAdminPath = resolve('../admin/build');
 @Module({
   imports: [
     MikroOrmModule.forRoot(c),
-    ServeStaticModule.forRoot({
-      rootPath: staticAdminPath,
-    }),
     ReportModule,
     UserModule,
     AuthModule,
