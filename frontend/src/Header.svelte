@@ -6,14 +6,11 @@
   import HoverWindow from './elements/HoverWindow.svelte';
   const activeProject = projectManager.activeProject;
 
-  let showPM = false;
-  let showSM = false;
-  let showHelp = false;
 </script>
 
 <header>
   <div class="left">
-    <HoverWindow icon="folder" name="Projects" component={ProjectManagerView} />
+    <HoverWindow icon="folder" name="Projects" component={ProjectManagerView}/>
   </div>
 
   <h3>{$activeProject?.meta.name ?? ''}</h3>

@@ -14,8 +14,16 @@ const template: SettingsTemplate = {
   },
   debug: {
     options: {
-      reportError: {
-        type: 'boolean',
+      //reportError: {
+        //type: 'boolean',
+        //defaultValue: false,
+      //},
+      renderPerf: {
+        type: "boolean",
+        defaultValue: false,
+      },
+      generatePerf: {
+        type: "boolean",
         defaultValue: false,
       },
       pd: {

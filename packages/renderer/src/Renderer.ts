@@ -11,6 +11,8 @@ interface RendererOptions {
   camPos: [number, number, number];
 }
 
+let a = 0;
+
 export default class Renderer extends EventEmitter {
   canvas: HTMLCanvasElement;
 
@@ -52,7 +54,7 @@ export default class Renderer extends EventEmitter {
       dpr: 1,
     });
     this.gl = this.renderer.gl;
-    this.gl.clearColor(...convertHexToRGB(clearColor), alpha?0:1);
+    this.gl.clearColor(...convertHexToRGB(clearColor), 0);
 
     if (this.renderer.gl.canvas) {
       this.canvas = this.renderer.gl.canvas;
@@ -103,6 +105,7 @@ export default class Renderer extends EventEmitter {
   render(): void {
     requestAnimationFrame(this.render.bind(this));
 
+
     if (!this.lastCamPos.equals(this.camera.position)) {
       this.lastCamPos.set(this.camera.position);
       this.emit('camPos', this.camera.position.toArray());
@@ -121,6 +124,9 @@ export default class Renderer extends EventEmitter {
     this.controls.update();
 
     this.renderer.render({ scene: this.scene, camera: this.camera });
+
+    this.emit("perf", performance.now()-a)
+    a = performance.now();
   }
 
   bindEventlisteners() {

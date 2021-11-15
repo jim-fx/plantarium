@@ -22,7 +22,7 @@ const node: PlantNode = {
 			min: 0,
 			max: 3,
 			step: 0.05,
-			value: 0,
+			value: 0.8,
 		},
 		thiccness: {
 			type: 'number',

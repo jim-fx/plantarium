@@ -1,7 +1,10 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+
   import type { Writable } from 'svelte/store';
   import Scene from '.';
   import { projectManager, settingsManager } from '..';
+  import * as perf from '../../helpers/performance';
 
   let canvas: HTMLCanvasElement;
 
@@ -22,6 +25,14 @@
   $: if (settingsManager) {
     settings = settingsManager.store;
   }
+
+  let generateCanvas: HTMLCanvasElement;
+  let renderCanvas: HTMLCanvasElement;
+
+  onMount(() => {
+    perf.createCanvas('render', renderCanvas);
+    perf.createCanvas('generate', generateCanvas);
+  });
 </script>
 
 <div class="scene-wrapper">
@@ -32,6 +43,18 @@
     </code>
   </pre>
   {/if}
+
+  <div class="performance-wrapper">
+    <canvas
+      bind:this={generateCanvas}
+      style={`display: ${$settings?.debug?.generatePerf ? 'visible' : 'none'}`}
+    />
+
+    <canvas
+      bind:this={renderCanvas}
+      style={`display: ${$settings?.debug?.renderPerf ? 'visible' : 'none'}`}
+    />
+  </div>
 
   <canvas bind:this={canvas} />
   {#if $isLoading}
@@ -58,7 +81,13 @@
     );
   }
 
-  canvas {
+  .performance-wrapper {
+    position: absolute;
+    z-index: 1;
+    bottom: 0px;
+  }
+
+  .scene-wrapper > canvas {
     width: 100% !important;
     height: 100% !important;
     filter: blur(0px);
