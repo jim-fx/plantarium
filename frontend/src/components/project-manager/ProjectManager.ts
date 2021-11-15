@@ -2,8 +2,9 @@ import { EventEmitter, logger } from '@plantarium/helpers';
 import type { NodeSystem } from '@plantarium/nodesystem';
 import storage from 'localforage';
 import createId from 'shortid';
-import type { Writable } from 'svelte/store';
-import { writable } from 'svelte/store';
+import type { Writable } from "svelte/store"
+import { get, writable } from 'svelte/store';
+import { renderProject } from '../../helpers';
 import type { SettingsManager } from '../settings-manager';
 
 const log = logger('ProjectManager');
@@ -98,6 +99,8 @@ export default class ProjectManager extends EventEmitter {
 
     this.emit('save', project);
 
+    this.renderThumbnail({ project })
+
     await storage.setItem('pt_project_ids', Object.keys(this.projects));
 
     await storage.setItem(PTP_PREFIX + project.meta.id, project);
@@ -128,7 +131,8 @@ export default class ProjectManager extends EventEmitter {
   }
 
   async setActiveProject(id: string) {
-    if (this.loadingActiveProject || id === this.activeProjectId) return;
+    this.loadingActiveProject && await this.loadingActiveProject;
+    if (id === this.activeProjectId) return;
 
     this.activeProjectId = id;
 
@@ -147,6 +151,27 @@ export default class ProjectManager extends EventEmitter {
     } else {
       log.warn('cant find plant with id: ' + id);
     }
+  }
+
+  async renderThumbnail({ project, geo }: { project?: PlantProject, geo?: TransferGeometry }) {
+    if (!project) return;
+
+    const projectId = project?.meta?.id || this.activeProjectId
+
+    if (!(projectId in this.projects)) return;
+
+    const a = performance.now();
+
+    const thumbDataString = await renderProject(geo ? { geo } : { pd: project });
+
+    const b = performance.now() - a;
+
+    this.projects[projectId].meta.thumbnail = thumbDataString;
+
+    log("generated thumbnail for " + project.meta.id + " in " + Math.floor(b) + "ms")
+
+    this.store.set(Object.values(this.projects));
+
   }
 
   private async loadProjects() {

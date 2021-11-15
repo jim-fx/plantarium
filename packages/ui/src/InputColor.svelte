@@ -554,35 +554,6 @@
     position: relative;
   }
 
-  // #alpha-picker {
-  //   background: #fff;
-  //   width: 12px;
-  //   height: 12px;
-  //   border-radius: 50%;
-  //   left: 100%;
-  //   position: relative;
-  //   cursor: default;
-  //   transform: translate(-5px, -11px);
-  //   -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.67);
-  //   -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.67);
-  //   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.67);
-  // }
-
-  // #alpha-event {
-  //   width: 236px;
-  //   height: 14px;
-  //   transform: translate(-8px, -24px);
-  //   cursor: default;
-  //   touch-action: none;
-  // }
-
-  // .alpha-value {
-  //   background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
-  //   width: 100%;
-  //   height: 100%;
-  //   border-radius: 10px;
-  // }
-
   .colorsquare {
     background: rgb(255, 0, 0);
   }

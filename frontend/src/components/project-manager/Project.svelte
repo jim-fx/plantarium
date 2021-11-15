@@ -21,7 +21,10 @@
   on:click={() =>
     fakeActive() && projectManager.setActiveProject(project.meta.id)}
 >
-  <div class="project-image">
+  <div
+    class="project-image"
+    style="background-image: url({project.meta.thumbnail})"
+  >
     <!--  -->
   </div>
   <div class="project-content">
@@ -70,6 +73,7 @@
 
     > .project-image {
       background-image: url('../assets/rocky_dirt1-albedo.jpg');
+      background-color: var(--foreground-color);
       border-radius: 10px;
       background-size: cover;
       width: 100px;

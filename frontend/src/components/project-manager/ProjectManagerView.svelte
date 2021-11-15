@@ -37,8 +37,8 @@
     on:resize={(ev) => {
       visible &&
         localState.set('projectManagerSize', {
-          width: ev.detail.contentRect.width,
-          height: ev.detail.contentRect.height,
+          width: ev.detail.clientWidth,
+          height: ev.detail.clientHeight,
         });
     }}
   />
