@@ -30,7 +30,7 @@
 <style lang="scss">
   @use '~@plantarium/theme/src/themes.module.scss';
 
-  .overlay-visible main {
+  :global(.overlay-visible) main {
     pointer-events: none;
     user-select: none;
   }

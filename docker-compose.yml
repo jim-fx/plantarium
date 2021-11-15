@@ -1,6 +1,7 @@
+version: "3.4"
 services:
   backend:
-    image: jimfx/plantarium-backend
+    image: ghcr.io/jim-fx/plantarium-backend
     network_mode: host
     ports:
       - 8081:8081

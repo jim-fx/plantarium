@@ -100,6 +100,8 @@ interface PlantProjectMeta {
 
   authorID?: string;
 
+  thumbnail?:string;
+
   transform?: {
     x: number;
     y: number;

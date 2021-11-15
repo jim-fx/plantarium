@@ -41,16 +41,16 @@ See [Architecture.md](./ARCHITECTURE.md)
 $ pnpm i -r
 ```
 
+### (Only for the Backend)
+```bash
+$ pnpm migrate -r
+```
+
 ### Start the dev server
 
 ```bash
 $ pnpm dev
 ```
-
-# Contributing
-
-If i really trust you, i could provide you with an account for this website. Other than that you can create a pull request over at [github](https://github.com/jim-fx/plantarium)
-
 # Roadmap
 
 ### 0.1
@@ -68,6 +68,7 @@ If i really trust you, i could provide you with an account for this website. Oth
 - [x] Bug Report Feature [#26](https://git.jim-fx.com/max/plantarium/issues/26)
 - [ ] Undo System [#14](https://git.jim-fx.com/max/plantarium/issues/14)
 - [ ] Preview Renders [#21](https://git.jim-fx.com/max/plantarium/issues/21)
+- [ ] Node Tutorial 
 - [x] ~~Add some more nodes~~
   - [x] ~~Shape Node~~ [#23](https://git.jim-fx.com/max/plantarium/issues/23)
   - [x] ~~Curve Node~~

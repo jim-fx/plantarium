@@ -119,6 +119,7 @@
     top: 0px;
     left: 0px;
     height: 100%;
+    max-width: 100%;
     background-color: white;
     opacity: 0.2;
     pointer-events: none;

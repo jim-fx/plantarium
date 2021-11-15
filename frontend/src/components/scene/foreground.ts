@@ -1,14 +1,18 @@
 import { plant, worker } from '@plantarium/generator';
 import { transferToGeometry } from '@plantarium/geometry';
-import { logger } from '@plantarium/helpers';
+import { logger, throttle } from '@plantarium/helpers';
 import { createAlert, createToast } from '@plantarium/ui';
 import { Box, Mesh } from 'ogl';
 import type Scene from '.';
-import { settingsManager } from '..';
+import { projectManager, settingsManager } from '..';
 import { Report } from '../../elements';
 import type { ProjectManager } from '../project-manager';
 import DebugScene from './debug';
 import { MatCapShader } from './shaders';
+
+const updateThumbnail = throttle((geo:TransferGeometry) => {
+  projectManager.renderThumbnail({geo})
+}, 1000);
 
 const log = logger('scene.foreground');
 export default class ForegroundScene {
@@ -69,6 +73,8 @@ export default class ForegroundScene {
           : await this.worker.plant(p, s);
 
 			if (!result) return;
+
+      updateThumbnail(result.geometry);
 
 			this.scene.isLoading.set(false);
 
