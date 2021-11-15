@@ -27,7 +27,7 @@ export class ReportService {
 
     report.type = dto.type;
     report.title = dto.title;
-    report.labels = dto.labels;
+    report.labels = dto.labels || [];
     report.description = dto.description;
     report.browser = dto.browser;
     report.stacktrace = dto.stacktrace;
