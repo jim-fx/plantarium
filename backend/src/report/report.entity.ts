@@ -1,4 +1,5 @@
 import { Entity, Property } from '@mikro-orm/core';
+import { IsOptional } from 'class-validator';
 import { BaseEntity } from '../entities/BaseEntity';
 import { PLabel } from './dto/shared-types';
 
@@ -7,7 +8,8 @@ export class Report extends BaseEntity {
   @Property()
   type: 'bug' | 'feat';
 
-  @Property({ type: 'json' })
+  @IsOptional()
+  @Property({ type: 'json',default:[] })
   labels: PLabel[] = [];
 
   @Property()
