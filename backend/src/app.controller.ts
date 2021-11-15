@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
-import { Roles } from 'auth/decorators/roles.decorator';
-import { Role } from 'auth/enums/role.enum';
+import { Permissions } from 'auth/decorators/permissions.decorator';
+import { Permission } from 'auth/enums/permission.enum';
 
 @Controller()
-@Roles(Role.ANON)
+@Permissions(Permission["user.delete"])
 export class AppController {}

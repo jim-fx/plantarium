@@ -19,7 +19,7 @@ export function start(key: string) {
   timers[key] = performance.now();
 }
 
-export function setSettings(s: any) {
+export function setSettings(s: PlantariumSettings) {
   enabled.render = !!s?.debug?.renderPerf;
   enabled.generate = !!s?.debug?.generatePerf;
 }

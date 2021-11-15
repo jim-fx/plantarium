@@ -13,7 +13,7 @@
   $: stackTrace = error && parseStackTrace(error.stack);
   let includeStacktrace = true;
 
-  let submitPromise: Promise<any>;
+  let submitPromise: Promise<unknown>;
   function submit() {
     const data = {
       type: mode,

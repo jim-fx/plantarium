@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { SvelteComponent } from 'svelte';
 
-  export let items: any[] = [];
+  export let items: unknown[] = [];
 
   export let keys: string[] | undefined;
   export let component: SvelteComponent | undefined;
