@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { InputSelect } from '@plantarium/ui';
   import ResizeObserer from 'svelte-resize-observer';
   import { projectManager } from '..';
   import { localState } from '../../helpers';

@@ -13,7 +13,6 @@ import * as performance from "../../helpers/performance";
 
 const updateThumbnail = throttle((geo:TransferGeometry) => {
   projectManager.renderThumbnail({geo})
-  console.log("REEENDER");
 }, 5000);
 
 const log = logger('scene.foreground');

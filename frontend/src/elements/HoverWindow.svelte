@@ -10,7 +10,7 @@
   export let icon: IconType;
   export let component: SvelteComponentDev;
 
-  export let visible: boolean = false;
+  export let visible = false;
 </script>
 
 <ClickOutside on:clickoutside={() => (visible = false)}>

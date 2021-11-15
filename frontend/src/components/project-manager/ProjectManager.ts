@@ -3,7 +3,7 @@ import type { NodeSystem } from '@plantarium/nodesystem';
 import storage from 'localforage';
 import createId from 'shortid';
 import type { Writable } from "svelte/store"
-import { get, writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 import { renderProject } from '../../helpers';
 import type { SettingsManager } from '../settings-manager';
 
