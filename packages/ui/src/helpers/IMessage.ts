@@ -12,7 +12,7 @@ export interface Message {
   type: MessageType;
   content: string | Error | typeof SvelteComponent;
   title: string;
-  props?: Record<string, any>;
+  props?: Record<string, unknown>;
   values?: string[];
   timeout?: number;
   resolve?: (answer: boolean | string | unknown) => void;
@@ -23,7 +23,7 @@ export interface MessageOptions {
   title: string;
   values: string[];
   type: string;
-  props: Record<string, any>;
+  props: Record<string, unknown>;
   timeout: number;
   callback: (answer: boolean | string | unknown) => void;
 }

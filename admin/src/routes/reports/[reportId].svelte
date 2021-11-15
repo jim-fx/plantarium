@@ -20,7 +20,6 @@
   import { onMount } from 'svelte';
   const { reportId } = $page.params;
   import { createAlert, StackTrace } from '@plantarium/ui';
-  import { user } from '$lib/api';
   import { userStore } from '@plantarium/client-api';
 
   const {
@@ -28,8 +27,16 @@
     VITE_GH_ORG,
     VITE_GH_REPO,
   } = import.meta.env;
-  export let report;
-  export let reportLabels;
+  export let report: {
+    gh_issue: number[];
+    labels: string[];
+    type: string;
+    title: string;
+    description: string;
+    browser: string;
+    stacktrace: string;
+  };
+  export let reportLabels: unknown[];
   let initialized = false;
 
   let publishPromise;
