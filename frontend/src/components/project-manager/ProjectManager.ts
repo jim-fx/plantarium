@@ -99,7 +99,7 @@ export default class ProjectManager extends EventEmitter {
 
     this.emit('save', project);
 
-    this.renderThumbnail({ project })
+    if(!project?.meta?.thumbnail) this.renderThumbnail({ project })
 
     await storage.setItem('pt_project_ids', Object.keys(this.projects));
 
@@ -154,8 +154,6 @@ export default class ProjectManager extends EventEmitter {
   }
 
   async renderThumbnail({ project, geo }: { project?: PlantProject, geo?: TransferGeometry }) {
-    if (!project) return;
-
     const projectId = project?.meta?.id || this.activeProjectId
 
     if (!(projectId in this.projects)) return;
@@ -168,7 +166,9 @@ export default class ProjectManager extends EventEmitter {
 
     this.projects[projectId].meta.thumbnail = thumbDataString;
 
-    log("generated thumbnail for " + project.meta.id + " in " + Math.floor(b) + "ms")
+    log("generated thumbnail for " + projectId + " in " + Math.floor(b) + "ms")
+
+    this.saveProject(this.projects[projectId])
 
     this.store.set(Object.values(this.projects));
 

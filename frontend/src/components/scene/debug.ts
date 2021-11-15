@@ -15,27 +15,11 @@ export default class DebugScene {
   constructor(private scene: Scene, private pm: ProjectManager) {
     this.gl = scene.renderer.gl;
 
-    this.initHTML();
     this.initGeometry();
 
     this.setSettings(settingsManager.getSettings());
 
     pm.on('settings', this.setSettings.bind(this));
-  }
-
-  initHTML() {
-    // // debug pd
-    // const pd = document.getElementById('debug-pd');
-    // let { debugPd = false } = this.pm.getSettings();
-    // pd.style.display = debugPd ? 'block' : 'none';
-    // pd.innerHTML = JSON.stringify(this.pm.getPlant(), null, 2);
-    // this.pm.on('settings', ({ debugPd: _dbg = false }) => {
-    //   pd.style.display = _dbg ? 'block' : 'none';
-    //   debugPd = _dbg;
-    // });
-    // this.pm.on('plant', (p) => {
-    //   if (debugPd) pd.innerHTML = JSON.stringify(p, null, 2);
-    // });
   }
 
   initGeometry() {

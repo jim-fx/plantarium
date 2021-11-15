@@ -9,10 +9,12 @@ import { Report } from '../../elements';
 import type { ProjectManager } from '../project-manager';
 import DebugScene from './debug';
 import { MatCapShader } from './shaders';
+import * as performance from "../../helpers/performance";
 
 const updateThumbnail = throttle((geo:TransferGeometry) => {
   projectManager.renderThumbnail({geo})
-}, 1000);
+  console.log("REEENDER");
+}, 5000);
 
 const log = logger('scene.foreground');
 export default class ForegroundScene {
@@ -65,12 +67,17 @@ export default class ForegroundScene {
 		this.scene.isLoading.set(true);
 
     try {
+
+      performance.start("generate")
+
       const result =
         // eslint-disable-next-line
         //@ts-ignore
         import.meta.env.MODE === 'development'
           ? plant(p, s)
           : await this.worker.plant(p, s);
+
+      performance.stop("generate")
 
 			if (!result) return;
 

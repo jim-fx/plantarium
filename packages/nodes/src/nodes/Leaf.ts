@@ -60,7 +60,7 @@ const node: PlantNode = {
       min: 0,
       max: 3,
       step: 0.05,
-      value: 0,
+      value: 0.2,
     },
     shape: {
       type: 'leaf',
@@ -79,8 +79,8 @@ const node: PlantNode = {
       external: true,
       type: 'vec2',
       defaultValue: {
-        x: 0,
-        y: 0,
+        x: 0.5,
+        y: 0.2,
       },
     },
     amount: {

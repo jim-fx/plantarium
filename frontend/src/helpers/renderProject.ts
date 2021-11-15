@@ -7,7 +7,7 @@ import { Box, Mesh, Geometry } from 'ogl';
 import { MatCapShader } from '../components/scene/shaders';
 
 const webWorker = worker();
-const renderer = new Renderer({ width: 100, height: 100, alpha: true, clearColor: "000000" });
+const renderer = new Renderer({ width: 100, height: 100, alpha: true, clearColor: "000" });
 const nodeSystem = new NodeSystem({
   view: false,
   defaultNodes: false,
@@ -18,6 +18,10 @@ const mesh = new Mesh(renderer.gl, {
   geometry: new Box(renderer.gl, { width: 0, height: 0, depth: 0 }),
   program: MatCapShader(renderer.gl),
 });
+
+const renderCanvas = document.createElement("canvas");
+renderCanvas.width = renderCanvas.height = 100;
+const ctx = renderCanvas.getContext("2d");
 
 mesh.setParent(renderer.scene);
 
@@ -48,8 +52,6 @@ export default async function({ pd, geo }: { pd?: PlantProject, geo?: TransferGe
 
   mesh.geometry.computeBoundingBox();
 
-  renderer.renderer.gl.clearColor(1, 0, 0, 0);
-
   // Make the bounding box of the plant fill the viewport of the camera
   renderer.camera.position.x = mesh.geometry.bounds.center.x;
   renderer.camera.position.y = mesh.geometry.bounds.center.y;
@@ -61,6 +63,15 @@ export default async function({ pd, geo }: { pd?: PlantProject, geo?: TransferGe
 
   renderer.renderScene(renderer.scene);
 
-  return renderer.canvas.toDataURL("image/webp", 0.7)
+  ctx.clearRect(0, 0, 100, 100);
+  for(let i = 0; i < 10; i++){
+    ctx.drawImage(renderCanvas,0, 0)
+    ctx.drawImage(renderer.canvas, 0, 0);
+    ctx.filter = "blur(7px) opacity(0.6) brightness(0.95)";
+  }
+  ctx.filter = "blur(0px) drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.8))";
+  ctx.drawImage(renderer.canvas, 0, 0);
+
+  return renderCanvas.toDataURL("image/webp", 1.0)
 
 }

@@ -5,11 +5,13 @@ import { createToast } from '@plantarium/ui';
 import { ProjectManager } from './project-manager';
 import { SettingsManager } from './settings-manager';
 import { Tutor } from './tutor';
+import * as performance from "../helpers/performance";
 
 const settingsManager = new SettingsManager();
 const projectManager = new ProjectManager();
 
 setTheme(settingsManager.get('theme'));
+performance.setSettings({debug: settingsManager.get("debug")});
 
 settingsManager.on('enableSync.update', (v) => {
   createToast(`${v ? 'Enabled' : 'Disabled'} sync`, { type: 'success' });
@@ -25,18 +27,15 @@ const nodeSystem = new NodeSystem({
   registerNodes: Nodes,
 });
 
-projectManager.on('load', (project) => {
-  nodeSystem.load(project);
-});
+projectManager.on('load', (project) => nodeSystem.load(project));
 
 nodeSystem.on('result', (p: NodeResult) => projectManager.setProject(p), 50);
-nodeSystem.on('save', (project: PlantProject) =>
-  projectManager.saveProject(project),
-);
+
+nodeSystem.on('save', (project: PlantProject) => projectManager.saveProject(project));
 
 settingsManager.on(
   'settings',
-  (s: PlantariumSettings) => projectManager.setSettings(s),
+  (s: PlantariumSettings) => { projectManager.setSettings(s); performance.setSettings(s) },
   50,
 );
 
