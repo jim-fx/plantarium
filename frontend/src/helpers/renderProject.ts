@@ -3,7 +3,7 @@ import { transferToGeometry } from '@plantarium/geometry';
 import Nodes from '@plantarium/nodes';
 import { NodeSystem } from '@plantarium/nodesystem';
 import Renderer from '@plantarium/renderer';
-import { Box, Mesh, Geometry } from 'ogl';
+import { Box, Mesh } from 'ogl';
 import { MatCapShader } from '../components/scene/shaders';
 
 const webWorker = worker();
