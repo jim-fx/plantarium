@@ -67,7 +67,7 @@ $ pnpm dev
 - [x] ~~Tutorial Mode~~ [#27](https://git.jim-fx.com/max/plantarium/issues/27)
 - [x] Bug Report Feature [#26](https://git.jim-fx.com/max/plantarium/issues/26)
 - [ ] Undo System [#14](https://git.jim-fx.com/max/plantarium/issues/14)
-- [ ] Preview Renders [#21](https://git.jim-fx.com/max/plantarium/issues/21)
+- [x] Preview Renders [#21](https://git.jim-fx.com/max/plantarium/issues/21)
 - [ ] Node Tutorial 
 - [x] ~~Add some more nodes~~
   - [x] ~~Shape Node~~ [#23](https://git.jim-fx.com/max/plantarium/issues/23)
