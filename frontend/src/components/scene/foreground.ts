@@ -11,7 +11,7 @@ import DebugScene from './debug';
 import { MatCapShader } from './shaders';
 import * as performance from "../../helpers/performance";
 
-const updateThumbnail = throttle((geo:TransferGeometry) => {
+const updateThumbnail:(geo:TransferGeometry) => void = throttle((geo:TransferGeometry) => {
   projectManager.renderThumbnail({geo})
 }, 5000);
 
@@ -90,9 +90,11 @@ export default class ForegroundScene {
 
       this.mesh.geometry.computeBoundingBox();
 
-      //throw new Error("asdasdasd");
+			this.mesh.geometry.computeBoundingBox();
 
       this.scene.renderer.setControlTarget(this.mesh.geometry.bounds.center);
+
+      this.scene.renderer.needsRender = true;
     } catch (error) {
       log.error(error);
       const res = await createToast(error, {

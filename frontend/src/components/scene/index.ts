@@ -27,11 +27,13 @@ export default class Scene {
       canvas,
       camPos: localState.get('camPos') as [number, number, number],
     });
-    this.renderer.on('camPos', (camPos) => localState.set('camPos', camPos));
-    this.renderer.on("perf", (perf:number) => performance.add("render", perf), 40)
+    this.renderer.on('camPos', (camPos) => { this.renderer.needsRender = true; localState.set('camPos', camPos); });
+    this.renderer.on("perf", (perf: number) => performance.add("render", perf), 40)
     this.renderer.handleResize();
     this.scene = this.renderer.scene;
     this.gl = this.renderer.gl;
+
+    this.renderer.loop()
 
     this.wrapper = canvas.parentElement as HTMLElement;
 

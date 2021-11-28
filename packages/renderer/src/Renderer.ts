@@ -8,6 +8,7 @@ interface RendererOptions {
   canvas: HTMLCanvasElement;
   still: boolean;
   alpha: boolean;
+  autoRender: boolean;
   camPos: [number, number, number];
 }
 
@@ -22,6 +23,8 @@ export default class Renderer extends EventEmitter {
   scene: Transform = new Transform();
   camera: Camera;
   controls: Orbit;
+  autoRender = false;
+  needsRender = true;
   controlTarget: Vec3;
 
   private lastCamPos: Vec3 = new Vec3(0, 0, 0);
@@ -30,6 +33,7 @@ export default class Renderer extends EventEmitter {
     canvas,
     width,
     height,
+    autoRender = false,
     clearColor = 'ffffff',
     alpha = false,
     camPos = [0, 2, 4],
@@ -37,6 +41,7 @@ export default class Renderer extends EventEmitter {
     super();
 
     this.canvas = canvas;
+    this.autoRender = autoRender;
 
     if ((!width || !height) && canvas) {
       const rect = canvas.getBoundingClientRect();
@@ -78,12 +83,20 @@ export default class Renderer extends EventEmitter {
         rotateSpeed: 0.5,
         inertia: 0.5,
       });
+
+      let isMouseDown = false;
+      canvas.addEventListener("mousedown", () => {
+        isMouseDown = true;
+      })
+      canvas.addEventListener("mouseup", () => {
+        isMouseDown = false;
+      })
+      canvas.addEventListener("mousemove", () => {
+      })
+
     }
 
     this.bindEventlisteners();
-    if (canvas) {
-      this.render();
-    }
   }
 
   setControlTarget(vec: Vec3) {
@@ -102,8 +115,17 @@ export default class Renderer extends EventEmitter {
     this.renderer.render({ scene, camera: this.camera });
   }
 
+  loop(): void {
+    requestAnimationFrame(this.loop.bind(this));
+
+    this.render();
+  }
+
+  requestRender(): void {
+    requestAnimationFrame(() => this.render())
+  }
+
   render(): void {
-    requestAnimationFrame(this.render.bind(this));
 
 
     if (!this.lastCamPos.equals(this.camera.position)) {
@@ -111,22 +133,26 @@ export default class Renderer extends EventEmitter {
       this.emit('camPos', this.camera.position.toArray());
     }
 
+    let camChanged = false
+
     if (this.controlTarget) {
       if (this.controlTarget.squaredDistance(this.controls.target) < 0.00005) {
         this.controls.target = this.controlTarget;
       } else {
+        camChanged = true;
         this.controls.target.lerp(this.controlTarget, 0.05);
       }
     }
 
-    window['target'] = this.controls.target;
-
     this.controls.update();
 
-    this.renderer.render({ scene: this.scene, camera: this.camera });
+    if (this.autoRender || (this.needsRender || camChanged)) {
+      this.renderer.render({ scene: this.scene, camera: this.camera });
+      this.needsRender = false;
+      this.emit("perf", performance.now() - a)
+      a = performance.now();
+    }
 
-    this.emit("perf", performance.now()-a)
-    a = performance.now();
   }
 
   bindEventlisteners() {

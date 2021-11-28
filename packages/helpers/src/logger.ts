@@ -61,6 +61,14 @@ const colors = [
   '#ffff00',
 ];
 
+const localStorageId = "plant.log.history";
+
+const history = "localStorage" in globalThis ? (localStorageId in localStorage ? JSON.parse(localStorage.getItem(localStorageId)) : []) : [];
+
+function saveHistory() {
+  localStorage.setItem(localStorageId, JSON.stringify(history));
+}
+
 function log(scope: string): Logger {
   longestName = Math.max(longestName, scope.length);
 
@@ -70,6 +78,9 @@ function log(scope: string): Logger {
   currentIndex++;
 
   const log = (...args: unknown[]) => {
+    history.push({ scope, args })
+    history.length = Math.min(100, history.length);
+    saveHistory();
     if ((!filters.length || filters.includes(scope)) && level === 0) {
       // Make some logs better to read
       if (typeof args[0] === 'string' && typeof args[1] === 'object') {
