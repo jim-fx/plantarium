@@ -1,11 +1,12 @@
 import { stateToElement } from '@plantarium/ui';
+import type { SvelteComponent } from '@plantarium/ui/node_modules/svelte/types/runtime';
 import type NodeState from '../model/NodeState';
 import './NodeStateView.scss';
 
 export default class NodeStateView {
   wrapper = document.createElement('div');
   input = document.createElement('div');
-  element: any;
+  element: SvelteComponent;
   private isPaused = false;
 
   constructor(private nodeState: NodeState) {

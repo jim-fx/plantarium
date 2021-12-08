@@ -12,7 +12,7 @@ const createGround = (
   settings: PlantariumSettings,
 ) => {
   const {
-    ground: { scale: _scale = 1, resX: _resX = 16, resY: _resY = 16 } = {},
+    background: { scale: _scale = 1, resX: _resX = 16, resY: _resY = 16 } = {},
   } = settings || {};
 
   const scale = _scale ?? 0;

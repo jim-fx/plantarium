@@ -1,10 +1,10 @@
-import { diffBoth, diffObjects, mergeObjects } from '../helpers';
+import { diffBoth, mergeObjects } from '../helpers';
 import Logger from './Logger';
-import NodeSystem from './NodeSystem';
+import type NodeSystem from './NodeSystem';
 
 export default class NodeHistory {
   history: NodeSystemData[] = [];
-  historyIndex: number = -1;
+  historyIndex = -1;
 
   isApplyingChanges = false;
 
