@@ -2,12 +2,14 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "lib": ["DOM", "ESNext"],
+    "target": "es6",
     "experimentalDecorators": true,
+    "moduleResolution": "node",
     "outDir": "public/dist",
     "emitDeclarationOnly": true,
     "declaration": true,
     "types": ["svelte"]
   },
-  "include": ["src/**/*", "../@types/**/*.d.ts"],
+  "include": ["src/**/*", "../@types/**/*.d.ts", "../packages/*"],
   "exclude": ["node_modules"]
 }

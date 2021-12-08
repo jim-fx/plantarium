@@ -32,9 +32,15 @@ interface NodeProps {
   state?: unknown;
 }
 
+interface HistoryData {
+  index: number;
+  steps: any[];
+}
+
 interface NodeSystemData {
   meta: NodeSystemMeta;
   nodes: NodeProps[];
+  history: HistoryData;
 }
 
 interface NodeSystemMeta {

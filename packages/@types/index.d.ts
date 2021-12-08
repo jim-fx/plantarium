@@ -50,7 +50,10 @@ interface GeneratorContext {
 }
 
 type SettingsTemplate = {
-  [key: string]: ValueTemplate | { options: SettingsTemplate };
+  onlyDev?: boolean;
+  [key: string]:
+    | ValueTemplate
+    | { onlyDev?: boolean; options: SettingsTemplate };
 };
 
 interface Vec2 {
@@ -100,7 +103,7 @@ interface PlantProjectMeta {
 
   authorID?: string;
 
-  thumbnail?:string;
+  thumbnail?: string;
 
   transform?: {
     x: number;
@@ -189,8 +192,9 @@ interface PlantariumSettings {
     uv: number;
   };
 
-  ground: {
-    enabled: boolean;
+  background: {
+    grid: boolean;
+    ground: boolean;
     resX: number;
     resY: number;
     scale: number;

@@ -7,6 +7,7 @@
     [key: string]: ValueTemplate | { options: SettingsTemplate };
   };
 
+  const settingsStore = settingsManager.store;
   export let value: unknown;
   export let key: string;
   export let path = '';
@@ -28,37 +29,39 @@
   };
 </script>
 
-<div class="wrapper">
-  {#if template.options}
-    <Section
-      name={key}
-      open={isOpen.get()}
-      on:toggle={({ detail }) => isOpen.set(detail)}
-    >
-      {#each Object.entries(value) as [_key, _value]}
-        {#if _key in template.options}
-          <svelte:self
-            {path}
-            value={_value}
-            key={_key}
-            template={template.options[_key]}
-          />
-        {:else}
-          <p>error</p>
-        {/if}
-      {/each}
-    </Section>
-  {:else}
-    <p>{key}</p>
+{#if $settingsStore.isDev || !template.onlyDev}
+  <div class="wrapper">
+    {#if template.options}
+      <Section
+        name={key}
+        open={isOpen.get()}
+        on:toggle={({ detail }) => isOpen.set(detail)}
+      >
+        {#each Object.entries(value) as [_key, _value]}
+          {#if _key in template.options}
+            <svelte:self
+              {path}
+              value={_value}
+              key={_key}
+              template={template.options[_key]}
+            />
+          {:else}
+            <p>error</p>
+          {/if}
+        {/each}
+      </Section>
+    {:else}
+      <p>{template.label || key}</p>
 
-    <svelte:component
-      this={stateToComponent(_template, value)}
-      {value}
-      {...templateToProps(_template)}
-      on:change={(ev) => settingsManager.set(path, ev.detail)}
-    />
-  {/if}
-</div>
+      <svelte:component
+        this={stateToComponent(_template, value)}
+        {value}
+        {...templateToProps(_template)}
+        on:change={(ev) => settingsManager.set(path, ev.detail)}
+      />
+    {/if}
+  </div>
+{/if}
 
 <style>
   .wrapper {
@@ -76,10 +79,5 @@
 
     border-bottom: solid thin #30303055;
     color: #303030;
-  }
-
-  h3 {
-    user-select: none;
-    width: fit-content;
   }
 </style>

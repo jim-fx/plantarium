@@ -80,9 +80,9 @@ export default class BackgroundScene {
   setSettings(settings: PlantariumSettings) {
     this.settings = settings;
 
-    if (settings?.ground?.enabled) {
+    if (settings?.background?.ground) {
       this.ground.geometry = createGround(this.gl, settings);
     }
-    this.ground.visible = !!settings?.ground?.enabled;
+    this.ground.visible = !!settings?.background?.ground;
   }
 }
