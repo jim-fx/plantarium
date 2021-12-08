@@ -65,7 +65,7 @@ export default class NodeParser {
           this.states[key] = new NodeState(this, key, template);
         });
       }
-    }`)(outputs, compute, NodeState, NodeOutput);
+    }`)(outputs, compute, NodeState, NodeOutput, Node);
 
     const inputs = Object.values(parameters)
       .filter((p) => p.internal !== true)

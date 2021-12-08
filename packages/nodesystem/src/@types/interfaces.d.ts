@@ -34,7 +34,7 @@ interface NodeProps {
 
 interface HistoryData {
   index: number;
-  steps: unknown[];
+  steps: { next: unknown; previous: unknown }[];
 }
 
 interface NodeSystemData {

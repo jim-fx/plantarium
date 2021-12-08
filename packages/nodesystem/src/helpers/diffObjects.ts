@@ -1,4 +1,5 @@
-type Pojo = number | string | boolean | { [key: string]: Pojo } | Pojo[];
+//@ts-ignore
+type Pojo = number | string | boolean | Record<string, Pojo> | Pojo[];
 
 export function diffObjects(alpha: Pojo, beta: Pojo) {
   if (alpha === undefined && undefined === beta) {
@@ -13,7 +14,7 @@ export function diffObjects(alpha: Pojo, beta: Pojo) {
 
   if (Array.isArray(alpha)) {
     const arrDiff = alpha.map((v, i) => {
-      if (i in beta) return diffObjects(v, beta[i]);
+      if (typeof beta === 'object' && i in beta) return diffObjects(v, beta[i]);
       return beta[i];
     });
     if (!arrDiff.length || (arrDiff.length === 1 && !arrDiff[0])) return;

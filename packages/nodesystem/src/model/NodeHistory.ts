@@ -3,7 +3,7 @@ import Logger from './Logger';
 import type NodeSystem from './NodeSystem';
 
 export default class NodeHistory {
-  history: NodeSystemData[] = [];
+  history: { previous: unknown; next: unknown }[] = [];
   historyIndex = -1;
 
   isApplyingChanges = false;

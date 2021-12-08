@@ -3,7 +3,7 @@ import { logger } from '@plantarium/helpers';
 import type { NodeSystem } from '..';
 
 let longestModuleName = 0;
-class dummyClass {
+class DummyClass {
   system: NodeSystem;
 }
 
@@ -15,7 +15,7 @@ export default class Logger {
   isGrouped = false;
   output: ReturnType<typeof logger> = logger('logger');
   constructor(
-    module: dummyClass | NodeSystem,
+    module: DummyClass | NodeSystem | object,
     logLevel: number = 'system' in module ? module.system.log.level : 2,
   ) {
     this.module = module;
