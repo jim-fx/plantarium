@@ -12,13 +12,15 @@
   },
   "devDependencies": {
     "@sveltejs/kit": "^1.0.0-next.201",
+    "@sveltejs/adapter-node": "^1.0.0-next.0",
+    "@sveltejs/adapter-static": "^1.0.0-next.21",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
     "eslint": "^8.4.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^3.2.1",
-    "prettier": "~2.4.1",
-    "prettier-plugin-svelte": "^2.5.0",
+    "prettier": "~2.5.1",
+    "prettier-plugin-svelte": "^2.5.1",
     "svelte": "^3.44.2",
     "svelte-check": "^2.2.10",
     "svelte-preprocess": "^4.9.8",
@@ -31,15 +33,13 @@
   "dependencies": {
     "@plantarium/client-api": "link:../packages/client-api",
     "@plantarium/ui": "link:../packages/ui",
-    "@sveltejs/adapter-node": "^1.0.0-next.0",
-    "@sveltejs/adapter-static": "^1.0.0-next.21",
     "@yr/monotone-cubic-spline": "^1.0.3",
     "dotenv": "^10.0.0",
     "file-saver": "^2.0.5",
-    "ogl": "^0.0.76",
+    "ogl": "^0.0.77",
     "shortid": "^2.2.16",
     "svelte-forms-lib": "^2.0.0",
     "svelte-multiselect": "^1.2.3",
-    "vite": "^2.7.1"
+    "vite": "^2.7.0-beta.11"
   }
 }

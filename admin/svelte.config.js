@@ -21,6 +21,9 @@ const config = {
     },
 
     vite: {
+      ssr: {
+        noExternal: ['ogl'],
+      },
       plugins: [WindiCSS()],
     },
   },
