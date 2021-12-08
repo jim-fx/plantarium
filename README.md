@@ -68,7 +68,7 @@ $ pnpm dev
 - [x] ~~Move Generator to WebWorker~~ [#1](https://git.jim-fx.com/max/plantarium/issues/1)
 - [x] ~~Tutorial Mode~~ [#27](https://git.jim-fx.com/max/plantarium/issues/27)
 - [x] ~~Bug Report Feature~~ [#26](https://git.jim-fx.com/max/plantarium/issues/26)
-- [x] Undo System [#14](https://git.jim-fx.com/max/plantarium/issues/14)
+- [x] ~~Undo System~~ [#14](https://git.jim-fx.com/max/plantarium/issues/14)
 - [x] ~~Preview Renders~~ [#21](https://git.jim-fx.com/max/plantarium/issues/21)
 - [ ] Node Tutorial
 - [x] ~~Add some more nodes~~
