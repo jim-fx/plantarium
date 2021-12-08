@@ -27,6 +27,7 @@ export default class NodeHistory {
           clearTimeout(int);
         } else {
           this.prevState = this.system.serialize();
+          delete this.prevState.history;
         }
 
         int = setTimeout(() => {
@@ -75,13 +76,14 @@ export default class NodeHistory {
   deserialize(data: HistoryData) {
     this.historyIndex = data.index;
 
-    const steps = data.steps.map((step) => {
+    const steps = data?.steps?.map((step) => {
       delete step.next.history;
       delete step.previous.history;
       return step;
     });
+    console.log(steps);
 
-    this.history = steps;
+    this.history = steps || [];
   }
 
   undo() {
@@ -95,7 +97,12 @@ export default class NodeHistory {
 
     const { previous } = this.history[this.historyIndex];
 
-    const data = mergeObjects(this.system.serialize(), previous);
+    const d = this.system.serialize();
+    const h = d.history;
+    delete d.history;
+
+    const data = mergeObjects(d, previous);
+    data.history = h;
 
     this.system.load(data);
 
@@ -115,7 +122,12 @@ export default class NodeHistory {
 
     const { next } = this.history[this.historyIndex + 1];
 
-    const data = mergeObjects(this.system.serialize(), next);
+    const d = this.system.serialize();
+    const h = d.history;
+    delete d.history;
+
+    const data = mergeObjects(d, next);
+    data.history = h;
 
     this.system.load(data);
 
