@@ -99,9 +99,6 @@ export default class NodeSystemView extends EventEmitter {
 
     this.bindEventListeners();
     this.handleResize();
-    setTimeout(() => {
-      this.setTransform({ x: 0, y: 0, s: 1 });
-    }, 1);
   }
 
   createFloatingConnection(socket: NodeInput | NodeOutput) {

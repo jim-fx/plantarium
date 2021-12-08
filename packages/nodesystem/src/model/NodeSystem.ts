@@ -121,7 +121,7 @@ export default class NodeSystem extends EventEmitter {
       this.addNodes(nodes);
       this.meta = systemData.meta || { lastSaved: 0 };
       this.meta.lastSaved = Date.now();
-      if (this.view) this.view.setTransform(this.meta.transform);
+      this?.view?.setTransform(this.meta.transform);
 
       this.log.info(
         `Loaded NodeSystemData with ${nodes.length} Nodes`,
