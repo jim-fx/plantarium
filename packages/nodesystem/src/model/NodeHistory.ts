@@ -3,7 +3,7 @@ import Logger from './Logger';
 import type NodeSystem from './NodeSystem';
 
 export default class NodeHistory {
-  history: { previous: unknown; next: unknown }[] = [];
+  history: { previous: Partial<NodeProps>; next: Partial<NodeProps> }[] = [];
   historyIndex = -1;
 
   isApplyingChanges = false;
@@ -11,7 +11,7 @@ export default class NodeHistory {
   log: Logger;
 
   addAction: NodeHistory['_addAction'];
-  prevState: NodeSystemData;
+  prevState: NodeProps[];
 
   constructor(private system: NodeSystem) {
     this.log = new Logger(this);
@@ -26,8 +26,7 @@ export default class NodeHistory {
         if (int) {
           clearTimeout(int);
         } else {
-          this.prevState = this.system.serialize();
-          delete this.prevState.history;
+          this.prevState = this.system.serialize().nodes;
         }
 
         int = setTimeout(() => {
@@ -50,9 +49,9 @@ export default class NodeHistory {
       this.history.length = this.historyIndex + 1;
     }
 
-    const newState = this.system.serialize();
-    delete newState.history;
+    const newState = this.system.serialize().nodes;
     const [next, previous] = diffBoth(this.prevState, newState);
+
     if (!previous || !next) return;
     this.history.push({
       previous,
@@ -75,15 +74,7 @@ export default class NodeHistory {
 
   deserialize(data: HistoryData) {
     this.historyIndex = data.index;
-
-    const steps = data?.steps?.map((step) => {
-      delete step.next.history;
-      delete step.previous.history;
-      return step;
-    });
-    console.log(steps);
-
-    this.history = steps || [];
+    this.history = data.steps;
   }
 
   undo() {
@@ -98,13 +89,12 @@ export default class NodeHistory {
     const { previous } = this.history[this.historyIndex];
 
     const d = this.system.serialize();
-    const h = d.history;
-    delete d.history;
 
-    const data = mergeObjects(d, previous);
-    data.history = h;
+    const data = mergeObjects(d.nodes, previous);
 
-    this.system.load(data);
+    d.nodes = data;
+
+    this.system.load(d);
 
     this.historyIndex--;
     this.isApplyingChanges = false;
@@ -123,13 +113,11 @@ export default class NodeHistory {
     const { next } = this.history[this.historyIndex + 1];
 
     const d = this.system.serialize();
-    const h = d.history;
-    delete d.history;
 
-    const data = mergeObjects(d, next);
-    data.history = h;
+    const data = mergeObjects(d.nodes, next);
+    d.nodes = data;
 
-    this.system.load(data);
+    this.system.load(d);
 
     this.historyIndex++;
     this.isApplyingChanges = false;
