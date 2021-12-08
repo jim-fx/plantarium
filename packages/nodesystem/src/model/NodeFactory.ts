@@ -39,9 +39,7 @@ export default class NodeFactory {
     }
 
     if (name === 'output') {
-      if (this.system.outputNode) this.system.outputNode.remove();
-      this.system.outputNode = node;
-      node.on('computedData', (data) => (this.system.result = data));
+      this.system.setOutputNode(node);
     }
 
     this.log.info(`Created node with type ${attributes.type}`, props);

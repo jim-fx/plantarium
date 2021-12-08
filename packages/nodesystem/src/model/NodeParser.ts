@@ -51,8 +51,8 @@ export default class NodeParser {
   parseType(typeData: NodeTypeData): NodeType {
     const { compute, meta, outputs, title: name, parameters } = typeData;
 
-    const TempNode = class extends Node {
-      constructor(system: NodeSystem, props: NodeProps) {
+    const TempNode = eval(`(outputs, compute) => class ${name} extends Node {
+      constructor(system, props) {
         super(system, props);
         if (compute) this.compute = compute;
 
@@ -65,7 +65,7 @@ export default class NodeParser {
           this.states[key] = new NodeState(this, key, template);
         });
       }
-    };
+    }`)(outputs, compute);
 
     const inputs = Object.values(parameters)
       .filter((p) => p.internal !== true)

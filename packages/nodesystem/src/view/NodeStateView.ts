@@ -3,63 +3,79 @@ import type NodeState from '../model/NodeState';
 import './NodeStateView.scss';
 
 export default class NodeStateView {
-	wrapper = document.createElement('div');
-	input = document.createElement('div');
+  wrapper = document.createElement('div');
+  input = document.createElement('div');
+  element: any;
+  private isPaused = false;
 
-	constructor(private nodeState: NodeState) {
-		this.wrapper.classList.add('node-state-single-wrapper');
-		this.input.classList.add('node-state-input');
+  constructor(private nodeState: NodeState) {
+    this.wrapper.classList.add('node-state-single-wrapper');
+    this.input.classList.add('node-state-input');
 
-		const template = nodeState.template;
+    const template = nodeState.template;
 
-		const label = template.label || nodeState.key;
-		if (typeof label === 'string') {
-			const labelEl = document.createElement('p');
-			labelEl.className = 'state-label';
-			labelEl.innerHTML = label;
-			this.wrapper.appendChild(labelEl);
-		}
+    const label = template.label || nodeState.key;
+    if (typeof label === 'string') {
+      const labelEl = document.createElement('p');
+      labelEl.className = 'state-label';
+      labelEl.innerHTML = label;
+      this.wrapper.appendChild(labelEl);
+    }
 
-		if (template?.label === false) {
-			this.wrapper.classList.add('hide-label');
-		}
+    if (template?.label === false) {
+      this.wrapper.classList.add('hide-label');
+    }
 
-		if (!template.external) {
-			const element = stateToElement({
-				target: this.input,
-				template,
-				value: nodeState.getValue(),
-			});
+    if (!template.external) {
+      this.element = stateToElement({
+        target: this.input,
+        template,
+        value: nodeState.getValue(),
+      });
 
-			if (element) {
-				element.$on('change', ({ detail }) => {
-					if (typeof detail !== 'undefined' && !Number.isNaN(detail)) {
-						this.nodeState.setValue(detail);
-					}
-				});
-			}
-		}
+      if (this.element) {
+        this.element.$on('change', ({ detail }) => {
+          if (this.isPaused) return;
+          this.isPaused = true;
+          if (typeof detail !== 'undefined' && !Number.isNaN(detail)) {
+            this.nodeState.setValue(detail);
+          }
+          this.isPaused = false;
+        });
+      }
+    }
 
-		nodeState.node.view.stateWrapper.appendChild(this.wrapper);
-		this.wrapper.appendChild(this.input);
-	}
+    nodeState.node.view.stateWrapper.appendChild(this.wrapper);
+    this.wrapper.appendChild(this.input);
+  }
 
-	private rect: DOMRect;
+  private rect: DOMRect;
 
-	updatePosition() {
-		this.rect = this.wrapper.getBoundingClientRect();
-		this.nodeState.getInput()?.view?.updatePosition();
-	}
+  updateValue() {
+    if (this.isPaused) return;
+    this.isPaused = true;
+    setTimeout(() => {
+      if (this.element) {
+        this.element.value = this.nodeState.getValue();
+      }
+    }, 50);
+    this.isPaused = false;
+  }
 
-	get y() {
-		return this.rect.y - this.nodeState.node.view.y;
-	}
+  updatePosition() {
+    this.rect = this.wrapper.getBoundingClientRect();
+    this.nodeState.getInput()?.view?.updatePosition();
+  }
 
-	get height() {
-		return this.rect.height;
-	}
+  get y() {
+    return this.rect.y - this.nodeState.node.view.y;
+  }
 
-	setActive(isActive: boolean) {
-		this.wrapper.classList[isActive ? 'remove' : 'add']('disabled');
-	}
+  get height() {
+    return this.rect.height;
+  }
+
+  setActive(isActive: boolean) {
+    this.wrapper.classList[isActive ? 'remove' : 'add']('disabled');
+  }
 }

@@ -86,7 +86,7 @@ export default class NodeSystemView extends EventEmitter {
     this.svg.setAttribute('width', '1');
     this.svg.setAttribute('preserveAspectRatio', 'none');
     //The next line works on some browsers but pt all
-		this.svg.style.transform = `scale(${window.devicePixelRatio ?? 1})`;
+    this.svg.style.transform = `scale(${window.devicePixelRatio ?? 1})`;
     this.transformWrapper.appendChild(this.svg);
 
     this.addMenu = new AddMenu(this);
@@ -414,8 +414,20 @@ export default class NodeSystemView extends EventEmitter {
         }
         this.selectedNodes.forEach((n) => n.remove());
         break;
+      case 'y':
+        if (this.system.history) {
+          if (ctrlKey) {
+            this.system.history.redo();
+          }
+        }
+        break;
       // z
       case 'z':
+        if (this.system.history) {
+          if (ctrlKey) {
+            this.system.history.undo();
+          }
+        }
         break;
       // l
       case 'l':

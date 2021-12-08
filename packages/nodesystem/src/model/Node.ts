@@ -55,7 +55,12 @@ export default class Node extends EventEmitter {
   }
 
   setAttributes(attrib: Partial<NodeAttributes>) {
+    if (this.enableUpdates) {
+      this.system.history.addAction();
+    }
+
     this.attributes = { ...this.attributes, ...attrib };
+    this?.view.updateViewPosition();
     this.save();
   }
 
