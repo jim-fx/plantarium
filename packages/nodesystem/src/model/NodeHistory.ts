@@ -74,7 +74,14 @@ export default class NodeHistory {
 
   deserialize(data: HistoryData) {
     this.historyIndex = data.index;
-    this.history = data.steps;
+
+    const steps = data.steps.map((step) => {
+      delete step.next.history;
+      delete step.previous.history;
+      return step;
+    });
+
+    this.history = steps;
   }
 
   undo() {
