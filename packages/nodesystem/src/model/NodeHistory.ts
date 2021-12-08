@@ -17,8 +17,6 @@ export default class NodeHistory {
     this.log = new Logger(this);
     this.log.info(`Instantiated`);
 
-    window['h'] = this;
-
     this.addAction = (() => {
       let int;
       const f = () => {
@@ -52,6 +50,7 @@ export default class NodeHistory {
     }
 
     const newState = this.system.serialize();
+    delete newState.history;
     const [next, previous] = diffBoth(this.prevState, newState);
     if (!previous || !next) return;
     this.history.push({
