@@ -3,7 +3,12 @@
   "include": ["../packages/@types/*.d.ts", "src/**/*.ts"],
   "compilerOptions": {
     "esModuleInterop": true,
-    "experimentalDecorators": true
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "paths": {
+      "@plantarium/ui": ["../packages/ui"],
+      "@plantarium/helpers": ["../packages/helpers"]
+    }
   },
   "exclude": ["node_modules/*", "public/*"]
 }
