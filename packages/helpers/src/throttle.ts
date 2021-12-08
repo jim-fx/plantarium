@@ -1,10 +1,13 @@
-export default function throttle<T>(func: T, wait: number): T {
+export default function throttle<T>(_func: T, wait: number): T {
   let context: (() => unknown) | null;
   let args;
   let result;
 
   let timeout: number | null = null;
   let previous = 0;
+
+  const func = _func as unknown as () => void;
+
   const later = () => {
     previous = 0;
     timeout = null;
