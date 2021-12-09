@@ -65,6 +65,8 @@ jobs:
 
       - run: "pnpm ui:build"
         name: "Build UI Components"
+        env:
+          BASE_PATH: "/ui"
 
       - run: 'pnpm admin:build'
         env:
