@@ -1,5 +1,3 @@
-<svelte:options tag="plant-search" />
-
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
@@ -20,11 +18,10 @@
 	$: selectedValue = '';
 
 	function search(items: SearchEntry[], searchTerm: string): SearchEntry[] {
-
 		if (!searchTerm?.length) return items;
 		const filtered = items.filter((i) => {
 			if (i.value.includes(searchTerm)) return true;
-      if(i.title && i.title.toLowerCase().includes(searchTerm)) return true;
+			if (i.title && i.title.toLowerCase().includes(searchTerm)) return true;
 			return false;
 		});
 
@@ -51,7 +48,6 @@
 	export function clear() {
 		searchTerm = '';
 	}
-
 
 	function handleSelect({ value = selectedValue }: SearchEntry = { value: selectedValue }) {
 		amountSelects[value] = amountSelects[value] + 1 || 1;
@@ -97,7 +93,6 @@
 	export const setItems = (items: SearchEntry[]) => {
 		values = items;
 	};
-
 </script>
 
 <svelte:window on:keydown={handleKeyDown} />
@@ -106,7 +101,7 @@
 	{#each filteredItems as v, i}
 		{#if i < limitAmount}
 			<div
-				class="search-container"
+				class="search-entry"
 				on:focus={() => setActive(v)}
 				on:mouseover={() => setActive(v)}
 				on:click={() => handleSelect(v)}
@@ -121,38 +116,44 @@
 <style lang="scss">
 	@use '~@plantarium/theme/src/themes.module.scss';
 
-	.search-container {
-		padding: 5px;
-		width: 100%;
-		border-radius: 5px;
-		box-sizing: border-box;
-		&.focused {
-			background: themes.$green-gradient;
-			color: var(--foreground-color);
-		}
-	}
-
 	.search-wrapper {
 		padding: 5px;
 		z-index: 2;
 		width: 100px;
-		background-color: var(--background-color);
+		background-color: themes.$dark-gray;
 		border-radius: 5px;
 		color: #707070;
 		box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.13), 1px 2px 2px rgba(0, 0, 0, 0.1),
 			-1px -2px 2px rgba(0, 0, 0, 0.05);
 
 		input {
+			color: white;
 			width: 100%;
-			background-color: themes.$light-gray;
+			background-color: rgba(themes.$light-gray, 0.4);
 			box-sizing: border-box;
 			font-size: 1.5em;
 			border-radius: 3px;
 			padding: 3px 5px;
 			margin: 0;
+      font-weight: lighter;
 			margin-bottom: 5px;
 			outline: none !important;
 			border: none;
+
+			&::placeholder {
+				color: white;
+			}
+		}
+	}
+
+	.search-entry {
+		padding: 5px;
+		width: 100%;
+		border-radius: 5px;
+		box-sizing: border-box;
+		&.focused {
+			background: themes.$green-gradient;
+			color: themes.$dark-gray;
 		}
 	}
 </style>

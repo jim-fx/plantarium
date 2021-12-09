@@ -1,5 +1,3 @@
-<svelte:options tag="plant-alert-wrapper" />
-
 <script lang="ts">
   import { isBrowser } from '../helpers/isBrowser';
 
@@ -117,35 +115,5 @@
     padding-top: 20px;
   }
 
-  .alert-info {
-    background-color: #303030;
 
-    color: white;
-    .alert-progress {
-      background-color: white;
-    }
-  }
-
-  .alert-success {
-    background-color: #65e2a0;
-    color: black;
-    border-color: gray;
-
-    .alert-progress {
-      background-color: gray;
-    }
-  }
-
-  .alert-warning {
-    background-color: #fffd7b;
-  }
-
-  .alert-error {
-    background-color: #e26565;
-    color: white;
-
-    .alert-progress {
-      background-color: white;
-    }
-  }
 </style>

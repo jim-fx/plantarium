@@ -228,6 +228,20 @@ export default class NodeSystemView extends EventEmitter {
     this.panzoom.setTransform(x, y, s / this.dpr);
   }
 
+  private showAddMenu() {
+    this.addMenu
+      .show({
+        x: this.rmx,
+        y: this.rmy,
+      })
+      .then((props) => {
+        const node = this.system.createNode(props);
+        this.setActive(node);
+      })
+      .catch();
+
+  }
+
   bindEventListeners() {
     window.addEventListener('keydown', (ev) => this.handleKeyDown(ev));
     window.addEventListener('keyup', (ev) => this.handleKeyUp(ev));
@@ -236,16 +250,8 @@ export default class NodeSystemView extends EventEmitter {
     );
 
     this.wrapper.addEventListener("contextmenu", (ev) => {
-      ev.preventDefault()
-      this.addMenu
-        .show({
-          x: this.rmx,
-          y: this.rmy,
-        })
-        .then((props) => {
-          this.system.createNode(props);
-        })
-        .catch();
+      ev.preventDefault();
+      this.showAddMenu()
     })
 
     this.wrapper.addEventListener('mousedown', (ev) =>
@@ -268,11 +274,14 @@ export default class NodeSystemView extends EventEmitter {
         this.x = x;
         this.y = y;
         this.s = s;
-        this.wrapper.style.backgroundPosition = `${x}px ${y}px`;
-        this.wrapper.style.backgroundSize =
-          s * this.height * 0.02 + '% ' + s * this.width * 0.02 + '%';
-        this.wrapper.style.backgroundOrigin = `${x}px ${y}px`;
-        window['t'] = { x, y, s };
+        const alpha = ((s-0.2)/5)/2;
+        const sx = s * this.height * 0.02;
+        const sy = s * this.width * 0.02;
+        this.wrapper.style.setProperty("--scale", Math.abs(alpha)+"");
+        this.wrapper.style.setProperty("--scale-x", sx+"%")
+        this.wrapper.style.setProperty("--scale-y", sy+"%")
+        this.wrapper.style.setProperty("--pos-x", `${x}px`)
+        this.wrapper.style.setProperty("--pos-y", `${y}px`)
         this.system.setMetaData({ transform: { x, y, s } });
       },
     });
@@ -383,15 +392,7 @@ export default class NodeSystemView extends EventEmitter {
         break;
       case 'a':
         if (shiftKey) {
-          this.addMenu
-            .show({
-              x: this.rmx,
-              y: this.rmy,
-            })
-            .then((props) => {
-              this.system.createNode(props);
-            })
-            .catch();
+          this.showAddMenu()
         }
         break;
       case 'c':
@@ -433,18 +434,15 @@ export default class NodeSystemView extends EventEmitter {
         }
         this.selectedNodes.forEach((n) => n.remove());
         break;
-      case 'y':
-        if (this.system.history) {
-          if (ctrlKey) {
-            this.system.history.redo();
-          }
-        }
-        break;
       // z
       case 'z':
         if (this.system.history) {
           if (ctrlKey) {
-            this.system.history.undo();
+            if (shiftKey) {
+              this.system.history.redo();
+            } else {
+              this.system.history.undo();
+            }
           }
         }
         break;

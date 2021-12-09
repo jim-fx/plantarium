@@ -1,5 +1,3 @@
-<svelte:options tag="plant-color" />
-
 <script lang="ts">
   import { createEventDispatcher, onMount } from 'svelte';
 

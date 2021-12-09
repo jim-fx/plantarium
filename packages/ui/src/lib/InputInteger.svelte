@@ -1,5 +1,3 @@
-<svelte:options tag="plant-integer" accessors />
-
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();

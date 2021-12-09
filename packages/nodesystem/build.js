@@ -17,7 +17,6 @@ const options = {
   plugins: [
     sveltePlugin({
       preprocess: [typescript(), sveltePreprocess({ typescript: false })],
-      compileOptions: { customElement: true },
     }),
     sassPlugin(),
   ],

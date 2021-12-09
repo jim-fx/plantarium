@@ -61,7 +61,7 @@ export default class RightClickMenu {
     this.search.setItems(types.map(t => {
       return {
         value: t.type || t.title,
-        title: t.title ,
+        title: t.title,
       }
     }))
   }
@@ -125,8 +125,8 @@ export default class RightClickMenu {
     this.y = y;
     this.socket = socket;
 
-    this.wrapper.style.left = x + 'px';
-    this.wrapper.style.top = y + 'px';
+    this.wrapper.style.left = (x / this.system.view.width) * 100 + '%';
+    this.wrapper.style.top = (y / this.system.view.height) * 100 + '%';
 
     setTimeout(() => {
       this.wrapper.classList.add('context-visible');

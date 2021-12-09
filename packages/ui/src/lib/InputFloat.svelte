@@ -1,5 +1,3 @@
-<svelte:options tag="plant-float" accessors />
-
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
 

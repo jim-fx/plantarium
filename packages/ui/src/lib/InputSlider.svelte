@@ -1,5 +1,3 @@
-<svelte:options tag="plant-slider" />
-
 <script>
   import { createEventDispatcher } from 'svelte';
 

@@ -1,5 +1,3 @@
-<svelte:options tag="plant-toast" />
-
 <script lang="ts">
   import { parseStackTrace } from '@plantarium/helpers';
   import { onMount, SvelteComponent } from 'svelte';
@@ -125,9 +123,6 @@
   .stack-trace {
     margin: 0 !important;
     max-width: 100%;
-    > pre {
-      overflow-x: auto;
-    }
   }
   .wrapper {
     padding: 10px;

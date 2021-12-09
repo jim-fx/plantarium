@@ -1,5 +1,3 @@
-<svelte:options tag="plant-section" />
-
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
 

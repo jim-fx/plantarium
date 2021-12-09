@@ -1,6 +1,7 @@
 .context-wrapper{
   position: absolute;
   opacity:0;
+  z-index: 99;
   transform-origin: 0px 0px;
   transform: scale(0.4);
   pointer-events:none;

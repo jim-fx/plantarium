@@ -1,5 +1,3 @@
-<svelte:options tag="plant-select" accessors />
-
 <script>
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();

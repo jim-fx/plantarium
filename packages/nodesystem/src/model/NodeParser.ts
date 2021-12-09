@@ -51,8 +51,10 @@ export default class NodeParser {
   parseType(typeData: NodeTypeData): NodeType {
     const { compute, meta, outputs, title: name, parameters } = typeData;
 
-    const TempNode = eval(`(outputs, compute) => class ${name} extends Node {
-      constructor(system, props) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    const TempNode =class extends Node {
+      constructor(system:NodeSystem, props:NodeProps) {
         super(system, props);
         if (compute) this.compute = compute;
 
@@ -65,7 +67,7 @@ export default class NodeParser {
           this.states[key] = new NodeState(this, key, template);
         });
       }
-    }`)(outputs, compute, NodeState, NodeOutput, Node);
+    }
 
     const inputs = Object.values(parameters)
       .filter((p) => p.internal !== true)

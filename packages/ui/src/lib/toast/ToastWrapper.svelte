@@ -1,5 +1,3 @@
-<svelte:options tag="plant-toast-wrapper" />
-
 <script lang="ts">
   import { store } from './ToastStore';
   import { slide } from 'svelte/transition';

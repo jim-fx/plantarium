@@ -1,5 +1,3 @@
-<svelte:options tag="plant-checkbox" accessors />
-
 <script lang="ts">
   import createId from 'shortid';
   import { createEventDispatcher } from 'svelte';
