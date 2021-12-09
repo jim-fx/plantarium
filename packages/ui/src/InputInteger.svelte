@@ -145,7 +145,7 @@
     background-color: transparent;
     padding: 2px;
     width: 72%;
-    font-size: 15pt;
+    font-size: 1em;
     text-align: center;
     border: none;
     border-style: none;

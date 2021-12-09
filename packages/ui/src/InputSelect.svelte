@@ -87,27 +87,11 @@
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.4);
   }
 
-  #main::before {
-    content: '';
-    position: absolute;
-    left: 5px;
-    top: calc(50% - 2px);
-    width: 5px;
-    height: 5px;
-    border-right: solid 1.5px white;
-    border-bottom: solid 1.5px white;
-    transform: rotate(315deg);
-    border-radius: 2px;
-  }
-
-  .open #main::before {
-    transform: rotate(45deg);
-  }
 
   #selected-value {
-    padding: 3px;
-    padding-left: 20px;
-    padding-right: 10px;
+    padding: 6px 10px;
+    padding-left: 6px;
+    height: auto;
   }
 
   #item-wrapper {

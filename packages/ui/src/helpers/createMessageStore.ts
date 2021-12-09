@@ -9,7 +9,7 @@ const createMessageFactory =
   (store: Writable<Message[]>) =>
   (
     content: string | Error | typeof SvelteComponent,
-    options?: Partial<MessageOptions>,
+    options: Partial<MessageOptions> = {},
   ) => {
     if (!content && !options) return;
 

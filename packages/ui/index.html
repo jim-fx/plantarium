@@ -125,6 +125,11 @@
         <plant-select></plant-select>
       </section>
 
+			<section>
+        <h3>Search</h3>
+        <plant-search></plant-search>
+      </section>
+
       <section>
         <h3>Shape</h3>
         <plant-shape></plant-shape>
@@ -185,11 +190,22 @@
           values: ['Help', 'Me', 'Recover', 'Report Error'],
         }),
       );
-    </script>
-    <script>
-      window.onload = function () {
-        document.querySelector('plant-select').setItems(['test', 'one', 'two']);
-      };
+    window.onload = function () {
+      const search = document.querySelector("plant-search")
+      search.setItems([
+        {value:"number", group:"input"}, 
+        {value:"boolean",group:"input"}, 
+        {value:"math"}, {value:"boolops"}, 
+        ...new Array(10).fill(null).map((v,i) => {return{value:"value"+i}})
+      ])
+
+      search.$on("input", ({detail:value}) => {
+        createToast("You selected: "+value)
+      })
+
+      document.querySelector('plant-select').setItems(['test', 'one', 'two']);
+      
+    };
     </script>
   </body>
 </html>
