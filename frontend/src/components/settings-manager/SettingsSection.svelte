@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Section, stateToComponent } from '@plantarium/ui';
+  import { slide } from 'svelte/transition';
   import { settingsManager } from '..';
   import sectionOpen from './sectionOpen';
 
@@ -30,7 +31,7 @@
 </script>
 
 {#if $settingsStore.isDev || !template.onlyDev}
-  <div class="wrapper">
+  <div class="wrapper" transition:slide>
     {#if template.options}
       <Section
         name={key}

@@ -44,6 +44,14 @@ class SearchContainer {
       if (this.type.meta.tags) s.push(...this.type.meta.tags);
     }
 
+    this.wrapper.addEventListener("mouseover", () => {
+      this.focus();
+    })
+    this.wrapper.addEventListener("mousedown", () => {
+      this.focus();
+      this.menu.resolve();
+    })
+
     this.searchString = s.join(':').toLowerCase();
     this.menu.wrapper.appendChild(this.wrapper);
   }
@@ -279,20 +287,20 @@ export default class RightClickMenu {
     this.possibleContainers = !socket
       ? this.containers
       : this.containers.filter((c) => {
-          if (socket instanceof NodeInput) {
-            const { type } = socket;
-            if (!c.type.outputs || !c.type.outputs.length) return false;
-            if (type.includes('*')) return true;
-            return c.type.outputs?.some((t) => type.includes(t));
-          } else {
-            const { type } = socket;
-            if (!c.type.inputs || !c.type.inputs.length) return false;
-            if (type === '*') return true;
-            return (
-              c.type.inputs?.includes('*') || c.type.inputs?.includes(type)
-            );
-          }
-        });
+        if (socket instanceof NodeInput) {
+          const { type } = socket;
+          if (!c.type.outputs || !c.type.outputs.length) return false;
+          if (type.includes('*')) return true;
+          return c.type.outputs?.some((t) => type.includes(t));
+        } else {
+          const { type } = socket;
+          if (!c.type.inputs || !c.type.inputs.length) return false;
+          if (type === '*') return true;
+          return (
+            c.type.inputs?.includes('*') || c.type.inputs?.includes(type)
+          );
+        }
+      });
 
     // show them
     this.possibleContainers.forEach((c) => c.show());

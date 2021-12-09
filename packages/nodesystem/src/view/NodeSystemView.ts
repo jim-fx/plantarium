@@ -235,6 +235,19 @@ export default class NodeSystemView extends EventEmitter {
       this.handleMouseMove(ev),
     );
 
+    this.wrapper.addEventListener("contextmenu", (ev) => {
+      ev.preventDefault()
+      this.addMenu
+        .show({
+          x: this.rmx,
+          y: this.rmy,
+        })
+        .then((props) => {
+          this.system.createNode(props);
+        })
+        .catch();
+    })
+
     this.wrapper.addEventListener('mousedown', (ev) =>
       this.handleMouseDown(ev),
     );
@@ -296,9 +309,15 @@ export default class NodeSystemView extends EventEmitter {
   }
 
   handleMouseDown(ev: MouseEvent) {
-    const { shiftKey, ctrlKey, clientX, clientY, button, target } = ev;
+    const { shiftKey, ctrlKey, clientX, clientY, button, target, path } = ev;
 
     if (!shiftKey) this.setActive();
+
+
+    if (![...path].includes(this.addMenu.wrapper)) {
+      this.addMenu.hide()
+      ev.preventDefault()
+    }
 
     this.mouseDown = true;
 
@@ -359,6 +378,9 @@ export default class NodeSystemView extends EventEmitter {
       this.ev && this.handleMouseDown(this.ev);
     }
     switch (key) {
+      case "escape":
+        this.addMenu.hide()
+        break;
       case 'a':
         if (shiftKey) {
           this.addMenu
