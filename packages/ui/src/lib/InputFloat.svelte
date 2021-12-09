@@ -8,7 +8,7 @@
   export let min = 0;
   export let max = 1;
 
-  function strip(number) {
+  function strip(number:string) {
     return parseFloat(number).toPrecision(2);
   }
 
@@ -17,7 +17,7 @@
   let inputEl: HTMLInputElement;
   $: value !== undefined && dispatch('change', parseFloat(value + ''));
 
-  $: if (value.toString().length > 15) {
+  $: if (value.toString().length > 5) {
     value = strip(value);
   }
 
@@ -95,15 +95,16 @@
   }
 
   input[type='number'] {
+    box-sizing: border-box;
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
     appearance: textfield;
     cursor: pointer;
     color: white;
     background-color: transparent;
-    padding: 5px 11px;
+    padding: 2px;
     width: 100%;
-    font-size: 15pt;
+    font-size: 1em;
     text-align: center;
     border: none;
     border-style: none;

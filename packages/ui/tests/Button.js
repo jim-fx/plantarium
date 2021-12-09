@@ -1,7 +1,7 @@
 import 'inline-svg-register';
 import { test } from 'uvu';
 import * as assert from 'uvu/assert';
-import Count from '../src/Button.svelte';
+import Count from '../src/lib/Button.svelte';
 import { render, reset, setup } from './setup/env';
 
 test.before(setup);

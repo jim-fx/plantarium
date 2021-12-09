@@ -47,7 +47,7 @@ const createMessageFactory =
     }
 
     if (typeof message.timeout === 'undefined') {
-      let timeout;
+      let timeout:number;
 
       if (message.type === MessageType.SUCCESS) {
         timeout = 3000;

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { ThemeStore } from '@plantarium/theme';
-  import Button from '@plantarium/ui/src/Button.svelte';
+  import {Button} from '@plantarium/ui';
   import type { IconType } from '@plantarium/ui/src/Icon.svelte';
   import ClickOutside from 'svelte-click-outside';
   import type { SvelteComponentDev } from 'svelte/internal';
