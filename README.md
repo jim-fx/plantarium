@@ -14,11 +14,11 @@
 
 # Table of contents
 
-- [What is Plantarium](#WhatisPlantarium?)
-- [Architecture](#Architecture)
-- [Developing](#Developing)
-- [Contributing](#Contributing)
-- [Roadmap](#Roadmap)
+- [What is Plantarium](#what-is-plantarium)
+- [Architecture](#architecture)
+- [Developing](#developing)
+- [Contributing](#contributing)
+- [Roadmap](#roadmap)
 
 # What is Plantarium?
 
