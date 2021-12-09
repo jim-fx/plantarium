@@ -49,9 +49,9 @@
 
 <style lang="scss">
   div {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+    display: grid;
+
+    gap: 10px;
   }
 
   div :global(button) {

@@ -1,6 +1,7 @@
 import { ground } from '@plantarium/generator';
 import { transferToGeometry } from '@plantarium/geometry';
 import { loader } from '@plantarium/helpers';
+import { ThemeStore } from '@plantarium/theme';
 import { Color, Mesh, Plane, Program } from 'ogl';
 import type Scene from '.';
 import { settingsManager } from '..';
@@ -63,6 +64,9 @@ export default class BackgroundScene {
         uFogFar: { value: 30 },
         texScale: { value: 1 },
       },
+    });
+    ThemeStore.subscribe((t) => {
+      groundShader.uniforms.uFogColor.value = new Color(t['background-color']);
     });
     this.ground = this.scene.addMesh({
       geometry: groundGeometry,

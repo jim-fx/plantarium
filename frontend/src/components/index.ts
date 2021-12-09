@@ -1,11 +1,13 @@
 import Nodes from '@plantarium/nodes';
 import { NodeSystem } from '@plantarium/nodesystem';
-import { setTheme } from '@plantarium/theme';
+import { setTheme, ThemeStore } from '@plantarium/theme';
 import { createToast } from '@plantarium/ui';
 import { ProjectManager } from './project-manager';
 import { SettingsManager } from './settings-manager';
 import { Tutor } from './tutor';
 import * as performance from '../helpers/performance';
+import { compute_rest_props } from 'svelte/internal';
+import { get } from 'svelte/store';
 
 const settingsManager = new SettingsManager();
 const projectManager = new ProjectManager();

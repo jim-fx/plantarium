@@ -105,7 +105,6 @@ export default class Renderer extends EventEmitter {
   render(): void {
     requestAnimationFrame(this.render.bind(this));
 
-
     if (!this.lastCamPos.equals(this.camera.position)) {
       this.lastCamPos.set(this.camera.position);
       this.emit('camPos', this.camera.position.toArray());
@@ -125,7 +124,7 @@ export default class Renderer extends EventEmitter {
 
     this.renderer.render({ scene: this.scene, camera: this.camera });
 
-    this.emit("perf", performance.now()-a)
+    this.emit('perf', performance.now() - a);
     a = performance.now();
   }
 

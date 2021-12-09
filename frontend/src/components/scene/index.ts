@@ -7,7 +7,8 @@ import { localState } from '../../helpers';
 import type { ProjectManager } from '../project-manager';
 import BackgroundScene from './background';
 import ForegroundScene from './foreground';
-import * as performance from "../../helpers/performance";
+import * as performance from '../../helpers/performance';
+import { ThemeStore } from '@plantarium/theme';
 
 export default class Scene {
   renderer: Renderer;
@@ -28,10 +29,18 @@ export default class Scene {
       camPos: localState.get('camPos') as [number, number, number],
     });
     this.renderer.on('camPos', (camPos) => localState.set('camPos', camPos));
-    this.renderer.on("perf", (perf:number) => performance.add("render", perf), 40)
+    this.renderer.on(
+      'perf',
+      (perf: number) => performance.add('render', perf),
+      40,
+    );
     this.renderer.handleResize();
     this.scene = this.renderer.scene;
     this.gl = this.renderer.gl;
+
+    ThemeStore.subscribe((t) => {
+      this.renderer.setClearColor(t['background-color']);
+    });
 
     this.wrapper = canvas.parentElement as HTMLElement;
 
