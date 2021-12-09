@@ -7,7 +7,7 @@ import rotate2D from '@plantarium/geometry/src/helpers/rotate2D';
 
 const node: PlantNode = {
 	title: 'Branches',
-	type: 'branch',
+	type: 'branches',
 
 	outputs: ['plant'],
 

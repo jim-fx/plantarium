@@ -79,7 +79,7 @@ const picker = {
 
 const slider = {
   title: 'Slider',
-  type: 'number',
+  type: 'slider',
   outputs: ['number'],
   parameters: {
     value: {
