@@ -61,6 +61,10 @@ jobs:
           VITE_API_URL: 'https://plant-api.jim-fx.com'
 
       - run: 'pnpm nodes:build'
+        name: "Build Node Interface"
+
+      - run: "pnpm ui:build"
+        name: "Build UI Components"
 
       - run: 'pnpm admin:build'
         env:
@@ -68,6 +72,7 @@ jobs:
           BASE_PATH: /admin
 
       - run: 'cp -r admin/build frontend/dist/admin'
+      - run: 'cp -r packages/ui/build frontend/dist/ui'
       - run: 'cp -r packages/nodesystem/public frontend/dist/nodes'
 
       - name: Deploy 🚀

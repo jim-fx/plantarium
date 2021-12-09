@@ -11,6 +11,7 @@
     "backend:start": "pnpm --filter=./backend start",
     "backend:build": "pnpm --filter=./backend build",
     "nodes:build": "pnpm --filter=./packages/nodesystem build",
+    "ui:build": "pnpm --filter=@plantarium/ui build",
     "build": "pnpm build -r",
     "dev": "pnpm dev -r --filter=./frontend --filter=./backend --filter=./admin",
     "start": "pnpm build -r && pnpm backend:start",

@@ -21,8 +21,6 @@
 
 	function search(items: SearchEntry[], searchTerm: string): SearchEntry[] {
 
-    console.log("Search", items, searchTerm)
-
 		if (!searchTerm?.length) return items;
 		const filtered = items.filter((i) => {
 			if (i.value.includes(searchTerm)) return true;
