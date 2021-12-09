@@ -67,6 +67,8 @@ export function stateToElement({
   delete props.defaultValue;
   delete props.internal;
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
   props['value'] = value;
 
   return new component({ target, props: { ...props, '--width': '100%' } });
