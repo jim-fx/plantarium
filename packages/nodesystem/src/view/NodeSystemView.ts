@@ -309,12 +309,12 @@ export default class NodeSystemView extends EventEmitter {
   }
 
   handleMouseDown(ev: MouseEvent) {
-    const { shiftKey, ctrlKey, clientX, clientY, button, target, path } = ev;
+    const { shiftKey, ctrlKey, clientX, clientY, button, target } = ev;
 
     if (!shiftKey) this.setActive();
 
 
-    if (![...path].includes(this.addMenu.wrapper)) {
+    if (![...ev["path"]].includes(this.addMenu.wrapper)) {
       this.addMenu.hide()
       ev.preventDefault()
     }

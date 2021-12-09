@@ -7,6 +7,7 @@ export default interface NodeType {
     description?: string;
     tags?: string[];
   };
+  type?: string;
   inputs?: (string[] | string)[];
   outputs?: string[];
   node: typeof Node;
