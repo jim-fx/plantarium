@@ -1,5 +1,4 @@
-import { test } from 'uvu';
-import * as assert from 'uvu/assert';
+import { test, expect } from 'vitest';
 import aggregate from '../src/aggregate';
 
 class A {
@@ -17,9 +16,7 @@ test('aggregation works', () => {
 
   const c = new C();
 
-  assert.equal(c.propA, 'A');
-  assert.equal(c.propB, 'B');
-  assert.equal(c.propC, 'C');
+  expect(c.propA).toBe('A');
+  expect(c.propB).toBe('B');
+  expect(c.propC).toBe('C');
 });
-
-test.run();

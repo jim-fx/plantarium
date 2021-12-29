@@ -1,5 +1,4 @@
-import { test } from 'uvu';
-import * as assert from 'uvu/assert';
+import { test, expect } from 'vitest';
 import debounce from '../src/debounce';
 
 const wait = (timeout) => new Promise((res) => setTimeout(res, timeout));
@@ -21,7 +20,5 @@ test('debouncesCorrectly', async () => {
   await wait(100);
   func();
 
-  assert.equal(i, 1);
+  expect(i).toBe(1);
 });
-
-test.run();

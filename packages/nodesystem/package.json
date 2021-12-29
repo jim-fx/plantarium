@@ -19,6 +19,7 @@
     "dev": "node build.js --dev",
     "serve": "sirv public-test -p 8084",
     "test": "pnpm build:test && run-p --race serve cy:run",
+    "coverage": "c8 pnpm test",
     "cy:run": "wait-on http-get://localhost:8084 && pnpm cypress run",
     "cy:open": "wait-on http-get://localhost:8084 && pnpm cypress open",
     "lint": "eslint src/**/*.ts --cache"
@@ -31,7 +32,8 @@
     "@cypress/code-coverage": "^3.9.12",
     "@es-pack/esbuild-sass-plugin": "^2.0.1",
     "@tsconfig/svelte": "^2.0.1",
-    "cypress": "^8.7.0",
+    "c8": "^7.10.0",
+    "cypress": "^9.2.0",
     "esbuild": "^0.12.29",
     "esbuild-svelte": "^0.5.7",
     "npm-run-all": "^4.1.5",

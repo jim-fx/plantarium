@@ -1,12 +1,11 @@
-import { test } from 'uvu';
-import * as assert from 'uvu/assert';
+import { test, expect } from 'vitest';
 import inputChanged from '../src/inputChanged';
 
 test('works', () => {
   let currentNum = 0;
 
   const func = inputChanged((num: number) => {
-    assert.not.equal(num, currentNum);
+    expect(num).not.toBe(currentNum);
     currentNum = num;
   });
 
@@ -17,5 +16,3 @@ test('works', () => {
   func(5);
   func(2);
 });
-
-test.run();

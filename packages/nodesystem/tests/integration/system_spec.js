@@ -10,12 +10,16 @@ describe('System Tests', () => {
   });
 
   it('Move NodeSystem', () => {
-    system.view.setTransform({ x: 111, y: 222, s: 3 });
-
-    cy.wait(300).then(() => {
-      expect(system.meta.transform.x).to.equal(111);
-      expect(system.meta.transform.y).to.equal(222);
-      expect(system.meta.transform.s).to.equal(3);
+    cy.visit('/');
+    cy.window().then(() => {
+      console.log(system.id);
+      system.view.setTransform({ x: 111, y: 222, s: 3 });
+      cy.wait(500).then(() => {
+        console.log(system.id);
+        expect(system.meta.transform.x).to.equal(111);
+        expect(system.meta.transform.y).to.equal(222);
+        expect(system.meta.transform.s).to.equal(3);
+      });
     });
   });
 

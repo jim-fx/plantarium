@@ -1,4 +1,4 @@
-import "./AddMenu.css"
+import './AddMenu.css';
 import type NodeSystemView from './NodeSystemView';
 import type NodeInput from '../model/NodeInput';
 import type NodeOutput from '../model/NodeOutput';
@@ -16,7 +16,7 @@ interface ContextOptions {
 export default class RightClickMenu {
   wrapper: HTMLDivElement;
 
-  search: InputSearch;
+  searchEl: InputSearch;
 
   view: NodeSystemView;
   system: NodeSystem;
@@ -39,12 +39,12 @@ export default class RightClickMenu {
     this.log = new Logger(this);
 
     this.wrapper = document.createElement('div');
-    this.wrapper.classList.add("context-wrapper")
-    this.search = new InputSearch({ target: this.wrapper });
+    this.wrapper.classList.add('context-wrapper');
+    this.searchEl = new InputSearch({ target: this.wrapper });
 
-    this.search.$on("input", ({ detail: value }) => {
+    this.searchEl.$on('input', ({ detail: value }) => {
       this.resolve(value);
-    })
+    });
 
     this.view.wrapper.append(this.wrapper);
 
@@ -54,18 +54,21 @@ export default class RightClickMenu {
       20,
     );
 
+    this.wrapper.classList.add('cl-' + Math.floor(Math.random() * 1000));
+
     this.view.on('keydown', ({ key }) => key === 'Escape' && this.hide());
   }
 
   updateTypes(types: NodeType[]) {
-    this.search.setItems(types.map(t => {
-      return {
-        value: t.type || t.title,
-        title: t.title,
-      }
-    }))
+    this.searchEl.setItems(
+      types.map((t) => {
+        return {
+          value: t.type || t.title,
+          title: t.title,
+        };
+      }),
+    );
   }
-
 
   handleWindowClick(ev: MouseEvent) {
     const path = ev.composedPath();
@@ -74,12 +77,12 @@ export default class RightClickMenu {
     }
   }
 
-  reject() {
+  private reject() {
     if (this.rej) this.rej();
     this.hide();
   }
 
-  resolve(typeName: string) {
+  private resolve(typeName: string) {
     const type = this.system.store.getByName(typeName);
 
     const { x: rx, y: ry } = this.view.projectWindowToLocal(this.x, this.y);
@@ -111,7 +114,7 @@ export default class RightClickMenu {
   }
 
   hide() {
-    this.search.clear();
+    this.searchEl.clear();
     this.wrapper.classList.remove('context-visible');
     this.wrapper.blur();
     this.res = (d: NodeProps) => d;
@@ -127,11 +130,11 @@ export default class RightClickMenu {
 
     this.wrapper.style.left = (x / this.system.view.width) * 100 + '%';
     this.wrapper.style.top = (y / this.system.view.height) * 100 + '%';
+    this.wrapper.classList.add('context-visible');
 
     setTimeout(() => {
-      this.wrapper.classList.add('context-visible');
-      this.search.focus();
-    }, 10);
+      this.searchEl.focus();
+    }, 20);
 
     return new Promise((res, rej) => {
       this.res = res;

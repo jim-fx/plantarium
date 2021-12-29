@@ -239,7 +239,6 @@ export default class NodeSystemView extends EventEmitter {
         this.setActive(node);
       })
       .catch();
-
   }
 
   bindEventListeners() {
@@ -249,10 +248,10 @@ export default class NodeSystemView extends EventEmitter {
       this.handleMouseMove(ev),
     );
 
-    this.wrapper.addEventListener("contextmenu", (ev) => {
+    this.wrapper.addEventListener('contextmenu', (ev) => {
       ev.preventDefault();
-      this.showAddMenu()
-    })
+      this.showAddMenu();
+    });
 
     this.wrapper.addEventListener('mousedown', (ev) =>
       this.handleMouseDown(ev),
@@ -274,14 +273,14 @@ export default class NodeSystemView extends EventEmitter {
         this.x = x;
         this.y = y;
         this.s = s;
-        const alpha = ((s-0.2)/5)/2;
+        const alpha = (s - 0.2) / 5 / 2;
         const sx = s * this.height * 0.02;
         const sy = s * this.width * 0.02;
-        this.wrapper.style.setProperty("--scale", Math.abs(alpha)+"");
-        this.wrapper.style.setProperty("--scale-x", sx+"%")
-        this.wrapper.style.setProperty("--scale-y", sy+"%")
-        this.wrapper.style.setProperty("--pos-x", `${x}px`)
-        this.wrapper.style.setProperty("--pos-y", `${y}px`)
+        this.wrapper.style.setProperty('--scale', Math.abs(alpha) + '');
+        this.wrapper.style.setProperty('--scale-x', sx + '%');
+        this.wrapper.style.setProperty('--scale-y', sy + '%');
+        this.wrapper.style.setProperty('--pos-x', `${x}px`);
+        this.wrapper.style.setProperty('--pos-y', `${y}px`);
         this.system.setMetaData({ transform: { x, y, s } });
       },
     });
@@ -322,10 +321,9 @@ export default class NodeSystemView extends EventEmitter {
 
     if (!shiftKey) this.setActive();
 
-
-    if (![...ev["path"]].includes(this.addMenu.wrapper)) {
-      this.addMenu.hide()
-      ev.preventDefault()
+    if (ev['path'] && ![...ev['path']].includes(this.addMenu.wrapper)) {
+      this.addMenu.hide();
+      ev.preventDefault();
     }
 
     this.mouseDown = true;
@@ -387,12 +385,12 @@ export default class NodeSystemView extends EventEmitter {
       this.ev && this.handleMouseDown(this.ev);
     }
     switch (key) {
-      case "escape":
-        this.addMenu.hide()
+      case 'escape':
+        this.addMenu.hide();
         break;
       case 'a':
         if (shiftKey) {
-          this.showAddMenu()
+          this.showAddMenu();
         }
         break;
       case 'c':

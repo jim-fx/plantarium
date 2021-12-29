@@ -16,9 +16,8 @@ import InputShape from './InputShape.svelte';
 import InputSlider from './InputSlider.svelte';
 import InputSearch from './InputSearch.svelte';
 import Section from './Section.svelte';
-import StackTrace from "./toast/StackTrace.svelte";
-import type { SvelteComponentDev } from 'svelte/internal/index';
-
+import StackTrace from './toast/StackTrace.svelte';
+import type { SvelteComponent } from 'svelte';
 
 export {
   InputFloat,
@@ -49,17 +48,17 @@ export {
 export function stateToElement({
   target,
   template,
-  value,
+  value
 }: {
   target: HTMLElement;
   template: ValueTemplate;
   value: unknown;
-}) {
+}): SvelteComponent {
   if (value === undefined && 'value' in template) {
     value = template.value;
   }
 
-  const component = stateToComponent(template, value);
+  const component = stateToComponent(template, value) as typeof SvelteComponent;
 
   const props: Partial<ValueTemplate> = { ...template };
   delete props.type;
@@ -74,10 +73,7 @@ export function stateToElement({
   return new component({ target, props: { ...props, '--width': '100%' } });
 }
 
-export function stateToComponent(
-  template: ValueTemplate,
-  value: unknown,
-): typeof SvelteComponentDev {
+export function stateToComponent(template: ValueTemplate, value: unknown): typeof SvelteComponent {
   if (template.inputType === 'select' || Array.isArray(template.values)) {
     return InputSelect;
   }
