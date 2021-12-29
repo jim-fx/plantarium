@@ -24,14 +24,14 @@ export default function throttle<T>(_func: T, wait: number): T {
     args = arguments;
     if (remaining <= 0 || remaining > wait) {
       if (timeout) {
-        window.clearTimeout(timeout);
+        clearTimeout(timeout);
         timeout = null;
       }
       previous = now;
       result = func.apply(context, args);
       if (!timeout) context = args = null;
     } else if (!timeout) {
-      timeout = window.setTimeout(later, remaining);
+      timeout = setTimeout(later, remaining);
     }
     return result;
   };

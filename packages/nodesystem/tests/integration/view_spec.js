@@ -1,20 +1,24 @@
-import { NodeSystem } from '../../public/dist/index.esm';
-
 import project from './project';
 
-describe('View Layer Tests', () => {
+describe('View Layer Tests', async () => {
   let system;
 
-  it('Initialize NodeSystem', () => {
-    system = new NodeSystem({ view: true, defaultNodes: true });
-    system.load(project);
+  it('Initialize NodeSystem', (done) => {
+    cy.visit('/');
+    cy.window().then((win) => {
+      system = win.system;
+      system.load(project);
+      expect(system).to.not.be.undefined;
+      done();
+    });
   });
 
   it('BoxSelection', () => {
     cy.visit('/');
-
-    cy.wait(100)
-      .then(() => {
+    let s;
+    cy.window()
+      .then(({ system }) => {
+        s = system;
         system.view.handleMouseDown({
           ctrlKey: true,
           clientX: -1000,
@@ -23,7 +27,7 @@ describe('View Layer Tests', () => {
       })
       .then(() => cy.wait(100))
       .then(() => {
-        system.view.handleMouseMove({
+        s.view.handleMouseMove({
           ctrlKey: true,
           clientX: 1000,
           clientY: 1000,
@@ -31,21 +35,27 @@ describe('View Layer Tests', () => {
       })
       .then(() => cy.wait(100))
       .then(() => {
-        system.view.emit('mouseup');
+        s.view.emit('mouseup');
 
-        expect(system.view.selectedNodes.length).to.equal(system.nodes.length);
+        expect(s.view.selectedNodes.length).to.equal(3);
       });
   });
 
   it('AddMenu', (done) => {
-    system.view.addMenu.show({ x: 200, y: 200 }).then((node) => {
-      expect(node).not.to.equal(undefined);
-      done();
+    cy.visit('/');
+    cy.wait(100).then(() => {
+      cy.window().then(({ system }) => {
+        system.view.addMenu.show({ x: 0, y: 0 }).then((node) => {
+          expect(node.attributes.name.toLowerCase()).to.contain('m');
+          done();
+        });
+
+        cy.focused().type('m');
+        system.view.emit('keydown', { key: 'ArrowDown' });
+        system.view.emit('keydown', { key: 'ArrowUp' });
+        cy.focused().type('{enter}');
+      });
     });
-    system.view.addMenu.search('m');
-    system.view.emit('keydown', { key: 'ArrowDown' });
-    system.view.emit('keydown', { key: 'ArrowUp' });
-    system.view.addMenu.resolve();
   });
 
   it('FloatingConnection', () => {
@@ -59,7 +69,6 @@ describe('View Layer Tests', () => {
     const { x, y } = system.outputNode.getInputs()[0].view;
 
     expect(() => {
-      console.log(node);
       system.view.createFloatingConnection(node.outputs[0]);
       system.view.handleMouseMove({
         clientX: x,

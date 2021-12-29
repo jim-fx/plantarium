@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 /* eslint-disable @typescript-eslint/no-var-requires */
-
 const fs = require('fs');
 const { exec } = require('child_process');
 const { existsSync } = require('fs');
@@ -53,7 +52,10 @@ async function init() {
         path: relative(process.cwd(), packagePath),
       };
     })
-    .filter(({ path }) => existsSync(path + '/.nyc_output'));
+    .filter(
+      ({ path }) =>
+        existsSync(path + '/.nyc_output') || existsSync(path + '/coverage'),
+    );
 
   generateMonorepoReport(packages);
 }
@@ -74,22 +76,22 @@ async function generateMonorepoReport(projects) {
   // in the root of the monorepo).
   const context = createContext({
     dir: 'coverage',
-    coverageMap: coverageMap,
+    coverageMap,
   });
-
-  console.table(projects);
 
   // Create and execute the report, passing in the expected options
   const htmlReport = createReport('istanbul-reporter-html-monorepo', {
-    reportTitle: '@Plantarium/',
-    projects: projects.map((p) => ({
-      path: p.path.replace('packages/', ''),
-      name: p.name.replace('@plantarium/', ''),
-    })),
-    relative: true,
+    reportTitle: '@plantarium',
+    base: 'packages',
+    projects: projects.map((p) => {
+      return {
+        ...p,
+        name: p.name.replace('@plantarium/', ''),
+        path: p.path.replace('packages/', ''),
+      };
+    }),
     defaultProjectName: false,
   });
   htmlReport.execute(context);
-
   createReport('lcov').execute(context);
 }

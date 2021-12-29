@@ -15,10 +15,7 @@
 </script>
 
 <div>
-  <output
-    class:isActive
-    style={`left: ${alpha * 100}%; transform: translateX(-${alpha * 66.66}%)`}
-  >
+  <output class:isActive style={`left: ${alpha * 100}%; transform: translateX(-${alpha * 66.66}%)`}>
     {value}
   </output>
 
@@ -36,8 +33,6 @@
 
 <style lang="scss">
   @use 'sass:math';
-
-  $thumbSize: 10px;
 
   div {
     position: relative;
@@ -64,8 +59,8 @@
     border-radius: 1.4px;
   }
   input[type='range']::-webkit-slider-thumb {
-    height: $thumbSize;
-    width: $thumbSize;
+    height: 10px;
+    width: 10px;
     border-radius: 50px;
     background: #4b4b4b;
     cursor: pointer;
@@ -89,8 +84,8 @@
     border: 0px solid rgba(1, 1, 1, 0);
   }
   input[type='range']::-moz-range-thumb {
-    height: $thumbSize;
-    width: $thumbSize;
+    height: 10px;
+    width: 10px;
     border-radius: 50px;
     background: #4b4b4b;
     cursor: pointer;
@@ -105,15 +100,15 @@
   }
   input[type='range']::-ms-fill-lower {
     background: #3e3e3e;
-    border-radius: math.div($thumbSize, 2);
+    border-radius: calc(10px / 2);
   }
   input[type='range']::-ms-fill-upper {
     background: #4b4b4b;
-    border-radius: math.div($thumbSize, 2);
+    border-radius: calc(10px / 2);
   }
   input[type='range']::-ms-thumb {
-    height: $thumbSize;
-    width: $thumbSize;
+    height: 10px;
+    width: 10px;
     border-radius: 50px;
     background: #4b4b4b;
     cursor: pointer;
