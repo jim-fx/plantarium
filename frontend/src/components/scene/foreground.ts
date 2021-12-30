@@ -11,8 +11,8 @@ import DebugScene from './debug';
 import { MatCapShader } from './shaders';
 import * as performance from "../../helpers/performance";
 
-const updateThumbnail = throttle((geo:TransferGeometry) => {
-  projectManager.renderThumbnail({geo})
+const updateThumbnail = throttle((geo: TransferGeometry) => {
+  projectManager.renderThumbnail({ geo })
 }, 5000);
 
 const log = logger('scene.foreground');
@@ -69,10 +69,6 @@ export default class ForegroundScene {
 
       performance.start("generate")
 
-    try {
-
-      performance.start("generate")
-
       const result =
         // eslint-disable-next-line
         //@ts-ignore
@@ -82,11 +78,11 @@ export default class ForegroundScene {
 
       performance.stop("generate")
 
-			if (!result) return;
+      if (!result) return;
 
       updateThumbnail(result.geometry);
 
-			this.scene.isLoading.set(false);
+      this.scene.isLoading.set(false);
 
       this.dbg.setPlant(result);
 
@@ -94,7 +90,7 @@ export default class ForegroundScene {
 
       this.mesh.geometry.computeBoundingBox();
 
-			this.mesh.geometry.computeBoundingBox();
+      this.mesh.geometry.computeBoundingBox();
       //throw new Error("asdasdasd");
 
       this.scene.renderer.setControlTarget(this.mesh.geometry.bounds.center);
@@ -111,10 +107,11 @@ export default class ForegroundScene {
           timeout: 0,
           title: 'Report Bug',
           type: 'error',
-          props: { mode: 'bug',error },
+          props: { mode: 'bug', error },
         })
       }
     }
 
   }
+
 }

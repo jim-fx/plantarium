@@ -31,7 +31,7 @@ export default function throttle<T>(_func: T, wait: number): T {
       result = func.apply(context, args);
       if (!timeout) context = args = null;
     } else if (!timeout) {
-      timeout = setTimeout(later, remaining);
+      timeout = setTimeout(later, remaining) as unknown as number;
     }
     return result;
   };

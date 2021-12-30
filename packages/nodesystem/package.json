@@ -31,18 +31,18 @@
   "devDependencies": {
     "@cypress/code-coverage": "^3.9.12",
     "@es-pack/esbuild-sass-plugin": "^2.0.1",
-    "@tsconfig/svelte": "^2.0.1",
+    "@tsconfig/svelte": "^3.0.0",
     "c8": "^7.10.0",
     "cypress": "^9.2.0",
-    "esbuild": "^0.12.29",
-    "esbuild-svelte": "^0.5.7",
+    "esbuild": "^0.14.9",
+    "esbuild-svelte": "^0.6.0",
     "npm-run-all": "^4.1.5",
-    "sirv-cli": "^1.0.14",
+    "sirv-cli": "^2.0.1",
     "source-map-support": "^0.5.21",
-    "svelte": "^3.44.2",
-    "svelte-preprocess": "^4.9.8",
+    "svelte": "^3.44.3",
+    "svelte-preprocess": "^4.10.1",
     "svelte-preprocess-esbuild": "^2.0.0",
-    "typescript": "^4.5.2",
+    "typescript": "^4.5.4",
     "wait-on": "^6.0.0"
   }
 }
