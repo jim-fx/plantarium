@@ -4,7 +4,7 @@ export enum MessageType {
   INFO = 'info',
   WARNING = 'warning',
   ERROR = 'error',
-  SUCCESS = 'success',
+  SUCCESS = 'success'
 }
 
 export interface Message {

@@ -13,8 +13,7 @@
     isBrowser && document.body.classList.remove('overlay-visible');
   }
 
-  $: isInverted =
-    alert && (alert.type === 'success' || alert.type === 'warning');
+  $: isInverted = alert && (alert.type === 'success' || alert.type === 'warning');
 
   function handleKeyDown(ev) {
     if (ev.key === 'Escape' && alert) {
@@ -25,12 +24,7 @@
 
 {#if alert}
   <div class="alert-container" transition:fade>
-    <div
-      class="alert-wrapper alert-{alert.type}"
-      transition:scale
-      class:isInverted
-    >
-
+    <div class="alert-wrapper alert-{alert.type}" transition:scale class:isInverted>
       <div class="close-wrapper">
         <Button
           icon="cross"
@@ -85,8 +79,8 @@
 
   .close-wrapper {
     position: absolute;
-		top:0px;
-		right: 0px;
+    top: 0px;
+    right: 0px;
   }
 
   h2 {
@@ -114,6 +108,4 @@
   .options-wrapper {
     padding-top: 20px;
   }
-
-
 </style>

@@ -6,7 +6,7 @@
 
   export let value = [
     { x: 0, y: 1, pinned: true },
-    { x: 1, y: 0, pinned: true },
+    { x: 1, y: 0, pinned: true }
   ];
   $: points = value;
 
@@ -58,7 +58,7 @@
       const point = {
         x: mousePosX / 100,
         y: mousePosY / 100,
-        pinned: false,
+        pinned: false
       };
 
       activePoint = point;
@@ -140,10 +140,10 @@
 <style lang="scss">
   @import './global.scss';
 
-	.component-wrapper{
-		width: 100px;
-		max-width: 100%;
-	}
+  .component-wrapper {
+    width: 100px;
+    max-width: 100%;
+  }
 
   svg > path {
     stroke: white;

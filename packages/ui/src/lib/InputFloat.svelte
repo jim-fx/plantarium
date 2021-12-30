@@ -6,7 +6,7 @@
   export let min = 0;
   export let max = 1;
 
-  function strip(number:string) {
+  function strip(number: string) {
     return parseFloat(number).toPrecision(2);
   }
 
@@ -68,10 +68,7 @@
 </script>
 
 <div class="component-wrapper" class:is-down={isMouseDown}>
-  <span
-    class="overlay"
-    style={`width: ${((value - min) / (max - min)) * 100}%`}
-  />
+  <span class="overlay" style={`width: ${((value - min) / (max - min)) * 100}%`} />
   <input
     bind:value
     bind:this={inputEl}

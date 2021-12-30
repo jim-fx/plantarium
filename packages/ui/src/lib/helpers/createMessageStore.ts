@@ -7,10 +7,7 @@ import { MessageType } from './IMessage';
 
 const createMessageFactory =
   (store: Writable<Message[]>) =>
-  (
-    content: string | Error | typeof SvelteComponent,
-    options: Partial<MessageOptions> = {},
-  ) => {
+  (content: string | Error | typeof SvelteComponent, options: Partial<MessageOptions> = {}) => {
     if (!content && !options) return;
 
     const hasValues = Array.isArray(options?.values);
@@ -22,16 +19,14 @@ const createMessageFactory =
       props: options.props,
       title: options?.title ?? options?.type,
       values: options?.values,
-      timeout: options?.timeout,
+      timeout: options?.timeout
     };
 
     const p = new Promise((_res, _rej) => {
       message.resolve = _res;
       message.reject = _rej;
     });
-    p.finally(() =>
-      store.update((msgs) => msgs.filter((m) => m.id !== message.id)),
-    );
+    p.finally(() => store.update((msgs) => msgs.filter((m) => m.id !== message.id)));
 
     // Find out type
 
@@ -47,7 +42,7 @@ const createMessageFactory =
     }
 
     if (typeof message.timeout === 'undefined') {
-      let timeout:number;
+      let timeout: number;
 
       if (message.type === MessageType.SUCCESS) {
         timeout = 3000;
@@ -67,8 +62,7 @@ const createMessageFactory =
     }
 
     if (!('title' in message)) {
-      message.title =
-        message.type.toUpperCase().slice(0, 1) + message.type.slice(1);
+      message.title = message.type.toUpperCase().slice(0, 1) + message.type.slice(1);
     }
 
     store.update((messages) => [...messages, message]);

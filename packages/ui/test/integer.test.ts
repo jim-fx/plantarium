@@ -4,37 +4,37 @@ import { fireEvent, cleanup, render, screen } from '@testing-library/svelte';
 const renderInput = (opts?: Record<string, unknown>) => render(InputInteger, opts);
 
 test('Should render the default value', async () => {
-	afterEach(() => cleanup());
+  afterEach(() => cleanup());
 
-	const value = 42;
+  const value = 42;
 
-	renderInput({ value });
+  renderInput({ value });
 
-	const input = (await screen.findByRole('spinbutton')) as HTMLInputElement;
+  const input = (await screen.findByRole('spinbutton')) as HTMLInputElement;
 
-	expect(+input.value).toEqual(value);
+  expect(+input.value).toEqual(value);
 });
 
 test('Increase in plus click', async () => {
-	renderInput({ value: 41 });
+  renderInput({ value: 41 });
 
-	const input = (await screen.findByRole('spinbutton')) as HTMLInputElement;
+  const input = (await screen.findByRole('spinbutton')) as HTMLInputElement;
 
-	const increaseButton = screen.queryByText('+') as HTMLButtonElement;
+  const increaseButton = screen.queryByText('+') as HTMLButtonElement;
 
-	await fireEvent.click(increaseButton);
+  await fireEvent.click(increaseButton);
 
-	expect(+input.value).toEqual(42);
+  expect(+input.value).toEqual(42);
 });
 
 test('Decrease on minus click', async () => {
-	renderInput({ value: 43 });
+  renderInput({ value: 43 });
 
-	const input = (await screen.findByRole('spinbutton')) as HTMLInputElement;
+  const input = (await screen.findByRole('spinbutton')) as HTMLInputElement;
 
-	const decreaseButton = screen.queryByText('-') as HTMLButtonElement;
+  const decreaseButton = screen.queryByText('-') as HTMLButtonElement;
 
-	await fireEvent.click(decreaseButton);
+  await fireEvent.click(decreaseButton);
 
-	expect(+input.value).toEqual(42);
+  expect(+input.value).toEqual(42);
 });

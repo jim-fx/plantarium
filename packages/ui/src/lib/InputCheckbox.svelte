@@ -17,20 +17,8 @@
   <label class="checkbox-label" for={id}>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
       <title>cross</title>
-      <line
-        vector-effect="non-scaling-stroke"
-        x1="0"
-        y1="100"
-        x2="100"
-        y2="0"
-      />
-      <line
-        vector-effect="non-scaling-stroke"
-        x1="0"
-        y1="0"
-        x2="100"
-        y2="100"
-      />
+      <line vector-effect="non-scaling-stroke" x1="0" y1="100" x2="100" y2="0" />
+      <line vector-effect="non-scaling-stroke" x1="0" y1="0" x2="100" y2="100" />
     </svg>
   </label>
 </div>
@@ -61,12 +49,11 @@
     width: 21px;
     position: absolute;
     cursor: pointer;
-  
-		display:flex;
-		align-items: center;
-    justify-content: center;
 
-	}
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   .component-wrapper {
     width: 21px;

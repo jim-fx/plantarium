@@ -54,11 +54,7 @@
     updateHuePicker();
   }
 
-  function removeEventListenerFromElement(
-    elementId,
-    eventName,
-    listenerCallback,
-  ) {
+  function removeEventListenerFromElement(elementId, eventName, listenerCallback) {
     let element = document.querySelector(elementId);
     if (element) element.removeEventListener(eventName, listenerCallback);
   }
@@ -74,16 +70,8 @@
   }
 
   function killTouchEvents() {
-    removeEventListenerFromElement(
-      '#alpha-event',
-      'touchstart',
-      alphaDownTouch,
-    );
-    removeEventListenerFromElement(
-      '#colorsquare-event',
-      'touchstart',
-      csDownTouch,
-    );
+    removeEventListenerFromElement('#alpha-event', 'touchstart', alphaDownTouch);
+    removeEventListenerFromElement('#colorsquare-event', 'touchstart', csDownTouch);
     removeEventListenerFromElement('#hue-event', 'touchstart', hueDownTouch);
     document.removeEventListener('touchend', mouseUp);
     document.removeEventListener('touchmove', touchMove);
@@ -108,7 +96,7 @@
       r: r,
       g: g,
       b: b,
-      a: a,
+      a: a
     });
   }
 
@@ -122,16 +110,8 @@
         case 'colorsquare-event':
           xPercentage = ((mouseX - trackedPos.x) / 240) * 100;
           yPercentage = ((mouseY - trackedPos.y) / 160) * 100;
-          xPercentage > 100
-            ? (xPercentage = 100)
-            : xPercentage < 0
-            ? (xPercentage = 0)
-            : null;
-          yPercentage > 100
-            ? (yPercentage = 100)
-            : yPercentage < 0
-            ? (yPercentage = 0)
-            : null;
+          xPercentage > 100 ? (xPercentage = 100) : xPercentage < 0 ? (xPercentage = 0) : null;
+          yPercentage > 100 ? (yPercentage = 100) : yPercentage < 0 ? (yPercentage = 0) : null;
           yPercentage = yPercentage.toFixed(2);
           xPercentage = xPercentage.toFixed(2);
           colorSquarePicker.style.top = yPercentage + '%';
@@ -142,11 +122,7 @@
           break;
         case 'hue-event':
           xPercentage = ((mouseX - 10 - trackedPos.x) / 220) * 100;
-          xPercentage > 100
-            ? (xPercentage = 100)
-            : xPercentage < 0
-            ? (xPercentage = 0)
-            : null;
+          xPercentage > 100 ? (xPercentage = 100) : xPercentage < 0 ? (xPercentage = 0) : null;
           xPercentage = xPercentage.toFixed(2);
           huePicker.style.left = xPercentage + '%';
           h = xPercentage / 100;
@@ -154,11 +130,7 @@
           break;
         case 'alpha-event':
           xPercentage = ((mouseX - 10 - trackedPos.x) / 220) * 100;
-          xPercentage > 100
-            ? (xPercentage = 100)
-            : xPercentage < 0
-            ? (xPercentage = 0)
-            : null;
+          xPercentage > 100 ? (xPercentage = 100) : xPercentage < 0 ? (xPercentage = 0) : null;
           xPercentage = xPercentage.toFixed(2);
           alphaPicker.style.left = xPercentage + '%';
           a = xPercentage / 100;
@@ -178,16 +150,8 @@
         case 'colorsquare-event':
           xPercentage = ((mouseX - trackedPos.x) / 240) * 100;
           yPercentage = ((mouseY - trackedPos.y) / 160) * 100;
-          xPercentage > 100
-            ? (xPercentage = 100)
-            : xPercentage < 0
-            ? (xPercentage = 0)
-            : null;
-          yPercentage > 100
-            ? (yPercentage = 100)
-            : yPercentage < 0
-            ? (yPercentage = 0)
-            : null;
+          xPercentage > 100 ? (xPercentage = 100) : xPercentage < 0 ? (xPercentage = 0) : null;
+          yPercentage > 100 ? (yPercentage = 100) : yPercentage < 0 ? (yPercentage = 0) : null;
           yPercentage = yPercentage.toFixed(2);
           xPercentage = xPercentage.toFixed(2);
           colorSquarePicker.style.top = yPercentage + '%';
@@ -198,11 +162,7 @@
           break;
         case 'hue-event':
           xPercentage = ((mouseX - 10 - trackedPos.x) / 220) * 100;
-          xPercentage > 100
-            ? (xPercentage = 100)
-            : xPercentage < 0
-            ? (xPercentage = 0)
-            : null;
+          xPercentage > 100 ? (xPercentage = 100) : xPercentage < 0 ? (xPercentage = 0) : null;
           xPercentage = xPercentage.toFixed(2);
           huePicker.style.left = xPercentage + '%';
           h = xPercentage / 100;
@@ -210,11 +170,7 @@
           break;
         case 'alpha-event':
           xPercentage = ((mouseX - 10 - trackedPos.x) / 220) * 100;
-          xPercentage > 100
-            ? (xPercentage = 100)
-            : xPercentage < 0
-            ? (xPercentage = 0)
-            : null;
+          xPercentage > 100 ? (xPercentage = 100) : xPercentage < 0 ? (xPercentage = 0) : null;
           xPercentage = xPercentage.toFixed(2);
           alphaPicker.style.left = xPercentage + '%';
           a = xPercentage / 100;
@@ -420,11 +376,7 @@
       <div class="saturation-gradient">
         <div class="value-gradient">
           <div id="colorsquare-picker" bind:this={colorSquarePicker} />
-          <div
-            id="colorsquare-event"
-            on:mousedown={csDown}
-            on:touchstart={csDownTouch}
-          />
+          <div id="colorsquare-event" on:mousedown={csDown} on:touchstart={csDownTouch} />
         </div>
       </div>
     </div>
@@ -438,11 +390,7 @@
       <div class="alpha-selector">
         <div class="alpha-value" />
         <div id="alpha-picker" bind:this={alphaPicker} />
-        <div
-          id="alpha-event"
-          on:mousedown={alphaDown}
-          on:touchstart={alphaDownTouch}
-        />
+        <div id="alpha-event" on:mousedown={alphaDown} on:touchstart={alphaDownTouch} />
       </div>
     {/if}
 
@@ -485,11 +433,7 @@
   }
 
   .saturation-gradient {
-    background: linear-gradient(
-      to right,
-      rgb(255, 255, 255),
-      rgba(255, 255, 255, 0)
-    );
+    background: linear-gradient(to right, rgb(255, 255, 255), rgba(255, 255, 255, 0));
     width: 240px;
     height: 160px;
   }

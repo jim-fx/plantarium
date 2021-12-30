@@ -1,9 +1,8 @@
 import adapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
-import path from "path";
+import path from 'path';
 
 const { BASE_PATH = '' } = process.env;
-
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -11,11 +10,10 @@ const config = {
   // for more information about preprocessors
   preprocess: preprocess(),
 
-
   kit: {
     adapter: adapter(),
 
-    paths:{
+    paths: {
       base: BASE_PATH
     },
 
@@ -23,18 +21,18 @@ const config = {
     target: '#svelte',
     vite: {
       server: {
-        host: "0.0.0.0",
+        host: '0.0.0.0',
         port: 8085
       },
       optimizeDeps: {
-        include: ["highlight.js/lib/core"],
+        include: ['highlight.js/lib/core']
       },
       ssr: {
-        noExternal: ["ogl"]
+        noExternal: ['ogl']
       },
       resolve: {
         alias: {
-          "@plantarium/ui": path.resolve("src/lib")
+          '@plantarium/ui': path.resolve('src/lib')
         }
       }
     }

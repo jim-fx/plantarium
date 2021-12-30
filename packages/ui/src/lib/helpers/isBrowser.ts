@@ -1,5 +1,5 @@
-function getBrowser(){
-  return "window" in globalThis
+function getBrowser() {
+  return 'window' in globalThis;
 }
 
-export const isBrowser = getBrowser()
+export const isBrowser = getBrowser();
