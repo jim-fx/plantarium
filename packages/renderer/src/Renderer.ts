@@ -83,17 +83,6 @@ export default class Renderer extends EventEmitter {
         rotateSpeed: 0.5,
         inertia: 0.5,
       });
-
-      let isMouseDown = false;
-      canvas.addEventListener("mousedown", () => {
-        isMouseDown = true;
-      })
-      canvas.addEventListener("mouseup", () => {
-        isMouseDown = false;
-      })
-      canvas.addEventListener("mousemove", () => {
-      })
-
     }
 
     this.bindEventlisteners();
@@ -133,20 +122,19 @@ export default class Renderer extends EventEmitter {
       this.emit('camPos', this.camera.position.toArray());
     }
 
-    let camChanged = false
 
     if (this.controlTarget) {
       if (this.controlTarget.squaredDistance(this.controls.target) < 0.00005) {
         this.controls.target = this.controlTarget;
       } else {
-        camChanged = true;
+        this.needsRender = true;
         this.controls.target.lerp(this.controlTarget, 0.05);
       }
     }
 
     this.controls.update();
 
-    if (this.autoRender || (this.needsRender || camChanged)) {
+    if (this.autoRender || this.needsRender) {
       this.renderer.render({ scene: this.scene, camera: this.camera });
       this.needsRender = false;
       this.emit("perf", performance.now() - a)

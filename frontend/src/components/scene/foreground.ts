@@ -72,7 +72,7 @@ export default class ForegroundScene {
       const result =
         // eslint-disable-next-line
         //@ts-ignore
-        import.meta.env.MODE === 'development'
+        (import.meta.env.MODE === 'development' && false)
           ? plant(p, s)
           : await this.worker.plant(p, s);
 

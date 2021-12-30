@@ -17,6 +17,7 @@
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "nyc": "^15.1.0",
     "ogl": "^0.0.76",
+    "svelte": "^3.44.2",
     "ts-eager": "^2.0.2",
     "uvu": "^0.5.2"
   }

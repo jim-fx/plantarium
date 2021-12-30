@@ -19,7 +19,11 @@
   let unsub;
   $: if (projectManager) {
     unsub && unsub();
-    unsub = projectManager.on('save', (plant) => (pd = plant));
+    unsub = projectManager.on('save', (plant) => {
+      const _pd = JSON.parse(JSON.stringify(plant));
+      _pd.meta.thumbnail = '';
+      pd = _pd;
+    });
   }
   let settings: Writable<PlantariumSettings>;
   $: if (settingsManager) {
@@ -62,6 +66,12 @@
       <p>Is Loading</p>
     </div>
   {/if}
+
+  {#if $settings?.debug?.showLogs}
+    <div class="log-wrapper">
+      <h2>Logs:</h2>
+    </div>
+  {/if}
 </div>
 
 <style lang="scss">
@@ -87,6 +97,13 @@
     bottom: 0px;
   }
 
+  .log-wrapper {
+    max-height: 30%;
+    position: absolute;
+    bottom: 0px;
+    z-index: 2;
+  }
+
   .scene-wrapper > canvas {
     width: 100% !important;
     height: 100% !important;
@@ -105,9 +122,16 @@
     z-index: 99;
   }
 
+  code {
+    max-width: 80%;
+    text-overflow: ellipsis;
+  }
+
   pre {
     position: absolute;
     font-size: 0.8em;
+    overflow-x: auto;
+    max-width: 40%;
     max-height: calc(100% - 30px);
     overflow-y: auto;
     right: 0;

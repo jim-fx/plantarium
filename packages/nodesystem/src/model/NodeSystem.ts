@@ -57,7 +57,7 @@ export default class NodeSystem extends EventEmitter {
 
     try {
       this.log = new Logger(this, logLevel);
-      this.log.group(`Instantiated id:${this.id}`);
+      this.log.log(`Instantiated id:${this.id}`);
       this.store = new NodeTypeStore();
       this.factory = new NodeFactory(this);
 

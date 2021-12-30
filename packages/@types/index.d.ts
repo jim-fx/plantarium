@@ -178,6 +178,7 @@ interface PlantariumSettings {
   forceUpdate: boolean;
 
   debug: {
+    showLogs: boolean;
     wireframe: boolean;
     indices: boolean;
     renderPerf: boolean;

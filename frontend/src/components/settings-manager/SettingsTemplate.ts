@@ -18,6 +18,10 @@ const template: SettingsTemplate = {
         //type: 'boolean',
         //defaultValue: false,
       //},
+      showLogs: {
+        type: "boolean",
+        defaultValue: false
+      },
       renderPerf: {
         type: "boolean",
         defaultValue: false,

@@ -72,11 +72,6 @@ export default class Logger {
     }
   }
 
-  group(message: string) {
-    this.output.group(message);
-    this.isGrouped = true;
-  }
-
   groupEnd() {
     // tslint:disable-next-line
     console.groupEnd();
