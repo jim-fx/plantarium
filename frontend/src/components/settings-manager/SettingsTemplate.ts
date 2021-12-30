@@ -13,21 +13,18 @@ const template: SettingsTemplate = {
     defaultValue: 'dark',
   },
   debug: {
+    onlyDev: true,
     options: {
       //reportError: {
-        //type: 'boolean',
-        //defaultValue: false,
+      //type: 'boolean',
+      //defaultValue: false,
       //},
-      showLogs: {
-        type: "boolean",
-        defaultValue: false
-      },
       renderPerf: {
-        type: "boolean",
+        type: 'boolean',
         defaultValue: false,
       },
       generatePerf: {
-        type: "boolean",
+        type: 'boolean',
         defaultValue: false,
       },
       pd: {
@@ -50,13 +47,20 @@ const template: SettingsTemplate = {
       },
     },
   },
-  ground: {
+  background: {
     options: {
-      enabled: {
+      grid: {
+        label: 'Show Grid',
+        type: 'boolean',
+        defaultValue: false,
+      },
+      ground: {
+        label: 'Show Ground',
         type: 'boolean',
         defaultValue: true,
       },
       resX: {
+        onlyDev: true,
         type: 'number',
         min: 8,
         max: 64,
@@ -64,6 +68,7 @@ const template: SettingsTemplate = {
         defaultValue: 8,
       },
       resY: {
+        onlyDev: true,
         type: 'number',
         min: 8,
         max: 64,
@@ -80,6 +85,7 @@ const template: SettingsTemplate = {
     },
   },
   leafRes: {
+    onlyDev: true,
     type: 'number',
     min: 3,
     max: 12,
@@ -87,6 +93,7 @@ const template: SettingsTemplate = {
     defaultValue: 2,
   },
   stemResX: {
+    onlyDev: true,
     type: 'number',
     min: 3,
     max: 32,
@@ -94,11 +101,17 @@ const template: SettingsTemplate = {
     defaultValue: 3,
   },
   stemResY: {
+    onlyDev: true,
     type: 'number',
     min: 3,
     max: 64,
     step: 1,
     defaultValue: 32,
+  },
+  isDev: {
+    label: 'Advanced',
+    type: 'boolean',
+    defaultValue: false,
   },
 };
 

@@ -28,10 +28,10 @@ export class ReportController {
     return this.reportService.getById(id);
   }
 
-	@Get('/:id')
-	public getReportById(@Param('id') id: string) {
-		return this.reportService.getById(id);
-	}
+  @Get()
+  public getReports(): Promise<Report[]> {
+    return this.reportService.getAll();
+  }
 
   @Delete('/:id')
   @Permissions(Permission['report.delete'])

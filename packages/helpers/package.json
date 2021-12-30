@@ -5,8 +5,8 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "test": "uvu -r ts-eager/register tests",
-    "coverage": "nyc pnpm test",
+    "test": "vitest --run",
+    "coverage": "c8 vitest --run",
     "clean": "rm -rf coverage .nyc_output .eslintcache",
     "lint": "eslint src/**/* --cache"
   },
@@ -14,11 +14,10 @@
     "file-saver": "^2.0.5"
   },
   "devDependencies": {
-    "@istanbuljs/nyc-config-typescript": "^1.0.1",
-    "nyc": "^15.1.0",
+    "c8": "^7.10.0",
     "ogl": "^0.0.76",
     "svelte": "^3.44.2",
     "ts-eager": "^2.0.2",
-    "uvu": "^0.5.2"
+    "vitest": "^0.0.118"
   }
 }

@@ -4,6 +4,7 @@ import NodeSystemView from '../view/NodeSystemView';
 import Logger from './Logger';
 import type Node from './Node';
 import NodeFactory from './NodeFactory';
+import NodeHistory from './NodeHistory';
 import NodeParser from './NodeParser';
 import type NodeType from './NodeType';
 import NodeTypeStore from './NodeTypeStore';
@@ -29,8 +30,9 @@ export default class NodeSystem extends EventEmitter {
   outputNode!: Node;
   factory: NodeFactory;
   store: NodeTypeStore;
-
   log: Logger;
+  history: NodeHistory;
+
   isLoaded = false;
   isPaused = false;
 
@@ -60,6 +62,7 @@ export default class NodeSystem extends EventEmitter {
       this.log.log(`Instantiated id:${this.id}`);
       this.store = new NodeTypeStore();
       this.factory = new NodeFactory(this);
+      this.history = new NodeHistory(this);
 
       if (view) {
         this.view = new NodeSystemView(this);
@@ -118,12 +121,16 @@ export default class NodeSystem extends EventEmitter {
       this.addNodes(nodes);
       this.meta = systemData.meta || { lastSaved: 0 };
       this.meta.lastSaved = Date.now();
-      if (this.view) this.view.setTransform(this.meta.transform);
+      this?.view?.setTransform(this.meta.transform);
 
       this.log.info(
         `Loaded NodeSystemData with ${nodes.length} Nodes`,
         systemData,
       );
+
+      if ('history' in systemData) {
+        this.history.deserialize(systemData.history);
+      }
 
       this.isPaused = false;
       this.isLoaded = true;
@@ -139,6 +146,7 @@ export default class NodeSystem extends EventEmitter {
   serialize() {
     return {
       ...this.parser.getData(),
+      history: this.history.serialize(),
       meta: this.meta,
     };
   }
@@ -152,16 +160,29 @@ export default class NodeSystem extends EventEmitter {
     }
   }
 
+  setOutputNode(node: Node) {
+    if (this.outputNode) {
+      this.outputNode.remove();
+    }
+    this.outputNode = node;
+    node.on('computedData', (data) => (this.result = data));
+  }
+
   addNodes(nodes: Node[]) {
     nodes.forEach((n) => this.addNode(n));
   }
 
   addNode(node: Node) {
+    this.history.addAction();
     this.nodes.push(node);
     this.save();
   }
 
   removeNode(node: Node) {
+    this.history.addAction();
+
+    node.enableUpdates = false;
+
     node.view.remove();
 
     Object.values(node.states).forEach((i) => i.remove());
@@ -227,6 +248,10 @@ export default class NodeSystem extends EventEmitter {
 
   getNodes() {
     return this.nodes;
+  }
+
+  findNodeById(id: string) {
+    return this.nodes.filter((node) => node.id === id)[0];
   }
 
   getNodeTypes(): NodeType[] {

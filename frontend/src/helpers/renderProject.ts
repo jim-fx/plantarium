@@ -7,7 +7,12 @@ import { Box, Mesh } from 'ogl';
 import { MatCapShader } from '../components/scene/shaders';
 
 const webWorker = worker();
-const renderer = new Renderer({ width: 100, height: 100, alpha: true, clearColor: "000" });
+const renderer = new Renderer({
+  width: 100,
+  height: 100,
+  alpha: true,
+  clearColor: '000',
+});
 const nodeSystem = new NodeSystem({
   view: false,
   defaultNodes: false,
@@ -19,31 +24,38 @@ const mesh = new Mesh(renderer.gl, {
   program: MatCapShader(renderer.gl),
 });
 
-const renderCanvas = document.createElement("canvas");
+const renderCanvas = document.createElement('canvas');
 renderCanvas.width = renderCanvas.height = 100;
-const ctx = renderCanvas.getContext("2d");
+const ctx = renderCanvas.getContext('2d');
 
 mesh.setParent(renderer.scene);
 
-export default async function({ pd, geo }: { pd?: PlantProject, geo?: TransferGeometry }) {
+export default async function ({
+  pd,
+  geo,
+}: {
+  pd?: PlantProject;
+  geo?: TransferGeometry;
+}) {
   nodeSystem.load(pd);
 
   const nodeResult = nodeSystem.result as NodeResult;
 
-  let _geometry:TransferGeometry;
+  let _geometry: TransferGeometry;
 
-  if(geo){
+  if (geo) {
     _geometry = geo;
   }
-  
+
   if (pd && !_geometry) {
-    const result = (await (await webWorker).plant(nodeResult, {
+    const result = (await (
+      await webWorker
+    ).plant(nodeResult, {
       stemResX: 12,
       stemResY: 12,
     })) as TransferGeometry;
 
-
-    _geometry = result.geometry
+    _geometry = result.geometry;
   }
 
   if (!_geometry) return;
@@ -55,8 +67,10 @@ export default async function({ pd, geo }: { pd?: PlantProject, geo?: TransferGe
   // Make the bounding box of the plant fill the viewport of the camera
   renderer.camera.position.x = mesh.geometry.bounds.center.x;
   renderer.camera.position.y = mesh.geometry.bounds.center.y;
-  const boundingHeight = (mesh.geometry.bounds.max.y - mesh.geometry.bounds.center.y) * 2;
-  const camDistance = boundingHeight / 2 / Math.tan(Math.PI * renderer.camera.fov / 360);
+  const boundingHeight =
+    (mesh.geometry.bounds.max.y - mesh.geometry.bounds.center.y) * 2;
+  const camDistance =
+    boundingHeight / 2 / Math.tan((Math.PI * renderer.camera.fov) / 360);
   renderer.camera.position.z = camDistance;
 
   renderer.camera.lookAt(mesh.geometry.bounds.center);
@@ -64,14 +78,13 @@ export default async function({ pd, geo }: { pd?: PlantProject, geo?: TransferGe
   renderer.renderScene(renderer.scene);
 
   ctx.clearRect(0, 0, 100, 100);
-  for(let i = 0; i < 10; i++){
-    ctx.drawImage(renderCanvas,0, 0)
+  for (let i = 0; i < 1; i++) {
+    ctx.drawImage(renderCanvas, 0, 0);
     ctx.drawImage(renderer.canvas, 0, 0);
-    ctx.filter = "blur(7px) opacity(0.6) brightness(0.95)";
+    ctx.filter = 'blur(7px) opacity(0.6) brightness(0.95)';
   }
-  ctx.filter = "blur(0px) drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.8))";
+  ctx.filter = 'blur(0px) drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.8))';
   ctx.drawImage(renderer.canvas, 0, 0);
 
-  return renderCanvas.toDataURL("image/webp", 1.0)
-
+  return renderCanvas.toDataURL('image/webp', 1.0);
 }

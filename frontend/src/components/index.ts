@@ -1,17 +1,19 @@
 import Nodes from '@plantarium/nodes';
 import { NodeSystem } from '@plantarium/nodesystem';
-import { setTheme } from '@plantarium/theme';
+import { setTheme, ThemeStore } from '@plantarium/theme';
 import { createToast } from '@plantarium/ui';
 import { ProjectManager } from './project-manager';
 import { SettingsManager } from './settings-manager';
 import { Tutor } from './tutor';
-import * as performance from "../helpers/performance";
+import * as performance from '../helpers/performance';
+import { compute_rest_props } from 'svelte/internal';
+import { get } from 'svelte/store';
 
 const settingsManager = new SettingsManager();
 const projectManager = new ProjectManager();
 
 setTheme(settingsManager.get('theme'));
-performance.setSettings({debug: settingsManager.get("debug")});
+performance.setSettings(settingsManager.getSettings());
 
 settingsManager.on('enableSync.update', (v) => {
   createToast(`${v ? 'Enabled' : 'Disabled'} sync`, { type: 'success' });
@@ -31,11 +33,16 @@ projectManager.on('load', (project) => nodeSystem.load(project));
 
 nodeSystem.on('result', (p: NodeResult) => projectManager.setProject(p), 50);
 
-nodeSystem.on('save', (project: PlantProject) => projectManager.saveProject(project));
+nodeSystem.on('save', (project: PlantProject) =>
+  projectManager.saveProject(project),
+);
 
 settingsManager.on(
   'settings',
-  (s: PlantariumSettings) => { projectManager.setSettings(s); performance.setSettings(s) },
+  (s: PlantariumSettings) => {
+    projectManager.setSettings(s);
+    performance.setSettings(s);
+  },
   50,
 );
 

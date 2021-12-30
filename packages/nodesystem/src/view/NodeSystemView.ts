@@ -86,7 +86,7 @@ export default class NodeSystemView extends EventEmitter {
     this.svg.setAttribute('width', '1');
     this.svg.setAttribute('preserveAspectRatio', 'none');
     //The next line works on some browsers but pt all
-		this.svg.style.transform = `scale(${window.devicePixelRatio ?? 1})`;
+    this.svg.style.transform = `scale(${window.devicePixelRatio ?? 1})`;
     this.transformWrapper.appendChild(this.svg);
 
     this.addMenu = new AddMenu(this);
@@ -99,9 +99,6 @@ export default class NodeSystemView extends EventEmitter {
 
     this.bindEventListeners();
     this.handleResize();
-    setTimeout(() => {
-      this.setTransform({ x: 0, y: 0, s: 1 });
-    }, 1);
   }
 
   createFloatingConnection(socket: NodeInput | NodeOutput) {
@@ -231,12 +228,30 @@ export default class NodeSystemView extends EventEmitter {
     this.panzoom.setTransform(x, y, s / this.dpr);
   }
 
+  private showAddMenu() {
+    this.addMenu
+      .show({
+        x: this.rmx,
+        y: this.rmy,
+      })
+      .then((props) => {
+        const node = this.system.createNode(props);
+        this.setActive(node);
+      })
+      .catch();
+  }
+
   bindEventListeners() {
     window.addEventListener('keydown', (ev) => this.handleKeyDown(ev));
     window.addEventListener('keyup', (ev) => this.handleKeyUp(ev));
     this.wrapper.addEventListener('mousemove', (ev) =>
       this.handleMouseMove(ev),
     );
+
+    this.wrapper.addEventListener('contextmenu', (ev) => {
+      ev.preventDefault();
+      this.showAddMenu();
+    });
 
     this.wrapper.addEventListener('mousedown', (ev) =>
       this.handleMouseDown(ev),
@@ -258,11 +273,14 @@ export default class NodeSystemView extends EventEmitter {
         this.x = x;
         this.y = y;
         this.s = s;
-        this.wrapper.style.backgroundPosition = `${x}px ${y}px`;
-        this.wrapper.style.backgroundSize =
-          s * this.height * 0.02 + '% ' + s * this.width * 0.02 + '%';
-        this.wrapper.style.backgroundOrigin = `${x}px ${y}px`;
-        window['t'] = { x, y, s };
+        const alpha = (s - 0.2) / 5 / 2;
+        const sx = s * this.height * 0.02;
+        const sy = s * this.width * 0.02;
+        this.wrapper.style.setProperty('--scale', Math.abs(alpha) + '');
+        this.wrapper.style.setProperty('--scale-x', sx + '%');
+        this.wrapper.style.setProperty('--scale-y', sy + '%');
+        this.wrapper.style.setProperty('--pos-x', `${x}px`);
+        this.wrapper.style.setProperty('--pos-y', `${y}px`);
         this.system.setMetaData({ transform: { x, y, s } });
       },
     });
@@ -302,6 +320,11 @@ export default class NodeSystemView extends EventEmitter {
     const { shiftKey, ctrlKey, clientX, clientY, button, target } = ev;
 
     if (!shiftKey) this.setActive();
+
+    if (ev['path'] && ![...ev['path']].includes(this.addMenu.wrapper)) {
+      this.addMenu.hide();
+      ev.preventDefault();
+    }
 
     this.mouseDown = true;
 
@@ -362,17 +385,12 @@ export default class NodeSystemView extends EventEmitter {
       this.ev && this.handleMouseDown(this.ev);
     }
     switch (key) {
+      case 'escape':
+        this.addMenu.hide();
+        break;
       case 'a':
         if (shiftKey) {
-          this.addMenu
-            .show({
-              x: this.rmx,
-              y: this.rmy,
-            })
-            .then((props) => {
-              this.system.createNode(props);
-            })
-            .catch();
+          this.showAddMenu();
         }
         break;
       case 'c':
@@ -416,6 +434,15 @@ export default class NodeSystemView extends EventEmitter {
         break;
       // z
       case 'z':
+        if (this.system.history) {
+          if (ctrlKey) {
+            if (shiftKey) {
+              this.system.history.redo();
+            } else {
+              this.system.history.undo();
+            }
+          }
+        }
         break;
       // l
       case 'l':

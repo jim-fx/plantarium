@@ -37,7 +37,7 @@ jobs:
           push: ${{ github.ref == 'refs/heads/main' }}
 
       - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }} 
+        run: echo ${{ steps.docker_build.outputs.digest }}
   deploy_gh_pages:
     runs-on: ubuntu-latest
     steps:
@@ -50,22 +50,32 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-
-      
+
       - uses: pnpm/action-setup@v2.0.1
         with:
           version: 6.0.2
           run_install: true
 
-      - run: "pnpm frontend:build"
+      - run: 'pnpm frontend:build'
         env:
-          VITE_API_URL: "https://plant-api.jim-fx.com"
+          VITE_API_URL: 'https://plant-api.jim-fx.com'
 
-      - run: "pnpm admin:build"
+      - run: 'pnpm nodes:build'
+        name: "Build Node Interface"
+
+      - run: "pnpm ui:build"
+        name: "Build UI Components"
         env:
-          VITE_API_URL: "https://plant-api.jim-fx.com"
+          BASE_PATH: "/ui"
+
+      - run: 'pnpm admin:build'
+        env:
+          VITE_API_URL: 'https://plant-api.jim-fx.com'
           BASE_PATH: /admin
 
-      - run: "cp -r admin/build frontend/dist/admin"
+      - run: 'cp -r admin/build frontend/dist/admin'
+      - run: 'cp -r packages/ui/build frontend/dist/ui'
+      - run: 'cp -r packages/nodesystem/public frontend/dist/nodes'
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5

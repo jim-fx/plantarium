@@ -11,7 +11,7 @@ import DebugScene from './debug';
 import { MatCapShader } from './shaders';
 import * as performance from "../../helpers/performance";
 
-const updateThumbnail:(geo:TransferGeometry) => void = throttle((geo:TransferGeometry) => {
+const updateThumbnail = throttle((geo:TransferGeometry) => {
   projectManager.renderThumbnail({geo})
 }, 5000);
 
@@ -69,10 +69,14 @@ export default class ForegroundScene {
 
       performance.start("generate")
 
+    try {
+
+      performance.start("generate")
+
       const result =
         // eslint-disable-next-line
         //@ts-ignore
-        (import.meta.env.MODE === 'development' && false)
+        import.meta.env.MODE === 'development'
           ? plant(p, s)
           : await this.worker.plant(p, s);
 
@@ -91,10 +95,9 @@ export default class ForegroundScene {
       this.mesh.geometry.computeBoundingBox();
 
 			this.mesh.geometry.computeBoundingBox();
+      //throw new Error("asdasdasd");
 
       this.scene.renderer.setControlTarget(this.mesh.geometry.bounds.center);
-
-      this.scene.renderer.needsRender = true;
     } catch (error) {
       log.error(error);
       const res = await createToast(error, {

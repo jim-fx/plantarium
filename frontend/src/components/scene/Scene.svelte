@@ -97,13 +97,6 @@
     bottom: 0px;
   }
 
-  .log-wrapper {
-    max-height: 30%;
-    position: absolute;
-    bottom: 0px;
-    z-index: 2;
-  }
-
   .scene-wrapper > canvas {
     width: 100% !important;
     height: 100% !important;
