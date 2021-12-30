@@ -72,8 +72,8 @@ const picker = {
       type: 'number',
     },
   },
-  compute: function ({ selectFirst = true, input1 = 0, input2 = 0 }) {
-    return selectFirst ? input1 : input2;
+  compute: function ({ selectFirst = true, inputA = 0, inputB = 0 }) {
+    return selectFirst ? inputA : inputB;
   },
 };
 
@@ -84,20 +84,18 @@ const slider = {
   parameters: {
     value: {
       type: 'number',
-      label: false,
-      inputType: 'slider',
       internal: true,
+      label: false,
+      defaultValue: 0,
+      inputType: 'slider',
       min: 0,
       max: 1,
       step: 0.01,
       value: 0,
     },
   },
-  computeNode(parameters) {
-    return {
-      type: 'slider',
-      parameters,
-    };
+  compute({ value = 0 }) {
+    return value;
   },
 };
 

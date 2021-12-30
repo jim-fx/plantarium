@@ -5,6 +5,9 @@
     "lib": ["ES2019", "DOM"],
     "sourceMap": true,
     "module": "ESNEXT",
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "paths": {
+      "@plantarium/*": ["./packages/*"]
+    }
   }
 }

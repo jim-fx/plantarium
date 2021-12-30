@@ -1,5 +1,5 @@
 {
-  "extends": "../../.nycrc",
+  "all":true,
   "sourceMap": true,
   "produce-source-map": true,
   "reporter": [

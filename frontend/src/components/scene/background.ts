@@ -1,6 +1,7 @@
 import { ground } from '@plantarium/generator';
 import { transferToGeometry } from '@plantarium/geometry';
 import { loader } from '@plantarium/helpers';
+import { ThemeStore } from '@plantarium/theme';
 import { Color, Mesh, Plane, Program } from 'ogl';
 import type Scene from '.';
 import { settingsManager } from '..';
@@ -12,7 +13,7 @@ const createGround = (
   settings: PlantariumSettings,
 ) => {
   const {
-    ground: { scale: _scale = 1, resX: _resX = 16, resY: _resY = 16 } = {},
+    background: { scale: _scale = 1, resX: _resX = 16, resY: _resY = 16 } = {},
   } = settings || {};
 
   const scale = _scale ?? 0;
@@ -64,6 +65,9 @@ export default class BackgroundScene {
         texScale: { value: 1 },
       },
     });
+    ThemeStore.subscribe((t) => {
+      groundShader.uniforms.uFogColor.value = new Color(t['background-color']);
+    });
     this.ground = this.scene.addMesh({
       geometry: groundGeometry,
       program: groundShader,
@@ -80,9 +84,9 @@ export default class BackgroundScene {
   setSettings(settings: PlantariumSettings) {
     this.settings = settings;
 
-    if (settings?.ground?.enabled) {
+    if (settings?.background?.ground) {
       this.ground.geometry = createGround(this.gl, settings);
     }
-    this.ground.visible = !!settings?.ground?.enabled;
+    this.ground.visible = !!settings?.background?.ground;
   }
 }

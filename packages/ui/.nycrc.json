@@ -1,0 +1,7 @@
+{
+  "clean": true,
+  "all": true,
+  "extension": [".svelte", ".ts"],
+  "include": ["src/lib/**/*.svelte", "src/lib/*.svelte", "src/lib/**/*.ts", "src/lib/*.ts"],
+  "reporter": ["json"]
+}

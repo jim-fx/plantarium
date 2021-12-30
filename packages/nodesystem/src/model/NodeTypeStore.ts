@@ -27,8 +27,8 @@ export default class NodeTypeStore extends EventEmitter {
   }
 
   getByName(name: string) {
+    if (name.toLowerCase() in this.typeMap) return this.typeMap[name.toLowerCase()]
     if (name in this.typeMap) return this.typeMap[name];
-
     throw new Error('NodeTypeStore: type ' + name + ' does not exist');
   }
 }

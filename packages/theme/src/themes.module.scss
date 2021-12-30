@@ -8,6 +8,9 @@ $light-green: #65e2a0;
 $yellow: #fffd7b;
 $light-red: #e26565;
 $border-radius: 2px;
+$green-light: #65e2a0;
+$green-dark: #469c6e;
+$green-gradient: linear-gradient(to right, $green-light, $green-dark);
 
 $themes: (
   dark: (

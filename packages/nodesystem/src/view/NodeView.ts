@@ -69,15 +69,20 @@ export default class NodeView {
     node.system.view.nodeContainer.append(this.wrapper);
 
     const { pos: { x = 0, y = 0 } = {} } = node.attributes;
+    this.x = x;
+    this.y = y;
 
     this.bindEventListeners();
+
+    this.wrapper.style.left = x + 'px';
+    this.wrapper.style.top = y + 'px';
 
     setTimeout(() => {
       const { width, height } = this.wrapper.getBoundingClientRect();
       this.width = width / this.system.view.s;
       this.height = height / this.system.view.s;
-      this.setPosition(x, y);
-    }, 100);
+      this.updateViewPosition(x, y);
+    }, 10);
   }
 
   bindEventListeners() {
@@ -182,16 +187,23 @@ export default class NodeView {
     }
   }
 
+  updateViewPosition(
+    x = this.node.attributes?.pos?.x ?? this.x,
+    y = this.node.attributes?.pos?.y ?? this.y,
+  ) {
+    this.wrapper.style.left = x + 'px';
+    this.wrapper.style.top = y + 'px';
+    Object.values(this.node.states).forEach((s) => s?.view?.updatePosition());
+    this.node.outputs.forEach((o) => o.view.updatePosition());
+  }
+
   setPosition(x: number, y: number) {
     this.x = x;
     this.y = y;
 
-    this.wrapper.style.left = x + 'px';
-    this.wrapper.style.top = y + 'px';
-
-    Object.values(this.node.states).forEach((s) => s?.view?.updatePosition());
-    this.node.outputs.forEach((o) => o.view.updatePosition());
     this.node.setAttributes({ pos: { x, y } });
+
+    this.updateViewPosition();
   }
 
   remove() {
