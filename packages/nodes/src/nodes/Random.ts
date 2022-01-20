@@ -25,7 +25,6 @@ const node: PlantNode = {
 
     if (max) {
       const v = min + ctx.n1dn(200) * Math.abs(max - min);
-      console.log(v);
       return v;
     }
     return 0;

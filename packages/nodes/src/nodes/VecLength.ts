@@ -10,7 +10,7 @@ const node: PlantNode = {
       defaultValue: 0,
     },
   },
-  computeValue(parameters, ctx) {
+  computeValue(parameters) {
     const { vec } = parameters;
 
     if (vec) {
