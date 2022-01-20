@@ -15,8 +15,8 @@
   let inputEl: HTMLInputElement;
   $: value !== undefined && dispatch('change', parseFloat(value + ''));
 
-  $: if (value.toString().length > 5) {
-    value = strip(value);
+  $: if ((value || 0).toString().length > 5) {
+    value = strip(value || 0);
   }
 
   $: width = Number.isFinite(value)
@@ -54,6 +54,14 @@
       inputEl.focus();
     }
 
+    if (value < min) {
+      min = value;
+    }
+
+    if (value > max) {
+      max = value;
+    }
+
     document.body.style.cursor = 'unset';
     window.removeEventListener('mouseup', handleMouseUp);
     window.removeEventListener('mousemove', handleMouseMove);
@@ -63,7 +71,14 @@
     vx = (ev.clientX - rect.left) / rect.width;
     vy = ev.clientY - downY;
 
-    value = Math.max(Math.min(min + (max - min) * vx, max), min);
+    if (ev.ctrlKey) {
+      let v = min + (max - min) * vx;
+      value = v;
+    } else {
+      min = 0;
+      max = 1;
+      value = Math.max(Math.min(min + (max - min) * vx, max), min);
+    }
   }
 </script>
 

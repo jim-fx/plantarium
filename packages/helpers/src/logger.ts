@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import { writable } from "svelte/store";
-import type { Writable } from "svelte/store";
+import { writable } from 'svelte/store';
+import type { Writable } from 'svelte/store';
 interface Logger {
   (...args: unknown[]): void;
   warn(...args: unknown[]): void;
@@ -61,13 +61,18 @@ const colors = [
   '#ffff00',
 ];
 
-const localStorageId = "plant.log.history";
-const hasLocalStorage = "localStorage" in globalThis;
+const localStorageId = 'plant.log.history';
+const hasLocalStorage = 'localStorage' in globalThis;
 
-const history = hasLocalStorage ? (localStorageId in localStorage ? JSON.parse(localStorage.getItem(localStorageId)) : []) : [];
+const history = hasLocalStorage
+  ? localStorageId in localStorage
+    ? JSON.parse(localStorage.getItem(localStorageId))
+    : []
+  : [];
 
 function saveHistory() {
-  hasLocalStorage && localStorage.setItem(localStorageId, JSON.stringify(history));
+  hasLocalStorage &&
+    localStorage.setItem(localStorageId, JSON.stringify(history));
 }
 
 let store: undefined | Writable<unknown[]>;
@@ -81,12 +86,11 @@ function log(scope: string): Logger {
   currentIndex++;
 
   const handleLog = (args: unknown[] | Error, _level: number) => {
-    history.push({ scope, args, level })
+    history.push({ scope, args, level });
     history.length = Math.min(100, history.length);
     if (store) store.set(history);
     saveHistory();
     if ((!filters.length || filters.includes(scope)) && _level <= level) {
-
       // Handle all errors
       if (args instanceof Error || _level === 2) {
         console.error(`[${scope.padEnd(longestName, ' ')}]`, args);
@@ -94,7 +98,11 @@ function log(scope: string): Logger {
       }
 
       // Make some logs better to read
-      if (Array.isArray(args) && typeof args[0] === 'string' && typeof args[1] === 'object') {
+      if (
+        Array.isArray(args) &&
+        typeof args[0] === 'string' &&
+        typeof args[1] === 'object'
+      ) {
         console.groupCollapsed(
           `%c[${scope.padEnd(longestName, ' ')}]`,
           `color: hsl(${myIndex * 30}deg 68% 64%); font-weight: bold;`,
@@ -104,7 +112,6 @@ function log(scope: string): Logger {
         console.groupEnd();
         return;
       }
-
 
       if (_level === 0) {
         console.log(
@@ -118,23 +125,22 @@ function log(scope: string): Logger {
         console.warn(`[${scope.padEnd(longestName, ' ')}]`, ...args);
       }
     }
-
-  }
+  };
 
   const log = (...args: unknown[]) => handleLog(args, 0);
 
   log.warn = (...args: []) => handleLog(args, 1);
 
-  log.error = (err: Error) => handleLog(err, 2)
+  log.error = (err: Error) => handleLog(err, 2);
 
   return log;
 }
 
-log.getStore = function() {
+log.getStore = function () {
   if (store) return store;
-  store = writable([])
+  store = writable([]);
   return store;
-}
+};
 
 log.setFilter = (...f: string[]) => {
   filters = f;

@@ -2,8 +2,10 @@ import preprocess from 'svelte-preprocess';
 import adapter from '@sveltejs/adapter-static';
 import WindiCSS from 'vite-plugin-windicss';
 
-const { BASE_PATH = '' } = process.env;
-
+let { BASE_PATH = '', IS_GH_PAGES = false } = process.env;
+if (IS_GH_PAGES) {
+  BASE_PATH = '/admin';
+}
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   // Consult https://github.com/sveltejs/svelte-preprocess

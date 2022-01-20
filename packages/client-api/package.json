@@ -8,6 +8,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "svelte": "^3.44.3"
+    "svelte": "^3.46.2"
   }
 }

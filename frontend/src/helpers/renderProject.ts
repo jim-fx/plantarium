@@ -77,6 +77,8 @@ export default async function ({
 
   renderer.renderScene(renderer.scene);
 
+  if (renderer.canvas.width === 0 || renderer.canvas.height === 0) return;
+
   ctx.clearRect(0, 0, 100, 100);
   for (let i = 0; i < 1; i++) {
     ctx.drawImage(renderCanvas, 0, 0);
@@ -84,6 +86,7 @@ export default async function ({
     ctx.filter = 'blur(7px) opacity(0.6) brightness(0.95)';
   }
   ctx.filter = 'blur(0px) drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.8))';
+
   ctx.drawImage(renderer.canvas, 0, 0);
 
   return renderCanvas.toDataURL('image/webp', 1.0);

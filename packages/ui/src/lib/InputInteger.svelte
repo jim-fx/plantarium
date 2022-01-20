@@ -1,3 +1,5 @@
+<svelte:options accessors />
+
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
@@ -7,6 +9,10 @@
   export let max = Infinity;
   export let step = 1;
   export let value = 0;
+
+  if (!value) {
+    value = 0;
+  }
 
   $: isClamped =
     typeof min !== 'undefined' &&

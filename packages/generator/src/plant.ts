@@ -1,7 +1,4 @@
-import {
-  convertInstancedGeometry,
-  join
-} from '@plantarium/geometry';
+import { convertInstancedGeometry, join } from '@plantarium/geometry';
 import { logger } from '@plantarium/helpers';
 import createContext from './createContext';
 import { walkGeometryNode, walkSkeletonNode } from './walkNode';
@@ -12,7 +9,7 @@ export default function plant(
   rootNode: NodeResult,
   s: Partial<PlantariumSettings>,
 ) {
-  log('-------- ~generator started~ --------');
+  log('-------- ~generator started~ --------', rootNode);
 
   const a = performance.now();
 

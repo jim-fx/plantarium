@@ -5,7 +5,7 @@ import { walkValueNode } from './walkNode';
 
 let lastSettings = '';
 let lastCtx;
-let currentNoise = 0;
+let currentNoise = 2;
 
 const createContext = (s: Partial<PlantariumSettings>): GeneratorContext => {
   let seed = 0;
@@ -21,11 +21,14 @@ const createContext = (s: Partial<PlantariumSettings>): GeneratorContext => {
       }
 
       // If we are here its probably a vector
-
+      console.log('Heeere', param);
       return param;
     },
-    n1d(scale) {
+    n1d(scale: number) {
       return noise.n1d(currentNoise++ * scale);
+    },
+    n1dn(scale: number) {
+      return 1 + noise.n1d(currentNoise++ * scale) / 2;
     },
     getSetting(key: string) {
       return s[key];
@@ -37,7 +40,7 @@ const createContext = (s: Partial<PlantariumSettings>): GeneratorContext => {
       return seed;
     },
     refresh() {
-      currentNoise = 0;
+      currentNoise = 2;
       if (s?.useRandomSeed) {
         seed = Math.floor(Math.random() * 100000);
         noise.seed = seed;

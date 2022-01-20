@@ -23,7 +23,12 @@ export function executeGeometryNode(node, ctx: GeneratorContext) {
 
 export function executeValueNode(node, ctx: GeneratorContext, alpha?: number) {
   if (node.type in nodes && nodes[node.type].computeValue) {
-    return nodes[node.type].computeValue(node.computedParameters, ctx, alpha);
+    const value = nodes[node.type].computeValue(
+      node.computedParameters,
+      ctx,
+      alpha,
+    );
+    return value;
   }
 
   return node.computedParameters;

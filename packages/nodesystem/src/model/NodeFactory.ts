@@ -1,25 +1,23 @@
-import { genId } from '@plantarium/helpers';
+import { genId, logger } from '@plantarium/helpers';
 
 import type NodeSystem from './NodeSystem';
 import type Node from './Node';
-import Logger from './Logger';
+
+const log = logger('NodeFactory');
 
 export default class NodeFactory {
   system: NodeSystem;
-
-  log: Logger;
 
   id = genId();
 
   constructor(system: NodeSystem) {
     this.system = system;
-    this.log = new Logger(this);
-    this.log.info(`Initialized`);
+    log(`Initialized`);
   }
 
   reset() {
     this.id.reset();
-    this.log.info('Reset id generator');
+    log('Reset id generator');
   }
 
   create(props: NodeProps): Node {
@@ -42,7 +40,7 @@ export default class NodeFactory {
       this.system.setOutputNode(node);
     }
 
-    this.log.info(`Created node with type ${attributes.type}`, props);
+    log(`Created node with type ${attributes.type}`, props);
 
     return node;
   }

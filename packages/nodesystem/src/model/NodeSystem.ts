@@ -1,7 +1,6 @@
-import { debounceDecorator, EventEmitter } from '@plantarium/helpers';
+import { debounceDecorator, EventEmitter, logger } from '@plantarium/helpers';
 import DefaultNodes from '../nodes';
 import NodeSystemView from '../view/NodeSystemView';
-import Logger from './Logger';
 import type Node from './Node';
 import NodeFactory from './NodeFactory';
 import NodeHistory from './NodeHistory';
@@ -23,6 +22,8 @@ interface NodeSystemOptions {
   parent?: HTMLElement;
 }
 
+const log = logger('NodeSystem');
+
 export default class NodeSystem extends EventEmitter {
   private parser: NodeParser = new NodeParser(this);
   meta: NodeSystemMeta = { lastSaved: Date.now() };
@@ -30,7 +31,6 @@ export default class NodeSystem extends EventEmitter {
   outputNode!: Node;
   factory: NodeFactory;
   store: NodeTypeStore;
-  log: Logger;
   history: NodeHistory;
 
   isLoaded = false;
@@ -53,13 +53,11 @@ export default class NodeSystem extends EventEmitter {
       wrapper,
       defaultNodes = false,
       registerNodes = false,
-      logLevel = 5,
     } = options;
     this.options = { view, wrapper };
 
     try {
-      this.log = new Logger(this, logLevel);
-      this.log.log(`Instantiated id:${this.id}`);
+      log(`Instantiated id:${this.id}`);
       this.store = new NodeTypeStore();
       this.factory = new NodeFactory(this);
       this.history = new NodeHistory(this);
@@ -89,8 +87,6 @@ export default class NodeSystem extends EventEmitter {
       if (registerNodes && registerNodes.length) {
         registerNodes.forEach(this.registerNodeType.bind(this));
       }
-
-      this.log.groupEnd();
     } catch (error) {
       this.emit('error', { type: 'init', error });
     }
@@ -123,10 +119,7 @@ export default class NodeSystem extends EventEmitter {
       this.meta.lastSaved = Date.now();
       this?.view?.setTransform(this.meta.transform);
 
-      this.log.info(
-        `Loaded NodeSystemData with ${nodes.length} Nodes`,
-        systemData,
-      );
+      log(`Loaded NodeSystemData with ${nodes.length} Nodes`, systemData);
 
       if ('history' in systemData) {
         this.history.deserialize(systemData.history);
@@ -155,7 +148,7 @@ export default class NodeSystem extends EventEmitter {
   save() {
     if (this.isLoaded) {
       this.meta.lastSaved = Date.now();
-      this.log.info('save system', this.serialize());
+      log('save system', this.serialize());
       this.emit('save', this.serialize());
     }
   }
@@ -194,7 +187,7 @@ export default class NodeSystem extends EventEmitter {
 
     this.save();
 
-    this.log.info(
+    log(
       `Removed Node id:${node.id} type:${node.attributes.type}`,
       node.deserialize(),
     );
@@ -239,7 +232,7 @@ export default class NodeSystem extends EventEmitter {
     const node = this.factory.create(props);
     this.addNode(node);
     this.save();
-    this.log.info(
+    log(
       `Created new node id:${props.attributes.id} type:${props.attributes.type}`,
       props,
     );
@@ -265,7 +258,5 @@ export default class NodeSystem extends EventEmitter {
       const _type = this.parser.parseType(type);
       this.store.add(_type);
     }
-
-    this.log.info(`Registered new nodeType type:${type.title}`, type);
   }
 }
