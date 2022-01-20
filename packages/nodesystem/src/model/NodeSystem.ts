@@ -87,8 +87,6 @@ export default class NodeSystem extends EventEmitter {
       if (registerNodes && registerNodes.length) {
         registerNodes.forEach(this.registerNodeType.bind(this));
       }
-
-      log.groupEnd();
     } catch (error) {
       this.emit('error', { type: 'init', error });
     }
