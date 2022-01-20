@@ -1,0 +1,8 @@
+{
+  "extension": [
+    ".ts"
+  ],
+  "reporter": [
+    "json"
+  ]
+}

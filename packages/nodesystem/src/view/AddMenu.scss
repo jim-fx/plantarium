@@ -1,0 +1,55 @@
+@use '../variables.scss';
+
+.search-container {
+  padding: 2px;
+  width: 100%;
+  box-sizing: border-box;
+  &.focused {
+    background-color: variables.$fg;
+    color: variables.$text;
+  }
+}
+
+.context-wrapper {
+  z-index: 99;
+  position: absolute;
+  width: 100px;
+  opacity: 0;
+  transform: translateX(0px) translateY(0px) scale(0.7);
+  transition: opacity 0.05s linear, transform 0.1s ease;
+  pointer-events: none;
+
+  background-color: variables.$bg;
+  border-radius: 5px;
+  color: #707070;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.13), 1px 2px 2px rgba(0, 0, 0, 0.1),
+    -1px -2px 2px rgba(0, 0, 0, 0.05);
+
+  input {
+    width: 100%;
+    box-sizing: border-box;
+    background: variables.$green_gradient;
+
+    margin: 0;
+    border-radius: 3px 3px 0px 0px;
+    padding-top: 2px;
+    margin-top: -2px;
+    transform: translateY(-1px);
+  }
+
+  p {
+    top: 43px;
+    left: 50px;
+    margin: 0;
+    padding: 0;
+    width: fit-content;
+    text-align: center;
+    transform-origin: 50% 50%;
+  }
+}
+
+.context-visible {
+  opacity: 1;
+  pointer-events: all;
+  transform: scale(1);
+}
