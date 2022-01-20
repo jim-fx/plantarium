@@ -7,7 +7,7 @@
 </script>
 
 <script lang="ts">
-  export let name: IconType = "triangle";
+  export let name: IconType = 'triangle';
 
   export let active = false;
   export let dark = false;

@@ -32,8 +32,7 @@
     return;
   }
 
-  $: isInverted =
-    toast && (toast.type === 'success' || toast.type === 'warning');
+  $: isInverted = toast && (toast.type === 'success' || toast.type === 'warning');
 
   let isCustomElement = false;
   let el: HTMLElement;

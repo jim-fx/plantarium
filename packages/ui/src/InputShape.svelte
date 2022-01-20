@@ -8,7 +8,7 @@
   export let value = [
     { x: 1, y: 0, pinned: true },
     { x: 0.5, y: 0.5, pinned: true },
-    { x: 1, y: 1, pinned: true },
+    { x: 1, y: 1, pinned: true }
   ];
 
   $: points = value;
@@ -60,7 +60,7 @@
       const point = {
         x: mousePosX / 50,
         y: mousePosY / 100,
-        pinned: false,
+        pinned: false
       };
 
       activePoint = point;
@@ -98,7 +98,7 @@
             `M ${point.x * 100},${point.y * 200 - 50}`
           : // else
             `${acc} ${lineCommand(point)}`,
-      '',
+      ''
     );
   }
 
@@ -170,7 +170,7 @@
 
   .component-wrapper {
     display: flex;
-		width: 100px;
-		max-width: 100%;
+    width: 100px;
+    max-width: 100%;
   }
 </style>

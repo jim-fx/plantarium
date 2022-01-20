@@ -7,7 +7,7 @@ const { store, createMessage } = createMessageStore();
 
 const createToast: (
   content: string | Error | typeof SvelteComponentDev,
-  options?: Partial<MessageOptions>,
+  options?: Partial<MessageOptions>
 ) => Promise<unknown> = createMessage;
 
 export { store, createToast };

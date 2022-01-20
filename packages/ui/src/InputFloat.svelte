@@ -70,10 +70,7 @@
 </script>
 
 <div class="component-wrapper" class:is-down={isMouseDown}>
-  <span
-    class="overlay"
-    style={`width: ${((value - min) / (max - min)) * 100}%`}
-  />
+  <span class="overlay" style={`width: ${((value - min) / (max - min)) * 100}%`} />
   <input
     bind:value
     bind:this={inputEl}

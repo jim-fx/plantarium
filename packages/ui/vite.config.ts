@@ -7,10 +7,10 @@ export default defineConfig({
   base: '',
   build: {
     minify: 'esbuild',
-    brotliSize: false,
+    brotliSize: false
   },
   server: {
     host: '0.0.0.0',
-    port: 8085,
-  },
+    port: 8085
+  }
 });

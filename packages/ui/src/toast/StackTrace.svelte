@@ -13,8 +13,9 @@
     <pre>
     <code>
       {#each stacktrace.lines as line}
-        at <strong>{line.name}</strong>{#if line.alias}as <strong>${line.alias}</strong>{/if}{#if line.location}&nbsp;(<i>{line.location}</i>){/if}<br>
-      {/each}
+          at <strong>{line.name}</strong>{#if line.alias}as <strong>${line.alias}</strong
+            >{/if}{#if line.location}&nbsp;(<i>{line.location}</i>){/if}<br />
+        {/each}
     </code>
   </pre>
   </div>

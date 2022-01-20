@@ -10,11 +10,11 @@
   export let useActive = false;
   export let disabled = false;
 
-	let buttonEl: HTMLElement;
+  let buttonEl: HTMLElement;
 
-	$: notWebComponent =buttonEl && !!buttonEl.parentElement;
+  $: notWebComponent = buttonEl && !!buttonEl.parentElement;
 
-	const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher();
 
   const handleClick = () => {
     active = !active;
@@ -23,7 +23,7 @@
 </script>
 
 <button
-	bind:this={buttonEl}
+  bind:this={buttonEl}
   on:click={handleClick}
   class:active
   class:useActive
@@ -32,12 +32,12 @@
   class:has-icon={!!icon}
 >
   {#if icon}
-		{#if notWebComponent}
-			<Icon name={icon} {active} />
-		{:else}
-			<plant-icon name={icon} {active}/>
-		{/if}
-	{/if}
+    {#if notWebComponent}
+      <Icon name={icon} {active} />
+    {:else}
+      <plant-icon name={icon} {active} />
+    {/if}
+  {/if}
 
   {#if name}
     <p>{name}</p>
@@ -88,13 +88,14 @@
     }
   }
 
-  button.has-icon { 
-		> :global(.icon-wrapper),plant-icon {
-			position: absolute;
-			top: 9px;
-			height: calc(100% - 18px);
-		}
-	}
+  button.has-icon {
+    > :global(.icon-wrapper),
+    plant-icon {
+      position: absolute;
+      top: 9px;
+      height: calc(100% - 18px);
+    }
+  }
 
   button.has-icon > p {
     padding-left: 30px;

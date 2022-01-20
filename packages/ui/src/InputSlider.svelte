@@ -17,10 +17,7 @@
 </script>
 
 <div>
-  <output
-    class:isActive
-    style={`left: ${alpha * 100}%; transform: translateX(-${alpha * 66.66}%)`}
-  >
+  <output class:isActive style={`left: ${alpha * 100}%; transform: translateX(-${alpha * 66.66}%)`}>
     {value}
   </output>
 

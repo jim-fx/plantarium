@@ -18,7 +18,7 @@
         () => {
           open = false;
         },
-        { once: true },
+        { once: true }
       );
     }, 50);
   }

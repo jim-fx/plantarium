@@ -7,8 +7,7 @@
 
   $: alert = $store[0];
 
-  $: isInverted =
-    alert && (alert.type === 'success' || alert.type === 'warning');
+  $: isInverted = alert && (alert.type === 'success' || alert.type === 'warning');
 
   function handleKeyDown(ev) {
     if (ev.key === 'Escape') {
@@ -19,11 +18,7 @@
 
 {#if alert}
   <div class="alert-container" transition:fade>
-    <div
-      class="alert-wrapper alert-{alert.type}"
-      transition:scale
-      class:isInverted
-    >
+    <div class="alert-wrapper alert-{alert.type}" transition:scale class:isInverted>
       {#if alert.title}
         <h2>{alert.title}</h2>
       {/if}

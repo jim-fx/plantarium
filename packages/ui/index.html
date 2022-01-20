@@ -12,33 +12,32 @@
       href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,700&display=swap"
     />
 
-		<style>
-			:root{
-				--text-color: white !important;
-			}
+    <style>
+      :root {
+        --text-color: white !important;
+      }
 
-			td{
-				width: 20px;
-			}
-		</style>
-
+      td {
+        width: 20px;
+      }
+    </style>
   </head>
 
   <body>
     <main>
       <section>
         <h3>Button</h3>
-        <plant-button icon="cog" name="Projects"/>
+        <plant-button icon="cog" name="Projects" />
       </section>
       <section>
         <h3>Icon</h3>
         <table>
           <tr>
-          <td>arrow</td>
-          <td>
-            <plant-icon name="arrow"></plant-icon>
-          </td>
-        </tr>
+            <td>arrow</td>
+            <td>
+              <plant-icon name="arrow"></plant-icon>
+            </td>
+          </tr>
           <tr>
             <td>checkmark</td>
             <td>
@@ -107,20 +106,20 @@
 
       <section>
         <h3>Integer</h3>
-        <plant-integer/>
+        <plant-integer />
       </section>
 
       <section>
         <h3>Float</h3>
-        <plant-float/>
+        <plant-float />
       </section>
 
-			<section>
+      <section>
         <h3>Slider</h3>
         <plant-slider></plant-slider>
       </section>
 
-			<section>
+      <section>
         <h3>Select</h3>
         <plant-select></plant-select>
       </section>
@@ -129,15 +128,15 @@
         <h3>Shape</h3>
         <plant-shape></plant-shape>
       </section>
-     
-			<section>
-				<h3>Toasts / Alerts</h3>
-        <plant-button name="Info Toast" id="toast-info" style="--text-color:white"></plant-button>
+
+      <section>
+        <h3>Toasts / Alerts</h3>
+        <plant-button name="Info Toast" id="toast-info" style="--text-color: white"></plant-button>
         <plant-button name="Success Toast" id="toast-success"></plant-button>
         <plant-button name="Select Toast" id="toast-select"></plant-button>
         <plant-button name="Warning Toast" id="toast-warning"></plant-button>
         <plant-button name="Error Toast" id="toast-error"></plant-button>
-			</section>
+      </section>
 
       <section>
         <h3>Section</h3>
@@ -155,35 +154,29 @@
       import { createToast } from './src';
 
       document.getElementById('toast-info').addEventListener('click', () =>
-        createToast(
-          'Easdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aasdasdayyy asdasdasdasd',
-          {
-            timeout: 3000,
-          },
-        ),
+        createToast('Easdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aasdasdayyy asdasdasdasd', {
+          timeout: 3000
+        })
       );
       document.getElementById('toast-success').addEventListener('click', () =>
-        createToast(
-          'Easdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aasdasdayyy asdasdasdasd',
-          {
-            type: 'success',
-          },
-        ),
+        createToast('Easdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aasdasdayyy asdasdasdasd', {
+          type: 'success'
+        })
       );
       document.getElementById('toast-select').addEventListener('click', () =>
         createToast('Select on of the following values', {
-          values: ['A', 'B', 'C'],
-        }).then((v) => createToast(`You selected ${v}`)),
+          values: ['A', 'B', 'C']
+        }).then((v) => createToast(`You selected ${v}`))
       );
       document.getElementById('toast-warning').addEventListener('click', () =>
         createToast('This is something the user should be warned about', {
-          type: 'warning',
-        }),
+          type: 'warning'
+        })
       );
       document.getElementById('toast-error').addEventListener('click', () =>
         createToast(new Error('Something went really wrong'), {
-          values: ['Help', 'Me', 'Recover', 'Report Error'],
-        }),
+          values: ['Help', 'Me', 'Recover', 'Report Error']
+        })
       );
     </script>
     <script>

@@ -7,7 +7,7 @@ const { store, createMessage, MessageType } = createMessageStore();
 
 const createAlert: (
   content: string | Error | typeof SvelteComponentDev,
-  options?: Partial<MessageOptions>,
+  options?: Partial<MessageOptions>
 ) => Promise<unknown> = createMessage;
 
 export { store, createAlert, MessageType };
