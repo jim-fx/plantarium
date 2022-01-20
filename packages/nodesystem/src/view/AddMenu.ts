@@ -4,7 +4,6 @@ import type NodeInput from '../model/NodeInput';
 import type NodeOutput from '../model/NodeOutput';
 import type NodeType from '../model/NodeType';
 import type NodeSystem from '../model/NodeSystem';
-import Logger from '../model/Logger';
 import { InputSearch } from '@plantarium/ui/src/lib';
 
 interface ContextOptions {
@@ -24,8 +23,6 @@ export default class RightClickMenu {
   x = 0;
   y = 0;
 
-  log: Logger;
-
   socket: NodeInput | NodeOutput | undefined;
   types: NodeType[];
 
@@ -35,8 +32,6 @@ export default class RightClickMenu {
   constructor(view: NodeSystemView) {
     this.view = view;
     this.system = view.system;
-
-    this.log = new Logger(this);
 
     this.wrapper = document.createElement('div');
     this.wrapper.classList.add('context-wrapper');

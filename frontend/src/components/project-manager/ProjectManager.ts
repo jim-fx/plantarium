@@ -2,7 +2,7 @@ import { EventEmitter, logger } from '@plantarium/helpers';
 import type { NodeSystem } from '@plantarium/nodesystem';
 import storage from 'localforage';
 import createId from 'shortid';
-import type { Writable } from "svelte/store"
+import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
 import { renderProject } from '../../helpers';
 import type { SettingsManager } from '../settings-manager';
@@ -99,7 +99,7 @@ export default class ProjectManager extends EventEmitter {
 
     this.emit('save', project);
 
-    if(!project?.meta?.thumbnail) this.renderThumbnail({ project })
+    if (!project?.meta?.thumbnail) this.renderThumbnail({ project });
 
     await storage.setItem('pt_project_ids', Object.keys(this.projects));
 
@@ -131,7 +131,7 @@ export default class ProjectManager extends EventEmitter {
   }
 
   async setActiveProject(id: string) {
-    this.loadingActiveProject && await this.loadingActiveProject;
+    this.loadingActiveProject && (await this.loadingActiveProject);
     if (id === this.activeProjectId) return;
 
     this.activeProjectId = id;
@@ -153,25 +153,32 @@ export default class ProjectManager extends EventEmitter {
     }
   }
 
-  async renderThumbnail({ project, geo }: { project?: PlantProject, geo?: TransferGeometry }) {
-    const projectId = project?.meta?.id || this.activeProjectId
+  async renderThumbnail({
+    project,
+    geo,
+  }: {
+    project?: PlantProject;
+    geo?: TransferGeometry;
+  }) {
+    const projectId = project?.meta?.id || this.activeProjectId;
 
     if (!(projectId in this.projects)) return;
 
     const a = performance.now();
 
-    const thumbDataString = await renderProject(geo ? { geo } : { pd: project });
+    const thumbDataString = await renderProject(
+      geo ? { geo } : { pd: project },
+    );
 
     const b = performance.now() - a;
 
     this.projects[projectId].meta.thumbnail = thumbDataString;
 
-    log("generated thumbnail for " + projectId + " in " + Math.floor(b) + "ms")
+    log('generated thumbnail for ' + projectId + ' in ' + Math.floor(b) + 'ms');
 
-    this.saveProject(this.projects[projectId])
+    this.saveProject(this.projects[projectId]);
 
     this.store.set(Object.values(this.projects));
-
   }
 
   private async loadProjects() {

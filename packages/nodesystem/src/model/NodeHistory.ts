@@ -1,6 +1,8 @@
+import { logger } from '@plantarium/helpers/src';
 import { diffBoth, mergeObjects } from '../helpers';
-import Logger from './Logger';
 import type NodeSystem from './NodeSystem';
+
+const log = logger('NodeHistory');
 
 export default class NodeHistory {
   history: { previous: Partial<NodeProps>; next: Partial<NodeProps> }[] = [];
@@ -8,17 +10,14 @@ export default class NodeHistory {
 
   isApplyingChanges = false;
 
-  log: Logger;
-
   addAction: NodeHistory['_addAction'];
   prevState: NodeProps[];
 
   constructor(private system: NodeSystem) {
-    this.log = new Logger(this);
-    this.log.info(`Instantiated`);
+    log(`Instantiated`);
 
     this.addAction = (() => {
-      let int;
+      let int: number;
       const f = () => {
         if (!this.system.isLoaded) return;
         if (this.isApplyingChanges) return;
@@ -31,7 +30,7 @@ export default class NodeHistory {
 
         int = setTimeout(() => {
           this._addAction();
-          int = false;
+          int = undefined;
         }, 200);
       };
 
@@ -40,7 +39,7 @@ export default class NodeHistory {
   }
 
   private _addAction() {
-    this.log.info('Register History Step');
+    log('Register History Step');
 
     if (this.isApplyingChanges) return;
 
@@ -81,7 +80,7 @@ export default class NodeHistory {
     if (this.isApplyingChanges) return;
     this.isApplyingChanges = true;
     if (this.historyIndex < 0) {
-      this.log.info('Reached beginning of Stack');
+      log('Reached beginning of Stack');
       this.isApplyingChanges = false;
       return;
     }
@@ -105,7 +104,7 @@ export default class NodeHistory {
     this.isApplyingChanges = true;
 
     if (this.historyIndex >= this.history.length - 1) {
-      this.log.info('Reached end of Stack');
+      log('Reached end of Stack');
       this.isApplyingChanges = false;
       return;
     }

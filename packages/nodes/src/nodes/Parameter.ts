@@ -21,7 +21,7 @@ const node: PlantNode = {
 
     if (variation) {
       const v = value + ctx.n1d(200) * variation * Math.max(value, 1);
-      console.log('Parameter ', v);
+      // console.log('Parameter ', v);
       return v;
     }
     return value;
