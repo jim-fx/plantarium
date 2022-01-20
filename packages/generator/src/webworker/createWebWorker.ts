@@ -3,6 +3,8 @@ import type plant from '../plant';
 import createWebWorker from './webWorker?worker=external';
 
 export default () => {
+  if (!('window' in globalThis)) return;
+
   const worker = createWebWorker();
 
   const wrapped = wrap<{

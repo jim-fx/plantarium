@@ -12,16 +12,13 @@ import {
 function createCircle(res: number) {
   const angle = (2 * Math.PI) / res;
 
-  const position = new Array(res).fill(null).map((_, i) => {
+  return new Array(res).fill(null).map((_, i) => {
     return [Math.cos(angle * i), Math.sin(angle * i)];
   });
-
-  return position;
 }
 
-function createIndeces(resX:number, stemLength: number){
-
-  const index = new Uint16Array(resX * (stemLength-1) * 6);
+function createIndeces(resX: number, stemLength = 1) {
+  const index = new Uint16Array(resX * (Math.max(stemLength, 1) - 1) * 6);
 
   for (let i = 0; i < stemLength; i++) {
     const indexOffset = i * resX * 6;
@@ -37,7 +34,6 @@ function createIndeces(resX:number, stemLength: number){
       index[_indexOffset + 3] = _positionOffset + 1;
       index[_indexOffset + 4] = _positionOffset + resX;
       index[_indexOffset + 5] = _positionOffset;
-
 
       if (j === resX - 1) {
         index[_indexOffset + 0] = _positionOffset;
@@ -60,7 +56,6 @@ function createIndeces(resX:number, stemLength: number){
   }
 
   return index;
-
 }
 
 export default function (path, resolution) {
@@ -68,7 +63,7 @@ export default function (path, resolution) {
     v = [],
     axis = [];
 
-  const mesh = { position: [], index:createIndeces(resolution, path.length)};
+  const mesh = { position: [], index: createIndeces(resolution, path.length) };
 
   const position = createCircle(resolution);
 
@@ -100,7 +95,6 @@ export default function (path, resolution) {
       mesh.position.push(pt);
     }
   }
-
 
   return mesh;
 }

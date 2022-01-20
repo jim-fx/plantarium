@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-  import * as icons from './icons/index.ts';
+  import * as icons from './icons';
 
   export type IconType = keyof typeof icons;
 </script>

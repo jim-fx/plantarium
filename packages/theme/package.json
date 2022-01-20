@@ -8,11 +8,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "esbuild": "^0.14.11",
-    "esbuild-plugin-sass": "^1.0.1",
+    "css-vars-from-json": "^1.1.0",
     "svelte": "^3.46.2"
   },
   "devDependencies": {
-    "css-vars-from-json": "^1.1.0"
+    "esbuild-plugin-sass": "^1.0.1",
+    "esbuild": "^0.14.11"
   }
 }
