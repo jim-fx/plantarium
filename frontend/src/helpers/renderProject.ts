@@ -84,6 +84,9 @@ export default async function ({
     ctx.filter = 'blur(7px) opacity(0.6) brightness(0.95)';
   }
   ctx.filter = 'blur(0px) drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.8))';
+
+  if (renderer.canvas.width === 0 || renderer.canvas.height === 0) return;
+
   ctx.drawImage(renderer.canvas, 0, 0);
 
   return renderCanvas.toDataURL('image/webp', 1.0);

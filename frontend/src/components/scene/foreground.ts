@@ -9,10 +9,10 @@ import { Report } from '../../elements';
 import type { ProjectManager } from '../project-manager';
 import DebugScene from './debug';
 import { MatCapShader } from './shaders';
-import * as performance from "../../helpers/performance";
+import * as performance from '../../helpers/performance';
 
 const updateThumbnail = throttle((geo: TransferGeometry) => {
-  projectManager.renderThumbnail({ geo })
+  projectManager.renderThumbnail({ geo });
 }, 5000);
 
 const log = logger('scene.foreground');
@@ -66,8 +66,7 @@ export default class ForegroundScene {
     this.scene.isLoading.set(true);
 
     try {
-
-      performance.start("generate")
+      performance.start('generate');
 
       const result =
         // eslint-disable-next-line
@@ -76,7 +75,7 @@ export default class ForegroundScene {
           ? plant(p, s)
           : await this.worker.plant(p, s);
 
-      performance.stop("generate")
+      performance.stop('generate');
 
       if (!result) return;
 
@@ -90,9 +89,6 @@ export default class ForegroundScene {
 
       this.mesh.geometry.computeBoundingBox();
 
-      this.mesh.geometry.computeBoundingBox();
-      //throw new Error("asdasdasd");
-
       this.scene.renderer.setControlTarget(this.mesh.geometry.bounds.center);
     } catch (error) {
       log.error(error);
@@ -101,17 +97,14 @@ export default class ForegroundScene {
         values: ['report'],
       });
 
-      if (res === "report") {
-
+      if (res === 'report') {
         createAlert(Report, {
           timeout: 0,
           title: 'Report Bug',
           type: 'error',
           props: { mode: 'bug', error },
-        })
+        });
       }
     }
-
   }
-
 }

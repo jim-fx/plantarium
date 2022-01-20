@@ -14,8 +14,6 @@ export default class NodeHistory {
   prevState: NodeProps[];
 
   constructor(private system: NodeSystem) {
-    log(`Instantiated`);
-
     this.addAction = (() => {
       let int: number;
       const f = () => {
@@ -36,6 +34,8 @@ export default class NodeHistory {
 
       return f;
     })().bind(this);
+
+    log(`Initialized`);
   }
 
   private _addAction() {

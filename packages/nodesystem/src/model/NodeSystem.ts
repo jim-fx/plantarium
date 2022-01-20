@@ -260,7 +260,5 @@ export default class NodeSystem extends EventEmitter {
       const _type = this.parser.parseType(type);
       this.store.add(_type);
     }
-
-    log(`Registered new nodeType type:${type.title}`, type);
   }
 }

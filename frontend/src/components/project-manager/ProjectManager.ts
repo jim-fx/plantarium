@@ -170,15 +170,21 @@ export default class ProjectManager extends EventEmitter {
       geo ? { geo } : { pd: project },
     );
 
-    const b = performance.now() - a;
+    if (thumbDataString) {
+      const b = performance.now() - a;
 
-    this.projects[projectId].meta.thumbnail = thumbDataString;
+      this.projects[projectId].meta.thumbnail = thumbDataString;
 
-    log('generated thumbnail for ' + projectId + ' in ' + Math.floor(b) + 'ms');
+      log(
+        'generated thumbnail for ' + projectId + ' in ' + Math.floor(b) + 'ms',
+      );
 
-    this.saveProject(this.projects[projectId]);
+      this.saveProject(this.projects[projectId]);
 
-    this.store.set(Object.values(this.projects));
+      this.store.set(Object.values(this.projects));
+    } else {
+      log.warn('There was an error rendering a thumbnail for: ' + projectId);
+    }
   }
 
   private async loadProjects() {
