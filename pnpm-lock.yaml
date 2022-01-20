@@ -177,7 +177,6 @@ importers:
       '@nestjs/platform-express': 8.2.6_732a54a2558f64827b8cc4f9baac4f1f
       '@nestjs/platform-fastify': 8.2.6_732a54a2558f64827b8cc4f9baac4f1f
       '@nestjs/serve-static': 2.2.2_732a54a2558f64827b8cc4f9baac4f1f
-      '@types/bcrypt': 5.0.0
       bcrypt: 5.0.1
       class-transformer: 0.5.1
       class-validator: 0.13.2
@@ -197,6 +196,7 @@ importers:
       '@nestjs/cli': 8.2.0_eslint@8.7.0
       '@nestjs/schematics': 8.0.5_typescript@4.5.4
       '@nestjs/testing': 8.2.6_b893ca8083ee374883b6d648098a9aeb
+      '@types/bcrypt': 5.0.0
       '@types/cookie-parser': 1.4.2
       '@types/jest': 27.4.0
       '@types/morgan': 1.9.3
@@ -3569,7 +3569,7 @@ packages:
     resolution: {integrity: sha512-agtcFKaruL8TmcvqbndlqHPSJgsolhf/qPWchFlgnW1gECTN/nKbFcoFnvKAQRFfKbh+BO6A3SWdJu9t+xF3Lw==}
     dependencies:
       '@types/node': 17.0.10
-    dev: false
+    dev: true
 
   /@types/bluebird/3.5.36:
     resolution: {integrity: sha512-HBNx4lhkxN7bx6P0++W8E289foSu8kO8GCk2unhuVggO+cE7rh9DhZUyPhUxNRG9m+5B5BTKxZQ5ZP92x/mx9Q==}
