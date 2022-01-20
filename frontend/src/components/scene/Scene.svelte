@@ -39,7 +39,7 @@
   {#if $settings?.debug?.pd && pd}
     <pre>
     <code>
-      {JSON.stringify(pd,null,2)}
+      {JSON.stringify(pd, null, 2)}
     </code>
   </pre>
   {/if}
@@ -110,6 +110,7 @@
     font-size: 0.8em;
     max-height: calc(100% - 30px);
     overflow-y: auto;
+    max-width: 250px;
     right: 0;
     z-index: 2;
     padding: 10px 20px 10px 0px;

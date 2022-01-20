@@ -1,30 +1,34 @@
 const node: PlantNode = {
-  title: 'Parameter',
-  type: 'parameter',
+  title: 'Random',
+  type: 'random',
   outputs: ['number'],
   parameters: {
-    value: {
+    min: {
       type: 'number',
       value: 0,
+      inputType: 'slider',
+      min: 0,
+      max: 1,
+      step: 0.05,
     },
-    variation: {
+    max: {
       type: 'number',
       inputType: 'slider',
-      value: 0,
+      value: 1,
       min: 0,
       max: 1,
       step: 0.05,
     },
   },
   computeValue(parameters, ctx) {
-    const { value = 0, variation = 0 } = parameters;
+    const { min = 0, max = 1 } = parameters;
 
-    if (variation) {
-      const v = value + ctx.n1d(200) * variation * Math.max(value, 1);
-      console.log('Parameter ', v);
+    if (max) {
+      const v = min + ctx.n1dn(200) * Math.abs(max - min);
+      console.log(v);
       return v;
     }
-    return value;
+    return 0;
   },
 };
 

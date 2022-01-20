@@ -44,6 +44,7 @@ interface GeneratorContext {
   handleParameter(param: unknown, alpha?: number);
   getSetting(key: keyof PlantariumSettings, defaultValue?: number): number;
   n1d(scale: number): number;
+  n1dn(scale: number): number;
   readonly settings: Partial<PlantariumSettings>;
   readonly seed: number;
   refresh(): void;

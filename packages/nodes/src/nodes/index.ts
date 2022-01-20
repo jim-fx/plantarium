@@ -1,4 +1,5 @@
 export { default as Branch } from './Branch';
+export { default as Random } from './Random';
 export { default as Curve } from './Curve';
 export { default as Gravity } from './Gravity';
 export { default as Join } from './Join';
@@ -13,3 +14,4 @@ export { default as Slider } from './Slider';
 export { default as Stem } from './Stem';
 export { default as Vec2 } from './Vec2';
 export { default as Vec3 } from './Vec3';
+export { default as VecLength } from './VecLength';

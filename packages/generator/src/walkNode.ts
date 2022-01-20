@@ -45,6 +45,7 @@ export const walkValueNode = (
 ) => {
   // Compute all the values for the parameters
   node.computedParameters = node.computedParameters ?? {};
+
   Object.entries(node.parameters).forEach(([parameterName, param]) => {
     if (isNode(param)) {
       node.computedParameters[parameterName] = walkValueNode(param, ctx, alpha);
