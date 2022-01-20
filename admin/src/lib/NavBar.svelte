@@ -23,7 +23,7 @@
       {#if href}
         <a
           class="p-3 rounded"
-          class:underline={href === $page.path}
+          class:underline={href === $page.url.pathname}
           href={base + href}
         >
           {title}
