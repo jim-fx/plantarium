@@ -6,7 +6,7 @@
   export let min = 0;
   export let max = 1;
 
-  function strip(number:string) {
+  function strip(number: string) {
     return parseFloat(number).toPrecision(2);
   }
 
@@ -15,8 +15,8 @@
   let inputEl: HTMLInputElement;
   $: value !== undefined && dispatch('change', parseFloat(value + ''));
 
-  $: if (value.toString().length > 5) {
-    value = strip(value);
+  $: if ((value || 0).toString().length > 5) {
+    value = strip(value || 0);
   }
 
   $: width = Number.isFinite(value)
@@ -54,6 +54,14 @@
       inputEl.focus();
     }
 
+    if (value < min) {
+      min = value;
+    }
+
+    if (value > max) {
+      max = value;
+    }
+
     document.body.style.cursor = 'unset';
     window.removeEventListener('mouseup', handleMouseUp);
     window.removeEventListener('mousemove', handleMouseMove);
@@ -63,15 +71,19 @@
     vx = (ev.clientX - rect.left) / rect.width;
     vy = ev.clientY - downY;
 
-    value = Math.max(Math.min(min + (max - min) * vx, max), min);
+    if (ev.ctrlKey) {
+      let v = min + (max - min) * vx;
+      value = v;
+    } else {
+      min = 0;
+      max = 1;
+      value = Math.max(Math.min(min + (max - min) * vx, max), min);
+    }
   }
 </script>
 
 <div class="component-wrapper" class:is-down={isMouseDown}>
-  <span
-    class="overlay"
-    style={`width: ${((value - min) / (max - min)) * 100}%`}
-  />
+  <span class="overlay" style={`width: ${((value - min) / (max - min)) * 100}%`} />
   <input
     bind:value
     bind:this={inputEl}

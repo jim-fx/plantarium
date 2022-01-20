@@ -1,3 +1,5 @@
+<svelte:options accessors />
+
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
@@ -7,6 +9,10 @@
   export let max = Infinity;
   export let step = 1;
   export let value = 0;
+
+  if (!value) {
+    value = 0;
+  }
 
   $: isClamped =
     typeof min !== 'undefined' &&
@@ -74,10 +80,7 @@
 
 <div class="component-wrapper">
   {#if typeof min !== 'undefined' && typeof max !== 'undefined'}
-    <span
-      class="overlay"
-      style={`width: ${((value - min) / (max - min)) * 100}%`}
-    />
+    <span class="overlay" style={`width: ${((value - min) / (max - min)) * 100}%`} />
   {/if}
   <button on:click={() => handleChange(-step)}>-</button>
   <input
