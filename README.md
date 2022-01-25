@@ -2,9 +2,9 @@
 
 <div align="center">
 
-<img src="frontend/public/favicon/favicon.svg" width="30%"/>
+<img src="frontend/static/favicon/favicon.svg" width="30%"/>
 
-<a href="https://jim-fx.com/plant/"><h2 align="center">Plantarium</h2></a>
+<a href="https://plant.jim-fx.com/"><h2 align="center">Plantarium</h2></a>
 
   <p align="center">
     Plantarium is a Tool for the procedural generation of 3D plants.
@@ -30,12 +30,12 @@ See [Architecture.md](./ARCHITECTURE.md)
 
 # Developing
 
-### Install prerequesits:
+### Install prerequisites:
 
 - Node.js
 - pnpm
 
-### Install dependancies
+### Install dependencies
 
 ```bash
 $ pnpm i -r
