@@ -96,6 +96,9 @@ export default class Node extends EventEmitter {
 
   update() {
     if (!this.enableUpdates) return;
+    if (this.system.options.showUpdates && this.view) {
+      this.view.showUpdate();
+    }
 
     this.computedData = this._compute(this.state);
 

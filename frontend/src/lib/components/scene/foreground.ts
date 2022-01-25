@@ -70,10 +70,7 @@ export default class ForegroundScene {
 		try {
 			performance.start('generate');
 
-			const result =
-				// eslint-disable-next-line
-				//@ts-ignore
-				import.meta.env.MODE === 'development' ? plant(p, s) : await this.worker.plant(p, s);
+			const result = await this.worker.plant(p, s);
 
 			performance.stop('generate');
 

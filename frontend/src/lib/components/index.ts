@@ -14,34 +14,43 @@ setTheme(settingsManager.get('theme'));
 performance.setSettings(settingsManager.getSettings());
 
 settingsManager.on('enableSync.update', (v) => {
-  createToast(`${v ? 'Enabled' : 'Disabled'} sync`, { type: 'success' });
+	createToast(`${v ? 'Enabled' : 'Disabled'} sync`, { type: 'success' });
 });
 
 settingsManager.on('theme.update', (v: string) => {
-  setTheme(v);
+	document.body.classList.add('transition-all');
+	setTimeout(() => {
+		setTheme(v);
+		setTimeout(() => {
+			document.body.classList.remove('transition-all');
+		}, 400);
+	}, 100);
 });
 
 const nodeSystem = new NodeSystem({
-  view: true,
-  defaultNodes: false,
-  registerNodes: Nodes,
+	view: true,
+	defaultNodes: false,
+	registerNodes: Nodes
+});
+
+settingsManager.on('debug.showNodeUpdates.update', (v: boolean) => {
+	console.log(v);
+	nodeSystem.options.showUpdates = v;
 });
 
 projectManager.on('load', (project) => nodeSystem.load(project));
 
 nodeSystem.on('result', (p: NodeResult) => projectManager.setProject(p), 50);
 
-nodeSystem.on('save', (project: PlantProject) =>
-  projectManager.saveProject(project),
-);
+nodeSystem.on('save', (project: PlantProject) => projectManager.saveProject(project));
 
 settingsManager.on(
-  'settings',
-  (s: PlantariumSettings) => {
-    projectManager.setSettings(s);
-    performance.setSettings(s);
-  },
-  50,
+	'settings',
+	(s: PlantariumSettings) => {
+		projectManager.setSettings(s);
+		performance.setSettings(s);
+	},
+	50
 );
 
 Tutor.init({ projectManager });

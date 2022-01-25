@@ -14,12 +14,13 @@ import NodeTypeStore from './NodeTypeStore';
 let systemID = 0;
 
 interface NodeSystemOptions {
-  view?: boolean;
-  wrapper?: HTMLElement;
-  defaultNodes?: string[] | boolean;
-  registerNodes?: NodeTypeData[];
-  logLevel?: number;
-  parent?: HTMLElement;
+  view: boolean;
+  wrapper: HTMLElement;
+  defaultNodes: string[] | boolean;
+  registerNodes: NodeTypeData[];
+  logLevel: number;
+  parent: HTMLElement;
+  showUpdates: boolean;
 }
 
 const log = logger('NodeSystem');
@@ -44,17 +45,18 @@ export default class NodeSystem extends EventEmitter {
   id: number = systemID++;
 
   view!: NodeSystemView;
-  options: NodeSystemOptions;
+  options: Partial<NodeSystemOptions>;
 
-  constructor(options: NodeSystemOptions = {}) {
+  constructor(options: Partial<NodeSystemOptions> = {}) {
     super();
     const {
       view = false,
       wrapper,
       defaultNodes = false,
       registerNodes = false,
+      showUpdates = false,
     } = options;
-    this.options = { view, wrapper };
+    this.options = { view, wrapper, showUpdates };
 
     try {
       log(`Instantiated id:${this.id}`);

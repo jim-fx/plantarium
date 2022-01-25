@@ -7,6 +7,7 @@ const system = new NodeSystem({
   wrapper: document.getElementById('nodesystem-wrapper'),
   defaultNodes: true,
   registerNodes: nodes,
+  showUpdates: true,
 });
 window.system = system;
 

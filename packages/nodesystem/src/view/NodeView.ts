@@ -160,6 +160,13 @@ export default class NodeView {
     }
   }
 
+  showUpdate() {
+    this.wrapper.classList.add('is-updating');
+    setTimeout(() => {
+      this.wrapper.classList.remove('is-updating');
+    }, 200);
+  }
+
   handleMouseMove({ mx: _x, my: _y, keys }) {
     if (this.active) {
       this.state = 'dragging';
