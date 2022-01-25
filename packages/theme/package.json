@@ -12,7 +12,7 @@
     "svelte": "^3.46.2"
   },
   "devDependencies": {
-    "esbuild-plugin-sass": "^1.0.1",
-    "esbuild": "^0.14.11"
+    "esbuild": "^0.14.13",
+    "esbuild-plugin-sass": "^1.0.1"
   }
 }
