@@ -2,33 +2,38 @@
 
 html,
 body {
-  position: relative;
-  width: 100%;
-  height: 100%;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background-color: #1a1a1a;
 }
 
 :root,
 input {
-  color: var(--text-color, black);
-  font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Oxygen-Sans', Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+	color: var(--text-color, black);
+	font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Oxygen-Sans',
+		Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 }
 
 :focus {
-  outline: none !important;
+	outline: none !important;
 }
 
 body {
-  margin: 0px;
-  padding: 0px;
+	margin: 0px;
+	padding: 0px;
 
-  display: grid;
-  grid-template-rows: 50px 1fr;
+	display: grid;
+	grid-template-rows: 50px 1fr;
+}
+
+body.transition-all * {
+	transition: all 0.3s ease;
 }
 
 main {
-	overflow:hidden;
-}	
+	overflow: hidden;
+}
 
 main,
 header {
@@ -36,11 +41,11 @@ header {
 }
 
 header {
-  padding: 5px;
+	padding: 5px;
 }
 
 #nodesystem-view {
-  border-left: solid var(--outline-color) thin;
+	border-left: solid var(--outline-color) thin;
 }
 
 // Typography
@@ -49,129 +54,129 @@ h1,
 h2,
 h3,
 h4 {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 p {
-  margin: 0;
+	margin: 0;
 }
 
 h4 {
-  font-weight: 400;
+	font-weight: 400;
 }
 
 canvas {
-  image-rendering: optimizeSpeed;
+	image-rendering: optimizeSpeed;
 }
 
 label {
-  display: block;
+	display: block;
 }
 
 input,
 button,
 select,
 textarea {
-  font-family: inherit;
-  font-size: inherit;
-  border: 1px solid #ccc;
+	font-family: inherit;
+	font-size: inherit;
+	border: 1px solid #ccc;
 
-  border-color: var(--outline-color);
-  border-radius: var(--borderRadius);
+	border-color: var(--outline-color);
+	border-radius: var(--borderRadius);
 }
 
 input:disabled {
-  color: #ccc;
+	color: #ccc;
 }
 
 input[type='range'] {
-  height: 0;
+	height: 0;
 }
 button:focus {
-  border-color: #666;
+	border-color: #666;
 }
 
 .button-icon {
-  > svg {
-    height: 40px;
-    width: 40px;
-  }
+	> svg {
+		height: 40px;
+		width: 40px;
+	}
 
-  > img {
-    height: 100%;
-  }
+	> img {
+		height: 100%;
+	}
 }
 
 // Style scrollbar
- ::-webkit-scrollbar {
-   width: 5px;
- }
- ::-webkit-scrollbar-track {
-   background: transparent;
- }
- ::-webkit-scrollbar-thumb {
-   margin-right: 5px;
-   background: var(--foregroundColor,white);
-   border-radius: var(--border-radius, 5px);
- }
+::-webkit-scrollbar {
+	width: 5px;
+}
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+::-webkit-scrollbar-thumb {
+	margin-right: 5px;
+	background: var(--background-color, white);
+	border-radius: var(--border-radius, 5px);
+}
 
 .projects-icon.active {
-  border-radius: 5px 5px 0px 0px !important;
+	border-radius: 5px 5px 0px 0px !important;
 }
 
 .projects-icon::after {
-  position: absolute;
-  content: '';
-  opacity: 0;
-  right: -25px;
-  bottom: 0px;
-  height: 25px;
-  width: 25px;
-  border-radius: 100%;
-  box-shadow: -10px 10px 0px -5px #65e2a0;
+	position: absolute;
+	content: '';
+	opacity: 0;
+	right: -25px;
+	bottom: 0px;
+	height: 25px;
+	width: 25px;
+	border-radius: 100%;
+	box-shadow: -10px 10px 0px -5px #65e2a0;
 }
 .projects-icon.active::after {
-  opacity: 1;
+	opacity: 1;
 }
 
 .settings-icon.active {
-  border-radius: 5px 5px 0px 0px !important;
+	border-radius: 5px 5px 0px 0px !important;
 }
 
 .settings-icon::after {
-  position: absolute;
-  content: '';
-  opacity: 0;
-  left: -25px;
-  bottom: 0px;
-  height: 25px;
-  width: 25px;
-  border-radius: 100%;
-  box-shadow: 10px 10px 0px -5px #65e2a0;
+	position: absolute;
+	content: '';
+	opacity: 0;
+	left: -25px;
+	bottom: 0px;
+	height: 25px;
+	width: 25px;
+	border-radius: 100%;
+	box-shadow: 10px 10px 0px -5px #65e2a0;
 }
 .settings-icon.active::after {
-  opacity: 1;
+	opacity: 1;
 }
 
 .wrapper .wrapper:last-child {
-  border-bottom: none !important;
+	border-bottom: none !important;
 }
 
 // Icon styles
 svg {
-  height: 100%;
-  stroke-width: 1.5px;
-  fill: none;
-  transition: stroke 0.3s ease;
-  stroke: var(--text-color);
+	height: 100%;
+	stroke-width: 1.5px;
+	fill: none;
+	transition: stroke 0.3s ease;
+	stroke: var(--text-color);
 }
 .only-icon {
-  width: 40px;
-  padding: 5px;
-  margin-bottom: -1px !important;
-  color: transparent !important;
+	width: 40px;
+	padding: 5px;
+	margin-bottom: -1px !important;
+	color: transparent !important;
 }
 .only-icon::before {
-  left: 7px;
+	left: 7px;
 }
