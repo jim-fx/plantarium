@@ -70,6 +70,10 @@ const history = hasLocalStorage
     : []
   : [];
 
+if (hasLocalStorage) {
+  level = parseInt(localStorage.getItem('pt-log-level')) || 2;
+}
+
 function saveHistory() {
   hasLocalStorage &&
     localStorage.setItem(localStorageId, JSON.stringify(history));
@@ -92,7 +96,7 @@ function log(scope: string): Logger {
     saveHistory();
     if ((!filters.length || filters.includes(scope)) && _level <= level) {
       // Handle all errors
-      if (args instanceof Error || _level === 2) {
+      if (args instanceof Error) {
         console.error(`[${scope.padEnd(longestName, ' ')}]`, args);
         return;
       }
@@ -127,11 +131,11 @@ function log(scope: string): Logger {
     }
   };
 
-  const log = (...args: unknown[]) => handleLog(args, 0);
+  const log = (...args: unknown[]) => handleLog(args, 2);
 
   log.warn = (...args: []) => handleLog(args, 1);
 
-  log.error = (err: Error) => handleLog(err, 2);
+  log.error = (err: Error) => handleLog(err, 0);
 
   return log;
 }
@@ -148,6 +152,7 @@ log.setFilter = (...f: string[]) => {
 
 log.setLevel = (l = 0) => {
   level = l;
+  localStorage.setItem('pt-log-level', '' + l);
 };
 
 export default log;

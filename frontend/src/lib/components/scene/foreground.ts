@@ -11,8 +11,6 @@ import DebugScene from './debug';
 import { MatCapShader } from './shaders';
 import * as performance from '../../helpers/performance';
 
-console.log(!!settingsManager, 'settings');
-
 const updateThumbnail = throttle((geo: TransferGeometry) => {
 	projectManager.renderThumbnail({ geo });
 }, 5000);
@@ -69,6 +67,8 @@ export default class ForegroundScene {
 
 		try {
 			performance.start('generate');
+
+			globalThis['pt'] = p;
 
 			const result = await this.worker.plant(p, s);
 

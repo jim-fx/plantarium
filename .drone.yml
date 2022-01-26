@@ -48,7 +48,7 @@ steps:
         from_secret: API_URL
     commands:
       - npm i -g pnpm
-      - [[ "$DRONE_BRANCH" != "main" ]] && export BASE_PATH="/plant/$DRONE_BRANCH" || export BASE_PATH="/plant"
+      - '[[ "$DRONE_BRANCH" != "main" ]] && export BASE_PATH="/plant/$DRONE_BRANCH" || export BASE_PATH="/plant"'
       - pnpm build
       - cp -r packages/geometry/public frontend/dist/geometry
       - cp -r packages/ui/dist frontend/dist/ui

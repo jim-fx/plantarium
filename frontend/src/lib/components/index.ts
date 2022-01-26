@@ -6,6 +6,7 @@ import { ProjectManager } from './project-manager';
 import { SettingsManager } from './settings-manager';
 import { Tutor } from './tutor';
 import * as performance from '../helpers/performance';
+import { logger } from '@plantarium/helpers';
 
 const settingsManager = new SettingsManager();
 const projectManager = new ProjectManager();
@@ -15,6 +16,10 @@ performance.setSettings(settingsManager.getSettings());
 
 settingsManager.on('enableSync.update', (v) => {
 	createToast(`${v ? 'Enabled' : 'Disabled'} sync`, { type: 'success' });
+});
+
+settingsManager.on('debug.logLevel.update', (logLevel: number) => {
+	logger.setLevel(logLevel);
 });
 
 settingsManager.on('theme.update', (v: string) => {
