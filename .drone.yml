@@ -23,7 +23,7 @@ steps:
       - git checkout $DRONE_BRANCH
       - git reset --hard origin/$DRONE_BRANCH
       - git pull
-      - echo "[$(git log --pretty=format:'{"id":"%h","subject":"%s","date":"%cD"},')]" | sed 's/,]/]/g' > frontend/public/commits.json
+      - echo "[$(git log --pretty=format:'{"id":"%h","subject":"%s","date":"%cD"},')]" | sed 's/,]/]/g' > frontend/static/commits.json
     depends_on:
       - restore-cache
   - name: install
@@ -50,10 +50,10 @@ steps:
       - npm i -g pnpm
       - '[[ "$DRONE_BRANCH" != "main" ]] && export BASE_PATH="/plant/$DRONE_BRANCH" || export BASE_PATH="/plant"'
       - pnpm build
-      - cp -r packages/geometry/public frontend/dist/geometry
-      - cp -r packages/ui/dist frontend/dist/ui
-      - cp -r admin/build frontend/dist/admin
-      - cp -r packages/nodesystem/public frontend/dist/nodesild
+      - cp -r packages/geometry/public frontend/build/geometry
+      - cp -r packages/ui/dist frontend/build/ui
+      - cp -r admin/build frontend/build/admin
+      - cp -r packages/nodesystem/public frontend/build/nodes
     depends_on:
       - install
   - name: test
@@ -62,7 +62,7 @@ steps:
       - npm i -g pnpm
       - rm -rf coverage
       - pnpm coverage
-      - mv coverage frontend/dist/coverage
+      - mv coverage frontend/build/coverage
     depends_on:
       - install
   - name: coverage-publish
@@ -75,7 +75,7 @@ steps:
       paths:
         - .nyc_output
         - coverage
-        - frontend/dist/coverage
+        - frontend/build/coverage
     depends_on:
       - test
   - name: rebuild-cache
@@ -120,7 +120,7 @@ steps:
       FTP_PASSWORD:
         from_secret: FTP_PASSWORD
     commands:
-      - cd frontend/dist
+      - cd frontend/build
       - lftp -e "set sftp:auto-confirm true; set ftp:ssl-force true; set xfer:timeout 10000; debug 3; open -u $FTP_USERNAME,$FTP_PASSWORD sftp://ssh.jim-fx.com:2221; mkdir -p share/plant/$DRONE_BRANCH; cd share/plant/$DRONE_BRANCH; mirror -p --scan-all-first --overwrite --verbose -R --skip-noaccess; quit;"
 
 depends_on:
@@ -160,7 +160,7 @@ steps:
       FTP_PASSWORD:
         from_secret: FTP_PASSWORD
     commands:
-      - cd frontend/dist
+      - cd frontend/build
       - lftp -e "set sftp:auto-confirm true; set ftp:ssl-force true; set xfer:timeout 10000; debug 3; open -u $FTP_USERNAME,$FTP_PASSWORD sftp://ssh.jim-fx.com:2221; mkdir -p share/plant/dev; cd share/plant/dev; mirror -p --scan-all-first --overwrite --verbose -R --skip-noaccess; quit;"
 
 depends_on:
@@ -205,7 +205,7 @@ steps:
       FTP_PASSWORD:
         from_secret: FTP_PASSWORD
     commands:
-      - cd frontend/dist
+      - cd frontend/build
       - lftp -e "set sftp:auto-confirm true; set ftp:ssl-force true; set xfer:timeout 10000; debug 3; open -u $FTP_USERNAME,$FTP_PASSWORD sftp://ssh.jim-fx.com:2221; mkdir -p share/plant; cd share/plant; mirror -p --scan-all-first --overwrite --verbose -R --skip-noaccess; quit;"
 
 depends_on:
