@@ -9,10 +9,10 @@
   "license": "ISC",
   "dependencies": {
     "css-vars-from-json": "^1.1.0",
-    "svelte": "^3.46.2"
+    "svelte": "^3.47.0"
   },
   "devDependencies": {
-    "esbuild": "^0.14.13",
+    "esbuild": "^0.14.36",
     "esbuild-plugin-sass": "^1.0.1"
   }
 }

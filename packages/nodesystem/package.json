@@ -33,16 +33,16 @@
     "@es-pack/esbuild-sass-plugin": "^2.0.1",
     "@tsconfig/svelte": "^3.0.0",
     "c8": "^7.11.0",
-    "cypress": "^9.3.1",
-    "esbuild": "^0.14.13",
-    "esbuild-svelte": "^0.6.2",
+    "cypress": "^9.5.4",
+    "esbuild": "^0.14.36",
+    "esbuild-svelte": "^0.7.0",
     "npm-run-all": "^4.1.5",
     "sirv-cli": "^2.0.2",
     "source-map-support": "^0.5.21",
-    "svelte": "^3.46.3",
-    "svelte-preprocess": "^4.10.2",
+    "svelte": "^3.47.0",
+    "svelte-preprocess": "^4.10.6",
     "svelte-preprocess-esbuild": "^2.0.0",
-    "typescript": "^4.5.5",
-    "wait-on": "^6.0.0"
+    "typescript": "^4.6.3",
+    "wait-on": "^6.0.1"
   }
 }
