@@ -1,8 +1,12 @@
-import { makeNoise2D, makeNoise3D } from 'open-simplex-noise';
+import * as n from 'open-simplex-noise';
+
+const noise = n?.default ?? n;
+
+console.log({ noise })
 
 let seed = 0;
-let noise2D = makeNoise2D(seed);
-let noise3D = makeNoise3D(seed);
+let noise2D = noise.makeNoise2D(seed);
+let noise3D = noise.makeNoise3D(seed);
 
 export default {
   n1d: (x: number) => {
@@ -18,8 +22,9 @@ export default {
     return seed;
   },
   set seed(s) {
+    if (s === seed) return;
     seed = s;
-    noise2D = makeNoise2D(seed);
-    noise3D = makeNoise3D(seed);
+    noise2D = noise.makeNoise2D(seed);
+    noise3D = noise.makeNoise3D(seed);
   },
 };

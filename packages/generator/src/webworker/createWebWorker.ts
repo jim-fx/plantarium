@@ -1,6 +1,6 @@
 import { wrap } from 'comlink';
 import type plant from '../plant';
-import createWebWorker from './webWorker?worker=external';
+import createWebWorker from 'worker-iife:./webWorker';
 
 export default () => {
   if (!('window' in globalThis)) return;

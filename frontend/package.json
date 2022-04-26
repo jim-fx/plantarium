@@ -23,6 +23,7 @@
     "@plantarium/ui": "link:../packages/ui",
     "localforage": "^1.10.0",
     "ogl": "^0.0.91",
+    "open-simplex-noise": "^2.5.0",
     "rainbow-code": "^2.1.7",
     "shortid": "^2.2.16",
     "svelte": "^3.47.0",
