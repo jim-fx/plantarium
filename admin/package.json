@@ -12,10 +12,10 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^1.0.0-next.29",
-    "@sveltejs/kit": "^1.0.0-next.314",
-    "@typescript-eslint/eslint-plugin": "^5.19.0",
-    "@typescript-eslint/parser": "^5.19.0",
-    "eslint": "^8.13.0",
+    "@sveltejs/kit": "^1.0.0-next.322",
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "eslint": "^8.14.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-svelte3": "^3.4.1",
     "prettier": "~2.6.2",
@@ -23,7 +23,7 @@
     "svelte": "^3.47.0",
     "svelte-check": "^2.7.0",
     "svelte-preprocess": "^4.10.6",
-    "tslib": "^2.3.1",
+    "tslib": "^2.4.0",
     "typescript": "^4.6.3",
     "vite-plugin-windicss": "^1.8.4",
     "windicss": "^3.5.1"
@@ -38,7 +38,7 @@
     "ogl": "^0.0.91",
     "shortid": "^2.2.16",
     "svelte-forms-lib": "^2.0.1",
-    "svelte-multiselect": "^4.0.6",
-    "vite": "^2.9.5"
+    "svelte-multiselect": "^5.0.1",
+    "vite": "^2.9.6"
   }
 }
