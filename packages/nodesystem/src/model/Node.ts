@@ -96,6 +96,7 @@ export default class Node extends EventEmitter {
 
   update() {
     if (!this.enableUpdates) return;
+    if (!this.system.isPaused) return;
     if (this.system.options.showUpdates && this.view) {
       this.view.showUpdate();
     }

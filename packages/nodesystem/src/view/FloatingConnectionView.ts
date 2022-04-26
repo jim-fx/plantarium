@@ -5,7 +5,7 @@ import NodeOutput from '../model/NodeOutput';
 import ConnectionView from './ConnectionView';
 import type NodeSystemView from './NodeSystemView';
 
-interface FloatingConnectionView extends ConnectionView, EventEmitter {}
+interface FloatingConnectionView extends ConnectionView, EventEmitter { }
 
 class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
   socket: NodeInput | NodeOutput;
@@ -114,7 +114,7 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
     this.mdy = this.view.my;
 
     this.socket = socket;
-    // socket.view.updatePosition(this);
+    socket.view.updatePosition();
   }
 
   handleMouseUp(ev: CustomMouseEvent) {
@@ -216,6 +216,7 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
 
   remove() {
     super.remove();
+    this.system.isPaused = false;
   }
 }
 
