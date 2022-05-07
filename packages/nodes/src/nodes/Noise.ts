@@ -1,4 +1,4 @@
-import { noise } from '@plantarium/geometry';
+import { noise, noiseSkeleton } from '@plantarium/geometry';
 import { logger } from '@plantarium/helpers';
 const log = logger('nodes.noise');
 const node: PlantNode = {
@@ -40,35 +40,10 @@ const node: PlantNode = {
 
     const { skeletons } = input.result;
 
-    skeletons.forEach((skelly, j) => {
-      const pathLength = skelly.length / 4;
+    console.log({ skeletons })
 
-      const lastVec = [skelly[0], skelly[1], skelly[2]];
-      let distance = 0;
-
-      for (let i = 0; i < pathLength; i++) {
-        const a = i / pathLength;
-
-        distance +=
-          (Math.abs(lastVec[0] - skelly[i * 4 + 0]) +
-            Math.abs(lastVec[1] - skelly[i * 4 + 1]) +
-            Math.abs(lastVec[2] - skelly[i * 4 + 2])) /
-          3;
-
-        lastVec[0] = skelly[i * 4 + 0];
-        lastVec[1] = skelly[i * 4 + 1];
-        lastVec[2] = skelly[i * 4 + 2];
-
-        skelly[i * 4 + 0] =
-          skelly[i * 4 + 0] +
-          noise.n1d(distance * size + 0 + j * 500) * strength * a;
-        skelly[i * 4 + 1] =
-          skelly[i * 4 + 1] +
-          noise.n1d(distance * size + 1000 + j * 500) * strength * a;
-        skelly[i * 4 + 2] =
-          skelly[i * 4 + 2] +
-          noise.n1d(distance * size + 2000 + j * 500) * strength * a;
-      }
+    skeletons.forEach((skelly: Float32Array, j: number) => {
+      noiseSkeleton(skelly, strength, size, [0, 0, 0], j === 0)
     });
 
     return {

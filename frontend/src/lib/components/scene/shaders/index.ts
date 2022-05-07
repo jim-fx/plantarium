@@ -37,7 +37,7 @@ const ParticleShader = {
 };
 
 
-export const MatCapShader = (gl:WebGL2RenderingContext) => {
+export const MatCapShader = (gl: WebGL2RenderingContext) => {
   const texture = new Texture(gl);
   const img = new Image();
   img.onload = () => (texture.image = img);

@@ -53,8 +53,8 @@ interface GeneratorContext {
 type SettingsTemplate = {
   onlyDev?: boolean;
   [key: string]:
-    | ValueTemplate
-    | { onlyDev?: boolean; options: SettingsTemplate };
+  | ValueTemplate
+  | { onlyDev?: boolean; options: SettingsTemplate };
 };
 
 interface Vec2 {
@@ -207,3 +207,5 @@ interface PlantariumSettings {
     filetype: string;
   };
 }
+
+

@@ -47,11 +47,11 @@ export default class Renderer extends EventEmitter {
     this.renderer = new oRenderer({
       canvas,
       width,
-      premultipliedAlpha: true,
+      // premultipliedAlpha: true,
       height,
-      alpha,
+      // alpha,
       antialias: true,
-      dpr: 1,
+      // dpr: 1,
     });
     this.gl = this.renderer.gl;
     this.gl.clearColor(...convertHexToRGB(clearColor), 0);

@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { humane } from '@plantarium/helpers';
+	import { createAlert, createToast } from '@plantarium/ui';
 	import { projectManager } from '..';
+	import ExportProject from './ExportProject.svelte';
 
 	export let project: PlantProject;
 
@@ -11,6 +13,20 @@
 			active = false;
 		}, 100);
 		return true;
+	}
+
+	async function handleDelete() {
+		const res = await createAlert(
+			`Are you sure you want to delete ${project.meta.name ?? project.meta.id}?`,
+			{
+				values: ['Yes', 'No']
+			}
+		);
+
+		if (res === 'Yes') {
+			await projectManager.deleteProject(project.meta.id);
+			createToast(`Project ${project.meta.name ?? project.meta.id} deleted!`, { type: 'success' });
+		}
 	}
 </script>
 
@@ -46,10 +62,11 @@
 		</div>
 		<div class="project-content-main" />
 		<div class="project-content-footer">
+			<button class="delete" on:click|stopPropagation={() => handleDelete()}>delete</button>
 			<button
-				class="delete"
-				on:click|stopPropagation={() => projectManager.deleteProject(project.meta.id)}
-				>delete</button
+				class="export"
+				on:click|stopPropagation={() =>
+					createAlert(ExportProject, { props: { project }, timeout: 0 })}>export</button
 			>
 		</div>
 	</div>

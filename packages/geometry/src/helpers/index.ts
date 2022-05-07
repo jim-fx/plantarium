@@ -18,3 +18,4 @@ export { default as rotate3D } from './rotate3D';
 export { default as rotateMesh3D } from './rotateMesh3D';
 export { default as transferToGeometry } from './transferToGeometry';
 export { default as translateMesh } from './translateMesh';
+export * from "./findOrthVec"

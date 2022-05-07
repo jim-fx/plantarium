@@ -1,9 +1,1 @@
-import { expose } from 'comlink';
-import plant from '../plant';
-
-
-const obj = {
-  plant,
-};
-
-expose(obj);
+export { default as plant } from '../plant';

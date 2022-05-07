@@ -6,7 +6,7 @@ import glslify from 'rollup-plugin-glslify';
 import svg from 'rollup-plugin-svg-import';
 import { visualizer } from 'rollup-plugin-visualizer';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import worker, { pluginHelper } from 'vite-plugin-worker'
+import comlink from 'vite-plugin-comlink'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -15,6 +15,7 @@ const config = {
   preprocess: preprocess(),
   kit: {
     adapter: adapter(),
+    prerender: { default: true },
     vite: {
       server: {
         host: '0.0.0.0',
@@ -31,9 +32,11 @@ const config = {
           filename: 'build/stats.html',
           projectRoot: path.resolve('./')
         }),
-        pluginHelper(),
-        worker.default({})
-      ]
+        comlink.default(),
+      ],
+      worker: {
+        plugins: [comlink.default()]
+      }
     }
   }
 };

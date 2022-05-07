@@ -52,6 +52,12 @@
       margin: 0;
     }
 
+    #code-wrapper{
+      display: grid;
+      grid-template-rows: 30px 1fr;
+      background: #1e1e1e
+    }
+
     #debug-canvas{
       position: absolute;
       width: 100%;
@@ -76,7 +82,10 @@
       <canvas id="debug-canvas"></canvas>
       <canvas id="render-canvas"></canvas>
     </div>
-    <div id="container"></div>
+    <div id="code-wrapper">
+      <div id="code-examples"></div>
+      <div id="container"></div>
+    </div>
   </div>
 
 
