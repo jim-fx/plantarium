@@ -54,12 +54,12 @@ const node: PlantNode = {
   },
 
   computeSkeleton(parameters, ctx) {
-    const { skeletons: inputSkeletons } = parameters.input.result;
+    const { stems: inputStems } = parameters.input.result as { stems: PlantStem[] };
 
     const branchRes = ctx.getSetting('stemResY');
 
-    const skeletons = inputSkeletons
-      .map((skelly) => {
+    const stems = inputStems
+      .map((stem) => {
         const branches: Float32Array[] = [];
 
         const amount = ctx.handleParameter(parameters.amount);
@@ -78,7 +78,7 @@ const node: PlantNode = {
           a -= (1 / amount) * offsetSingle * (isLeft ? -1 : 1);
 
           //Vector along stem
-          const [_vx, , _vz] = interpolateSkeletonVec(skelly, a);
+          const [_vx, , _vz] = interpolateSkeletonVec(stem.skeleton, a);
 
           const nv = normalize2D([_vx, _vz]);
 
@@ -90,7 +90,7 @@ const node: PlantNode = {
           );
 
           // Point along skeleton
-          const [px, py, pz, pt] = interpolateSkeleton(skelly, a);
+          const [px, py, pz, pt] = interpolateSkeleton(stem.skeleton, a);
 
           const pointAmount = Math.max(Math.floor(branchRes * length * 10), 4);
 
@@ -107,13 +107,18 @@ const node: PlantNode = {
           branches.push(branch);
         }
 
-        return branches;
+        return branches.map(b => {
+          return {
+            skeleton: b,
+            depth: stem.depth + 1
+          }
+        });
       })
       .flat();
 
     return {
-      skeletons,
-      allSkeletons: [...skeletons, ...inputSkeletons],
+      stems,
+      allSkeletons: [...stems, ...inputStems],
     };
   },
 
@@ -121,12 +126,12 @@ const node: PlantNode = {
     const stemResX = ctx.getSetting('stemResX');
 
     const { geometry } = parameters.input.result;
-    const { skeletons } = result;
+    const { stems } = result;
 
     return {
       geometry: join(
         geometry,
-        ...skeletons.map((skeleton) => tube(skeleton, stemResX)),
+        ...stems.map(({ skeleton }) => tube(skeleton, stemResX)),
       ),
     };
   },

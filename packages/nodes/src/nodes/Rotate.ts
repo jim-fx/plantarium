@@ -41,13 +41,17 @@ const node: PlantNode = {
     const { input, type, spread } = parameters;
 
     const {
-      result: { skeletons, allSkeletons },
+      result: { stems, allSkeletons },
     } = input;
 
     const rotationAxis = getRotationAxis(type as string);
 
-    skeletons.forEach((skelly, j) => {
-      const amount = skelly.length / 4;
+    console.log({ stems })
+    stems.forEach((stem: PlantStem, j: number) => {
+
+
+      const skelly = stem.skeleton;
+      const amount = stem.skeleton.length / 4;
 
       // const a = j / skeletons.length;
 
@@ -55,7 +59,7 @@ const node: PlantNode = {
       const oy = skelly[1];
       const oz = skelly[2];
 
-      const _a = j / skeletons.length;
+      const _a = j / stems.length;
 
       const angle =
         ctx.handleParameter(parameters.angle, _a) * (spread ? _a : 1);
@@ -87,7 +91,7 @@ const node: PlantNode = {
     });
 
     return {
-      skeletons,
+      stems,
       allSkeletons,
     };
   },

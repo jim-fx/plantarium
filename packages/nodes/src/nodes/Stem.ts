@@ -47,7 +47,7 @@ const node: PlantNode = {
 
     const amountPoints = ctx.getSetting('stemResY');
 
-    const skeletons = [];
+    const stems: PlantStem[] = [];
 
     for (let i = 0; i < amount; i++) {
       const { x: ox, y: oy, z: oz } = ctx.handleParameter(parameters.origin);
@@ -72,12 +72,12 @@ const node: PlantNode = {
         skeleton[j * 4 + 3] = thiccness;
       }
 
-      skeletons.push(skeleton);
+      stems.push({ depth: 0, skeleton });
     }
 
     return {
-      skeletons,
-      allSkeletons: skeletons,
+      stems,
+      allSkeletons: stems,
     };
   },
 
@@ -86,7 +86,7 @@ const node: PlantNode = {
     const stemResX = ctx.getSetting('stemResX');
     return {
       geometry: join(
-        ...result.skeletons.map((skelly) => tube(skelly, stemResX)),
+        ...result.stems.map(({ skeleton }) => tube(skeleton, stemResX)),
       ),
     };
   },

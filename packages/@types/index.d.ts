@@ -208,4 +208,7 @@ interface PlantariumSettings {
   };
 }
 
-
+interface PlantStem {
+  depth: number;
+  skeleton: Float32Array;
+}

@@ -38,16 +38,15 @@ const node: PlantNode = {
     const size = ctx.handleParameter(parameters.size);
     const strength = ctx.handleParameter(parameters.strength);
 
-    const { skeletons } = input.result;
+    const { stems } = input.result;
 
-    console.log({ skeletons })
 
-    skeletons.forEach((skelly: Float32Array, j: number) => {
-      noiseSkeleton(skelly, strength, size, [0, 0, 0], j === 0)
+    stems.forEach((stem: PlantStem) => {
+      noiseSkeleton(stem.skeleton, strength, size, [0, 0, 0], stem.depth === 0)
     });
 
     return {
-      skeletons,
+      stems,
       allSkeletons: input.result.allSkeletons,
     };
   },

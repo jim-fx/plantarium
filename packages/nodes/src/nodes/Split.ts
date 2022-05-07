@@ -42,16 +42,24 @@ const node: PlantNode = {
     const angle = ctx.handleParameter(parameters.angle);
     const amount = ctx.handleParameter(parameters.amount);
 
-    const { skeletons } = input.result;
+    const { stems } = input.result as { stems: PlantStem[] };
 
-    const results = []
+    const maxDepth = Math.max(...stems.map(s => s.depth));
 
-    skeletons.forEach((skelly: Float32Array) => {
-      results.push(...splitSkeleton(skelly, height, amount, angle))
-    });
+    const results = stems.map((stem: PlantStem) => {
+      if (stem.depth === maxDepth) {
+        const newSkeletons = splitSkeleton(stem.skeleton, height, amount, angle);
+        return newSkeletons.map(s => {
+          return {
+            skeleton: s,
+            depth: stem.depth + 1,
+          }
+        })
+      }
+    }).flat().filter(v => !!v);
 
     return {
-      skeletons: results,
+      stems: results,
       allSkeletons: [...input.result.allSkeletons, ...results],
     };
   },
@@ -59,12 +67,12 @@ const node: PlantNode = {
   computeGeometry(_, result, ctx) {
     const stemResX = ctx.getSetting('stemResX');
 
-    const { skeletons } = result;
+    const { stems } = result;
 
     return {
       geometry: join(
         // geometry,
-        ...skeletons.map((skeleton) => tube(skeleton, stemResX)),
+        ...stems.map(({ skeleton }) => tube(skeleton, stemResX)),
       ),
     };
   },
