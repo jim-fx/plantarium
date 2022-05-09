@@ -58,43 +58,6 @@ interface Vec2 {
   pinned?: boolean;
 }
 
-interface ValueTemplate {
-  type: string | string[];
-  label?: boolean | string;
-  value?: boolean | string | number | Vec2[];
-  values?: string[];
-  points?: Vec2[];
-  internal?: boolean;
-  external?: boolean;
-  inputType?: string;
-  min?: number;
-  max?: number;
-  step?: number;
-  defaultValue?: number | string | boolean | Vec3[] | Vec2[] | Vec3 | Vec2;
-}
-
-/**
- * Used to register new node types
- */
-interface NodeTypeData {
-  title: string;
-
-  type: string;
-
-  outputs: string[];
-
-  meta?: {
-    description?: string;
-    tags?: string[];
-  };
-
-  parameters: {
-    [key: string]: ValueTemplate;
-  };
-
-  compute(parameters: { [key: string]: unknown }): unknown;
-}
-
 interface NodePosition {
   x: number;
   y: number;

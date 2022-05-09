@@ -18,8 +18,19 @@ import InputSearch from './InputSearch.svelte';
 import Section from './Section.svelte';
 import StackTrace from './toast/StackTrace.svelte';
 import type { SvelteComponent } from 'svelte';
+import type { ValueTemplate } from './types';
+
+export type {
+  CheckboxTemplate,
+  IntegerTemplate,
+  FloatTemplate,
+  ShapeTemplate,
+  CurveTemplate,
+  SelectTemplate,
+} from "./types"
 
 export {
+  ValueTemplate,
   InputFloat,
   InputInteger,
   InputSlider,
@@ -54,40 +65,31 @@ export function stateToElement({
   template: ValueTemplate;
   value: unknown;
 }): SvelteComponent {
-  if (value === undefined && 'value' in template) {
-    value = template.value;
-  }
+  const component = stateToComponent(template);
 
-  const component = stateToComponent(template, value) as typeof SvelteComponent;
+  const props = { ...template, ...{ value } };
+  delete props["type"]
+  console.log("LoadElement", template.type, props, value)
 
-  const props: Partial<ValueTemplate> = { ...template };
-  delete props.type;
-  delete props.inputType;
-  delete props.defaultValue;
-  delete props.internal;
-
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //@ts-ignore
-  props['value'] = value;
 
   return new component({ target, props: { ...props, '--width': '100%' } });
 }
 
-export function stateToComponent(template: ValueTemplate, value: unknown): typeof SvelteComponent {
-  if (template.inputType === 'select' || Array.isArray(template.values)) {
+export function stateToComponent(template: ValueTemplate): typeof SvelteComponent {
+  if (template.type === 'select') {
     return InputSelect;
   }
 
-  if (template.inputType === 'curve') {
+  if (template.type === 'curve') {
     return InputCurve;
   }
 
-  if (template.inputType === 'shape') {
+  if (template.type === 'shape') {
     return InputShape;
   }
 
-  if (template.type === 'number' || typeof value === 'number') {
-    if (template.step && template.step % 1 != 0) {
+  if (template.type === 'number') {
+    if (template?.inputType === "float") {
       return InputFloat;
     }
     return InputInteger;

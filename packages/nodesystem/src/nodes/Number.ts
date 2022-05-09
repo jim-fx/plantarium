@@ -1,4 +1,6 @@
-export default {
+import { checkNodeType } from "../@types"
+
+export default checkNodeType({
   title: 'Number',
   type: 'number',
   outputs: ['number'],
@@ -7,10 +9,10 @@ export default {
       type: 'number',
       internal: true,
       label: false,
-      defaultValue: 0,
+      value: 0,
     },
   },
   compute({ value = 0 }) {
     return value;
   },
-};
+});

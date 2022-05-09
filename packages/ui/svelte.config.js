@@ -18,8 +18,6 @@ const config = {
 
     paths: { base: BASE_PATH },
 
-    // hydrate the <div id="svelte"> element in src/app.html
-    target: '#svelte',
     vite: {
       server: { host: '0.0.0.0', port: 8085 },
       optimizeDeps: { include: ['highlight.js/lib/core'] },

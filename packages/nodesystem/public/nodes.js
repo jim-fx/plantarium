@@ -11,11 +11,11 @@ const boolops = {
     },
     a: {
       type: 'boolean',
-      defaultValue: false,
+      value: false,
     },
     b: {
       type: 'boolean',
-      defaultValue: false,
+      value: false,
     },
   },
   compute({ a, b, mode }) {
@@ -36,15 +36,15 @@ const compare = {
       internal: true,
     },
     a: {
-      type: 'number',
-      defaultValue: 0,
+      type: 'integer',
+      value: 0,
     },
     b: {
-      type: 'number',
-      defaultValue: 0,
+      type: 'integer',
+      value: 0,
     },
   },
-  compute: function ({ a, b, mode }) {
+  compute: function({ a, b, mode }) {
     switch (mode) {
       case '=':
         return a === b;
@@ -72,7 +72,7 @@ const picker = {
       type: 'number',
     },
   },
-  compute: function ({ selectFirst = true, inputA = 0, inputB = 0 }) {
+  compute: function({ selectFirst = true, inputA = 0, inputB = 0 }) {
     return selectFirst ? inputA : inputB;
   },
 };
