@@ -32,10 +32,10 @@ const node: PlantNode = {
   computeSkeleton(parameters, ctx) {
     const { input, type, strength } = parameters;
 
-    const { skeletons } = input.result;
+    const { stems } = input.result;
 
     if (type === 'simple') {
-      skeletons.forEach((skelly) => {
+      stems.forEach(({ skeleton: skelly }: PlantStem) => {
         const amount = skelly.length / 4;
 
         // Loop over every single joint in the skeleton
@@ -51,7 +51,7 @@ const node: PlantNode = {
     }
 
     if (type === 'test') {
-      skeletons.forEach((skelly) => {
+      stems.forEach(({ skeleton: skelly }: PlantStem) => {
         const amount = skelly.length / 4;
 
         // Loop over every single joint in the skeleton
@@ -120,7 +120,7 @@ const node: PlantNode = {
     }
 
     if (type === 'verlet') {
-      skeletons.forEach((skelly) => {
+      stems.forEach(({ skeleton: skelly }: PlantStem) => {
         const amount = skelly.length / 4;
 
         // Loop over every single joint in the skeleton
@@ -153,7 +153,7 @@ const node: PlantNode = {
     }
 
     return {
-      skeletons,
+      stems,
     };
   },
   computeGeometry(parameters) {

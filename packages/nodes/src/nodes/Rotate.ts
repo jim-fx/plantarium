@@ -38,6 +38,9 @@ const node: PlantNode = {
     },
   },
   computeSkeleton(parameters, ctx) {
+
+    console.log(parameters, this.parameters)
+
     const { input, type, spread } = parameters;
 
     const {
