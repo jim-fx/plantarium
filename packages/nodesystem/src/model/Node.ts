@@ -180,13 +180,12 @@ export default class Node extends EventEmitter {
       state[s.key] = s.getValue();
     });
 
-    return Object.assign(
-      {},
+    return JSON.parse(JSON.stringify(
       {
         attributes,
         state,
       },
-    );
+    ));
   }
 
   save() {
