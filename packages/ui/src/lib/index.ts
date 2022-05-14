@@ -11,6 +11,7 @@ import InputColor from './InputColor.svelte';
 import InputCurve from './InputCurve.svelte';
 import InputInteger from './InputInteger.svelte';
 import InputFloat from './InputFloat.svelte';
+import InputTab from './InputTab.svelte';
 import InputSelect from './InputSelect.svelte';
 import InputShape from './InputShape.svelte';
 import InputSlider from './InputSlider.svelte';
@@ -18,6 +19,17 @@ import InputSearch from './InputSearch.svelte';
 import Section from './Section.svelte';
 import StackTrace from './toast/StackTrace.svelte';
 import type { SvelteComponent } from 'svelte';
+import type { ValueTemplate } from './types';
+
+export type {
+  CheckboxTemplate,
+  IntegerTemplate,
+  FloatTemplate,
+  ShapeTemplate,
+  CurveTemplate,
+  SelectTemplate,
+  ValueTemplate
+} from "./types"
 
 export {
   InputFloat,
@@ -28,6 +40,7 @@ export {
   InputCurve,
   InputShape,
   InputSearch,
+  InputTab,
   InputColor,
   Button,
   Icon,
@@ -54,42 +67,44 @@ export function stateToElement({
   template: ValueTemplate;
   value: unknown;
 }): SvelteComponent {
-  if (value === undefined && 'value' in template) {
-    value = template.value;
-  }
+  const component = stateToComponent(template);
 
-  const component = stateToComponent(template, value) as typeof SvelteComponent;
+  const props = { ...template, ...{ value } };
+  delete props["type"]
 
-  const props: Partial<ValueTemplate> = { ...template };
-  delete props.type;
-  delete props.inputType;
-  delete props.defaultValue;
-  delete props.internal;
-
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //@ts-ignore
-  props['value'] = value;
-
-  return new component({ target, props: { ...props, '--width': '100%' } });
+  return new component({ target, props });
 }
 
-export function stateToComponent(template: ValueTemplate, value: unknown): typeof SvelteComponent {
-  if (template.inputType === 'select' || Array.isArray(template.values)) {
+export function stateToComponent(template: ValueTemplate): typeof SvelteComponent {
+  if (template.type === 'select') {
+    if (template.inputType === "tab") {
+      return InputTab
+    }
     return InputSelect;
   }
 
-  if (template.inputType === 'curve') {
+  if (template.type === 'curve') {
     return InputCurve;
   }
 
-  if (template.inputType === 'shape') {
+  if (template.type === 'shape') {
     return InputShape;
   }
 
-  if (template.type === 'number' || typeof value === 'number') {
-    if (template.step && template.step % 1 != 0) {
+  if (template.type === 'number') {
+    if (template.inputType) {
+      if (template.inputType === "float") {
+        return InputFloat;
+      }
+      if (template.inputType === "integer") {
+        return InputInteger
+      }
+    }
+
+    if (template?.step && (template.step % 1 !== 0)) {
       return InputFloat;
     }
+
     return InputInteger;
   }
 

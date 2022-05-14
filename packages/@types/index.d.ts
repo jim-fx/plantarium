@@ -19,44 +19,6 @@ interface InstancedGeometry {
   scale: Float32Array;
 }
 
-/**
- * Output of a node
- */
-interface NodeResult {
-  type: string;
-  parameters: {
-    [key: string]: ValueResult;
-  };
-}
-/**
- * Output of a node which produces geometry
- */
-interface GeometryResult extends NodeResult {
-  skeletons?: Float32Array[];
-  allSkeletons: Float32Array[];
-  geometry?: TransferGeometry;
-  instances: InstancedGeometry[];
-  debugVectors?: Float32Array[];
-  debugNormals?: Float32Array[];
-}
-
-interface GeneratorContext {
-  handleParameter(param: unknown, alpha?: number);
-  getSetting(key: keyof PlantariumSettings, defaultValue?: number): number;
-  n1d(scale: number): number;
-  n1dn(scale: number): number;
-  readonly settings: Partial<PlantariumSettings>;
-  readonly seed: number;
-  refresh(): void;
-}
-
-type SettingsTemplate = {
-  onlyDev?: boolean;
-  [key: string]:
-    | ValueTemplate
-    | { onlyDev?: boolean; options: SettingsTemplate };
-};
-
 interface Vec2 {
   x: number;
   y: number;
@@ -70,31 +32,10 @@ interface Vec3 {
   pinned?: boolean;
 }
 
-interface ValueTemplate {
-  type: string | string[];
-  label?: boolean | string;
-  value?: boolean | string | number | Vec2[];
-  values?: string[];
-  points?: Vec2[];
-  internal?: boolean;
-  external?: boolean;
-  inputType?: string;
-  min?: number;
-  max?: number;
-  step?: number;
-  defaultValue?: number | string | boolean | Vec3[] | Vec2[] | Vec3;
-}
-
-type ValueResult = NodeResult | ParameterResult | string;
-
-interface NodeProps {
-  attributes: NodeAttributes;
-  state?: Record<string, unknown>;
-}
-
 interface PlantProject {
   meta: PlantProjectMeta;
   nodes: NodeProps[];
+  history?: any;
 }
 
 interface PlantProjectMeta {
@@ -121,48 +62,6 @@ interface PlantProjectMeta {
   family?: string;
   class?: string;
   public?: boolean;
-}
-
-interface ParameterResult {
-  value: number | Vec2[];
-  variation?: number;
-  curve?: Vec2[];
-}
-
-type Parameter = ParameterResult | GeometryResult | Vec3 | number | Vec2;
-
-interface PlantNode {
-  title: string;
-  type: string;
-
-  outputs: string[];
-
-  parameters: {
-    [key: string]: ValueTemplate;
-  };
-
-  compute?(parameters: { [key: string]: ValueResult }): NodeResult;
-  computeNode?(parameters: { [key: string]: ValueResult }): NodeResult;
-  computeSkeleton?(parameters: Record<string, any>, ctx: GeneratorContext);
-  computeGeometry?(
-    parameters: Record<string, any>,
-    result: GeometryResult,
-    ctx: GeneratorContext,
-  );
-  computeValue?: (
-    parameters: Record<string, any>,
-    ctx: GeneratorContext,
-    a?: number,
-  ) => number;
-}
-
-interface GeneratorContextNode {
-  type: string;
-  parameters: {
-    [key: string]: ValueTemplate;
-  };
-  computedParameters: Record<string, Parameter | GeneratorContextNode>;
-  result: GeometryResult;
 }
 
 interface PlantariumSettings {
@@ -206,4 +105,10 @@ interface PlantariumSettings {
   export: {
     filetype: string;
   };
+}
+
+interface PlantStem {
+  depth: number;
+  id: string;
+  skeleton: Float32Array;
 }

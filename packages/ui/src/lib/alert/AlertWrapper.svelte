@@ -42,7 +42,11 @@
       {#if typeof alert.content === 'string'}
         <p>{@html alert.content}</p>
       {:else}
-        <svelte:component this={alert.content} {...alert.props} />
+        <svelte:component
+          this={alert.content}
+          {...alert.props}
+          on:close={() => alert.resolve(false)}
+        />
       {/if}
 
       {#if alert.values}
@@ -71,10 +75,10 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.493);
     display: grid;
     place-items: center;
     backdrop-filter: blur(5px) contrast(0.5);
+    background-color: rgba(0, 0, 0, 0.493);
   }
 
   .close-wrapper {
@@ -103,9 +107,12 @@
 
     backdrop-filter: blur(10px) contrast(0.5) brightness(1.5);
     overflow-y: auto;
+
+    background-color: #3b3b3b;
   }
 
   .options-wrapper {
     padding-top: 20px;
+    display: flex;
   }
 </style>

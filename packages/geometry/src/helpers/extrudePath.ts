@@ -6,6 +6,7 @@ import {
   mul,
   normalize,
   subtract,
+  scale,
   transformMat4,
 } from 'gl-matrix/vec3';
 
@@ -58,12 +59,12 @@ function createIndeces(resX: number, stemLength = 1) {
   return index;
 }
 
-export default function (path, resolution) {
+export default function(path: [number, number, number, number][], resolution = 3) {
   const mat = [],
     v = [],
     axis = [];
 
-  const mesh = { position: [], index: createIndeces(resolution, path.length) };
+  const mesh = { position: [], normals: [], index: createIndeces(resolution, path.length) };
 
   const position = createCircle(resolution);
 
@@ -88,9 +89,13 @@ export default function (path, resolution) {
     for (let j = 0; j < positionAmount; j++) {
       const p = position[j];
       const pt = [p[0], p[1], 0];
-      const scale = path[i][3];
-      mul(pt, pt, [scale, scale, 1]);
+      const thicc = path[i][3];
+      mul(pt, pt, [thicc, thicc, 1]);
       transformMat4(pt, pt, mat);
+      const normal = []
+      normalize(normal, pt)
+      scale(normal, [-0, -0, -0]);
+      mesh.normals.push(normal);
       add(pt, pt, path[i]);
       mesh.position.push(pt);
     }

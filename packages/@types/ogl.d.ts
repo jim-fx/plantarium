@@ -302,15 +302,14 @@ declare module 'ogl' {
       config?: {
         vertex: string;
         fragment: string;
-        uniforms?: Record<string, unknow>;
+        uniforms?: Record<string, unknown>;
         depthTest?: boolean;
         cullFace?: number;
         transparent?: boolean;
       },
     );
 
-    uniforms: Record<string, unknwon>;
-
+    uniforms: Record<string, unknown>;
     setBlendFunc: () => void;
     setBlendEquation: () => void;
     applyState: () => void;
@@ -485,8 +484,4 @@ declare module 'ogl' {
 
     update: () => void;
   }
-}
-
-declare namespace ogl {
-  Vec2;
 }

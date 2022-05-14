@@ -1,3 +1,5 @@
+<svelte:options accessors />
+
 <script>
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();

@@ -1,14 +1,14 @@
 import { curve } from '@plantarium/helpers';
 import { interpolateArray } from '@plantarium/geometry';
+import { typeCheckNode } from '../types';
 
-const node: PlantNode = {
+export default typeCheckNode({
   title: 'Curve',
   type: 'curve',
   outputs: ['number'],
   parameters: {
     value: {
       type: 'curve',
-      inputType: 'curve',
       internal: true,
       label: false,
       value: [
@@ -21,6 +21,5 @@ const node: PlantNode = {
     const values = curve.toArray(parameters.value).map((v) => v.y);
     return interpolateArray(values, 1 - alpha);
   },
-};
+});
 
-export default node;

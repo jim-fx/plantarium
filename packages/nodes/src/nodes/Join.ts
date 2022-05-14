@@ -1,7 +1,8 @@
 import { join } from '@plantarium/geometry';
 import { logger } from '@plantarium/helpers';
+import { typeCheckNode } from '../types';
 const log = logger('nodes.join');
-const node: PlantNode = {
+export default typeCheckNode({
   title: 'Join',
   type: 'join',
   outputs: ['plant'],
@@ -19,62 +20,53 @@ const node: PlantNode = {
     },
   },
 
-  computeSkeleton(parameters, ctx) {
+  computeStem(parameters, ctx) {
     log('compute skeleton', parameters, ctx);
 
     const { inputA, inputB } = parameters;
 
     if (!inputA || !inputB) {
-      return inputA ? inputA.result : inputB.result;
+      return inputA ? inputA() : inputB();
     }
 
-    const { skeletons: skeletonsA, allSkeletons: allSkeletonsA } =
-      inputA.result;
-    const { skeletons: skeletonsB, allSkeletons: allSkeletonsB } =
-      inputB.result;
+    const { stems: stemsA } =
+      inputA()
+    const { stems: stemsB } =
+      inputB();
 
-    log(skeletonsA, skeletonsB);
+    log(stemsA, stemsB);
 
-    const skeletons = [...skeletonsA, ...skeletonsB];
-    const allSkeletons = [];
+    const stems = [...stemsA, ...stemsB];
 
-    if (allSkeletonsA) {
-      allSkeletons.push(...allSkeletonsA);
-    }
-    if (allSkeletonsB) {
-      allSkeletons.push(...allSkeletonsB);
-    }
 
     return {
-      allSkeletons,
-      skeletons,
+      stems,
     };
   },
   computeGeometry(parameters) {
     const { inputA, inputB } = parameters;
 
     if (!inputA || !inputB) {
-      return inputA ? inputA.result : inputB.result;
+      return inputA ? inputA() : inputB();
     }
 
-    const { geometry: geometryA, instances: instancesA } = inputA.result;
-    const { geometry: geometryB, instances: instancesB } = inputB.result;
+    const { geometry: geometryA, instances: instancesA } = inputA();
+    const { geometry: geometryB, instances: instancesB } = inputB();
 
     const result = join(geometryA, geometryB);
 
     const instances = [];
 
     if (instancesA) {
-      instances.push(...instancesA);
+      instances.push(instancesA);
     }
     if (instancesB) {
-      instances.push(...instancesB);
+      instances.push(instancesB);
     }
 
     log('compute geometry', { geometryA, geometryB, result });
 
     return { geometry: result, instances };
   },
-};
+});
 
-export default node;

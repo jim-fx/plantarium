@@ -1,4 +1,5 @@
 import { rotate3D } from '@plantarium/geometry';
+import { typeCheckNode } from '../types';
 
 const getRotationAxis = (mode: string) => {
   if (mode === 'X') return [1, 0, 0];
@@ -6,8 +7,9 @@ const getRotationAxis = (mode: string) => {
   return [0, 1, 0];
 };
 
-const node: PlantNode = {
+export default typeCheckNode({
   title: 'Rotate',
+
   type: 'rotate',
 
   outputs: ['plant'],
@@ -17,11 +19,13 @@ const node: PlantNode = {
       type: 'plant',
       external: true,
     },
-    type: {
+    axis: {
+      type: 'select',
       internal: true,
       label: false,
-      type: 'select',
+      inputType: "tab",
       values: ['Y', 'X', 'Z'],
+      value: "X"
     },
     spread: {
       internal: true,
@@ -30,24 +34,31 @@ const node: PlantNode = {
     },
     angle: {
       type: 'number',
-      inputType: 'slider',
       min: 0,
       max: Math.PI * 2,
       step: 0.05,
       value: 0,
     },
   },
-  computeSkeleton(parameters, ctx) {
-    const { input, type, spread } = parameters;
+  computeStem(parameters, ctx) {
+
+    const { input, axis, spread, } = parameters;
 
     const {
-      result: { skeletons, allSkeletons },
-    } = input;
+      stems,
+    } = input();
 
-    const rotationAxis = getRotationAxis(type as string);
+    const rotationAxis = getRotationAxis(axis);
 
-    skeletons.forEach((skelly, j) => {
-      const amount = skelly.length / 4;
+    const { depth: maxDepth } = stems[stems.length - 1];
+
+    stems.forEach((stem: PlantStem, j: number) => {
+
+      if (stem.depth !== maxDepth) return;
+
+
+      const skelly = stem.skeleton;
+      const amount = stem.skeleton.length / 4;
 
       // const a = j / skeletons.length;
 
@@ -55,10 +66,9 @@ const node: PlantNode = {
       const oy = skelly[1];
       const oz = skelly[2];
 
-      const _a = j / skeletons.length;
+      const _a = j / stems.length;
 
-      const angle =
-        ctx.handleParameter(parameters.angle, _a) * (spread ? _a : 1);
+      const angle = parameters.angle(_a) * (spread ? _a : 1);
 
       // Loop over every single joint in the skeleton
       for (let i = 1; i < amount; i++) {
@@ -87,13 +97,8 @@ const node: PlantNode = {
     });
 
     return {
-      skeletons,
-      allSkeletons,
+      stems,
     };
   },
-  computeGeometry(parameters) {
-    return parameters.input.result;
-  },
-};
+});
 
-export default node;

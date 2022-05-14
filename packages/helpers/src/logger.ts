@@ -7,6 +7,9 @@ interface Logger {
   error(err: Error): void;
 }
 
+const isServiceWorker = typeof globalThis["WorkerGlobalScope"] !== 'undefined' && self instanceof globalThis["WorkerGlobalScope"];
+
+
 let filters: string[] = [];
 let level = 2;
 
@@ -82,6 +85,8 @@ function saveHistory() {
 let store: undefined | Writable<unknown[]>;
 
 function log(scope: string): Logger {
+
+
   longestName = Math.max(longestName, scope.length);
 
   const myIndex = currentIndex;
@@ -90,6 +95,8 @@ function log(scope: string): Logger {
   currentIndex++;
 
   const handleLog = (args: unknown[] | Error, _level: number) => {
+
+    if (isServiceWorker) return;
     history.push({ scope, args, level });
     history.length = Math.min(100, history.length);
     if (store) store.set(history);
@@ -140,7 +147,7 @@ function log(scope: string): Logger {
   return log;
 }
 
-log.getStore = function () {
+log.getStore = function() {
   if (store) return store;
   store = writable([]);
   return store;

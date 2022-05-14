@@ -18,14 +18,14 @@ jobs:
       # setup Docker buld action
       - name: Set up Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
 
       - name: Log in to registry
         # This is where you will update the PAT to GITHUB_TOKEN
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build image and push to Docker Hub and GitHub Container Registry
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           # relative path to the place where source code with Dockerfile is located
           context: .
@@ -48,14 +48,14 @@ jobs:
           node-version: '17.3.0'
 
       - name: Cache pnpm modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.pnpm-store
           key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-
 
-      - uses: pnpm/action-setup@v2.0.1
+      - uses: pnpm/action-setup@v2.2.1
         with:
           version: 6.0.2
           run_install: true
@@ -70,7 +70,7 @@ jobs:
       - run: 'cp -r packages/nodesystem/public frontend/build/nodes'
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.5
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: frontend/build # The folder the action should deploy.

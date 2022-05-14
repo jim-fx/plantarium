@@ -1,6 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-type Pojo = number | string | boolean | Record<string, Pojo> | Pojo[];
+type Pojo = Record<string, any>;
 
 export function diffObjects(alpha: Pojo, beta: Pojo) {
   if (alpha === undefined && undefined === beta) {

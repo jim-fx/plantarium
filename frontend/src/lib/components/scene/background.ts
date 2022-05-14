@@ -1,4 +1,4 @@
-import { ground } from '@plantarium/generator';
+import { ground } from '@plantarium/geometry';
 import { transferToGeometry } from '@plantarium/geometry';
 import { loader } from '@plantarium/helpers';
 import { ThemeStore } from '@plantarium/theme';

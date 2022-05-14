@@ -22,22 +22,22 @@ export default function rotate3D(
   theta: number,
 ) {
   const [px, py, pz] = point;
-  const [ax, ay, az] = normalize3D(rawAxis[0], rawAxis[1], rawAxis[2]);
+  const [ax, ay, az] = normalize3D(rawAxis);
 
   const costheta = Math.cos(theta);
   const sintheta = Math.sin(theta);
 
   return new Vec3(
     (costheta + (1 - costheta) * ax * ax) * px +
-      ((1 - costheta) * ax * ay - az * sintheta) * py +
-      ((1 - costheta) * ax * az + ay * sintheta) * pz,
+    ((1 - costheta) * ax * ay - az * sintheta) * py +
+    ((1 - costheta) * ax * az + ay * sintheta) * pz,
 
     ((1 - costheta) * ax * ay + az * sintheta) * px +
-      (costheta + (1 - costheta) * ay * ay) * py +
-      ((1 - costheta) * ay * az - ax * sintheta) * pz,
+    (costheta + (1 - costheta) * ay * ay) * py +
+    ((1 - costheta) * ay * az - ax * sintheta) * pz,
 
     ((1 - costheta) * ax * az - ay * sintheta) * px +
-      ((1 - costheta) * ay * az + ax * sintheta) * py +
-      (costheta + (1 - costheta) * az * az) * pz,
+    ((1 - costheta) * ay * az + ax * sintheta) * py +
+    (costheta + (1 - costheta) * az * az) * pz,
   );
 }

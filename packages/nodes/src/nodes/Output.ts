@@ -1,17 +1,15 @@
-const node: PlantNode = {
+import { typeCheckNode } from "../types"
+
+export default typeCheckNode({
   title: 'Output',
   type: 'output',
   outputs: [],
   parameters: {
-    main: {
+    input: {
       type: 'plant',
       label: 'plant',
       external: true,
     },
-  },
-  computeNode(parameters = {}) {
-    return (parameters.main as unknown) as NodeResult;
-  },
-};
+  }
+});
 
-export default node;

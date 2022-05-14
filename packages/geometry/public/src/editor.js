@@ -27,11 +27,12 @@ let proxy = URL.createObjectURL(
 
 const importLine = `import * as g from "geometry";`;
 let code = importLine + '\n';
+let editor;
 
 if (false && window.location.hash.length > 5) {
   try {
     const decoded = window.atob(window.location.hash.replace(/^#/, ''));
-    const escaped = escape(decoded);
+    const escaped = window.escape(decoded);
     code = decodeURIComponent(escaped);
   } catch (err) {
     console.log(err.message);
@@ -43,7 +44,7 @@ if ('code' in localStorage) {
 } else if (window.location.hash.length > 5) {
   try {
     const decoded = window.atob(window.location.hash.replace(/^#/, ''));
-    const escaped = escape(decoded);
+    const escaped = window.escape(decoded);
     code = decodeURIComponent(escaped);
   } catch (err) {
     console.log(err.message);
@@ -90,7 +91,7 @@ async function initEditor(monaco) {
     new monaco.Uri('dist'),
   );
 
-  const editor = monaco.editor.create(document.getElementById('container'), {
+  editor = monaco.editor.create(document.getElementById('container'), {
     language: 'typescript',
     theme: 'vs-dark',
     automaticLayout: true,
@@ -132,6 +133,10 @@ async function initEditor(monaco) {
     const value = editor.getValue();
     cbs.forEach((cb) => cb(value.replace(importLine, '')));
   }
+}
+
+export function getEditor() {
+  return editor;
 }
 
 require(['vs/editor/editor.main'], initEditor);

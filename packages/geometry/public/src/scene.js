@@ -4,7 +4,8 @@ import { join, transferToGeometry } from '../dist/index.js';
 import { Box, Camera, Mesh, Orbit, Renderer, Transform } from '../ogl.js';
 import debug from './debug.js';
 import createParticle from './particles.js';
-import { green, wireframe } from './shaders.js';
+import { green, test, wireframe } from './shaders.js';
+import store from './store.js';
 
 const renderer = new Renderer({
   dpr: 2,
@@ -29,6 +30,7 @@ const scene = new Transform();
 const controls = new Orbit(camera);
 
 const particles = createParticle(gl);
+particles.visible = store.get("points", false);
 particles.setParent(scene);
 
 const wireMesh = new Mesh(gl, {
@@ -37,10 +39,11 @@ const wireMesh = new Mesh(gl, {
   mode: gl.LINE_LOOP,
 });
 wireMesh.setParent(scene);
+wireMesh.visible = store.get("wireframe", false);
 
 const obj = new Mesh(gl, {
   geometry: new Box(gl, { size: 0 }),
-  program: green(gl),
+  program: test(gl),
 });
 obj.setParent(scene);
 debug.setModel(obj);
@@ -84,11 +87,14 @@ export function getVertices() {
 
 export function setParticleVisible(visible) {
   particles.visible = visible;
+  store.set("points", visible)
 }
 
 export function setWireframeVisible(visible) {
   wireMesh.visible = visible;
+  store.set("wireframe", visible)
 }
 export function setIndecesVisible(visible) {
   debug.setVisible(visible);
+  store.set("indices", visible)
 }

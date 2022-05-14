@@ -1,3 +1,5 @@
+<svelte:options accessors />
+
 <script lang="ts">
   import createId from 'shortid';
   import { createEventDispatcher } from 'svelte';

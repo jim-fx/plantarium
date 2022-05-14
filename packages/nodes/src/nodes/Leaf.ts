@@ -4,6 +4,7 @@ import {
   leaf,
   normalize2D,
 } from '@plantarium/geometry';
+import { typeCheckNode } from '../types';
 // import { logger } from '@plantarium/helpers';
 // const log = logger('nodes.leaf');
 
@@ -45,31 +46,29 @@ const defaultValue = [
   },
 ];
 
-const node: PlantNode = {
+export default typeCheckNode({
   title: 'Leaf',
   type: 'leaf',
-  outputs: ['plant', 'leaf'],
+  outputs: ['plant'],
   parameters: {
     input: {
       type: 'plant',
       external: true,
     },
     size: {
-      type: ['number', 'parameter', 'curve', 'vec2'],
-      inputType: 'slider',
+      type: 'number',
       min: 0,
       max: 3,
       step: 0.05,
       value: 0.2,
     },
     shape: {
-      type: 'leaf',
+      type: 'shape',
       external: true,
-      defaultValue,
+      value: defaultValue,
     },
     lowestLeaf: {
       type: 'number',
-      inputType: 'slider',
       min: 0,
       max: 1,
       step: 0.01,
@@ -78,7 +77,7 @@ const node: PlantNode = {
     curvature: {
       external: true,
       type: 'vec2',
-      defaultValue: {
+      value: {
         x: 0.5,
         y: 0.2,
       },
@@ -91,15 +90,18 @@ const node: PlantNode = {
     },
   },
 
-  computeSkeleton(parameters, ctx) {
-    const { input } = parameters;
+  computeStem(parameters) {
 
-    const { skeletons } = input.result;
+    const { stems } = parameters.input();
 
-    const instances = skeletons.map((skelly, i) => {
-      const alpha = i / skeletons.length;
+    const maxDepth = Math.max(...stems.map(s => s.depth))
 
-      const amount = ctx.handleParameter(parameters.amount, alpha);
+    const instances = stems.map((skelly, i) => {
+      const alpha = i / stems.length;
+
+      if (skelly.depth !== maxDepth) return;
+
+      const amount = parameters.amount(alpha);
 
       const offset = new Float32Array(amount * 3);
       const scale = new Float32Array(amount * 3);
@@ -107,14 +109,14 @@ const node: PlantNode = {
 
       for (let i = 0; i < amount; i++) {
         const _alpha = i / (amount - 1);
-        const size = ctx.handleParameter(parameters.size, 1 - _alpha);
-        const lowestLeaf = ctx.handleParameter(parameters.lowestLeaf, _alpha);
+        const size = parameters.size(1 - _alpha);
+        const lowestLeaf = parameters.lowestLeaf(_alpha);
 
         const a = lowestLeaf + (1 - lowestLeaf) * _alpha - 0.001;
         //const isLeft = i % 2 === 0;
 
-        const [x, y, z] = interpolateSkeleton(skelly, a);
-        const [_vx, , _vz] = interpolateSkeletonVec(skelly, a);
+        const [x, y, z] = interpolateSkeleton(skelly.skeleton, a);
+        const [_vx, , _vz] = interpolateSkeletonVec(skelly.skeleton, a);
 
         const nv = normalize2D([_vx, _vz]);
 
@@ -143,11 +145,10 @@ const node: PlantNode = {
         scale,
         rotation,
       };
-    });
+    }).filter(v => !!v);
 
     return {
-      allSkeletons: input.result.allSkeletons,
-      skeletons,
+      stems,
       instances,
     };
   },
@@ -156,20 +157,21 @@ const node: PlantNode = {
     const { shape, input, curvature } = parameters;
     const { instances } = result;
 
-    const _curvature = ctx.handleParameter(curvature);
+    const _curvature = curvature();
 
-    const geometry = leaf(ctx.handleParameter(shape), {
+    console.log({ shape, input, curvature, _curvature })
+
+    const geometry = leaf(shape(), {
       res: ctx.getSetting('leafRes', 2),
       xCurvature: _curvature.x,
       yCurvature: _curvature.y,
     });
 
     return {
-      geometry: input.result.geometry,
+      geometry: input().geometry,
       // Here we add the resulting geometry to the instances
       instances: instances.map((i) => ({ ...i, ...geometry })),
     };
   },
-};
+});
 
-export default node;

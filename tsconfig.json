@@ -1,13 +1,20 @@
 {
   "extends": "@tsconfig/svelte/tsconfig.json",
-  "exclude": ["node_modules"],
+  "exclude": [
+    "node_modules"
+  ],
   "compilerOptions": {
-    "lib": ["ES2019", "DOM"],
+    "lib": [
+      "ES2019",
+      "DOM"
+    ],
     "sourceMap": true,
     "module": "ESNEXT",
     "experimentalDecorators": true,
     "paths": {
-      "@plantarium/*": ["./packages/*"]
+      "@plantarium/*": [
+        "./packages/*"
+      ]
     }
   }
 }

@@ -1,5 +1,5 @@
 import { stateToElement } from '@plantarium/ui';
-import type { SvelteComponent } from '@plantarium/ui/node_modules/svelte/types/runtime';
+import type { SvelteComponent } from 'svelte';
 import type NodeState from '../model/NodeState';
 import './NodeStateView.scss';
 
@@ -7,7 +7,6 @@ export default class NodeStateView {
   wrapper = document.createElement('div');
   input = document.createElement('div');
   element: SvelteComponent;
-  private isPaused = false;
 
   constructor(private nodeState: NodeState) {
     this.wrapper.classList.add('node-state-single-wrapper');
@@ -27,7 +26,7 @@ export default class NodeStateView {
       this.wrapper.classList.add('hide-label');
     }
 
-    if (!template.external) {
+    if (!template.external && template.type !== "*") {
       this.element = stateToElement({
         target: this.input,
         template,
@@ -36,12 +35,12 @@ export default class NodeStateView {
 
       if (this.element) {
         this.element.$on('change', ({ detail }) => {
-          if (this.isPaused) return;
-          this.isPaused = true;
+          // if (this.isPaused) return;
+          // this.isPaused = true;
           if (typeof detail !== 'undefined' && !Number.isNaN(detail)) {
             this.nodeState.setValue(detail);
           }
-          this.isPaused = false;
+          // this.isPaused = false;
         });
       }
     }
@@ -53,14 +52,14 @@ export default class NodeStateView {
   private rect: DOMRect;
 
   updateValue() {
-    if (this.isPaused) return;
-    this.isPaused = true;
+    // if (this.isPaused) return;
+    // this.isPaused = true;
     setTimeout(() => {
       if (this.element) {
         this.element.value = this.nodeState.getValue();
       }
     }, 50);
-    this.isPaused = false;
+    // this.isPaused = false;
   }
 
   updatePosition() {

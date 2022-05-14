@@ -1,7 +1,9 @@
-import { noise } from '@plantarium/geometry';
+import { join, noiseSkeleton, tube } from '@plantarium/geometry';
 import { logger } from '@plantarium/helpers';
+import { typeCheckNode } from '../types';
 const log = logger('nodes.noise');
-const node: PlantNode = {
+
+export default typeCheckNode({
   title: 'Noise',
   type: 'noise',
   outputs: ['plant'],
@@ -14,15 +16,13 @@ const node: PlantNode = {
     },
     size: {
       type: 'number',
-      inputType: 'slider',
       min: 0,
-      max: 20,
+      max: 2,
       step: 0.05,
       value: 1,
     },
     strength: {
       type: 'number',
-      inputType: 'slider',
       min: 0,
       max: 2,
       step: 0.01,
@@ -30,56 +30,39 @@ const node: PlantNode = {
     },
   },
 
-  computeSkeleton(parameters, ctx) {
-    log(parameters);
+  computeStem(parameters) {
+    log("computeSkeleton", parameters);
 
-    const { input } = parameters;
+    const { stems } = parameters.input();
 
-    const size = ctx.handleParameter(parameters.size);
-    const strength = ctx.handleParameter(parameters.strength);
+    const size = parameters.size();
+    const strength = parameters.strength();
 
-    const { skeletons } = input.result;
+    const maxDepth = Math.max(...stems.map(s => s.depth));
 
-    skeletons.forEach((skelly, j) => {
-      const pathLength = skelly.length / 4;
-
-      const lastVec = [skelly[0], skelly[1], skelly[2]];
-      let distance = 0;
-
-      for (let i = 0; i < pathLength; i++) {
-        const a = i / pathLength;
-
-        distance +=
-          (Math.abs(lastVec[0] - skelly[i * 4 + 0]) +
-            Math.abs(lastVec[1] - skelly[i * 4 + 1]) +
-            Math.abs(lastVec[2] - skelly[i * 4 + 2])) /
-          3;
-
-        lastVec[0] = skelly[i * 4 + 0];
-        lastVec[1] = skelly[i * 4 + 1];
-        lastVec[2] = skelly[i * 4 + 2];
-
-        skelly[i * 4 + 0] =
-          skelly[i * 4 + 0] +
-          noise.n1d(distance * size + 0 + j * 500) * strength * a;
-        skelly[i * 4 + 1] =
-          skelly[i * 4 + 1] +
-          noise.n1d(distance * size + 1000 + j * 500) * strength * a;
-        skelly[i * 4 + 2] =
-          skelly[i * 4 + 2] +
-          noise.n1d(distance * size + 2000 + j * 500) * strength * a;
+    stems.forEach((stem: PlantStem, i) => {
+      if (stem.depth === maxDepth) {
+        noiseSkeleton(stem.skeleton, strength, size, i * 200)
       }
     });
 
     return {
-      skeletons,
-      allSkeletons: input.result.allSkeletons,
+      stems
     };
   },
 
-  computeGeometry(parameters) {
-    return parameters.input.result;
-  },
-};
+  computeGeometry(parameters, result, ctx) {
+    const stemResX = ctx.getSetting('stemResX');
 
-export default node;
+    const input = parameters?.input?.();
+    const { stems } = result;
+
+    return {
+      geometry: join(
+        ...[input ? input.geometry : null],
+        ...stems.map(({ skeleton }) => tube(skeleton, stemResX)),
+      ),
+    };
+  },
+});
+

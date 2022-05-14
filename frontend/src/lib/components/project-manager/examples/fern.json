@@ -1,0 +1,507 @@
+{
+  "meta": {
+    "name": "Fern",
+    "transform": {
+      "x": 211.38675180876214,
+      "y": 115.91546088675673,
+      "s": 0.3333982577192747
+    }
+  },
+  "nodes": [
+    {
+      "attributes": {
+        "pos": {
+          "x": 1000,
+          "y": -150
+        },
+        "type": "output",
+        "id": "0",
+        "refs": []
+      },
+      "state": {}
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": -450,
+          "y": -150
+        },
+        "id": "2",
+        "name": "Stem",
+        "type": "Stem",
+        "refs": [
+          {
+            "id": "9",
+            "out": 0,
+            "in": "input"
+          }
+        ]
+      },
+      "state": {
+        "origin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "height": 1,
+        "thiccness": 0.011,
+        "amount": 7
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": -600,
+          "y": -150
+        },
+        "id": "7",
+        "name": "Vec3",
+        "type": "Vec3",
+        "refs": [
+          {
+            "id": "2",
+            "out": 0,
+            "in": "origin"
+          }
+        ]
+      },
+      "state": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": -750,
+          "y": -200
+        },
+        "id": "3",
+        "name": "Parameter",
+        "type": "Parameter",
+        "refs": [
+          {
+            "id": "7",
+            "out": 0,
+            "in": "x"
+          }
+        ]
+      },
+      "state": {
+        "value": 0,
+        "variation": 0.4
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": -750,
+          "y": -50
+        },
+        "id": "8",
+        "name": "Parameter",
+        "type": "Parameter",
+        "refs": [
+          {
+            "id": "7",
+            "out": 0,
+            "in": "z"
+          }
+        ]
+      },
+      "state": {
+        "value": 0,
+        "variation": 0.32
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": -300,
+          "y": -150
+        },
+        "id": "9",
+        "name": "Rotate",
+        "type": "Rotate",
+        "refs": [
+          {
+            "id": "10",
+            "out": 0,
+            "in": "input"
+          }
+        ]
+      },
+      "state": {
+        "axis": "X",
+        "spread": false,
+        "angle": 0
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": -150,
+          "y": -150
+        },
+        "id": "10",
+        "name": "Rotate",
+        "type": "Rotate",
+        "refs": [
+          {
+            "id": "1",
+            "out": 0,
+            "in": "input"
+          }
+        ]
+      },
+      "state": {
+        "axis": "Y",
+        "spread": true,
+        "angle": 6.2
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": -450,
+          "y": 100
+        },
+        "id": "11",
+        "name": "Parameter",
+        "type": "Parameter",
+        "refs": [
+          {
+            "id": "9",
+            "out": 0,
+            "in": "angle"
+          }
+        ]
+      },
+      "state": {
+        "value": 0.87,
+        "variation": 0.27
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": 150,
+          "y": -150
+        },
+        "id": "12",
+        "name": "Gravity",
+        "type": "Gravity",
+        "refs": [
+          {
+            "id": "13",
+            "out": 0,
+            "in": "input"
+          }
+        ]
+      },
+      "state": {
+        "type": "simple",
+        "strength": 0.62
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": 300,
+          "y": -150
+        },
+        "id": "13",
+        "name": "Branches",
+        "type": "Branches",
+        "refs": [
+          {
+            "id": "17",
+            "out": 0,
+            "in": "input"
+          }
+        ]
+      },
+      "state": {
+        "length": 0.46,
+        "thiccness": 0.42,
+        "offsetSingle": 0.5,
+        "lowestBranch": 0.25,
+        "amount": 22
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": -600,
+          "y": 150
+        },
+        "id": "14",
+        "name": "Random",
+        "type": "Random",
+        "refs": [
+          {
+            "id": "2",
+            "out": 0,
+            "in": "amount"
+          }
+        ]
+      },
+      "state": {
+        "min": 7,
+        "max": 12
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": -600,
+          "y": 0
+        },
+        "id": "16",
+        "name": "Parameter",
+        "type": "Parameter",
+        "refs": [
+          {
+            "id": "2",
+            "out": 0,
+            "in": "height"
+          }
+        ]
+      },
+      "state": {
+        "value": 1,
+        "variation": 0.052
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": 450,
+          "y": -150
+        },
+        "id": "17",
+        "name": "Noise",
+        "type": "Noise",
+        "refs": [
+          {
+            "id": "18",
+            "out": 0,
+            "in": "input"
+          }
+        ]
+      },
+      "state": {
+        "size": 6,
+        "strength": 0.03
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": 600,
+          "y": -150
+        },
+        "id": "18",
+        "name": "Gravity",
+        "type": "Gravity",
+        "refs": [
+          {
+            "id": "19",
+            "out": 0,
+            "in": "input"
+          }
+        ]
+      },
+      "state": {
+        "type": "simple",
+        "strength": 0.7
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": 850,
+          "y": -150
+        },
+        "id": "19",
+        "name": "Leaf",
+        "type": "Leaf",
+        "refs": [
+          {
+            "id": "0",
+            "out": 0,
+            "in": "input"
+          }
+        ]
+      },
+      "state": {
+        "size": 0.2,
+        "shape": [
+          {
+            "x": 1,
+            "y": 1,
+            "pinned": true
+          },
+          {
+            "x": 0.62,
+            "y": 0.84,
+            "pinned": false
+          },
+          {
+            "x": 0.54,
+            "y": 0.63,
+            "pinned": false
+          },
+          {
+            "x": 0.38,
+            "y": 0.41,
+            "pinned": true
+          },
+          {
+            "x": 0.44,
+            "y": 0.23,
+            "pinned": false
+          },
+          {
+            "x": 0.64,
+            "y": 0.12,
+            "pinned": false
+          },
+          {
+            "x": 0.98,
+            "y": 0.02,
+            "pinned": true
+          }
+        ],
+        "lowestLeaf": 0,
+        "curvature": {
+          "x": 0.5,
+          "y": 0.2
+        },
+        "amount": 40
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": 729,
+          "y": 95
+        },
+        "id": "21",
+        "name": "Vec2",
+        "type": "Vec2",
+        "refs": [
+          {
+            "id": "19",
+            "out": 0,
+            "in": "curvature"
+          }
+        ]
+      },
+      "state": {
+        "x": 0.1,
+        "y": 0.05
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": 450,
+          "y": 100
+        },
+        "id": "22",
+        "name": "Curve",
+        "type": "Curve",
+        "refs": [
+          {
+            "id": "23",
+            "out": 0,
+            "in": "a"
+          }
+        ]
+      },
+      "state": {
+        "value": [
+          {
+            "x": 0,
+            "y": 1,
+            "pinned": true
+          },
+          {
+            "x": 1,
+            "y": 0,
+            "pinned": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": 600,
+          "y": 100
+        },
+        "id": "23",
+        "name": "Math",
+        "type": "Math",
+        "refs": [
+          {
+            "id": "19",
+            "out": 0,
+            "in": "size"
+          }
+        ]
+      },
+      "state": {
+        "mode": "multiply",
+        "a": 0,
+        "b": 0.04
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": 450,
+          "y": 250
+        },
+        "id": "24",
+        "name": "Parameter",
+        "type": "Parameter",
+        "refs": [
+          {
+            "id": "23",
+            "out": 0,
+            "in": "b"
+          }
+        ]
+      },
+      "state": {
+        "value": 0.04,
+        "variation": 0
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": 0,
+          "y": -150
+        },
+        "id": "1",
+        "name": "Noise",
+        "type": "Noise",
+        "refs": [
+          {
+            "id": "12",
+            "out": 0,
+            "in": "input"
+          }
+        ]
+      },
+      "state": {
+        "size": 1,
+        "strength": 0.02
+      }
+    }
+  ]
+}

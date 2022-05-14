@@ -1,3 +1,4 @@
+import './NodeSystemView.scss';
 import { EventEmitter, throttle } from '@plantarium/helpers';
 import { createPanZoom } from '../helpers';
 import type Node from '../model/Node';
@@ -7,7 +8,6 @@ import type NodeSystem from '../model/NodeSystem';
 import AddMenu from './AddMenu';
 import BoxSelection from './BoxSelection';
 import FloatingConnectionView from './FloatingConnectionView';
-import './NodeSystemView.scss';
 import ColorStore from './socketColorStore';
 
 export default class NodeSystemView extends EventEmitter {
@@ -224,8 +224,9 @@ export default class NodeSystemView extends EventEmitter {
   setTransform({ x = this.x, y = this.y, s = this.s } = {}) {
     this.x = x;
     this.y = y;
-    this.s = s / this.dpr;
-    this.panzoom.setTransform(x, y, s / this.dpr);
+    this.s = s;
+    this.panzoom.setTransform(x, y, s);
+
   }
 
   private showAddMenu() {
@@ -333,9 +334,6 @@ export default class NodeSystemView extends EventEmitter {
 
     const { x, y } = this.projectWindowToLocal(this.rmx, this.rmy);
 
-    this.mx = x;
-    this.my = y;
-
     this.selectedNodesDown = this.selectedNodes.map((_n) => [
       _n.view.x,
       _n.view.y,
@@ -395,13 +393,19 @@ export default class NodeSystemView extends EventEmitter {
         break;
       case 'c':
         if (shiftKey && ctrlKey) {
-          localStorage.clear();
-          window.location.reload();
+          if (window.confirm("Clear Storage?")) {
+            localStorage.clear();
+            window.location.reload();
+          }
         } else if (ctrlKey) {
           const s = this.selectedNodes.splice(0);
           if (this.activeNode && !s.includes(this.activeNode))
             s.push(this.activeNode);
-          this.clipboard = s.map((n) => n.deserialize());
+          this.clipboard = s.map((n) => n.deserialize()).map(n => {
+            n.attributes.pos.x -= this.mx;
+            n.attributes.pos.y -= this.my;
+            return n
+          });
         } else if (this.selectedNodes.length && this.activeNode) {
           this.selectedNodes[0].connectTo(this.activeNode);
         }
@@ -426,11 +430,12 @@ export default class NodeSystemView extends EventEmitter {
         if (this.activeNode) {
           if (ctrlKey) {
             this.system.spliceNode(this.activeNode);
+            this.selectedNodes.forEach((n) => this.system.spliceNode(n));
           } else {
             this.system.removeNode(this.activeNode);
+            this.selectedNodes.forEach((n) => n.remove());
           }
         }
-        this.selectedNodes.forEach((n) => n.remove());
         break;
       // z
       case 'z':
@@ -457,29 +462,18 @@ export default class NodeSystemView extends EventEmitter {
       // v
       case 'v':
         if (ctrlKey) {
-          const sorted = this.clipboard.sort((a, b) => {
-            const { pos: { x: x1 = 0, y: y1 = 0 } = {} } = a.attributes;
-            const { pos: { x: x2 = 0, y: y2 = 0 } = {} } = b.attributes;
-            return x1 + y1 < x2 + y2 ? -1 : 1;
-          });
 
-          let { pos: { x: offsetX = 0, y: offsetY = 0 } = {} } =
-            sorted[0].attributes;
-
-          const { x: mx, y: my } = this.projectWindowToLocal(this.mx, this.my);
-
-          offsetX -= mx;
-          offsetY -= my;
 
           this.clipboard
-            .map((prop) => {
-              const { pos: { x = 0, y = 0 } = {} } = prop.attributes;
+            .map((node) => {
+              const { pos: { x = 0, y = 0 } = {} } = node.attributes;
 
-              prop.attributes.pos = {
-                x: x - offsetX,
-                y: y - offsetY,
+              node.attributes.pos = {
+                x: x + this.mx,
+                y: y + this.my,
               };
-              return prop;
+
+              return node;
             })
             .forEach((c) => this.system.createNode(c));
         }

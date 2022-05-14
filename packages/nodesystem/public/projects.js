@@ -4,7 +4,7 @@ const dev = {
     transform: {
       x: 0,
       y: 0,
-      s: 2,
+      s: 1,
     },
   },
   nodes: [

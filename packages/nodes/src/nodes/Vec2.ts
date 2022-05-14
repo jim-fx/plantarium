@@ -1,4 +1,6 @@
-const node: PlantNode = {
+import { typeCheckNode } from "../types";
+
+export default typeCheckNode({
   title: 'Vec2',
   type: 'vec2',
   outputs: ['vec2'],
@@ -16,6 +18,4 @@ const node: PlantNode = {
       defaultValue: 0,
     },
   },
-};
-
-export default node;
+});

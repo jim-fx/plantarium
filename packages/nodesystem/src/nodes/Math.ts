@@ -1,28 +1,29 @@
-const node: NodeTypeData = {
+import { checkNodeType } from "../@types";
+
+export default checkNodeType({
   title: 'Math',
   type: 'math',
   outputs: ['number', 'number'],
   parameters: {
     mode: {
-      type: 'whatever',
+      type: 'select',
       internal: true,
-      inputType: 'selection',
       label: false,
-      defaultValue: 'add',
+      value: 'add',
       values: ['add', 'multiply', 'subtract'],
     },
     a: {
       type: 'number',
-      defaultValue: 0,
+      value: 0,
       label: false,
     },
     b: {
       type: 'number',
-      defaultValue: 0,
+      value: 0,
       label: false,
     },
   },
-  compute({ mode, a, b }: { a: number; b: number; mode: string }) {
+  compute({ mode, a, b }) {
     switch (mode) {
       case 'multiply':
         return a * b;
@@ -32,6 +33,4 @@ const node: NodeTypeData = {
         return a + b;
     }
   },
-};
-
-export default node;
+});

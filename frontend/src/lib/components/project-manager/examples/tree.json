@@ -1,0 +1,351 @@
+{
+  "meta": {
+    "transform": {
+      "x": 63.94975437618115,
+      "y": 236.56997968981221,
+      "s": 0.36102747024591014
+    },
+    "name": "Tree"
+  },
+  "nodes": [
+    {
+      "attributes": {
+        "pos": {
+          "x": -1298,
+          "y": -154
+        },
+        "type": "stem",
+        "id": "1",
+        "refs": [
+          {
+            "id": "5",
+            "out": 0,
+            "in": "input"
+          }
+        ]
+      },
+      "state": {
+        "origin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "height": 3.2,
+        "thiccness": 0.13,
+        "amount": 1
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": 384,
+          "y": -103
+        },
+        "type": "output",
+        "id": "0",
+        "refs": []
+      },
+      "state": {}
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": -888,
+          "y": -81
+        },
+        "id": "2",
+        "name": "Split",
+        "type": "Split",
+        "refs": [
+          {
+            "id": "3",
+            "out": 0,
+            "in": "input"
+          }
+        ]
+      },
+      "state": {
+        "height": 0.36,
+        "angle": 0,
+        "amount": 2
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": -663,
+          "y": -61
+        },
+        "id": "3",
+        "name": "Split",
+        "type": "Split",
+        "refs": [
+          {
+            "id": "4",
+            "out": 0,
+            "in": "input"
+          }
+        ]
+      },
+      "state": {
+        "height": 0.35,
+        "angle": 0,
+        "amount": 5
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": -462,
+          "y": -85
+        },
+        "id": "4",
+        "name": "Noise",
+        "type": "Noise",
+        "refs": [
+          {
+            "id": "10",
+            "out": 0,
+            "in": "input"
+          }
+        ]
+      },
+      "state": {
+        "size": 0.52,
+        "strength": 0.22
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": -199,
+          "y": -79
+        },
+        "id": "7",
+        "name": "Branches",
+        "type": "Branches",
+        "refs": [
+          {
+            "id": "14",
+            "out": 0,
+            "in": "input"
+          }
+        ]
+      },
+      "state": {
+        "length": 1.6,
+        "thiccness": 0.63,
+        "offsetSingle": 1,
+        "lowestBranch": 0.2,
+        "amount": 7
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": 20,
+          "y": -78
+        },
+        "id": "8",
+        "name": "Noise",
+        "type": "Noise",
+        "refs": [
+          {
+            "id": "11",
+            "out": 0,
+            "in": "input"
+          }
+        ]
+      },
+      "state": {
+        "size": 1.2,
+        "strength": 0.12
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": -320,
+          "y": -88
+        },
+        "id": "10",
+        "name": "Gravity",
+        "type": "Gravity",
+        "refs": [
+          {
+            "id": "7",
+            "out": 0,
+            "in": "input"
+          }
+        ]
+      },
+      "state": {
+        "type": "simple",
+        "strength": 0.22
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": -1086,
+          "y": -109
+        },
+        "id": "5",
+        "name": "Noise",
+        "type": "Noise",
+        "refs": [
+          {
+            "id": "2",
+            "out": 0,
+            "in": "input"
+          }
+        ]
+      },
+      "state": {
+        "size": 0.32,
+        "strength": 0.5
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": 165,
+          "y": -100
+        },
+        "id": "11",
+        "name": "Leaf",
+        "type": "Leaf",
+        "refs": [
+          {
+            "id": "0",
+            "out": 0,
+            "in": "input"
+          }
+        ]
+      },
+      "state": {
+        "size": 0.2,
+        "shape": [
+          {
+            "x": 1,
+            "y": 1,
+            "pinned": true
+          },
+          {
+            "x": 0.62,
+            "y": 0.84,
+            "pinned": false
+          },
+          {
+            "x": 0.54,
+            "y": 0.63,
+            "pinned": false
+          },
+          {
+            "x": 0.38,
+            "y": 0.41,
+            "pinned": true
+          },
+          {
+            "x": 0.44,
+            "y": 0.23,
+            "pinned": false
+          },
+          {
+            "x": 0.64,
+            "y": 0.12,
+            "pinned": false
+          },
+          {
+            "x": 0.98,
+            "y": 0.02,
+            "pinned": true
+          }
+        ],
+        "lowestLeaf": 0,
+        "curvature": {
+          "x": 0.5,
+          "y": 0.2
+        },
+        "amount": 10
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": -218,
+          "y": 286
+        },
+        "id": "12",
+        "name": "Curve",
+        "type": "Curve",
+        "refs": [
+          {
+            "id": "13",
+            "out": 0,
+            "in": "a"
+          }
+        ]
+      },
+      "state": {
+        "value": [
+          {
+            "x": 0,
+            "y": 1,
+            "pinned": true
+          },
+          {
+            "x": 1,
+            "y": 0,
+            "pinned": true
+          }
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": -74,
+          "y": 177
+        },
+        "id": "13",
+        "name": "Math",
+        "type": "Math",
+        "refs": [
+          {
+            "id": "11",
+            "out": 0,
+            "in": "size"
+          }
+        ]
+      },
+      "state": {
+        "mode": "multiply",
+        "a": 0,
+        "b": 0.2
+      }
+    },
+    {
+      "attributes": {
+        "pos": {
+          "x": -89,
+          "y": -79
+        },
+        "id": "14",
+        "name": "Gravity",
+        "type": "Gravity",
+        "refs": [
+          {
+            "id": "8",
+            "out": 0,
+            "in": "input"
+          }
+        ]
+      },
+      "state": {
+        "type": "simple",
+        "strength": 0.25
+      }
+    }
+  ]
+}

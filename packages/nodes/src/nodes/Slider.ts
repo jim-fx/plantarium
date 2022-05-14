@@ -1,4 +1,6 @@
-const node: PlantNode = {
+import { typeCheckNode } from "../types"
+
+export default typeCheckNode({
   title: 'Slider',
   type: 'slider',
   outputs: ['number'],
@@ -6,7 +8,6 @@ const node: PlantNode = {
     value: {
       type: 'number',
       label: false,
-      inputType: 'slider',
       internal: true,
       min: 0,
       max: 1,
@@ -17,6 +18,5 @@ const node: PlantNode = {
   computeValue(parameters) {
     return parameters.value;
   },
-};
+});
 
-export default node;

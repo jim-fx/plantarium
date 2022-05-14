@@ -1,32 +1,33 @@
-const node: PlantNode = {
+import { typeCheckNode } from "../types"
+
+export default typeCheckNode({
   title: 'Math',
   type: 'math',
   outputs: ['number'],
   parameters: {
     mode: {
-      type: 'whatever',
+      type: 'select',
       internal: true,
-      inputType: 'selection',
       label: false,
-      defaultValue: 'add',
+      value: 'add',
       values: ['add', 'multiply', 'subtract'],
     },
     a: {
       type: 'number',
-      defaultValue: 0,
+      value: 0,
       label: false,
     },
     b: {
       type: 'number',
-      defaultValue: 0,
+      value: 0,
       label: false,
     },
   },
 
-  computeValue(parameters, ctx, alpha): number {
+  computeValue(parameters, _, alpha): number {
     const { mode } = parameters;
-    const a = ctx.handleParameter(parameters.a, alpha);
-    const b = ctx.handleParameter(parameters.b, alpha);
+    const a = parameters.a(alpha);
+    const b = parameters.b(alpha);
 
     switch (mode) {
       case 'multiply':
@@ -37,6 +38,5 @@ const node: PlantNode = {
         return a + b;
     }
   },
-};
+});
 
-export default node;

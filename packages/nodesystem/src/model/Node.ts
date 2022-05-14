@@ -37,8 +37,10 @@ export default class Node extends EventEmitter {
 
     const { attributes, state = {} } = props;
     this._state = state;
+
     this.attributes = attributes;
     this.id = attributes.id;
+
 
     this._compute = memoize((_state = this._state) => this.compute(_state));
   }
@@ -108,7 +110,12 @@ export default class Node extends EventEmitter {
     this.refs.forEach((ref) => {
       ref.node.enableUpdates = false;
       ref.keyIn.forEach((keyIn) => {
-        ref.node.setStateValue(keyIn, this.computedData);
+
+        if (this.system.options.deferCompute) {
+          ref.node.setStateValue(keyIn, { type: this.attributes.type, parameters: this.computedData });
+        } else {
+          ref.node.setStateValue(keyIn, this.computedData);
+        }
       });
       ref.node.enableUpdates = true;
       ref.node.update();
@@ -180,13 +187,12 @@ export default class Node extends EventEmitter {
       state[s.key] = s.getValue();
     });
 
-    return Object.assign(
-      {},
+    return JSON.parse(JSON.stringify(
       {
         attributes,
         state,
       },
-    );
+    ));
   }
 
   save() {
