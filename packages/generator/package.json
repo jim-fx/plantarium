@@ -15,6 +15,6 @@
     "@plantarium/nodes": "link:../nodes"
   },
   "devDependencies": {
-    "comlink": "^4.3.1"
+    "comlink": "4.3.1"
   }
 }
