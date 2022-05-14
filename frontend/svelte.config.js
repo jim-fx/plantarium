@@ -4,7 +4,6 @@ import preprocess from 'svelte-preprocess';
 import path from 'path';
 import glslify from 'vite-plugin-glslify';
 import { visualizer } from 'rollup-plugin-visualizer';
-// import tsconfigPaths from 'vite-tsconfig-paths';
 import comlink from 'vite-plugin-comlink'
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -16,6 +15,8 @@ const config = {
     adapter: adapter(),
     prerender: { default: true },
     vite: {
+      clearScreen: true,
+      logLevel: 'silent',
       server: {
         host: '0.0.0.0',
         port: 8080

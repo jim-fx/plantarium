@@ -1,7 +1,9 @@
-import { noise, noiseSkeleton } from '@plantarium/geometry';
+import { join, noiseSkeleton, tube } from '@plantarium/geometry';
 import { logger } from '@plantarium/helpers';
+import { typeCheckNode } from '../types';
 const log = logger('nodes.noise');
-const node: PlantNode = {
+
+export default typeCheckNode({
   title: 'Noise',
   type: 'noise',
   outputs: ['plant'],
@@ -14,15 +16,13 @@ const node: PlantNode = {
     },
     size: {
       type: 'number',
-      inputType: 'slider',
       min: 0,
-      max: 20,
+      max: 2,
       step: 0.05,
       value: 1,
     },
     strength: {
       type: 'number',
-      inputType: 'slider',
       min: 0,
       max: 2,
       step: 0.01,
@@ -30,30 +30,39 @@ const node: PlantNode = {
     },
   },
 
-  computeSkeleton(parameters, ctx) {
-    log(parameters);
+  computeStem(parameters) {
+    log("computeSkeleton", parameters);
 
-    const { input } = parameters;
+    const { stems } = parameters.input();
 
-    const size = ctx.handleParameter(parameters.size);
-    const strength = ctx.handleParameter(parameters.strength);
+    const size = parameters.size();
+    const strength = parameters.strength();
 
-    const { stems } = input.result;
+    const maxDepth = Math.max(...stems.map(s => s.depth));
 
-
-    stems.forEach((stem: PlantStem) => {
-      noiseSkeleton(stem.skeleton, strength, size, [0, 0, 0], stem.depth === 0)
+    stems.forEach((stem: PlantStem, i) => {
+      if (stem.depth === maxDepth) {
+        noiseSkeleton(stem.skeleton, strength, size, i * 200)
+      }
     });
 
     return {
-      stems,
-      allSkeletons: input.result.allSkeletons,
+      stems
     };
   },
 
-  computeGeometry(parameters) {
-    return parameters.input.result;
-  },
-};
+  computeGeometry(parameters, result, ctx) {
+    const stemResX = ctx.getSetting('stemResX');
 
-export default node;
+    const input = parameters?.input?.();
+    const { stems } = result;
+
+    return {
+      geometry: join(
+        ...[input ? input.geometry : null],
+        ...stems.map(({ skeleton }) => tube(skeleton, stemResX)),
+      ),
+    };
+  },
+});
+

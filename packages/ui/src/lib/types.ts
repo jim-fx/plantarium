@@ -9,25 +9,36 @@ export type IntegerTemplate = {
   min?: number;
   max?: number;
   value?: number;
+  step?: number,
 }
 
 export type SelectTemplate = {
   type: "select"
+  inputType?: "dropdown";
   values: string[],
   value: string;
 }
+
+export type TabTemplate = {
+  type: "select"
+  inputType?: "tab";
+  values: string[],
+  value: string;
+}
+
 
 export type FloatTemplate = {
   type: "number",
   inputType?: "float",
   min?: number,
   max?: number,
-  value?: number
+  value?: number,
+  step?: number,
 }
 
 export type CurveTemplate = {
   type: "curve",
-  values: {
+  value: {
     x: number;
     y: number;
     pinned: boolean;
@@ -36,12 +47,14 @@ export type CurveTemplate = {
 
 export type ShapeTemplate = {
   type: "shape",
-  values: {
+  value: {
     x: number;
     y: number;
     pinned: boolean;
   }[]
 }
-export type ValueTemplate = CheckboxTemplate | IntegerTemplate | SelectTemplate | FloatTemplate | CurveTemplate | ShapeTemplate;
+
+export type ValueTemplate = CheckboxTemplate | IntegerTemplate | SelectTemplate | TabTemplate | FloatTemplate | CurveTemplate | ShapeTemplate;
+
 
 

@@ -1,3 +1,4 @@
+import type { NodeTypeData } from '../@types';
 import NodeView from '../view/NodeView';
 import Node from './Node';
 import NodeOutput from './NodeOutput';
@@ -32,8 +33,7 @@ export default class NodeParser {
           const n2 = nodeStore.get(ref.id);
           if (!n2)
             throw new Error(
-              `Failed ref: from ${n.attributes.name || n.attributes.id} to ${
-                ref.id
+              `Failed ref: from ${n.attributes.name || n.attributes.id} to ${ref.id
               } `,
             );
           n.connectTo(n2, ref.out, ref.in);
@@ -53,8 +53,8 @@ export default class NodeParser {
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
-    const TempNode =class extends Node {
-      constructor(system:NodeSystem, props:NodeProps) {
+    const TempNode = class extends Node {
+      constructor(system: NodeSystem, props: NodeProps) {
         super(system, props);
         if (compute) this.compute = compute;
 

@@ -15,10 +15,11 @@
     InputSearch,
     InputShape,
     Section,
-    AlertWrapper
-  } from '@plantarium/ui';
-  import { HighlightSvelte } from 'svelte-highlight';
-  import 'svelte-highlight/src/styles/atom-one-dark.css';
+    AlertWrapper,
+    InputTab
+  } from '$lib';
+  import { Highlight } from 'svelte-highlight';
+  import atomOneDark from 'svelte-highlight/styles/atom-one-dark';
 
   const searchItems = [
     { value: 'number', group: 'input' },
@@ -31,11 +32,20 @@
   ];
 </script>
 
+<svelte:head>
+  {@html atomOneDark}
+</svelte:head>
+
 <main>
   <section>
     <h3>Button</h3>
     <Button icon="cog" name="Projects" />
   </section>
+  <section>
+    <h3>Tab</h3>
+    <InputTab values={['one', 'two', 'three']} />
+  </section>
+
   <section>
     <h3>Icon</h3>
     <table>
@@ -102,7 +112,7 @@
     <br />
     <details>
       <summary>Code</summary>
-      <HighlightSvelte code={`<InputCheckbox on:click={handleClick}/>`} />
+      <Highlight code={`<InputCheckbox on:click={handleClick}/>`} />
     </details>
   </section>
 

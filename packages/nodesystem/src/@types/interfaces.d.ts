@@ -40,7 +40,7 @@ interface HistoryData {
 interface NodeSystemData {
   meta: NodeSystemMeta;
   nodes: NodeProps[];
-  history: HistoryData;
+  history?: HistoryData;
 }
 
 interface NodeSystemMeta {

@@ -2,10 +2,11 @@ import { rotate3D } from '@plantarium/geometry';
 // import { logger } from '@plantarium/helpers';
 import { Vec3 } from 'ogl';
 import rotate2D from '@plantarium/geometry/src/helpers/rotate2D';
+import { typeCheckNode } from '../types';
 
 // const log = logger('node.gravity');
 
-const node: PlantNode = {
+export default typeCheckNode({
   title: 'Gravity',
   type: 'gravity',
 
@@ -20,29 +21,33 @@ const node: PlantNode = {
       internal: true,
       type: 'select',
       values: ['simple', 'verlet', 'test'],
+      value: "simple"
     },
     strength: {
       type: 'number',
-      inputType: 'slider',
       min: 0,
       max: 2,
       step: 0.05,
+      value: 1
     },
   },
-  computeSkeleton(parameters, ctx) {
+  computeStem(parameters) {
     const { input, type, strength } = parameters;
 
-    const { stems } = input.result;
+    const { stems } = input();
+
+    const maxDepth = Math.max(...stems.map(s => s.depth));
 
     if (type === 'simple') {
-      stems.forEach(({ skeleton: skelly }: PlantStem) => {
+      stems.forEach(({ skeleton: skelly, depth }: PlantStem) => {
+        if (depth !== maxDepth) return;
         const amount = skelly.length / 4;
 
         // Loop over every single joint in the skeleton
         for (let i = 1; i < amount; i++) {
           const a = i / amount;
           const y = skelly[i * 4 + 1];
-          const _strength = ctx.handleParameter(strength, a);
+          const _strength = strength(a);
           skelly[i * 4 + 1] = y - y * a * a * a * _strength;
         }
 
@@ -58,7 +63,7 @@ const node: PlantNode = {
         for (let i = 1; i < amount; i++) {
           const a = i / amount;
 
-          const _strength = ctx.handleParameter(strength, a);
+          const _strength = strength(a);
 
           //Current point at skeleton
           const x = skelly[i * 4 + 0];
@@ -123,6 +128,7 @@ const node: PlantNode = {
       stems.forEach(({ skeleton: skelly }: PlantStem) => {
         const amount = skelly.length / 4;
 
+
         // Loop over every single joint in the skeleton
         for (let i = 1; i < amount; i++) {
           const x = skelly[i * 4 + 0];
@@ -136,7 +142,7 @@ const node: PlantNode = {
 
           const a = i / amount;
 
-          const _strength = ctx.handleParameter(strength, a);
+          const _strength = strength(a);
 
           //Rotate all the other joints
           for (let j = i; j < amount; j++) {
@@ -157,8 +163,7 @@ const node: PlantNode = {
     };
   },
   computeGeometry(parameters) {
-    return parameters.input.result;
+    return parameters.input();
   },
-};
+});
 
-export default node;

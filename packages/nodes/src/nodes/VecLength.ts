@@ -1,17 +1,18 @@
-const node: PlantNode = {
+import { typeCheckNode } from "../types"
+
+export default typeCheckNode({
   title: 'Vec3Length',
   type: 'vec3length',
   outputs: ['number'],
   parameters: {
     vec: {
-      label: false,
       type: 'vec3',
-      value: 0,
-      defaultValue: 0,
+      label: false,
+      value: { x: 0, y: 0, z: 0 },
     },
   },
   computeValue(parameters) {
-    const { vec } = parameters;
+    const vec = parameters.vec();
 
     if (vec) {
       return Math.sqrt(
@@ -20,6 +21,5 @@ const node: PlantNode = {
     }
     return 0;
   },
-};
+});
 
-export default node;

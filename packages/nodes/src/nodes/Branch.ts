@@ -4,8 +4,10 @@ import {
   normalize2D,
 } from '@plantarium/geometry/src/helpers';
 import rotate2D from '@plantarium/geometry/src/helpers/rotate2D';
+import { typeCheckNode } from '../types';
 
-const node: PlantNode = {
+
+export default typeCheckNode({
   title: 'Branches',
   type: 'branches',
 
@@ -18,7 +20,7 @@ const node: PlantNode = {
       external: true,
     },
     length: {
-      type: ['number', 'parameter', 'curve'],
+      type: 'number',
       min: 0,
       max: 3,
       step: 0.05,
@@ -53,24 +55,31 @@ const node: PlantNode = {
     },
   },
 
-  computeSkeleton(parameters, ctx) {
-    const { stems: inputStems } = parameters.input.result as { stems: PlantStem[] };
+  computeStem(parameters, ctx) {
+
+    if (!parameters.input) return { stems: [] };
+
+    const { stems: inputStems } = parameters.input();
 
     const branchRes = ctx.getSetting('stemResY');
 
+    const maxDepth = Math.max(...inputStems.map(s => s.depth));
+
     const stems = inputStems
-      .map((stem) => {
+      .map((skelly) => {
         const branches: Float32Array[] = [];
 
-        const amount = ctx.handleParameter(parameters.amount);
+        if (maxDepth !== skelly.depth) return []
 
-        const lowestBranch = ctx.handleParameter(parameters.lowestBranch);
+        const amount = parameters.amount();
+
+        const lowestBranch = parameters.lowestBranch();
 
         for (let i = 0; i < amount; i++) {
           const _a = i / amount;
-          const length = ctx.handleParameter(parameters.length, _a) * (1 - _a);
-          const thiccness = ctx.handleParameter(parameters.thiccness, _a);
-          const offsetSingle = ctx.handleParameter(parameters.offsetSingle, _a);
+          const length = parameters.length(_a) * (1 - _a);
+          const thiccness = parameters.thiccness(_a);
+          const offsetSingle = parameters.offsetSingle(_a);
 
           const isLeft = i % 2 === 0;
           let a = lowestBranch + (1 - lowestBranch) * _a;
@@ -78,7 +87,7 @@ const node: PlantNode = {
           a -= (1 / amount) * offsetSingle * (isLeft ? -1 : 1);
 
           //Vector along stem
-          const [_vx, , _vz] = interpolateSkeletonVec(stem.skeleton, a);
+          const [_vx, , _vz] = interpolateSkeletonVec(skelly.skeleton, a);
 
           const nv = normalize2D([_vx, _vz]);
 
@@ -90,7 +99,7 @@ const node: PlantNode = {
           );
 
           // Point along skeleton
-          const [px, py, pz, pt] = interpolateSkeleton(stem.skeleton, a);
+          const [px, py, pz, pt] = interpolateSkeleton(skelly.skeleton, a);
 
           const pointAmount = Math.max(Math.floor(branchRes * length * 10), 4);
 
@@ -110,31 +119,16 @@ const node: PlantNode = {
         return branches.map(b => {
           return {
             skeleton: b,
-            depth: stem.depth + 1
+            id: skelly.id,
+            depth: skelly.depth + 1
           }
         });
       })
       .flat();
 
     return {
-      stems,
-      allSkeletons: [...stems, ...inputStems],
+      stems: [...inputStems, ...stems]
     };
   },
+});
 
-  computeGeometry(parameters, result, ctx) {
-    const stemResX = ctx.getSetting('stemResX');
-
-    const { geometry } = parameters.input.result;
-    const { stems } = result;
-
-    return {
-      geometry: join(
-        geometry,
-        ...stems.map(({ skeleton }) => tube(skeleton, stemResX)),
-      ),
-    };
-  },
-};
-
-export default node;

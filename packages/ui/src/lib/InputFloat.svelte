@@ -77,8 +77,6 @@
       let v = min + (max - min) * vx;
       value = v;
     } else {
-      min = 0;
-      max = 1;
       value = Math.max(Math.min(min + (max - min) * vx, max), min);
     }
   }

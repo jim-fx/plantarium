@@ -29,6 +29,7 @@ export default class ProjectManager extends EventEmitter {
     this.loadProjects();
   }
 
+
   private createNewProject(p?: PlantProject): PlantProject {
     const plant = {
       meta: {
@@ -38,23 +39,43 @@ export default class ProjectManager extends EventEmitter {
         }),
         id: createId(),
       },
-      nodes: p?.nodes || [
-        {
-          attributes: {
-            pos: { x: -100, y: 0 },
-            type: 'stem',
-            id: '1',
-            refs: [{ id: '0', in: 'main', out: 0 }]
-          }
+      nodes: p?.nodes || [{
+        "attributes": {
+          "pos": {
+            "x": -100,
+            "y": 0
+          },
+          "type": "stem",
+          "id": "1",
+          "refs": [
+            {
+              "id": "0",
+              "out": 0,
+              "in": "input"
+            }
+          ]
         },
-        {
-          attributes: {
-            pos: { x: 0, y: 0 },
-            type: 'output',
-            id: '0',
-            refs: []
-          }
+        "state": {
+          "origin": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "height": 2,
+          "thiccness": 0.06,
+          "amount": 1
         }
+      },
+      {
+        "attributes": {
+          "pos": {
+            "x": 0,
+            "y": 0
+          },
+          "type": "output",
+          "id": "0",
+        },
+      }
       ]
     };
 
@@ -93,13 +114,15 @@ export default class ProjectManager extends EventEmitter {
   }
 
   async saveProject(_project: PlantProject) {
+
+    console.log("ssave");
     const project = JSON.parse(JSON.stringify(_project));
 
     this.projects[project.meta.id] = project;
 
     this.emit('save', project);
 
-    if (!project?.meta?.thumbnail) this.renderThumbnail({ project });
+    // if (!project?.meta?.thumbnail) this.renderThumbnail({ project });
 
     await storage.setItem('pt_project_ids', Object.keys(this.projects));
 
@@ -160,7 +183,7 @@ export default class ProjectManager extends EventEmitter {
 
     const a = performance.now();
 
-    const thumbDataString = await renderProject(geo ? { geo } : { pd: project });
+    const thumbDataString = await renderProject({ pd: project, geo });
 
     if (thumbDataString) {
       const b = performance.now() - a;
@@ -207,7 +230,7 @@ export default class ProjectManager extends EventEmitter {
     this.store.set(Object.values(this.projects));
   }
 
-  setProject(plant: NodeResult) {
+  setProject(plant: PlantProject) {
     this.plant = plant;
     this.emit('plant', plant);
   }

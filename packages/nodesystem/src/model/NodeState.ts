@@ -1,4 +1,5 @@
 import { EventEmitter } from '@plantarium/helpers';
+import type { ValueTemplate } from '../@types';
 import NodeStateView from '../view/NodeStateView';
 import type Node from './Node';
 import NodeInput from './NodeInput';
@@ -18,7 +19,7 @@ export default class NodeState extends EventEmitter {
   ) {
     super();
 
-    this.value = node.state[key] ?? template.defaultValue ?? template.value;
+    this.value = node.state[key] ?? template.value;
     this.node._state[key] = this.value;
 
     if (!this.template.internal) {
@@ -35,7 +36,7 @@ export default class NodeState extends EventEmitter {
     return this.value;
   }
 
-  setValue(value: unknown) {
+  setValue(value: unknown = this.template.value) {
     if (!this.isExternal) {
       if (this.node.enableUpdates) {
         this.node.system.history.addAction();

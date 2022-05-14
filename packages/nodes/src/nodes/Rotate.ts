@@ -1,4 +1,5 @@
 import { rotate3D } from '@plantarium/geometry';
+import { typeCheckNode } from '../types';
 
 const getRotationAxis = (mode: string) => {
   if (mode === 'X') return [1, 0, 0];
@@ -6,8 +7,9 @@ const getRotationAxis = (mode: string) => {
   return [0, 1, 0];
 };
 
-const node: PlantNode = {
+export default typeCheckNode({
   title: 'Rotate',
+
   type: 'rotate',
 
   outputs: ['plant'],
@@ -17,11 +19,13 @@ const node: PlantNode = {
       type: 'plant',
       external: true,
     },
-    type: {
+    axis: {
+      type: 'select',
       internal: true,
       label: false,
-      type: 'select',
+      inputType: "tab",
       values: ['Y', 'X', 'Z'],
+      value: "X"
     },
     spread: {
       internal: true,
@@ -30,27 +34,27 @@ const node: PlantNode = {
     },
     angle: {
       type: 'number',
-      inputType: 'slider',
       min: 0,
       max: Math.PI * 2,
       step: 0.05,
       value: 0,
     },
   },
-  computeSkeleton(parameters, ctx) {
+  computeStem(parameters, ctx) {
 
-    console.log(parameters, this.parameters)
-
-    const { input, type, spread } = parameters;
+    const { input, axis, spread, } = parameters;
 
     const {
-      result: { stems, allSkeletons },
-    } = input;
+      stems,
+    } = input();
 
-    const rotationAxis = getRotationAxis(type as string);
+    const rotationAxis = getRotationAxis(axis);
 
-    console.log({ stems })
+    const { depth: maxDepth } = stems[stems.length - 1];
+
     stems.forEach((stem: PlantStem, j: number) => {
+
+      if (stem.depth !== maxDepth) return;
 
 
       const skelly = stem.skeleton;
@@ -64,8 +68,7 @@ const node: PlantNode = {
 
       const _a = j / stems.length;
 
-      const angle =
-        ctx.handleParameter(parameters.angle, _a) * (spread ? _a : 1);
+      const angle = parameters.angle(_a) * (spread ? _a : 1);
 
       // Loop over every single joint in the skeleton
       for (let i = 1; i < amount; i++) {
@@ -95,12 +98,7 @@ const node: PlantNode = {
 
     return {
       stems,
-      allSkeletons,
     };
   },
-  computeGeometry(parameters) {
-    return parameters.input.result;
-  },
-};
+});
 
-export default node;

@@ -1,5 +1,5 @@
 import { stateToElement } from '@plantarium/ui';
-import type { SvelteComponent } from '@plantarium/ui/node_modules/svelte/types/runtime';
+import type { SvelteComponent } from 'svelte';
 import type NodeState from '../model/NodeState';
 import './NodeStateView.scss';
 
@@ -7,7 +7,6 @@ export default class NodeStateView {
   wrapper = document.createElement('div');
   input = document.createElement('div');
   element: SvelteComponent;
-  private isPaused = false;
 
   constructor(private nodeState: NodeState) {
     this.wrapper.classList.add('node-state-single-wrapper');
@@ -27,7 +26,7 @@ export default class NodeStateView {
       this.wrapper.classList.add('hide-label');
     }
 
-    if (!template.external) {
+    if (!template.external && template.type !== "*") {
       this.element = stateToElement({
         target: this.input,
         template,

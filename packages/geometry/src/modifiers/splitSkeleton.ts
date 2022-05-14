@@ -31,7 +31,7 @@ export function splitSkeleton(skeleton: Float32Array, distance = 0.5, amount = 2
 
       return newSkelly;
     })
-  ]
+  ].filter(v => v.length > 4)
 
 
 }

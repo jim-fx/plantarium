@@ -12,7 +12,8 @@
     "svelte": "^3.48.0"
   },
   "devDependencies": {
-    "esbuild": "^0.14.38",
+    "@tsconfig/svelte": "^3.0.0",
+    "esbuild": "^0.14.39",
     "esbuild-plugin-sass": "^1.0.1"
   }
 }

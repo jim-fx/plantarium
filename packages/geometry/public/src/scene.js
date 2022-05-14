@@ -4,7 +4,7 @@ import { join, transferToGeometry } from '../dist/index.js';
 import { Box, Camera, Mesh, Orbit, Renderer, Transform } from '../ogl.js';
 import debug from './debug.js';
 import createParticle from './particles.js';
-import { green, wireframe } from './shaders.js';
+import { green, test, wireframe } from './shaders.js';
 import store from './store.js';
 
 const renderer = new Renderer({
@@ -43,7 +43,7 @@ wireMesh.visible = store.get("wireframe", false);
 
 const obj = new Mesh(gl, {
   geometry: new Box(gl, { size: 0 }),
-  program: green(gl),
+  program: test(gl),
 });
 obj.setParent(scene);
 debug.setModel(obj);

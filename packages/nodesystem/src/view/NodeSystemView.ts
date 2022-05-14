@@ -404,10 +404,8 @@ export default class NodeSystemView extends EventEmitter {
           this.clipboard = s.map((n) => n.deserialize()).map(n => {
             n.attributes.pos.x -= this.mx;
             n.attributes.pos.y -= this.my;
-            console.table({ ...n.attributes.pos, mx: this.mx, my: this.my })
             return n
           });
-          console.log(this.clipboard)
         } else if (this.selectedNodes.length && this.activeNode) {
           this.selectedNodes[0].connectTo(this.activeNode);
         }
@@ -432,11 +430,12 @@ export default class NodeSystemView extends EventEmitter {
         if (this.activeNode) {
           if (ctrlKey) {
             this.system.spliceNode(this.activeNode);
+            this.selectedNodes.forEach((n) => this.system.spliceNode(n));
           } else {
             this.system.removeNode(this.activeNode);
+            this.selectedNodes.forEach((n) => n.remove());
           }
         }
-        this.selectedNodes.forEach((n) => n.remove());
         break;
       // z
       case 'z':
@@ -474,7 +473,6 @@ export default class NodeSystemView extends EventEmitter {
                 y: y + this.my,
               };
 
-              console.table({ x, y, mx: this.mx, my: this.my })
               return node;
             })
             .forEach((c) => this.system.createNode(c));

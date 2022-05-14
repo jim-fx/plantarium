@@ -1,4 +1,7 @@
-export default function (...geometries: TransferGeometry[]): TransferGeometry {
+export default function(..._geometries: TransferGeometry[]): TransferGeometry {
+
+  const geometries = _geometries.filter(v => !!v);
+
   if (geometries.length === 1) return geometries[0];
 
   const position = new Float32Array(

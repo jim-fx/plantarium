@@ -140,6 +140,33 @@ export const green = (gl) => {
   });
 };
 
+export const test = (gl) =>
+  new Program(gl, {
+    vertex: /* glsl */ `
+                attribute vec3 position;
+                attribute vec3 normal;
+                uniform mat3 normalMatrix;
+                uniform mat4 modelViewMatrix;
+                uniform mat4 projectionMatrix;
+                varying vec3 vNormal;
+                void main() {
+                    vNormal = normalize(normalMatrix * normal);
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }
+            `,
+
+    fragment: /* glsl */ `
+                precision highp float;
+                varying vec3 vNormal;
+                void main() {
+                    gl_FragColor.rgb = vNormal;
+                    gl_FragColor.a = 1.0;
+                }
+            `,
+    cullFace: null,
+  })
+
+
 export const particle = (gl) =>
   new Program(gl, {
     vertex: `

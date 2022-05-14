@@ -11,31 +11,33 @@ import ParticleFrag from "./ParticleShader.frag";
 import ParticleVert from "./ParticleShader.vert";
 import WireFrameFrag from "./WireframeShader.frag";
 import WireFrameVert from "./WireframeShader.vert";
+import NormalFrag from "./NormalShader.frag";
+import NormalVert from "./NormalShader.vert";
 
-const GroundShader = {
+export const GroundShader = {
   fragment: GroundShaderFrag,
   vertex: GroundShaderVert
 };
 
-const BasicShader = {
+export const BasicShader = {
   fragment: BasicShaderFrag,
   vertex: BasicShaderVert
 };
 
-const InstanceShader = {
+export const InstanceShader = {
   fragment: InstanceShaderFrag,
   vertex: InstanceShaderVert
 };
 
-const WireFrameShader = {
+export const WireFrameShader = {
   fragment: WireFrameFrag,
   vertex: WireFrameVert
 };
-const ParticleShader = {
+
+export const ParticleShader = {
   fragment: ParticleFrag,
   vertex: ParticleVert
 };
-
 
 export const MatCapShader = (gl: WebGL2RenderingContext) => {
   const texture = new Texture(gl);
@@ -52,5 +54,17 @@ export const MatCapShader = (gl: WebGL2RenderingContext) => {
   });
 }
 
-export { GroundShader, BasicShader, InstanceShader, WireFrameShader, ParticleShader };
-
+export const NormalShader = (gl: WebGL2RenderingContext) => {
+  const texture = new Texture(gl);
+  const img = new Image();
+  img.onload = () => (texture.image = img);
+  img.src = 'assets/matcap_green.jpg';
+  return new Program(gl, {
+    vertex: NormalVert,
+    fragment: NormalFrag,
+    uniforms: {
+      tMap: { value: texture },
+    },
+    cullFace: null,
+  });
+}

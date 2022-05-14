@@ -1,31 +1,34 @@
-const node: PlantNode = {
+import { typeCheckNode } from "../types"
+
+export default typeCheckNode({
   title: 'Parameter',
   type: 'parameter',
   outputs: ['number'],
   parameters: {
     value: {
       type: 'number',
+      inputType: 'float',
       value: 0,
     },
     variation: {
       type: 'number',
-      inputType: 'slider',
       value: 0,
       min: 0,
       max: 1,
       step: 0.05,
     },
   },
-  computeValue(parameters, ctx) {
-    const { value = 0, variation = 0 } = parameters;
+  computeValue(parameters, ctx, alpha = 1) {
+
+    const value = parameters.value();
+    const variation = parameters.variation();
 
     if (variation) {
-      const v = value + ctx.n1d(200) * variation * Math.max(value, 1);
+      const v = value + ctx.n1d(200 * alpha) * variation * Math.max(value, 1);
       // console.log('Parameter ', v);
       return v;
     }
     return value;
   },
-};
+});
 
-export default node;

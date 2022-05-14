@@ -25,6 +25,7 @@
     "ogl": "^0.0.92",
     "open-simplex-noise": "^2.5.0",
     "rainbow-code": "^2.1.7",
+    "sass": "^1.51.0",
     "shortid": "^2.2.16",
     "svelte": "^3.48.0",
     "svelte-click-outside": "^1.0.0",
@@ -32,10 +33,11 @@
     "svelte-resize-observer": "^2.0.0"
   },
   "devDependencies": {
-    "@sveltejs/adapter-static": "1.0.0-next.29",
-    "@sveltejs/kit": "1.0.0-next.326",
-    "@typescript-eslint/eslint-plugin": "^5.22.0",
-    "@typescript-eslint/parser": "^5.22.0",
+    "@sveltejs/adapter-static": "1.0.0-next.30",
+    "@sveltejs/kit": "1.0.0-next.330",
+    "@tsconfig/svelte": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
     "comlink": "^4.3.1",
     "eslint": "^8.15.0",
     "eslint-config-prettier": "^8.5.0",
@@ -43,17 +45,15 @@
     "prettier": "^2.6.2",
     "prettier-plugin-svelte": "^2.7.0",
     "rollup-plugin-glslify": "^1.2.1",
-    "rollup-plugin-svg-import": "^1.6.0",
     "rollup-plugin-visualizer": "^5.6.0",
     "svelte": "^3.44.0",
-    "svelte-check": "^2.7.0",
+    "svelte-check": "^2.7.1",
     "svelte-preprocess": "^4.10.6",
     "tslib": "^2.4.0",
     "typescript": "^4.6.4",
     "vite-plugin-comlink": "^3.0.2",
     "vite-plugin-glslify": "^2.0.1",
-    "vite-plugin-worker": "^1.0.5",
-    "vite-tsconfig-paths": "^3.4.1"
+    "vite-plugin-worker": "^1.0.5"
   },
   "type": "module"
 }

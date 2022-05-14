@@ -1,6 +1,8 @@
-import type { CheckboxTemplate, FloatTemplate, IntegerTemplate, SelectTemplate, ValueTemplate } from "@plantarium/ui";
+import type { CheckboxTemplate, FloatTemplate, IntegerTemplate, SelectTemplate, ValueTemplate as _ValueTemplate } from "@plantarium/ui";
 
-type NodeParameters = Record<string, ValueTemplate & { internal?: boolean, label?: boolean }>;
+export type ValueTemplate = (_ValueTemplate | { type: "*", value?: unknown }) & { internal?: boolean, external?: boolean, label?: boolean | string };
+
+type NodeParameters = Record<string, ValueTemplate>;
 export type Params<T extends NodeParameters> = {
   [K in keyof T]
   : T[K] extends FloatTemplate ? number
@@ -10,11 +12,11 @@ export type Params<T extends NodeParameters> = {
   : unknown;
 };
 
-export type NodeTypeData<T extends NodeParameters = {}> = {
+export type NodeTypeData<T extends NodeParameters = NodeParameters> = {
   title: string,
   type: string,
   outputs: string[],
-  meta?: { description?: string, tags?: string },
+  meta?: { description?: string, tags?: string[] },
   parameters: T,
   compute: (p: Params<T>) => void
 }

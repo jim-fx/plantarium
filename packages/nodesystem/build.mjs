@@ -1,26 +1,40 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { sassPlugin } = require('@es-pack/esbuild-sass-plugin');
-const { build, serve } = require('esbuild');
-const sveltePlugin = require('esbuild-svelte');
-const sveltePreprocess = require('svelte-preprocess');
-const { typescript } = require('svelte-preprocess-esbuild');
+import { sassPlugin } from 'esbuild-sass-plugin';
+import { build, serve } from 'esbuild';
+import sveltePlugin from 'esbuild-svelte';
+import sveltePreprocess from 'svelte-preprocess';
+import { typescript } from 'svelte-preprocess-esbuild';
+import { execSync } from 'child_process'
+
+const tscPlugin =  {
+  name: 'TypeScriptDeclarationsPlugin',
+  setup(build) {
+    build.onEnd((result) => {
+      if (result.errors.length > 0) return
+      execSync('tsc')
+    })
+  }
+}
+
 const options = {
   entryPoints: ['./src/index.ts'],
-  bundle: true,
+  bundle: false,
   format: 'esm',
   logLevel: 'info',
   loader: {
     '.svg': 'text',
   },
-  outfile: './public/dist/index.esm.js',
+  outfile: './public/dist/index.esm.mjs',
   sourcemap: true,
   plugins: [
     sveltePlugin({
       preprocess: [typescript(), sveltePreprocess({ typescript: false })],
     }),
     sassPlugin(),
+    tscPlugin
   ],
 };
+
 
 const devOptions = {
   ...options,
@@ -38,4 +52,10 @@ if (process.argv[2] === '--dev') {
     process.stderr.write(err.stderr);
     process.exit(1);
   });
+
+  build({...options,...{format: "esm",bundle:true,outfile: './public/dist/index.js'}}).catch(err => {
+    process.stderr.write(err.stderr);
+    process.exit(1)
+  })
+
 }

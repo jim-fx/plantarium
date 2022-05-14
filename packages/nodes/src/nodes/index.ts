@@ -16,3 +16,4 @@ export { default as Vec2 } from './Vec2';
 export { default as Vec3 } from './Vec3';
 export { default as VecLength } from './VecLength';
 export { default as Split } from './Split';
+export { default as Number } from './Number';

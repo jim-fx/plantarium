@@ -1,8 +1,9 @@
 import { join, tube } from '@plantarium/geometry';
 import { logger } from '@plantarium/helpers';
+import { typeCheckNode } from '../types';
 const log = logger('nodes.stem');
 
-const node: PlantNode = {
+export default typeCheckNode({
   title: 'Stem',
   type: 'stem',
   outputs: ['plant'],
@@ -10,7 +11,7 @@ const node: PlantNode = {
     origin: {
       type: 'vec3',
       external: true,
-      defaultValue: {
+      value: {
         x: 0,
         y: 0,
         z: 0,
@@ -18,7 +19,6 @@ const node: PlantNode = {
     },
     height: {
       type: 'number',
-      inputType: 'slider',
       min: 0,
       max: 5,
       step: 0.05,
@@ -26,7 +26,6 @@ const node: PlantNode = {
     },
     thiccness: {
       type: 'number',
-      inputType: 'slider',
       min: 0,
       max: 0.2,
       step: 0.01,
@@ -40,26 +39,25 @@ const node: PlantNode = {
     },
   },
 
-  computeSkeleton(parameters, ctx) {
+  computeStem(parameters, ctx) {
     log('computeSkeleton', parameters);
 
-    const amount = ctx.handleParameter(parameters.amount);
+    const amount = parameters.amount();
 
     const amountPoints = ctx.getSetting('stemResY');
 
     const stems: PlantStem[] = [];
 
     for (let i = 0; i < amount; i++) {
-      const { x: ox, y: oy, z: oz } = ctx.handleParameter(parameters.origin);
+      const { x: ox, y: oy, z: oz } = parameters.origin(i);
 
-      const height = ctx.handleParameter(parameters.height);
+      const height = parameters.height();
 
       const skeleton = new Float32Array(amountPoints * 4);
 
       for (let j = 0; j < amountPoints; j++) {
         const a = j / amountPoints;
-        const thiccness =
-          ctx.handleParameter(parameters.thiccness, a) * (1 - a);
+        const thiccness = parameters.thiccness(a) * (1 - a);
 
         //Create point
         const x = ox;
@@ -72,24 +70,13 @@ const node: PlantNode = {
         skeleton[j * 4 + 3] = thiccness;
       }
 
-      stems.push({ depth: 0, skeleton });
+      stems.push({ depth: 0, skeleton, id: "stem" + ctx.getId() });
     }
 
     return {
-      stems,
-      allSkeletons: stems,
+      stems
     };
   },
 
-  computeGeometry(parameters, result, ctx) {
-    log('computeNode', parameters, result);
-    const stemResX = ctx.getSetting('stemResX');
-    return {
-      geometry: join(
-        ...result.stems.map(({ skeleton }) => tube(skeleton, stemResX)),
-      ),
-    };
-  },
-};
+});
 
-export default node;

@@ -21,11 +21,11 @@
   "devDependencies": {
     "@plantarium/helpers": "link:../helpers",
     "@plantarium/theme": "link:../theme",
-    "@sveltejs/adapter-static": "1.0.0-next.29",
-    "@sveltejs/kit": "1.0.0-next.326",
+    "@sveltejs/adapter-static": "1.0.0-next.30",
+    "@sveltejs/kit": "1.0.0-next.330",
     "@testing-library/svelte": "^3.1.1",
-    "@typescript-eslint/eslint-plugin": "^5.22.0",
-    "@typescript-eslint/parser": "^5.22.0",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
     "@yr/monotone-cubic-spline": "^1.0.3",
     "c8": "^7.11.2",
     "eslint": "^8.15.0",
@@ -39,14 +39,14 @@
     "sass": "^1.51.0",
     "shortid": "^2.2.16",
     "svelte": "^3.48.0",
-    "svelte-check": "^2.7.0",
+    "svelte-check": "^2.7.1",
     "svelte-highlight": "^6.0.1",
     "svelte-preprocess": "^4.10.6",
     "tslib": "^2.4.0",
     "typescript": "^4.6.4",
     "uvu": "^0.5.3",
-    "vite": "^2.9.8",
-    "vitest": "^0.12.2"
+    "vite": "^2.9.9",
+    "vitest": "^0.12.6"
   },
   "type": "module",
   "jest": {

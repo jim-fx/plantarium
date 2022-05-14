@@ -1,4 +1,5 @@
 import { debounceDecorator, EventEmitter, logger } from '@plantarium/helpers';
+import type { NodeTypeData } from '../@types';
 import DefaultNodes from '../nodes';
 import NodeSystemView from '../view/NodeSystemView';
 import type Node from './Node';
@@ -18,6 +19,7 @@ interface NodeSystemOptions {
   wrapper: HTMLElement;
   defaultNodes: string[] | boolean;
   registerNodes: NodeTypeData[];
+  deferCompute: boolean;
   logLevel: number;
   parent: HTMLElement;
   showUpdates: boolean;
@@ -55,8 +57,9 @@ export default class NodeSystem extends EventEmitter {
       defaultNodes = false,
       registerNodes = false,
       showUpdates = false,
+      deferCompute = false
     } = options;
-    this.options = { view, wrapper, showUpdates };
+    this.options = { view, wrapper, showUpdates, deferCompute };
 
     try {
       log(`Instantiated id:${this.id}`);
@@ -160,7 +163,16 @@ export default class NodeSystem extends EventEmitter {
       this.outputNode.remove();
     }
     this.outputNode = node;
-    node.on('computedData', (data) => (this.result = data));
+    node.on('computedData', (data) => {
+      if (this.options.deferCompute) {
+        this.result = {
+          type: "output",
+          parameters: data
+        }
+      } else {
+        this.result = data;
+      }
+    });
   }
 
   addNodes(nodes: Node[]) {

@@ -1,12 +1,14 @@
 {
   "name": "@plantarium/generator",
   "version": "1.0.0",
-  "main": "src/index.ts",
-  "license": "MIT",
+  "description": "",
+  "main": "index.ts",
   "scripts": {
-    "clean": "rimraf dist .eslintcache",
-    "lint": "eslint src/**/* --cache"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "@plantarium/geometry": "link:../geometry",
     "@plantarium/helpers": "link:../helpers",

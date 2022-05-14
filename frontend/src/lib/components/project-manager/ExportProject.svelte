@@ -32,7 +32,7 @@
 		>
 	</div>
 	<div id="content">
-		<textarea bind:this={textarea}>{JSON.stringify(project, null, 2)}</textarea>
+		<textarea bind:this={textarea}>{JSON.stringify(cleaned, null, 2)}</textarea>
 	</div>
 </div>
 

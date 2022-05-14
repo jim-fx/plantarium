@@ -1,11 +1,12 @@
-const node: PlantNode = {
+import { typeCheckNode } from "../types"
+
+export default typeCheckNode({
   title: 'Shape',
   type: 'shape',
-  outputs: ['leaf'],
+  outputs: ['shape'],
   parameters: {
     value: {
-      type: 'leaf',
-      inputType: 'shape',
+      type: 'shape',
       internal: true,
       label: false,
       value: [
@@ -18,6 +19,5 @@ const node: PlantNode = {
   computeValue(parameter) {
     return parameter.value;
   },
-};
+});
 
-export default node;

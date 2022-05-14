@@ -1,28 +1,18 @@
 import { noise } from '@plantarium/geometry';
-import isNode from './helpers/isNode';
-import uniqID from './helpers/uniqID';
-import { walkValueNode } from './walkNode';
 
 let lastSettings = '';
-let lastCtx;
+let lastCtx: NodeContext;
 let currentNoise = 2;
 
-const createContext = (s: Partial<PlantariumSettings>): GeneratorContext => {
+export type NodeContext = ReturnType<typeof createContext>;
+
+const createContext = (s: Partial<PlantariumSettings>) => {
   let seed = 0;
   noise.seed = 0;
-  let buildId = uniqID();
   return {
-    handleParameter(param: ParameterResult | GeneratorContextNode, alpha = 1) {
-      if (typeof param === 'number') return param;
-
-      // Handle if parameter is node
-      if (isNode(param)) {
-        return walkValueNode(param, this, alpha);
-      }
-
-      // If we are here its probably a vector
-      console.log('Heeere', param);
-      return param;
+    _id:"",
+    getId(){
+      return this._id;
     },
     n1d(scale: number) {
       return noise.n1d(currentNoise++ * scale);
@@ -45,13 +35,12 @@ const createContext = (s: Partial<PlantariumSettings>): GeneratorContext => {
         seed = Math.floor(Math.random() * 100000);
         noise.seed = seed;
       }
-      buildId = uniqID();
       return;
     },
   };
 };
 
-export default (settings: Partial<PlantariumSettings>): GeneratorContext => {
+export default (settings: Partial<PlantariumSettings>): NodeContext => {
   const s = JSON.stringify(settings);
 
   if (s !== lastSettings) {
@@ -62,4 +51,4 @@ export default (settings: Partial<PlantariumSettings>): GeneratorContext => {
   lastCtx.refresh();
 
   return lastCtx;
-};
+}

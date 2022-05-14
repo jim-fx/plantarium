@@ -10,32 +10,29 @@ export default class NodeHistory {
 
   isApplyingChanges = false;
 
-  addAction: NodeHistory['_addAction'];
   prevState: NodeProps[];
 
+  private _timeout: ReturnType<typeof setTimeout>
+
   constructor(private system: NodeSystem) {
-    this.addAction = (() => {
-      let int: number;
-      const f = () => {
-        if (!this.system.isLoaded) return;
-        if (this.isApplyingChanges) return;
-
-        if (int) {
-          clearTimeout(int);
-        } else {
-          this.prevState = this.system.serialize().nodes;
-        }
-
-        int = setTimeout(() => {
-          this._addAction();
-          int = undefined;
-        }, 200);
-      };
-
-      return f;
-    })().bind(this);
-
     log(`Initialized`);
+  }
+
+  addAction() {
+
+    if (!this.system.isLoaded) return;
+    if (this.isApplyingChanges) return;
+
+    if (this._timeout) {
+      clearTimeout(this._timeout);
+    } else {
+      this.prevState = this.system.serialize().nodes;
+    }
+
+    this._timeout = setTimeout(() => {
+      this._addAction();
+      this._timeout = undefined;
+    }, 200);
   }
 
   private _addAction() {

@@ -1,15 +1,22 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "lib": ["DOM", "ESNext"],
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
     "target": "es6",
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "outDir": "public/dist",
+    "allowJs": true,
     "emitDeclarationOnly": true,
-    "declaration": true,
-    "types": ["svelte"]
+    "declaration": true
   },
-  "include": ["src/**/*", "../@types/**/*.d.ts", "../packages/*"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

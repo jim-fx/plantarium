@@ -1,5 +1,6 @@
 import { join, splitSkeleton, tube } from '@plantarium/geometry';
-const node: PlantNode = {
+import { typeCheckNode } from '../types';
+export default typeCheckNode({
   title: 'Split',
   type: 'split',
   outputs: ['plant'],
@@ -12,15 +13,13 @@ const node: PlantNode = {
     },
     height: {
       type: 'number',
-      inputType: 'slider',
       min: 0,
-      max: 20,
+      max: 1,
       step: 0.05,
-      value: 1,
+      value: 0.7,
     },
     angle: {
       type: 'number',
-      inputType: 'slider',
       min: 0,
       max: 2,
       step: 0.01,
@@ -34,48 +33,37 @@ const node: PlantNode = {
     },
   },
 
-  computeSkeleton(parameters, ctx) {
+  computeStem(parameters) {
 
-    const { input } = parameters;
+    const height = parameters.height();
+    const angle = parameters.angle();
+    const amount = parameters.amount();
 
-    const height = ctx.handleParameter(parameters.height);
-    const angle = ctx.handleParameter(parameters.angle);
-    const amount = ctx.handleParameter(parameters.amount);
+    const { stems: inputStems } = parameters.input();
 
-    const { stems } = input.result as { stems: PlantStem[] };
+    const maxDepth = Math.max(...inputStems.map(s => s.depth));
 
-    const maxDepth = Math.max(...stems.map(s => s.depth));
-
-    const results = stems.map((stem: PlantStem) => {
+    const stems = inputStems.map((stem: PlantStem) => {
       if (stem.depth === maxDepth) {
         const newSkeletons = splitSkeleton(stem.skeleton, height, amount, angle);
-        return newSkeletons.map(s => {
+        return newSkeletons.map((s, i) => {
           return {
             skeleton: s,
-            depth: stem.depth + 1,
+            id: stem.id,
+            depth: stem.depth + (i === 0 ? 0 : 1),
           }
         })
+      } else {
+        return stem
       }
     }).flat().filter(v => !!v);
 
+    console.log({ stems })
+
     return {
-      stems: results,
-      allSkeletons: [...input.result.allSkeletons, ...results],
+      stems,
     };
   },
 
-  computeGeometry(_, result, ctx) {
-    const stemResX = ctx.getSetting('stemResX');
+});
 
-    const { stems } = result;
-
-    return {
-      geometry: join(
-        // geometry,
-        ...stems.map(({ skeleton }) => tube(skeleton, stemResX)),
-      ),
-    };
-  },
-};
-
-export default node;

@@ -1,3 +1,5 @@
+<svelte:options accessors />
+
 <script lang="ts">
   import spline from '@yr/monotone-cubic-spline';
   import { createEventDispatcher } from 'svelte';

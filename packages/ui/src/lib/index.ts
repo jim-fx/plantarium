@@ -11,6 +11,7 @@ import InputColor from './InputColor.svelte';
 import InputCurve from './InputCurve.svelte';
 import InputInteger from './InputInteger.svelte';
 import InputFloat from './InputFloat.svelte';
+import InputTab from './InputTab.svelte';
 import InputSelect from './InputSelect.svelte';
 import InputShape from './InputShape.svelte';
 import InputSlider from './InputSlider.svelte';
@@ -27,10 +28,10 @@ export type {
   ShapeTemplate,
   CurveTemplate,
   SelectTemplate,
+  ValueTemplate
 } from "./types"
 
 export {
-  ValueTemplate,
   InputFloat,
   InputInteger,
   InputSlider,
@@ -39,6 +40,7 @@ export {
   InputCurve,
   InputShape,
   InputSearch,
+  InputTab,
   InputColor,
   Button,
   Icon,
@@ -69,14 +71,15 @@ export function stateToElement({
 
   const props = { ...template, ...{ value } };
   delete props["type"]
-  console.log("LoadElement", template.type, props, value)
 
-
-  return new component({ target, props: { ...props, '--width': '100%' } });
+  return new component({ target, props });
 }
 
 export function stateToComponent(template: ValueTemplate): typeof SvelteComponent {
   if (template.type === 'select') {
+    if (template.inputType === "tab") {
+      return InputTab
+    }
     return InputSelect;
   }
 
@@ -89,9 +92,19 @@ export function stateToComponent(template: ValueTemplate): typeof SvelteComponen
   }
 
   if (template.type === 'number') {
-    if (template?.inputType === "float") {
+    if (template.inputType) {
+      if (template.inputType === "float") {
+        return InputFloat;
+      }
+      if (template.inputType === "integer") {
+        return InputInteger
+      }
+    }
+
+    if (template?.step && (template.step % 1 !== 0)) {
       return InputFloat;
     }
+
     return InputInteger;
   }
 
