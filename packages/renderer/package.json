@@ -13,6 +13,6 @@
     "svelte": "^3.48.0"
   },
   "devDependencies": {
-    "ogl": "^0.0.92"
+    "ogl": "0.0.92"
   }
 }
