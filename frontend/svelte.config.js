@@ -4,7 +4,6 @@ import preprocess from 'svelte-preprocess';
 import path from 'path';
 import glslify from 'vite-plugin-glslify';
 import { visualizer } from 'rollup-plugin-visualizer';
-import comlink from 'vite-plugin-comlink'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -13,7 +12,7 @@ const config = {
   preprocess: preprocess(),
   kit: {
     adapter: adapter(),
-    prerender: { default: true },
+    prerender: { default: true, crawl: true, enabled: true, entries: ["*"] },
     vite: {
       clearScreen: true,
       logLevel: 'silent',
@@ -22,7 +21,7 @@ const config = {
         port: 8080
       },
       optimizeDeps: {
-        include: ['ogl', "open-simplex-noise", "file-saver"]
+        include: ["open-simplex-noise", "file-saver"]
       },
       plugins: [
         // tsconfigPaths(),
@@ -31,11 +30,7 @@ const config = {
           filename: 'build/stats.html',
           projectRoot: path.resolve('./')
         }),
-        comlink.default(),
       ],
-      worker: {
-        plugins: [comlink.default()]
-      }
     }
   }
 };

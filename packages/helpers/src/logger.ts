@@ -155,6 +155,7 @@ log.getStore = function() {
 
 log.setFilter = (...f: string[]) => {
   filters = f;
+  console.log("[log] set filter", { filters })
 };
 
 log.setLevel = (l = 0) => {

@@ -4,7 +4,7 @@ import type { WrappedNode } from "./types";
 import createContext from "./context"
 export type GeneratorContext = ReturnType<typeof createGeneratorContext>;
 
-export default function createGeneratorContext({ nodes: _nodes }: PlantProject, settings: PlantariumSettings) {
+export default function createGeneratorContext({ nodes: _nodes }: PlantProject, settings: Partial<PlantariumSettings>) {
 
 
   const ctx = createContext(settings);

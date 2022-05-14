@@ -1,25 +1,21 @@
 import { EventEmitter, logger } from '@plantarium/helpers';
-import type { NodeSystem } from '@plantarium/nodesystem';
-import storage from 'localforage';
+import * as storage from '$lib/storage';
 import createId from 'shortid';
 import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
 import { renderProject } from '../../helpers';
-import type { SettingsManager } from '../settings-manager';
 
 const log = logger('ProjectManager');
 
 const PTP_PREFIX = 'pt_project_';
 
 export default class ProjectManager extends EventEmitter {
-  private plant: NodeResult;
-  private settingsManager: typeof SettingsManager;
+  private plant: PlantProject;
   public activeProjectId: string;
   public activeProject: Writable<PlantProject | undefined> = writable();
   private projects: { [key: string]: PlantProject } = {};
   private loadingActiveProject?: Promise<PlantProject>;
   public store: Writable<PlantProject[]> = writable([]);
-  private nodeSystem: NodeSystem;
 
   once: (type: 'save' | 'delete' | 'update' | 'new', cb: (value: unknown) => void) => () => void;
 
@@ -99,6 +95,8 @@ export default class ProjectManager extends EventEmitter {
     this.emit('new', plant);
 
     this.saveProject(plant);
+
+    this.setActiveProject(plant.meta.id)
   }
 
   async updateProjectMeta(id: string, meta: Partial<PlantProjectMeta>): Promise<void> {
@@ -115,7 +113,6 @@ export default class ProjectManager extends EventEmitter {
 
   async saveProject(_project: PlantProject) {
 
-    console.log("ssave");
     const project = JSON.parse(JSON.stringify(_project));
 
     this.projects[project.meta.id] = project;

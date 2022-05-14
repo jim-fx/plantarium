@@ -1,35 +1,38 @@
 import { createWorker } from '@plantarium/generator';
 import { transferToGeometry } from '@plantarium/geometry';
-import Nodes from '@plantarium/nodes';
-import { NodeSystem } from '@plantarium/nodesystem';
 import Renderer from '@plantarium/renderer';
 import { Box, Mesh } from 'ogl';
 import { MatCapShader } from '../components/scene/shaders';
 
 const webWorker = createWorker();
-const renderer = new Renderer({
-  width: 100,
-  height: 100,
-  alpha: true,
-  clearColor: '000',
-});
-const nodeSystem = new NodeSystem({
-  view: false,
-  defaultNodes: false,
-  deferCompute: true,
-  registerNodes: Nodes,
-});
 
-const mesh = new Mesh(renderer.gl, {
-  geometry: new Box(renderer.gl, { width: 0, height: 0, depth: 0 }),
-  program: MatCapShader(renderer.gl),
-});
+let renderer: Renderer;
+let mesh: Mesh;
+let ctx: CanvasRenderingContext2D;
+let renderCanvas: HTMLCanvasElement;
+let isSetup = false;
+function setup() {
+  if (isSetup) return;
+  isSetup = true;
 
-const renderCanvas = document.createElement('canvas');
-renderCanvas.width = renderCanvas.height = 100;
-const ctx = renderCanvas.getContext('2d');
+  renderer = new Renderer({
+    width: 100,
+    height: 100,
+    alpha: true,
+    clearColor: '000',
+  });
+  mesh = new Mesh(renderer.gl, {
+    geometry: new Box(renderer.gl, { width: 0, height: 0, depth: 0 }),
+    program: MatCapShader(renderer.gl),
+  });
 
-mesh.setParent(renderer.scene);
+  renderCanvas = document.createElement('canvas');
+  renderCanvas.width = renderCanvas.height = 100;
+  ctx = renderCanvas.getContext('2d');
+
+  mesh.setParent(renderer.scene);
+
+}
 
 export default async function({
   pd,
@@ -38,6 +41,8 @@ export default async function({
   pd?: PlantProject;
   geo?: TransferGeometry;
 }) {
+
+  setup()
 
   let _geometry: TransferGeometry;
 

@@ -1,14 +1,7 @@
-import { identity, rotate } from 'gl-matrix/mat4';
-import {
-  add,
-  cross,
-  dot,
-  mul,
-  normalize,
-  subtract,
-  scale,
-  transformMat4,
-} from 'gl-matrix/vec3';
+import { mat4, vec3 } from "gl-matrix";
+
+const { identity, rotate } = mat4;
+const { add, cross, dot, mul, normalize, subtract, scale, transformMat4 } = vec3;
 
 function createCircle(res: number) {
   const angle = (2 * Math.PI) / res;

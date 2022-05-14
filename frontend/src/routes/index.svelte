@@ -13,9 +13,6 @@
 
 	let nodeSystemWrapper: HTMLElement;
 
-	export const ssr = false;
-	export const prerender = false;
-
 	onMount(async () => {
 		await settingsManager.loadFromLocal();
 		nodeSystemWrapper.append(nodeSystem.view.wrapper);

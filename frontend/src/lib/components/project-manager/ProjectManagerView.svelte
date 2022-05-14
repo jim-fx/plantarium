@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createAlert } from '@plantarium/ui';
 
-	import ResizeObserer from 'svelte-resize-observer';
+	/* import ResizeObserver from 'svelte-resize-observer'; */
 	import { projectManager } from '..';
 	import { localState } from '../../helpers';
 	import ImportProject from './ImportProject.svelte';
@@ -27,20 +27,11 @@
 
 	const { width, height } = localState.get('projectManagerSize', {
 		width: 300,
-		height: window.innerHeight / 2
+		height: (globalThis['innerHeight'] ?? 1) / 2
 	});
 </script>
 
 <div class="project-manager-wrapper" style={`width: ${width}px; height: ${height}px;`}>
-	<ResizeObserer
-		on:resize={(ev) => {
-			visible &&
-				localState.set('projectManagerSize', {
-					width: ev.detail.clientWidth,
-					height: ev.detail.clientHeight
-				});
-		}}
-	/>
 	<div class="header">
 		<button class="add-new" on:click={() => projectManager.createNew()}>
 			<p>new</p>

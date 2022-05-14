@@ -1,8 +1,8 @@
-import { Vec3 } from 'ogl/src/math/Vec3';
+import { Vec3 } from 'ogl';
 
 let lastNormal: Vec3;
 
-export default function (geometry: TransferGeometry) {
+export default function(geometry: TransferGeometry) {
   const position = geometry.position;
   const index = geometry.index;
   const normals = geometry.normal;

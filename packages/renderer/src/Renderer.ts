@@ -44,6 +44,9 @@ export default class Renderer extends EventEmitter {
       height = rect.height;
     }
 
+    if (!globalThis["document"]) {
+      return
+    }
     this.renderer = new oRenderer({
       canvas,
       width,
@@ -117,8 +120,6 @@ export default class Renderer extends EventEmitter {
         this.controls.target.lerp(this.controlTarget, 0.05);
       }
     }
-
-    window['target'] = this.controls.target;
 
     this.controls.update();
 

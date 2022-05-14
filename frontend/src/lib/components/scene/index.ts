@@ -11,42 +11,43 @@ import * as performance from '../../helpers/performance';
 import { ThemeStore } from '@plantarium/theme';
 
 export default class Scene {
-	renderer: Renderer;
-	bg: BackgroundScene;
-	fg: ForegroundScene;
-	scene: Transform;
-	wrapper: HTMLElement;
+  renderer: Renderer;
+  bg: BackgroundScene;
+  fg: ForegroundScene;
+  scene: Transform;
+  wrapper: HTMLElement;
 
-	isLoading: Writable<boolean> = writable(false);
+  isLoading: Writable<boolean> = writable(false);
 
-	program: Program;
-	mesh: Mesh;
-	gl: WebGL2RenderingContext;
+  program: Program;
+  mesh: Mesh;
+  gl: WebGL2RenderingContext;
 
-	constructor(pm: ProjectManager, canvas: HTMLCanvasElement) {
-		this.renderer = new Renderer({
-			canvas,
-			camPos: localState.get('camPos') as [number, number, number]
-		});
-		this.renderer.on('camPos', (camPos) => localState.set('camPos', camPos));
-		this.renderer.on('perf', (perf: number) => performance.add('render', perf), 40);
-		this.renderer.handleResize();
-		this.scene = this.renderer.scene;
-		this.gl = this.renderer.gl;
+  constructor(pm: ProjectManager, canvas: HTMLCanvasElement) {
 
-		ThemeStore.subscribe((t) => {
-			this.renderer.setClearColor(t['background-color']);
-		});
+    this.renderer = new Renderer({
+      canvas,
+      camPos: localState.get('camPos') as [number, number, number]
+    });
+    this.renderer.on('camPos', (camPos) => localState.set('camPos', camPos));
+    this.renderer.on('perf', (perf: number) => performance.add('render', perf), 40);
+    this.renderer.handleResize();
+    this.scene = this.renderer.scene;
+    this.gl = this.renderer.gl;
 
-		this.wrapper = canvas.parentElement as HTMLElement;
+    ThemeStore.subscribe((t) => {
+      this.renderer.setClearColor(t['background-color']);
+    });
 
-		this.bg = new BackgroundScene(this, pm);
-		this.fg = new ForegroundScene(this, pm);
-	}
+    this.wrapper = canvas.parentElement as HTMLElement;
 
-	addMesh(options: Partial<MeshOptions>): Mesh {
-		const mesh = new Mesh(this.gl, options);
-		mesh.setParent(this.scene);
-		return mesh;
-	}
+    this.bg = new BackgroundScene(this, pm);
+    this.fg = new ForegroundScene(this, pm);
+  }
+
+  addMesh(options: Partial<MeshOptions>): Mesh {
+    const mesh = new Mesh(this.gl, options);
+    mesh.setParent(this.scene);
+    return mesh;
+  }
 }

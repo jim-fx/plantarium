@@ -1,6 +1,6 @@
 import { executeNodeSystem } from "./executeNodeSystem";
 
-export { default as createWorker } from "./worker"
+export { default as createWorker } from "./createWorker"
 
 export type { NodeContext } from "./context"
 

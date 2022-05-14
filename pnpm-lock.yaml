@@ -4,23 +4,23 @@ importers:
 
   .:
     specifiers:
-      '@tsconfig/svelte': ^3.0.0
-      '@typescript-eslint/eslint-plugin': ^5.23.0
-      '@typescript-eslint/parser': ^5.23.0
-      eslint: ^8.15.0
-      eslint-plugin-svelte3: ^4.0.0
-      husky: ^8.0.1
-      istanbul-combine: ^0.3.0
-      istanbul-lib-coverage: ^3.2.0
-      istanbul-lib-report: ^3.0.0
-      istanbul-reporter-html-monorepo: ^1.1.3
-      istanbul-reports: ^3.1.4
-      nyc: ^15.1.0
-      prettier-plugin-svelte: ^2.7.0
-      rimraf: ^3.0.2
+      '@tsconfig/svelte': 3.0.0
+      '@typescript-eslint/eslint-plugin': 5.23.0
+      '@typescript-eslint/parser': 5.23.0
+      eslint: 8.15.0
+      eslint-plugin-svelte3: 4.0.0
+      husky: 8.0.1
+      istanbul-combine: 0.3.0
+      istanbul-lib-coverage: 3.2.0
+      istanbul-lib-report: 3.0.0
+      istanbul-reporter-html-monorepo: 1.1.3
+      istanbul-reports: 3.1.4
+      nyc: 15.1.0
+      prettier-plugin-svelte: 2.7.0
+      rimraf: 3.0.2
       typescript: 4.6.4
-      vite: ^2.9.9
-      vitest: ^0.12.6
+      vite: 2.9.9
+      vitest: 0.12.6
     devDependencies:
       '@tsconfig/svelte': 3.0.0
       '@typescript-eslint/eslint-plugin': 5.23.0_c63nfttrfhylg3zmgcxfslaw44
@@ -46,28 +46,28 @@ importers:
       '@plantarium/ui': link:../packages/ui
       '@sveltejs/adapter-static': 1.0.0-next.30
       '@sveltejs/kit': 1.0.0-next.330
-      '@typescript-eslint/eslint-plugin': ^5.23.0
-      '@typescript-eslint/parser': ^5.23.0
-      '@yr/monotone-cubic-spline': ^1.0.3
-      dotenv: ^16.0.1
-      eslint: ^8.15.0
-      eslint-config-prettier: ^8.5.0
-      eslint-plugin-svelte3: ^4.0.0
-      file-saver: ^2.0.5
-      ogl: ^0.0.92
-      prettier: ~2.6.2
-      prettier-plugin-svelte: ^2.7.0
-      shortid: ^2.2.16
-      svelte: ^3.48.0
-      svelte-check: ^2.7.1
-      svelte-forms-lib: ^2.0.1
-      svelte-multiselect: ^5.0.1
-      svelte-preprocess: ^4.10.6
-      tslib: ^2.4.0
-      typescript: ^4.6.4
-      vite: ^2.9.9
-      vite-plugin-windicss: ^1.8.4
-      windicss: ^3.5.3
+      '@typescript-eslint/eslint-plugin': 5.23.0
+      '@typescript-eslint/parser': 5.23.0
+      '@yr/monotone-cubic-spline': 1.0.3
+      dotenv: 16.0.1
+      eslint: 8.15.0
+      eslint-config-prettier: 8.5.0
+      eslint-plugin-svelte3: 4.0.0
+      file-saver: 2.0.5
+      ogl: 0.0.92
+      prettier: 2.6.2
+      prettier-plugin-svelte: 2.7.0
+      shortid: 2.2.16
+      svelte: 3.48.0
+      svelte-check: 2.7.1
+      svelte-forms-lib: 2.0.1
+      svelte-multiselect: 5.0.1
+      svelte-preprocess: 4.10.6
+      tslib: 2.4.0
+      typescript: 4.6.4
+      vite: 2.9.9
+      vite-plugin-windicss: 1.8.4
+      windicss: 3.5.3
     dependencies:
       '@plantarium/client-api': link:../packages/client-api
       '@plantarium/ui': link:../packages/ui
@@ -99,65 +99,65 @@ importers:
 
   backend:
     specifiers:
-      '@mikro-orm/cli': ^5.1.3
-      '@mikro-orm/core': ^5.1.3
-      '@mikro-orm/migrations': ^5.1.3
-      '@mikro-orm/mongo-highlighter': ^1.0.0
-      '@mikro-orm/mongodb': ^5.1.3
-      '@mikro-orm/mysql': ^5.1.3
-      '@mikro-orm/nestjs': ^5.0.1
-      '@mikro-orm/reflection': ^5.1.3
-      '@mikro-orm/sql-highlighter': ^1.0.1
-      '@mikro-orm/sqlite': ^5.1.3
-      '@nestjs/cli': ^8.2.5
-      '@nestjs/common': ^8.4.5
-      '@nestjs/core': ^8.4.5
-      '@nestjs/jwt': ^8.0.0
+      '@mikro-orm/cli': 5.1.3
+      '@mikro-orm/core': 5.1.3
+      '@mikro-orm/migrations': 5.1.3
+      '@mikro-orm/mongo-highlighter': 1.0.0
+      '@mikro-orm/mongodb': 5.1.3
+      '@mikro-orm/mysql': 5.1.3
+      '@mikro-orm/nestjs': 5.0.1
+      '@mikro-orm/reflection': 5.1.3
+      '@mikro-orm/sql-highlighter': 1.0.1
+      '@mikro-orm/sqlite': 5.1.3
+      '@nestjs/cli': 8.2.5
+      '@nestjs/common': 8.4.5
+      '@nestjs/core': 8.4.5
+      '@nestjs/jwt': 8.0.0
       '@nestjs/mapped-types': '*'
-      '@nestjs/passport': ^8.2.1
-      '@nestjs/platform-express': ^8.4.5
-      '@nestjs/platform-fastify': ^8.4.5
-      '@nestjs/schematics': ^8.0.11
-      '@nestjs/serve-static': ^2.2.2
-      '@nestjs/testing': ^8.4.5
-      '@types/bcrypt': ^5.0.0
-      '@types/cookie-parser': ^1.4.3
-      '@types/jest': ^27.5.1
-      '@types/morgan': ^1.9.3
-      '@types/node': ^17.0.33
-      '@types/passport-jwt': ^3.0.6
-      '@types/passport-local': ^1.0.34
-      '@types/supertest': ^2.0.12
-      '@typescript-eslint/eslint-plugin': ^5.23.0
-      '@typescript-eslint/parser': ^5.23.0
-      bcrypt: ^5.0.1
-      class-transformer: ^0.5.1
-      class-validator: ^0.13.2
-      cookie-parser: ^1.4.6
-      eslint: ^8.15.0
-      eslint-config-prettier: ^8.5.0
-      eslint-plugin-prettier: ^4.0.0
-      jest: ^28.1.0
-      kill-port: ^1.6.1
-      morgan: ^1.10.0
-      nodemon: ^2.0.16
-      octokit: ^1.7.1
-      passport: ^0.5.2
-      passport-jwt: ^4.0.0
-      passport-local: ^1.0.0
-      prettier: ^2.6.2
-      reflect-metadata: ^0.1.13
-      rimraf: ^3.0.2
-      rxjs: ^7.5.5
-      source-map-support: ^0.5.21
-      supertest: ^6.2.3
-      ts-eager: ^2.0.2
-      ts-jest: ^28.0.2
-      ts-node: ^10.7.0
-      tsconfig-paths: ^4.0.0
-      typescript: ^4.6.4
-      uuid: ^8.3.2
-      vite-plugin-node: ^1.0.0
+      '@nestjs/passport': 8.2.1
+      '@nestjs/platform-express': 8.4.5
+      '@nestjs/platform-fastify': 8.4.5
+      '@nestjs/schematics': 8.0.11
+      '@nestjs/serve-static': 2.2.2
+      '@nestjs/testing': 8.4.5
+      '@types/bcrypt': 5.0.0
+      '@types/cookie-parser': 1.4.3
+      '@types/jest': 27.5.1
+      '@types/morgan': 1.9.3
+      '@types/node': 17.0.33
+      '@types/passport-jwt': 3.0.6
+      '@types/passport-local': 1.0.34
+      '@types/supertest': 2.0.12
+      '@typescript-eslint/eslint-plugin': 5.23.0
+      '@typescript-eslint/parser': 5.23.0
+      bcrypt: 5.0.1
+      class-transformer: 0.5.1
+      class-validator: 0.13.2
+      cookie-parser: 1.4.6
+      eslint: 8.15.0
+      eslint-config-prettier: 8.5.0
+      eslint-plugin-prettier: 4.0.0
+      jest: 28.1.0
+      kill-port: 1.6.1
+      morgan: 1.10.0
+      nodemon: 2.0.16
+      octokit: 1.7.1
+      passport: 0.5.2
+      passport-jwt: 4.0.0
+      passport-local: 1.0.0
+      prettier: 2.6.2
+      reflect-metadata: 0.1.13
+      rimraf: 3.0.2
+      rxjs: 7.5.5
+      source-map-support: 0.5.21
+      supertest: 6.2.3
+      ts-eager: 2.0.2
+      ts-jest: 28.0.2
+      ts-node: 10.7.0
+      tsconfig-paths: 4.0.0
+      typescript: 4.6.4
+      uuid: 8.3.2
+      vite-plugin-node: 1.0.0
     dependencies:
       '@mikro-orm/cli': 5.1.3_3wdn3xz7nwa6n7vt572owlvjf4
       '@mikro-orm/core': 5.1.3_3wdn3xz7nwa6n7vt572owlvjf4
@@ -236,16 +236,22 @@ importers:
       '@tsconfig/svelte': ^3.0.0
       '@typescript-eslint/eslint-plugin': ^5.23.0
       '@typescript-eslint/parser': ^5.23.0
+      '@yr/monotone-cubic-spline': ^1.0.3
       comlink: ^4.3.1
+      css-vars-from-json: ^1.1.0
       eslint: ^8.15.0
       eslint-config-prettier: ^8.5.0
       eslint-plugin-svelte3: ^4.0.0
+      file-saver: ^2.0.5
+      gl-matrix: ^3.4.3
+      idb: ^7.0.1
       localforage: ^1.10.0
       ogl: ^0.0.92
       open-simplex-noise: ^2.5.0
       prettier: ^2.6.2
       prettier-plugin-svelte: ^2.7.0
       rainbow-code: ^2.1.7
+      resize-observer-polyfill: ^1.5.1
       rollup-plugin-glslify: ^1.2.1
       rollup-plugin-visualizer: ^5.6.0
       sass: ^1.51.0
@@ -255,12 +261,12 @@ importers:
       svelte-click-outside: ^1.0.0
       svelte-multiselect: ^5.0.1
       svelte-preprocess: ^4.10.6
-      svelte-resize-observer: ^2.0.0
+      svelte-resize-observer: 2.0.0
       tslib: ^2.4.0
       typescript: ^4.6.4
-      vite-plugin-comlink: ^3.0.2
+      vite-plugin-comlink: 3.0.2
       vite-plugin-glslify: ^2.0.1
-      vite-plugin-worker: ^1.0.5
+      vite-plugin-worker: 1.0.5
     dependencies:
       '@plantarium/client-api': link:../packages/client-api
       '@plantarium/generator': link:../packages/generator
@@ -271,10 +277,16 @@ importers:
       '@plantarium/renderer': link:../packages/renderer
       '@plantarium/theme': link:../packages/theme
       '@plantarium/ui': link:../packages/ui
+      '@yr/monotone-cubic-spline': 1.0.3
+      css-vars-from-json: 1.1.0
+      file-saver: 2.0.5
+      gl-matrix: 3.4.3
+      idb: 7.0.1
       localforage: 1.10.0
       ogl: 0.0.92
       open-simplex-noise: 2.5.0
       rainbow-code: 2.1.7
+      resize-observer-polyfill: 1.5.1
       sass: 1.51.0
       shortid: 2.2.16
       svelte: 3.48.0
@@ -314,7 +326,7 @@ importers:
       '@plantarium/geometry': link:../geometry
       '@plantarium/helpers': link:../helpers
       '@plantarium/nodes': link:../nodes
-      comlink: ^4.3.1
+      comlink: 4.3.1
     dependencies:
       '@plantarium/geometry': link:../geometry
       '@plantarium/helpers': link:../helpers
@@ -325,15 +337,15 @@ importers:
   packages/geometry:
     specifiers:
       '@plantarium/helpers': link:../helpers
-      dts-bundle: ^0.7.3
-      esbuild: ^0.14.39
+      dts-bundle: 0.7.3
+      esbuild: 0.14.39
       gl-matrix: ^3.4.3
-      npm-run-all: ^4.1.5
+      npm-run-all: 4.1.5
       ogl: ^0.0.92
       open-simplex-noise: ^2.5.0
-      rimraf: ^3.0.2
-      tsc-watch: ^5.0.3
-      typescript: ^4.6.4
+      rimraf: 3.0.2
+      tsc-watch: 5.0.3
+      typescript: 4.6.4
     dependencies:
       '@plantarium/helpers': link:../helpers
       gl-matrix: 3.4.3
@@ -349,12 +361,12 @@ importers:
 
   packages/helpers:
     specifiers:
-      c8: ^7.11.2
+      c8: 7.11.2
       file-saver: ^2.0.5
-      ogl: ^0.0.92
-      svelte: ^3.48.0
-      ts-eager: ^2.0.2
-      vitest: ^0.12.6
+      ogl: 0.0.92
+      svelte: 3.48.0
+      ts-eager: 2.0.2
+      vitest: 0.12.6
     dependencies:
       file-saver: 2.0.5
     devDependencies:
@@ -378,25 +390,25 @@ importers:
     specifiers:
       '@plantarium/helpers': link:../helpers
       '@plantarium/ui': link:../ui
-      '@playwright/test': ^1.22.0
-      c8: ^7.11.2
-      cypress: ^9.6.1
-      esbuild: ^0.14.39
-      esbuild-sass-plugin: ^2.2.6
-      esbuild-svelte: ^0.7.0
-      loadr: ^0.1.1
-      npm-run-all: ^4.1.5
-      playwright: ^1.22.0
-      playwright-test: ^7.4.0
-      sirv-cli: ^2.0.2
-      source-map-support: ^0.5.21
-      svelte: ^3.48.0
-      svelte-preprocess: ^4.10.6
-      svelte-preprocess-esbuild: ^2.0.0
-      tsm: ^2.2.1
-      typescript: ^4.6.4
-      uvu: ^0.5.3
-      wait-on: ^6.0.1
+      '@playwright/test': 1.22.0
+      c8: 7.11.2
+      cypress: 9.6.1
+      esbuild: 0.14.39
+      esbuild-sass-plugin: 2.2.6
+      esbuild-svelte: 0.7.0
+      loadr: 0.1.1
+      npm-run-all: 4.1.5
+      playwright: 1.22.0
+      playwright-test: 7.4.0
+      sirv-cli: 2.0.2
+      source-map-support: 0.5.21
+      svelte: 3.48.0
+      svelte-preprocess: 4.10.6
+      svelte-preprocess-esbuild: 2.0.0
+      tsm: 2.2.1
+      typescript: 4.6.4
+      uvu: 0.5.3
+      wait-on: 6.0.1
     dependencies:
       '@plantarium/helpers': link:../helpers
       '@plantarium/ui': link:../ui
@@ -424,7 +436,7 @@ importers:
   packages/renderer:
     specifiers:
       '@plantarium/helpers': workspace:1.0.0
-      ogl: ^0.0.92
+      ogl: 0.0.92
       resize-observer-polyfill: ^1.5.1
       svelte: ^3.48.0
     dependencies:
@@ -436,10 +448,10 @@ importers:
 
   packages/theme:
     specifiers:
-      '@tsconfig/svelte': ^3.0.0
+      '@tsconfig/svelte': 3.0.0
       css-vars-from-json: ^1.1.0
-      esbuild: ^0.14.39
-      esbuild-plugin-sass: ^1.0.1
+      esbuild: 0.14.39
+      esbuild-plugin-sass: 1.0.1
       svelte: ^3.48.0
     dependencies:
       css-vars-from-json: 1.1.0
@@ -455,30 +467,30 @@ importers:
       '@plantarium/theme': link:../theme
       '@sveltejs/adapter-static': 1.0.0-next.30
       '@sveltejs/kit': 1.0.0-next.330
-      '@testing-library/svelte': ^3.1.1
-      '@typescript-eslint/eslint-plugin': ^5.23.0
-      '@typescript-eslint/parser': ^5.23.0
-      '@yr/monotone-cubic-spline': ^1.0.3
-      c8: ^7.11.2
-      eslint: ^8.15.0
-      eslint-config-prettier: ^8.5.0
-      eslint-plugin-svelte3: ^4.0.0
-      file-saver: ^2.0.5
-      highlight.js: ^11.5.1
-      jsdom: ^19.0.0
-      prettier: ^2.6.2
-      prettier-plugin-svelte: ^2.7.0
-      sass: ^1.51.0
-      shortid: ^2.2.16
-      svelte: ^3.48.0
-      svelte-check: ^2.7.1
-      svelte-highlight: ^6.0.1
-      svelte-preprocess: ^4.10.6
-      tslib: ^2.4.0
-      typescript: ^4.6.4
-      uvu: ^0.5.3
-      vite: ^2.9.9
-      vitest: ^0.12.6
+      '@testing-library/svelte': 3.1.1
+      '@typescript-eslint/eslint-plugin': 5.23.0
+      '@typescript-eslint/parser': 5.23.0
+      '@yr/monotone-cubic-spline': 1.0.3
+      c8: 7.11.2
+      eslint: 8.15.0
+      eslint-config-prettier: 8.5.0
+      eslint-plugin-svelte3: 4.0.0
+      file-saver: 2.0.5
+      highlight.js: 11.5.1
+      jsdom: 19.0.0
+      prettier: 2.6.2
+      prettier-plugin-svelte: 2.7.0
+      sass: 1.51.0
+      shortid: 2.2.16
+      svelte: 3.48.0
+      svelte-check: 2.7.1
+      svelte-highlight: 6.0.1
+      svelte-preprocess: 4.10.6
+      tslib: 2.4.0
+      typescript: 4.6.4
+      uvu: 0.5.3
+      vite: 2.9.9
+      vitest: 0.12.6
     devDependencies:
       '@plantarium/helpers': link:../helpers
       '@plantarium/theme': link:../theme
@@ -2577,7 +2589,7 @@ packages:
     resolution: {integrity: sha1-ECZAnFYlqGiQdGAoCNCCsoZ7ilE=}
     dependencies:
       '@types/minimatch': 3.0.5
-      '@types/node': 8.0.0
+      '@types/node': 17.0.33
     dev: true
 
   /@types/graceful-fs/4.1.5:
@@ -2772,7 +2784,7 @@ packages:
     resolution: {integrity: sha512-Cn6WYCm0tXv8p6k+A8PvbDG763EDpBoTzHdA+Q/MF6H3sapGjCm9NzoaJncJS9tUKSuCoDs9XHxYYsQDgxR6kw==}
     requiresBuild: true
     dependencies:
-      '@types/node': 14.18.18
+      '@types/node': 17.0.33
     dev: true
     optional: true
 
@@ -3143,7 +3155,7 @@ packages:
       ajv:
         optional: true
     dependencies:
-      ajv: 8.9.0
+      ajv: 8.11.0
     dev: true
 
   /ajv-keywords/3.5.2_ajv@6.12.6:
@@ -3169,7 +3181,6 @@ packages:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
       uri-js: 4.4.1
-    dev: false
 
   /ajv/8.9.0:
     resolution: {integrity: sha512-qOKJyNj/h+OWx7s5DePL6Zu1KeM9jPZhwBqs+7DzP6bGOvqzVCSf0xueYmVuaC/oQ/VtS2zLMLHdQFbkka+XDQ==}
@@ -3696,7 +3707,7 @@ packages:
     resolution: {integrity: sha512-xq+q3SRMOxGivLhBNaUdC64hDTQwejJ+H0T/NB1XMtTVEwNTrfFF3gAxiyW0Bu/xWEGhjVKgUcMhCrUy2+uCWg==}
     dependencies:
       base64-js: 1.5.1
-      ieee754: 1.1.13
+      ieee754: 1.2.1
       isarray: 1.0.0
     dev: false
     optional: true
@@ -6668,7 +6679,7 @@ packages:
     engines: {node: '>= 6'}
     dependencies:
       agent-base: 6.0.2
-      debug: 4.3.3
+      debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6716,6 +6727,10 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       safer-buffer: 2.1.2
+
+  /idb/7.0.1:
+    resolution: {integrity: sha512-UUxlE7vGWK5RfB/fDwEGgRf84DY/ieqNha6msMV99UsEMQhJ1RwbCd8AYBj3QMgnE3VZnfQvm4oKVCJTYlqIgg==}
+    dev: false
 
   /ieee754/1.1.13:
     resolution: {integrity: sha512-4vf7I2LYV/HaWerSo3XmlMkp5eZ83i+/CDluXi/IGTs/O1sejBNhTtnxzmRZfvOUqj7lZjqHkeTvpgSFDlWZTg==}
@@ -8838,7 +8853,7 @@ packages:
     resolution: {integrity: sha1-xkZdvwirzU2zWTF/eaxopkayj/k=}
     hasBin: true
     dependencies:
-      abbrev: 1.0.9
+      abbrev: 1.1.1
     dev: true
 
   /nopt/5.0.0:
@@ -10394,7 +10409,7 @@ packages:
     engines: {node: '>= 10'}
     dependencies:
       agent-base: 6.0.2
-      debug: 4.3.3
+      debug: 4.3.4
       socks: 2.6.2
     transitivePeerDependencies:
       - supports-color

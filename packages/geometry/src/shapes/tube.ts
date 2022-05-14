@@ -14,8 +14,6 @@ export default function(skeleton: Float32Array, resX = 8): TransferGeometry {
 
   const m = extrudePath(path, resX);
 
-  console.log({ m: window["structuredClone"](m) })
-
   const position = Float32Array.from(
     m.position.flat(),
   );

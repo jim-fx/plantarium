@@ -3,7 +3,7 @@ import createGeneratorContext from "./generatorContext";
 import { tube, join, convertInstancedGeometry, calculateNormals } from "@plantarium/geometry";
 
 
-export async function executeNodeSystem(project: PlantProject, settings: PlantariumSettings) {
+export async function executeNodeSystem(project: PlantProject, settings: Partial<PlantariumSettings>) {
 
 
   const gctx = createGeneratorContext(project, settings);
