@@ -51,5 +51,8 @@
   "type": "module",
   "jest": {
     "testRegex": "./tests/.*.ts$"
+  },
+  "dependencies": {
+    "ogl-typescript": "^0.1.40"
   }
 }

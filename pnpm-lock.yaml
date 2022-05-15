@@ -54,7 +54,6 @@ importers:
       eslint-config-prettier: 8.5.0
       eslint-plugin-svelte3: 4.0.0
       file-saver: 2.0.5
-      ogl: 0.0.92
       ogl-typescript: ^0.1.40
       prettier: 2.6.2
       prettier-plugin-svelte: 2.7.0
@@ -75,7 +74,6 @@ importers:
       '@yr/monotone-cubic-spline': 1.0.3
       dotenv: 16.0.1
       file-saver: 2.0.5
-      ogl: 0.0.92
       ogl-typescript: 0.1.40
       shortid: 2.2.16
       svelte-forms-lib: 2.0.1
@@ -247,7 +245,6 @@ importers:
       file-saver: ^2.0.5
       gl-matrix: ^3.4.3
       idb: ^7.0.1
-      ogl: ^0.0.92
       ogl-typescript: ^0.1.40
       open-simplex-noise: ^2.5.0
       prettier: 2.6.2
@@ -281,7 +278,6 @@ importers:
       file-saver: 2.0.5
       gl-matrix: 3.4.3
       idb: 7.0.1
-      ogl: 0.0.92
       ogl-typescript: 0.1.40
       open-simplex-noise: 2.5.0
       sass: 1.51.0
@@ -338,7 +334,6 @@ importers:
       esbuild: 0.14.39
       gl-matrix: ^3.4.3
       npm-run-all: 4.1.5
-      ogl: ^0.0.92
       ogl-typescript: ^0.1.40
       open-simplex-noise: ^2.5.0
       rimraf: 3.0.2
@@ -347,7 +342,6 @@ importers:
     dependencies:
       '@plantarium/helpers': link:../helpers
       gl-matrix: 3.4.3
-      ogl: 0.0.92
       ogl-typescript: 0.1.40
       open-simplex-noise: 2.5.0
     devDependencies:
@@ -363,7 +357,6 @@ importers:
     specifiers:
       c8: 7.11.2
       file-saver: ^2.0.5
-      ogl: 0.0.92
       ogl-typescript: ^0.1.40
       svelte: 3.48.0
       ts-eager: 2.0.2
@@ -373,7 +366,6 @@ importers:
       ogl-typescript: 0.1.40
     devDependencies:
       c8: 7.11.2
-      ogl: 0.0.92
       svelte: 3.48.0
       ts-eager: 2.0.2
       vitest: 0.12.6_c8@7.11.2
@@ -382,12 +374,10 @@ importers:
     specifiers:
       '@plantarium/geometry': link:../geometry
       '@plantarium/helpers': link:../helpers
-      ogl: ^0.0.92
       ogl-typescript: ^0.1.40
     dependencies:
       '@plantarium/geometry': link:../geometry
       '@plantarium/helpers': link:../helpers
-      ogl: 0.0.92
       ogl-typescript: 0.1.40
 
   packages/nodesystem:
@@ -440,7 +430,6 @@ importers:
   packages/renderer:
     specifiers:
       '@plantarium/helpers': workspace:1.0.0
-      ogl: 0.0.92
       ogl-typescript: ^0.1.40
       resize-observer-polyfill: ^1.5.1
       svelte: ^3.48.0
@@ -449,8 +438,6 @@ importers:
       ogl-typescript: 0.1.40
       resize-observer-polyfill: 1.5.1
       svelte: 3.48.0
-    devDependencies:
-      ogl: 0.0.92
 
   packages/theme:
     specifiers:
@@ -490,6 +477,7 @@ importers:
       file-saver: 2.0.5
       highlight.js: 11.5.1
       jsdom: 19.0.0
+      ogl-typescript: ^0.1.40
       prettier: 2.6.2
       prettier-plugin-svelte: 2.7.0
       sass: 1.51.0
@@ -503,6 +491,8 @@ importers:
       uvu: 0.5.3
       vite: 2.9.9
       vitest: 0.12.6
+    dependencies:
+      ogl-typescript: 0.1.40
     devDependencies:
       '@plantarium/helpers': link:../helpers
       '@plantarium/theme': link:../theme
@@ -8590,9 +8580,6 @@ packages:
   /ogl-typescript/0.1.40:
     resolution: {integrity: sha512-7lpT8u35jd9W7Q48enrcCEL4H0x4co6pn5t6rXZgQN7UT39mcdzRsSr4ucZDOvfwKkUT+UvH2zw83/9mT59bFQ==}
     dev: false
-
-  /ogl/0.0.92:
-    resolution: {integrity: sha512-9NLopW5Elm452ShdaDXT3c0U06NtIwqNJDz1mEL1vY7FGOhB8yRI3z+RJEseFrgJbXLXD41/YRfnTPPaeqDQ+g==}
 
   /on-finished/2.3.0:
     resolution: {integrity: sha1-IPEzZIGwg811M3mSoWlxqi2QaUc=}

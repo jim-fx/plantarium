@@ -15,6 +15,7 @@ const config = {
     prerender: { default: true, crawl: true, enabled: true, entries: ["*"] },
     vite: {
       clearScreen: true,
+      ssr: { noExternal: ['ogl-typescript'] },
       logLevel: 'silent',
       server: {
         host: '0.0.0.0',

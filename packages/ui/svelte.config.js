@@ -21,7 +21,7 @@ const config = {
     vite: {
       server: { host: '0.0.0.0', port: 8085 },
       optimizeDeps: { include: ["highlight.js", 'highlight.js/lib/core'] },
-      ssr: { noExternal: ['ogl'] },
+      ssr: { noExternal: ['ogl-typescript'] },
       resolve: { alias: { '@plantarium/ui': path.resolve('src/lib') } }
     }
   }
