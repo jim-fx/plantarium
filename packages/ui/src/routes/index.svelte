@@ -21,6 +21,8 @@
   import { Highlight } from 'svelte-highlight';
   import atomOneDark from 'svelte-highlight/styles/atom-one-dark';
 
+  export const prerender = true;
+
   const searchItems = [
     { value: 'number', group: 'input' },
     { value: 'boolean', group: 'input' },
