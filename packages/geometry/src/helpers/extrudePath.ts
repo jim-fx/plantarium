@@ -1,4 +1,4 @@
-import { mat4, vec3 } from "gl-matrix";
+import { mat4, vec3, type ReadonlyVec3 } from "gl-matrix";
 
 const { identity, rotate } = mat4;
 const { add, cross, dot, mul, normalize, subtract, scale, transformMat4 } = vec3;
@@ -52,10 +52,11 @@ function createIndeces(resX: number, stemLength = 1) {
   return index;
 }
 
-export default function(path: [number, number, number, number][], resolution = 3) {
-  const mat = [],
-    v = [],
-    axis = [];
+export default function(_path: [number, number, number, number][], resolution = 3) {
+  const path = _path as unknown as ReadonlyVec3[]
+  const mat = [] as unknown as mat4,
+    v = [] as unknown as vec3,
+    axis = [] as unknown as vec3;
 
   const mesh = { position: [], normals: [], index: createIndeces(resolution, path.length) };
 
@@ -65,7 +66,7 @@ export default function(path: [number, number, number, number][], resolution = 3
     pathLength = path.length;
 
   for (let i = 0; i < pathLength; i++) {
-    const n = [0, 0, 1];
+    const n = [0, 0, 1] as unknown as vec3;
     if (i === 0) {
       subtract(v, path[i], path[i + 1]);
     } else if (i === pathLength - 1) {
@@ -81,13 +82,12 @@ export default function(path: [number, number, number, number][], resolution = 3
 
     for (let j = 0; j < positionAmount; j++) {
       const p = position[j];
-      const pt = [p[0], p[1], 0];
+      const pt = [p[0], p[1], 0] as unknown as vec3;
       const thicc = path[i][3];
       mul(pt, pt, [thicc, thicc, 1]);
       transformMat4(pt, pt, mat);
-      const normal = []
+      const normal = [] as unknown as vec3;
       normalize(normal, pt)
-      scale(normal, [-0, -0, -0]);
       mesh.normals.push(normal);
       add(pt, pt, path[i]);
       mesh.position.push(pt);
