@@ -1,4 +1,4 @@
-import { NodeSystem } from './dist/index.esm.js';
+import { NodeSystem } from './dist/index.js';
 import nodes from './nodes.js';
 import { dev, stressTest } from './projects.js';
 
