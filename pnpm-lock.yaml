@@ -318,11 +318,13 @@ importers:
       '@plantarium/geometry': link:../geometry
       '@plantarium/helpers': link:../helpers
       '@plantarium/nodes': link:../nodes
+      '@plantarium/nodesystem': link:../nodesystem
       comlink: 4.3.1
     dependencies:
       '@plantarium/geometry': link:../geometry
       '@plantarium/helpers': link:../helpers
       '@plantarium/nodes': link:../nodes
+      '@plantarium/nodesystem': link:../nodesystem
     devDependencies:
       comlink: 4.3.1
 

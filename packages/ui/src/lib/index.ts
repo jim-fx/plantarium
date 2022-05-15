@@ -71,6 +71,9 @@ export function stateToElement({
 
   const props = { ...template, ...{ value } };
   delete props["type"]
+  delete props["internal"]
+  delete props["label"]
+  delete props["inputType"]
 
   return new component({ target, props });
 }

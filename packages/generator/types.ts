@@ -1,3 +1,4 @@
+import { NodeProps } from "@plantarium/nodesystem";
 
 export type WrappedNode = {
   // Internal Shit

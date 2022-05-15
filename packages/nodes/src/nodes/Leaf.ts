@@ -159,8 +159,6 @@ export default typeCheckNode({
 
     const _curvature = curvature();
 
-    console.log({ shape, input, curvature, _curvature })
-
     const geometry = leaf(shape(), {
       res: ctx.getSetting('leafRes', 2),
       xCurvature: _curvature.x,

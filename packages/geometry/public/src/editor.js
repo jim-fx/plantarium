@@ -2,7 +2,7 @@
 /// <reference path="monaco.d.ts"/>
 
 import debounce from './debounce.js';
-const currentUrl = window.location.href.replace(window.location.hash, '');
+const currentUrl = window.location.href.replace(window.location.hash, '').replace(/\/$/g, "");
 
 // var require = require ?? null;
 require.config({
@@ -24,6 +24,13 @@ let proxy = URL.createObjectURL(
     { type: 'text/javascript' },
   ),
 );
+console.log(`
+      self.MonacoEnvironment = {
+        baseUrl: '${currentUrl}/monaco'
+      };
+      importScripts('${currentUrl}/monaco/workerMain.js');
+      `,
+)
 
 const importLine = `import * as g from "geometry";`;
 let code = importLine + '\n';

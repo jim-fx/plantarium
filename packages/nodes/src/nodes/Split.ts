@@ -58,8 +58,6 @@ export default typeCheckNode({
       }
     }).flat().filter(v => !!v);
 
-    console.log({ stems })
-
     return {
       stems,
     };

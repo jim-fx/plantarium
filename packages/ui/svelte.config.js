@@ -18,6 +18,8 @@ const config = {
 
     paths: { base: BASE_PATH },
 
+    prerender: { default: true, enabled: true },
+
     vite: {
       server: { host: '0.0.0.0', port: 8085 },
       optimizeDeps: { include: ["highlight.js", 'highlight.js/lib/core'] },
