@@ -15,7 +15,7 @@
     "clean": "rimraf coverage .nyc_output public-test public/dist .eslintcache",
     "build": "node build.mjs",
     "build:test": "pnpm build && cp -r public public-test && nyc instrument public/dist public-test/dist",
-    "dev": "node build.js --dev",
+    "dev": "node build.mjs --dev",
     "serve": "sirv public-test -p 8084",
     "test": "pnpm build:test && run-p --race serve test-unit test-int:run",
     "coverage": "c8 pnpm test",
