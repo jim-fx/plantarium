@@ -41,19 +41,18 @@
 <style lang="scss">
   @import './global.scss';
 
-  .open.component-wrapper {
-    overflow: visible;
-    z-index: 99;
+  .component-wrapper {
+    overflow: hidden;
+    border-radius: 3px;
   }
 
   #main {
     display: flex;
     min-width: 100%;
-    border-radius: 2px;
+    overflow: hidden;
     width: fit-content;
     justify-content: space-evenly;
     box-sizing: border-box;
-    background-color: #4b4b4b;
     cursor: pointer;
   }
 
@@ -62,24 +61,20 @@
     text-align: center;
     padding: 6px;
     margin: 0;
-    background-color: #4b4b4b;
     cursor: pointer;
+    color: var(--text-color);
+    background-color: var(--foreground-color);
     transition: background-color 0.2s ease;
   }
 
-  .item:hover {
-    background-color: #3d3d3d;
-  }
-
   .selected {
-    background-color: white;
-    color: black;
+    background-color: var(--text-color);
+    color: var(--foreground-color);
   }
 
   #item-wrapper {
     width: fit-content;
     min-width: 100%;
-    background-color: #4b4b4b;
     border-radius: 2px;
 
     overflow: hidden;

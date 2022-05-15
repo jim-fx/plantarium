@@ -4,6 +4,7 @@ import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
 import './index.scss';
 import SettingsTemplate from './SettingsTemplate';
+import type { PlantariumSettings } from "@plantarium/types"
 
 const obj = {};
 

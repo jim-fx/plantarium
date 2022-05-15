@@ -1,4 +1,5 @@
-<svelte:options accessors></svelte:options>
+<svelte:options accessors />
+
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
 
@@ -117,7 +118,7 @@
     on:focus={handleMouseOver}
     on:blur={handleMouseOut}
   >
-    <path d={path} fill="none" stroke="#65E2A0" />
+    <path d={path} fill="none" class="left-path" />
 
     {#each points as p}
       <circle
@@ -150,8 +151,12 @@
     width: 50%;
   }
 
+  .left-path {
+    stroke: var(--text-color);
+  }
+
   svg > circle {
-    fill: #4b4b4b;
+    fill: var(--text-color);
     stroke: themes.$light-green;
   }
 

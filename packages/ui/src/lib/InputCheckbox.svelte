@@ -41,7 +41,7 @@
     width: 12px;
     height: 12px;
     opacity: 0;
-    stroke: white;
+    stroke: var(--text-color);
     stroke-width: 2px;
     pointer-events: none;
   }

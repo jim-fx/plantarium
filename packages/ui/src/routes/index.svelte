@@ -20,6 +20,7 @@
   } from '$lib';
   import { Highlight } from 'svelte-highlight';
   import atomOneDark from 'svelte-highlight/styles/atom-one-dark';
+  import { setTheme, ThemeProvider, ThemeStore } from '@plantarium/theme';
 
   export const prerender = true;
 
@@ -32,79 +33,40 @@
       return { value: 'value' + i };
     })
   ];
+
+  import * as _icons from '$lib/icons';
+  const icons = Object.keys(_icons);
 </script>
 
 <svelte:head>
   {@html atomOneDark}
 </svelte:head>
 
+<ThemeProvider />
+
 <main>
   <section>
     <h3>Button</h3>
     <Button icon="cog" name="Projects" />
+    <br />
+    <Button name="Projects" />
   </section>
   <section>
     <h3>Tab</h3>
-    <InputTab values={['one', 'two', 'three']} />
+    <InputTab values={['dark', 'light', 'pinky']} on:change={({ detail }) => setTheme(detail)} />
   </section>
 
   <section>
     <h3>Icon</h3>
     <table>
-      <tr>
-        <td>arrow</td>
-        <td>
-          <Icon name="arrow" />
-        </td>
-      </tr>
-      <tr>
-        <td>checkmark</td>
-        <td>
-          <Icon name="checkmark" />
-        </td>
-      </tr>
-      <tr>
-        <td>branch</td>
-        <td>
-          <Icon name="branch" />
-        </td>
-      </tr>
-      <tr>
-        <td>folder</td>
-        <td>
-          <Icon name="folder" />
-        </td>
-      </tr>
-      <tr>
-        <td>cog</td>
-        <td>
-          <Icon name="cog" />
-        </td>
-      </tr>
-      <tr>
-        <td>cross</td>
-        <td>
-          <Icon name="cross" />
-        </td>
-      </tr>
-      <tr>
-        <td>leaf</td>
-        <td>
-          <Icon name="leaf" />
-        </td>
-      </tr>
-      <tr>
-        <td>stem</td>
-        <td>
-          <Icon name="stem" />
-        </td>
-      </tr>
-      <tr>
-        <td>triangle</td>
-        <td>
-          <Icon name="triangle" />
-        </td>
-      </tr>
+      {#each icons as icon}
+        <tr>
+          <td>{icon}</td>
+          <td>
+            <Icon name={icon} --width="40px" />
+          </td>
+        </tr>
+      {/each}
     </table>
   </section>
 
@@ -161,13 +123,15 @@
     <InputShape />
   </section>
 
-  <section style={`--text-color: white`}>
+  <section>
     <h3>Toasts</h3>
     <Button name="Info Toast" on:click={() => createToast('Short informativ message')} />
+    <br />
     <Button
       name="Success Toast"
       on:click={() => createToast('Short happy message', { type: 'success' })}
     />
+    <br />
     <Button
       name="Select Toast"
       on:click={async () => {
@@ -175,10 +139,12 @@
         createToast(`You selected: ${result}`);
       }}
     />
+    <br />
     <Button
       name="Warning Toast"
       on:click={() => createToast('Warning Message', { type: 'warning' })}
     />
+    <br />
     <Button
       name="Error Toast"
       on:click={() =>
@@ -186,6 +152,7 @@
           values: ['Help', 'Me', 'Recover', 'This', 'Error']
         })}
     />
+    <br />
 
     <h3>Alerts</h3>
     <Button

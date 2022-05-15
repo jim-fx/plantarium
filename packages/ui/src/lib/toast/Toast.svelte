@@ -76,7 +76,7 @@
             {#if toast.content instanceof Error}
               <Button
                 --margin="5px 10px 5px -10px"
-                --text={isInverted ? '#1a1a1a' : 'white'}
+                invert={isInverted}
                 --bg="transparent"
                 on:click={() => {
                   showStackTrace = !showStackTrace;
@@ -92,9 +92,8 @@
                     <plant-button on:click={() => toast.resolve(v)} name={v} />
                   {:else}
                     <Button
+                      invert
                       --margin="5px 10px 5px 0"
-                      --text={isInverted ? 'white' : '#1a1a1a'}
-                      --bg={isInverted ? '#1a1a1a' : 'white'}
                       on:click={() => toast.resolve(v)}
                       name={v}
                     />

@@ -75,12 +75,12 @@
   }
 
   #main {
-    color: white;
+    color: var(--text-color);
     min-width: 100%;
     border-radius: 2px;
     width: fit-content;
     box-sizing: border-box;
-    background-color: #4b4b4b;
+    background-color: var(--foreground-color);
     cursor: pointer;
   }
   .open #main {
@@ -96,7 +96,6 @@
   #item-wrapper {
     width: fit-content;
     min-width: 100%;
-    background-color: #4b4b4b;
     border-radius: 2px;
 
     overflow: hidden;
@@ -114,12 +113,12 @@
   .item {
     padding: 6px;
     margin: 0;
-    background-color: #4b4b4b;
     cursor: pointer;
+    color: var(--text-color);
     transition: background-color 0.2s ease;
   }
 
   .item:hover {
-    background-color: #3d3d3d;
+    background-color: var(--outline-color);
   }
 </style>

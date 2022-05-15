@@ -28,7 +28,5 @@
 </script>
 
 <svelte:head>
-  <style type="text/css" bind:this={themeWrapper}></style>
+  <style type="text/css" id="theme-css" bind:this={themeWrapper}></style>
 </svelte:head>
-
-<svelte:body />

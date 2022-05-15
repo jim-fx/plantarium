@@ -123,12 +123,10 @@
   }
 
   div {
-    max-width: 200px;
     position: relative;
     width: 100%;
     display: flex;
     justify-content: space-between;
-    background-color: #4b4b4b;
     border-radius: 2px;
   }
 
@@ -138,11 +136,11 @@
     cursor: pointer;
     line-height: 0px;
     margin: 0;
-    color: white;
+    color: var(--text-color);
   }
 
   div input[type='number'] {
-    color: white;
+    color: var(--text-color);
     background-color: transparent;
     padding: 2px;
     width: 72%;

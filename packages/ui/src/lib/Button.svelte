@@ -6,6 +6,7 @@
   export let name = '';
   export let active = false;
   export let useActive = false;
+  export let invert = false;
   export let disabled = false;
 
   let buttonEl: HTMLElement;
@@ -25,6 +26,7 @@
     bind:this={buttonEl}
     on:click={handleClick}
     class:active
+    class:invert
     class:useActive
     {disabled}
     class:only-icon={!name}
@@ -32,7 +34,7 @@
   >
     {#if icon}
       {#if notWebComponent}
-        <Icon name={icon} {active} />
+        <Icon name={icon} {active} --width={'20px'} />
       {:else}
         <plant-icon name={icon} {active} />
       {/if}
@@ -49,15 +51,7 @@
 </div>
 
 <style lang="scss">
-  button.active.useActive {
-    background-color: #65e2a0 !important;
-    > p {
-      color: #303030 !important;
-    }
-    > :global(.icon-wrapper > svg > *) {
-      stroke: #303030 !important;
-    }
-  }
+  @use '~@plantarium/theme/src/themes.module.scss';
 
   button {
     position: relative;
@@ -71,7 +65,20 @@
     margin: var(--margin, 0);
     transition: none;
     cursor: pointer;
-    background-color: var(--bg, --foreground-color);
+    color: var(--text-color);
+    background-color: var(--foreground-color);
+  }
+  p {
+    margin-top: -4px;
+  }
+
+  button.active {
+    background-color: themes.$light-green;
+  }
+
+  button.invert {
+    background-color: var(--text-color);
+    color: var(--foreground-color);
   }
 
   button:disabled {
@@ -87,20 +94,13 @@
   }
 
   button.has-icon {
-    > :global(.icon-wrapper),
-    plant-icon {
-      position: absolute;
-      top: 9px;
-      height: calc(100% - 18px);
-    }
+    padding-left: 10px;
   }
-
   button.has-icon > p {
-    padding-left: 30px;
+    padding-left: 10px;
   }
 
   p {
-    color: var(--text-color);
     font-weight: bolder;
     padding: 0px 5px;
     white-space: nowrap;

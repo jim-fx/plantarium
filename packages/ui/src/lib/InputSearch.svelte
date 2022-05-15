@@ -120,14 +120,14 @@
     padding: 5px;
     z-index: 2;
     width: 100px;
-    background-color: themes.$dark-gray;
+    background-color: var(--foreground-color);
     border-radius: 5px;
     color: #707070;
     box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.13), 1px 2px 2px rgba(0, 0, 0, 0.1),
       -1px -2px 2px rgba(0, 0, 0, 0.05);
 
     input {
-      color: white;
+      color: var(--outline-color);
       width: 100%;
       background-color: rgba(themes.$light-gray, 0.4);
       box-sizing: border-box;
@@ -141,7 +141,7 @@
       border: none;
 
       &::placeholder {
-        color: white;
+        color: var(--outline-color);
       }
     }
   }

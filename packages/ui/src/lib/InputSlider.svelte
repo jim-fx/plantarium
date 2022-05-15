@@ -55,14 +55,14 @@
     width: 100%;
     height: 2px;
     cursor: pointer;
-    background: #4b4b4b;
+    background: var(--background-color);
     border-radius: 1.4px;
   }
   input[type='range']::-webkit-slider-thumb {
     height: 10px;
     width: 10px;
     border-radius: 50px;
-    background: #4b4b4b;
+    background: var(--background-color);
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -3.2px;
@@ -110,12 +110,12 @@
     height: 10px;
     width: 10px;
     border-radius: 50px;
-    background: #4b4b4b;
+    background: var(--background-color);
     cursor: pointer;
     height: 2px;
   }
   input[type='range']:focus::-ms-fill-lower {
-    background: #4b4b4b;
+    background: var(--background-color);
   }
   input[type='range']:focus::-ms-fill-upper {
     background: #585858;

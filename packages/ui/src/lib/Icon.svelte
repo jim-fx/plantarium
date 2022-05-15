@@ -21,23 +21,17 @@
 <style lang="scss">
   .icon-wrapper {
     width: var(--width, fit-content);
-    height: var(--height, 100%);
+    height: var(--height, fit-content);
     object-fit: cover;
     box-sizing: border-box;
 
     min-width: 20px;
     min-height: 20px;
 
-    stroke: var(--color);
-
     &.circle {
       border-radius: 50%;
       padding: 5px;
       border: solid 2px white;
-    }
-
-    > :global(svg) {
-      width: 100%;
     }
   }
 
@@ -47,8 +41,8 @@
     padding-bottom: 100%;
   }
 
-  .icon-wrapper > :global(*) {
-    stroke: var(--stroke, white);
+  .icon-wrapper > :global(svg > *) {
+    stroke: var(--text-color, white);
     fill: var(--fill, none);
   }
 

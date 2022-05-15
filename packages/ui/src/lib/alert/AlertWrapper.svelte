@@ -108,7 +108,7 @@
     backdrop-filter: blur(10px) contrast(0.5) brightness(1.5);
     overflow-y: auto;
 
-    background-color: #3b3b3b;
+    background-color: var(--background-color);
   }
 
   .options-wrapper {

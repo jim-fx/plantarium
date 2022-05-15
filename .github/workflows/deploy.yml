@@ -38,6 +38,7 @@ jobs:
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+
   deploy_gh_pages:
     runs-on: ubuntu-latest
     steps:

@@ -148,7 +148,7 @@
   }
 
   svg > path {
-    stroke: white;
+    stroke: var(--text-color);
     stroke-width: 1px;
   }
 
@@ -158,7 +158,7 @@
   }
 
   circle:hover {
-    fill: white;
+    fill: var(--outline-color);
     opacity: 1 !important;
   }
 

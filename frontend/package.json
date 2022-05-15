@@ -34,7 +34,8 @@
     "svelte": "^3.48.0",
     "svelte-click-outside": "^1.0.0",
     "svelte-multiselect": "^5.0.1",
-    "svelte-resize-observer": "2.0.0"
+    "svelte-resize-observer": "2.0.0",
+    "types": "link:../../packages/types"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "1.0.0-next.30",

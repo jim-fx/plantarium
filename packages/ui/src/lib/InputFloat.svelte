@@ -110,7 +110,7 @@
     -moz-appearance: textfield;
     appearance: textfield;
     cursor: pointer;
-    color: white;
+    color: var(--text-color);
     background-color: transparent;
     padding: 2px;
     width: 100%;
@@ -131,7 +131,7 @@
     left: 0px;
     height: 100%;
     max-width: 100%;
-    background-color: white;
+    background-color: var(--text-color);
     opacity: 0.2;
     pointer-events: none;
   }

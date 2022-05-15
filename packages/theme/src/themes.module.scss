@@ -18,7 +18,6 @@ $themes: (
     foreground-color: #303030,
     outline-color: #212121,
     text-color: #ffffff,
-    text-color-invert: #484848,
     shadow: 0px 0px 2px rgba(0, 0, 0, 0.7),
   ),
   light: (
@@ -26,9 +25,16 @@ $themes: (
     foreground-color: white,
     outline-color: #b9b9b9,
     text-color: #484848,
-    text-color-invert: #ffffff,
     shadow: 0px 0px 5px rgba(0, 0, 0, 0.144),
   ),
+  pinky: (
+    background-color: #d0d0d0,
+    foreground-color: pink,
+    outline-color: #b9b9b9,
+    text-color: #484848,
+    shadow: 0px 0px 5px rgba(0, 0, 0, 0.144),
+  ),
+
 );
 
 :export {
