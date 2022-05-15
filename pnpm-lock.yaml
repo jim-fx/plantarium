@@ -157,6 +157,7 @@ importers:
       tsconfig-paths: 4.0.0
       typescript: 4.6.4
       uuid: 8.3.2
+      vite: 2.9.9
       vite-plugin-node: 1.0.0
     dependencies:
       '@mikro-orm/cli': 5.1.3_3wdn3xz7nwa6n7vt572owlvjf4
@@ -192,6 +193,7 @@ importers:
       ts-node: 10.7.0_2e3zkt3gzqz6r43dj4x46rot3i
       typescript: 4.6.4
       uuid: 8.3.2
+      vite: 2.9.9
     devDependencies:
       '@nestjs/cli': 8.2.5
       '@nestjs/schematics': 8.0.11_typescript@4.6.4
@@ -218,7 +220,7 @@ importers:
       ts-eager: 2.0.2
       ts-jest: 28.0.2_qy5m32hwmbz5mebulkdtchzcz4
       tsconfig-paths: 4.0.0
-      vite-plugin-node: 1.0.0
+      vite-plugin-node: 1.0.0_vite@2.9.9
 
   frontend:
     specifiers:
@@ -11250,7 +11252,7 @@ packages:
       magic-string: 0.25.9
     dev: true
 
-  /vite-plugin-node/1.0.0:
+  /vite-plugin-node/1.0.0_vite@2.9.9:
     resolution: {integrity: sha512-oCB7PbeBtx0dWz+rQL3JXA1s6kqlqF8Mor9QTwhyQ7ChuJRzVs/ddVRuUfU/ZPMo9GSsaYUn7qsVNU8rS1EZdw==}
     peerDependencies:
       '@swc/core': ^1.2.153
@@ -11262,6 +11264,7 @@ packages:
       '@rollup/pluginutils': 4.2.1
       chalk: 4.1.2
       debug: 4.3.4
+      vite: 2.9.9
     transitivePeerDependencies:
       - supports-color
     dev: true

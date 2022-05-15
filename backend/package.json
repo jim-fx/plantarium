@@ -54,7 +54,8 @@
     "rxjs": "7.5.5",
     "ts-node": "10.7.0",
     "typescript": "4.6.4",
-    "uuid": "8.3.2"
+    "uuid": "8.3.2",
+    "vite": "2.9.9"
   },
   "devDependencies": {
     "@nestjs/cli": "8.2.5",
