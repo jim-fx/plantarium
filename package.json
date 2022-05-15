@@ -16,8 +16,8 @@
     "dev": "pnpm -r dev --filter=./frontend --filter=./backend --filter=./admin",
     "start": "pnpm -r build && pnpm backend:start",
     "test": "pnpm -r test",
-    "coverage": "pnpm coverage -r && node bin/combine_coverage.js",
-    "clean": "pnpm clean -r && rimraf coverage .nyc_output",
+    "coverage": "pnpm -r coverage && node bin/combine_coverage.js",
+    "clean": "pnpm -r clean && rimraf coverage .nyc_output",
     "lint": "pnpm -r lint"
   },
   "engines": {
