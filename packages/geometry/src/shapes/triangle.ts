@@ -1,6 +1,6 @@
-import { Vec3 } from 'ogl';
+import { Vec3 } from 'ogl-typescript';
 
-export default function (origin: Vec3 = new Vec3(0, 0, 0), size = 1) {
+export default function(origin: Vec3 = new Vec3(0, 0, 0), size = 1) {
   //Final model
   const position = new Float32Array(9);
   const normal = new Float32Array(9);

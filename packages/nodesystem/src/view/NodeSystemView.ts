@@ -9,6 +9,7 @@ import AddMenu from './AddMenu';
 import BoxSelection from './BoxSelection';
 import FloatingConnectionView from './FloatingConnectionView';
 import ColorStore from './socketColorStore';
+import { NodeProps } from '../types';
 
 export default class NodeSystemView extends EventEmitter {
   system: NodeSystem;

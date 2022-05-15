@@ -1,5 +1,7 @@
-import { groupArray } from '../../../helpers/src';
+import { groupArray } from '@plantarium/helpers';
+import type { TransferGeometry } from '@plantarium/types';
 import { extrudePath } from '../helpers';
+
 
 export default function(skeleton: Float32Array, resX = 8): TransferGeometry {
   // Skeleton

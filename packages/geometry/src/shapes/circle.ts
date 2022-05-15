@@ -1,6 +1,6 @@
-import type { Vec3 } from 'ogl';
+import type { Vec3 } from 'ogl-typescript';
 
-export default function (
+export default function(
   origin: Vec3 | [number, number, number] = [0, 0, 0],
   radius = 1,
   resolution = 3,

@@ -4,7 +4,8 @@ import type NodeInput from '../model/NodeInput';
 import type NodeOutput from '../model/NodeOutput';
 import type NodeType from '../model/NodeType';
 import type NodeSystem from '../model/NodeSystem';
-import { InputSearch } from '@plantarium/ui/src/lib';
+import { InputSearch } from '@plantarium/ui';
+import { NodeProps } from '../types';
 
 interface ContextOptions {
   x: number;

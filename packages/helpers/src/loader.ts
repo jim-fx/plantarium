@@ -1,10 +1,10 @@
-import { Texture } from 'ogl';
+import { Texture, OGLRenderingContext } from 'ogl-typescript';
 
 const textureCache: { [key: string]: Texture } = {};
 // const shaderCache: { [key: string]: Program } = {};
 
 const loadTexture = (
-  gl: WebGL2RenderingContext,
+  gl: OGLRenderingContext,
   src: string,
   options = {},
 ): Texture => {

@@ -1,4 +1,4 @@
-import { Vec3 } from 'ogl';
+import { Vec3 } from 'ogl-typescript';
 import ring from './ring';
 
 function mergeRings(rings: Float32Array[], position: Float32Array) {

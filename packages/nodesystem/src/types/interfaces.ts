@@ -2,7 +2,7 @@
  * Common attributes across all nodes
  * should not have an effect on computing
  */
-interface NodeAttributes {
+export interface NodeAttributes {
   id: string;
   type: string;
   name?: string;
@@ -10,7 +10,7 @@ interface NodeAttributes {
   refs?: NodeRef[];
 }
 
-interface CustomMouseEvent {
+export interface CustomMouseEvent {
   x: number;
   y: number;
   vx?: number;
@@ -27,23 +27,23 @@ interface CustomMouseEvent {
 /**
  * Serialized version of a node
  */
-interface NodeProps {
+export interface NodeProps {
   attributes: NodeAttributes;
   state?: unknown;
 }
 
-interface HistoryData {
+export interface HistoryData {
   index: number;
   steps: { next: Partial<NodeProps>; previous: Partial<NodeProps> }[];
 }
 
-interface NodeSystemData {
+export interface NodeSystemData {
   meta: NodeSystemMeta;
   nodes: NodeProps[];
   history?: HistoryData;
 }
 
-interface NodeSystemMeta {
+export interface NodeSystemMeta {
   lastSaved?: number;
   transform?: {
     x: number;
@@ -52,24 +52,24 @@ interface NodeSystemMeta {
   };
 }
 
-interface Vec2 {
+export interface Vec2 {
   x: number;
   y: number;
   pinned?: boolean;
 }
 
-interface NodePosition {
+export interface NodePosition {
   x: number;
   y: number;
 }
 
-interface NodeRef {
+export interface NodeRef {
   id: string;
   in: string;
   out: number;
 }
 
-interface Rect {
+export interface Rect {
   x1: number;
   y1: number;
   x2: number;

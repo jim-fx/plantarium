@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@plantarium/helpers": "link:../helpers",
+    "@plantarium/types": "link:../types",
     "@plantarium/ui": "link:../ui"
   },
   "devDependencies": {

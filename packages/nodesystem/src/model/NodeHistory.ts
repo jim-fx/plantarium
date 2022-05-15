@@ -1,5 +1,6 @@
 import { logger } from '@plantarium/helpers/src';
 import { diffBoth, mergeObjects } from '../helpers';
+import { HistoryData, NodeProps } from '../types';
 import type NodeSystem from './NodeSystem';
 
 const log = logger('NodeHistory');

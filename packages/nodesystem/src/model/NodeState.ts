@@ -1,5 +1,5 @@
 import { EventEmitter } from '@plantarium/helpers';
-import type { ValueTemplate } from '../@types';
+import type { ValueTemplate } from '../types';
 import NodeStateView from '../view/NodeStateView';
 import type Node from './Node';
 import NodeInput from './NodeInput';

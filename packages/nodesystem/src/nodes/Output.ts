@@ -1,6 +1,7 @@
 import Node from '../model/Node';
 import NodeState from '../model/NodeState';
 import type NodeSystem from '../model/NodeSystem';
+import { NodeProps } from '../types';
 import NodeView from '../view/NodeView';
 
 class OutputNode extends Node {

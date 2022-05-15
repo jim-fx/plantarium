@@ -24,3 +24,5 @@ export type NodeTypeData<T extends NodeParameters = NodeParameters> = {
 export function checkNodeType<T extends NodeParameters>(node: NodeTypeData<T>) {
   return node;
 }
+
+export * from "./interfaces"

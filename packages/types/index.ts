@@ -1,7 +1,9 @@
+import type { NodeProps } from "@plantarium/nodesystem"
+
 /**
  * Result of a node which returns geometry
  */
-interface TransferGeometry {
+export interface TransferGeometry {
   position: Float32Array;
   normal: Float32Array;
   uv: Float32Array;
@@ -9,7 +11,8 @@ interface TransferGeometry {
   skeleton?: Float32Array[];
   instances?: InstancedGeometry[];
 }
-interface InstancedGeometry {
+
+export interface InstancedGeometry {
   position: Float32Array;
   normal: Float32Array;
   uv: Float32Array;
@@ -19,26 +22,26 @@ interface InstancedGeometry {
   scale: Float32Array;
 }
 
-interface Vec2 {
+export interface Vec2 {
   x: number;
   y: number;
   pinned?: boolean;
 }
 
-interface Vec3 {
+export interface Vec3 {
   x: number;
   y: number;
   z: number;
   pinned?: boolean;
 }
 
-interface PlantProject {
+export interface PlantProject {
   meta: PlantProjectMeta;
   nodes: NodeProps[];
   history?: any;
 }
 
-interface PlantProjectMeta {
+export interface PlantProjectMeta {
   name: string;
 
   id: string;
@@ -64,7 +67,7 @@ interface PlantProjectMeta {
   public?: boolean;
 }
 
-interface PlantariumSettings {
+export interface PlantariumSettings {
   seed: number;
   useRandomSeed: boolean;
 
@@ -107,7 +110,7 @@ interface PlantariumSettings {
   };
 }
 
-interface PlantStem {
+export interface PlantStem {
   depth: number;
   id: string;
   skeleton: Float32Array;

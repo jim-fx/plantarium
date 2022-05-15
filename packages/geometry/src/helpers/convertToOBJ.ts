@@ -1,4 +1,6 @@
-export default function (model: TransferGeometry): string {
+import type { TransferGeometry } from "@plantarium/types";
+
+export default function(model: TransferGeometry): string {
   let output = '';
 
   let indexVertex = 0;
@@ -9,7 +11,7 @@ export default function (model: TransferGeometry): string {
 
   const face: string[] = [];
 
-  const parseMesh = function (mesh: TransferGeometry) {
+  const parseMesh = function(mesh: TransferGeometry) {
     let nbVertex = 0;
     let nbNormals = 0;
     let nbVertexUvs = 0;

@@ -1,6 +1,6 @@
 import { rotate3D } from '@plantarium/geometry';
 // import { logger } from '@plantarium/helpers';
-import { Vec3 } from 'ogl';
+import { Vec3 } from 'ogl-typescript';
 import rotate2D from '@plantarium/geometry/src/helpers/rotate2D';
 import { typeCheckNode } from '../types';
 

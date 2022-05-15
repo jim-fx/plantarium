@@ -1,7 +1,8 @@
-import type { Vec3 } from 'ogl';
+import type { TransferGeometry } from '@plantarium/types';
+import type { Vec3 } from 'ogl-typescript';
 import rotate3D from './rotate3D';
 
-export default function (
+export default function(
   geo: TransferGeometry,
   rawAxis: number[] | Vec3,
   theta: number,

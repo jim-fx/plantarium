@@ -1,3 +1,5 @@
+import type { TransferGeometry } from "@plantarium/types";
+
 export default (s: number): TransferGeometry => {
   // Calculate distance from center to corners
 

@@ -1,4 +1,6 @@
-export default function (
+import type { TransferGeometry, Vec2 } from "@plantarium/types";
+
+export default function(
   shape: Vec2[],
   { res = 1, xCurvature = 0.5, yCurvature = 0.2 } = {},
 ): TransferGeometry {

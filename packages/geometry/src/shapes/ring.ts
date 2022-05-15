@@ -1,4 +1,4 @@
-import { Vec3 } from 'ogl';
+import { Vec3 } from 'ogl-typescript';
 import rotate3D from '../helpers/rotate3D';
 
 function getStart(origin: Vec3, axis: Vec3): Vec3 {
@@ -9,7 +9,7 @@ function getStart(origin: Vec3, axis: Vec3): Vec3 {
   }
 }
 
-export default function (
+export default function(
   origin: Vec3,
   axis: Vec3,
   radius: number,

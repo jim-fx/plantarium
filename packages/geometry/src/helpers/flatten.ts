@@ -1,4 +1,6 @@
-export default function (mesh: TransferGeometry): TransferGeometry {
+import type { TransferGeometry } from "@plantarium/types";
+
+export default function(mesh: TransferGeometry): TransferGeometry {
   const amountVertices = mesh.position.length / 3;
 
   const newPosition = new Float32Array(amountVertices * 2);

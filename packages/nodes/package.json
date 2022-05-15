@@ -10,6 +10,6 @@
   "dependencies": {
     "@plantarium/geometry": "link:../geometry",
     "@plantarium/helpers": "link:../helpers",
-    "ogl": "^0.0.92"
+    "ogl-typescript": "^0.1.40"
   }
 }

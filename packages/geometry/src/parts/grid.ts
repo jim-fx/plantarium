@@ -1,4 +1,6 @@
-export default function (size = 2, res = 3): TransferGeometry {
+import type { TransferGeometry } from "@plantarium/types";
+
+export default function(size = 2, res = 3): TransferGeometry {
   res = res + 2;
 
   const amountPoints = (res * 4 - 4) * 3;

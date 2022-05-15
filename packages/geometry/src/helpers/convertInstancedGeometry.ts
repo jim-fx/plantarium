@@ -1,3 +1,5 @@
+import type { InstancedGeometry, TransferGeometry } from "@plantarium/types"
+
 function applyTransformation(
   geo: TransferGeometry,
   offset: number[] = [0, 0, 0],
@@ -37,7 +39,7 @@ function applyTransformation(
   };
 }
 
-export default function (instances: InstancedGeometry): TransferGeometry[] {
+export default function(instances: InstancedGeometry): TransferGeometry[] {
   const exp: TransferGeometry[] = [];
   const geometry: TransferGeometry = {
     position: instances.position,

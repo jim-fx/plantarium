@@ -1,3 +1,5 @@
+import type { TransferGeometry } from "@plantarium/types";
+
 export default function(..._geometries: TransferGeometry[]): TransferGeometry {
 
   const geometries = _geometries.filter(v => !!v);

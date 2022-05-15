@@ -1,4 +1,5 @@
-import { Vec3 } from 'ogl';
+import { Vec3 } from 'ogl-typescript';
+import type { TransferGeometry } from "@plantarium/types"
 
 let lastNormal: Vec3;
 

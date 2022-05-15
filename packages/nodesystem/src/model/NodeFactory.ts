@@ -2,6 +2,7 @@ import { genId, logger } from '@plantarium/helpers';
 
 import type NodeSystem from './NodeSystem';
 import type Node from './Node';
+import { NodeProps } from '../types';
 
 const log = logger('NodeFactory');
 

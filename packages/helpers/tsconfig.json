@@ -1,5 +1,4 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "composite": true,
     "outDir": "build",
@@ -7,6 +6,10 @@
     "target": "esnext",
     "module": "esnext"
   },
-  "include": ["src/**/*", "../@types/**/*"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

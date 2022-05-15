@@ -11,11 +11,11 @@
     "lint": "eslint src/**/* --cache"
   },
   "dependencies": {
-    "file-saver": "^2.0.5"
+    "file-saver": "^2.0.5",
+    "ogl-typescript": "^0.1.40"
   },
   "devDependencies": {
     "c8": "7.11.2",
-    "ogl": "0.0.92",
     "svelte": "3.48.0",
     "ts-eager": "2.0.2",
     "vitest": "0.12.6"

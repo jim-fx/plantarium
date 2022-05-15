@@ -1,5 +1,6 @@
 import type Node from '../model/Node';
 import type System from '../model/NodeSystem';
+import { CustomMouseEvent } from '../types';
 import type NodeConnectionView from './NodeConnectionView';
 import type InputView from './NodeInputView';
 import type OutputView from './NodeOutputView';

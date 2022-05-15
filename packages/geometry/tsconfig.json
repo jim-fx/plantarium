@@ -1,13 +1,14 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "public/dist",
-    "lib": ["ESNEXT", "DOM"],
-    "target": "esnext",
-    "module": "esnext",
+    "emitDeclarationOnly": true,
+    "experimentalDecorators": true,
     "declaration": true,
-    "emitDeclarationOnly": true
+    "target": "ESNext", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "module": "commonjs", /* Specify what module code is generated. */
+    "esModuleInterop": true, /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "include": ["src/**/*.ts", "../@types/*.d.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*"
+  ]
 }

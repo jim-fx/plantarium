@@ -2,6 +2,7 @@ import { aggregate, EventEmitter } from '@plantarium/helpers';
 import type NodeConnection from '../model/NodeConnection';
 import NodeInput from '../model/NodeInput';
 import NodeOutput from '../model/NodeOutput';
+import { CustomMouseEvent } from '../types';
 import ConnectionView from './ConnectionView';
 import type NodeSystemView from './NodeSystemView';
 

@@ -55,6 +55,7 @@ importers:
       eslint-plugin-svelte3: 4.0.0
       file-saver: 2.0.5
       ogl: 0.0.92
+      ogl-typescript: ^0.1.40
       prettier: 2.6.2
       prettier-plugin-svelte: 2.7.0
       shortid: 2.2.16
@@ -75,6 +76,7 @@ importers:
       dotenv: 16.0.1
       file-saver: 2.0.5
       ogl: 0.0.92
+      ogl-typescript: 0.1.40
       shortid: 2.2.16
       svelte-forms-lib: 2.0.1
       svelte-multiselect: 5.0.1
@@ -246,6 +248,7 @@ importers:
       gl-matrix: ^3.4.3
       idb: ^7.0.1
       ogl: ^0.0.92
+      ogl-typescript: ^0.1.40
       open-simplex-noise: ^2.5.0
       prettier: 2.6.2
       prettier-plugin-svelte: 2.7.0
@@ -279,6 +282,7 @@ importers:
       gl-matrix: 3.4.3
       idb: 7.0.1
       ogl: 0.0.92
+      ogl-typescript: 0.1.40
       open-simplex-noise: 2.5.0
       sass: 1.51.0
       shortid: 2.2.16
@@ -329,11 +333,13 @@ importers:
   packages/geometry:
     specifiers:
       '@plantarium/helpers': link:../helpers
+      '@plantarium/types': link:../types
       dts-bundle: 0.7.3
       esbuild: 0.14.39
       gl-matrix: ^3.4.3
       npm-run-all: 4.1.5
       ogl: ^0.0.92
+      ogl-typescript: ^0.1.40
       open-simplex-noise: ^2.5.0
       rimraf: 3.0.2
       tsc-watch: 5.0.3
@@ -342,8 +348,10 @@ importers:
       '@plantarium/helpers': link:../helpers
       gl-matrix: 3.4.3
       ogl: 0.0.92
+      ogl-typescript: 0.1.40
       open-simplex-noise: 2.5.0
     devDependencies:
+      '@plantarium/types': link:../types
       dts-bundle: 0.7.3
       esbuild: 0.14.39
       npm-run-all: 4.1.5
@@ -356,11 +364,13 @@ importers:
       c8: 7.11.2
       file-saver: ^2.0.5
       ogl: 0.0.92
+      ogl-typescript: ^0.1.40
       svelte: 3.48.0
       ts-eager: 2.0.2
       vitest: 0.12.6
     dependencies:
       file-saver: 2.0.5
+      ogl-typescript: 0.1.40
     devDependencies:
       c8: 7.11.2
       ogl: 0.0.92
@@ -373,14 +383,17 @@ importers:
       '@plantarium/geometry': link:../geometry
       '@plantarium/helpers': link:../helpers
       ogl: ^0.0.92
+      ogl-typescript: ^0.1.40
     dependencies:
       '@plantarium/geometry': link:../geometry
       '@plantarium/helpers': link:../helpers
       ogl: 0.0.92
+      ogl-typescript: 0.1.40
 
   packages/nodesystem:
     specifiers:
       '@plantarium/helpers': link:../helpers
+      '@plantarium/types': link:../types
       '@plantarium/ui': link:../ui
       '@playwright/test': 1.22.0
       c8: 7.11.2
@@ -402,6 +415,7 @@ importers:
       wait-on: 6.0.1
     dependencies:
       '@plantarium/helpers': link:../helpers
+      '@plantarium/types': link:../types
       '@plantarium/ui': link:../ui
     devDependencies:
       '@playwright/test': 1.22.0
@@ -427,10 +441,12 @@ importers:
     specifiers:
       '@plantarium/helpers': workspace:1.0.0
       ogl: 0.0.92
+      ogl-typescript: ^0.1.40
       resize-observer-polyfill: ^1.5.1
       svelte: ^3.48.0
     dependencies:
       '@plantarium/helpers': link:../helpers
+      ogl-typescript: 0.1.40
       resize-observer-polyfill: 1.5.1
       svelte: 3.48.0
     devDependencies:
@@ -450,6 +466,12 @@ importers:
       '@tsconfig/svelte': 3.0.0
       esbuild: 0.14.39
       esbuild-plugin-sass: 1.0.1_esbuild@0.14.39
+
+  packages/types:
+    specifiers:
+      '@plantarium/nodesystem': link:../nodesystem
+    dependencies:
+      '@plantarium/nodesystem': link:../nodesystem
 
   packages/ui:
     specifiers:
@@ -2338,7 +2360,7 @@ packages:
       magic-string: 0.26.2
       svelte: 3.48.0
       svelte-hmr: 0.14.11_svelte@3.48.0
-      vite: 2.9.9
+      vite: 2.9.9_sass@1.51.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -8563,6 +8585,10 @@ packages:
       '@octokit/types': 6.34.0
     transitivePeerDependencies:
       - encoding
+    dev: false
+
+  /ogl-typescript/0.1.40:
+    resolution: {integrity: sha512-7lpT8u35jd9W7Q48enrcCEL4H0x4co6pn5t6rXZgQN7UT39mcdzRsSr4ucZDOvfwKkUT+UvH2zw83/9mT59bFQ==}
     dev: false
 
   /ogl/0.0.92:

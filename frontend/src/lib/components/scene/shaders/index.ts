@@ -1,4 +1,4 @@
-import { Program, Texture } from "ogl";
+import { Program, Texture } from "ogl-typescript";
 import BasicShaderFrag from "./BasicShader.frag";
 import BasicShaderVert from "./BasicShader.vert";
 import GroundShaderFrag from "./GroundShader.frag";

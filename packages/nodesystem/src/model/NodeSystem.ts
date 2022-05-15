@@ -1,5 +1,5 @@
 import { debounceDecorator, EventEmitter, logger } from '@plantarium/helpers';
-import type { NodeTypeData } from '../@types';
+import type { NodeProps, NodeSystemData, NodeSystemMeta, NodeTypeData } from '../types';
 import DefaultNodes from '../nodes';
 import NodeSystemView from '../view/NodeSystemView';
 import type Node from './Node';

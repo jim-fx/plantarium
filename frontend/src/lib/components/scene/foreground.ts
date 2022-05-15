@@ -1,7 +1,7 @@
 import { transferToGeometry } from '@plantarium/geometry';
 import { logger, throttle } from '@plantarium/helpers';
 import { createAlert, createToast } from '@plantarium/ui';
-import { Box, Mesh, Program } from 'ogl';
+import { Box, Mesh } from 'ogl-typescript';
 import type Scene from '.';
 import { settingsManager, projectManager } from '..';
 import { Report } from '../../elements';
@@ -17,7 +17,7 @@ const updateThumbnail = throttle((geo: TransferGeometry) => {
 
 const log = logger('scene.foreground');
 export default class ForegroundScene {
-  private plant: NodeResult;
+  private plant: PlantProject;
   private settings: PlantariumSettings;
   private dbg: DebugScene;
 

@@ -2,7 +2,7 @@ import { ground } from '@plantarium/geometry';
 import { transferToGeometry } from '@plantarium/geometry';
 import { loader } from '@plantarium/helpers';
 import { ThemeStore } from '@plantarium/theme';
-import { Color, Mesh, Plane, Program } from 'ogl';
+import { Color, Mesh, Plane, Program } from 'ogl-typescript';
 import type Scene from '.';
 import { settingsManager } from '..';
 import type { ProjectManager } from '../project-manager';

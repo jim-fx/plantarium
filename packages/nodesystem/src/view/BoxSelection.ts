@@ -3,6 +3,7 @@ import { EventEmitter } from '@plantarium/helpers';
 import type NodeSystemView from './NodeSystemView';
 import type Node from '../model/Node';
 import { rectanglesIntersect } from '../helpers';
+import { Rect } from '../types';
 
 interface HitBox extends Rect {
   n: Node;

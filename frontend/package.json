@@ -22,27 +22,27 @@
     "@plantarium/renderer": "link:../packages/renderer",
     "@plantarium/theme": "link:../packages/theme",
     "@plantarium/ui": "link:../packages/ui",
-    "svelte-resize-observer": "2.0.0",
     "@yr/monotone-cubic-spline": "^1.0.3",
     "css-vars-from-json": "^1.1.0",
     "file-saver": "^2.0.5",
     "gl-matrix": "^3.4.3",
     "idb": "^7.0.1",
-    "ogl": "^0.0.92",
+    "ogl-typescript": "^0.1.40",
     "open-simplex-noise": "^2.5.0",
     "sass": "^1.51.0",
     "shortid": "^2.2.16",
     "svelte": "^3.48.0",
     "svelte-click-outside": "^1.0.0",
-    "svelte-multiselect": "^5.0.1"
+    "svelte-multiselect": "^5.0.1",
+    "svelte-resize-observer": "2.0.0"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "1.0.0-next.30",
     "@sveltejs/kit": "1.0.0-next.330",
     "@tsconfig/svelte": "3.0.0",
-    "@typescript-eslint/eslint-plugin": "5.23.0",
-    "@typescript-eslint/parser": "5.23.0",
-    "comlink": "4.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "comlink": "^4.3.1",
     "eslint": "8.15.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-svelte3": "4.0.0",
@@ -56,10 +56,7 @@
     "tslib": "2.4.0",
     "typescript": "4.6.4",
     "vite-plugin-comlink": "3.0.2",
-    "vite-plugin-glslify": "2.0.1",
-    "@typescript-eslint/eslint-plugin": "^5.23.0",
-    "@typescript-eslint/parser": "^5.23.0",
-    "comlink": "^4.3.1"
+    "vite-plugin-glslify": "2.0.1"
   },
   "type": "module"
 }

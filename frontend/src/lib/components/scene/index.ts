@@ -1,6 +1,6 @@
 import Renderer from '@plantarium/renderer';
-import type { MeshOptions } from 'ogl';
-import { Mesh, Program, Transform } from 'ogl';
+import type { MeshOptions } from 'ogl-typescript';
+import { Mesh, Program, Transform } from 'ogl-typescript';
 import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
 import { localState } from '../../helpers';
@@ -19,8 +19,8 @@ export default class Scene {
 
   isLoading: Writable<boolean> = writable(false);
 
-  program: Program;
-  mesh: Mesh;
+  program: Program | undefined;
+  mesh: Mesh | undefined;
   gl: WebGL2RenderingContext;
 
   constructor(pm: ProjectManager, canvas: HTMLCanvasElement) {

@@ -1,5 +1,5 @@
 import { convertHexToRGB, EventEmitter, throttle } from '@plantarium/helpers';
-import { Camera, Orbit, Renderer as oRenderer, Transform, Vec3 } from 'ogl';
+import { Camera, Orbit, Renderer as oRenderer, Transform, Vec3 } from 'ogl-typescript';
 
 interface RendererOptions {
   clearColor: string;

@@ -1,7 +1,7 @@
 import { createWorker } from '@plantarium/generator';
 import { transferToGeometry } from '@plantarium/geometry';
 import Renderer from '@plantarium/renderer';
-import { Box, Mesh } from 'ogl';
+import { Box, Mesh } from 'ogl-typescript';
 import { MatCapShader } from '../components/scene/shaders';
 
 const webWorker = createWorker();

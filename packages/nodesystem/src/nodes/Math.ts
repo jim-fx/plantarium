@@ -1,4 +1,4 @@
-import { checkNodeType } from "../@types";
+import { checkNodeType } from "../types";
 
 export default checkNodeType({
   title: 'Math',

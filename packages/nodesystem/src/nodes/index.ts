@@ -4,7 +4,7 @@ import NumberNode from './Number';
 import DebugNode from './Debug';
 import OutputNode from './Output';
 import type NodeType from '../model/NodeType';
-import { NodeTypeData } from '../@types';
+import { NodeTypeData } from '../types';
 
 const types: { [name: string]: NodeType | NodeTypeData } = {
   BooleanNode,

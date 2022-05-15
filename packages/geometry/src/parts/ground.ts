@@ -1,8 +1,10 @@
+import type { TransferGeometry } from "@plantarium/types";
+
 const totalSize = 100;
 const slopeLength = 2;
 const groundHeight = 1;
 
-export default function (size = 1, res = 12, resCircle = 12): TransferGeometry {
+export default function(size = 1, res = 12, resCircle = 12): TransferGeometry {
   //General parameters
   const angle = (360 * (Math.PI / 180)) / resCircle; // Convert to radians
 

@@ -1,4 +1,5 @@
-import type { NodeTypeData } from '../@types';
+import type { NodeTypeData } from '../types';
+import { NodeProps, NodeSystemData } from '../types';
 import NodeView from '../view/NodeView';
 import Node from './Node';
 import NodeOutput from './NodeOutput';
@@ -70,8 +71,8 @@ export default class NodeParser {
     }
 
     const inputs = Object.values(parameters)
-      .filter((p) => p.internal !== true)
-      .map((p) => p.type);
+      .filter((p) => p["internal"] !== true)
+      .map((p) => p["type"]);
 
     if (this.system.options.view) {
       const V = class TempView extends NodeView {

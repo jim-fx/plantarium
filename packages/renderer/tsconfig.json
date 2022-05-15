@@ -1,7 +1,10 @@
 {
-  "extends": "../../tsconfig.json",
-  "include": ["src/**/*", "../@types/*.d.ts"],
-  "exclude": ["node_modules/*", "__sapper__/*", "public/*"],
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules/*"
+  ],
   "compilerOptions": {
     "composite": true
   }
