@@ -12,7 +12,7 @@
     "backend:build": "pnpm --filter=./backend build",
     "nodes:build": "pnpm --filter=./packages/nodesystem build",
     "ui:build": "pnpm --filter=@plantarium/ui build",
-    "build": "pnpm -r build",
+    "build": "pnpm ui:build && pnpm -r build",
     "dev": "pnpm -r dev --filter=./frontend --filter=./backend --filter=./admin",
     "start": "pnpm -r build && pnpm backend:start",
     "test": "pnpm -r test",
