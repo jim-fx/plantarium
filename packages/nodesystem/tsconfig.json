@@ -1,22 +1,3 @@
 {
-  "compilerOptions": {
-    "lib": [
-      "DOM",
-      "ESNext"
-    ],
-    "target": "es6",
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
-    "outDir": "public/dist",
-    "allowJs": true,
-    "emitDeclarationOnly": true,
-    "declaration": true
-  },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "extends": "./.svelte-kit/tsconfig.json"
 }

@@ -34,7 +34,7 @@
   >
     {#if icon}
       {#if notWebComponent}
-        <Icon name={icon} {active} --width={'20px'} />
+        <Icon name={icon} {active} --width={'25px'} />
       {:else}
         <plant-icon name={icon} {active} />
       {/if}
@@ -57,7 +57,8 @@
     position: relative;
     display: flex;
     align-items: center;
-    height: 40px;
+    min-height: 40px;
+    height: var(--height, 40px);
     border-radius: 5px;
     border: none;
     background-color: transparent;
@@ -68,11 +69,8 @@
     color: var(--text-color);
     background-color: var(--foreground-color);
   }
-  p {
-    margin-top: -4px;
-  }
 
-  button.active {
+  button.useActive.active {
     background-color: themes.$light-green;
   }
 
@@ -87,6 +85,7 @@
   }
 
   button.only-icon {
+    padding-left: 6px !important;
     width: 40px;
     > :global(.icon-wrapper) {
       left: 9px;
@@ -103,7 +102,7 @@
   p {
     font-weight: bolder;
     padding: 0px 5px;
-    white-space: nowrap;
+    white-space: break-spaces;
     margin: 0;
   }
 

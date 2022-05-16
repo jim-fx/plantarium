@@ -12,3 +12,5 @@ export { default as stem } from './stem.svg?raw';
 export { default as triangle } from './triangle.svg?raw';
 export { default as warning } from './warning.svg?raw';
 export { default as question } from './question.svg?raw';
+export { default as bulb } from './bulb.svg?raw';
+export { default as bulb_dark } from './bulb-dark.svg?raw';

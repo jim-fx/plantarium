@@ -53,6 +53,7 @@
     "testRegex": "./tests/.*.ts$"
   },
   "dependencies": {
+    "css-vars-from-json": "^1.1.0",
     "ogl-typescript": "^0.1.40"
   }
 }

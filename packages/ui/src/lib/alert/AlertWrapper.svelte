@@ -28,7 +28,7 @@
       <div class="close-wrapper">
         <Button
           icon="cross"
-          --bg="transparent"
+          --foreground-color="transparent"
           on:click={() => {
             alert.reject();
           }}
@@ -55,6 +55,7 @@
             <Button
               --bg={'#303030'}
               --text={'white'}
+              --margin="0 10px 0 0"
               on:click={() => alert.resolve(value)}
               name={value}
             />
@@ -92,6 +93,7 @@
   }
 
   .alert-wrapper {
+    position: relative;
     min-width: 200px;
 
     max-height: 80vh;

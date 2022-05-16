@@ -1,3 +1,8 @@
-public/dist
-public-test
-.npmrc
+.DS_Store
+node_modules
+/build
+/.svelte-kit
+/package
+.env
+.env.*
+/dist

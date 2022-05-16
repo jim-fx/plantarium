@@ -46,6 +46,10 @@
     fill: var(--fill, none);
   }
 
+  .icon-wrapper > :global(svg) {
+    width: 100%;
+  }
+
   .active :global(*) {
     color: var(--text-color, white);
   }
