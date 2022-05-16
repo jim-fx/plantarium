@@ -59,6 +59,7 @@
     align-items: center;
     min-height: 40px;
     height: var(--height, 40px);
+    width: var(--width, auto);
     border-radius: 5px;
     border: none;
     background-color: transparent;
@@ -102,7 +103,7 @@
   p {
     font-weight: bolder;
     padding: 0px 5px;
-    white-space: break-spaces;
+    white-space: var(--white-space, nowrap);
     margin: 0;
   }
 

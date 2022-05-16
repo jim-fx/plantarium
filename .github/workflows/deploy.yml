@@ -39,6 +39,10 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
+      - name: "Deply to fly.io"
+        uses: superfly/flyctl-actions/setup-flyctl@master
+        run: flyctl deploy --remote-only 
+
   deploy_gh_pages:
     runs-on: ubuntu-latest
     steps:

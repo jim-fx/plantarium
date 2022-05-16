@@ -18,6 +18,7 @@ interface NodeSystemOptions {
   view: boolean;
   wrapper: HTMLElement | null;
   defaultNodes: string[] | boolean;
+  connectionColors: Record<string, string>,
   registerNodes: NodeTypeData[];
   deferCompute: boolean;
   logLevel: number;
@@ -56,12 +57,11 @@ export default class NodeSystem extends EventEmitter {
       wrapper,
       defaultNodes = false,
       registerNodes = false,
+      connectionColors = false,
       showUpdates = false,
       deferCompute = false
     } = options;
     this.options = { view, wrapper, showUpdates, deferCompute };
-
-    console.log({ registerNodes })
 
     try {
       log(`Instantiated id:${this.id}`);
@@ -71,6 +71,11 @@ export default class NodeSystem extends EventEmitter {
 
       if (view) {
         this.view = new NodeSystemView(this);
+
+        if (connectionColors) {
+          this.view.colorStore.setColors(connectionColors)
+        }
+
       }
 
       if (defaultNodes) {

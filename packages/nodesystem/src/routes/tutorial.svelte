@@ -6,6 +6,7 @@
   import { Button } from '@plantarium/ui';
   import { onMount } from 'svelte';
   import TutorialManager from './_tutorial';
+  import { goto } from '$app/navigation';
 
   let wrapper: HTMLDivElement;
 
@@ -25,12 +26,27 @@
     );
   }
 
+  let backRef: string;
+
   onMount(() => {
+    const u = new URL(window.location.toString());
+    if (u.searchParams.has('ref')) {
+      backRef = u.searchParams.get('ref');
+      localStorage.setItem('ref', backRef);
+    } else {
+      backRef = localStorage.getItem('ref');
+    }
+
     system = new NodeSystem({
       view: true,
       wrapper,
       defaultNodes: false,
       registerNodes: nodes,
+      connectionColors: {
+        fluid: '#797979',
+        coffee_beans: '#915841',
+        coffee_powder: '#2f1d1c',
+      },
       showUpdates: true,
     });
 
@@ -74,6 +90,7 @@
       on:click={() => tutorialManager.setState('level-0')}
     />
   {/if}
+  <Button name="exit" icon="cross" on:click={() => goto(backRef || '/')} />
 </Header>
 
 <div id="node-system" bind:this={wrapper} />

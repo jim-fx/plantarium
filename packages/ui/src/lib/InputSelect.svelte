@@ -88,7 +88,7 @@
   }
 
   #selected-value {
-    padding: 6px 10px;
+    padding: 4px 10px;
     padding-left: 6px;
     height: auto;
   }

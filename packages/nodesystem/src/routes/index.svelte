@@ -41,7 +41,11 @@
 <Header>
   <Button name="Load StressTest" on:click={() => system.load(stressTest)} />
   <Button name="Load Dev" on:click={() => system.load(dev)} />
-  <Button icon="question" name="Tutorial" on:click={() => goto('/tutorial')} />
+  <Button
+    icon="question"
+    name="Tutorial"
+    on:click={() => goto('tutorial?ref=' + window.location)}
+  />
 </Header>
 
 <div id="node-system" bind:this={wrapper} />

@@ -74,6 +74,14 @@ const coffee_machine = {
   compute({ powder, water }) {
 
     if (powder && water) {
+      if (water.fluidType !== "water") {
+        return {
+          ...powder,
+          amount: 50,
+          fluidType: "nasty",
+          type: "fluid"
+        }
+      }
       return {
         ...powder,
         amount: 50,
@@ -208,10 +216,18 @@ class HumanView extends NodeView {
           result = "Hydrating! but pretty tasteless... A coffee would be nice"
         }
 
+        if (data?.fluidType === "milk") {
+          result = "Ahh, a cold glass of milk"
+        }
+
+        if (data?.fluidType === "nasty") {
+          result = "Ewww, wtf is that?"
+        }
+
         if (data?.fluidType === "coffee") {
           result = `Nice, a${data.grade > 4 ? " very strong" : "n"} espresso!`
           if (data?.beanType !== "arabica") {
-            result += `\n\noh, ${data.beanType}, exotic bean choice, i like it`
+            result += `<br>oh, ${data.beanType}, exotic bean choice, i like it`
           }
         }
 
@@ -240,15 +256,6 @@ const human = {
   },
   node: HumanNode,
   view: HumanView,
-}
-
-const cow = {
-  title: "Cow",
-  type: "cow",
-  outputs: ["fluid"],
-  compute() {
-
-  }
 }
 
 const milk = {
@@ -282,7 +289,6 @@ export default [
   tap,
   human,
   milk,
-  cow,
   mix,
   coffee_powder,
   coffee_grinder,

@@ -13,7 +13,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 
 @Controller('/api/auth')
 export class AuthController {
-  constructor(private readonly service: AuthService) {}
+  constructor(private readonly service: AuthService) { }
 
   @Get('profile')
   async profile(@Req() req) {

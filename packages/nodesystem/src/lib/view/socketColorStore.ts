@@ -37,12 +37,22 @@ export default class ColorStore extends EventEmitter {
     super();
   }
 
+  setColors(colors: Record<string, string>) {
+    for (const k in colors) {
+      this.colors[k] = colors[k]
+    }
+  }
+
   private setType(socketType: string) {
     if (!(socketType in this.colors)) {
       this.colors[socketType] = COLORS[this.index].color;
       this.index++;
     }
     this.emit(socketType, this.colors[socketType]);
+  }
+
+  get(socketType: string) {
+    return this.colors[socketType]
   }
 
   on(socketType: string, cb: (color: string) => unknown) {

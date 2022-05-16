@@ -5,62 +5,64 @@ import type NodeInputView from './NodeInputView';
 import type NodeOutputView from './NodeOutputView';
 
 export default class NodeConnectionView extends ConnectionView {
-	connection!: NodeConnection;
+  connection!: NodeConnection;
 
-	input!: NodeInputView;
-	output!: NodeOutputView;
+  input!: NodeInputView;
+  output!: NodeOutputView;
 
-	constructor(conn: NodeConnection) {
-		super({}, conn.output);
-		this.connection = conn;
+  constructor(conn: NodeConnection) {
+    super({}, conn.output);
+    this.connection = conn;
 
-		this.input = conn.input.view;
-		this.output = conn.output.view;
+    this.input = conn.input.view;
+    this.output = conn.output.view;
 
-		this.hoverPath = document.createElementNS(
-			'http://www.w3.org/2000/svg',
-			'path',
-		);
-		this.hoverPath.classList.add('node-connection-hover');
-		this.hoverPath.setAttribute('vector-effect', 'non-scaling-stroke');
-		this.svg.append(this.hoverPath);
+    this.hoverPath = document.createElementNS(
+      'http://www.w3.org/2000/svg',
+      'path',
+    );
+    this.hoverPath.classList.add('node-connection-hover');
+    this.hoverPath.setAttribute('vector-effect', 'non-scaling-stroke');
+    this.svg.append(this.hoverPath);
 
-		this.hoverPath.addEventListener('mouseover', () => {
-			const { activeNode } = this.system.view;
-			if (
-				activeNode &&
-				activeNode.view.active &&
-				activeNode.view.hoveredConnection !== this
-			) {
-				this.handleNodeOver(activeNode);
-			}
-		});
+    this.hoverPath.addEventListener('mouseover', () => {
+      const { activeNode } = this.system.view;
+      if (
+        activeNode &&
+        activeNode.view.active &&
+        activeNode.view.hoveredConnection !== this
+      ) {
+        this.handleNodeOver(activeNode);
+      }
+    });
 
-		this.hoverPath.addEventListener('mouseout', () => {
-			const { activeNode } = this.system.view;
-			this.handleNodeOut(activeNode);
-		});
+    this.hoverPath.addEventListener('mouseout', () => {
+      const { activeNode } = this.system.view;
+      this.handleNodeOut(activeNode);
+    });
 
-		conn.input.node.system.view.colorStore.on(conn.input.type[0], (color) => {
-			this.path.style.stroke = color;
-		});
-	}
+    const colorStore = conn.input.node.system.view.colorStore;
 
-	handleNodeOver(node: Node) {
-		if (this.connection.isNodeJoinable(node)) {
-			node.view.hoveredConnection = this;
-			this.path.classList.add('hover-active');
-		}
-	}
+    colorStore.on(conn.output.type, (color) => {
+      this.path.style.stroke = color;
+    });
+  }
 
-	handleNodeOut(node: Node) {
-		if (node && node.view.hoveredConnection === this) {
-			delete node.view.hoveredConnection;
-		}
-		this.path.classList.remove('hover-active');
-	}
+  handleNodeOver(node: Node) {
+    if (this.connection.isNodeJoinable(node)) {
+      node.view.hoveredConnection = this;
+      this.path.classList.add('hover-active');
+    }
+  }
 
-	remove() {
-		super.remove();
-	}
+  handleNodeOut(node: Node) {
+    if (node && node.view.hoveredConnection === this) {
+      delete node.view.hoveredConnection;
+    }
+    this.path.classList.remove('hover-active');
+  }
+
+  remove() {
+    super.remove();
+  }
 }

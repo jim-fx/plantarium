@@ -54,9 +54,9 @@ Do you want to start the tutorial, or first play around a bit?`, { values: ["Let
 
 
     if (this.state === "level-0") {
-      await createToast(`I like to think of Nodesystem as little factories connected by pipes.
+      await createToast(`I like to think of Nodes as little factories connected by pipes.
 
-Each Node, or Factory gets some inputs, transforms  them and outputs something new.`, { timeout: 0, values: ["Okay...?", "Understood"] })
+Each Node, or Factory gets some inputs, transforms them and outputs something new.`, { timeout: 0, values: ["Okay...?", "Understood"] })
 
       return this.setState("level-1")
     }
@@ -124,7 +124,7 @@ Congrats on your first node :)`, { type: "success" })
     if (this.state === "level-4") {
       await createToast(`Offcourse we can :)
 
-Create a <b>water</b> on the left side of the coffee machine.`, { values: ["Done"] });
+Create a <b>water node</b> on the left side of the coffee machine.`, { values: ["Done"] });
 
 
       await createToast(`The water node has a single output with the same color as the water input of the coffee machine.
