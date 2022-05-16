@@ -23,8 +23,13 @@ if (DB_NAME) {
 
 const config: Options = {
   ...defaultOptions,
+  migrations: {
+    path: 'dist/migrations',
+    pathTs: 'src/migrations',
+  },
   entities: ['./**/*.entity.js'],
   entitiesTs: ['src/**/*.entity.ts'],
+  allowGlobalContext: true,
   metadataProvider: TsMorphMetadataProvider,
 };
 
