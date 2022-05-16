@@ -1,14 +1,14 @@
-import { MikroOrmModule } from '@mikro-orm/nestjs';
-import { Module } from '@nestjs/common';
+import { MikroORM } from '@mikro-orm/core';
+import { MikroOrmMiddleware, MikroOrmModule } from '@mikro-orm/nestjs';
+import { MiddlewareConsumer, Module, NestModule, OnModuleInit } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
-import c from './mikro-orm.config';
 import { ReportModule } from './report/report.module';
 import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
-    MikroOrmModule.forRoot(c),
+    MikroOrmModule.forRoot(),
     ReportModule,
     UserModule,
     AuthModule,
@@ -16,4 +16,15 @@ import { UserModule } from './user/user.module';
 
   controllers: [AppController],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+
+  constructor(private readonly orm: MikroORM) { }
+
+  async onModuleInit(): Promise<void> {
+
+    const migrator = this.orm.getMigrator();
+
+    await migrator.up();
+  }
+
+}

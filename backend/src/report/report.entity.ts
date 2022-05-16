@@ -9,7 +9,7 @@ export class Report extends BaseEntity {
   type: 'bug' | 'feat';
 
   @IsOptional()
-  @Property({ type: 'json',default:[] })
+  @Property({ type: 'json' })
   labels: PLabel[] = [];
 
   @Property()

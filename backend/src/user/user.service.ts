@@ -10,7 +10,7 @@ import { User } from './user.entity';
 export class UserService implements OnModuleInit {
   constructor(
     @InjectRepository(User) private readonly repository: EntityRepository<User>,
-  ) {}
+  ) { }
 
   async create(createUserDto: CreateUserDto) {
     const user = new User();
@@ -43,15 +43,20 @@ export class UserService implements OnModuleInit {
   async onModuleInit() {
     const { ADMIN_PASS } = process.env;
     if (ADMIN_PASS) {
-      let admin = await this.repository.findOne({ username: 'admin' });
-      if (!admin) {
-        admin = new User();
-        admin.username = 'admin';
-        admin.role = Role.ADMIN;
-        admin.email = 'test@example.com';
-        await admin.setPassword(ADMIN_PASS);
-        this.repository.persistAndFlush(admin);
-      }
+      // THis is super hackky, but we need to make sure the migratiosn happedned
+      setTimeout(async () => {
+        console.log("FUUUCK")
+        let admin = await this.repository.findOne({ username: 'admin' });
+        if (!admin) {
+          admin = new User();
+          admin.username = 'admin';
+          admin.role = Role.ADMIN;
+          admin.email = 'test@example.com';
+          await admin.setPassword(ADMIN_PASS);
+
+          this.repository.persistAndFlush(admin);
+        }
+      }, 1000)
     }
   }
 }
