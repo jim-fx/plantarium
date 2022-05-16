@@ -77,7 +77,7 @@ jobs:
       - run: 'pnpm i && pnpm build'
         env:
           IS_GH_PAGES: true
-          VITE_API_URL: 'https://plant-api.jim-fx.com'
+          VITE_API_URL: ${{ secrets.API_URL }}
 
       - run: 'cp -r admin/build frontend/build/admin'
       - run: 'cp -r packages/ui/build frontend/build/ui'
