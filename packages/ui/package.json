@@ -27,7 +27,7 @@
     "@typescript-eslint/eslint-plugin": "5.23.0",
     "@typescript-eslint/parser": "5.23.0",
     "@yr/monotone-cubic-spline": "1.0.3",
-    "c8": "7.11.2",
+    "c8": "7.11.3",
     "eslint": "8.15.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-svelte3": "4.0.0",
