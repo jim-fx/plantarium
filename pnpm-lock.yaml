@@ -154,11 +154,8 @@ importers:
       ts-eager: 2.0.2
       ts-jest: 28.0.2
       ts-node: 10.7.0
-      tsconfig-paths: 4.0.0
       typescript: 4.6.4
       uuid: 8.3.2
-      vite: 2.9.9
-      vite-plugin-node: 1.0.0
     dependencies:
       '@mikro-orm/cli': 5.1.3_3wdn3xz7nwa6n7vt572owlvjf4
       '@mikro-orm/core': 5.1.3_3wdn3xz7nwa6n7vt572owlvjf4
@@ -193,7 +190,6 @@ importers:
       ts-node: 10.7.0_2e3zkt3gzqz6r43dj4x46rot3i
       typescript: 4.6.4
       uuid: 8.3.2
-      vite: 2.9.9
     devDependencies:
       '@nestjs/cli': 8.2.5
       '@nestjs/schematics': 8.0.11_typescript@4.6.4
@@ -219,8 +215,6 @@ importers:
       supertest: 6.2.3
       ts-eager: 2.0.2
       ts-jest: 28.0.2_qy5m32hwmbz5mebulkdtchzcz4
-      tsconfig-paths: 4.0.0
-      vite-plugin-node: 1.0.0_vite@2.9.9
 
   frontend:
     specifiers:
@@ -430,7 +424,7 @@ importers:
     devDependencies:
       '@playwright/test': 1.22.0
       '@sveltejs/adapter-auto': 1.0.0-next.43
-      '@sveltejs/kit': 1.0.0-next.331_svelte@3.48.0
+      '@sveltejs/kit': 1.0.0-next.333_svelte@3.48.0
       '@types/cookie': 0.4.1
       '@typescript-eslint/eslint-plugin': 5.23.0_c63nfttrfhylg3zmgcxfslaw44
       '@typescript-eslint/parser': 5.23.0_hcfsmds2fshutdssjqluwm76uu
@@ -819,6 +813,8 @@ packages:
     resolution: {integrity: sha512-n2Q6i+fnJqzOaq2VkdXxy2TCPCWQZHiCo0XqmrCvDWcZQKRyZzYi4Z0yxlBuN0w+r2ZHmre+Q087DSrw3pbJDQ==}
     engines: {node: '>=6.0.0'}
     hasBin: true
+    dependencies:
+      '@babel/types': 7.17.10
     dev: true
 
   /@babel/plugin-syntax-async-generators/7.8.4_@babel+core@7.17.10:
@@ -1724,6 +1720,7 @@ packages:
       sqlstring-sqlite: 0.1.1
     transitivePeerDependencies:
       - better-sqlite3
+      - bluebird
       - encoding
       - mssql
       - mysql
@@ -2363,8 +2360,8 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.331_svelte@3.48.0:
-    resolution: {integrity: sha512-FMXVp2O9I64vvRsmD971m2gaDne2bLx/bw8jUsg7wbhlF2oB2K7hCzPC0uj4LtufxxWQxMRjLDnR6AB1ePit/Q==}
+  /@sveltejs/kit/1.0.0-next.333_svelte@3.48.0:
+    resolution: {integrity: sha512-gaj68NCVVKnzDPALzNbaP2xMaNvCZYxoreEGF6P8/bPAh4X6yB5OrgmtensoizPxSJW6d/Lz4LVw71LPmrQgkw==}
     engines: {node: '>=16'}
     hasBin: true
     peerDependencies:
@@ -3681,6 +3678,8 @@ packages:
       ssri: 8.0.1
       tar: 6.1.11
       unique-filename: 1.1.1
+    transitivePeerDependencies:
+      - bluebird
     dev: false
     optional: true
 
@@ -7484,6 +7483,7 @@ packages:
       socks-proxy-agent: 6.2.0
       ssri: 8.0.1
     transitivePeerDependencies:
+      - bluebird
       - supports-color
     dev: false
     optional: true
@@ -7866,6 +7866,7 @@ packages:
       tar: 6.1.11
       which: 2.0.2
     transitivePeerDependencies:
+      - bluebird
       - supports-color
     dev: false
     optional: true
@@ -8544,6 +8545,11 @@ packages:
 
   /promise-inflight/1.0.1:
     resolution: {integrity: sha1-mEcocL8igTL8vdhoEputEsPAKeM=}
+    peerDependencies:
+      bluebird: '*'
+    peerDependenciesMeta:
+      bluebird:
+        optional: true
     dev: false
     optional: true
 
@@ -9333,6 +9339,7 @@ packages:
     optionalDependencies:
       node-gyp: 8.4.1
     transitivePeerDependencies:
+      - bluebird
       - encoding
       - supports-color
     dev: false
@@ -10098,14 +10105,6 @@ packages:
       minimist: 1.2.6
       strip-bom: 3.0.0
 
-  /tsconfig-paths/4.0.0:
-    resolution: {integrity: sha512-SLBg2GBKlR6bVtMgJJlud/o3waplKtL7skmLkExomIiaAtLGtVsoXIqP3SYdjbcH9lq/KVv7pMZeCBpLYOit6Q==}
-    dependencies:
-      json5: 2.2.1
-      minimist: 1.2.6
-      strip-bom: 3.0.0
-    dev: true
-
   /tslib/1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
     dev: true
@@ -10402,23 +10401,6 @@ packages:
       astring: 1.8.3
       glslify: 7.1.1
       magic-string: 0.25.9
-    dev: true
-
-  /vite-plugin-node/1.0.0_vite@2.9.9:
-    resolution: {integrity: sha512-oCB7PbeBtx0dWz+rQL3JXA1s6kqlqF8Mor9QTwhyQ7ChuJRzVs/ddVRuUfU/ZPMo9GSsaYUn7qsVNU8rS1EZdw==}
-    peerDependencies:
-      '@swc/core': ^1.2.153
-      vite: ^2.9.8
-    peerDependenciesMeta:
-      '@swc/core':
-        optional: true
-    dependencies:
-      '@rollup/pluginutils': 4.2.1
-      chalk: 4.1.2
-      debug: 4.3.4
-      vite: 2.9.9
-    transitivePeerDependencies:
-      - supports-color
     dev: true
 
   /vite-plugin-windicss/1.8.4_vite@2.9.9:
