@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
-    "start": "node dist/src/main",
+    "start": "pnpm migrate & node dist/src/main",
     "dev": "nodemon",
     "start:dev": "ts-eager src/main.ts",
     "start:debug": "nest start --debug --watch",
