@@ -1,10 +1,9 @@
 import adapter from '@sveltejs/adapter-static';
-import path from 'path';
 import preprocess from 'svelte-preprocess';
 
 let { BASE_PATH = '', IS_GH_PAGES = false } = process.env;
 if (IS_GH_PAGES) {
-  BASE_PATH = '/ui';
+  BASE_PATH = '/nodes';
 }
 
 /** @type {import('@sveltejs/kit').Config} */
