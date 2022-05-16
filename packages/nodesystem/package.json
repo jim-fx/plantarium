@@ -18,7 +18,7 @@
     "@playwright/test": "^1.21.0",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
-    "@types/cookie": "^0.4.1",
+    "@types/cookie": "0.5.1",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
     "eslint": "^8.12.0",
@@ -41,7 +41,7 @@
     "@plantarium/ui": "link:../ui",
     "@sveltejs/adapter-static": "1.0.0-next.30",
     "@yr/monotone-cubic-spline": "^1.0.3",
-    "cookie": "^0.4.1",
+    "cookie": "^0.5.0",
     "css-vars-from-json": "^1.1.0",
     "file-saver": "^2.0.5",
     "shortid": "^2.2.16"
