@@ -36,7 +36,7 @@
 
 {#if _keys.length}
   <table>
-    <thead class="bg-white rounded shadow-md cursor-pointer select-none">
+    <thead class="rounded shadow-md cursor-pointer select-none">
       {#each _keys as key}
         <td
           class="p-2 whitespace-nowrap"
@@ -75,3 +75,9 @@
 {:else}
   <p>This table seems empty</p>
 {/if}
+
+<style>
+  thead {
+    background-color: var(--foreground-color);
+  }
+</style>

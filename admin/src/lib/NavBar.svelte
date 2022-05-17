@@ -16,9 +16,7 @@
 </script>
 
 <div class="text-center my-6">
-  <nav
-    class="rounded bg-white shadow-xl w-auto inline-block p-2 mx-auto object-center"
-  >
+  <nav class="rounded shadow-xl w-auto inline-block p-2 mx-auto object-center">
     {#each sites as [href, title]}
       {#if href}
         <a
@@ -32,3 +30,9 @@
     {/each}
   </nav>
 </div>
+
+<style>
+  nav {
+    background-color: var(--foreground-color);
+  }
+</style>

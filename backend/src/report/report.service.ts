@@ -9,7 +9,6 @@ import { CreateReportDto } from './dto/create-report.dto';
 import { Report } from './report.entity';
 import { Octokit } from 'octokit';
 import { UpdateReportDto } from './dto/update-report.dto';
-import { GH_TOKEN, GH_ORG, GH_REPO } from "../config";
 
 @Injectable()
 export class ReportService {
@@ -19,7 +18,8 @@ export class ReportService {
     @InjectRepository(Report)
     private readonly repository: EntityRepository<Report>,
   ) {
-    this.octo = new Octokit({ auth: GH_TOKEN });
+    console.log("TOOTKEN", process.env.GH_TOKEN)
+    this.octo = new Octokit({ auth: process.env.GH_TOKEN });
   }
 
   async create(dto: CreateReportDto): Promise<Report> {
@@ -27,6 +27,7 @@ export class ReportService {
 
     report.type = dto.type;
     report.title = dto.title;
+    report.logs = dto.logs || [];
     report.labels = dto.labels || [];
     report.description = dto.description;
     report.browser = dto.browser;
@@ -70,8 +71,8 @@ export class ReportService {
     const response = await this.octo.request(
       'GET /repos/{owner}/{repo}/labels',
       {
-        owner: GH_ORG,
-        repo: GH_REPO,
+        owner: process.env.GH_ORG,
+        repo: process.env.GH_REPO,
       },
     );
 
@@ -108,8 +109,8 @@ export class ReportService {
     ].filter((v) => !!v);
 
     const result = await this.octo.rest.issues.create({
-      owner: GH_ORG,
-      repo: GH_REPO,
+      owner: process.env.GH_ORG,
+      repo: process.env.GH_REPO,
       title: report.title,
       body: `## Description:
 ${report.description}
@@ -123,11 +124,24 @@ ${report.browser ? JSON.stringify(report.browser, null, 2) : 'not available'}
 \`\`\`
 ${report.stacktrace
           ? report.stacktrace.lines
-            .map((line) => `at *${line.name}* ${line.location}`)
+            .map((line) => `at *${line.methodName}* ${line.file}`)
             .join('\n')
           : ''
         }
-\`\`\``,
+\`\`\`
+
+${report.logs.length ? `<details>
+<summary><h3>Logs</h3></summary>
+
+\`\`\`log
+${report.logs.map(l => {
+          const d = new Date(l.date);
+          return `${d.getDay()}/${d.getMonth()}/${d.getFullYear()}:${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}:${d.getMilliseconds()} | [${l.scope}] ${l.args[0]}`
+        }).join("\n")}
+\`\`\`
+
+</details>`: ""}
+`,
       labels,
     });
 

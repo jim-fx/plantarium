@@ -1,4 +1,4 @@
-import {  IsIn, IsOptional, IsString, Length } from 'class-validator';
+import { IsIn, IsOptional, IsString, Length } from 'class-validator';
 import { PLabel, labels } from './shared-types';
 
 export class CreateReportDto {
@@ -24,6 +24,9 @@ export class CreateReportDto {
 
   @IsOptional()
   readonly browser?: any;
+
+  @IsOptional()
+  readonly logs?: any;
 
   @IsOptional()
   @IsString()

@@ -39,7 +39,6 @@ export default class RightClickMenu {
     this.searchEl = new InputSearch({ target: this.wrapper });
 
     this.searchEl.$on('input', ({ detail: value }) => {
-      console.log("Input", { value })
       this.resolve(value);
     });
 

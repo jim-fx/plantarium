@@ -52,6 +52,8 @@ export {
   StackTrace
 };
 
+export { default as LogViewer } from "./LogViewer.svelte"
+
 // *****************************************
 // * Notice that the component is not instantiated and mounted to the document <body className="">
 // * Since the compiler is creating a custom element, we instead define and use the custom element

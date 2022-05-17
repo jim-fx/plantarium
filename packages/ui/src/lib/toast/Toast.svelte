@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { parseStackTrace } from '@plantarium/helpers';
   import { onMount, SvelteComponent } from 'svelte';
   import { slide } from 'svelte/transition';
+  import { parseStackTrace } from '../../../../helpers/src';
   import Button from '../Button.svelte';
   import type { Message } from '../helpers/IMessage';
   import { MessageType } from '../helpers/IMessage';
@@ -48,7 +48,13 @@
       <div class="toast-content" class:hasIcon={!!icon}>
         {#if icon}
           <div class="toast-icon">
-            <Icon name={icon} circle --width="40px" --height="40px" />
+            <Icon
+              name={icon}
+              circle
+              --text-color={'var(--text-color-invert)'}
+              --width="40px"
+              --height="40px"
+            />
           </div>
         {/if}
 
@@ -65,7 +71,7 @@
             </p>
             {#if showStackTrace}
               <div class="stack-trace" transition:slide>
-                <StackTrace stacktrace={parseStackTrace(toast.content.stack)} />
+                <StackTrace stacktrace={parseStackTrace(toast.content)} />
               </div>
             {/if}
           {:else if toast.content instanceof SvelteComponent}
@@ -106,7 +112,7 @@
           </div>
         </div>
         <div class="toast-close" on:click={() => toast.reject()}>
-          <Icon name="cross" --height="fit-content" />
+          <Icon name="cross" --text-color={'var(--text-color-invert)'} --height="fit-content" />
         </div>
       </div>
 

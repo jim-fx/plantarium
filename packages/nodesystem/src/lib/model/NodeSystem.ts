@@ -166,7 +166,6 @@ export default class NodeSystem extends EventEmitter {
 
   @debounceDecorator(1000)
   save() {
-    console.log("save", this.isLoaded)
     if (this.isLoaded) {
       this.meta.lastSaved = Date.now();
       log('save system', this.serialize());

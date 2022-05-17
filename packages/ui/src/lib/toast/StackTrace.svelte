@@ -1,5 +1,6 @@
-<script>
-  export let stacktrace;
+<script lang="ts">
+  import type { parseStackTrace } from '@plantarium/helpers';
+  export let stacktrace: ReturnType<typeof parseStackTrace>;
 </script>
 
 {#if stacktrace}
@@ -11,8 +12,7 @@
     <pre>
     <code>
       {#each stacktrace.lines as line}
-          at <strong>{line.name}</strong>{#if line.alias}as <strong>${line.alias}</strong
-            >{/if}{#if line.location}&nbsp;(<i>{line.location}</i>){/if}<br />
+          at <strong>{line.methodName}</strong> <i>{line.file}</i><br />
         {/each}
     </code>
   </pre>

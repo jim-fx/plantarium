@@ -21,13 +21,13 @@
   "devDependencies": {
     "@plantarium/helpers": "link:../helpers",
     "@plantarium/theme": "link:../theme",
-    "@sveltejs/adapter-static": "1.0.0-next.30",
-    "@sveltejs/kit": "1.0.0-next.330",
+    "@sveltejs/adapter-static": "1.0.0-next.31",
+    "@sveltejs/kit": "1.0.0-next.333",
     "@testing-library/svelte": "3.1.1",
-    "@typescript-eslint/eslint-plugin": "5.23.0",
-    "@typescript-eslint/parser": "5.23.0",
+    "@typescript-eslint/eslint-plugin": "5.24.0",
+    "@typescript-eslint/parser": "5.24.0",
     "@yr/monotone-cubic-spline": "1.0.3",
-    "c8": "7.11.2",
+    "c8": "7.11.3",
     "eslint": "8.15.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-svelte3": "4.0.0",
@@ -54,6 +54,7 @@
   },
   "dependencies": {
     "css-vars-from-json": "^1.1.0",
-    "ogl-typescript": "^0.1.40"
+    "ogl-typescript": "^0.1.40",
+    "stacktrace-parser": "^0.1.10"
   }
 }

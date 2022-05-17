@@ -20,7 +20,7 @@ const steps: TutorStep[] = [
     checks: [
       {
         description: 'Clicking and dragging',
-        setup: function (isCompleted, { c }) {
+        setup: function(isCompleted, { c }) {
           const el = document.querySelector(c.selector);
           if (el.getAttribute('setup') === 'true') return;
           el.setAttribute('setup', 'true');
@@ -46,7 +46,7 @@ const steps: TutorStep[] = [
   {
     selector: '#nodesystem-view',
     description:
-      'This is the <b>Node View</b>, here you define the way your plant looks. Try playing with some of the settings. If you are not so sure how this works, maybe visit the NodeTutorial',
+      'This is the <b>Node View</b>, here you define the way your plant looks. Try playing with some of the settings. If you are not so sure how this works, maybe visit the <a href="/nodes/tutorial">NodeTutorial</a>',
   },
   {
     description: 'This Button opens the project view',

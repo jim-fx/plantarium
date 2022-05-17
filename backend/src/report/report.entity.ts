@@ -27,6 +27,9 @@ export class Report extends BaseEntity {
   @Property()
   stacktrace?: any;
 
+  @Property({ type: "json" })
+  logs?: any
+
   @Property({ type: 'json' })
   browser?: any;
 

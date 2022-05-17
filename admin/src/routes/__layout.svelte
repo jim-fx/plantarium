@@ -3,7 +3,8 @@
   import { browser } from '$app/env';
   import NavBar from '$lib/NavBar.svelte';
   if (browser) import('virtual:windi-devtools');
-  import { AlertWrapper } from '@plantarium/ui';
+  import { AlertWrapper, Button } from '@plantarium/ui';
+  import { ThemeProvider, currentTheme, setTheme } from '@plantarium/theme';
   import { onMount } from 'svelte';
   import api from '@plantarium/client-api';
 
@@ -12,9 +13,15 @@
   });
 </script>
 
-<svelte:body class="bg-gray-50" />
+<Button
+  --foreground-color="transparent"
+  on:click={() => setTheme($currentTheme === 'dark' ? 'light' : 'dark')}
+  icon={$currentTheme === 'dark' ? 'bulb_dark' : 'bulb'}
+/>
 
 <AlertWrapper />
+
+<ThemeProvider />
 
 <div class="container mx-auto">
   <NavBar />
@@ -24,5 +31,9 @@
 <style>
   :global(a)::before {
     content: 🔗;
+  }
+  :global(body) {
+    color: var(--text-color);
+    background-color: var(--background-color);
   }
 </style>

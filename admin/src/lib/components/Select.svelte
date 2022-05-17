@@ -3,7 +3,7 @@
 
   export let values = [];
 
-  export let selected: string;
+  export let selected: string[];
 </script>
 
 <MultiSelect bind:selected options={values} />

@@ -19,7 +19,7 @@ export const setTheme = (style: string) => {
     currentTheme.set(style);
     localStorage.setItem('theme', style);
   } else {
-    console.log("cannot set theme", style)
+    console.warn("cannot set theme", style)
   }
 };
 

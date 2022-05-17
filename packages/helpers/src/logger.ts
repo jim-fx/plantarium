@@ -97,7 +97,7 @@ function log(scope: string): Logger {
   const handleLog = (args: unknown[] | Error, _level: number) => {
 
     if (isServiceWorker) return;
-    history.push({ scope, args, level });
+    history.push({ scope, args, level, date: Date.now() });
     history.length = Math.min(100, history.length);
     if (store) store.set(history);
     saveHistory();
@@ -152,6 +152,10 @@ log.getStore = function() {
   store = writable([]);
   return store;
 };
+
+log.getHistory = function() {
+  return [...history]
+}
 
 log.setFilter = (...f: string[]) => {
   filters = f;

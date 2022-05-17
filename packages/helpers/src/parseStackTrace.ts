@@ -1,5 +1,4 @@
-const regex =
-  /^(?:[ ]+)?(?:at )([^ ]*)?(?: )?(?:\[(.*?)\] )?(?:\(([^()]+)\))?$/gm;
+import { parse } from "stacktrace-parser";
 
 const stripPath = (s) =>
   s
@@ -7,20 +6,10 @@ const stripPath = (s) =>
     .replace(/^node_modules/, '')
     .replace(/.+?(?=plantarium)plantarium\//, '');
 
-export default (s: string) => {
-  const [rawTitle, ...rawLines] = s.split('\n');
-
-  const [type, title] = rawTitle.split(':');
-
-  const lines = rawLines.map((l) => {
-    const res = [...l.matchAll(regex)][0];
-    const [, name, alias, location] = res;
-    return {
-      name: stripPath(name),
-      ...(location ? { location: stripPath(location) } : {}),
-      ...(alias ? { alias: alias.trim().replace('as ', '') } : {}),
-    };
-  });
-
-  return { title, type, lines };
+export default (e: Error) => {
+  const lines = parse(e.stack).map(s => {
+    s.file = stripPath(s.file);
+    return s;
+  })
+  return { title: e.message, type: e.name, lines };
 };

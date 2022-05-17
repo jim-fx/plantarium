@@ -82,4 +82,4 @@ $ pnpm dev
 
 - [ ] Synchronize Projects with a Backend
 - [ ] Add some more nodes
-  - [ ] Split Branch Node
+  - [x] Split Branch Node

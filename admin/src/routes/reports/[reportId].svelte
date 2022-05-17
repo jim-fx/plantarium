@@ -1,10 +1,11 @@
 <script lang="ts" context="module">
   import { api } from '$lib';
 
-  export async function load({ page }) {
-    console.log('Looad', page.params);
-    const report = await api.getReport(page.params.reportId);
+  export async function load({ params }) {
+    console.log('Looad', params);
+    const report = await api.getReport(params.reportId);
     const reportLabels = await api.getAvailableLabels();
+    console.log({ reportLabels });
     return {
       props: {
         report,
@@ -19,7 +20,7 @@
   import { Detail, Select } from '$lib/components';
   import { onMount } from 'svelte';
   const { reportId } = $page.params;
-  import { createAlert, StackTrace } from '@plantarium/ui';
+  import { createAlert, LogViewer, StackTrace } from '@plantarium/ui';
   import { userStore } from '@plantarium/client-api';
 
   const {
@@ -27,16 +28,18 @@
     VITE_GH_ORG,
     VITE_GH_REPO,
   } = import.meta.env;
+
   export let report: {
     gh_issue: number[];
     labels: string[];
     type: string;
+    logs: any[];
     title: string;
     description: string;
     browser: string;
     stacktrace: string;
   };
-  export let reportLabels: unknown[];
+  export let reportLabels: unknown[] = [];
   let initialized = false;
 
   let publishPromise;
@@ -142,6 +145,13 @@
     <div class="stack">
       <h3>StackTrace:</h3>
       <StackTrace stacktrace={report.stacktrace} />
+    </div>
+  {/if}
+
+  {#if report?.logs?.length}
+    <div class="logs">
+      <h3>Logs</h3>
+      <LogViewer logs={report.logs} />
     </div>
   {/if}
 

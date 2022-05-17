@@ -12,10 +12,11 @@
   },
   "dependencies": {
     "file-saver": "^2.0.5",
-    "ogl-typescript": "^0.1.40"
+    "ogl-typescript": "^0.1.40",
+    "stacktrace-parser": "^0.1.10"
   },
   "devDependencies": {
-    "c8": "7.11.2",
+    "c8": "7.11.3",
     "svelte": "3.48.0",
     "ts-eager": "2.0.2",
     "vitest": "0.12.6"
