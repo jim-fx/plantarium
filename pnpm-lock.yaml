@@ -59,6 +59,7 @@ importers:
       prettier: 2.6.2
       prettier-plugin-svelte: 2.7.0
       shortid: 2.2.16
+      stacktrace-parser: ^0.1.10
       svelte: 3.48.0
       svelte-check: 2.7.1
       svelte-forms-lib: 2.0.1
@@ -78,6 +79,7 @@ importers:
       file-saver: 2.0.5
       ogl-typescript: 0.1.40
       shortid: 2.2.16
+      stacktrace-parser: 0.1.10
       svelte-forms-lib: 2.0.1
       svelte-multiselect: 5.0.1
       vite: 2.9.9
@@ -412,6 +414,7 @@ importers:
       prettier: ^2.6.2
       prettier-plugin-svelte: ^2.7.0
       shortid: ^2.2.16
+      stacktrace-parser: ^0.1.10
       svelte: ^3.48.0
       svelte-check: ^2.7.1
       svelte-preprocess: ^4.10.6
@@ -429,6 +432,7 @@ importers:
       css-vars-from-json: 1.1.0
       file-saver: 2.0.5
       shortid: 2.2.16
+      stacktrace-parser: 0.1.10
     devDependencies:
       '@playwright/test': 1.22.0
       '@sveltejs/adapter-auto': 1.0.0-next.43

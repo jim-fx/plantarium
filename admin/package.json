@@ -38,6 +38,7 @@
     "file-saver": "2.0.5",
     "ogl-typescript": "^0.1.40",
     "shortid": "2.2.16",
+    "stacktrace-parser": "^0.1.10",
     "svelte-forms-lib": "2.0.1",
     "svelte-multiselect": "5.0.1",
     "vite": "2.9.9"

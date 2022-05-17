@@ -153,7 +153,7 @@ ${report.logs.map(l => {
   }
 
   async getById(id: string) {
-    const report = await this.repository.findOne({ id });
+    const report = await this.repository.findOne({ _id: id });
 
     if (!report) {
       throw new NotFoundException();
