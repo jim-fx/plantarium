@@ -166,7 +166,7 @@ Lets add those on the left side of the coffee machine.
 
 Any idea how to do that?`, {
         values: ["Coffee Grinder", `Wait for the inevateble heat death 
-of the universe, the should be powdered by then.`]
+of the universe, they should be powdered by then.`]
       })
 
       if (res2 !== "Coffee Grinder") {

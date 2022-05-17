@@ -43,7 +43,7 @@ wireMesh.visible = store.get("wireframe", false);
 
 const obj = new Mesh(gl, {
   geometry: new Box(gl, { size: 0 }),
-  program: test(gl),
+  program: green(gl),
 });
 obj.setParent(scene);
 debug.setModel(obj);

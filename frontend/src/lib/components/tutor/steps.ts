@@ -1,4 +1,5 @@
 import type TutorStep from './ITutorStep';
+import { browser } from "$app/env"
 import Final from './steps/Final.svelte';
 import Greeting from './steps/Greeting.svelte';
 
@@ -46,7 +47,7 @@ const steps: TutorStep[] = [
   {
     selector: '#nodesystem-view',
     description:
-      'This is the <b>Node View</b>, here you define the way your plant looks. Try playing with some of the settings. If you are not so sure how this works, maybe visit the <a href="/nodes/tutorial">NodeTutorial</a>',
+      `This is the <b>Node View</b>, here you define the way your plant looks. Try playing with some of the settings. If you are not so sure how this works, maybe visit the <a href="/nodes/tutorial?ref=${browser ? window.location : ""}">NodeTutorial</a>`,
   },
   {
     description: 'This Button opens the project view',

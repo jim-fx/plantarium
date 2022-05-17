@@ -76,16 +76,15 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
 
   if (instances) {
     const _instances = instances
-      ?.map((i) => convertInstancedGeometry(i))
-      .flat();
-
+      ?.map((i) => convertInstancedGeometry(calculateNormals(i)))
+      .flat()
     geometry = join(geometry, ..._instances);
   }
 
 
   return {
     stems,
-    geometry: calculateNormals(geometry)
+    geometry: geometry
   };
 
 }

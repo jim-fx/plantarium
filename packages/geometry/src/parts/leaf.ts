@@ -11,7 +11,7 @@ export default function(
   const amountTriangles = (amountX - 1) * (amountY - 1) * 2;
 
   const position = new Float32Array(amountPoints * 3);
-  const normal = new Float32Array(amountPoints * 2);
+  const normal = new Float32Array(amountPoints * 3);
   const uv = new Float32Array(amountPoints * 2);
   const index = new Uint16Array(amountTriangles * 3);
 
@@ -26,8 +26,11 @@ export default function(
       const curvedY = -(1 - s.y) * (1 - s.y) * 0.5;
       const curvedX = Math.sin(Math.abs(a) * Math.PI) * 0.01;
 
-      position[offset * 3 + i * 3 + 1] =
-        curvedX * xCurvature + curvedY * yCurvature;
+      normal[offset * 3 * i * 3 + 0] = 0;
+      normal[offset * 3 * i * 3 + 1] = 0;
+      normal[offset * 3 * i * 3 + 2] = 0;
+
+      position[offset * 3 + i * 3 + 1] = curvedX * xCurvature + curvedY * yCurvature;
       position[offset * 3 + i * 3 + 2] = s.y - 1;
 
       uv[offset * 2 + i * 2 + 0] = position[offset * 3 + i * 3 + 0] + 1 / 2;

@@ -83,7 +83,7 @@
 			bind:value={description}
 			placeholder={mode === 'bug'
 				? 'Please provide a detailed description of what happened.'
-				: 'Please describe the feature.'}
+				: 'Please describe the idea.'}
 		/>
 	</section>
 

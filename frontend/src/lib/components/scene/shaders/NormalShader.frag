@@ -12,10 +12,10 @@ vec2 matcap(vec3 eye, vec3 normal) {
 }
 
 void main() {
-    vec3 normal = normalize(vNormal*0.1);
+    vec3 normal = normalize(vNormal);
     float lighting = dot(normal, normalize(vec3(-0.3, 0.8, 0.6)));
 
-    vec3 mat = texture2D(tMap, matcap(normalize(vMVPos.xyz), normal)).rgb;
+    vec3 mat = texture2D(tMap, matcap(normalize(vMVPos.xyz), normal*0.8)).rgb;
 
     gl_FragColor.rgb = mat;
     gl_FragColor.a = 1.0;

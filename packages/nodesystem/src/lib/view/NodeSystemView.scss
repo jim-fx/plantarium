@@ -57,13 +57,6 @@
 
   background: var(--background-color, #3b3b3b);
 
-  background-image: radial-gradient(
-    rgba(255, 255, 255, 0.1) 1.2px,
-    transparent 1.2px
-  ),radial-gradient(
-    rgba(255, 255, 255, var(--scale)) 1px,
-    transparent 1px
-  );
 
   background-position: var(--pos-x) var(--pos-y), var(--pos-x) var(--pos-y);
   background-size: calc(var(--scale-x) + calc(var(--scale-x) / 4)) calc(var(--scale-y) + calc(var(--scale-y) / 4)), calc(var(--scale-x) / 4) calc(var(--scale-y) / 4);
@@ -71,4 +64,24 @@
   &.nodesystem-state-dragging {
     cursor: grab;
   }
+}
+
+.theme-dark .nodesystem-wrapper {
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.1) 1.2px,
+    transparent 1.2px
+  ),radial-gradient(
+    rgba(255, 255, 255, var(--scale)) 1px,
+    transparent 1px
+  );
+}
+
+.theme-light .nodesystem-wrapper {
+  background-image: radial-gradient(
+    rgba(10, 10, 10, 0.1) 1.2px,
+    transparent 1.2px
+  ),radial-gradient(
+    rgba(10, 10, 10, var(--scale)) 1px,
+    transparent 1px
+  );
 }

@@ -43,7 +43,7 @@ export default function(instances: InstancedGeometry): TransferGeometry[] {
   const exp: TransferGeometry[] = [];
   const geometry: TransferGeometry = {
     position: instances.position,
-    normal: instances.position,
+    normal: instances.normal,
     uv: instances.uv,
     index: instances.index,
   };

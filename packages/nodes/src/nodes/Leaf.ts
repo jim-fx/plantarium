@@ -1,4 +1,5 @@
 import {
+  calculateNormals,
   interpolateSkeleton,
   interpolateSkeletonVec,
   leaf,
@@ -10,7 +11,7 @@ import { typeCheckNode } from '../types';
 
 const defaultValue = [
   {
-    x: 1,
+    x: 0.8,
     y: 1,
     pinned: true,
   },

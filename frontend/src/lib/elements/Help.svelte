@@ -1,64 +1,67 @@
 <script>
-  import { Button, createAlert } from '@plantarium/ui';
-  import { Changelog } from '.';
-  import Report from './Report.svelte';
-  import { Tutor } from '../components/tutor';
+	import { Button, createAlert } from '@plantarium/ui';
+	import { Changelog } from '.';
+	import Report from './Report.svelte';
+	import { Tutor } from '../components/tutor';
 </script>
 
 <div>
-  <Button
-    name="Tutorial"
-    icon="hand"
-    --bg="#303030"
-    --text="white"
-    on:click={() => Tutor.restart()}
-  />
+	<Button
+		name="Tutorial"
+		icon="hand"
+		--bg="#303030"
+		--text="white"
+		--width="100%"
+		on:click={() => Tutor.restart()}
+	/>
 
-  <Button
-    name="Report Bug"
-    icon="exclamation"
-    --bg="#303030"
-    --text="white"
-    on:click={() =>
-      createAlert(Report, {
-        timeout: 0,
-        title: 'Report Bug',
-        type: 'error',
-        props: { mode: 'bug' },
-      })}
-  />
+	<Button
+		name="Report Bug"
+		icon="exclamation"
+		--bg="#303030"
+		--text="white"
+		on:click={() =>
+			createAlert(Report, {
+				timeout: 0,
+				title: 'Report Bug',
+				type: 'error',
+				props: { mode: 'bug' }
+			})}
+	/>
 
-  <Button
-    name="Request Feature"
-    --bg="#303030"
-    --text="white"
-    on:click={() =>
-      createAlert(Report, {
-        timeout: 0,
-        title: 'Request Feature',
-        props: { mode: 'feat' },
-      })}
-  />
-  <Button
-    name="Changelog"
-    --bg="#303030"
-    --text="white"
-    on:click={() => createAlert(Changelog, { timeout: 0 })}
-  />
+	<Button
+		name="Submit Idea"
+		icon="bulb"
+		--bg="#303030"
+		--text="white"
+		on:click={() =>
+			createAlert(Report, {
+				timeout: 0,
+				title: 'Submit Idea',
+				props: { mode: 'feat' }
+			})}
+	/>
+	<Button
+		name="Changelog"
+		--bg="#303030"
+		--width="100%"
+		--text="white"
+		on:click={() => createAlert(Changelog, { timeout: 0 })}
+	/>
 </div>
 
 <style lang="scss">
-  div {
-    display: grid;
+	div {
+		display: grid;
 
-    gap: 10px;
-  }
+		gap: 10px;
+	}
 
-  div :global(button) {
-    margin-bottom: 10px !important;
-  }
+	div :global(button) {
+		margin-bottom: 10px !important;
+	}
 
-  div :global(div:last-child button) {
-    margin-bottom: 0px !important;
-  }
+	div :global(div:last-child button) {
+		margin-bottom: 0px !important;
+	}
 </style>
