@@ -46,6 +46,8 @@ export default class NodeConnectionView extends ConnectionView {
     colorStore.on(conn.output.type, (color) => {
       this.path.style.stroke = color;
     });
+
+
   }
 
   handleNodeOver(node: Node) {

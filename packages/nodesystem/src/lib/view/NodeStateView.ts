@@ -35,12 +35,9 @@ export default class NodeStateView {
 
       if (this.element) {
         this.element.$on('change', ({ detail }) => {
-          // if (this.isPaused) return;
-          // this.isPaused = true;
           if (typeof detail !== 'undefined' && !Number.isNaN(detail)) {
             this.nodeState.setValue(detail);
           }
-          // this.isPaused = false;
         });
       }
     }
@@ -52,14 +49,11 @@ export default class NodeStateView {
   private rect: DOMRect;
 
   updateValue() {
-    // if (this.isPaused) return;
-    // this.isPaused = true;
     setTimeout(() => {
       if (this.element) {
         this.element.value = this.nodeState.getValue();
       }
     }, 50);
-    // this.isPaused = false;
   }
 
   updatePosition() {
@@ -85,5 +79,6 @@ export default class NodeStateView {
 
   setActive(isActive: boolean) {
     this.wrapper.classList[isActive ? 'remove' : 'add']('disabled');
+    this.nodeState.node.getInputs().forEach(s => s.view.updatePosition())
   }
 }
