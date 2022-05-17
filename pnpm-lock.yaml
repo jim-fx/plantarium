@@ -50,6 +50,7 @@ importers:
       '@typescript-eslint/eslint-plugin': 5.24.0
       '@typescript-eslint/parser': 5.24.0
       '@yr/monotone-cubic-spline': 1.0.3
+      css-vars-from-json: ^1.1.0
       dotenv: 16.0.1
       eslint: 8.15.0
       eslint-config-prettier: 8.5.0
@@ -75,6 +76,7 @@ importers:
       '@plantarium/theme': link:../packages/theme
       '@plantarium/ui': link:../packages/ui
       '@yr/monotone-cubic-spline': 1.0.3
+      css-vars-from-json: 1.1.0
       dotenv: 16.0.1
       file-saver: 2.0.5
       ogl-typescript: 0.1.40
