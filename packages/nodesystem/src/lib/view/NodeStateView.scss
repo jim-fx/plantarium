@@ -1,8 +1,20 @@
 .node-state-single-wrapper {
   position: relative;
-  padding: 0px 5px;
-  margin: 5px 0px;
+  padding: 5px 5px;
 	--width: 100%;
+}
+
+.node-state-single-wrapper.state-error::before{
+  position:absolute;
+  content:"";
+  width:10px;
+  height:10px;
+  left:-1px;
+  top:7px;
+  z-index:-1;
+  box-shadow: 0px 0px 5px 5px var(--alert-color,yellow);
+  border-radius: 10px;
+  opacity:0.5;
 }
 
 .node-state-single-wrapper.disabled > .node-state-input {

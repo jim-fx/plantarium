@@ -3,6 +3,7 @@ import { rotate3D } from '@plantarium/geometry';
 import { Vec3 } from 'ogl-typescript';
 import rotate2D from '@plantarium/geometry/src/helpers/rotate2D';
 import { typeCheckNode } from '../types';
+import { PlantStem } from '@plantarium/types';
 
 // const log = logger('node.gravity');
 
@@ -15,6 +16,7 @@ export default typeCheckNode({
   parameters: {
     input: {
       type: 'plant',
+      required: true,
       external: true,
     },
     type: {

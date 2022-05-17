@@ -1,3 +1,5 @@
+import type { SettingsTemplate } from "$lib/types";
+
 const template: SettingsTemplate = {
   enableSync: {
     type: 'boolean',
@@ -5,13 +7,13 @@ const template: SettingsTemplate = {
   },
   useRandomSeed: {
     type: 'boolean',
-    defaultValue: false
+    value: false
   },
   theme: {
     type: 'select',
+    inputType: "tab",
     values: ['dark', 'light'],
     value: 'dark',
-    inputType: "tab"
   },
   debug: {
     onlyDev: true,
@@ -23,33 +25,33 @@ const template: SettingsTemplate = {
 
       showNodeUpdates: {
         type: 'boolean',
-        defaultValue: false
+        value: false
       },
       renderPerf: {
         type: 'boolean',
-        defaultValue: false
+        value: false
       },
       generatePerf: {
         type: 'boolean',
-        defaultValue: false
+        value: false
       },
       pd: {
         type: 'boolean',
-        defaultValue: false
+        value: false
       },
       skeleton: {
         type: 'boolean',
-        defaultValue: false
+        value: false
       },
       wireframe: {
         type: 'boolean',
-        defaultValue: false
+        value: false
       },
       logLevel: {
         type: 'number',
         min: 0,
         max: 2,
-        defaultValue: 1
+        value: 1
       }
     }
   },
@@ -58,12 +60,12 @@ const template: SettingsTemplate = {
       grid: {
         label: 'Show Grid',
         type: 'boolean',
-        defaultValue: false
+        value: false
       },
       ground: {
         label: 'Show Ground',
         type: 'boolean',
-        defaultValue: true
+        value: true
       },
       resX: {
         onlyDev: true,
@@ -71,7 +73,7 @@ const template: SettingsTemplate = {
         min: 8,
         max: 64,
         step: 1,
-        defaultValue: 8
+        value: 8
       },
       resY: {
         onlyDev: true,
@@ -79,14 +81,14 @@ const template: SettingsTemplate = {
         min: 8,
         max: 64,
         step: 1,
-        defaultValue: 16
+        value: 16
       },
       scale: {
         type: 'number',
         min: 0,
         max: 5,
         step: 0.1,
-        defaultValue: 1
+        value: 1
       }
     }
   },
@@ -96,7 +98,7 @@ const template: SettingsTemplate = {
     min: 3,
     max: 12,
     step: 1,
-    defaultValue: 2
+    value: 2
   },
   stemResX: {
     onlyDev: true,
@@ -104,7 +106,7 @@ const template: SettingsTemplate = {
     min: 3,
     max: 32,
     step: 1,
-    defaultValue: 3
+    value: 3
   },
   stemResY: {
     onlyDev: true,
@@ -112,12 +114,12 @@ const template: SettingsTemplate = {
     min: 3,
     max: 64,
     step: 1,
-    defaultValue: 32
+    value: 32
   },
   isDev: {
     label: 'Advanced',
     type: 'boolean',
-    defaultValue: false
+    value: false
   }
 };
 

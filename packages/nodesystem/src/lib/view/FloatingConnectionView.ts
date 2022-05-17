@@ -150,6 +150,8 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
         outputNode: this.isInput ? this.hoveredSocket.node : this.socket.node,
       });
 
+      this.emit("remove")
+
       this.remove();
     } else if (keys.ctrlKey) {
       this.view.addMenu
@@ -166,9 +168,11 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
           // Do nothing^
         })
         .finally(() => {
+          this.emit("remove")
           this.remove();
         });
     } else {
+      this.emit("remove")
       this.remove();
     }
   }

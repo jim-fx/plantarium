@@ -1,3 +1,4 @@
+import { PlantNode } from "@plantarium/nodes";
 import { NodeProps } from "@plantarium/nodesystem";
 
 export type WrappedNode = {
@@ -10,6 +11,8 @@ export type WrappedNode = {
   level: number,
   buckets?: WrappedNode[][]
 
-  paramaters?: Record<string, any>,
+  exec: PlantNode
+
+  parameters?: Record<string, any>,
   results: any[]
 }

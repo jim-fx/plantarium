@@ -7,6 +7,7 @@ export default typeCheckNode({
   parameters: {
     input: {
       type: 'plant',
+      required: true,
       label: 'plant',
       external: true,
     },

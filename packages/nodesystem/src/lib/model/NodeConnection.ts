@@ -20,7 +20,13 @@ export default class NodeConnection {
   view!: NodeConnectionView;
 
   constructor(system: NodeSystem, { input, output }: ConnectionOptions) {
+
     // TODO: Dont connect if connection already exists
+    if (output.connections.find(c => c.input === input)) {
+      return;
+    } else if (input?.connection?.output === output) {
+      return;
+    }
 
     if (!output || !input) return;
 

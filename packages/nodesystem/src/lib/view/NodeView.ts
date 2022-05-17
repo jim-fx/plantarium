@@ -113,6 +113,9 @@ export default class NodeView {
       'node-selected',
       'node-dragging',
     );
+    if (s === "no-error") {
+      this.wrapper.classList.remove("node-error")
+    }
     this.wrapper.classList.add('node-' + s);
     this._state = s;
   }

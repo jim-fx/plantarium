@@ -5,3 +5,10 @@ expose({
   executeNodeSystem
 })
 
+export {
+  executeNodeSystem
+}
+
+export default {
+  executeNodeSystem
+}

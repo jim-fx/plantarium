@@ -1,11 +1,11 @@
 import worker from "./worker?worker"
+import workerType from "./worker";
 import { executeNodeSystem } from "./executeNodeSystem"
 import { wrap } from "comlink"
 
 const { DEV = false } = import.meta.env;
 
-
-export default () => {
+export default (): typeof workerType => {
   if (!('window' in globalThis)) return;
 
   const wrapped = wrap<typeof import("./executeNodeSystem")>(new worker());

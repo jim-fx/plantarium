@@ -16,6 +16,7 @@ export default class NodeSystemView extends EventEmitter {
   system: NodeSystem;
   wrapper: HTMLElement;
   transformWrapper: HTMLDivElement;
+  errorWrapper: HTMLDivElement;
   svg: SVGElement;
   addMenu: AddMenu;
   boxSelection: BoxSelection;
@@ -78,6 +79,10 @@ export default class NodeSystemView extends EventEmitter {
     this.transformWrapper.classList.add('nodesystem-transform');
     this.wrapper.appendChild(this.transformWrapper);
 
+    this.errorWrapper = document.createElement("div")
+    this.errorWrapper.classList.add("nodesystem-errors");
+    this.wrapper.appendChild(this.errorWrapper)
+
     this.nodeContainer = document.createElement('div');
     this.nodeContainer.classList.add('nodes-container');
     this.transformWrapper.append(this.nodeContainer);
@@ -112,27 +117,40 @@ export default class NodeSystemView extends EventEmitter {
     })
   }
 
+  showErrorMessages(_errors?: string[] | string) {
+    if (!_errors) {
+      this.errorWrapper.innerHTML = ""
+      return;
+    }
+    const errors = Array.isArray(_errors) ? _errors : [_errors];
+    this.errorWrapper.innerHTML = errors.map(err => `<p>${err}</p>`).join("");
+  }
+
   createFloatingConnection(socket: NodeInput | NodeOutput) {
     const floatingConnection = new FloatingConnectionView(socket, {
       x: this.mx,
       y: this.my,
     });
-    floatingConnection.once(
-      'connection',
-      ({
-        inputNode,
-        outputNode,
-        keyIn,
-        indexOut,
-      }: {
-        inputNode: Node;
-        outputNode: Node;
-        keyIn: string;
-        indexOut: number;
-      }) => {
-        outputNode.connectTo(inputNode, indexOut, keyIn);
-      },
-    );
+    return new Promise<void>((res) => {
+      floatingConnection.once("remove", res)
+      floatingConnection.once(
+        'connection',
+        ({
+          inputNode,
+          outputNode,
+          keyIn,
+          indexOut,
+        }: {
+          inputNode: Node;
+          outputNode: Node;
+          keyIn: string;
+          indexOut: number;
+        }) => {
+          outputNode.connectTo(inputNode, indexOut, keyIn);
+        },
+      );
+
+    })
   }
 
   setActive(n?: Node | undefined, { shiftKey = false, ctrlKey = false } = {}) {

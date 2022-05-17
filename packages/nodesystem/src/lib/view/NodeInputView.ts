@@ -25,16 +25,19 @@ export default class NodeInputView {
 
     this.wrapper.addEventListener(
       'mousedown',
-      (ev) => {
+      async (ev) => {
         ev.stopPropagation();
         ev.preventDefault();
+        this.node.enableUpdates = false;
         const connection = this.input.connection;
         if (connection) {
           connection.remove();
-          this.node.system.view.createFloatingConnection(connection.output);
+          await this.node.system.view.createFloatingConnection(connection.output);
         } else {
-          this.node.system.view.createFloatingConnection(this.input);
+          await this.node.system.view.createFloatingConnection(this.input);
         }
+        this.node.enableUpdates = true;
+        this.node.update()
       },
       false,
     );

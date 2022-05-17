@@ -21,6 +21,7 @@
     "@plantarium/nodesystem": "link:../packages/nodesystem",
     "@plantarium/renderer": "link:../packages/renderer",
     "@plantarium/theme": "link:../packages/theme",
+    "@plantarium/types": "link:../packages/types",
     "@plantarium/ui": "link:../packages/ui",
     "@yr/monotone-cubic-spline": "^1.0.3",
     "css-vars-from-json": "^1.1.0",

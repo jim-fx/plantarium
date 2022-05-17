@@ -54,6 +54,7 @@ export default typeCheckNode({
   parameters: {
     input: {
       type: 'plant',
+      required: true,
       external: true,
     },
     size: {

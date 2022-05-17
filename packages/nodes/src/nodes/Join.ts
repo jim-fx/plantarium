@@ -11,6 +11,7 @@ export default typeCheckNode({
     inputA: {
       type: 'plant',
       label: 'plant',
+      required: true,
       external: true,
     },
     inputB: {
@@ -37,7 +38,6 @@ export default typeCheckNode({
     log(stemsA, stemsB);
 
     const stems = [...stemsA, ...stemsB];
-
 
     return {
       stems,

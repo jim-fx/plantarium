@@ -1,22 +1,21 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { browser } from '$app/env';
+	import type { PlantariumSettings, PlantProject } from '@plantarium/types';
 
 	import type { Writable } from 'svelte/store';
 	import Scene from '.';
-	import { projectManager, settingsManager } from '..';
+	import { projectManager, settingsManager, nodeSystem } from '..';
 	import * as perf from '../../helpers/performance';
 
 	let canvas: HTMLCanvasElement;
 
 	let scene: Scene;
-	let pd;
-
-	$: if (canvas && projectManager && !scene && browser) scene = new Scene(projectManager, canvas);
+	let pd: PlantProject;
 
 	$: isLoading = scene && scene.isLoading;
 
-	let unsub;
+	let unsub: () => void;
 	$: if (projectManager) {
 		unsub && unsub();
 		unsub = projectManager.on('save', (plant) => {
@@ -34,8 +33,13 @@
 	let renderCanvas: HTMLCanvasElement;
 
 	onMount(() => {
+		scene = new Scene(projectManager, canvas);
+
 		perf.createCanvas('render', renderCanvas);
 		perf.createCanvas('generate', generateCanvas);
+		return scene.fg.on('node-errors', (err) => {
+			nodeSystem.view.showErrorMessages(err);
+		});
 	});
 </script>
 

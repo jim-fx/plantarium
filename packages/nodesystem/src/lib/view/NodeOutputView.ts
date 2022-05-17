@@ -23,6 +23,7 @@ export default class NodeOutputView {
     this.wrapper.addEventListener(
       'mousedown',
       (ev) => {
+        if (ev.target !== this.wrapper) return;
         ev.stopPropagation();
         ev.preventDefault();
         this.node.system.view.createFloatingConnection(this.output);

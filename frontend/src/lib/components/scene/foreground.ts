@@ -1,7 +1,7 @@
 import { transferToGeometry } from '@plantarium/geometry';
-import { logger, throttle } from '@plantarium/helpers';
+import { EventEmitter, logger, throttle } from '@plantarium/helpers';
 import { createAlert, createToast } from '@plantarium/ui';
-import { Box, Mesh } from 'ogl-typescript';
+import { Box, Mesh, type OGLRenderingContext } from 'ogl-typescript';
 import type Scene from '.';
 import { settingsManager, projectManager } from '..';
 import { Report } from '../../elements';
@@ -10,24 +10,26 @@ import DebugScene from './debug';
 import { MatCapShader, NormalShader } from './shaders';
 import * as performance from '../../helpers/performance';
 import { createWorker } from '@plantarium/generator';
+import type { PlantariumSettings, PlantProject } from '@plantarium/types';
 
 const updateThumbnail = throttle((geo: TransferGeometry) => {
   projectManager.renderThumbnail({ geo });
 }, 5000);
 
 const log = logger('scene.foreground');
-export default class ForegroundScene {
-  private plant: PlantProject;
-  private settings: PlantariumSettings;
+export default class ForegroundScene extends EventEmitter {
+  private plant: PlantProject | undefined;
+  private settings: PlantariumSettings | undefined;
   private dbg: DebugScene;
 
-  private gl: WebGL2RenderingContext;
+  private gl: OGLRenderingContext;
 
   private mesh: Mesh;
 
   private worker = createWorker();
 
   constructor(private scene: Scene, private pm: ProjectManager) {
+    super()
     this.gl = scene.renderer.gl;
 
     this.initGeometry();
@@ -68,17 +70,24 @@ export default class ForegroundScene {
     try {
       performance.start('generate');
 
-      globalThis['pt'] = p;
-
       const result = await this.worker.executeNodeSystem(p, s);
 
       performance.stop('generate');
 
-      if (!result) return;
+      this.scene.isLoading.set(false);
+
+      if (!result || result.errors || !result.geometry) {
+        this.mesh.visible = false;
+        if (result.errors) {
+          this.emit("node-errors", result.errors)
+        }
+        return;
+      } else {
+        this.emit("node-errors", []);
+        this.mesh.visible = true;
+      }
 
       updateThumbnail(result.geometry);
-
-      this.scene.isLoading.set(false);
 
       this.dbg.setPlant(result);
 

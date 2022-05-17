@@ -6,6 +6,9 @@ import type NodeType from '../model/NodeType';
 import type NodeSystem from '../model/NodeSystem';
 import { InputSearch } from '@plantarium/ui';
 import type { NodeProps } from '../types';
+import { logger } from '@plantarium/helpers';
+
+const log = logger("AddMenu")
 
 interface ContextOptions {
   x: number;
@@ -56,7 +59,7 @@ export default class RightClickMenu {
   }
 
   updateTypes(types: NodeType[]) {
-    console.log("SetTypes", { types });
+    log("register types", types)
     this.searchEl.setItems(
       types.map((t) => {
         return {

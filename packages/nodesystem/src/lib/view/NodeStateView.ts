@@ -1,8 +1,4 @@
-import * as p from '@plantarium/ui';
-
-console.log({ p })
-
-const stateToElement = p.stateToElement;
+import { stateToElement } from '@plantarium/ui';
 import type { SvelteComponent } from 'svelte';
 import type NodeState from '../model/NodeState';
 import './NodeStateView.scss';
@@ -69,6 +65,14 @@ export default class NodeStateView {
   updatePosition() {
     this.rect = this.wrapper.getBoundingClientRect();
     this.nodeState.getInput()?.view?.updatePosition();
+  }
+
+  setErrorState(err: boolean) {
+    if (err) {
+      this.wrapper.classList.add("state-error")
+    } else {
+      this.wrapper.classList.remove("state-error")
+    }
   }
 
   get y() {

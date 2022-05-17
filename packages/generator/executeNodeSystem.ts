@@ -1,12 +1,20 @@
 import nodeMap from "./nodeMap";
 import createGeneratorContext from "./generatorContext";
 import { tube, join, convertInstancedGeometry, calculateNormals } from "@plantarium/geometry";
+import { PlantProject, PlantariumSettings } from "@plantarium/types";
 
 
 export async function executeNodeSystem(project: PlantProject, settings: Partial<PlantariumSettings>) {
 
 
   const gctx = createGeneratorContext(project, settings);
+
+  if (gctx.errors) {
+    return {
+      errors: gctx.errors
+    }
+  }
+
 
   const ctx = gctx.ctx;
 
@@ -32,6 +40,10 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
 
         let parameters = gctx.constructParametersForNode(n)
 
+        if (parameters?.errors) {
+          return { errors: parameters.errors }
+        }
+
         if (execNode?.computeStem) {
           ctx["_id"] = n.id;
           const result = execNode.computeStem(parameters, ctx);
@@ -51,26 +63,21 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
     }
   }
 
+  if (!gctx?.outputNode?.parameters?.input) {
+    return {
+      errors: ["Missing input connection to output node"]
+    }
+  }
 
-  // Now we can start executing buckets
-  // for (const bucket of nodeBuckets.reverse()) {
-  //   for (const n of bucket) {
-  //     const execNode = nodeMap.get(n.type);
-  //     if (execNode) {
-  //
-  //       let parameters = gctx.constructParametersForNode(n)
-  //
-  //  
-  //     } else {
-  //       console.warn("Missing Type", n.type)
-  //       console.log(nodeMap)
-  //     }
-  //   }
-  // }
-  //
+  const res = gctx.outputNode.parameters.input();
+  if (!res) {
+    return {
+      errors: ["DUnno?"]
+    }
+  }
 
+  const { stems, instances } = res;
 
-  const { stems, instances } = gctx.outputNode.paramaters.input();
 
   let geometry = join(...stems.map(s => tube(s.skeleton, ctx.getSetting("stemResX"))));
 

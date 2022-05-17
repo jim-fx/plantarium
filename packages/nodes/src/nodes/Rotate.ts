@@ -1,9 +1,10 @@
 import { rotate3D } from '@plantarium/geometry';
+import { PlantStem } from '@plantarium/types';
 import { typeCheckNode } from '../types';
 
 const getRotationAxis = (mode: string) => {
-  if (mode === 'X') return [1, 0, 0];
-  if (mode === 'Z') return [0, 0, 1];
+  if (mode === 'x') return [1, 0, 0];
+  if (mode === 'z') return [0, 0, 1];
   return [0, 1, 0];
 };
 
@@ -17,6 +18,7 @@ export default typeCheckNode({
   parameters: {
     input: {
       type: 'plant',
+      required: true,
       external: true,
     },
     axis: {
@@ -24,8 +26,8 @@ export default typeCheckNode({
       internal: true,
       label: false,
       inputType: "tab",
-      values: ['X', 'Y', 'Z'],
-      value: "X"
+      values: ['x', 'y', 'z'],
+      value: "x"
     },
     spread: {
       internal: true,
@@ -40,7 +42,7 @@ export default typeCheckNode({
       value: 0,
     },
   },
-  computeStem(parameters, ctx) {
+  computeStem(parameters) {
 
     const { input, axis, spread, } = parameters;
 

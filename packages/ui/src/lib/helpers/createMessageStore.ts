@@ -77,8 +77,6 @@ const createMessageFactory =
 export default () => {
   const store: Writable<Message[]> = writable([]);
 
-  store.subscribe(console.log)
-
   const createMessage = createMessageFactory(store);
 
   return { store, createMessage, MessageType };

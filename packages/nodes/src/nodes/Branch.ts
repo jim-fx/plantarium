@@ -18,6 +18,7 @@ export default typeCheckNode({
       type: 'plant',
       label: 'plant',
       external: true,
+      required: true,
     },
     length: {
       type: 'number',

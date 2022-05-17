@@ -6,6 +6,7 @@ import NodeInput from './NodeInput';
 
 export default class NodeState extends EventEmitter {
   isExternal = false;
+  isOkay = true;
   private input: NodeInput;
 
   view: NodeStateView;
@@ -25,6 +26,7 @@ export default class NodeState extends EventEmitter {
     if (!this.template.internal) {
       this.input = new NodeInput(this, template.type, key);
     }
+
   }
 
   setIsExternal(isExternal = false) {
@@ -36,6 +38,21 @@ export default class NodeState extends EventEmitter {
     return this.value;
   }
 
+  private checkErrors(value = this.template.value) {
+
+    if (this.template?.required && value === undefined) {
+      this.isOkay = false;
+    } else {
+      this.isOkay = true;
+    }
+
+
+    if (this?.view) {
+      this.view.setErrorState(!this.isOkay)
+    }
+
+  }
+
   setValue(value: unknown = this.template.value) {
     if (!this.isExternal) {
       if (this.node.enableUpdates) {
@@ -44,9 +61,10 @@ export default class NodeState extends EventEmitter {
       this.value = value;
     }
     this.node._state[this.key] = value;
+    this.checkErrors(value)
     if (this.node.enableUpdates) {
       this?.view.updateValue();
-      this.node.update();
+      this.isOkay && this.node.update();
     }
   }
 
@@ -61,5 +79,6 @@ export default class NodeState extends EventEmitter {
   bindView() {
     this.view = new NodeStateView(this);
     this.input && this.input.bindView();
+    this.checkErrors()
   }
 }

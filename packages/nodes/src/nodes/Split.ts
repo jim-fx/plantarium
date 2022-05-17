@@ -9,6 +9,7 @@ export default typeCheckNode({
     input: {
       type: 'plant',
       label: 'plant',
+      required: true,
       external: true,
     },
     height: {

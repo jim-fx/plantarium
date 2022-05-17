@@ -1,5 +1,7 @@
 import type { CheckboxTemplate, CurveTemplate, ShapeTemplate, FloatTemplate, IntegerTemplate, SelectTemplate, ValueTemplate } from "@plantarium/ui";
 import type { NodeContext } from "@plantarium/generator"
+import type { PlantStem } from "@plantarium/types"
+import { TransferGeometry } from "@plantarium/types";
 
 type Instances = {
   offset: Float32Array;
@@ -30,7 +32,7 @@ type AllTemplates = ValueTemplate | PlantTemplate | Vec2Template | Vec3Template;
 
 export type NodeDataTypes = AllTemplates["type"];
 
-type NodeParameters = Record<string, (AllTemplates) & { internal?: boolean, external?: boolean, label?: boolean | string }>;
+type NodeParameters = Record<string, AllTemplates & { internal?: boolean, external?: boolean, label?: boolean | string, required?: boolean }>;
 
 type ResolvableParameter<T extends NodeParameters[string], K = T["value"]> = T["internal"] extends boolean ? K : (alpha?: number) => K;
 

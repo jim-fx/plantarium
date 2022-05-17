@@ -103,15 +103,18 @@ export default class Node extends EventEmitter {
       this.view.showUpdate();
     }
 
-    this.computedData = this._compute(this.state);
-
+    if (Object.values(this.states).find(s => !s.isOkay)) {
+      this.computedData = undefined;
+    } else {
+      this.computedData = this._compute(this.state);
+    }
     this.emit('computedData', this.computedData);
+
 
     //Update downstream nodes
     this.refs.forEach((ref) => {
       ref.node.enableUpdates = false;
       ref.keyIn.forEach((keyIn) => {
-
         if (this.system.options.deferCompute) {
           ref.node.setStateValue(keyIn, { type: this.attributes.type, parameters: this.computedData });
         } else {

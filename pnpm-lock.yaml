@@ -236,6 +236,7 @@ importers:
       '@plantarium/nodesystem': link:../packages/nodesystem
       '@plantarium/renderer': link:../packages/renderer
       '@plantarium/theme': link:../packages/theme
+      '@plantarium/types': link:../packages/types
       '@plantarium/ui': link:../packages/ui
       '@sveltejs/adapter-static': 1.0.0-next.31
       '@sveltejs/kit': 1.0.0-next.334
@@ -280,6 +281,7 @@ importers:
       '@plantarium/nodesystem': link:../packages/nodesystem
       '@plantarium/renderer': link:../packages/renderer
       '@plantarium/theme': link:../packages/theme
+      '@plantarium/types': link:../packages/types
       '@plantarium/ui': link:../packages/ui
       '@yr/monotone-cubic-spline': 1.0.3
       css-vars-from-json: 1.1.0
@@ -386,12 +388,18 @@ importers:
 
   packages/nodes:
     specifiers:
+      '@plantarium/generator': link:../generator
       '@plantarium/geometry': link:../geometry
       '@plantarium/helpers': link:../helpers
+      '@plantarium/types': link:../types
+      '@plantarium/ui': link:../ui
       ogl-typescript: ^0.1.40
     dependencies:
+      '@plantarium/generator': link:../generator
       '@plantarium/geometry': link:../geometry
       '@plantarium/helpers': link:../helpers
+      '@plantarium/types': link:../types
+      '@plantarium/ui': link:../ui
       ogl-typescript: 0.1.40
 
   packages/nodesystem:
@@ -2429,7 +2437,7 @@ packages:
       magic-string: 0.26.2
       svelte: 3.48.0
       svelte-hmr: 0.14.11_svelte@3.48.0
-      vite: 2.9.9
+      vite: 2.9.9_sass@1.51.0
     transitivePeerDependencies:
       - supports-color
     dev: true
