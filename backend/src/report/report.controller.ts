@@ -35,7 +35,7 @@ export class ReportController {
 
   @Delete('/:id')
   @Permissions(Permission['report.delete'])
-  public deleteReport(@Param('id') id) {
+  public deleteReport(@Param('id') id: string) {
     return this.reportService.deleteReport(id);
   }
 
@@ -68,6 +68,10 @@ export class ReportController {
 
   @Get('/labels')
   public listLabels() {
-    return this.reportService.getIssueLabels();
+    try {
+      return this.reportService.getIssueLabels();
+    } catch (err) {
+      return []
+    }
   }
 }

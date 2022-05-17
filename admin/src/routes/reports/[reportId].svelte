@@ -2,9 +2,9 @@
   import { api } from '$lib';
 
   export async function load({ params }) {
-    console.log('Looad', params);
     const report = await api.getReport(params.reportId);
     const reportLabels = await api.getAvailableLabels();
+    console.log('Looad', { params, report, reportLabels });
     return {
       props: {
         report,
@@ -72,6 +72,7 @@
   }
 
   onMount(async () => {
+    console.log({ report, reportLabels });
     api.getPermission();
     setTimeout(() => {
       initialized = true;
