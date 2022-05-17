@@ -132,7 +132,7 @@
   <br />
 
   <h3>Tags:</h3>
-  {#if reportLabels}
+  {#if Array.isArray(reportLabels)}
     <Select bind:selected={labels} values={reportLabels} />
   {:else}
     <p>Could not load report labels</p>
