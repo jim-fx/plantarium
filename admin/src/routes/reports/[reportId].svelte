@@ -5,7 +5,6 @@
     console.log('Looad', params);
     const report = await api.getReport(params.reportId);
     const reportLabels = await api.getAvailableLabels();
-    console.log({ reportLabels });
     return {
       props: {
         report,
@@ -132,7 +131,11 @@
   <br />
 
   <h3>Tags:</h3>
-  <Select bind:selected={labels} values={reportLabels} />
+  {#if reportLabels}
+    <Select bind:selected={labels} values={reportLabels} />
+  {:else}
+    <p>Could not load report labels</p>
+  {/if}
 
   <br />
   {#if report.browser}
