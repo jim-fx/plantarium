@@ -24,7 +24,7 @@ export default typeCheckNode({
       internal: true,
       label: false,
       inputType: "tab",
-      values: ['Y', 'X', 'Z'],
+      values: ['X', 'Y', 'Z'],
       value: "X"
     },
     spread: {

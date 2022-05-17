@@ -68,7 +68,6 @@ export function add(o) {
 export function commit() {
   if (tempScene.length) {
     const geo = tempScene.length > 1 ? join(...tempScene) : tempScene[0];
-    console.log(geo);
     obj.geometry = wireMesh.geometry = transferToGeometry(gl, geo);
     obj.visible = true;
     if (particles.visible) {
