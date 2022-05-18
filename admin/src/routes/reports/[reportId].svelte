@@ -1,10 +1,16 @@
 <script lang="ts" context="module">
   import { api } from '$lib';
 
+  import type { Report } from '@plantarium/backend';
+
   export async function load({ params }) {
     const report = await api.getReport(params.reportId);
-    const reportLabels = await api.getAvailableLabels();
-    console.log('Looad', { params, report, reportLabels });
+    let reportLabels = [];
+    try {
+      reportLabels = await api.getAvailableLabels();
+    } catch (err) {
+      console.log('Cant get report labels');
+    }
     return {
       props: {
         report,
@@ -28,16 +34,7 @@
     VITE_GH_REPO,
   } = import.meta.env;
 
-  export let report: {
-    gh_issue: number[];
-    labels: string[];
-    type: string;
-    logs: any[];
-    title: string;
-    description: string;
-    browser: string;
-    stacktrace: string;
-  };
+  export let report: Report;
   export let reportLabels: unknown[] = [];
   let initialized = false;
 
@@ -69,6 +66,11 @@
     if (res === 'yes') {
       deletePromise = api.deleteReport(reportId);
     }
+  }
+
+  async function handleOpenReport() {
+    await api.updateReport(reportId, { open: !open });
+    report.open = !report.open;
   }
 
   onMount(async () => {
@@ -118,6 +120,10 @@
           on:click={togglePublish}>publish</button
         >
       {/if}
+
+      <button class="publish" on:click={handleOpenReport}
+        >{report.open ? 'Close Report' : 'Open Report'}</button
+      >
     </div>
   </header>
 
@@ -188,6 +194,8 @@
   }
 
   .publish {
-    @apply bg-black rounded-md text-white p-2 py-1;
+    @apply rounded-md p-2 py-1;
+    color: var(--background-color, white);
+    background-color: var(--text-color, black);
   }
 </style>

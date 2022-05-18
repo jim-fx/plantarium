@@ -2,8 +2,9 @@
   import { base } from '$app/paths';
 
   import { humane } from '$lib/helpers';
+  import type { Report } from '@plantarium/backend';
   const { VITE_GH_ORG, VITE_GH_REPO } = import.meta.env;
-  export let report;
+  export let report: Report;
 
   $: secondsAgo = Math.floor(
     (Date.now() - new Date(report.createdAt).getTime()) / 1000,
@@ -13,6 +14,7 @@
 <a
   style={'background-color: var(--foreground-color)'}
   class="w-full p-4 block"
+  class:closed={!report.open}
   href={base + '/reports/' + report.id}
 >
   <div class="flex items-center py-1">
@@ -30,3 +32,9 @@
     <i class="text-xs">{humane.secondsToString(secondsAgo)} ago</i>
   </div>
 </a>
+
+<style>
+  a.closed {
+    opacity: 0.5;
+  }
+</style>

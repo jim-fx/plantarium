@@ -8,6 +8,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@plantarium/backend": "link:../../backend",
     "svelte": "^3.48.0"
   }
 }
