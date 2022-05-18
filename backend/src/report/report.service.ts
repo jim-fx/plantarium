@@ -53,6 +53,10 @@ export class ReportService {
       report.title = dto.title;
     }
 
+    if ("open" in dto) {
+      report.open = dto.open;
+    }
+
     if (dto.description) {
       report.description = dto.description;
     }

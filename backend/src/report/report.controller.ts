@@ -50,7 +50,6 @@ export class ReportController {
     @Param('id') id: string,
     @Body() updateReportDto: UpdateReportDto,
   ) {
-    console.log('Update', id);
     return this.reportService.updateReport(id, updateReportDto);
   }
 

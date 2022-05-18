@@ -19,6 +19,9 @@ export class UpdateReportDto {
   readonly labels?: PLabel[];
 
   @IsOptional()
+  readonly open?: boolean;
+
+  @IsOptional()
   readonly title: string;
 
   @IsOptional()
