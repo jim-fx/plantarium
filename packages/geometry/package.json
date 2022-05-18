@@ -2,11 +2,13 @@
   "name": "@plantarium/geometry",
   "version": "1.0.0",
   "main": "src/index.ts",
+  "type": "module",
   "license": "MIT",
   "scripts": {
     "build": "esbuild src/index.ts --bundle --minify --sourcemap --format=esm --outdir=public/dist && pnpm build:types",
     "build:types": "tsc && pnpm bundle:types",
     "dev:build": "node dev-server.mjs",
+    "test": "tsm node_modules/uvu/bin.js tests",
     "dev:types": "tsc-watch --noClear --onSuccess 'pnpm bundle:types'",
     "dev": "run-p dev:build dev:types",
     "bundle:types": "dts-bundle --main public/dist/geometry/src/index.d.ts --name geometry --out ../../bundle.d.ts",
@@ -23,9 +25,12 @@
     "@plantarium/types": "link:../types",
     "dts-bundle": "0.7.3",
     "esbuild": "0.14.39",
+    "loadr": "^0.1.1",
     "npm-run-all": "4.1.5",
     "rimraf": "3.0.2",
     "tsc-watch": "5.0.3",
-    "typescript": "4.6.4"
+    "tsm": "^2.2.1",
+    "typescript": "4.6.4",
+    "uvu": "0.5.3"
   }
 }

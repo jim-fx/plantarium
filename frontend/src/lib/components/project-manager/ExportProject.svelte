@@ -1,4 +1,13 @@
 <script lang="ts">
+	import exportModel from '$lib/helpers/exportProject';
+	import { download } from '@plantarium/helpers';
+	import { json } from '@plantarium/helpers/src/download';
+
+	import type { PlantProject } from '@plantarium/types';
+	import { Button } from '@plantarium/ui';
+	import { onMount } from 'svelte';
+	import { settingsManager } from '..';
+
 	export let project: PlantProject;
 
 	let textarea: HTMLTextAreaElement;
@@ -16,36 +25,39 @@
 	}
 
 	function handleCopy() {
+		if (!textarea) textarea = document.createElement('textarea');
 		textarea.value = JSON.stringify(cleaned);
+		document.body.appendChild(textarea);
 		textarea.select();
 		document.execCommand('copy');
 		textarea.blur();
+		document.body.removeChild(textarea);
 	}
 </script>
 
 <div id="wrapper">
 	<div id="header">
-		<button name="copy" on:click={handleCopy}>copy</button>
-		<a
-			href={'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(cleaned))}
-			download={`${project.meta.name ?? `plant-${project.meta.id}`}.json`}>download</a
-		>
-	</div>
-	<div id="content">
-		<textarea bind:this={textarea}>{JSON.stringify(cleaned, null, 2)}</textarea>
+		<Button name="copy" on:click={handleCopy} />
+		<Button
+			name="download"
+			on:click={() => download.json(cleaned, project.meta.name ?? `plant-${project.meta.id}`)}
+		/>
+		<Button
+			name="download obj"
+			on:click={() => exportModel(project, settingsManager.getSettings(), 'obj')}
+		/>
 	</div>
 </div>
 
 <style>
+	#header {
+		display: flex;
+		--margin: 0px 10px 0px 0px;
+	}
 	#wrapper {
 		max-height: 70vh;
 		width: 100%;
 		display: grid;
 		grid-template-rows: min-content 1fr;
-	}
-
-	textarea {
-		max-height: 100%;
-		overflow: scroll;
 	}
 </style>

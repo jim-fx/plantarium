@@ -1,4 +1,5 @@
 import type { TransferGeometry, Vec2 } from "@plantarium/types";
+import { calculateNormals } from "../helpers";
 
 export default function(
   shape: Vec2[],
@@ -18,18 +19,16 @@ export default function(
   shape.forEach((s, j) => {
     const offset = j * amountX;
 
-    // Do the left side of the leaf;
     for (let i = 0; i < amountX; i++) {
       const a = 2 - (i / (amountX - 1)) * 2 - 1;
-      position[offset * 3 + i * 3 + 0] = (s.x - 1) * a * 0.5;
 
       const curvedY = -(1 - s.y) * (1 - s.y) * 0.5;
       const curvedX = Math.sin(Math.abs(a) * Math.PI) * 0.01;
 
-      normal[offset * 3 * i * 3 + 0] = 0;
-      normal[offset * 3 * i * 3 + 1] = 0;
-      normal[offset * 3 * i * 3 + 2] = 0;
+      // const n = normalize3D([curvedX, 1, curvedY]);
+      // insertArray(normal, offset * 3 * i * 3, n)
 
+      position[offset * 3 + i * 3 + 0] = (s.x - 1) * a * 0.5;
       position[offset * 3 + i * 3 + 1] = curvedX * xCurvature + curvedY * yCurvature;
       position[offset * 3 + i * 3 + 2] = s.y - 1;
 
@@ -51,12 +50,10 @@ export default function(
     }
   });
 
-  // console.table(groupArray(index, 3));
-
-  return {
+  return calculateNormals({
     position,
     normal,
     index,
     uv,
-  };
+  });
 }

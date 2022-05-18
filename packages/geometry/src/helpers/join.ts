@@ -1,4 +1,5 @@
 import type { TransferGeometry } from "@plantarium/types";
+import sanityCheckGeometry from "./sanityCheckGeometry";
 
 export default function(..._geometries: TransferGeometry[]): TransferGeometry {
 
@@ -6,16 +7,22 @@ export default function(..._geometries: TransferGeometry[]): TransferGeometry {
 
   if (geometries.length === 1) return geometries[0];
 
-  const position = new Float32Array(
-    geometries.reduce((a, b) => a + b.position.length, 0),
-  );
-  const normal = new Float32Array(
-    geometries.reduce((a, b) => a + b.normal.length, 0),
-  );
-  const uv = new Float32Array(geometries.reduce((a, b) => a + b.uv.length, 0));
-  const indexSize = geometries.reduce((a, b) => a + b.index.length, 0);
+  geometries.forEach(c => sanityCheckGeometry(c))
+
+  let positionAmount = 0;
+  let uvAmount = 0;
+  let indexAmount = 0;
+  for (const { position, index, uv } of geometries) {
+    positionAmount += position.length;
+    uvAmount += uv.length;
+    indexAmount += index.length;
+  }
+
+  const uv = new Float32Array(uvAmount);
+  const position = new Float32Array(positionAmount)
+  const normal = new Float32Array(positionAmount)
   const index =
-    indexSize > 65536 ? new Uint32Array(indexSize) : new Uint16Array(indexSize);
+    indexAmount > 65536 ? new Uint32Array(indexAmount) : new Uint16Array(indexAmount);
 
   let posOffset = 0;
   let normalOffset = 0;

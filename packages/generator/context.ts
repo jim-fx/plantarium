@@ -10,8 +10,8 @@ const createContext = (s: Partial<PlantariumSettings>) => {
   let seed = 0;
   noise.seed = 0;
   return {
-    _id:"",
-    getId(){
+    _id: "",
+    getId() {
       return this._id;
     },
     n1d(scale: number) {

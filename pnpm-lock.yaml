@@ -350,13 +350,17 @@ importers:
       '@plantarium/types': link:../types
       dts-bundle: 0.7.3
       esbuild: 0.14.39
+      esbuild-register: ^3.3.2
       gl-matrix: ^3.4.3
+      loadr: ^0.1.1
       npm-run-all: 4.1.5
       ogl-typescript: ^0.1.40
       open-simplex-noise: ^2.5.0
       rimraf: 3.0.2
       tsc-watch: 5.0.3
+      tsm: ^2.2.1
       typescript: 4.6.4
+      uvu: 0.5.3
     dependencies:
       '@plantarium/helpers': link:../helpers
       gl-matrix: 3.4.3
@@ -366,10 +370,14 @@ importers:
       '@plantarium/types': link:../types
       dts-bundle: 0.7.3
       esbuild: 0.14.39
+      esbuild-register: 3.3.2_esbuild@0.14.39
+      loadr: 0.1.1
       npm-run-all: 4.1.5
       rimraf: 3.0.2
       tsc-watch: 5.0.3_typescript@4.6.4
+      tsm: 2.2.1
       typescript: 4.6.4
+      uvu: 0.5.3
 
   packages/helpers:
     specifiers:
@@ -4743,6 +4751,14 @@ packages:
       tmp: 0.2.1
     dev: true
 
+  /esbuild-register/3.3.2_esbuild@0.14.39:
+    resolution: {integrity: sha512-jceAtTO6zxPmCfSD5cBb3rgIK1vmuqCKYwgylHiS1BF4pq0jJiJb4K2QMuqF4BEw7XDBRatYzip0upyTzfkgsQ==}
+    peerDependencies:
+      esbuild: '>=0.12 <1'
+    dependencies:
+      esbuild: 0.14.39
+    dev: true
+
   /esbuild-sunos-64/0.14.39:
     resolution: {integrity: sha512-qHq0t5gePEDm2nqZLb+35p/qkaXVS7oIe32R0ECh2HOdiXXkj/1uQI9IRogGqKkK+QjDG+DhwiUw7QoHur/Rwg==}
     engines: {node: '>=12'}
@@ -7395,6 +7411,12 @@ packages:
   /loader-runner/4.3.0:
     resolution: {integrity: sha512-3R/1M+yS3j5ou80Me59j7F9IMs4PXs3VqRrm0TU3AbKPxlmpoY1TNscJV/oGJXo8qCatFGTfDbY6W6ipGOYXfg==}
     engines: {node: '>=6.11.5'}
+    dev: true
+
+  /loadr/0.1.1:
+    resolution: {integrity: sha512-lkI9ckI3cF+DQMbc0Fn/PgeMXQEL4gcOqUQQ1/tEzttQ2CPJvWzBsa9THeS4kqYQ2oNUVuDfk1+7PBZenvp3og==}
+    engines: {node: '>=12'}
+    hasBin: true
     dev: true
 
   /local-pkg/0.4.1:
@@ -10207,6 +10229,14 @@ packages:
 
   /tslib/2.4.0:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
+
+  /tsm/2.2.1:
+    resolution: {integrity: sha512-qvJB0baPnxQJolZru11mRgGTdNlx17WqgJnle7eht3Vhb+VUR4/zFA5hFl6NqRe7m8BD9w/6yu0B2XciRrdoJA==}
+    engines: {node: '>=12'}
+    hasBin: true
+    dependencies:
+      esbuild: 0.14.39
+    dev: true
 
   /tsutils/3.21.0_typescript@4.6.4:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}

@@ -1,5 +1,6 @@
 import {
   calculateNormals,
+  instanceGeometry,
   interpolateSkeleton,
   interpolateSkeletonVec,
   leaf,
@@ -162,7 +163,7 @@ export default typeCheckNode({
     const _curvature = curvature();
 
     const geometry = leaf(shape(), {
-      res: ctx.getSetting('leafRes', 2),
+      res: ctx.getSetting('leafRes') || 2,
       xCurvature: _curvature.x,
       yCurvature: _curvature.y,
     });
@@ -170,7 +171,7 @@ export default typeCheckNode({
     return {
       geometry: input().geometry,
       // Here we add the resulting geometry to the instances
-      instances: instances.map((i) => ({ ...i, ...geometry })),
+      instances: instances.map((inst) => instanceGeometry(geometry, inst)),
     };
   },
 });

@@ -1,6 +1,6 @@
 import nodeMap from "./nodeMap";
 import createGeneratorContext from "./generatorContext";
-import { tube, join, convertInstancedGeometry, calculateNormals } from "@plantarium/geometry";
+import { tube, join, convertInstancedGeometry, calculateNormals, sanityCheckGeometry } from "@plantarium/geometry";
 import { PlantProject, PlantariumSettings } from "@plantarium/types";
 
 
@@ -80,14 +80,14 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
 
 
   let geometry = join(...stems.map(s => tube(s.skeleton, ctx.getSetting("stemResX"))));
-
   if (instances) {
     const _instances = instances
-      ?.map((i) => convertInstancedGeometry(calculateNormals(i)))
+      ?.map((i) => convertInstancedGeometry(i))
       .flat()
     geometry = join(geometry, ..._instances);
   }
 
+  sanityCheckGeometry(geometry)
 
   return {
     stems,

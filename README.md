@@ -17,7 +17,6 @@
 - [What is Plantarium](#what-is-plantarium)
 - [Architecture](#architecture)
 - [Developing](#developing)
-- [Contributing](#contributing)
 - [Roadmap](#roadmap)
 
 # What is Plantarium?
@@ -74,11 +73,17 @@ $ pnpm dev
 
 ---
 
+- [x] ~~3D Model Exporter, obj, gltf, fbx? [#64](https://github.com/jim-fx/plantarium/issues/64)~~
+  - [x] obj
+  - [ ] gltf
+  - [ ] fbx
+- [ ] Fix Curve Node -> Maybe Profile Node?
 - [ ] Synchronize Projects with a Backend
   - [ ] Public Model Gallery
-- [ ] 3D Model Exporter, obj, gltf? [#64](https://github.com/jim-fx/plantarium/issues/64)
 - [ ] Tests and Coverage
 - [ ] Add some more nodes
+  - [ ] Rotate Around? -> Rotate Branch Around Stem, Leaf around Stem
+  - [ ] Bend? ->  Sort of like rotate but with lerp
   - [x] Split Branch Node
 
 ## [1.2]()

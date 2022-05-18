@@ -1,6 +1,7 @@
 import { createWorker } from '@plantarium/generator';
 import { transferToGeometry } from '@plantarium/geometry';
 import Renderer from '@plantarium/renderer';
+import type { PlantProject, TransferGeometry } from '@plantarium/types';
 import { Box, Mesh } from 'ogl-typescript';
 import { MatCapShader } from '../components/scene/shaders';
 

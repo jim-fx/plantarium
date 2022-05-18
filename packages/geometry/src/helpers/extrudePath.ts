@@ -1,7 +1,8 @@
 import { mat4, vec3, type ReadonlyVec3 } from "gl-matrix";
+import insertArray from "./insertArray";
 
 const { identity, rotate } = mat4;
-const { add, cross, dot, mul, normalize, subtract, scale, transformMat4 } = vec3;
+const { add, cross, dot, mul, normalize, subtract, transformMat4 } = vec3;
 
 function createCircle(res: number) {
   const angle = (2 * Math.PI) / res;
@@ -52,27 +53,35 @@ function createIndeces(resX: number, stemLength = 1) {
   return index;
 }
 
-export default function(_path: [number, number, number, number][], resolution = 3) {
-  const path = _path as unknown as ReadonlyVec3[]
+export default function(path: Float32Array, resolution = 3) {
   const mat = [] as unknown as mat4,
     v = [] as unknown as vec3,
     axis = [] as unknown as vec3;
 
-  const mesh = { position: [], normals: [], index: createIndeces(resolution, path.length) };
+  const pointAmount = path.length / 4;
+  const positionAmount = pointAmount * resolution;
 
-  const position = createCircle(resolution);
+  const position = new Float32Array(positionAmount * 3);
+  const normal = new Float32Array(positionAmount * 3);
+  const uv = new Float32Array(positionAmount * 2);
+  const index = createIndeces(resolution, pointAmount);
 
-  const positionAmount = position.length,
-    pathLength = path.length;
+  const circlePositions = createCircle(resolution);
 
-  for (let i = 0; i < pathLength; i++) {
+  for (let i = 0; i < pointAmount; i++) {
+
     const n = [0, 0, 1] as unknown as vec3;
+    const currentPoint = path.slice(i * 4, i * 4 + 3) as ReadonlyVec3;
+    const nextPoint = path.slice((i + 1) * 4, (i + 1) * 4 + 3) as ReadonlyVec3;
+    const previousPoint = path.slice((i - 1) * 4, (i - 1) * 4 + 3) as ReadonlyVec3;
+    const thicc = path[i * 4 + 3];
+
     if (i === 0) {
-      subtract(v, path[i], path[i + 1]);
-    } else if (i === pathLength - 1) {
-      subtract(v, path[i - 1], path[i]);
+      subtract(v, currentPoint, nextPoint);
+    } else if (i === pointAmount - 1) {
+      subtract(v, previousPoint, currentPoint);
     } else {
-      subtract(v, path[i - 1], path[i + 1]);
+      subtract(v, previousPoint, nextPoint);
     }
     normalize(v, v);
     cross(axis, n, v);
@@ -80,19 +89,25 @@ export default function(_path: [number, number, number, number][], resolution = 
     identity(mat);
     rotate(mat, mat, angle, axis);
 
-    for (let j = 0; j < positionAmount; j++) {
-      const p = position[j];
-      const pt = [p[0], p[1], 0] as unknown as vec3;
-      const thicc = path[i][3];
+    for (let j = 0; j < resolution; j++) {
+      const pt = [...circlePositions[j], 0] as unknown as vec3;
       mul(pt, pt, [thicc, thicc, 1]);
       transformMat4(pt, pt, mat);
-      const normal = [] as unknown as vec3;
-      normalize(normal, pt)
-      mesh.normals.push(normal);
-      add(pt, pt, path[i]);
-      mesh.position.push(pt);
+      const n = [] as unknown as vec3;
+      normalize(n, pt)
+      const offset = i * resolution * 3 + j * 3;
+      insertArray(normal, offset, n as number[])
+      mul(n, n, [-1, -1, -1]);
+      add(pt, pt, currentPoint);
+      insertArray(position, offset, pt as number[])
+      insertArray(uv, i * resolution * 2 + j * 2, [j / resolution, i / pointAmount])
     }
   }
 
-  return mesh;
+  return {
+    position,
+    normal,
+    uv,
+    index
+  };
 }

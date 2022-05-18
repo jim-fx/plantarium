@@ -13,9 +13,13 @@ export { default as lerp } from './lerp';
 export { default as noise } from './noise';
 export { default as normalize2D } from './normalize2D';
 export { default as normalize3D } from './normalize3D';
+export { default as instanceGeometry } from './instanceGeometry';
 export { default as rotate2D } from './rotate2D';
 export { default as rotate3D } from './rotate3D';
 export { default as rotateMesh3D } from './rotateMesh3D';
 export { default as transferToGeometry } from './transferToGeometry';
 export { default as translateMesh } from './translateMesh';
+export { default as toOBJ } from './toOBJ';
+export { default as sanityCheckGeometry } from './sanityCheckGeometry';
+export { default as insertArray } from './insertArray';
 export * from "./findOrthVec"

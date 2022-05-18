@@ -102,7 +102,7 @@ export default typeCheckNode({
           // Point along skeleton
           const [px, py, pz, pt] = interpolateSkeleton(skelly.skeleton, a);
 
-          const pointAmount = Math.max(Math.floor(branchRes * length * 10), 4);
+          const pointAmount = Math.max(Math.floor(branchRes), 4);
 
           const branch = new Float32Array(pointAmount * 4);
           for (let j = 0; j < pointAmount * 4; j++) {
