@@ -1,13 +1,10 @@
 import type { TransferGeometry } from "@plantarium/types";
-import sanityCheckGeometry from "./sanityCheckGeometry";
 
 export default function(..._geometries: TransferGeometry[]): TransferGeometry {
 
   const geometries = _geometries.filter(v => !!v);
 
   if (geometries.length === 1) return geometries[0];
-
-  geometries.forEach(c => sanityCheckGeometry(c))
 
   let positionAmount = 0;
   let uvAmount = 0;

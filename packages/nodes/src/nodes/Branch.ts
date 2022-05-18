@@ -67,10 +67,10 @@ export default typeCheckNode({
     const maxDepth = Math.max(...inputStems.map(s => s.depth));
 
     const stems = inputStems
-      .map((skelly) => {
+      .map((stem) => {
         const branches: Float32Array[] = [];
 
-        if (maxDepth !== skelly.depth) return []
+        if (maxDepth !== stem.depth) return []
 
         const amount = parameters.amount();
 
@@ -85,12 +85,15 @@ export default typeCheckNode({
           const isLeft = i % 2 === 0;
           let a = lowestBranch + (1 - lowestBranch) * _a;
 
-          a -= (1 / amount) * offsetSingle * (isLeft ? -1 : 1);
+
+          a = Math.min(a - (1 / amount) * offsetSingle * (isLeft ? -1 : 1), 1);
 
           //Vector along stem
-          const [_vx, , _vz] = interpolateSkeletonVec(skelly.skeleton, a);
+          const [_vx, , _vz] = interpolateSkeletonVec(stem.skeleton, a);
+
 
           const nv = normalize2D([_vx, _vz]);
+
 
           //Rotate Vector along stem by 90deg
           const [vx, vz] = rotate2D(
@@ -100,7 +103,7 @@ export default typeCheckNode({
           );
 
           // Point along skeleton
-          const [px, py, pz, pt] = interpolateSkeleton(skelly.skeleton, a);
+          const [px, py, pz, pt] = interpolateSkeleton(stem.skeleton, a);
 
           const pointAmount = Math.max(Math.floor(branchRes), 4);
 
@@ -120,8 +123,8 @@ export default typeCheckNode({
         return branches.map(b => {
           return {
             skeleton: b,
-            id: skelly.id,
-            depth: skelly.depth + 1
+            id: stem.id,
+            depth: stem.depth + 1
           }
         });
       })

@@ -1,33 +1,32 @@
 import { InstancedGeometry, TransferGeometry } from "@plantarium/types";
+import insertArray from "./insertArray";
 
 export default function instanceGeometry(geo: TransferGeometry, { offset, scale, rotation }: { offset?: number[] | Float32Array, scale?: number[] | Float32Array, rotation?: number[] | Float32Array }): InstancedGeometry {
 
   const maxLength = Math.max(...[offset?.length, scale?.length, rotation?.length].filter(v => !!v));
 
-  const _offset = new Array(maxLength).fill(null).map(_ => 0)
-  const _scale = new Array(maxLength).fill(null).map(_ => 1)
-  const _rotation = new Array(maxLength).fill(null).map(_ => 0)
+  const _offset = new Float32Array(maxLength)
+  const _scale = new Float32Array(maxLength).fill(1)
+  const _rotation = new Float32Array(maxLength)
 
 
   if (offset?.length) {
-    _offset.splice(0, offset.length, ...offset);
+    insertArray(_offset, 0, offset as number[])
   }
-
 
   if (scale?.length) {
-    _scale.splice(0, scale.length, ...scale);
+    insertArray(_scale, 0, scale as number[])
   }
 
-
   if (rotation?.length) {
-    _rotation.splice(0, rotation.length, ...rotation);
+    insertArray(_rotation, 0, rotation as number[])
   }
 
   return {
     ...geo,
-    offset: Float32Array.from(_offset),
-    scale: Float32Array.from(_scale),
-    rotation: Float32Array.from(_rotation)
+    offset: _offset,
+    scale: _scale,
+    rotation: _rotation
   }
 
 

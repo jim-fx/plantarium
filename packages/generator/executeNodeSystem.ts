@@ -47,6 +47,10 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
         if (execNode?.computeStem) {
           ctx["_id"] = n.id;
           const result = execNode.computeStem(parameters, ctx);
+          if (result.stems.find(s => s.skeleton.includes(NaN))) {
+            console.warn("Node " + execNode.type + " procuded nan in skeleton");
+            console.log({ result })
+          }
           n.results = Array.isArray(result) ? result : [result];
         }
 
@@ -80,14 +84,13 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
 
 
   let geometry = join(...stems.map(s => tube(s.skeleton, ctx.getSetting("stemResX"))));
+
   if (instances) {
     const _instances = instances
       ?.map((i) => convertInstancedGeometry(i))
       .flat()
     geometry = join(geometry, ..._instances);
   }
-
-  sanityCheckGeometry(geometry)
 
   return {
     stems,

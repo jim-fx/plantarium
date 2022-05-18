@@ -1,29 +1,33 @@
 import { TransferGeometry } from "@plantarium/types";
 
+const warn = (msg: string) => {
+  console.groupCollapsed(msg);
+  console.trace()
+  console.groupEnd()
+}
+
 export default function(geometry: TransferGeometry, logAnyway = false) {
 
   const nn = geometry.normal.includes(NaN);
-  if (nn) console.warn("Normals has NaN");
+  if (nn) warn("Normals has NaN");
 
   const _in = geometry.index.includes(NaN);
-  if (_in) console.warn("Index has NaN");
+  if (_in) warn("Index has NaN");
 
   const pn = geometry.position.includes(NaN);
-  if (pn) console.warn("Position has NaN");
+  if (pn) warn("Position has NaN");
 
   const un = geometry.uv.includes(NaN);
-  if (un) console.warn("UV has NaN");
+  if (un) warn("UV has NaN");
 
   const positionAmount = geometry.position.length / 3;
 
   if (geometry.position.length !== geometry.normal.length) {
-    console.warn("position and normal amount not eqal")
+    warn("position and normal amount not eqal")
   }
 
   if (geometry.uv.length !== positionAmount * 2) {
-    console.groupCollapsed("uv amount not correct, should be " + positionAmount * 2 + " is " + geometry.uv.length);
-    console.trace()
-    console.groupEnd()
+    warn("uv amount not correct, should be " + positionAmount * 2 + " is " + geometry.uv.length);
   }
 
   if (nn || _in || pn || un || logAnyway) {

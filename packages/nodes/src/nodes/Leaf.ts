@@ -99,10 +99,10 @@ export default typeCheckNode({
 
     const maxDepth = Math.max(...stems.map(s => s.depth))
 
-    const instances = stems.map((skelly, i) => {
+    const instances = stems.map((stem, i) => {
       const alpha = i / stems.length;
 
-      if (skelly.depth !== maxDepth) return;
+      if (stem.depth !== maxDepth) return;
 
       const amount = parameters.amount(alpha);
 
@@ -118,10 +118,10 @@ export default typeCheckNode({
         const a = lowestLeaf + (1 - lowestLeaf) * _alpha - 0.001;
         //const isLeft = i % 2 === 0;
 
-        const [x, y, z] = interpolateSkeleton(skelly.skeleton, a);
-        const [_vx, , _vz] = interpolateSkeletonVec(skelly.skeleton, a);
+        const [x, y, z] = interpolateSkeleton(stem.skeleton, a);
+        const [vx, _, vz] = interpolateSkeletonVec(stem.skeleton, a);
 
-        const nv = normalize2D([_vx, _vz]);
+        const nv = normalize2D([vx, vz]);
 
         //Rotate Vector along stem by 90deg
         // const [vx, vz] = rotate2D(nv[0], nv[1], isLeft ? Math.PI : -Math.PI);
