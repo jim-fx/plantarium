@@ -74,6 +74,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
+      - run: echo "[$(git log --pretty=format:'{"id":"%h","subject":"%s","date":"%cD"},')]" | sed 's/,]/]/g' > frontend/public/commits.json
       - run: 'pnpm i && pnpm build'
         env:
           IS_GH_PAGES: true
