@@ -56,9 +56,9 @@ Do you want to start the tutorial, or first play around a bit?`, { values: ["Let
     if (this.state === "level-0") {
       await createToast(`I like to think of Nodes as little factories connected by pipes.
 
-Each Node, or Factory gets some inputs, transforms them and outputs something new.`, { timeout: 0, values: ["Okay...?", "Understood"] })
+Each Node, or Factory gets some inputs, transforms them and outputs something new.`, { values: ["Okay...?", "Understood"] })
 
-      return this.setState("level-1")
+      return "level-1"
     }
 
     if (this.state === "level-1") {

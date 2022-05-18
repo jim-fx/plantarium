@@ -456,14 +456,12 @@ export default class NodeSystemView extends EventEmitter {
         break;
       // x
       case 'x':
-        if (this.activeNode) {
-          if (ctrlKey) {
-            this.system.spliceNode(this.activeNode);
-            this.selectedNodes.forEach((n) => this.system.spliceNode(n));
-          } else {
-            this.system.removeNode(this.activeNode);
-            this.selectedNodes.forEach((n) => n.remove());
-          }
+        if (ctrlKey) {
+          this.system.spliceNode(this.activeNode);
+          this.selectedNodes.forEach((n) => this.system.spliceNode(n));
+        } else {
+          this.system.removeNode(this.activeNode);
+          this.selectedNodes.forEach((n) => n.remove());
         }
         break;
       // z

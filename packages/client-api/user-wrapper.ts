@@ -1,5 +1,7 @@
 import { userStore } from "./user-store";
 import { send, post, store, del, get } from "./core";
+import type { CreateReportDto, Report } from "@plantarium/backend";
+
 
 export async function login(username: string, password: string) {
   const res = await post('api/auth/login', { username, password });
@@ -10,12 +12,12 @@ export function logout() {
   store.token = '';
 }
 
-export function submitReport(data: any) {
+export function submitReport(data: CreateReportDto) {
   return send({ method: "POST", path: `api/report`, data })
 }
 
-export function deleteReport(reportId: string) {
-  return del(`api/report/${reportId}`);
+export function getReports(): Promise<Report[]> {
+  return send({ method: "GET", path: "api/report" })
 }
 
 export async function getRole() {

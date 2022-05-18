@@ -27,6 +27,7 @@ class DebugView extends NodeView {
     super(node);
 
     const d = document.createElement('div');
+    d.style.color = "var(--text-color, white)"
 
     node.on('computedData', (data: unknown) => {
       d.innerHTML = '';

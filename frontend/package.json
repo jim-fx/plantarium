@@ -13,6 +13,7 @@
     "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
   },
   "dependencies": {
+    "@plantarium/backend": "link:../backend",
     "@plantarium/client-api": "link:../packages/client-api",
     "@plantarium/generator": "link:../packages/generator",
     "@plantarium/geometry": "link:../packages/geometry",

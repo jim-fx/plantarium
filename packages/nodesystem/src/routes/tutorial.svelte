@@ -16,7 +16,6 @@
   const state = tutorialManager.stateStore;
 
   $: if (state && system && loaded) {
-    console.log('SAVE', $state);
     localStorage.setItem(
       'tutorial',
       JSON.stringify({
@@ -58,7 +57,6 @@
         JSON.parse(localStorage.getItem('tutorial'));
 
       if (nodeData) {
-        console.log('Looading', { nodeData });
         system.load(nodeData.save);
         tutorialManager.setState(nodeData.state);
       } else {

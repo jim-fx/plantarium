@@ -1,7 +1,9 @@
 <script>
 	import { Button, createAlert } from '@plantarium/ui';
 	import { Changelog } from '.';
+	import { goto } from '$app/navigation';
 	import Report from './Report.svelte';
+	import ReportDashboard from './ReportDashboard.svelte';
 	import { Tutor } from '../components/tutor';
 </script>
 
@@ -13,6 +15,15 @@
 		--text="white"
 		--width="100%"
 		on:click={() => Tutor.restart()}
+	/>
+
+	<Button
+		name="Node Tutorial"
+		icon="hand"
+		--bg="#303030"
+		--text="white"
+		--width="100%"
+		on:click={() => goto('nodes/tutorial')}
 	/>
 
 	<Button
@@ -47,6 +58,13 @@
 		--width="100%"
 		--text="white"
 		on:click={() => createAlert(Changelog, { timeout: 0 })}
+	/>
+	<Button
+		name="Bug Reports"
+		--bg="#303030"
+		--width="100%"
+		--text="white"
+		on:click={() => createAlert(ReportDashboard, { timeout: 0 })}
 	/>
 </div>
 

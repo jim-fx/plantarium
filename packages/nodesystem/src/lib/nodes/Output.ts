@@ -33,7 +33,7 @@ class OutputView extends NodeView {
 
     d.style.margin = '0px';
     d.style.padding = '4px';
-    d.style.color = 'white';
+    d.style.color = 'var(--text-color,white)';
     d.style.fontWeight = 'bold';
 
     node.on('computedData', (data) => {

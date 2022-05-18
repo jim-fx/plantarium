@@ -42,10 +42,10 @@ importers:
 
   admin:
     specifiers:
+      '@plantarium/backend': link:../backend
       '@plantarium/client-api': link:../packages/client-api
       '@plantarium/theme': link:../packages/theme
       '@plantarium/ui': link:../packages/ui
-      '@sveltejs/adapter-node': 1.0.0-next.73
       '@sveltejs/adapter-static': 1.0.0-next.31
       '@sveltejs/kit': 1.0.0-next.334
       '@typescript-eslint/eslint-plugin': 5.25.0
@@ -73,10 +73,10 @@ importers:
       vite-plugin-windicss: 1.8.4
       windicss: 3.5.3
     dependencies:
+      '@plantarium/backend': link:../backend
       '@plantarium/client-api': link:../packages/client-api
       '@plantarium/theme': link:../packages/theme
       '@plantarium/ui': link:../packages/ui
-      '@sveltejs/adapter-node': 1.0.0-next.73
       '@yr/monotone-cubic-spline': 1.0.3
       css-vars-from-json: 1.1.0
       dotenv: 16.0.1
@@ -228,6 +228,7 @@ importers:
 
   frontend:
     specifiers:
+      '@plantarium/backend': link:../backend
       '@plantarium/client-api': link:../packages/client-api
       '@plantarium/generator': link:../packages/generator
       '@plantarium/geometry': link:../packages/geometry
@@ -273,6 +274,7 @@ importers:
       vite-plugin-comlink: 3.0.2
       vite-plugin-glslify: 2.0.1
     dependencies:
+      '@plantarium/backend': link:../backend
       '@plantarium/client-api': link:../packages/client-api
       '@plantarium/generator': link:../packages/generator
       '@plantarium/geometry': link:../packages/geometry
@@ -321,8 +323,10 @@ importers:
 
   packages/client-api:
     specifiers:
+      '@plantarium/backend': link:../../backend
       svelte: ^3.48.0
     dependencies:
+      '@plantarium/backend': link:../../backend
       svelte: 3.48.0
 
   packages/generator:
@@ -2361,12 +2365,6 @@ packages:
       esbuild: 0.14.39
       tiny-glob: 0.2.9
     dev: true
-
-  /@sveltejs/adapter-node/1.0.0-next.73:
-    resolution: {integrity: sha512-eidd7u1dPHIaBKMjRePrxazUt+Mm/JpnaiKLzZJBdamhBiiYIb+epkPLLqfG5Oo346/0HLKwFRAM/FXn3u3BHQ==}
-    dependencies:
-      tiny-glob: 0.2.9
-    dev: false
 
   /@sveltejs/adapter-static/1.0.0-next.31:
     resolution: {integrity: sha512-d9RNA/de5ljb+gN8mKA3YfmfJoTbYFdH96NYDD8u4Lu9O/ZnseUxOAcAmD4/LKbLXOY/oYhRpt029xT2owyI3Q==}
