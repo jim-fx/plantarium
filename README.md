@@ -76,7 +76,7 @@ $ pnpm dev
 
 - [ ] Synchronize Projects with a Backend
   - [ ] Public Model Gallery
-- [ ] 3D Model Exporter, obj, gltf? [#64](https://git.jim-fx.com/max/plantarium/issues/64)
+- [ ] 3D Model Exporter, obj, gltf? [#64](https://github.com/jim-fx/plantarium/issues/64)
 - [ ] Tests and Coverage
 - [ ] Add some more nodes
   - [x] Split Branch Node
