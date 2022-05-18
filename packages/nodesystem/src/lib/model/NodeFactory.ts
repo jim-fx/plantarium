@@ -24,7 +24,9 @@ export default class NodeFactory {
   create(props: NodeProps): Node {
     const { attributes } = props;
 
-    const type = this.system.store.getByType(attributes.type.toLowerCase());
+    attributes.type = attributes.type.toLowerCase()
+
+    const type = this.system.store.getByType(attributes.type);
 
     attributes.id = this.id(+attributes.id);
 

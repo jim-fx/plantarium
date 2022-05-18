@@ -41,12 +41,6 @@ See [Architecture.md](./ARCHITECTURE.md)
 $ pnpm i -r
 ```
 
-### (Only for the Backend)
-
-```bash
-$ pnpm migrate -r
-```
-
 ### Start the dev server
 
 ```bash
@@ -81,5 +75,10 @@ $ pnpm dev
 ---
 
 - [ ] Synchronize Projects with a Backend
+  - [ ] Public Model Gallery
+- [ ] 3D Model Exporter, obj, gltf?
+- [ ] Tests and Coverage
 - [ ] Add some more nodes
   - [x] Split Branch Node
+
+## [1.2]()

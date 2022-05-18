@@ -21,6 +21,7 @@ export default function createGeneratorContext({ nodes: _nodes }: PlantProject, 
   for (const { attributes, state } of _nodes) {
     const exec = nodeMap.get(attributes.type)
     if (!exec) {
+      console.log("Existing node types: ",{nodeMap})
       return {
         errors: ["Missing NodeType " + attributes.type]
       };
