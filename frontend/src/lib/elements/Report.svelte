@@ -1,8 +1,17 @@
 <script lang="ts">
-	import { Button, InputCheckbox, Section, StackTrace, LogViewer } from '@plantarium/ui';
+	import {
+		Button,
+		InputCheckbox,
+		Section,
+		StackTrace,
+		LogViewer,
+		createToast
+	} from '@plantarium/ui';
 	import { onMount } from 'svelte';
 	import { detect, api } from '../helpers';
 	import { logger, parseStackTrace } from '@plantarium/helpers';
+	import type { CreateReportDto } from '@plantarium/backend';
+	import { createEventDispatcher } from 'svelte';
 	export let mode: 'feat' | 'bug' = 'bug';
 	let info = detect();
 
@@ -15,13 +24,19 @@
 	$: stackTrace = error && parseStackTrace(error);
 	let includeStacktrace = true;
 
+	type MakeReadable<T extends CreateReportDto> = {
+		-readonly [K in keyof T]: T[K];
+	};
+
+	const dispatch = createEventDispatcher();
+
 	let submitPromise: Promise<unknown> | undefined;
 	function submit() {
 		const data = {
 			type: mode,
 			title,
 			description
-		};
+		} as MakeReadable<CreateReportDto>;
 
 		if (includeStacktrace) {
 			data.stacktrace = stackTrace;
@@ -41,10 +56,14 @@
 		}
 
 		submitPromise = api.submitReport(data);
+
+		submitPromise.then(() => {
+			dispatch('close');
+			createToast('Yeeeah, report submitted', { type: 'success' });
+		});
 	}
 
 	onMount(async () => {
-		console.log(logs);
 		if (stackTrace) {
 			title = stackTrace.type + ': ' + stackTrace.title;
 		}
@@ -54,9 +73,6 @@
 {#if submitPromise}
 	{#await submitPromise}
 		Submitting Reprot
-	{:then result}
-		<Button name="Done" icon="checkmark" />
-		<code>{JSON.stringify(result, null, 2)}</code>
 	{:catch err}
 		<p>Errror</p>
 		<code>{JSON.stringify(err, null, 2)}</code>

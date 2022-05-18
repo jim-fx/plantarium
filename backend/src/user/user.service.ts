@@ -43,9 +43,8 @@ export class UserService implements OnModuleInit {
   async onModuleInit() {
     const { ADMIN_PASS } = process.env;
     if (ADMIN_PASS) {
-      // THis is super hackky, but we need to make sure the migratiosn happedned
+      // This is super hackky, but we need to make sure the migrations happened
       setTimeout(async () => {
-        console.log("FUUUCK")
         let admin = await this.repository.findOne({ username: 'admin' });
         if (!admin) {
           admin = new User();
