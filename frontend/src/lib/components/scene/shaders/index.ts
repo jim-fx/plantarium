@@ -1,4 +1,4 @@
-import { Program, Texture } from "ogl-typescript";
+import { Program, Texture, type OGLRenderingContext } from "ogl-typescript";
 import BasicShaderFrag from "./BasicShader.frag";
 import BasicShaderVert from "./BasicShader.vert";
 import GroundShaderFrag from "./GroundShader.frag";
@@ -14,15 +14,24 @@ import WireFrameVert from "./WireframeShader.vert";
 import NormalFrag from "./NormalShader.frag";
 import NormalVert from "./NormalShader.vert";
 
+import DebugFrag from "./DebugShader.frag";
+import DebugVert from "./DebugShader.vert";
+
 export const GroundShader = {
   fragment: GroundShaderFrag,
   vertex: GroundShaderVert
 };
 
-export const BasicShader = {
+
+export const DebugShader = (gl: OGLRenderingContext) => new Program(gl, {
+  fragment: DebugFrag,
+  vertex: DebugVert,
+});
+
+export const BasicShader = (gl: OGLRenderingContext) => new Program(gl, {
   fragment: BasicShaderFrag,
-  vertex: BasicShaderVert
-};
+  vertex: BasicShaderVert,
+});
 
 export const InstanceShader = {
   fragment: InstanceShaderFrag,
@@ -39,7 +48,7 @@ export const ParticleShader = {
   vertex: ParticleVert
 };
 
-export const MatCapShader = (gl: WebGL2RenderingContext) => {
+export const MatCapShader = (gl: OGLRenderingContext) => {
   const texture = new Texture(gl);
   const img = new Image();
   img.onload = () => (texture.image = img);
@@ -50,11 +59,10 @@ export const MatCapShader = (gl: WebGL2RenderingContext) => {
     uniforms: {
       tMap: { value: texture },
     },
-    cullFace: null,
   });
 }
 
-export const NormalShader = (gl: WebGL2RenderingContext) => {
+export const NormalShader = (gl: OGLRenderingContext) => {
   const texture = new Texture(gl);
   const img = new Image();
   img.onload = () => (texture.image = img);
@@ -65,6 +73,5 @@ export const NormalShader = (gl: WebGL2RenderingContext) => {
     uniforms: {
       tMap: { value: texture },
     },
-    cullFace: null,
   });
 }

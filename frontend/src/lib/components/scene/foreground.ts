@@ -7,14 +7,21 @@ import { settingsManager, projectManager } from '..';
 import { Report } from '../../elements';
 import type { ProjectManager } from '../project-manager';
 import DebugScene from './debug';
-import { MatCapShader, NormalShader } from './shaders';
+import { BasicShader, DebugShader, MatCapShader, NormalShader } from './shaders';
 import * as performance from '../../helpers/performance';
 import { createWorker } from '@plantarium/generator';
-import type { PlantariumSettings, PlantProject } from '@plantarium/types';
+import type { PlantProject, TransferGeometry } from '@plantarium/types';
+import type { PlantariumSettings } from "$lib/types"
 
 const updateThumbnail = throttle((geo: TransferGeometry) => {
   projectManager.renderThumbnail({ geo });
 }, 5000);
+
+function getShader(t?: string) {
+  if (t === "MatCap") return MatCapShader;
+  if (t === "Debug") return DebugShader;
+  return NormalShader
+}
 
 const log = logger('scene.foreground');
 export default class ForegroundScene extends EventEmitter {
@@ -32,27 +39,28 @@ export default class ForegroundScene extends EventEmitter {
     super()
     this.gl = scene.renderer.gl;
 
-    this.initGeometry();
+    const geometry = new Box(this.gl, { width: 0, height: 0, depth: 0 });
+
+    this.mesh = this.scene.addMesh({
+      geometry,
+      program: getShader(this.settings?.debug.material)(this.gl),
+    });
+
 
     this.dbg = new DebugScene(scene, pm);
 
     this.setSettings(settingsManager.getSettings());
     this.setPlant(pm.getActiveProject());
 
-    this.pm.on('settings', this.setSettings.bind(this));
-    this.pm.on('plant', this.setPlant.bind(this));
+    this.pm.on('settings', s => this.setSettings(s as PlantariumSettings));
+    this.pm.on('plant', p => this.setPlant(p as PlantProject));
   }
 
-  initGeometry() {
-    const geometry = new Box(this.scene.gl, { width: 0, height: 0, depth: 0 });
-    this.mesh = this.scene.addMesh({
-      geometry,
-      program: NormalShader(this.gl)
-    });
-  }
 
   setSettings(settings: PlantariumSettings) {
     this.settings = JSON.parse(JSON.stringify(settings));
+    if (this.mesh)
+      this.mesh.program = getShader(settings?.debug?.material)(this.gl);
     this.update();
   }
 
