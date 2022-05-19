@@ -72,7 +72,7 @@
   }
 
   button.useActive.active {
-    background-color: themes.$light-green;
+    background-color: var(--accent);
   }
 
   button.invert {

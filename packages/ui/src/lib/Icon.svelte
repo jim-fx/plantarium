@@ -41,6 +41,10 @@
     padding-bottom: 100%;
   }
 
+  .dark.circle {
+    border-color: #303030;
+  }
+
   .icon-wrapper > :global(svg > *) {
     stroke: var(--text-color, white);
     fill: var(--fill, none);
@@ -55,7 +59,7 @@
   }
 
   .dark :global(*) {
-    stroke: #303030;
+    stroke: #303030 !important;
   }
   .icon-wrapper :global(svg > *) {
     transition: stroke 0.1s ease;

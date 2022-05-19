@@ -186,7 +186,7 @@ of the universe, they should be powdered by then.`]
 
     if (this.state === "level-7") {
 
-      const res = await createToast("The tutorial is now finished, if you want you can play around with this setup a bit more or you can go back", { values: ["play around", "go back"] });
+      const res = await createToast("The tutorial is now finished, if you want you can play around with this setup <i>(there are a few easter eggs to find)</i> a bit more or you can go back", { values: ["play around", "go back"] });
 
       if (res === "go back") {
         window?.history?.back()

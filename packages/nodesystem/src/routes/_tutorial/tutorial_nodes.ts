@@ -1,13 +1,5 @@
 import { NodeState, Node, NodeView } from "$lib"
 
-const liquidExample = {
-  type: ["mix", "water", "coffee", "milk"],
-  amount: 20,
-  liquids: [{
-    type: "coffee",
-    amount: 20
-  }]
-}
 
 const coffee_powder = {
   title: "Beans",
@@ -130,6 +122,10 @@ const mix = {
       fluids.push(...fluidB.fluids)
     } else {
       fluids.push(fluidB)
+    }
+
+    if (fluids.length === 2 && fluidA.fluidType === fluidB.fluidType && fluidA.fluidType === "water") {
+      return fluidA;
     }
 
     return {

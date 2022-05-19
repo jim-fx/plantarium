@@ -157,11 +157,11 @@
 
   svg > circle {
     fill: var(--text-color);
-    stroke: themes.$light-green;
+    stroke: var(--accent, themes.$green-light);
   }
 
   svg > circle:hover {
-    fill: themes.$light-green;
+    fill: var(--accent, themes.$green-light);
     cursor: pointer;
   }
 

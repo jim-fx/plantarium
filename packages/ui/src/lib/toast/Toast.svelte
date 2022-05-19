@@ -30,7 +30,8 @@
     return;
   }
 
-  $: isInverted = toast && (toast.type === 'success' || toast.type === 'warning');
+  $: isInverted =
+    toast && (toast.type === 'success' || toast.type === 'warning' || toast.type === 'error');
 
   let isCustomElement = false;
   let el: HTMLElement;
@@ -48,13 +49,7 @@
       <div class="toast-content" class:hasIcon={!!icon}>
         {#if icon}
           <div class="toast-icon">
-            <Icon
-              name={icon}
-              circle
-              --text-color={'var(--text-color-invert)'}
-              --width="40px"
-              --height="40px"
-            />
+            <Icon name={icon} dark={isInverted} circle --width="40px" --height="40px" />
           </div>
         {/if}
 
@@ -81,7 +76,7 @@
           <div class="button-wrapper">
             {#if toast.content instanceof Error}
               <Button
-                --margin="5px 10px 5px -10px"
+                --margin="5px 10px 5px 0px"
                 invert={isInverted}
                 --bg="transparent"
                 on:click={() => {
@@ -112,7 +107,7 @@
           </div>
         </div>
         <div class="toast-close" on:click={() => toast.reject()}>
-          <Icon name="cross" --text-color={'var(--text-color-invert)'} --height="fit-content" />
+          <Icon name="cross" dark={isInverted} --width="fit-content" />
         </div>
       </div>
 
@@ -143,11 +138,6 @@
   }
 
   .isInverted {
-    .toast-close,
-    .toast-icon {
-      filter: invert(0.8);
-    }
-
     p,
     h3 {
       color: #303030;
@@ -216,9 +206,9 @@
   }
 
   .toast-info {
-    background-color: #303030;
+    background-color: var(--foreground-color, #303030);
 
-    color: white;
+    color: var(--text-color, white);
     .toast-progress {
       background-color: white;
     }
@@ -239,7 +229,7 @@
   }
 
   .toast-error {
-    background-color: #e26565;
+    background-color: var(--error, #e26565);
     color: white;
 
     .toast-progress {
