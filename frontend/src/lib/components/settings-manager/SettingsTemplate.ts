@@ -44,7 +44,7 @@ export default settingsType({
       material: {
         type: "select",
         values: ["MatCap", "Basic", "Debug"],
-        value: "MatCap"
+        value: "Basic"
       },
 
       showNodeUpdates: {
