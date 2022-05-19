@@ -37,6 +37,12 @@ const nodeSystem = new NodeSystem({
   view: true,
   defaultNodes: false,
   registerNodes: Nodes,
+  connectionColors: {
+    boolean: '#f00',
+    number: '#fff',
+    plant: '#65e2a0',
+    vec3: '#6363C7',
+  },
   deferCompute: true
 });
 

@@ -11,6 +11,7 @@ import FloatingConnectionView from './FloatingConnectionView';
 import ColorStore from './socketColorStore';
 import type { NodeProps } from '../types';
 import visible from '../helpers/visible';
+import SocketLegendView from './SocketLegendView';
 
 export default class NodeSystemView extends EventEmitter {
   system: NodeSystem;
@@ -20,7 +21,7 @@ export default class NodeSystemView extends EventEmitter {
   svg: SVGElement;
   addMenu: AddMenu;
   boxSelection: BoxSelection;
-  colorStore = new ColorStore();
+  colorStore: ColorStore;
 
   nodeContainer: HTMLDivElement;
 
@@ -69,10 +70,16 @@ export default class NodeSystemView extends EventEmitter {
 
     this.system = system;
 
+    this.colorStore = new ColorStore(this)
+
     this.wrapper = system.options?.wrapper ?? document.createElement('div');
     this.wrapper.classList.add('nodesystem-wrapper');
     if (system.options.parent) {
       system.options.parent.appendChild(this.wrapper);
+    }
+
+    if (!system.options?.hideLegend) {
+      new SocketLegendView(this)
     }
 
     this.transformWrapper = document.createElement('div');

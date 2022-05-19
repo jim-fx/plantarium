@@ -18,6 +18,7 @@ interface NodeSystemOptions {
   view: boolean;
   wrapper: HTMLElement | null;
   defaultNodes: string[] | boolean;
+  hideLegend: boolean;
   connectionColors: Record<string, string>,
   registerNodes: NodeTypeData[];
   deferCompute: boolean;

@@ -42,7 +42,7 @@ export default class NodeInputView {
       false,
     );
 
-    this.node.system.view.colorStore.on(input.type[0], (color) => {
+    this.node.system.view.colorStore.onType(input.type[0], (color) => {
       const col = window
         .getComputedStyle(this.wrapper, null)
         .getPropertyValue('background-color');

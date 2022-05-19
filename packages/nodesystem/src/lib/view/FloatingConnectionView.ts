@@ -40,7 +40,7 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
 
     const type = Array.isArray(socket.type) ? socket.type[0] : socket.type;
 
-    system.view.colorStore.on(type, (color) => {
+    system.view.colorStore.onType(type, (color) => {
       this.path.style.stroke = color;
     });
 

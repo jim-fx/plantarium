@@ -31,7 +31,7 @@ export default class NodeOutputView {
       false,
     );
 
-    this.node.system.view.colorStore.on(output.type, (color) => {
+    this.node.system.view.colorStore.onType(output.type, (color) => {
       const col = window
         .getComputedStyle(this.wrapper, null)
         .getPropertyValue('background-color');

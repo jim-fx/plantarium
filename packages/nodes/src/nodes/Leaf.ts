@@ -100,8 +100,8 @@ export default typeCheckNode({
 
     const maxDepth = findMaxDepth(input);
 
-    const instances = input.stems.map((stem, i) => {
-      const alpha = i / input.stems.length;
+    const instances = input.stems.map((stem, j) => {
+      const alpha = j / input.stems.length;
 
       if (stem.depth !== maxDepth) return;
 
@@ -151,7 +151,7 @@ export default typeCheckNode({
         offset,
         scale,
         rotation,
-        id: stem.id,
+        id: stem.id + "-" + j,
         baseAlpha,
         depth: stem.depth
       };

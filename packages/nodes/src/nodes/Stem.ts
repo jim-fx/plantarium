@@ -70,7 +70,7 @@ export default typeCheckNode({
         skeleton[j * 4 + 3] = thiccness;
       }
 
-      stems.push({ depth: 0, skeleton, id: "stem" + ctx.getId(), baseAlpha: 0 });
+      stems.push({ depth: 0, skeleton, id: "stem-" + ctx.getId(), baseAlpha: 0 });
 
     }
 

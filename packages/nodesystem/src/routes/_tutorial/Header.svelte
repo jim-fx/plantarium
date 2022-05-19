@@ -24,6 +24,10 @@
     overflow: hidden;
   }
   header {
+    position: absolute;
+    z-index: 2;
+    top: 10px;
+    left: 10px;
     display: flex;
   }
 

@@ -1,4 +1,6 @@
+import type NodeType from '$lib/model/NodeType';
 import { EventEmitter } from '@plantarium/helpers';
+import type NodeSystemView from './NodeSystemView';
 
 const COLORS = [
   { color: '#a52a2a', name: 'brown' },
@@ -27,14 +29,21 @@ const COLORS = [
 
 export default class ColorStore extends EventEmitter {
   colors: { [type: string]: string } = {
-    boolean: '#f00',
-    number: '#fff',
-    plant: '#65e2a0',
-    vec3: '#6363C7',
   };
   index = 0;
-  constructor() {
+  constructor(view: NodeSystemView) {
+
     super();
+    this.updateTypes(view.system.store.types);
+    view.system.store.on("types", (nodeTypes: NodeType[]) => this.updateTypes(nodeTypes))
+  }
+
+  private updateTypes(nodeTypes: NodeType[]) {
+
+    nodeTypes.forEach(t => {
+      t?.inputs?.forEach(s => Array.isArray(s) ? s.forEach(_s => this.setType(_s)) : this.setType(s))
+      t?.outputs?.forEach(s => this.setType(s))
+    })
   }
 
   setColors(colors: Record<string, string>) {
@@ -44,18 +53,20 @@ export default class ColorStore extends EventEmitter {
   }
 
   private setType(socketType: string) {
+    if (!socketType) return;
     if (!(socketType in this.colors)) {
       this.colors[socketType] = COLORS[this.index].color;
       this.index++;
     }
     this.emit(socketType, this.colors[socketType]);
+    this.emit("colors", Object.entries(this.colors))
   }
 
   get(socketType: string) {
     return this.colors[socketType]
   }
 
-  on(socketType: string, cb: (color: string) => unknown) {
+  onType(socketType: string, cb: (color: string) => unknown) {
     this.setType(socketType);
     cb(this.colors[socketType]);
     return super.on(socketType, cb);

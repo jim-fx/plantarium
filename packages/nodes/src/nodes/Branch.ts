@@ -119,7 +119,7 @@ export default typeCheckNode({
 
           branches.push({
             skeleton: branchSkeleton,
-            id: stem.id,
+            id: stem.id + "-" + i,
             baseAlpha: a,
             depth: stem.depth + 1
           });
