@@ -37,16 +37,8 @@ type NodeParameters = Record<string, AllTemplates & { internal?: boolean, extern
 type ResolvableParameter<T extends NodeParameters[string], K = T["value"]> = T["internal"] extends boolean ? K : (alpha?: number) => K;
 
 type Parameter<T extends NodeParameters[string]> =
-  T extends FloatTemplate ? ResolvableParameter<T>
-  : T extends IntegerTemplate ? ResolvableParameter<T>
-  : T extends CheckboxTemplate ? ResolvableParameter<T>
-  : T extends SelectTemplate ? ResolvableParameter<T> // Unsure about this one, because select probably cant be driven by nodes
-  : T extends Vec3Template ? ResolvableParameter<T>
-  : T extends Vec2Template ? ResolvableParameter<T>
-  : T extends ShapeTemplate ? ResolvableParameter<T>
-  : T extends CurveTemplate ? ResolvableParameter<T>
-  : T extends PlantTemplate ? ResolvableParameter<T, PlantValue>
-  : unknown;
+  T extends PlantTemplate ? ResolvableParameter<T, PlantValue>
+  : ResolvableParameter<T>;
 
 export type Params<T extends NodeParameters = NodeParameters> = {
   [K in keyof T]: Parameter<T[K]>

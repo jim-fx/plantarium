@@ -16,6 +16,7 @@ $themes: (
   dark: (
     background-color: #141516,
     midground-color: #242729,
+    accent: $green-light,
     foreground-color: #33373a,
     outline-color: #212121,
     text-color: #ffffff,
@@ -24,6 +25,7 @@ $themes: (
   light: (
     background-color: #d0d0d0,
     midground-color: white,
+    accent: $green-dark,
     foreground-color: #e8e8e8,
     outline-color: #b9b9b9,
     text-color: #484848,

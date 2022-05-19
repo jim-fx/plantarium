@@ -97,7 +97,7 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
 
   return {
     stems,
-    geometry: geometry
+    geometry: calculateNormals(geometry)
   };
 
 }

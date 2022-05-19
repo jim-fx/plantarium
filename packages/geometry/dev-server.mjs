@@ -5,7 +5,7 @@ const clients = [];
 
 esbuild
   .build({
-    entryPoints: ['./src/index.ts'],
+    entryPoints: ['./src/index.ts', "./src/ogl.ts"],
     bundle: true,
     sourcemap: true,
     format: 'esm',

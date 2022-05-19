@@ -1,4 +1,6 @@
 import type { InstancedGeometry, TransferGeometry } from "@plantarium/types"
+import insertArray from "./insertArray";
+import rotate3D from "./rotate3D";
 
 function applyTransformation(
   geo: TransferGeometry,
@@ -24,6 +26,7 @@ function applyTransformation(
     const __x = Math.cos(rot[1]) * _x - Math.sin(rot[1]) * _z;
     const __y = _y;
     const __z = Math.sin(rot[1]) * _x + Math.cos(rot[1]) * _z;
+
 
     //Apply offset
     newPos[i + 0] = __x + offset[0];

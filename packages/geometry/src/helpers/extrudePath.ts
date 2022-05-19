@@ -22,30 +22,22 @@ function createIndeces(resX: number, stemLength = 1) {
       const _indexOffset = indexOffset + j * 6;
       const _positionOffset = positionOffset + j;
 
-      index[_indexOffset + 0] = _positionOffset;
-      index[_indexOffset + 1] = _positionOffset - resX + 1;
-      index[_indexOffset + 2] = _positionOffset + 1;
-
-      index[_indexOffset + 3] = _positionOffset + 1;
-      index[_indexOffset + 4] = _positionOffset + resX;
-      index[_indexOffset + 5] = _positionOffset;
-
       if (j === resX - 1) {
-        index[_indexOffset + 0] = _positionOffset;
+        index[_indexOffset + 0] = _positionOffset + 1;
         index[_indexOffset + 1] = _positionOffset - resX + 1;
-        index[_indexOffset + 2] = _positionOffset + 1;
+        index[_indexOffset + 2] = _positionOffset;
 
-        index[_indexOffset + 3] = _positionOffset + 1;
+        index[_indexOffset + 3] = _positionOffset;
         index[_indexOffset + 4] = _positionOffset + resX;
-        index[_indexOffset + 5] = _positionOffset;
+        index[_indexOffset + 5] = _positionOffset + 1;
       } else {
-        index[_indexOffset + 0] = _positionOffset;
+        index[_indexOffset + 0] = _positionOffset + resX + 1;
         index[_indexOffset + 1] = _positionOffset + 1;
-        index[_indexOffset + 2] = _positionOffset + resX + 1;
+        index[_indexOffset + 2] = _positionOffset;
 
-        index[_indexOffset + 3] = _positionOffset + resX + 1;
+        index[_indexOffset + 3] = _positionOffset;
         index[_indexOffset + 4] = _positionOffset + resX;
-        index[_indexOffset + 5] = _positionOffset;
+        index[_indexOffset + 5] = _positionOffset + resX + 1;
       }
     }
   }
@@ -97,7 +89,7 @@ export default function(path: Float32Array, resolution = 3) {
       normalize(n, pt)
       const offset = i * resolution * 3 + j * 3;
       insertArray(normal, offset, n as number[])
-      mul(n, n, [-1, -1, -1]);
+      mul(n, n, [1, 1, -1]);
       add(pt, pt, currentPoint);
       insertArray(position, offset, pt as number[])
       insertArray(uv, i * resolution * 2 + j * 2, [j / resolution, i / pointAmount])

@@ -1,4 +1,5 @@
 import * as geometry from '../dist/index.js';
+import ogl from '../dist/ogl.js';
 window["geometry"] = geometry;
 import { getEditor, onValueChange } from './editor.js';
 import * as scene from './scene.js';
@@ -38,7 +39,7 @@ onValueChange((v) => {
   let generatorTime = 0;
   try {
     const a = performance.now();
-    eval(`(g,scene) => {${v}\n}`)(geometry, scene);
+    eval(`(g,scene,ogl) => {${v}\n}`)(geometry, scene, ogl);
     generatorTime = performance.now() - a;
   } catch (error) {
     // eslint-disable-next-line no-empty

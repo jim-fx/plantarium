@@ -50,9 +50,9 @@ export default class Renderer extends EventEmitter {
     this.renderer = new oRenderer({
       canvas,
       width,
-      // premultipliedAlpha: true,
+      premultipliedAlpha: true,
       height,
-      // alpha,
+      alpha,
       antialias: true,
       // dpr: 1,
     });

@@ -1,5 +1,5 @@
 import type { TransferGeometry, Vec2 } from "@plantarium/types";
-import { insertArray, normalize3D, rotate2D } from "../helpers";
+import { normalize3D, rotate2D } from "../helpers";
 
 export default function(
   shape: Vec2[],
@@ -8,8 +8,6 @@ export default function(
   const amountY = shape.length;
   const amountX = 3 + res * 2;
   const amountPoints = amountX * amountY;
-
-  console.log({ amountX, amountY, amountPoints })
 
   const amountTriangles = (amountX - 1) * (amountY - 1) * 2;
 
@@ -41,9 +39,9 @@ export default function(
       const curvedX = Math.sin(Math.abs(a) * Math.PI) * 0.01;
       let [z, y] = rotate2D([0.0001, (curvedX * xCurvature) * _a], rotationAcc);
 
-      let x = (point.x - 1) * a * 0.5; // X is left -> right
+      let x = (Math.min(Math.max(point.x, 0.001), 0.999) - 1) * a * 0.5; // X is left -> right
 
-      const n = normalize3D([x, j == 0 ? 1 : y, z]);
+      const n = normalize3D([Math.sin(Math.abs(a / 100)), y, z]);
 
       normal[offset * 3 + i * 3 + 0] = n[0]
       normal[offset * 3 + i * 3 + 1] = n[1]
@@ -60,9 +58,9 @@ export default function(
       if (j !== shape.length - 1) {
         const lineOffset = j * (amountX - 1);
 
-        index[lineOffset * 6 + i * 6 + 0] = offset + i + 0;
+        index[lineOffset * 6 + i * 6 + 0] = offset + i + amountX;
         index[lineOffset * 6 + i * 6 + 1] = offset + i + 1;
-        index[lineOffset * 6 + i * 6 + 2] = offset + i + amountX;
+        index[lineOffset * 6 + i * 6 + 2] = offset + i + 0;
 
         index[lineOffset * 6 + i * 6 + 3] = offset + i + 1;
         index[lineOffset * 6 + i * 6 + 4] = offset + i + amountX;
@@ -74,8 +72,6 @@ export default function(
     prevZ += oz;
     _prev = point.y;
   });
-
-  console.log(normal, position)
 
   return {
     position,

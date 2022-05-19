@@ -86,7 +86,6 @@ let store: undefined | Writable<unknown[]>;
 
 function log(scope: string): Logger {
 
-
   longestName = Math.max(longestName, scope.length);
 
   const myIndex = currentIndex;
@@ -125,15 +124,25 @@ function log(scope: string): Logger {
       }
 
       if (_level === 0) {
+        console.error(
+          `%c[${scope.padEnd(longestName, ' ')}]`,
+          `color: hsl(${myIndex * 30}deg 68% 64%); font-weight: bold;`,
+          ...args,
+        );
+        return;
+      }
+
+      if (_level === 1) {
+        console.warn(`[${scope.padEnd(longestName, ' ')}]`, ...args);
+        return;
+      }
+
+      if (_level === 2) {
         console.log(
           `%c[${scope.padEnd(longestName, ' ')}]`,
           `color: hsl(${myIndex * 30}deg 68% 64%); font-weight: bold;`,
           ...args,
         );
-      }
-
-      if (_level === 1) {
-        console.warn(`[${scope.padEnd(longestName, ' ')}]`, ...args);
       }
     }
   };

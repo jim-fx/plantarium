@@ -15,6 +15,7 @@ export { default as groupArray } from './groupArray';
 export * as humane from './humane';
 export { default as inputChanged } from './inputChanged';
 export { default as interval } from './interval';
+export { default as wait } from './wait';
 // Geometry Stuff
 export { default as loader } from './loader';
 // Misc
