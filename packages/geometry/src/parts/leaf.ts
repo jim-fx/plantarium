@@ -1,5 +1,5 @@
 import type { TransferGeometry, Vec2 } from "@plantarium/types";
-import { normalize3D, rotate2D } from "../helpers";
+import { calculateNormals, normalize3D, rotate2D } from "../helpers";
 
 export default function(
   shape: Vec2[],
@@ -41,11 +41,11 @@ export default function(
 
       let x = (Math.min(Math.max(point.x, 0.001), 0.999) - 1) * a * 0.5; // X is left -> right
 
-      const n = normalize3D([Math.sin(Math.abs(a / 100)), y, z]);
-
-      normal[offset * 3 + i * 3 + 0] = n[0]
-      normal[offset * 3 + i * 3 + 1] = n[1]
-      normal[offset * 3 + i * 3 + 2] = n[2]
+      // const n = normalize3D([Math.sin(Math.abs(a / 100)), y, z]);
+      //
+      // normal[offset * 3 + i * 3 + 0] = n[0]
+      // normal[offset * 3 + i * 3 + 1] = n[1]
+      // normal[offset * 3 + i * 3 + 2] = n[2]
 
       position[offset * 3 + i * 3 + 0] = x;
       position[offset * 3 + i * 3 + 1] = y + oy + prevY;
@@ -73,10 +73,10 @@ export default function(
     _prev = point.y;
   });
 
-  return {
+  return calculateNormals({
     position,
     normal,
     index,
     uv,
-  };
+  });
 }

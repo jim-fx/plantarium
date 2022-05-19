@@ -75,7 +75,7 @@ export default class ConnectionView {
     this.x2 = limit(x2);
     this.y2 = limit(y2);
 
-    const width = this.x2 - this.x1 + 3.5;
+    const width = this.x2 - this.x1 + 7;
     const height = this.y2 - this.y1;
 
     this?.hoverPath?.setAttribute(

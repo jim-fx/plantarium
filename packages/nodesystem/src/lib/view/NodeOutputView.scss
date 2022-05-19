@@ -8,3 +8,25 @@
   border-radius: 0px 10px 10px 0px;
 	position:relative;
 }
+
+.node-output-wrapper:hover{
+  &::after{
+    opacity:0.5;
+    transform: scale(0.9);
+  }
+}
+
+.node-output-wrapper::after{
+  content:"";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background:var(--socket-color);
+  transform: scale(1.1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity:0;
+  z-index:-1;
+  left: -11px;
+  top: -6px;
+  border-radius:20px;
+}

@@ -36,6 +36,8 @@ export default class NodeOutputView {
         .getComputedStyle(this.wrapper, null)
         .getPropertyValue('background-color');
 
+      this.wrapper.style.setProperty("--socket-color", color);
+
       this.wrapper.style.backgroundColor =
         col !== 'rgba(0, 0, 0, 0)' && col !== 'rgb(0,0,0)' ? col : color;
     });

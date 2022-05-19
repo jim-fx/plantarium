@@ -150,7 +150,6 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
         outputNode: this.isInput ? this.hoveredSocket.node : this.socket.node,
       });
 
-      this.emit("remove")
 
       this.remove();
     } else if (keys.ctrlKey) {
@@ -163,16 +162,16 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
           } else {
             node.connectTo(this.socket.node, indexOut, keyIn);
           }
+          this.remove();
         })
         .catch(() => {
           // Do nothing^
+          this.remove();
         })
         .finally(() => {
-          this.emit("remove")
           this.remove();
         });
     } else {
-      this.emit("remove")
       this.remove();
     }
   }
@@ -221,6 +220,7 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
 
   remove() {
     super.remove();
+    this.emit("remove")
     this.system.isPaused = false;
   }
 }

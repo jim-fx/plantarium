@@ -7,15 +7,21 @@
 }
 .node-connection-hover {
   fill: none;
+  opacity:0;
+  transition: opacity 0.2s ease;
   stroke: rgba(0, 0, 0, 0);
   stroke-width: 1em;
   pointer-events: all;
 }
 
-.node-connection-hover:hover {
-  opacity: 0.8;
+.node-connection-path.hover-active {
+  filter: drop-shadow(0px 0px 2px 10px hotpink);
 }
 
-.node-connection-path.hover-active {
-  filter: drop-shadow(0px 0px 2px hotpink);
+.node-connection-hover{
+  stroke:var(--socket-color);
+}
+
+.node-connection-hover.hover-active{
+  opacity:0.2;
 }

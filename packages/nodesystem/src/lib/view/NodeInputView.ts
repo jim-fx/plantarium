@@ -46,6 +46,7 @@ export default class NodeInputView {
       const col = window
         .getComputedStyle(this.wrapper, null)
         .getPropertyValue('background-color');
+      this.wrapper.style.setProperty("--socket-color", color)
       this.wrapper.style.backgroundColor =
         col !== 'rgba(0, 0, 0, 0)' ? col : color;
     });

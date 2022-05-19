@@ -28,7 +28,7 @@ export default class RightClickMenu {
   y = 0;
 
   socket: NodeInput | NodeOutput | undefined;
-  types: NodeType[];
+  types: NodeType[] = [];
 
   res!: (data: NodeProps) => void;
   rej!: () => void;
@@ -58,15 +58,31 @@ export default class RightClickMenu {
     this.view.on('keydown', ({ key }) => key === 'Escape' && this.hide());
   }
 
-  updateTypes(types: NodeType[]) {
+  updateTypes(types = this.types) {
+    this.types = types;
     log("register types", types)
+    console.log(this.socket)
     this.searchEl.setItems(
       types.map((t) => {
         return {
+          outputs: t.outputs,
+          inputs: t.inputs,
           value: t.type || t.title,
           title: t.title,
         };
-      }),
+      }).filter(v => {
+        if (!this.socket) return true;
+
+        console.log({ v })
+
+        // We have an input socket
+        if (Array.isArray(this.socket.type)) {
+          return v?.outputs?.find(o => this.socket.type.includes(o))
+          // we have an output socket
+        } else {
+          return v?.inputs?.includes(this.socket.type)
+        }
+      })
     );
   }
 
@@ -117,6 +133,7 @@ export default class RightClickMenu {
     this.searchEl.clear();
     this.wrapper.classList.remove('context-visible');
     this.wrapper.blur();
+    if (this.rej) this.rej()
     this.res = (d: NodeProps) => d;
     this.reject = () => {
       return;
@@ -131,6 +148,8 @@ export default class RightClickMenu {
     this.wrapper.style.left = (x / this.system.view.width) * 100 + '%';
     this.wrapper.style.top = (y / this.system.view.height) * 100 + '%';
     this.wrapper.classList.add('context-visible');
+
+    this.updateTypes()
 
     setTimeout(() => {
       this.searchEl.focus();

@@ -3,7 +3,7 @@ import { checkNodeType } from "../types";
 export default checkNodeType({
   title: 'Math',
   type: 'math',
-  outputs: ['number', 'number'],
+  outputs: ['number'],
   parameters: {
     mode: {
       type: 'select',

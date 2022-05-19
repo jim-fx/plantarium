@@ -45,6 +45,7 @@ export default class NodeConnectionView extends ConnectionView {
 
     colorStore.onType(conn.output.type, (color) => {
       this.path.style.stroke = color;
+      this.svg.style.setProperty("--socket-color", color);
     });
 
 
@@ -54,6 +55,7 @@ export default class NodeConnectionView extends ConnectionView {
     if (this.connection.isNodeJoinable(node)) {
       node.view.hoveredConnection = this;
       this.path.classList.add('hover-active');
+      this.hoverPath.classList.add('hover-active');
     }
   }
 
@@ -61,6 +63,7 @@ export default class NodeConnectionView extends ConnectionView {
     if (node && node.view.hoveredConnection === this) {
       delete node.view.hoveredConnection;
     }
+    this.hoverPath.classList.remove('hover-active');
     this.path.classList.remove('hover-active');
   }
 
