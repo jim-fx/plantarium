@@ -76,6 +76,7 @@
 	{:catch err}
 		<p>Errror</p>
 		<code>{JSON.stringify(err, null, 2)}</code>
+		<button on:click={() => (submitPromise = undefined)}>go back</button>
 	{/await}
 {:else}
 	<section>

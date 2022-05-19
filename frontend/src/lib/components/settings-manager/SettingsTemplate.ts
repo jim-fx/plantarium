@@ -1,6 +1,24 @@
-import type { SettingsTemplate } from "$lib/types";
+import type { ValueTemplate as _ValueTemplate } from "@plantarium/ui";
 
-const template: SettingsTemplate = {
+type ValueTemplate = _ValueTemplate & { label?: string }
+
+type Settings = { options: { [key: string]: ValueTemplate }, onlyDev?: boolean };
+type MainSettings = { [key: string]: (ValueTemplate | Settings) };
+
+
+type Settings2Type<T extends MainSettings | Settings> = {
+  [K in keyof T]:
+  T[K] extends ValueTemplate ? T[K]["value"]
+  : T[K] extends Settings ? Settings2Type<T[K]["options"]>
+  : T[K] extends MainSettings ? Settings2Type<T[K]>
+  : unknown;
+};
+
+function settingsType<T extends MainSettings>(s: T): Settings2Type<T> {
+  return s as Settings2Type<T>;
+}
+
+export default settingsType({
   enableSync: {
     type: 'boolean',
     value: false
@@ -22,6 +40,12 @@ const template: SettingsTemplate = {
       //type: 'boolean',
       //defaultValue: false,
       //},
+      //
+      material: {
+        type: "select",
+        values: ["MatCap", "Basic", "Debug"],
+        value: "MatCap"
+      },
 
       showNodeUpdates: {
         type: 'boolean',
@@ -121,6 +145,5 @@ const template: SettingsTemplate = {
     type: 'boolean',
     value: false
   }
-};
+});
 
-export default template;

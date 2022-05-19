@@ -1,7 +1,3 @@
-import type { ValueTemplate } from "@plantarium/ui";
+import type SettingsTemplate from "$lib/components/settings-manager/SettingsTemplate";
 
-export type SettingsTemplate = {
-  [key: string]:
-  | ValueTemplate
-  | { onlyDev?: boolean; options: SettingsTemplate };
-};
+export type PlantariumSettings = typeof SettingsTemplate;

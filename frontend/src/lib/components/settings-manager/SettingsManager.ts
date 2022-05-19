@@ -4,13 +4,13 @@ import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
 import './index.scss';
 import SettingsTemplate from './SettingsTemplate';
-import type { PlantariumSettings } from "@plantarium/types"
+import type { PlantariumSettings } from "$lib/types"
 
 const obj = {};
 
 const log = logger('SettingsManager');
 
-const templateToSettings = (template: SettingsTemplate, store?: typeof obj): PlantariumSettings => {
+const templateToSettings = (template: typeof SettingsTemplate, store?: typeof obj): PlantariumSettings => {
   const settings = {} as PlantariumSettings;
 
   Object.entries(template).forEach(([key, _template]) => {
