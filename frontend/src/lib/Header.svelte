@@ -24,7 +24,7 @@
 	@use '~@plantarium/theme/src/themes.module.scss';
 
 	h3 {
-		color: themes.$light-green;
+		color: var(--accent);
 	}
 
 	header {

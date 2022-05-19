@@ -76,21 +76,21 @@
 		padding-bottom: 0px;
 		top: 0px;
 		left: 0px;
-		background: linear-gradient(0deg, #65e29f00 0%, #65e29f 50%);
+		background: linear-gradient(0deg, transparent 0%, var(--accent) 50%);
 
 		> button,
 		input {
 			height: 100%;
 			border-radius: 5px;
 			padding: 0px 10px;
-			background-color: themes.$dark-green;
+			background-color: var(--accent-dark, themes.$green-dark);
 			color: white;
 			font-size: 1em;
 			border: none;
 		}
 
 		> :global(#main > *) {
-			background-color: themes.$dark-green;
+			background-color: var(--accent-dark, themes.$green-dark);
 			font-size: 1em;
 		}
 

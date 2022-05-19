@@ -143,7 +143,7 @@
 	}
 
 	:global(.token.string) {
-		color: themes.$dark-green;
+		color: var(--accent);
 	}
 	.scene-wrapper {
 		position: relative;

@@ -94,7 +94,7 @@
   }
 
   button.has-icon {
-    padding-left: 10px;
+    padding-left: 7px;
   }
   button.has-icon > p {
     padding-left: 10px;

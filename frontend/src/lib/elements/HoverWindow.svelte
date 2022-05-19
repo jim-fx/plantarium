@@ -40,7 +40,7 @@
 	.wrapper {
 		position: absolute;
 		width: fit-content;
-		background-color: themes.$light-green;
+		background-color: var(--accent);
 		pointer-events: none;
 		display: none;
 

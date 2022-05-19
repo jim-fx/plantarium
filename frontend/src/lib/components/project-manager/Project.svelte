@@ -83,7 +83,6 @@
 		padding: 4px;
 		border-radius: 10px;
 		display: grid;
-		border: solid thin var(--text-color-invert);
 		margin-bottom: 10px;
 		grid-template-columns: 100px 1fr;
 		color: #303030;
@@ -113,7 +112,7 @@
 				justify-content: space-between;
 
 				> input {
-					color: var(--text-color-invert);
+					color: var(--text-color);
 					border: none;
 					font-weight: bolder;
 				}
@@ -136,7 +135,7 @@
 					margin-right: 5px;
 
 					&.delete {
-						background-color: themes.$light-red;
+						background-color: var(--error);
 					}
 				}
 			}

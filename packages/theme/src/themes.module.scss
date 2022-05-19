@@ -18,7 +18,8 @@ $themes: (
   dark: (
     background-color: #141516,
     midground-color: #242729,
-    accent: $green-light,
+    accent: $green-dark,
+    accent-dark: $green-light,
     error: $red-dark,
     foreground-color: #33373a,
     outline-color: #212121,
@@ -29,7 +30,8 @@ $themes: (
   light: (
     background-color: #d0d0d0,
     midground-color: white,
-    accent: $green-dark,
+    accent: $green-light,
+    accent-dark: $green-dark,
     error: $red-light,
     foreground-color: #e8e8e8,
     outline-color: #b9b9b9,

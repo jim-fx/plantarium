@@ -3,6 +3,4 @@ $mg: var(--midground-color, #1a1a1a);
 $fg: var(--foreground-color, #303030);
 $border: var(--outline-color);
 $text: var(--text-color, #f0f0f0);
-$green_light: #65e2a0;
-$green_dark: #469c6e;
-$green_gradient: linear-gradient(to right, $green_light, $green_dark);
+$accent: var(--accent);

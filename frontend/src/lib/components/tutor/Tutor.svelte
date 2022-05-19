@@ -197,7 +197,7 @@
 		position: absolute;
 		min-width: 200px;
 		max-width: 250px;
-		background-color: themes.$light-green;
+		background-color: var(--accent);
 		border-radius: 20px;
 		z-index: 1000;
 		box-sizing: border-box;
@@ -211,7 +211,7 @@
 		border: solid 7px;
 		box-sizing: border-box;
 
-		border-color: themes.$light-green;
+		border-color: var(--accent);
 
 		z-index: 999;
 		pointer-events: none;

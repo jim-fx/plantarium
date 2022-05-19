@@ -23,6 +23,7 @@
     width: var(--width, fit-content);
     height: var(--height, fit-content);
     object-fit: cover;
+    display: grid;
     box-sizing: border-box;
 
     min-width: 20px;
