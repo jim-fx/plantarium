@@ -1,4 +1,6 @@
 import { join, splitSkeleton, tube } from '@plantarium/geometry';
+import { PlantStem } from '@plantarium/types';
+import { filterInstancesByAlpha, findMaxDepth } from '../helpers';
 import { typeCheckNode } from '../types';
 export default typeCheckNode({
   title: 'Split',
@@ -40,17 +42,18 @@ export default typeCheckNode({
     const angle = parameters.angle();
     const amount = parameters.amount();
 
-    const { stems: inputStems } = parameters.input();
+    const input = parameters.input();
 
-    const maxDepth = Math.max(...inputStems.map(s => s.depth));
+    const maxDepth = Math.max(...input.stems.map(s => s.depth));
 
-    const stems = inputStems.map((stem: PlantStem) => {
+    const stems = input.stems.map((stem: PlantStem) => {
       if (stem.depth === maxDepth) {
         const newSkeletons = splitSkeleton(stem.skeleton, height, amount, angle);
         return newSkeletons.map((s, i) => {
           return {
             skeleton: s,
             id: stem.id,
+            baseAlpha: height,
             depth: stem.depth + (i === 0 ? 0 : 1),
           }
         })
@@ -59,8 +62,14 @@ export default typeCheckNode({
       }
     }).flat().filter(v => !!v);
 
+
+    if (input.instances) {
+      input.instances = filterInstancesByAlpha(input.instances, 0, height, maxDepth);
+    }
+
     return {
       stems,
+      instances: input.instances
     };
   },
 

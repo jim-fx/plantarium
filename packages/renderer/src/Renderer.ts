@@ -1,5 +1,5 @@
 import { convertHexToRGB, EventEmitter, throttle } from '@plantarium/helpers';
-import { Camera, Orbit, Renderer as oRenderer, Transform, Vec3 } from 'ogl-typescript';
+import { Camera, OGLRenderingContext, Orbit, Renderer as oRenderer, Transform, Vec3 } from 'ogl-typescript';
 
 interface RendererOptions {
   clearColor: string;
@@ -16,7 +16,7 @@ let a = 0;
 export default class Renderer extends EventEmitter {
   canvas: HTMLCanvasElement;
 
-  gl: WebGL2RenderingContext;
+  gl: OGLRenderingContext;
 
   renderer: oRenderer;
   scene: Transform = new Transform();

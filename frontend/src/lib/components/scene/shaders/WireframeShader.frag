@@ -1,6 +1,10 @@
 precision highp float;
 precision highp int;
 
+varying float vDepth;
+uniform float maxDepth;
+
 void main(){
-    gl_FragColor=vec4(1.,.9,.4,.7);
+    float v = vDepth/maxDepth;
+    gl_FragColor=vec4(v,v,0.5,.9);
 }

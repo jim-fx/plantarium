@@ -20,6 +20,9 @@ export interface InstancedGeometry {
   offset: Float32Array;
   rotation: Float32Array;
   scale: Float32Array;
+  id: string,
+  depth: number,
+  baseAlpha: Float32Array
 }
 
 export interface Vec2 {

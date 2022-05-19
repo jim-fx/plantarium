@@ -31,6 +31,8 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
 
   const nodeBuckets = gctx.getBucketsForNode(gctx.outputNode);
 
+  let caughtNaN = false;
+
 
   // Now we can start executing buckets
   for (const bucket of nodeBuckets.reverse()) {
@@ -47,8 +49,8 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
         if (execNode?.computeStem) {
           ctx["_id"] = n.id;
           const result = execNode.computeStem(parameters, ctx);
-          if (result.stems.find(s => s.skeleton.includes(NaN))) {
-            console.warn("Node " + execNode.type + " procuded nan in skeleton");
+          if (!caughtNaN && result.stems.find(s => s.skeleton.includes(NaN))) {
+            console.warn("Node " + execNode.type + " produced NaN in skeleton");
             console.log({ result })
           }
           n.results = Array.isArray(result) ? result : [result];

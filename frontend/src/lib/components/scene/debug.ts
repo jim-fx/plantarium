@@ -1,25 +1,32 @@
-import { Geometry, Mesh, Program } from 'ogl-typescript';
+import type { PlantariumSettings } from '$lib/types';
+import { insertArray } from '@plantarium/geometry';
+import type { PlantStem, TransferGeometry } from '@plantarium/types';
+import { Geometry, Mesh, Program, type OGLRenderingContext } from 'ogl-typescript';
 import type Scene from '.';
 import { settingsManager } from '..';
 import type { ProjectManager } from '../project-manager';
 import { ParticleShader, WireFrameShader } from './shaders';
 
 export default class DebugScene {
-  private plant: GeometryResult;
+  private plant?: {
+    stems: PlantStem[]
+    geometry: TransferGeometry
+  };
   private settings: PlantariumSettings;
 
-  private gl: WebGL2RenderingContext;
+  private gl: OGLRenderingContext;
 
   private m: { [key: string]: Mesh } = {};
 
-  constructor(private scene: Scene, private pm: ProjectManager) {
+  constructor(private scene: Scene, pm: ProjectManager) {
     this.gl = scene.renderer.gl;
 
     this.initGeometry();
 
-    this.setSettings(settingsManager.getSettings());
+    this.settings = settingsManager.getSettings()
+    this.setSettings(this.settings);
 
-    pm.on('settings', this.setSettings.bind(this));
+    pm.on('settings', s => this.setSettings(s as PlantariumSettings));
   }
 
   initGeometry() {
@@ -29,11 +36,7 @@ export default class DebugScene {
         uv: { size: 2, data: new Float32Array([0, 0]) },
         index: { size: 1, data: new Uint16Array([0]) }
       }),
-      program: new Program(this.gl, {
-        vertex: WireFrameShader.vertex,
-        fragment: WireFrameShader.fragment,
-        depthTest: false
-      }),
+      program: WireFrameShader(this.gl),
       mode: this.gl.LINES
     });
     // this.m.skeleton.mode = this.gl.LINES;
@@ -61,7 +64,7 @@ export default class DebugScene {
     this.update();
   }
 
-  setPlant(plant: GeometryResult) {
+  setPlant(plant: typeof this.plant) {
     this.plant = plant;
     this.update();
   }
@@ -70,20 +73,26 @@ export default class DebugScene {
     if (!p || !s) return;
 
     //Convert skeletons to Geometry
-    if ((p.allSkeletons || p.skeletons) && s.debug?.skeleton) {
-      const skeletons: Float32Array[] = p.allSkeletons ?? p.skeletons;
+    if (p.stems && s.debug?.skeleton) {
+      const stems = p.stems;
       let amountPos = 0;
-      for (const skelly of skeletons) {
-        amountPos += (skelly.length / 4) * 3;
+      for (const stem of stems) {
+        amountPos += (stem.skeleton.length / 4) * 3;
       }
 
       const positions = new Float32Array(amountPos);
       const indeces = new Uint32Array((amountPos / 3 - 1) * 2);
+      const depthBuffer = new Float32Array(amountPos);
 
       // Transfer positions;
+      let maxDepth = 0;
       let offset = 0;
-      skeletons.forEach((skelly) => {
+      stems.forEach(({ skeleton: skelly, depth }) => {
         const amount = skelly.length / 4;
+
+        maxDepth = Math.max(maxDepth, depth)
+
+        insertArray(depthBuffer, offset, new Float32Array(amount).fill(depth));
 
         for (let i = 0; i < amount; i++) {
           positions[offset * 3 + i * 3 + 0] = skelly[i * 4 + 0];
@@ -99,8 +108,11 @@ export default class DebugScene {
         offset += amount;
       });
 
+      this.m.skeleton.program.uniforms.maxDepth.value = maxDepth;
+
       this.m.skeleton.geometry = new Geometry(this.gl, {
         position: { size: 3, data: positions },
+        depth: { size: 1, data: depthBuffer },
         index: { size: 1, data: indeces }
       });
 

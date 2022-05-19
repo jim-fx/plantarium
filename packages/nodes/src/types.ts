@@ -1,16 +1,12 @@
 import type { ValueTemplate } from "@plantarium/ui";
 import type { NodeContext } from "@plantarium/generator"
-import type { PlantStem } from "@plantarium/types"
+import type { InstancedGeometry, PlantStem } from "@plantarium/types"
 import { TransferGeometry } from "@plantarium/types";
 
-type Instances = {
-  offset: Float32Array;
-  scale: Float32Array;
-  rotation: Float32Array;
-}
-
-type PlantValue = {
-  stems: PlantStem[], geometry: TransferGeometry, instances: Instances[]
+export type PlantValue = {
+  stems: PlantStem[]
+  geometry: TransferGeometry
+  instances: InstancedGeometry[]
 }
 
 type PlantTemplate = {

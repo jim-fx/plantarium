@@ -1,4 +1,5 @@
-import { interpolateSkeleton, join, tube } from '@plantarium/geometry';
+import { interpolateSkeleton } from '@plantarium/geometry';
+import { findMaxDepth } from "../helpers"
 import {
   interpolateSkeletonVec,
   normalize2D,
@@ -61,13 +62,13 @@ export default typeCheckNode({
 
     if (!parameters.input) return { stems: [] };
 
-    const { stems: inputStems } = parameters.input();
+    const input = parameters.input();
 
     const branchRes = ctx.getSetting('stemResY');
 
-    const maxDepth = Math.max(...inputStems.map(s => s.depth));
+    const maxDepth = findMaxDepth(input);
 
-    const stems = inputStems
+    const stems = input.stems
       .map((stem) => {
         const branches: PlantStem[] = [];
 
@@ -129,7 +130,8 @@ export default typeCheckNode({
       .flat();
 
     return {
-      stems: [...inputStems, ...stems]
+      instances: input.instances,
+      stems: [...input.stems, ...stems]
     };
   },
 });

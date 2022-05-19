@@ -40,10 +40,14 @@ export const InstanceShader = {
   vertex: InstanceShaderVert
 };
 
-export const WireFrameShader = {
+export const WireFrameShader = (gl: OGLRenderingContext) => new Program(gl, {
   fragment: WireFrameFrag,
-  vertex: WireFrameVert
-};
+  vertex: WireFrameVert,
+  uniforms: {
+    maxDepth: { value: 1 }
+  },
+  depthTest: false
+});
 
 export const ParticleShader = {
   fragment: ParticleFrag,

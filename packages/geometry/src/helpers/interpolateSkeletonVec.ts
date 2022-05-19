@@ -2,12 +2,10 @@ export default function(
   skeleton: Float32Array,
   alpha: number,
 ): [number, number, number, number] {
-  const _alpha = (skeleton.length / 4 - 1) * Math.max(Math.min(alpha, 1), 0);
+  const _alpha = (skeleton.length / 4) * Math.max(Math.min(alpha, 0.9999), 0.0001);
 
-  const i = Math.floor(_alpha);
-  const j = Math.ceil(_alpha);
-
-  // TODO: we could make this more precise by lerping between the next and the previous vector base on alpha
+  const i = Math.max(Math.floor(_alpha), 0);
+  const j = Math.min(Math.ceil(_alpha), skeleton.length / 4 - 1);
 
   return [
     skeleton[j * 4 + 0] - skeleton[i * 4 + 0],

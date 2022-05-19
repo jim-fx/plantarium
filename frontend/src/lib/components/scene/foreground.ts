@@ -7,7 +7,7 @@ import { settingsManager, projectManager } from '..';
 import { Report } from '../../elements';
 import type { ProjectManager } from '../project-manager';
 import DebugScene from './debug';
-import { BasicShader, DebugShader, MatCapShader, NormalShader } from './shaders';
+import { DebugShader, MatCapShader, NormalShader } from './shaders';
 import * as performance from '../../helpers/performance';
 import { createWorker } from '@plantarium/generator';
 import type { PlantProject, TransferGeometry } from '@plantarium/types';
@@ -58,13 +58,24 @@ export default class ForegroundScene extends EventEmitter {
 
 
   setSettings(settings: PlantariumSettings) {
-    this.settings = JSON.parse(JSON.stringify(settings));
-    if (this.mesh)
+    if (this.mesh && settings?.debug?.material !== this.settings?.debug?.material) {
       this.mesh.program = getShader(settings?.debug?.material)(this.gl);
+    }
+
+    if (this.mesh && settings?.debug?.wireframe) {
+      this.mesh.mode = this.gl.LINE_LOOP
+    } else {
+      this.mesh.mode = this.gl.TRIANGLES
+    }
+
+    this.settings = JSON.parse(JSON.stringify(settings));
+
+    console.log("Seeettings", { settings })
+
     this.update();
   }
 
-  setPlant(plant: PlantProject) {
+  setPlant(plant?: PlantProject) {
     if (!plant) return;
     this.plant = window["structuredClone"](plant);
     this.update();
@@ -92,7 +103,7 @@ export default class ForegroundScene extends EventEmitter {
         return;
       } else {
         this.emit("node-errors", []);
-        this.mesh.visible = true;
+        this.mesh.visible = !this?.settings?.debug?.hideMesh;
       }
 
       updateThumbnail(result.geometry);

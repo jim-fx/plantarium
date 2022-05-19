@@ -46,9 +46,9 @@ export default typeCheckNode({
 
     const { input, axis, spread, } = parameters;
 
-    const {
-      stems,
-    } = input();
+    const inp = input();
+
+    const stems = inp.stems;
 
     const rotationAxis = getRotationAxis(axis);
 
@@ -99,6 +99,7 @@ export default typeCheckNode({
     });
 
     return {
+      ...inp,
       stems,
     };
   },

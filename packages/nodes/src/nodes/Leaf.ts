@@ -6,6 +6,7 @@ import {
   leaf,
   normalize2D,
 } from '@plantarium/geometry';
+import { findMaxDepth } from '../helpers';
 import { typeCheckNode } from '../types';
 // import { logger } from '@plantarium/helpers';
 // const log = logger('nodes.leaf');
@@ -95,12 +96,12 @@ export default typeCheckNode({
 
   computeStem(parameters) {
 
-    const { stems } = parameters.input();
+    const input = parameters.input();
 
-    const maxDepth = Math.max(...stems.map(s => s.depth))
+    const maxDepth = findMaxDepth(input);
 
-    const instances = stems.map((stem, i) => {
-      const alpha = i / stems.length;
+    const instances = input.stems.map((stem, i) => {
+      const alpha = i / input.stems.length;
 
       if (stem.depth !== maxDepth) return;
 
@@ -111,6 +112,7 @@ export default typeCheckNode({
       const offset = new Float32Array(amount * 3);
       const scale = new Float32Array(amount * 3);
       const rotation = new Float32Array(amount * 3);
+      const baseAlpha = new Float32Array(amount);
 
       for (let i = 0; i < amount; i++) {
         const _alpha = i / (amount - 1);
@@ -118,6 +120,7 @@ export default typeCheckNode({
         const lowestLeaf = parameters.lowestLeaf(_alpha);
 
         const a = lowestLeaf + (1 - lowestLeaf) * _alpha - 0.001;
+        baseAlpha[i] = a;
         //const isLeft = i % 2 === 0;
 
         const [x, y, z] = interpolateSkeleton(stem.skeleton, a);
@@ -140,8 +143,7 @@ export default typeCheckNode({
         scale[i * 3 + 2] = size;
 
         rotation[i * 3 + 0] = 0;
-        rotation[i * 3 + 1] =
-          angleRadians - (Math.PI / 2) * (i % 2 === 0 ? -1 : 1);
+        rotation[i * 3 + 1] = angleRadians - (Math.PI / 2) * (i % 2 === 0 ? -1 : 1);
         rotation[i * 3 + 2] = 0;
       }
 
@@ -149,11 +151,18 @@ export default typeCheckNode({
         offset,
         scale,
         rotation,
+        id: stem.id,
+        baseAlpha,
+        depth: stem.depth
       };
     }).filter(v => !!v);
 
+    if (input.instances) {
+      instances.push(...input.instances)
+    }
+
     return {
-      stems,
+      stems: input.stems,
       instances,
     };
   },

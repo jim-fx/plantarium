@@ -3,7 +3,7 @@ import type { ValueTemplate as _ValueTemplate } from "@plantarium/ui";
 type ValueTemplate = _ValueTemplate & { label?: string }
 
 type Settings = { options: { [key: string]: ValueTemplate }, onlyDev?: boolean };
-type MainSettings = { [key: string]: (ValueTemplate | Settings) };
+export type MainSettings = { [key: string]: (ValueTemplate | Settings) };
 
 
 type Settings2Type<T extends MainSettings | Settings> = {
@@ -45,6 +45,11 @@ export default settingsType({
         type: "select",
         values: ["MatCap", "Basic", "Debug"],
         value: "Basic"
+      },
+
+      hideMesh: {
+        type: "boolean",
+        value: false
       },
 
       showNodeUpdates: {
