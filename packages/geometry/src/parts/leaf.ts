@@ -1,5 +1,5 @@
 import type { TransferGeometry, Vec2 } from "@plantarium/types";
-import { calculateNormals } from "../helpers";
+import { insertArray, normalize3D, rotate2D } from "../helpers";
 
 export default function(
   shape: Vec2[],
@@ -9,6 +9,8 @@ export default function(
   const amountX = 3 + res * 2;
   const amountPoints = amountX * amountY;
 
+  console.log({ amountX, amountY, amountPoints })
+
   const amountTriangles = (amountX - 1) * (amountY - 1) * 2;
 
   const position = new Float32Array(amountPoints * 3);
@@ -16,27 +18,46 @@ export default function(
   const uv = new Float32Array(amountPoints * 2);
   const index = new Uint16Array(amountTriangles * 3);
 
-  shape.forEach((s, j) => {
+  let prevZ = 0;
+  let _prev = 0;
+  let prevY = 0;
+  let rotationAcc = 0;
+
+  shape.sort((a, b) => a.y > b.y ? 1 : -1).forEach((point, j) => {
     const offset = j * amountX;
+
+    // We rotate around the previous point, so we need to subtract that.
+    let resetY = point.y - _prev
+
+    rotationAcc += resetY * yCurvature;
+
+    let [oz, oy] = rotate2D([resetY, 0], rotationAcc);
+
+    const _a = Math.sin(Math.PI * point.y)
 
     for (let i = 0; i < amountX; i++) {
       const a = 2 - (i / (amountX - 1)) * 2 - 1;
 
-      const curvedY = -(1 - s.y) * (1 - s.y) * 0.5;
       const curvedX = Math.sin(Math.abs(a) * Math.PI) * 0.01;
+      let [z, y] = rotate2D([0.0001, (curvedX * xCurvature) * _a], rotationAcc);
 
-      // const n = normalize3D([curvedX, 1, curvedY]);
-      // insertArray(normal, offset * 3 * i * 3, n)
+      let x = (point.x - 1) * a * 0.5; // X is left -> right
 
-      position[offset * 3 + i * 3 + 0] = (s.x - 1) * a * 0.5;
-      position[offset * 3 + i * 3 + 1] = curvedX * xCurvature + curvedY * yCurvature;
-      position[offset * 3 + i * 3 + 2] = s.y - 1;
+      const n = normalize3D([x, j == 0 ? 1 : y, z]);
+
+      normal[offset * 3 + i * 3 + 0] = n[0]
+      normal[offset * 3 + i * 3 + 1] = n[1]
+      normal[offset * 3 + i * 3 + 2] = n[2]
+
+      position[offset * 3 + i * 3 + 0] = x;
+      position[offset * 3 + i * 3 + 1] = y + oy + prevY;
+      position[offset * 3 + i * 3 + 2] = z + oz + prevZ;
 
       uv[offset * 2 + i * 2 + 0] = position[offset * 3 + i * 3 + 0] + 1 / 2;
       uv[offset * 2 + i * 2 + 1] = position[offset * 3 + i * 3 + 2];
 
       // Create the indeces per row
-      if (j < shape.length - 1) {
+      if (j !== shape.length - 1) {
         const lineOffset = j * (amountX - 1);
 
         index[lineOffset * 6 + i * 6 + 0] = offset + i + 0;
@@ -48,12 +69,18 @@ export default function(
         index[lineOffset * 6 + i * 6 + 5] = offset + i + amountX + 1;
       }
     }
+
+    prevY += oy;
+    prevZ += oz;
+    _prev = point.y;
   });
 
-  return calculateNormals({
+  console.log(normal, position)
+
+  return {
     position,
     normal,
     index,
     uv,
-  });
+  };
 }

@@ -22,7 +22,9 @@ function ParserState() {
 
   const state = {
     objects: [],
-    object: {},
+    object: {
+      smooth: false
+    },
 
     vertices: [],
     normals: [],
@@ -32,7 +34,7 @@ function ParserState() {
     materials: {},
     materialLibraries: [],
 
-    startObject: function(name, fromDeclaration) {
+    startObject: function(name, fromDeclaration = false) {
 
       // If the current object (initial from reset) is not from a g/o declaration in the parsed
       // file. We need to use it for the first parsed g/o to keep things in sync.
@@ -44,7 +46,7 @@ function ParserState() {
 
       }
 
-      const previousMaterial = (this.object && typeof this.object.currentMaterial === 'function' ? this.object.currentMaterial() : undefined);
+      // const previousMaterial = (this.object && typeof this.object.currentMaterial === 'function' ? this.object.currentMaterial() : undefined);
 
       if (this.object && typeof this.object._finalize === 'function') {
 
@@ -354,11 +356,9 @@ export default (text: string) => {
           );
           if (data.length >= 7) {
 
-            _color.setRGB(
-              parseFloat(data[4]),
-              parseFloat(data[5]),
-              parseFloat(data[6])
-            ).convertSRGBToLinear();
+            _color[0] = parseFloat(data[4]);
+            _color[1] = parseFloat(data[5]);
+            _color[2] = parseFloat(data[6]);
 
             state.colors.push(_color.r, _color.g, _color.b);
 
@@ -473,7 +473,7 @@ export default (text: string) => {
 
       // material
 
-      state.object.startMaterial(line.substring(7).trim(), state.materialLibraries);
+      // state.object.startMaterial(line.substring(7).trim(), state.materialLibraries);
 
     } else if (_material_library_pattern.test(line)) {
 
@@ -522,8 +522,8 @@ export default (text: string) => {
 
       }
 
-      const material = state.object.currentMaterial();
-      if (material) material.smooth = state.object.smooth;
+      // const material = state.object.currentMaterial();
+      // if (material) material.smooth = state.object.smooth;
 
     } else {
 

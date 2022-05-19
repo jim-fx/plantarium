@@ -13,3 +13,47 @@ for(const s of skellies){
     const tubed = g.tube(Float32Array.from(s),6);
     scene.add(tubed)
 }`
+
+
+export const leaf = `import * as g from "geometry";
+
+
+const l = g.leaf([  {
+    x: 0.9,
+    y: 1,
+    pinned: true,
+  },
+  {
+    x: 0.62,
+    y: 0.84,
+    pinned: false,
+  },
+  {
+    x: 0.54,
+    y: 0.63,
+    pinned: false,
+  },
+  {
+    x: 0.38,
+    y: 0.41,
+    pinned: true,
+  },
+  {
+    x: 0.44,
+    y: 0.23,
+    pinned: false,
+  },
+  {
+    x: 0.64,
+    y: 0.12,
+    pinned: false,
+  },
+  {
+    x: 0.9,
+    y: 0,
+    pinned: true,
+  },
+],{res:12,xCurvature:4,yCurvature:0})
+
+
+scene.add(l)`

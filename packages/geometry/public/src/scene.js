@@ -1,10 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
-/// <reference path="../../../@types/ogl.d.ts"/>
-import { join, transferToGeometry } from '../dist/index.js';
+import { join, toOBJ, transferToGeometry } from '../dist/index.js';
 import { Box, Camera, Mesh, Orbit, Renderer, Transform } from '../ogl.js';
 import debug from './debug.js';
 import createParticle from './particles.js';
-import { green, test, wireframe } from './shaders.js';
+import { green, NormalShader, wireframe } from './shaders.js';
 import store from './store.js';
 
 const renderer = new Renderer({
@@ -43,7 +42,7 @@ wireMesh.visible = store.get("wireframe", false);
 
 const obj = new Mesh(gl, {
   geometry: new Box(gl, { size: 0 }),
-  program: green(gl),
+  program: NormalShader(gl),
 });
 obj.setParent(scene);
 debug.setModel(obj);
@@ -60,14 +59,37 @@ function update() {
 update();
 
 let tempScene = [];
-
+let geo;
 export function add(o) {
   tempScene.push(o);
 }
 
+
+
+export const download = () => {
+  const data = toOBJ(geo);
+  const blob = new Blob([data], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  // Create a new link
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = "scene.obj";
+
+  // Append to the DOM
+  document.body.appendChild(anchor);
+
+  // Trigger `click` event
+  anchor.click();
+
+  // Remove element from DOM
+  document.body.removeChild(anchor);
+
+  URL.revokeObjectURL(url)
+};
+
 export function commit() {
   if (tempScene.length) {
-    const geo = tempScene.length > 1 ? join(...tempScene) : tempScene[0];
+    geo = tempScene.length > 1 ? join(...tempScene) : tempScene[0];
     obj.geometry = wireMesh.geometry = transferToGeometry(gl, geo);
     obj.visible = true;
     if (particles.visible) {
@@ -82,6 +104,10 @@ export function commit() {
 
 export function getVertices() {
   return obj.geometry.attributes.position.data.length / 3;
+}
+
+export function exportScene() {
+  return downl
 }
 
 export function setParticleVisible(visible) {

@@ -8,9 +8,9 @@ export default function(
   const _alpha = (skeleton.length / 4) * Math.max(Math.min(alpha, 0.9999), 0.0001);
 
   const i = Math.max(Math.floor(_alpha), 0);
-  const j = Math.min(i + 1, skeleton.length / 4 - 1);
+  const j = Math.min(Math.ceil(_alpha), skeleton.length / 4 - 1);
 
-  const a = _alpha - i;
+  const a = j - _alpha;
 
   return [
     lerp(skeleton[j * 4 + 0], skeleton[i * 4 + 0], a),

@@ -96,9 +96,7 @@ export default typeCheckNode({
 
 
           //Rotate Vector along stem by 90deg
-          const [vx, vz] = rotate2D(
-            nv[0],
-            nv[1],
+          const [vx, vz] = rotate2D(nv,
             isLeft ? -Math.PI / 2 : Math.PI / 2,
           );
 

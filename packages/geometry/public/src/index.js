@@ -24,6 +24,7 @@ const particlesVisibleEl = document.getElementById('show-points');
 particlesVisibleEl.checked = store.get("points", false);
 const wireframeVisibleEl = document.getElementById('show-wireframe');
 wireframeVisibleEl.checked = store.get("wireframe", false);
+document.getElementById("download").addEventListener("click", () => scene.download())
 particlesVisibleEl.addEventListener('input', () => {
   scene.setParticleVisible(particlesVisibleEl.checked);
 });

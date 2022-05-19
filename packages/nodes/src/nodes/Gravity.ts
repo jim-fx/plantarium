@@ -83,7 +83,7 @@ export default typeCheckNode({
           const _vz = py - z;
 
           //Rotate vector by 90 deg round the y axis
-          const [vx, vz] = rotate2D(_vx, _vz, 90);
+          const [vx, vz] = rotate2D([_vx, _vz], Math.PI / 2);
 
           for (let j = i; j < amount; j++) {
             //Current point at skeleton

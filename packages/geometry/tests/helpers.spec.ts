@@ -5,6 +5,7 @@ import box from "../src/shapes/box"
 import join from "../src/helpers/join"
 import instanceGeometry from "../src/helpers/instanceGeometry";
 import convertInstancedGeometry from "../src/helpers/convertInstancedGeometry";
+import rotate2D from "../src/helpers/rotate2D";
 
 test("box", () => {
 
@@ -48,7 +49,21 @@ test("convert instance geometry", () => {
 
   assert.equal(joined.position.length, 48);
 
-  console.log(joined)
+})
+
+
+test("rotate2D", () => {
+
+  const vec1 = [0, 1];
+
+  // Rotate 180 deg
+  const res1 = rotate2D(vec1, Math.PI);
+  assert.equal(res1[1], -1);
+
+
+  // Rotate 90 deg
+  const res2 = rotate2D(vec1, Math.PI / 2);
+  assert.equal(res2[0], 1)
 
 })
 
