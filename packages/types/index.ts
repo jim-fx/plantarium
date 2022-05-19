@@ -67,51 +67,21 @@ export interface PlantProjectMeta {
   public?: boolean;
 }
 
-export interface PlantariumSettings {
-  seed: number;
-  useRandomSeed: boolean;
-
-  stemResX: number;
-  stemResY: number;
-  leafRes: number;
-
-  grid: {
-    enable: boolean;
-    gridSize: number;
-    gridResolution: number;
-  };
-
-  forceUpdate: boolean;
-
-  debug: {
-    showLogs: boolean;
-    wireframe: boolean;
-    indices: boolean;
-    renderPerf: boolean;
-    generatePerf: boolean;
-    pd: boolean;
-    logLevel: number;
-    skeleton: boolean;
-    disableModel: boolean;
-    uv: number;
-  };
-
-  background: {
-    grid: boolean;
-    ground: boolean;
-    resX: number;
-    resY: number;
-    scale: number;
-    textureSize: number;
-  };
-
-  export: {
-    filetype: string;
-  };
-}
-
 export interface PlantStem {
+  /**
+   * How many layers deep is this stem, eg parent->parent->parent = 3
+   */
   depth: number;
+  /**
+   * Each stem groups gets a unique id
+   */
   id: string;
+  /**
+   * Where along the parent stem is this stem attached?
+   */
+  baseAlpha: number;
+  /**
+   * Actual data of the stem
+   */
   skeleton: Float32Array;
 }

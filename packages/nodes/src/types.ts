@@ -1,4 +1,4 @@
-import type { CheckboxTemplate, CurveTemplate, ShapeTemplate, FloatTemplate, IntegerTemplate, SelectTemplate, ValueTemplate } from "@plantarium/ui";
+import type { ValueTemplate } from "@plantarium/ui";
 import type { NodeContext } from "@plantarium/generator"
 import type { PlantStem } from "@plantarium/types"
 import { TransferGeometry } from "@plantarium/types";

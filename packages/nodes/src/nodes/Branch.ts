@@ -4,6 +4,7 @@ import {
   normalize2D,
 } from '@plantarium/geometry/src/helpers';
 import rotate2D from '@plantarium/geometry/src/helpers/rotate2D';
+import { PlantStem } from '@plantarium/types';
 import { typeCheckNode } from '../types';
 
 
@@ -68,7 +69,7 @@ export default typeCheckNode({
 
     const stems = inputStems
       .map((stem) => {
-        const branches: Float32Array[] = [];
+        const branches: PlantStem[] = [];
 
         if (maxDepth !== stem.depth) return []
 
@@ -105,26 +106,25 @@ export default typeCheckNode({
 
           const pointAmount = Math.max(Math.floor(branchRes), 4);
 
-          const branch = new Float32Array(pointAmount * 4);
+          const branchSkeleton = new Float32Array(pointAmount * 4);
           for (let j = 0; j < pointAmount * 4; j++) {
             const _a = j / pointAmount;
 
-            branch[j * 4 + 0] = px + vx * _a * length;
-            branch[j * 4 + 1] = py;
-            branch[j * 4 + 2] = pz + vz * _a * length;
-            branch[j * 4 + 3] = pt * thiccness * (1 - _a);
+            branchSkeleton[j * 4 + 0] = px + vx * _a * length;
+            branchSkeleton[j * 4 + 1] = py;
+            branchSkeleton[j * 4 + 2] = pz + vz * _a * length;
+            branchSkeleton[j * 4 + 3] = pt * thiccness * (1 - _a);
           }
 
-          branches.push(branch);
+          branches.push({
+            skeleton: branchSkeleton,
+            id: stem.id,
+            baseAlpha: a,
+            depth: stem.depth + 1
+          });
         }
 
-        return branches.map(b => {
-          return {
-            skeleton: b,
-            id: stem.id,
-            depth: stem.depth + 1
-          }
-        });
+        return branches
       })
       .flat();
 

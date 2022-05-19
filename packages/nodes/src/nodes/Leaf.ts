@@ -136,7 +136,7 @@ export default typeCheckNode({
         offset[i * 3 + 2] = z;
 
         scale[i * 3 + 0] = size;
-        scale[i * 3 + 1] = 1;
+        scale[i * 3 + 1] = size;
         scale[i * 3 + 2] = size;
 
         rotation[i * 3 + 0] = 0;

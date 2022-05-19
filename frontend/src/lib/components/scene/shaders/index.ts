@@ -26,11 +26,13 @@ export const GroundShader = {
 export const DebugShader = (gl: OGLRenderingContext) => new Program(gl, {
   fragment: DebugFrag,
   vertex: DebugVert,
+  cullFace: gl.NONE
 });
 
 export const BasicShader = (gl: OGLRenderingContext) => new Program(gl, {
   fragment: BasicShaderFrag,
   vertex: BasicShaderVert,
+  cullFace: gl.NONE
 });
 
 export const InstanceShader = {
@@ -59,6 +61,7 @@ export const MatCapShader = (gl: OGLRenderingContext) => {
     uniforms: {
       tMap: { value: texture },
     },
+    cullFace: gl.NONE
   });
 }
 
@@ -73,5 +76,6 @@ export const NormalShader = (gl: OGLRenderingContext) => {
     uniforms: {
       tMap: { value: texture },
     },
+    cullFace: gl.NONE
   });
 }

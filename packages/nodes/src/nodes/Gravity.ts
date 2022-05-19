@@ -41,15 +41,16 @@ export default typeCheckNode({
     const maxDepth = Math.max(...stems.map(s => s.depth));
 
     if (type === 'simple') {
-      stems.forEach(({ skeleton: skelly, depth }: PlantStem) => {
+      stems.forEach(({ skeleton: skelly, depth }: PlantStem, j) => {
         if (depth !== maxDepth) return;
         const amount = skelly.length / 4;
 
         // Loop over every single joint in the skeleton
+        const _strength = strength(j / stems.length);
+
         for (let i = 1; i < amount; i++) {
           const a = i / amount;
           const y = skelly[i * 4 + 1];
-          const _strength = strength(a);
           skelly[i * 4 + 1] = y - y * a * a * a * _strength;
         }
 
@@ -58,7 +59,9 @@ export default typeCheckNode({
     }
 
     if (type === 'test') {
-      stems.forEach(({ skeleton: skelly }: PlantStem) => {
+      stems.forEach(({ skeleton: skelly, depth }: PlantStem) => {
+
+        if (depth !== maxDepth) return;
         const amount = skelly.length / 4;
 
         // Loop over every single joint in the skeleton
