@@ -1,5 +1,5 @@
 import { TransferGeometry } from "@plantarium/types";
-import sanityCheckGeometry from "./sanityCheckGeometry";
+import parseOBJ from "./parseOBJ";
 
 export default function(_geo: TransferGeometry[] | TransferGeometry) {
 
@@ -24,6 +24,11 @@ export default function(_geo: TransferGeometry[] | TransferGeometry) {
     // shortcuts
     const { index, uv, normal, position } = geometry;
 
+    if (index.includes(NaN)) console.warn("Export will fail, index includes NaN")
+    if (uv.includes(NaN)) console.warn("Export will fail, uv includes NaN")
+    if (normal.includes(NaN)) console.warn("Export will fail, normal includes NaN")
+    if (position.includes(NaN)) console.warn("Export will fail, position includes NaN")
+
     // name of the mesh object
     output += 'o ' + "plant" + '\n';
 
@@ -37,9 +42,6 @@ export default function(_geo: TransferGeometry[] | TransferGeometry) {
     if (position?.length) {
       for (let i = 0; i < position.length; i += 3) {
         const [x, y, z] = position.slice(i, i + 3);
-        if (isNaN(x) || isNaN(y) || isNaN(z)) {
-          continue;
-        }
         output += 'v ' + x + ' ' + y + ' ' + z + '\n';
       }
     }
@@ -57,9 +59,6 @@ export default function(_geo: TransferGeometry[] | TransferGeometry) {
     if (normal?.length) {
       for (let i = 0; i < normal.length; i += 3) {
         const [x, y, z] = normal.slice(i, i + 3);
-        if (isNaN(x) || isNaN(y) || isNaN(z)) {
-          continue;
-        }
         output += 'vn ' + x + ' ' + y + ' ' + z + '\n';
       }
     }
@@ -101,6 +100,8 @@ export default function(_geo: TransferGeometry[] | TransferGeometry) {
   }
 
   geometries.forEach(geo => parseMesh(geo));
+
+  parseOBJ(output)
 
 
   return output;

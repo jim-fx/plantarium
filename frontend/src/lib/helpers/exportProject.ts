@@ -1,5 +1,6 @@
 import { createWorker } from "@plantarium/generator";
 import { toOBJ } from "@plantarium/geometry";
+import parseOBJ from "@plantarium/geometry/src/helpers/parseOBJ";
 import { download } from "@plantarium/helpers";
 import type { PlantariumSettings, PlantProject } from "@plantarium/types";
 import { createToast } from "@plantarium/ui";
@@ -19,6 +20,7 @@ export default async function exportModel(p: PlantProject, s: PlantariumSettings
 
   if (type === "obj") {
     const output = toOBJ(res.geometry);
+
     download.obj(output, "plant-" + (p?.meta?.name || p?.meta?.id))
   }
 

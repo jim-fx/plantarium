@@ -1,6 +1,6 @@
 import lerp from './lerp';
 
-function interpolateArray(array: number[], alpha = 0): number {
+export default function interpolateArray(array: number[], alpha = 0): number {
   //Clamp to 0-1 range
   //alpha = Math.max(Math.min(alpha, 1), 0);
 
@@ -13,5 +13,4 @@ function interpolateArray(array: number[], alpha = 0): number {
   //Lerp the two values
   return lerp(array[j], array[i], j - _alpha);
 }
-
-export default interpolateArray;
+;

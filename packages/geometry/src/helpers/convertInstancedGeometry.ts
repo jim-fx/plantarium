@@ -39,7 +39,10 @@ function applyTransformation(
   };
 }
 
-export default function(instances: InstancedGeometry): TransferGeometry[] {
+export default function convertInstancedGeometry(instances: InstancedGeometry): TransferGeometry[] {
+
+  if (Array.isArray(instances)) return instances.map(i => convertInstancedGeometry(i)).flat()
+
   const exp: TransferGeometry[] = [];
   const geometry: TransferGeometry = {
     position: instances.position,

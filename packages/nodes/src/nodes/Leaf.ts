@@ -106,6 +106,8 @@ export default typeCheckNode({
 
       const amount = parameters.amount(alpha);
 
+      if (!amount) return
+
       const offset = new Float32Array(amount * 3);
       const scale = new Float32Array(amount * 3);
       const rotation = new Float32Array(amount * 3);

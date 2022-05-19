@@ -1,7 +1,5 @@
 import { makeNoise2D, makeNoise3D } from 'open-simplex-noise';
 
-
-
 let seed = 0;
 let noise2D = makeNoise2D(seed);
 let noise3D = makeNoise3D(seed);

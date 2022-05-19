@@ -29,7 +29,6 @@ test("instance geometry", () => {
 
   const instanced = instanceGeometry(b, { offset: [1, 1, 1, 0, 0, 0] })
 
-
   assert.equal(instanced.rotation.length, instanced.offset.length)
   assert.equal(instanced.offset.length, instanced.scale.length)
 
@@ -48,6 +47,8 @@ test("convert instance geometry", () => {
   const joined = join(...real);
 
   assert.equal(joined.position.length, 48);
+
+  console.log(joined)
 
 })
 

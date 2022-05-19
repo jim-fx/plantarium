@@ -17,6 +17,7 @@ export default typeCheckNode({
     inputB: {
       type: 'plant',
       label: 'plant',
+      required: true,
       external: true,
     },
   },

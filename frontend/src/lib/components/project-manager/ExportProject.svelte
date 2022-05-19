@@ -1,12 +1,13 @@
 <script lang="ts">
 	import exportModel from '$lib/helpers/exportProject';
 	import { download } from '@plantarium/helpers';
-	import { json } from '@plantarium/helpers/src/download';
 
 	import type { PlantProject } from '@plantarium/types';
-	import { Button } from '@plantarium/ui';
-	import { onMount } from 'svelte';
+	import { Button, createToast } from '@plantarium/ui';
+	import { createEventDispatcher } from 'svelte';
 	import { settingsManager } from '..';
+
+	const dispatch = createEventDispatcher();
 
 	export let project: PlantProject;
 
@@ -22,6 +23,12 @@
 		delete clone.history;
 
 		return clone;
+	}
+
+	async function handleObjDownload() {
+		dispatch('close');
+		createToast('Export started', { type: 'success' });
+		exportModel(project, settingsManager.getSettings(), 'obj');
 	}
 
 	function handleCopy() {
@@ -42,10 +49,7 @@
 			name="download"
 			on:click={() => download.json(cleaned, project.meta.name ?? `plant-${project.meta.id}`)}
 		/>
-		<Button
-			name="download obj"
-			on:click={() => exportModel(project, settingsManager.getSettings(), 'obj')}
-		/>
+		<Button name="download obj" on:click={handleObjDownload} />
 	</div>
 </div>
 

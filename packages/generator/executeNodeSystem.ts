@@ -86,11 +86,14 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
   let geometry = join(...stems.map(s => tube(s.skeleton, ctx.getSetting("stemResX"))));
 
   if (instances) {
+    sanityCheckGeometry(geometry)
     const _instances = instances
       ?.map((i) => convertInstancedGeometry(i))
       .flat()
     geometry = join(geometry, ..._instances);
+    sanityCheckGeometry(geometry)
   }
+
 
   return {
     stems,
