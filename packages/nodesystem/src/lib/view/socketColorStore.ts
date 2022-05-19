@@ -1,4 +1,4 @@
-import type NodeType from '$lib/model/NodeType';
+import type NodeType from '../model/NodeType';
 import { EventEmitter } from '@plantarium/helpers';
 import type NodeSystemView from './NodeSystemView';
 
