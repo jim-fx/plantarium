@@ -1,6 +1,6 @@
 <script lang="ts">
 	import exportModel from '$lib/helpers/exportProject';
-	import { download } from '@plantarium/helpers';
+	import { download, wait } from '@plantarium/helpers';
 
 	import type { PlantProject } from '@plantarium/types';
 	import { Button, createToast } from '@plantarium/ui';
@@ -18,7 +18,7 @@
 	function cleanProject(p: PlantProject) {
 		const clone = JSON.parse(JSON.stringify(p)) as typeof p;
 
-		delete clone.meta.thumbnail;
+		/* delete clone.meta.thumbnail; */
 		delete clone.meta.lastSaved;
 		delete clone.history;
 
@@ -28,10 +28,12 @@
 	async function handleObjDownload() {
 		dispatch('close');
 		createToast('Export started', { type: 'success' });
+		await wait(100);
 		exportModel(project, settingsManager.getSettings(), 'obj');
 	}
 
-	function handleCopy() {
+	async function handleCopy() {
+		dispatch('close');
 		if (!textarea) textarea = document.createElement('textarea');
 		textarea.value = JSON.stringify(cleaned);
 		document.body.appendChild(textarea);
@@ -39,6 +41,7 @@
 		document.execCommand('copy');
 		textarea.blur();
 		document.body.removeChild(textarea);
+		createToast('Copied to clipboard', { type: 'success' });
 	}
 </script>
 

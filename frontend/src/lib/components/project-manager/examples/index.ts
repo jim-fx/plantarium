@@ -1,15 +1,8 @@
 import tree from "./tree.json"
 import fern from "./fern.json"
+import type { PlantProject } from "@plantarium/types"
 
 export default [
-  {
-    title: "Tree",
-    description: "Complex Tree",
-    data: tree
-  },
-  {
-    title: "Fern",
-    description: "Complex Fern",
-    data: fern
-  }
-]
+  fern,
+  tree,
+] as unknown as PlantProject[]

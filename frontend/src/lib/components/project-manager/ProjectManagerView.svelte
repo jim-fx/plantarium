@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { createAlert } from '@plantarium/ui';
+	import type { PlantProject } from '@plantarium/types';
 
 	/* import ResizeObserver from 'svelte-resize-observer'; */
 	import { projectManager } from '..';
@@ -8,11 +9,11 @@
 	import Project from './Project.svelte';
 
 	const { store } = projectManager;
-	export let visible;
+	export let visible: boolean;
 
 	let searchTerm: string;
 
-	function showProject(search, project: PlantProject) {
+	function showProject(search: string, project: PlantProject) {
 		if (!search || search.length < 1) return true;
 
 		const projectName = project.meta.name.toLowerCase();

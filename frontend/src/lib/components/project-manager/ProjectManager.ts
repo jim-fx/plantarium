@@ -2,22 +2,22 @@ import { EventEmitter, logger } from '@plantarium/helpers';
 import * as storage from '$lib/storage';
 import createId from 'shortid';
 import type { Writable } from 'svelte/store';
+import type { PlantariumSettings } from "$lib/types"
 import { writable } from 'svelte/store';
 import { renderProject } from '../../helpers';
+import type { PlantProject, TransferGeometry } from '@plantarium/types';
 
 const log = logger('ProjectManager');
 
 const PTP_PREFIX = 'pt_project_';
 
 export default class ProjectManager extends EventEmitter {
-  private plant: PlantProject;
-  public activeProjectId: string;
+  private plant?: PlantProject;
+  public activeProjectId?: string;
   public activeProject: Writable<PlantProject | undefined> = writable();
   private projects: { [key: string]: PlantProject } = {};
   private loadingActiveProject?: Promise<PlantProject>;
   public store: Writable<PlantProject[]> = writable([]);
-
-  once: (type: 'save' | 'delete' | 'update' | 'new', cb: (value: unknown) => void) => () => void;
 
   constructor() {
     super();
@@ -99,7 +99,7 @@ export default class ProjectManager extends EventEmitter {
     this.setActiveProject(plant.meta.id)
   }
 
-  async updateProjectMeta(id: string, meta: Partial<PlantProjectMeta>): Promise<void> {
+  async updateProjectMeta(id: string, meta: Partial<PlantProject["meta"]>): Promise<void> {
     const project = await this.getProject(id);
 
     project.meta = { ...project.meta, ...meta };
@@ -176,7 +176,7 @@ export default class ProjectManager extends EventEmitter {
   async renderThumbnail({ project, geo }: { project?: PlantProject; geo?: TransferGeometry }) {
     const projectId = project?.meta?.id || this.activeProjectId;
 
-    if (!(projectId in this.projects)) return;
+    if (!projectId || !(projectId in this.projects)) return;
 
     const a = performance.now();
 

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { humane } from '@plantarium/helpers';
+	import type { PlantProject } from '@plantarium/types';
 	import { createAlert, createToast } from '@plantarium/ui';
 	import { projectManager } from '..';
 	import ExportProject from './ExportProject.svelte';
@@ -36,14 +37,15 @@
 	on:resize={alert}
 	on:click={() => fakeActive() && projectManager.setActiveProject(project.meta.id)}
 >
-	<div class="project-image" style="background-image: url({project.meta.thumbnail})">
+	<div class="project-image">
+		<img src={project?.meta.thumbnail} alt="thumbnail of project {project.meta.name}" />
 		<!--  -->
 	</div>
 	<div class="project-content">
 		<div class="project-content-header">
 			<input
 				contenteditable
-				value={project.meta.name}
+				value={project?.meta.name}
 				on:blur={function () {
 					const value = this.value.split('\n').join('').trim();
 					projectManager.updateProjectMeta(project.meta.id, { name: value });
@@ -53,12 +55,12 @@
 						const value = this.value.split('\n').join('').trim();
 						this.blur();
 						ev.preventDefault();
-						projectManager.updateProjectMeta(project.meta.id, { name: value });
+						projectManager.updateProjectMeta(project?.meta.id, { name: value });
 					}
 				}}
 			/>
 
-			<p>{humane.time(Date.now() - project.meta.lastSaved)} ago</p>
+			<p>{humane.time(Date.now() - project?.meta.lastSaved)} ago</p>
 		</div>
 		<div class="project-content-main" />
 		<div class="project-content-footer">
@@ -81,17 +83,22 @@
 		padding: 4px;
 		border-radius: 10px;
 		display: grid;
+		border: solid thin var(--text-color-invert);
+		margin-bottom: 10px;
 		grid-template-columns: 100px 1fr;
 		color: #303030;
 
 		> .project-image {
-			background-image: url('../assets/rocky_dirt1-albedo.jpg');
-			background-color: var(--foreground-color);
+			/* background-image: url('../assets/rocky_dirt1-albedo.jpg');*/
+			background-color: var(--accent);
 			border-radius: 10px;
 			background-size: cover;
 			width: 100px;
 			height: 100%;
 			display: inline-block;
+			> img {
+				filter: drop-shadow(0px 0px 5px black);
+			}
 		}
 
 		> .project-content {
