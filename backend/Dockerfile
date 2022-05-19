@@ -1,4 +1,4 @@
-FROM node:18.1.0-alpine3.15 as base
+FROM node:18.2.0-alpine3.15 as base
 
 EXPOSE 8081
 WORKDIR /app
