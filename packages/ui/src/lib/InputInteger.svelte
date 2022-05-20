@@ -80,7 +80,7 @@
 
 <div class="component-wrapper">
   {#if typeof min !== 'undefined' && typeof max !== 'undefined'}
-    <span class="overlay" style={`width: ${((value - min) / (max - min)) * 100}%`} />
+    <span class="overlay" style={`width: ${Math.min((value - min) / (max - min), 1) * 100}%`} />
   {/if}
   <button on:click={() => handleChange(-step)}>-</button>
   <input

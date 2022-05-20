@@ -93,6 +93,7 @@
   <section>
     <h3>Integer</h3>
     <InputInteger />
+    <InputInteger min={0} max={100} />
   </section>
 
   <section>
