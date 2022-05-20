@@ -31,12 +31,14 @@ export default typeCheckNode({
       label: false,
       inputType: "tab",
       values: ['x', 'y', 'z'],
-      value: "x"
+      value: "x",
+      description: "Along which axis should we rotate?"
     },
     spread: {
       internal: true,
       type: 'boolean',
       value: true,
+      description: "If multiple objects are connected, should we rotate them as one or spread them?"
     },
     angle: {
       type: 'number',
@@ -44,6 +46,7 @@ export default typeCheckNode({
       max: Math.PI * 2,
       step: 0.05,
       value: 0,
+      description: "Rotation angle"
     },
   },
   computeStem(parameters) {

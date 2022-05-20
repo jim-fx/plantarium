@@ -43,3 +43,17 @@
 	}
 
 }
+
+
+.nodesystem-state-help  .node-state-single-wrapper:hover{
+   > .nodeview-help-wrapper{
+    transform: translateX(10px);
+    opacity: 0.9 !important;
+    backdrop-filter: blur(10px);
+    pointer-events:all;
+  }
+}
+.tooltip-right  .nodestate-help-wrapper{
+  right: -192px;
+}
+

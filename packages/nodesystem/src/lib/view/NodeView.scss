@@ -66,11 +66,13 @@
   right: -140px;
   top: 0px;
   min-width: 100px;
+  max-width: 200px;
   background: var(--midground-color);
   padding: 5px;
   box-sizing:border-box;
   border-radius: 5px;
   transition: opacity 0.3s ease, transform 0.3s ease;
+  border:solid thin var(--accent);
 }
 
 .tooltip-left .nodeview-help-wrapper {

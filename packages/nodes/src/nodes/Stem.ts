@@ -19,6 +19,7 @@ export default typeCheckNode({
         y: 0,
         z: 0,
       },
+      description: "Where the stem is placed, you can connect a vec3 node here."
     },
     height: {
       type: 'number',
@@ -39,6 +40,7 @@ export default typeCheckNode({
       min: 0,
       max: 20,
       value: 1,
+      description: "How many stems should be instanced"
     },
   },
 

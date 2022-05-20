@@ -23,7 +23,7 @@ export default class NodeSystemView extends EventEmitter {
   boxSelection: BoxSelection;
   colorStore: ColorStore;
 
-  state: "normal" | "help";
+  state: "normal" | "help" | "floating";
 
   nodeContainer: HTMLDivElement;
 
@@ -366,8 +366,6 @@ export default class NodeSystemView extends EventEmitter {
   handleMouseDown(ev: MouseEvent) {
     const { shiftKey, ctrlKey, clientX, clientY, button, target } = ev;
 
-    if (this.state === "help") this.setState("normal");
-
     if (!shiftKey) this.setActive();
 
     if (ev['path'] && ![...ev['path']].includes(this.addMenu.wrapper)) {
@@ -425,6 +423,7 @@ export default class NodeSystemView extends EventEmitter {
   }
 
   handleKeyDown({ key, ctrlKey, shiftKey }: KeyboardEvent) {
+
     key = key === ' ' ? 'space' : key.toLowerCase();
     this.keyMap[key && key.toLowerCase()] = true;
     if (key === 'space') {

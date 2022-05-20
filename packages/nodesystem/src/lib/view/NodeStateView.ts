@@ -6,6 +6,7 @@ import './NodeStateView.scss';
 export default class NodeStateView {
   wrapper = document.createElement('div');
   input = document.createElement('div');
+  helpWrapper: HTMLDivElement;
   element: SvelteComponent;
 
   constructor(private nodeState: NodeState) {
@@ -40,6 +41,15 @@ export default class NodeStateView {
           }
         });
       }
+    }
+
+    if (template.description) {
+      this.helpWrapper = document.createElement("div");
+      this.helpWrapper.classList.add("nodeview-help-wrapper", "nodestate-help-wrapper");
+
+      this.helpWrapper.innerHTML = `<i>${template.label || this.nodeState.key}</i><br><p>${template.description}</p>`
+
+      this.wrapper.appendChild(this.helpWrapper)
     }
 
     nodeState.node.view.stateWrapper.appendChild(this.wrapper);

@@ -4,6 +4,9 @@ export default typeCheckNode({
   title: 'Random',
   type: 'random',
   outputs: ['number'],
+  meta: {
+    description: "Generates random value between min and max."
+  },
   parameters: {
     min: {
       type: 'number',

@@ -83,6 +83,8 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
     );
     potentialSockets.forEach((s) => (s.view.state = 'middle'));
 
+    this.system.view.setState("floating");
+
     // -- Filter out already connected sockets;
     // get current connection(s) of socket
     const connections: NodeConnection[] =
@@ -221,6 +223,7 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
   remove() {
     super.remove();
     this.emit("remove")
+    this.system.view.setState("normal")
     this.system.isPaused = false;
   }
 }

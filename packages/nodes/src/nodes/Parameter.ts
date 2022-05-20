@@ -12,6 +12,7 @@ export default typeCheckNode({
       type: 'number',
       inputType: 'float',
       value: 0,
+      description: "Base value to apply variation to"
     },
     variation: {
       type: 'number',
@@ -19,6 +20,7 @@ export default typeCheckNode({
       min: 0,
       max: 1,
       step: 0.05,
+      description: "How much variation should be applied to the base value"
     },
   },
   computeValue(parameters, ctx, alpha = 1) {

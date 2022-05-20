@@ -24,6 +24,7 @@ export default typeCheckNode({
       max: 1,
       step: 0.05,
       value: 0.7,
+      description: "Where along the input stem do we split"
     },
     angle: {
       type: 'number',
@@ -31,12 +32,14 @@ export default typeCheckNode({
       max: 2,
       step: 0.01,
       value: 0.5,
+      description: "What angle in reference to the input stem should the split branches have."
     },
     amount: {
       type: 'number',
       min: 2,
       max: 20,
       value: 2,
+      description: "Into how many branches should we split"
     },
   },
 

@@ -11,6 +11,7 @@ export default checkNodeType({
     value: {
       type: 'boolean',
       value: false,
+      description: "The value of the boolean, true or false."
     },
   },
   compute({ value = false }) {

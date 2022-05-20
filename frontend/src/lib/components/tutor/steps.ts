@@ -155,6 +155,8 @@ export async function plantNodes(s: string) {
     res = await createToast(`Click on the new node and drag it onto the connection between <i>stem</i> and <i>output</i>. If the nodes are to close together you can click on their name and move them.`, { values: ["Done"] });
     if (!res) return "final";
 
+    await createToast(`<i>Tip:</i> Press <b>?</b> on the keyboard and hover over nodes to find out what they do`, { timeout: 5000 });
+
     res = await createToast(`Set the axis to <b>x</b>, disable <b>spread</b> and increase the angle to around 0.6`, { values: ["Done"] });
     if (!res) return "final";
 
@@ -172,7 +174,7 @@ export async function plantNodes(s: string) {
     res = await createToast(`For the final touch create a <b>leaf</b> node and connect it between the gravity and the output`, { values: ["Done"] });
     if (!res) return "final";
 
-    await createToast(`TIP: when you drag a node socket while holding <b>[ctrl]</b> and release, it shows you a menu of available nodes`, { values: ["Cool!"] });
+    await createToast(`<i>Tip:</i> when you drag a node socket while holding <b>[ctrl]</b> and release, it shows you a menu of available nodes`, { values: ["Cool!"] });
 
     return "final"
 

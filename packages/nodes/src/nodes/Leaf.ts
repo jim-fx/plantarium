@@ -61,6 +61,7 @@ export default typeCheckNode({
       type: 'plant',
       required: true,
       external: true,
+      description: "The input the leafs will be placed on."
     },
     size: {
       type: 'number',
@@ -68,11 +69,13 @@ export default typeCheckNode({
       max: 3,
       step: 0.05,
       value: 0.2,
+      description: "Size of the individual leaves."
     },
     shape: {
       type: 'shape',
       external: true,
       value: defaultValue,
+      description: "Shape of the indivual leaf, you can connect a shape node here"
     },
     lowestLeaf: {
       type: 'number',
@@ -80,6 +83,7 @@ export default typeCheckNode({
       max: 1,
       step: 0.01,
       value: 0.5,
+      description: "The lowest leaf on the stem."
     },
     curvature: {
       external: true,
@@ -88,12 +92,14 @@ export default typeCheckNode({
         x: 0.5,
         y: 0.2,
       },
+      description: "Curvature of the leaf along x and y, you can connect a vec2 node here."
     },
     amount: {
       type: 'number',
       min: 0,
       max: 20,
       value: 10,
+      description: "How many leaves should be placed."
     },
   },
 

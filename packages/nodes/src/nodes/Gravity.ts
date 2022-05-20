@@ -27,7 +27,8 @@ export default typeCheckNode({
       internal: true,
       type: 'select',
       values: ['simple', 'verlet', 'test'],
-      value: "simple"
+      value: "simple",
+      description: "How the gravity should be calculated, right now only simple and test work."
     },
     strength: {
       type: 'number',
