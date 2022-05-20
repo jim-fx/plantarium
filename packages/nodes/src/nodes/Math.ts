@@ -4,6 +4,9 @@ export default typeCheckNode({
   title: 'Math',
   type: 'math',
   outputs: ['number'],
+  meta: {
+    description: `The math node provides some basic math functionality to transform numbers.`
+  },
   parameters: {
     mode: {
       type: 'select',

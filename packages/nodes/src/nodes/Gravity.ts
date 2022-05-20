@@ -13,6 +13,10 @@ export default typeCheckNode({
 
   outputs: ['plant'],
 
+  meta: {
+    description: `The gravity node applies simple gravity to branches and stems.`
+  },
+
   parameters: {
     input: {
       type: 'plant',

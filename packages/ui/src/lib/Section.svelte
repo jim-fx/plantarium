@@ -33,6 +33,8 @@
 <style>
   p {
     margin: 0px;
+    color: var(--text-color-invert);
+    font-weight: bold;
   }
 
   .wrapper {

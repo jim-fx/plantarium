@@ -61,7 +61,6 @@ export default class RightClickMenu {
   updateTypes(types = this.types) {
     this.types = types;
     log("register types", types)
-    console.log(this.socket)
     this.searchEl.setItems(
       types.map((t) => {
         return {
@@ -72,8 +71,6 @@ export default class RightClickMenu {
         };
       }).filter(v => {
         if (!this.socket) return true;
-
-        console.log({ v })
 
         // We have an input socket
         if (Array.isArray(this.socket.type)) {

@@ -4,6 +4,9 @@ export default typeCheckNode({
   title: 'Parameter',
   type: 'parameter',
   outputs: ['number'],
+  meta: {
+    description: `The parameter outputs a value with a certain random variation applied to it.`
+  },
   parameters: {
     value: {
       type: 'number',

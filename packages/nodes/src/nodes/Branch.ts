@@ -15,6 +15,10 @@ export default typeCheckNode({
 
   outputs: ['plant'],
 
+  meta: {
+    description: `The branch node places branches along the input stem, resulting in new branches.`
+  },
+
   parameters: {
     input: {
       type: 'plant',

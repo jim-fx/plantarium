@@ -283,8 +283,7 @@ export default class NodeSystem extends EventEmitter {
 
   registerNodeType(type: NodeType | NodeTypeData | NodeType[] | NodeTypeData[]) {
     if (Array.isArray(type)) {
-      type.forEach((t: NodeType | NodeTypeData) => this.registerNodeType(t))
-      return;
+      return type.forEach((t: NodeType | NodeTypeData) => this.registerNodeType(t))
     }
     if ('node' in type) {
       this.store.add(type);

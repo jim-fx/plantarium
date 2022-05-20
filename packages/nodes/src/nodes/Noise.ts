@@ -8,6 +8,10 @@ export default typeCheckNode({
   type: 'noise',
   outputs: ['plant'],
 
+  meta: {
+    description: `The noise node applies noise to input branches.`
+  },
+
   parameters: {
     input: {
       type: 'plant',

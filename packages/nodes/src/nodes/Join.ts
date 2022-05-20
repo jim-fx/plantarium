@@ -7,6 +7,10 @@ export default typeCheckNode({
   type: 'join',
   outputs: ['plant'],
 
+  meta: {
+    description: `The join node takes two plants and joins them to form a single new one.`
+  },
+
   parameters: {
     inputA: {
       type: 'plant',

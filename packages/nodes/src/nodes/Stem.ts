@@ -7,6 +7,9 @@ export default typeCheckNode({
   title: 'Stem',
   type: 'stem',
   outputs: ['plant'],
+  meta: {
+    description: `The stem node is the basis of every plant, it creates a simple stem.`
+  },
   parameters: {
     origin: {
       type: 'vec3',

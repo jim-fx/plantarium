@@ -16,9 +16,9 @@ class Tutor {
     this.state = localState.get("tutorial-state", "waiting");
   }
 
-  start() {
+  start(s?: StepValue) {
     if (this.isRunning) return;
-    this.state = "intro";
+    this.state = s || "intro";
     localState.set("tutorial-state", this.state);
     this.run()
   }

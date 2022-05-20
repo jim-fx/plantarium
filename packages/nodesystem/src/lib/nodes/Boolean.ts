@@ -4,6 +4,9 @@ export default checkNodeType({
   title: 'Boolean',
   type: 'boolean',
   outputs: ['boolean'],
+  meta: {
+    description: `This is the boolean node`,
+  },
   parameters: {
     value: {
       type: 'boolean',

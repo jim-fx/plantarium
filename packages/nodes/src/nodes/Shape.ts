@@ -4,6 +4,9 @@ export default typeCheckNode({
   title: 'Shape',
   type: 'shape',
   outputs: ['shape'],
+  meta: {
+    description: `The shape node outputs a single shape which you can plug into the leaf node.`
+  },
   parameters: {
     value: {
       type: 'shape',

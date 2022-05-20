@@ -23,6 +23,8 @@ export default class NodeSystemView extends EventEmitter {
   boxSelection: BoxSelection;
   colorStore: ColorStore;
 
+  state: "normal" | "help";
+
   nodeContainer: HTMLDivElement;
 
   width = 0;
@@ -262,7 +264,14 @@ export default class NodeSystemView extends EventEmitter {
     this.y = y;
     this.s = s;
     this.panzoom.setTransform(x, y, s);
+  }
 
+  setState(s: typeof this["state"]) {
+    this.wrapper.classList.forEach(k => {
+      if (k.startsWith("nodesystem-state-")) this.wrapper.classList.remove(k)
+    })
+    this.state = s;
+    this.wrapper.classList.add("nodesystem-state-" + s);
   }
 
   private showAddMenu() {
@@ -319,6 +328,7 @@ export default class NodeSystemView extends EventEmitter {
         this.wrapper.style.setProperty('--pos-x', `${x}px`);
         this.wrapper.style.setProperty('--pos-y', `${y}px`);
         this.system.setMetaData({ transform: { x, y, s } });
+        this.emit("transform", { x, y, s })
       },
     });
   }
@@ -355,6 +365,8 @@ export default class NodeSystemView extends EventEmitter {
 
   handleMouseDown(ev: MouseEvent) {
     const { shiftKey, ctrlKey, clientX, clientY, button, target } = ev;
+
+    if (this.state === "help") this.setState("normal");
 
     if (!shiftKey) this.setActive();
 
@@ -421,6 +433,10 @@ export default class NodeSystemView extends EventEmitter {
     switch (key) {
       case 'escape':
         this.addMenu.hide();
+        this.setState("normal");
+        break;
+      case "?":
+        this.setState("help")
         break;
       case 'a':
         if (shiftKey) {

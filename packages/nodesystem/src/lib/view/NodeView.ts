@@ -10,6 +10,7 @@ export default class NodeView {
   node: Node;
   wrapper: HTMLDivElement;
   outputWrapper: HTMLDivElement;
+  helpWrapper: HTMLDivElement;
   stateWrapper: HTMLDivElement;
 
   inputs: InputView[] = [];
@@ -54,6 +55,7 @@ export default class NodeView {
       'node-view-' + this.system.id + '-' + this.node.id,
     );
 
+
     this.outputWrapper = document.createElement('div');
     this.outputWrapper.classList.add('node-outputs-wrapper');
     this.wrapper.append(this.outputWrapper);
@@ -73,10 +75,18 @@ export default class NodeView {
     this.x = x;
     this.y = y;
 
-    this.bindEventListeners();
 
     this.wrapper.style.left = x + 'px';
     this.wrapper.style.top = y + 'px';
+
+    if (this.node?.meta?.description) {
+      this.helpWrapper = document.createElement("div");
+      this.helpWrapper.innerHTML = `<h3>${node.attributes.name || node.attributes.type}</h3>
+<p>${this.node.meta.description}</p>`
+      this.helpWrapper.classList.add("nodeview-help-wrapper");
+      this.wrapper.append(this.helpWrapper)
+
+    }
 
     setTimeout(() => {
       const { width, height } = this.wrapper.getBoundingClientRect();
@@ -84,9 +94,27 @@ export default class NodeView {
       this.height = height / this.system.view.s;
       this.updateViewPosition(x, y);
     }, 10);
+
+
+    this.bindEventListeners();
   }
 
   bindEventListeners() {
+
+    if (this.helpWrapper) {
+      this.system.view.on("transform", () => {
+        const { x } = this.wrapper.getBoundingClientRect()
+        if (x > this.system.view.width / 2) {
+          this.wrapper.classList.remove("tooltip-right");
+          this.wrapper.classList.add("tooltip-left");
+        } else {
+          this.wrapper.classList.add("tooltip-right");
+          this.wrapper.classList.remove("tooltip-left");
+        }
+      }, 2000);
+    }
+
+
     this.wrapper.addEventListener('mousedown', (ev) =>
       this.handleMouseDown(ev),
     );
@@ -101,6 +129,7 @@ export default class NodeView {
 
   removeEventListeners() {
     this._unsubscribeMouseMove();
+
     this._unsubscribeMouseUp();
     this.wrapper.addEventListener('mousedown', (ev) =>
       this.handleMouseDown(ev),
@@ -153,6 +182,7 @@ export default class NodeView {
         node.view.downY = node.view.y;
       });
     }
+
   }
 
   handleMouseUp() {

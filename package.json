@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "published": "true",
   "scripts": {
+    "commit:log": "echo \"[$(git log --pretty=format:'{\"id\":\"%h\",\"subject\":\"%s\",\"date\":\"%cD\"},')]\" | sed 's/,]/]/g' > frontend/static/commits.json",
     "admin:build": "pnpm --filter=./admin build",
     "admin:dev": "pnpm --filter=./admin dev",
     "frontend:dev": "pnpm --filter=./frontend dev",

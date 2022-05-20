@@ -65,6 +65,7 @@
 						{#each $store?.values as v}
 							<Button
 								on:click={() => $store?.resolve?.(v)}
+								--margin="0px 0px 10px 0px"
 								name={v}
 								--text="white"
 								--bg="#303030"

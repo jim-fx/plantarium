@@ -70,8 +70,6 @@ export default class ForegroundScene extends EventEmitter {
 
     this.settings = JSON.parse(JSON.stringify(settings));
 
-    console.log("Seeettings", { settings })
-
     this.update();
   }
 

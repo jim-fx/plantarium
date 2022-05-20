@@ -53,6 +53,9 @@ export default typeCheckNode({
   title: 'Leaf',
   type: 'leaf',
   outputs: ['plant'],
+  meta: {
+    description: `The leaf node instances leafs along branches or stems, you can override the shape of the leaf by plugging a shape node into the shape input.`
+  },
   parameters: {
     input: {
       type: 'plant',

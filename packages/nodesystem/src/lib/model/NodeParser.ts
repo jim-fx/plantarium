@@ -57,6 +57,7 @@ export default class NodeParser {
     const TempNode = class extends Node {
       constructor(system: NodeSystem, props: NodeProps) {
         super(system, props);
+        this.meta = meta;
         if (compute) this.compute = compute;
 
         if (outputs) {

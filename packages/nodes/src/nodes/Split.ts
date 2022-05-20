@@ -1,11 +1,15 @@
-import { join, splitSkeleton, tube } from '@plantarium/geometry';
+import { splitSkeleton } from '@plantarium/geometry';
 import { PlantStem } from '@plantarium/types';
-import { filterInstancesByAlpha, findMaxDepth } from '../helpers';
+import { filterInstancesByAlpha } from '../helpers';
 import { typeCheckNode } from '../types';
 export default typeCheckNode({
   title: 'Split',
   type: 'split',
   outputs: ['plant'],
+
+  meta: {
+    description: `The split node splits the input plant at a specified height resulting in new branches.`
+  },
 
   parameters: {
     input: {

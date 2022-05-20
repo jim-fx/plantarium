@@ -1,5 +1,5 @@
 import { EventEmitter, memoize } from '@plantarium/helpers';
-import type { NodeAttributes, NodeProps } from '../types';
+import type { NodeAttributes, NodeProps, NodeTypeData } from '../types';
 import type NodeView from '../view/NodeView';
 import NodeConnection from './NodeConnection';
 import type NodeOutput from './NodeOutput';
@@ -11,6 +11,7 @@ export default class Node extends EventEmitter {
 
   id: string;
   attributes: NodeAttributes;
+  meta: NodeTypeData["meta"];
 
   outputs: NodeOutput[] = [];
 

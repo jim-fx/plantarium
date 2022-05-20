@@ -15,6 +15,10 @@ export default typeCheckNode({
 
   outputs: ['plant'],
 
+  meta: {
+    description: `The rotate node rotates a plant around a specified axis by a specified amount.`
+  },
+
   parameters: {
     input: {
       type: 'plant',
