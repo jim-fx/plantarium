@@ -51,6 +51,15 @@
 		on:click={() => createAlert(ReportDashboard, { timeout: 0 })}
 	/>
 
+	<Button
+		name="Github"
+		icon="github"
+		--bg="#303030"
+		--width="100%"
+		--text="white"
+		on:click={() => goto('https://github.com/jim-fx/plantarium')}
+	/>
+
 	<Section name="Tutorials">
 		<Button
 			name="Interface"

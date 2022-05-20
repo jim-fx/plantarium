@@ -14,3 +14,4 @@ export { default as warning } from './warning.svg?raw';
 export { default as question } from './question.svg?raw';
 export { default as bulb } from './bulb.svg?raw';
 export { default as bulb_dark } from './bulb-dark.svg?raw';
+export { default as github } from './github.svg?raw';
