@@ -41,7 +41,7 @@
     "rimraf": "3.0.2",
     "typescript": "4.6.4",
     "vite": "2.9.9",
-    "vitest": "0.12.6"
+    "vitest": "0.12.7"
   },
   "main": "index.js",
   "repository": {
