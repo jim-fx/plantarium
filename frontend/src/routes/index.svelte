@@ -4,7 +4,7 @@
 	import { onMount } from 'svelte';
 	import { nodeSystem } from '$lib/components';
 	import Scene from '$lib/components/scene/Scene.svelte';
-	import { TutorWrapper } from '$lib/components/tutor';
+	import TutorWrapper from '$lib/components/tutor/Tutor.svelte';
 	import Header from '$lib/Header.svelte';
 
 	import { settingsManager } from '$lib/components';

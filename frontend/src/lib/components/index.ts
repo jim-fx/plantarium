@@ -1,13 +1,14 @@
 import Nodes from '@plantarium/nodes';
-import executeNodeSystem from "@plantarium/generator"
 import { NodeSystem } from '@plantarium/nodesystem';
 import { setTheme } from '@plantarium/theme';
 import { createToast } from '@plantarium/ui';
 import { ProjectManager } from './project-manager';
 import { SettingsManager } from './settings-manager';
-import { Tutor } from './tutor';
+import Tutor from './tutor';
 import * as performance from '../helpers/performance';
 import { logger } from '@plantarium/helpers';
+import type { PlantariumSettings } from '$lib/types';
+import type { PlantProject } from '@plantarium/types';
 
 const settingsManager = new SettingsManager();
 const projectManager = new ProjectManager();
@@ -19,14 +20,14 @@ settingsManager.on('enableSync.update', (v) => {
   createToast(`${v ? 'Enabled' : 'Disabled'} sync`, { type: 'success' });
 });
 
-settingsManager.on('debug.logLevel.update', (logLevel: number) => {
-  logger.setLevel(logLevel);
+settingsManager.on('debug.logLevel.update', (logLevel) => {
+  logger.setLevel(logLevel as number);
 });
 
-settingsManager.on('theme.update', (v: string) => {
+settingsManager.on('theme.update', (v) => {
   document.body.classList.add('transition-all');
   setTimeout(() => {
-    setTheme(v);
+    setTheme(v as string);
     setTimeout(() => {
       document.body.classList.remove('transition-all');
     }, 400);
@@ -46,29 +47,27 @@ const nodeSystem = new NodeSystem({
   deferCompute: true
 });
 
-settingsManager.on('debug.showNodeUpdates.update', (v: boolean) => {
-  console.log(v);
-  nodeSystem.options.showUpdates = v;
+settingsManager.on('debug.showNodeUpdates.update', (v) => {
+  nodeSystem.options.showUpdates = v as boolean;
 });
 
-projectManager.on('load', (project) => nodeSystem.load(project));
+projectManager.on('load', (project) => nodeSystem.load(project as PlantProject));
 
-nodeSystem.on('result', () => projectManager.setProject(nodeSystem.serialize()), 50);
+nodeSystem.on('result', () => projectManager.setProject(nodeSystem.serialize() as PlantProject), 50);
 
-nodeSystem.on('save', (project: PlantProject) => {
-  projectManager.saveProject(project)
+nodeSystem.on('save', (project) => {
+  projectManager.saveProject(project as PlantProject)
 });
 
 settingsManager.on(
-  'settings',
-  (s: PlantariumSettings) => {
-    projectManager.setSettings(s);
-    performance.setSettings(s);
+  'settings', (s) => {
+    projectManager.setSettings(s as PlantariumSettings);
+    performance.setSettings(s as PlantariumSettings);
   },
   50
 );
 
-Tutor.init({ projectManager });
+Tutor.init()
 
 export { projectManager, settingsManager, nodeSystem };
 export default { projectManager, settingsManager, nodeSystem };

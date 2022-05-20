@@ -17,7 +17,7 @@ const set: (key: string, value: unknown) => void = debounce(
 export default {
   get<T>(key: string, defaultValue?: T): T {
     state[key] = state[key] ?? defaultValue;
-    return state[key] as typeof defaultValue;
+    return state[key] as T;
   },
   set
 };

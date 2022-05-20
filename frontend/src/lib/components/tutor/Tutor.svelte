@@ -1,56 +1,40 @@
 <script lang="ts">
-	import { Button, Icon, InputCheckbox } from '@plantarium/ui';
-	import { projectManager } from '..';
+	import { Button, Icon } from '@plantarium/ui';
 	import store from './store';
 
-	$: selector = $store && $store.selector;
+	$: active = !!$store;
+
+	$: selector = active && $store?.selector;
 
 	$: element = selector && document.querySelector(selector);
 	$: elementRect = element && element.getBoundingClientRect();
 
-	$: clickElement = $store && $store.clickSelector && document.querySelector($store.clickSelector);
+	$: clickElement = active && $store?.clickSelector && document.querySelector($store.clickSelector);
 
 	$: clickRect = clickElement && clickElement.getBoundingClientRect();
 
-	$: if ($store && $store.clickSelector) {
+	$: if (active && $store?.clickSelector) {
 		const el = document.querySelector($store.clickSelector);
-		if (el && el.getAttribute('setup') !== 'true') {
-			el.setAttribute('setup', 'true');
+		//@ts-ignore
+		if (el && !el['__plant_setup']) {
+			//@ts-ignore
+			el['__plant_setup'] = true;
 			el.addEventListener(
 				'click',
-				() => {
+				() =>
 					setTimeout(() => {
-						$store._isCompleted = true;
-					}, 20);
-				},
+						$store?.resolve?.();
+					}, 20),
 				{ once: true }
 			);
 		}
 	}
 
-	$: rect = elementRect || clickRect;
+	$: rect = (elementRect || clickRect) as DOMRect;
 
 	$: isLeft = rect && rect.left + rect.width > window.innerWidth - 100;
 
 	$: x = rect && (isLeft ? rect.left - 10 : rect.left + rect.width + 10);
-
-	$: checks = $store && $store.checks;
-
-	$: checks &&
-		checks.forEach((c, i) => {
-			if (c._isSetup) return c;
-			c._isSetup = true;
-			c.setup(
-				() => {
-					checks[i]._isCompleted = true;
-					checks = checks;
-				},
-				{ pm: projectManager, c: $store }
-			);
-			return c;
-		});
-
-	$: active = !!rect;
 </script>
 
 {#if active}
@@ -69,33 +53,31 @@
 				<Button
 					icon="cross"
 					--foreground-color="transparent"
-					on:click={() => {
-						active = false;
-					}}
+					on:click={() => $store?.resolve('exit')}
 				/>
 			</div>
 
-			<p>{@html $store.description}</p>
-
-			{#if checks}
-				<div class="checks-wrapper">
-					{#each checks as check}
-						<div class="check-wrapper" class:is-completed={check._isCompleted}>
-							<InputCheckbox bind:value={check._isCompleted} />
-							<p>{check.description}</p>
-						</div>
-					{/each}
-				</div>
-			{/if}
+			<p>{@html $store?.description}</p>
 
 			{#if !clickElement}
 				<div class="next-wrapper">
-					<Button
-						on:click={() => ($store._isCompleted = true)}
-						name="next"
-						--text={'white'}
-						--bg={'#303030'}
-					/>
+					{#if $store?.values?.length}
+						{#each $store?.values as v}
+							<Button
+								on:click={() => $store?.resolve?.(v)}
+								name={v}
+								--text="white"
+								--bg="#303030"
+							/>
+						{/each}
+					{:else}
+						<Button
+							on:click={() => $store?.resolve?.()}
+							name="next"
+							--text="white"
+							--bg="#303030"
+						/>
+					{/if}
 				</div>
 			{/if}
 		</div>

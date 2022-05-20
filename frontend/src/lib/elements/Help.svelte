@@ -4,7 +4,7 @@
 	import { goto } from '$app/navigation';
 	import Report from './Report.svelte';
 	import ReportDashboard from './ReportDashboard.svelte';
-	import { Tutor } from '../components/tutor';
+	import Tutor from '../components/tutor';
 </script>
 
 <div>
@@ -14,7 +14,7 @@
 		--bg="#303030"
 		--text="white"
 		--width="100%"
-		on:click={() => Tutor.restart()}
+		on:click={() => Tutor.start()}
 	/>
 
 	<Button
