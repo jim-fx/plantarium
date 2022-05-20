@@ -6,6 +6,8 @@ import type { PlantariumSettings } from "$lib/types"
 import { writable } from 'svelte/store';
 import { renderProject } from '../../helpers';
 import type { PlantProject, TransferGeometry } from '@plantarium/types';
+import { fernSimple } from "./examples"
+import { createToast } from '@plantarium/ui';
 
 const log = logger('ProjectManager');
 
@@ -205,9 +207,10 @@ export default class ProjectManager extends EventEmitter {
     const activeProjectId = (await storage.getItem('pt_active_id')) as string;
 
     if (!projectIds.length) {
-      const plant = this.createNewProject();
+      const plant = this.createNewProject(fernSimple);
       projectIds.push(plant.meta.id);
       await this.saveProject(plant);
+      createToast("Because you had no projects, (yet) I loaded the Fern Simple example for you", { type: "success" });
     }
 
     await Promise.all(
