@@ -1,5 +1,6 @@
 import { join, noiseSkeleton, tube } from '@plantarium/geometry';
 import { logger } from '@plantarium/helpers';
+import { PlantStem } from '@plantarium/types';
 import { typeCheckNode } from '../types';
 const log = logger('nodes.noise');
 

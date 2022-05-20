@@ -7,6 +7,7 @@
 	import Scene from '.';
 	import { projectManager, settingsManager, nodeSystem } from '..';
 	import * as perf from '../../helpers/performance';
+	import { cloneObject } from '@plantarium/helpers';
 
 	let canvas: HTMLCanvasElement;
 
@@ -19,7 +20,7 @@
 	$: if (projectManager) {
 		unsub && unsub();
 		unsub = projectManager.on('save', (plant) => {
-			const _pd = JSON.parse(JSON.stringify(plant));
+			const _pd = cloneObject(plant);
 			_pd.meta.thumbnail = '';
 			pd = _pd;
 		});

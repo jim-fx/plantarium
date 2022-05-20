@@ -1,6 +1,6 @@
 <script lang="ts">
 	import exportModel from '$lib/helpers/exportProject';
-	import { download, wait } from '@plantarium/helpers';
+	import { cloneObject, download, wait } from '@plantarium/helpers';
 
 	import type { PlantProject } from '@plantarium/types';
 	import { Button, createToast } from '@plantarium/ui';
@@ -16,7 +16,7 @@
 	$: cleaned = cleanProject(project);
 
 	function cleanProject(p: PlantProject) {
-		const clone = JSON.parse(JSON.stringify(p)) as typeof p;
+		const clone = cloneObject(p);
 
 		/* delete clone.meta.thumbnail; */
 		delete clone.meta.lastSaved;

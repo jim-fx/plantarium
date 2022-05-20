@@ -1,4 +1,4 @@
-import { EventEmitter, logger } from '@plantarium/helpers';
+import { cloneObject, EventEmitter, logger } from '@plantarium/helpers';
 import * as storage from '$lib/storage';
 import createId from 'shortid';
 import type { Writable } from 'svelte/store';
@@ -115,7 +115,7 @@ export default class ProjectManager extends EventEmitter {
 
   async saveProject(_project: PlantProject) {
 
-    const project = JSON.parse(JSON.stringify(_project));
+    const project = cloneObject(_project);
 
     this.projects[project.meta.id] = project;
 

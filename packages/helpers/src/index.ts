@@ -26,3 +26,5 @@ export { default as parseStackTrace } from './parseStackTrace';
 export { default as resizeTable } from './resizeTable';
 export { default as throttle } from './throttle';
 export { default as versionToNumber } from './versionToNumber';
+
+export * from "./cloneObject"

@@ -1,5 +1,5 @@
 import { transferToGeometry } from '@plantarium/geometry';
-import { EventEmitter, logger, throttle } from '@plantarium/helpers';
+import { cloneObject, EventEmitter, logger, throttle } from '@plantarium/helpers';
 import { createAlert, createToast } from '@plantarium/ui';
 import { Box, Mesh, type OGLRenderingContext } from 'ogl-typescript';
 import type Scene from '.';
@@ -68,14 +68,14 @@ export default class ForegroundScene extends EventEmitter {
       this.mesh.mode = this.gl.TRIANGLES
     }
 
-    this.settings = JSON.parse(JSON.stringify(settings));
+    this.settings = cloneObject(settings);
 
     this.update();
   }
 
   setPlant(plant?: PlantProject) {
     if (!plant) return;
-    this.plant = window["structuredClone"](plant);
+    this.plant = cloneObject(plant);
     this.update();
   }
 

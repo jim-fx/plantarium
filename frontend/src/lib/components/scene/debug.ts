@@ -1,5 +1,6 @@
 import type { PlantariumSettings } from '$lib/types';
 import { insertArray } from '@plantarium/geometry';
+import { cloneObject } from '@plantarium/helpers';
 import type { PlantStem, TransferGeometry } from '@plantarium/types';
 import { Geometry, Mesh, Program, type OGLRenderingContext } from 'ogl-typescript';
 import type Scene from '.';
@@ -56,7 +57,7 @@ export default class DebugScene {
   }
 
   setSettings(settings: PlantariumSettings) {
-    this.settings = JSON.parse(JSON.stringify(settings));
+    this.settings = cloneObject(settings);
 
     this.m.skeleton.visible = !!this.settings.debug?.skeleton;
     this.m.vertices.visible = !!this.settings.debug?.skeleton;

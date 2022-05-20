@@ -1,4 +1,4 @@
-import { debounce, EventEmitter, logger } from '@plantarium/helpers';
+import { debounce, EventEmitter, logger, cloneObject } from '@plantarium/helpers';
 import * as storage from '$lib/storage';
 import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
@@ -107,6 +107,6 @@ export default class SettingsManager extends EventEmitter {
   }
 
   getSettings() {
-    return JSON.parse(JSON.stringify(this.settings)) as PlantariumSettings;
+    return cloneObject(this.settings);
   }
 }

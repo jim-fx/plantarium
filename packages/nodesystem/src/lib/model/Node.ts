@@ -1,4 +1,4 @@
-import { EventEmitter, memoize } from '@plantarium/helpers';
+import { cloneObject, EventEmitter, memoize } from '@plantarium/helpers';
 import type { NodeAttributes, NodeProps, NodeTypeData } from '../types';
 import type NodeView from '../view/NodeView';
 import NodeConnection from './NodeConnection';
@@ -192,12 +192,12 @@ export default class Node extends EventEmitter {
       state[s.key] = s.getValue();
     });
 
-    return JSON.parse(JSON.stringify(
+    return cloneObject(
       {
         attributes,
         state,
       },
-    ));
+    );
   }
 
   save() {
