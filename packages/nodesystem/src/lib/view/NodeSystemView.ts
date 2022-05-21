@@ -424,6 +424,8 @@ export default class NodeSystemView extends EventEmitter {
 
   handleKeyDown({ key, ctrlKey, shiftKey }: KeyboardEvent) {
 
+    console.log({ key })
+
     key = key === ' ' ? 'space' : key.toLowerCase();
     this.keyMap[key && key.toLowerCase()] = true;
     if (key === 'space') {
@@ -478,6 +480,7 @@ export default class NodeSystemView extends EventEmitter {
         break;
       // x
       case 'x':
+      case 'delete':
         if (ctrlKey) {
           if (this.activeNode) this.system.spliceNode(this.activeNode);
           this.selectedNodes.forEach((n) => this.system.spliceNode(n));
