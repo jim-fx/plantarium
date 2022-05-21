@@ -79,7 +79,8 @@ $ pnpm dev
   - [ ] fbx
 - [x] ~~Fix Curve Node -> Maybe Profile Node?~~
 - [ ] chore(tests): more tests and coverage
-- [ ] feat(nodesystem): Ability to show and hide inputs
+- [ ] feat: video tutorial
+- [x] feat(nodesystem): Ability to show and hide inputs
 - [ ] feat(nodes): Add some more nodes
   - [ ] Rotate Around? -> Rotate Branch Around Stem, Leaf around Stem
   - [ ] Bend? ->  Sort of like rotate but with lerp
