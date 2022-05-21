@@ -1,6 +1,4 @@
 import { createWorker } from "@plantarium/generator";
-import { toOBJ } from "@plantarium/geometry";
-import parseOBJ from "@plantarium/geometry/src/helpers/parseOBJ";
 import { download } from "@plantarium/helpers";
 import type { PlantariumSettings, PlantProject } from "@plantarium/types";
 import { createToast } from "@plantarium/ui";

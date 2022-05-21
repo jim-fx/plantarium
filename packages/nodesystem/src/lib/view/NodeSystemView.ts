@@ -424,8 +424,6 @@ export default class NodeSystemView extends EventEmitter {
 
   handleKeyDown({ key, ctrlKey, shiftKey }: KeyboardEvent) {
 
-    console.log({ key })
-
     key = key === ' ' ? 'space' : key.toLowerCase();
     this.keyMap[key && key.toLowerCase()] = true;
     if (key === 'space') {

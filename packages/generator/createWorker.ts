@@ -2,12 +2,15 @@ import worker from "./worker?worker"
 import { type Remote, wrap } from "comlink"
 import { PlantProject } from "@plantarium/types";
 
+const { DEV } = import.meta.env;
+
 type workerType = typeof import("./worker");
 let proxy: workerType["default"];
 let workerInstance: Remote<workerType>;
 let workerModule: workerType;
 
 function supportsWorkerType() {
+  if (!DEV) return true;
   let supports = false;
   const tester = {
     get type() { supports = true; return false } // it's been called, it's supported
@@ -28,6 +31,7 @@ export default () => {
   let res: ReturnType<workerType["executeNodeSystem"]>;
 
   if (supportsWorkerType()) {
+    console.log("WOORKER");
     proxy = {
       async executeNodeSystem(p: PlantProject, s: unknown) {
         if (res) return res;
@@ -46,6 +50,7 @@ export default () => {
     return proxy;
   }
 
+  console.log("NO WOORKER");
 
   proxy = {
     async executeNodeSystem(p: PlantProject, s: unknown) {
