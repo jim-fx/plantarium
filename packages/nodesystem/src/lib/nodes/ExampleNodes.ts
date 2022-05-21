@@ -7,6 +7,7 @@ const boolops = {
     mode: {
       type: 'select',
       values: ['and', 'or'],
+      hidden: true,
       internal: true,
     },
     a: {

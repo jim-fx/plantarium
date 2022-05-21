@@ -46,8 +46,10 @@
   }
 
   svg {
-    width: 12px;
-    height: 12px;
+    height: 80%;
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 10%;
     opacity: 0;
     stroke: var(--text-color);
     stroke-width: 2px;
@@ -55,8 +57,6 @@
   }
 
   label {
-    height: 21px;
-    width: 21px;
     position: absolute;
     cursor: pointer;
 

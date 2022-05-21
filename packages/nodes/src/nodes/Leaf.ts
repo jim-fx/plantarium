@@ -74,6 +74,7 @@ export default typeCheckNode({
     shape: {
       type: 'shape',
       external: true,
+      hidden: true,
       value: defaultValue,
       description: "Shape of the indivual leaf, you can connect a shape node here"
     },
@@ -85,14 +86,31 @@ export default typeCheckNode({
       value: 0.5,
       description: "The lowest leaf on the stem."
     },
+    highestLeaf: {
+      type: 'number',
+      hidden: true,
+      min: 0,
+      max: 1,
+      step: 0.01,
+      value: 1,
+      description: "The highest leaf on the stem."
+    },
     curvature: {
       external: true,
+      hidden: true,
       type: 'vec2',
       value: {
         x: 0.5,
         y: 0.2,
       },
       description: "Curvature of the leaf along x and y, you can connect a vec2 node here."
+    },
+    depth: {
+      type: 'number',
+      hidden: true,
+      min: 0,
+      value: 1,
+      description: "On how many layern of branches should we place leaves."
     },
     amount: {
       type: 'number',
@@ -108,11 +126,12 @@ export default typeCheckNode({
     const input = parameters.input();
 
     const maxDepth = findMaxDepth(input);
+    const depth = parameters.depth()
 
     const instances = input.stems.map((stem, j) => {
       const alpha = j / input.stems.length;
 
-      if (stem.depth !== maxDepth) return;
+      if (stem.depth < (maxDepth - depth + 1)) return;
 
       const amount = parameters.amount(alpha);
 
@@ -123,12 +142,14 @@ export default typeCheckNode({
       const rotation = new Float32Array(amount * 3);
       const baseAlpha = new Float32Array(amount);
 
+      const lowestLeaf = parameters.lowestLeaf(alpha);
+      const highestLeaf = parameters.highestLeaf(alpha);
+
       for (let i = 0; i < amount; i++) {
         const _alpha = i / (amount - 1);
         const size = parameters.size(1 - _alpha);
-        const lowestLeaf = parameters.lowestLeaf(_alpha);
 
-        const a = lowestLeaf + (1 - lowestLeaf) * _alpha - 0.001;
+        const a = lowestLeaf + (highestLeaf - lowestLeaf) * _alpha - 0.001;
         baseAlpha[i] = a;
         //const isLeft = i % 2 === 0;
 

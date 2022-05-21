@@ -47,7 +47,7 @@ export type PlantNode<T extends NodeParameters = {}> = {
   meta?: { description?: string, tags?: string },
   parameters: T,
   computeValue?: (p: Params<T>, ctx: NodeContext, alpha?: number) => unknown
-  computeStem?: (p: Params<T>, ctx: NodeContext) => { stems: PlantStem[], instances?: Instances[] }
+  computeStem?: (p: Params<T>, ctx: NodeContext) => { stems: PlantStem[], instances?: InstancedGeometry[] }
   computeGeometry?: (p: Params<T>, result: ReturnType<PlantNode["computeStem"]>, ctx: NodeContext) => { geometry: TransferGeometry }
 }
 

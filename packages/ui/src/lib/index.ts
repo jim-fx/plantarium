@@ -11,6 +11,7 @@ import InputColor from './InputColor.svelte';
 import InputCurve from './InputCurve.svelte';
 import InputInteger from './InputInteger.svelte';
 import InputFloat from './InputFloat.svelte';
+import InputVec3 from './InputVec3.svelte';
 import InputTab from './InputTab.svelte';
 import InputSelect from './InputSelect.svelte';
 import InputShape from './InputShape.svelte';
@@ -35,6 +36,7 @@ export {
   InputFloat,
   InputInteger,
   InputSlider,
+  InputVec3,
   InputSelect,
   InputCheckbox,
   InputCurve,
@@ -95,6 +97,10 @@ export function stateToComponent(template: ValueTemplate): typeof SvelteComponen
 
   if (template.type === 'shape') {
     return InputShape;
+  }
+
+  if (template.type === "vec3") {
+    return InputVec3
   }
 
   if (template.type === 'number') {

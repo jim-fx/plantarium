@@ -18,6 +18,22 @@
     outline: solid 1px variables.$accent;
   }
 
+  .icon-wrapper{
+    position:absolute;
+    transform-origin: 10px 6px;
+    right: 3px;
+    top: 5.5px;
+    cursor:pointer;
+    --width: 12px;
+    --height: 12px;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+  }
+
+  &.node-stateselect .icon-wrapper{
+    transform: rotate(180deg);
+  }
+
   > .node-title {
     color: variables.$text;
     pointer-events: none;
@@ -34,6 +50,7 @@
   }
 
   &.node-active {
+    z-index:99;
     box-shadow: 0px 0px 0px 1px variables.$accent;
   }
 
@@ -43,6 +60,7 @@
   }
 
   &.node-selected {
+    z-index:99;
     box-shadow: 0px 0px 0px 1px variables.$accent;
   }
 }

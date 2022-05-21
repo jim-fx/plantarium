@@ -8,6 +8,7 @@ export interface NodeAttributes {
   name?: string;
   pos?: NodePosition;
   refs?: NodeRef[];
+  visible?: string[]
 }
 
 export interface CustomMouseEvent {

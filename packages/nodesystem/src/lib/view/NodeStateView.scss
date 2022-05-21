@@ -17,6 +17,31 @@
   opacity:0.5;
 }
 
+.node-state-hideable {
+  display:none;
+}
+
+.node-state-hideable.node-state-visible{
+  display:block;
+}
+
+.node-stateselect .node-state-hideable{
+  display:block;
+}
+
+.node-stateselect .node-state-single-wrapper > input[type=checkbox]{
+  display:block;
+}
+
+.node-state-single-wrapper > input[type=checkbox]{
+  width: 10px ;
+  height: 10px ;
+  position: absolute ;
+  right: 5px ;
+  display:none;
+  top: 10px ;
+}
+
 .node-state-single-wrapper.disabled > .node-state-input {
   opacity: 0.2;
   pointer-events: none;
@@ -44,6 +69,9 @@
 
 }
 
+.state-label{
+  pointer-events:none;
+}
 
 .nodesystem-state-help  .node-state-single-wrapper:hover{
    > .nodeview-help-wrapper{

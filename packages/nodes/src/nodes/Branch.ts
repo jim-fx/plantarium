@@ -43,6 +43,7 @@ export default typeCheckNode({
     offsetSingle: {
       type: 'number',
       min: 0,
+      hidden: true,
       max: 1,
       step: 0.01,
       value: 0.5,
@@ -53,6 +54,21 @@ export default typeCheckNode({
       max: 1,
       step: 0.01,
       value: 0.2,
+    },
+    highestBranch: {
+      type: 'number',
+      hidden: true,
+      min: 0,
+      max: 1,
+      step: 0.01,
+      value: 1,
+    },
+    depth: {
+      type: 'number',
+      hidden: true,
+      min: 0,
+      value: 1,
+      description: "On how many layern of branches should we place branches."
     },
     amount: {
       type: 'number',
@@ -73,14 +89,15 @@ export default typeCheckNode({
     const maxDepth = findMaxDepth(input);
 
     const stems = input.stems
-      .map((stem) => {
+      .map((stem, j) => {
         const branches: PlantStem[] = [];
 
-        if (maxDepth !== stem.depth) return []
+        if (stem.depth < (maxDepth - parameters.depth() + 1)) return []
 
         const amount = parameters.amount();
 
-        const lowestBranch = parameters.lowestBranch();
+        const lowestBranch = parameters.lowestBranch(j);
+        const highestBranch = parameters.highestBranch(j)
 
         for (let i = 0; i < amount; i++) {
           const _a = i / amount;
@@ -89,7 +106,7 @@ export default typeCheckNode({
           const offsetSingle = parameters.offsetSingle(_a);
 
           const isLeft = i % 2 === 0;
-          let a = lowestBranch + (1 - lowestBranch) * _a;
+          let a = lowestBranch + (highestBranch - lowestBranch) * _a;
 
 
           a = Math.min(a - (1 / amount) * offsetSingle * (isLeft ? -1 : 1), 1);

@@ -13,7 +13,7 @@ export default typeCheckNode({
   parameters: {
     origin: {
       type: 'vec3',
-      external: true,
+      hidden: true,
       value: {
         x: 0,
         y: 0,

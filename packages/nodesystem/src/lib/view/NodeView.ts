@@ -1,4 +1,5 @@
 import type Node from '../model/Node';
+import { Icon } from "@plantarium/ui"
 import type System from '../model/NodeSystem';
 import type { CustomMouseEvent } from '../types';
 import type NodeConnectionView from './NodeConnectionView';
@@ -11,6 +12,8 @@ export default class NodeView {
   wrapper: HTMLDivElement;
   outputWrapper: HTMLDivElement;
   helpWrapper: HTMLDivElement;
+  icon: Icon;
+  iconWrapper: HTMLDivElement;
   stateWrapper: HTMLDivElement;
 
   inputs: InputView[] = [];
@@ -45,6 +48,7 @@ export default class NodeView {
     this.system = node.system;
 
     this.wrapper = document.createElement('div');
+
     this.wrapper.style.minHeight = this.height + 'px';
     this.wrapper.style.minWidth = this.width + 'px';
     this.wrapper.classList.add(
@@ -99,6 +103,12 @@ export default class NodeView {
       this.updateViewPosition(x, y);
     }, 10);
 
+    // Check if we have any states that can be hidden
+    if (Object.values(this.node.states).find(s => "hidden" in s.template)) {
+      this.iconWrapper = document.createElement("div");
+      this.icon = new Icon({ target: this.iconWrapper, props: { name: "cog" } });
+      this.wrapper.appendChild(this.iconWrapper)
+    }
 
     this.bindEventListeners();
   }
@@ -118,6 +128,13 @@ export default class NodeView {
       }, 2000);
     }
 
+    this.iconWrapper?.addEventListener("click", () => {
+      if (this.state === "stateselect") {
+        this.state = ""
+      } else {
+        this.state = "stateselect"
+      }
+    })
 
     this.wrapper.addEventListener('mousedown', (ev) =>
       this.handleMouseDown(ev),
@@ -141,15 +158,32 @@ export default class NodeView {
   }
 
   set state(s: string | undefined) {
+
+    if (s === "stateselect" || (this.state === "stateselect" && s !== "stateselect")) {
+      setTimeout(() => {
+        Object.values(this.node.states).forEach(s => s?.view?.updatePosition())
+      }, 10)
+    }
+
+    if (this._state === "stateselect" && s !== this._state) {
+      // Here we remove all connections which are connected to hidden sockets.
+      for (const s of Object.values(this.node.states)) {
+        if (s.view.hideable && !s.view.visible) {
+          s.getInput()?.connection?.remove()
+        }
+      }
+    }
+
     this.wrapper.classList.remove(
       'node-active',
       'node-selected',
       'node-dragging',
+      "node-stateselect"
     );
     if (s === "no-error") {
       this.wrapper.classList.remove("node-error")
     }
-    this.wrapper.classList.add('node-' + s);
+    this.wrapper.classList.add('node-' + (s || "normal"));
     this._state = s;
   }
 

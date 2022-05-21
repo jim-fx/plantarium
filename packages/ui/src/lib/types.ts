@@ -36,6 +36,13 @@ export type FloatTemplate = {
   step?: number,
 }
 
+export type Vec3Template = {
+  type: "vec3",
+  inputType?: "float",
+  value?: { x: number, y: number, z: number },
+}
+
+
 export type CurveTemplate = {
   type: "curve",
   value: {
@@ -54,7 +61,7 @@ export type ShapeTemplate = {
   }[]
 }
 
-export type ValueTemplate = CheckboxTemplate | IntegerTemplate | SelectTemplate | TabTemplate | FloatTemplate | CurveTemplate | ShapeTemplate;
+export type ValueTemplate = CheckboxTemplate | IntegerTemplate | SelectTemplate | TabTemplate | FloatTemplate | CurveTemplate | ShapeTemplate | Vec3Template;
 
 
 

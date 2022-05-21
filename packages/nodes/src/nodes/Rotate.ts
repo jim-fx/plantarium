@@ -43,6 +43,7 @@ export default typeCheckNode({
     angle: {
       type: 'number',
       min: 0,
+      required: true,
       max: Math.PI * 2,
       step: 0.05,
       value: 0,

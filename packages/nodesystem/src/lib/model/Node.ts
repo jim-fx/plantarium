@@ -179,7 +179,7 @@ export default class Node extends EventEmitter {
   }
 
   deserialize() {
-    const attributes = Object.assign({}, this.attributes);
+    const attributes = cloneObject(this.attributes);
 
     attributes.refs = this.outputs
       .map((o) => o.connections)
@@ -190,6 +190,10 @@ export default class Node extends EventEmitter {
 
     Object.values(this.states).forEach((s) => {
       state[s.key] = s.getValue();
+      if (s?.view?.hideable && s.view.visible) {
+        if (!attributes.visible) attributes.visible = [];
+        attributes.visible.push(s.key)
+      }
     });
 
     return cloneObject(

@@ -25,6 +25,7 @@ export default typeCheckNode({
     },
     type: {
       internal: true,
+      hidden: true,
       type: 'select',
       values: ['simple', 'verlet', 'test'],
       value: "simple",
