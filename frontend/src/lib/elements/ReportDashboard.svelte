@@ -39,7 +39,8 @@
 					on:click={() => (report._expanded = !report._expanded)}
 				>
 					<div class="report-header">
-						<b>{report.type}</b>
+						<b>{report.type}:</b>
+						<span>{report.title}</span>
 						{#if report.gh_issue}
 							<a
 								href="https://github.com/jim-fx/plantarium/issues/{report.gh_issue}"
@@ -47,7 +48,6 @@
 							>
 						{/if}
 					</div>
-					<p>{report.title}</p>
 					{#if report._expanded}
 						<h3>description:</h3>
 						<p transition:slide>{report.description}</p>
@@ -70,7 +70,8 @@
 					on:click={() => (report._expanded = !report._expanded)}
 				>
 					<div class="report-header">
-						<b>{report.type}</b>
+						<b>{report.type}:</b>
+						<span>{report.title}</span>
 						{#if report.gh_issue}
 							<a
 								href="https://github.com/jim-fx/plantarium/issues/{report.gh_issue}"
@@ -78,7 +79,6 @@
 							>
 						{/if}
 					</div>
-					<p>{report.title}</p>
 					{#if report._expanded}
 						<h3>description:</h3>
 						<p transition:slide>{report.description}</p>
