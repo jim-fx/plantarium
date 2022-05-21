@@ -1,12 +1,10 @@
 import worker from "./worker?worker"
-import { wrap } from "comlink"
+import { type Remote, wrap } from "comlink"
 import { PlantProject } from "@plantarium/types";
 
-const { DEV = false } = import.meta.env;
-
-type workerType = typeof import("./executeNodeSystem");
-
-let workerInstance: workerType;
+type workerType = typeof import("./worker");
+let proxy: workerType["default"];
+let workerInstance: Remote<workerType>;
 let workerModule: workerType;
 
 function supportsWorkerType() {
@@ -22,34 +20,50 @@ function supportsWorkerType() {
   }
 }
 
-export default (): typeof import("./executeNodeSystem") => {
+export default () => {
   if (!('window' in globalThis)) return;
 
-  if (workerInstance) return workerInstance;
-  if (workerModule) return workerModule;
+  if (proxy) return proxy;
 
-  const wrapped = wrap<typeof import("./executeNodeSystem")>(new worker());
+  let res: ReturnType<workerType["executeNodeSystem"]>;
 
-  let res: Promise<unknown>;
+  if (supportsWorkerType()) {
+    proxy = {
+      async executeNodeSystem(p: PlantProject, s: unknown) {
+        if (res) return res;
+        if (!workerInstance) workerInstance = wrap<typeof import("./worker")>(new worker());
+        res = workerInstance.executeNodeSystem(p, s)
+        const result = await res;
+        res = undefined;
+        return result
 
-  workerInstance = {
+      },
+      async exportToObject(p: PlantProject, s: unknown) {
+        if (!workerInstance) workerInstance = wrap<typeof import("./worker")>(new worker());
+        return workerInstance.exportToObject(p, s)
+      },
+    };
+    return proxy;
+  }
+
+
+  proxy = {
     async executeNodeSystem(p: PlantProject, s: unknown) {
       if (res) return res;
-
-      if (DEV && !supportsWorkerType()) {
-        workerModule = await import("./executeNodeSystem")
-        res = workerModule.executeNodeSystem(p, s);
-      } else {
-        res = wrapped.executeNodeSystem(p, s)
-      }
-
+      if (!workerModule) workerModule = await import("./worker")
+      res = workerModule.executeNodeSystem(p, s);
       const result = await res;
-
       res = undefined;
       return result
 
-    }
+    },
+    async exportToObject(p: PlantProject, s: unknown) {
+      if (!workerModule) workerModule = await import("./worker")
+      return workerModule.exportToObject(p, s);
+    },
   };
 
-  return workerInstance;
-}
+  return proxy;
+
+
+};

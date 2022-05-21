@@ -101,8 +101,6 @@ export default function(_geo: TransferGeometry[] | TransferGeometry) {
 
   geometries.forEach(geo => parseMesh(geo));
 
-  parseOBJ(output)
-
 
   return output;
 

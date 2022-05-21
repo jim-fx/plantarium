@@ -9,19 +9,14 @@ const worker = createWorker();
 
 export default async function exportModel(p: PlantProject, s: PlantariumSettings, type: "obj" | "gltf") {
 
-  const res = await worker.executeNodeSystem(p, s);
+  const res = await worker?.exportToObject(p, s);
 
-  if (!res.geometry) {
-    if (res.errors) {
-      createToast(res.errors[0], { type: "error" })
-    }
+  if (res?.errors?.length) {
+    createToast(res.errors[0], { type: "error" })
     return;
   }
 
-  if (type === "obj") {
-    const output = toOBJ(res.geometry);
 
-    download.obj(output, "plant-" + (p?.meta?.name || p?.meta?.id))
-  }
+  download.obj(res, "plant-" + (p?.meta?.name || p?.meta?.id))
 
 }
