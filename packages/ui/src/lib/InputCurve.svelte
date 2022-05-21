@@ -28,10 +28,10 @@
     requestAnimationFrame(() => {
       dispatch('change', points);
       points = points.sort((a, b) => (a.x > b.x ? 1 : -1));
-      points[0].y = 1;
+      /* points[0].y = 1; */
       points[0].x = 0;
       points[points.length - 1].x = 1;
-      points[points.length - 1].y = 0;
+      /* points[points.length - 1].y = 0; */
     });
   };
 
