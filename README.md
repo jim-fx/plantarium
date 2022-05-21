@@ -77,21 +77,23 @@ $ pnpm dev
   - [x] obj
   - [ ] gltf
   - [ ] fbx
-- [ ] Fix Curve Node -> Maybe Profile Node?
-- [ ] Tests and Coverage
-- [ ] Add some more nodes
+- [x] ~~Fix Curve Node -> Maybe Profile Node?~~
+- [ ] chore(tests): more tests and coverage
+- [ ] feat(nodesystem): Ability to show and hide inputs
+- [ ] feat(nodes): Add some more nodes
   - [ ] Rotate Around? -> Rotate Branch Around Stem, Leaf around Stem
   - [ ] Bend? ->  Sort of like rotate but with lerp
   - [x] Split Branch Node
 
-## [1.2]()
-
 ## Fuuuture
 - [ ] Digital Garden
+
 Nicely visualize all the plants in a 3D garden scene, maybe let them be watered.
 
 - [ ] Plant Encyclopedia
+
 Online place to view all sorts of plants
 
 - [ ] Blender Plugins
+
 Let the user generate the models directly inside blender or unity, unreal, godot...
