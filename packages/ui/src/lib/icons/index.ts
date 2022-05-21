@@ -1,5 +1,4 @@
-export { default as arrow } from './arrow.svg?raw';
-export { default as branch } from './branch.svg?raw';
+export { default as branch } from './branch.svelte';
 export { default as checkmark } from './checkmark.svg?raw';
 export { default as cog } from './cog.svg?raw';
 export { default as cross } from './cross.svg?raw';

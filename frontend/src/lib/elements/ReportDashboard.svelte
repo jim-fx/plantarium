@@ -1,5 +1,6 @@
 <script lang="ts">
 	import * as api from '@plantarium/client-api';
+	import { Icon } from '@plantarium/ui';
 
 	import type { Report } from '@plantarium/backend';
 
@@ -25,6 +26,7 @@
 
 {#if loading}
 	<h3>Loading..</h3>
+	<Icon name="branch" animated --width="40px" />
 {:else}
 	{#if openReports.length}
 		<h3>Open Reports:</h3>

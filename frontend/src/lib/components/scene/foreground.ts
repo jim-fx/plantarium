@@ -91,7 +91,6 @@ export default class ForegroundScene extends EventEmitter {
 
       performance.stop('generate');
 
-      this.scene.isLoading.set(false);
 
       if (!result || result.errors || !result.geometry) {
         this.mesh.visible = false;
@@ -113,6 +112,9 @@ export default class ForegroundScene extends EventEmitter {
       this.mesh.geometry.computeBoundingBox();
 
       this.scene.renderer.setControlTarget(this.mesh.geometry.bounds.center);
+
+
+      this.scene.isLoading.set(false);
     } catch (error) {
       log.error(error);
       const res = await createToast(error, {

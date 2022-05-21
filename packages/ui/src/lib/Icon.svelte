@@ -10,12 +10,17 @@
   export let active = false;
   export let dark = false;
   export let circle = false;
+  export let animated = false;
 
   $: icon = name in icons ? icons[name] : name.toString() + ' icon not found';
 </script>
 
-<div class="icon-wrapper" class:active class:dark class:circle>
-  {@html icon}
+<div class="icon-wrapper" class:active class:dark class:circle class:animated>
+  {#if typeof icon === 'string'}
+    {@html icon}
+  {:else}
+    <svelte:component this={icon} {animated} />
+  {/if}
 </div>
 
 <style lang="scss">
@@ -53,6 +58,7 @@
 
   .icon-wrapper > :global(svg) {
     width: 100%;
+    height: var(--height, fit-content);
   }
 
   .active :global(*) {

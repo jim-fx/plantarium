@@ -35,6 +35,7 @@
   ];
 
   import * as _icons from '$lib/icons';
+  let animateIcons = false;
   const icons = Object.keys(_icons);
 </script>
 
@@ -58,12 +59,13 @@
 
   <section>
     <h3>Icon</h3>
+    <InputCheckbox bind:value={animateIcons} label="Animated" />
     <table>
       {#each icons as icon}
         <tr>
           <td>{icon}</td>
           <td>
-            <Icon name={icon} --width="40px" />
+            <Icon name={icon} --width="40px" animated={animateIcons} />
           </td>
         </tr>
       {/each}

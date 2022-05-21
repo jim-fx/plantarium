@@ -12,6 +12,7 @@
 	import { logger, parseStackTrace } from '@plantarium/helpers';
 	import type { CreateReportDto } from '@plantarium/backend';
 	import { createEventDispatcher } from 'svelte';
+	import Icon from '@plantarium/ui/src/lib/Icon.svelte';
 	export let mode: 'feat' | 'bug' = 'bug';
 	let info = detect();
 
@@ -72,7 +73,8 @@
 
 {#if submitPromise}
 	{#await submitPromise}
-		Submitting Reprot
+		<h3>Submitting Report</h3>
+		<Icon name="branch" animated --width="50px" />
 	{:catch err}
 		<p>Errror</p>
 		<code>{JSON.stringify(err, null, 2)}</code>

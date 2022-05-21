@@ -8,6 +8,7 @@
 	import { projectManager, settingsManager, nodeSystem } from '..';
 	import * as perf from '../../helpers/performance';
 	import { cloneObject } from '@plantarium/helpers';
+	import { Icon } from '@plantarium/ui';
 
 	let canvas: HTMLCanvasElement;
 
@@ -68,7 +69,7 @@
 	<canvas bind:this={canvas} />
 	{#if $isLoading}
 		<div class="is-loading">
-			<p>Is Loading</p>
+			<Icon name="branch" animated />
 		</div>
 	{/if}
 
@@ -114,6 +115,7 @@
 		bottom: 10px;
 		left: 10px;
 		z-index: 99;
+		width: 20px;
 	}
 
 	code {

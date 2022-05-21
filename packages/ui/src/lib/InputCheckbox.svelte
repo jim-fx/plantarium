@@ -6,6 +6,7 @@
   const dispatch = createEventDispatcher();
 
   export let value = false;
+  export let label: string;
 
   export let id = createId();
 
@@ -23,6 +24,9 @@
       <line vector-effect="non-scaling-stroke" x1="0" y1="0" x2="100" y2="100" />
     </svg>
   </label>
+  {#if label}
+    <p>{label}</p>
+  {/if}
 </div>
 
 <style lang="scss">
@@ -35,6 +39,10 @@
     &:checked + label > svg {
       opacity: 1;
     }
+  }
+
+  p {
+    margin-left: 25px;
   }
 
   svg {
