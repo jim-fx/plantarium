@@ -103,7 +103,7 @@
 
   .component-wrapper {
     overflow: hidden;
-    border-radius: var(--border-radius, 5px);
+    border-radius: var(--border-radius, 2px);
   }
 
   input[type='number'] {
