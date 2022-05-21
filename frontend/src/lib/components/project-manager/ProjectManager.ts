@@ -1,5 +1,6 @@
 import { cloneObject, EventEmitter, logger } from '@plantarium/helpers';
 import * as storage from '$lib/storage';
+import { browser } from "$app/env"
 import createId from 'shortid';
 import type { Writable } from 'svelte/store';
 import type { PlantariumSettings } from "$lib/types"
@@ -206,7 +207,7 @@ export default class ProjectManager extends EventEmitter {
 
     const activeProjectId = (await storage.getItem('pt_active_id')) as string;
 
-    if (!projectIds.length) {
+    if (!projectIds.length && browser) {
       const plant = this.createNewProject(fernSimple);
       projectIds.push(plant.meta.id);
       await this.saveProject(plant);

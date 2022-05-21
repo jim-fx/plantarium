@@ -58,6 +58,32 @@
   background: conic-gradient(red, orange, yellow, green, blue, purple);
 }
 
+.nodeview-error-wrapper{
+  position: absolute;
+  box-sizing:border-box;
+  top: 0;
+  opacity:0;
+  transform: translateY(-80%);
+  font-size: 0.5em;
+  padding-bottom: 5px;
+  background-color: rgba(255,255,0,0.1);
+  border: solid thin yellow;
+  width:100%;
+  z-index:-1;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  border-bottom:none;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.nodeview-error-wrapper.has-errors{
+  opacity:1;
+  transform: translateY(calc(-100% + 5px));
+}
+
+.nodeview-error{
+  padding: 5px;
+}
+
 .nodeview-help-wrapper{
   z-index:99;
   opacity:0;

@@ -2,6 +2,7 @@ import Nodes from '@plantarium/nodes';
 import { NodeSystem } from '@plantarium/nodesystem';
 import { setTheme } from '@plantarium/theme';
 import { createToast } from '@plantarium/ui';
+import { browser } from "$app/env"
 import { ProjectManager } from './project-manager';
 import { SettingsManager } from './settings-manager';
 import Tutor from './tutor';
@@ -35,7 +36,7 @@ settingsManager.on('theme.update', (v) => {
 });
 
 const nodeSystem = new NodeSystem({
-  view: true,
+  view: browser,
   defaultNodes: false,
   registerNodes: Nodes,
   connectionColors: {

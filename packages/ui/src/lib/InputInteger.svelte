@@ -100,6 +100,11 @@
 
 <style lang="scss">
   @import './global.scss';
+
+  .component-wrapper {
+    overflow: hidden;
+  }
+
   input[type='number'] {
     -webkit-appearance: textfield;
     -moz-appearance: textfield;

@@ -26,8 +26,9 @@
   const updateValue = () => {
     requestAnimationFrame(() => {
       dispatch('change', points);
-
       points = points.sort((a, b) => (a.y > b.y ? -1 : 1));
+      /* points[0].y = 1; */
+      /* points[points.length - 1].y = 0; */
     });
   };
 
@@ -91,7 +92,18 @@
 
   function renderPath(points) {
     // build the d attributes by looping over the points
-    return points.reduce(
+
+    let _points = [...points];
+
+    if (points[0].x < 0.95) {
+      _points = [{ x: 1, y: 1 }, ..._points];
+    }
+
+    if (points[points.length - 1].x < 0.95) {
+      _points = [..._points, { x: 1, y: 0 }];
+    }
+
+    return _points.reduce(
       (acc, point, i) =>
         i === 0
           ? // if first point
@@ -152,12 +164,14 @@
   }
 
   .left-path {
-    stroke: var(--text-color);
+    /* stroke: var(--text-color); */
+    stroke: none;
+    fill: rgba(101, 226, 160, 0.5);
   }
 
   svg > circle {
     fill: var(--text-color);
-    stroke: var(--accent, themes.$green-light);
+    stroke: none;
   }
 
   svg > circle:hover {

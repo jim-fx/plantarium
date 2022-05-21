@@ -1,25 +1,47 @@
 import worker from "./worker?worker"
-import * as workerType from "./executeNodeSystem"
 import { wrap } from "comlink"
+import { PlantProject } from "@plantarium/types";
 
 const { DEV = false } = import.meta.env;
 
-let workerInstance: typeof workerType;
+type workerType = typeof import("./executeNodeSystem");
 
-export default (): typeof workerType => {
+let workerInstance: workerType;
+let workerModule: workerType;
+
+function supportsWorkerType() {
+  let supports = false;
+  const tester = {
+    get type() { supports = true; return false } // it's been called, it's supported
+  };
+  try {
+    //@ts-ignore
+    new Worker('blob://', tester);
+  } finally {
+    return supports;
+  }
+}
+
+export default (): typeof import("./executeNodeSystem") => {
   if (!('window' in globalThis)) return;
 
   if (workerInstance) return workerInstance;
+  if (workerModule) return workerModule;
 
   const wrapped = wrap<typeof import("./executeNodeSystem")>(new worker());
 
   let res: Promise<unknown>;
 
   workerInstance = {
-    async executeNodeSystem(p: PlantProject, s: Partial<PlantariumSettings>) {
+    async executeNodeSystem(p: PlantProject, s: unknown) {
       if (res) return res;
 
-      res = DEV ? workerType.executeNodeSystem(p, s) : wrapped.executeNodeSystem(p, s);
+      if (DEV && !supportsWorkerType()) {
+        workerModule = await import("./executeNodeSystem")
+        res = workerModule.executeNodeSystem(p, s);
+      } else {
+        res = wrapped.executeNodeSystem(p, s)
+      }
 
       const result = await res;
 

@@ -122,7 +122,7 @@ export default settingsType({
     }
   },
   leafRes: {
-    onlyDev: true,
+    label: "Leaf Resolution",
     type: 'number',
     min: 3,
     max: 12,
@@ -130,7 +130,7 @@ export default settingsType({
     value: 2
   },
   stemResX: {
-    onlyDev: true,
+    label: "Stem Resolution",
     type: 'number',
     min: 3,
     max: 32,
@@ -139,6 +139,7 @@ export default settingsType({
   },
   stemResY: {
     onlyDev: true,
+    label: "Stem Resolution Y",
     type: 'number',
     min: 3,
     max: 64,

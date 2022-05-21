@@ -42,8 +42,14 @@ export default class NodeState extends EventEmitter {
 
     if (this.template?.required && value === undefined) {
       this.isOkay = false;
+
+      if (this.node.view) {
+        this.node.view.showErrors(`Input <b>${this.template?.label || this.key}</b> is required`)
+      }
+
     } else {
       this.isOkay = true;
+      this.node.view.showErrors()
     }
 
 

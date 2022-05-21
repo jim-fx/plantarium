@@ -37,6 +37,7 @@ export default class NodeView {
 
   _unsubscribeMouseMove!: () => void;
   _unsubscribeMouseUp!: () => void;
+  errorWrapper: HTMLDivElement;
 
   constructor(node: Node) {
     this.node = node;
@@ -55,6 +56,9 @@ export default class NodeView {
       'node-view-' + this.system.id + '-' + this.node.id,
     );
 
+    this.errorWrapper = document.createElement("div");
+    this.errorWrapper.classList.add("nodeview-error-wrapper");
+    this.wrapper.appendChild(this.errorWrapper)
 
     this.outputWrapper = document.createElement('div');
     this.outputWrapper.classList.add('node-outputs-wrapper');
@@ -151,6 +155,17 @@ export default class NodeView {
 
   get state() {
     return this._state;
+  }
+
+  showErrors(_errors?: string[] | string) {
+    this.errorWrapper.innerHTML = ""
+    this.errorWrapper.classList.remove("has-errors");
+    if (!_errors) return;
+    const errors = Array.isArray(_errors) ? _errors : [_errors];
+    if (errors?.length) {
+      this.errorWrapper.classList.add("has-errors");
+      this.errorWrapper.innerHTML = errors.map(err => `<div class="nodeview-error">${err}</div>`).join("")
+    }
   }
 
   handleMouseDown(ev: MouseEvent) {

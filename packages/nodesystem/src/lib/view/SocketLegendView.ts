@@ -27,7 +27,7 @@ export default class SocketLegendView {
 
   private updateTypes(types: [string, string][]) {
     this.wrapper.style.setProperty("--max-height", (1 + types.length) * 30 + "px")
-    this.wrapper.innerHTML = `<input type="checkbox"/><div class="socket-legend-title">Legend</div> 
+    this.wrapper.innerHTML = `<input id="nodesocket-legend-input" type="checkbox"/><label for="nodesocket-legend-input" class="socket-legend-title">Legend</label> 
 <div class="socket-legend-type-wrapper">
 ${types.map(([type, col]) => `
 <div class="socket-legend-col" style="background-color:${col}"></div><div class="socket-legend-type">${type}</div>

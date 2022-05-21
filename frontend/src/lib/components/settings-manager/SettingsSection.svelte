@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { cloneObject } from '@plantarium/helpers';
+
 	import { Section, stateToComponent, type ValueTemplate } from '@plantarium/ui';
 	import { slide } from 'svelte/transition';
 	import { settingsManager } from '..';
@@ -17,6 +19,14 @@
 	let _template: ValueTemplate = template as unknown as ValueTemplate;
 
 	const isOpen = sectionOpen();
+
+	function cleanTemplate<T>(_template: T) {
+		const c = cloneObject(_template);
+		delete c['label'];
+		delete c['type'];
+		delete c['onlyDev'];
+		return c;
+	}
 </script>
 
 {#if $settingsStore.isDev || !template.onlyDev}
@@ -36,7 +46,7 @@
 
 			<svelte:component
 				this={stateToComponent(_template)}
-				{..._template}
+				{...cleanTemplate(_template)}
 				{value}
 				on:change={(ev) => settingsManager.set(path, ev.detail)}
 			/>

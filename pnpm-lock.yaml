@@ -335,12 +335,14 @@ importers:
       '@plantarium/helpers': link:../helpers
       '@plantarium/nodes': link:../nodes
       '@plantarium/nodesystem': link:../nodesystem
+      '@plantarium/types': link:../types
       comlink: 4.3.1
     dependencies:
       '@plantarium/geometry': link:../geometry
       '@plantarium/helpers': link:../helpers
       '@plantarium/nodes': link:../nodes
       '@plantarium/nodesystem': link:../nodesystem
+      '@plantarium/types': link:../types
     devDependencies:
       comlink: 4.3.1
 

@@ -13,7 +13,8 @@
     "@plantarium/geometry": "link:../geometry",
     "@plantarium/helpers": "link:../helpers",
     "@plantarium/nodes": "link:../nodes",
-    "@plantarium/nodesystem": "link:../nodesystem"
+    "@plantarium/nodesystem": "link:../nodesystem",
+    "@plantarium/types": "link:../types"
   },
   "devDependencies": {
     "comlink": "4.3.1"

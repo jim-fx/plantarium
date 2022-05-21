@@ -14,3 +14,5 @@ export { default as question } from './question.svg?raw';
 export { default as bulb } from './bulb.svg?raw';
 export { default as bulb_dark } from './bulb-dark.svg?raw';
 export { default as github } from './github.svg?raw';
+export { default as node } from './node.svg?raw';
+export { default as bug } from './bug.svg?raw';

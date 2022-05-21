@@ -10,7 +10,7 @@
 <div>
 	<Button
 		name="Report Bug"
-		icon="exclamation"
+		icon="bug"
 		--bg="#303030"
 		--text="white"
 		--width="100%"
@@ -45,6 +45,7 @@
 	/>
 	<Button
 		name="Bug Reports"
+		icon="bug"
 		--bg="#303030"
 		--width="100%"
 		--text="white"
@@ -73,7 +74,7 @@
 
 		<Button
 			name="Node Basics"
-			icon="hand"
+			icon="node"
 			--bg="#303030"
 			--margin="0px 0px 10px 0px"
 			--text="white"
@@ -83,7 +84,7 @@
 
 		<Button
 			name="Node Intermediate"
-			icon="hand"
+			icon="node"
 			--bg="#303030"
 			--text="white"
 			--width="100%"

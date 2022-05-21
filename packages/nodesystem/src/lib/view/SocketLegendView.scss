@@ -36,7 +36,9 @@
   }
 
   > input,
-  > .socket-legend-title{
+  > label{
+    font-size: 1em;
+    color: var(--text-color,white);
     margin:0px;
     display:inline;
     margin-bottom: 10px;

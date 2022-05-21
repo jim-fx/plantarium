@@ -99,6 +99,11 @@
 
 <style lang="scss">
   @import './global.scss';
+
+  .component-wrapper {
+    overflow: hidden;
+  }
+
   input[type='number']::-webkit-inner-spin-button,
   input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;

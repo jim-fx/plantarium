@@ -33,7 +33,7 @@
 <style>
   p {
     margin: 0px;
-    color: var(--text-color-invert);
+    color: var(--text-color);
     font-weight: bold;
   }
 
