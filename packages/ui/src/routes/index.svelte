@@ -65,7 +65,7 @@
         <tr>
           <td>{icon}</td>
           <td>
-            <Icon name={icon} --width="40px" animated={animateIcons} />
+            <Icon name={icon} --width="40px" animated={animateIcons} hover />
           </td>
         </tr>
       {/each}
@@ -132,7 +132,7 @@
     <br />
     <Button
       name="Success Toast"
-      on:click={() => createToast('Short happy message', { type: 'success' })}
+      on:click={() => createToast('Short happy message', { type: 'success', timeout: 0 })}
     />
     <br />
     <Button

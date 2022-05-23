@@ -66,7 +66,7 @@ export default typeCheckNode({
     depth: {
       type: 'number',
       hidden: true,
-      min: 0,
+      min: 1,
       value: 1,
       description: "On how many layern of branches should we place branches."
     },

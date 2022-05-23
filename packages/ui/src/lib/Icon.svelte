@@ -10,7 +10,9 @@
   export let active = false;
   export let dark = false;
   export let circle = false;
+  export let hover = false;
   export let animated = false;
+  export let animateIn = false;
 
   $: icon = name in icons ? icons[name] : name.toString() + ' icon not found';
 </script>
@@ -19,7 +21,7 @@
   {#if typeof icon === 'string'}
     {@html icon}
   {:else}
-    <svelte:component this={icon} {animated} />
+    <svelte:component this={icon} {animated} animIn={animateIn} {hover} />
   {/if}
 </div>
 
@@ -28,7 +30,8 @@
     width: var(--width, fit-content);
     height: var(--height, fit-content);
     object-fit: cover;
-    display: grid;
+    display: flex;
+    align-items: center;
     box-sizing: border-box;
 
     min-width: 20px;

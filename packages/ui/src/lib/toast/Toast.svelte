@@ -49,7 +49,7 @@
       <div class="toast-content" class:hasIcon={!!icon}>
         {#if icon}
           <div class="toast-icon">
-            <Icon name={icon} dark={isInverted} circle --width="40px" --height="40px" />
+            <Icon name={icon} dark={isInverted} animateIn circle --width="40px" --height="40px" />
           </div>
         {/if}
 

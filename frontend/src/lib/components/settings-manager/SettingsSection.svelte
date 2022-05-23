@@ -32,7 +32,12 @@
 {#if $settingsStore.isDev || !template.onlyDev}
 	<div class="wrapper" transition:slide>
 		{#if template.options}
-			<Section name={key} open={isOpen.get()} on:toggle={({ detail }) => isOpen.set(detail)}>
+			<Section
+				name={key}
+				open={isOpen.get()}
+				--text-color="#303030"
+				on:toggle={({ detail }) => isOpen.set(detail)}
+			>
 				{#each Object.entries(value) as [_key, _value]}
 					{#if _key in template.options}
 						<svelte:self {path} value={_value} key={_key} template={template.options[_key]} />

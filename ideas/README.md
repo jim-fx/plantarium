@@ -1,6 +1,6 @@
 # Ideas
 
-*Sorted by importance*
+*Sorted by importance, sorting may be ignored if something is fun to implement*
 
 - [ ] [Video Tutorial](./o-video-tutorial.md)
 - [ ] [Gallery](./o-gallery.md)
