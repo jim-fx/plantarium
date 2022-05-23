@@ -86,15 +86,4 @@ $ pnpm dev
   - [ ] Bend? ->  Sort of like rotate but with lerp
   - [x] Split Branch Node
 
-## Fuuuture
-- [ ] Digital Garden
-
-Nicely visualize all the plants in a 3D garden scene, maybe let them be watered.
-
-- [ ] Plant Encyclopedia
-
-Online place to view all sorts of plants
-
-- [ ] Blender Plugins
-
-Let the user generate the models directly inside blender or unity, unreal, godot...
+## [Ideas](./ideas/)
