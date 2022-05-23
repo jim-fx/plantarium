@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "1.0.0-next.31",
-    "@sveltejs/kit": "1.0.0-next.338",
+    "@sveltejs/kit": "1.0.0-next.339",
     "@tsconfig/svelte": "3.0.0",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
