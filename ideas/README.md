@@ -2,11 +2,12 @@
 
 *Sorted by importance, sorting may be ignored if something is fun to implement*
 
-- [ ] [Video Tutorial](./o-video-tutorial.md)
 - [ ] [Gallery](./o-gallery.md)
 - [ ] [Digital Garden](./o-digital-garden.md)
-- [x] [Break Node](./c-break-node.md)
 - [ ] [WASM](./o-wasm.md)
 - [ ] [Blender Plugin](./o-blender-plugin.md)
 - [ ] [Topology](./o-topology.md)
 
+*Closed:*
+- [x] [Break Node](./c-break-node.md)
+- [x] [Video Tutorial](./c-video-tutorial.md)

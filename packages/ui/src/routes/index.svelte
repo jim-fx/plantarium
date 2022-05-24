@@ -52,10 +52,6 @@
     <br />
     <Button name="Projects" />
   </section>
-  <section>
-    <h3>Tab</h3>
-    <InputTab values={['dark', 'light', 'pinky']} on:change={({ detail }) => setTheme(detail)} />
-  </section>
 
   <section>
     <h3>Icon</h3>
@@ -93,8 +89,15 @@
   </section>
 
   <section>
+    <h3>Tab</h3>
+    <InputTab values={['dark', 'light', 'pinky']} on:change={({ detail }) => setTheme(detail)} />
+  </section>
+
+  <section>
     <h3>Integer</h3>
     <InputInteger />
+    <br />
+    <i>With min/max</i>
     <InputInteger min={0} max={100} />
   </section>
 

@@ -137,7 +137,7 @@
     height: 100%;
     max-width: 100%;
     background-color: var(--text-color);
-    opacity: 0.2;
+    opacity: 0.3;
     pointer-events: none;
   }
 </style>

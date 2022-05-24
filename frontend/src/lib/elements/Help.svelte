@@ -73,6 +73,16 @@
 		/>
 
 		<Button
+			name="Video Tutorial"
+			icon="link"
+			--bg="#303030"
+			--margin="0px 0px 10px 0px"
+			--text="white"
+			--width="100%"
+			on:click={() => goto('https://youtu.be/BO5a_Av9cwo')}
+		/>
+
+		<Button
 			name="Node Basics"
 			icon="node"
 			--bg="#303030"
@@ -96,15 +106,6 @@
 <style lang="scss">
 	div {
 		display: grid;
-
 		gap: 10px;
-	}
-
-	div :global(button) {
-		/* margin-bottom: 10px !important; */
-	}
-
-	div :global(div:last-child button) {
-		/* margin-bottom: 0px !important; */
 	}
 </style>

@@ -17,5 +17,6 @@ export { default as github } from './github.svg?raw';
 export { default as node } from './node.svg?raw';
 export { default as bug } from './bug.svg?raw';
 
+export { default as link } from './link.svelte';
 export { default as import } from "./import.svelte"
 export { default as export } from "./export.svelte"
