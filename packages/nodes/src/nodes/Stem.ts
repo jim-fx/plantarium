@@ -56,7 +56,7 @@ export default typeCheckNode({
     for (let i = 0; i < amount; i++) {
       const { x: ox, y: oy, z: oz } = parameters.origin(i);
 
-      const height = parameters.height();
+      const height = parameters.height(i);
 
       const skeleton = new Float32Array(amountPoints * 4);
 

@@ -61,7 +61,7 @@
 		on:click={() => goto('https://github.com/jim-fx/plantarium')}
 	/>
 
-	<Section name="Tutorials">
+	<Section name="Tutorials" dark>
 		<Button
 			name="Interface"
 			icon="hand"
