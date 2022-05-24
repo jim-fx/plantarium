@@ -162,7 +162,7 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
           if (this.socket instanceof NodeOutput) {
             this.socket.node.connectTo(node, indexOut, keyIn);
           } else {
-            node.connectTo(this.socket.node, indexOut, keyIn);
+            node.connectTo(this.socket.node, indexOut, this.socket.key);
           }
           this.remove();
         })

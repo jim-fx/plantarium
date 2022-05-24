@@ -31,6 +31,7 @@ export default class NodeInput {
   }
 
   setConnection(conn: NodeConnection) {
+    if (this.connection === conn) return;
     if (this.connection) {
       this.connection.remove();
     }

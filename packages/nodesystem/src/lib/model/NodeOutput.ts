@@ -6,6 +6,7 @@ import type NodeInput from './NodeInput';
 export default class NodeOutput {
   node: Node;
   view!: NodeOutputView;
+  isOutput = true;
   connections: NodeConnection[] = [];
   type: string;
 
@@ -27,7 +28,9 @@ export default class NodeOutput {
   }
 
   removeConnection(conn: NodeConnection) {
+    if (!this.connections.length) return;
     const index = this.connections.indexOf(conn);
+    if (index === -1) return;
     this.connections.splice(index, 1);
     this.node.disconnectFrom(conn.input.node, conn.indexIn, conn.indexOut);
     if (this.view) this.view.connections.splice(index, 1);

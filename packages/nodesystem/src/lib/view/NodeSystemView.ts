@@ -180,23 +180,28 @@ export default class NodeSystemView extends EventEmitter {
       this.activeNode.view.state = 'active';
 
       if (this.activeNode.outputs.length) {
-        const debugNode = this.system.createNode({
-          state: {},
-          attributes: {
-            type: 'debug',
-            id: '0',
-            name: 'debug',
-            refs: [],
-            pos: {
-              x: this.activeNode.view.x + this.activeNode.view.width + 10,
-              y: this.activeNode.view.y,
+
+        if ("debug" in this.system.store.typeMap) {
+          const debugNode = this.system.createNode({
+            state: {},
+            attributes: {
+              type: 'debug',
+              id: '0',
+              name: 'debug',
+              refs: [],
+              pos: {
+                x: this.activeNode.view.x + this.activeNode.view.width + 10,
+                y: this.activeNode.view.y,
+              },
             },
-          },
-        });
+          });
 
-        debugNode.enableUpdates = true;
+          debugNode.enableUpdates = true;
 
-        this.activeNode.connectTo(debugNode, 0, 'input');
+          this.activeNode.connectTo(debugNode, 0, 'input');
+        } else if (this.system.outputNode) {
+          this.activeNode.connectTo(this.system.outputNode, 0, "input")
+        }
       }
     } else if (shiftKey) {
       if (!this.activeNode) {

@@ -57,18 +57,18 @@ export default typeCheckNode({
     };
   },
 
-  computeGeometry(parameters, result, ctx) {
-    const stemResX = ctx.getSetting('stemResX');
-
-    const input = parameters?.input?.();
-    const { stems } = result;
-
-    return {
-      geometry: join(
-        ...[input ? input.geometry : null],
-        ...stems.map(({ skeleton }) => tube(skeleton, stemResX)),
-      ),
-    };
-  },
+  // computeGeometry(parameters, result, ctx) {
+  //   const stemResX = ctx.getSetting('stemResX');
+  //
+  //   const input = parameters?.input?.();
+  //   const { stems } = result;
+  //
+  //   return {
+  //     geometry: join(
+  //       ...[input ? input.geometry : null],
+  //       ...stems.map(({ skeleton }) => tube(skeleton, stemResX)),
+  //     ),
+  //   };
+  // },
 });
 

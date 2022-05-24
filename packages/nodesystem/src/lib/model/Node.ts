@@ -146,11 +146,7 @@ export default class Node extends EventEmitter {
 
     const connection = new NodeConnection(this.system, { output, input });
 
-    output?.view?.updatePosition();
-    input?.view?.updatePosition();
-
     // Check if node already has a connection to this node
-
     const existingRef = this.refs.find(
       (ref) => ref.node.id === node.id && ref.indexOut === indexOut,
     );
@@ -161,30 +157,36 @@ export default class Node extends EventEmitter {
       this.refs.push({ node, keyIn: [keyIn], indexOut });
     }
 
+    output?.view?.updatePosition();
+    input?.view?.updatePosition();
     this.update();
+
 
     return connection;
   }
 
   disconnectFrom(node: Node, keyIn: string, indexOut: number) {
+    if (!this.refs.length) return;
     //TODO: theres something missing here
     this.refs = this.refs.filter((ref) => {
-      if (ref.indexOut !== indexOut) return false;
+      if (ref.node.id !== node.id) return true;
+      if (ref.indexOut !== indexOut) return true;
       ref.keyIn.splice(ref.keyIn.indexOf(keyIn), 1);
-      if (ref.keyIn.length === 0) return false;
-      return true;
+      if (ref.keyIn.length === 0) return true;
+      return false;
     });
 
     this.update();
   }
 
   deserialize() {
-    const attributes = cloneObject(this.attributes);
-
-    attributes.refs = this.outputs
-      .map((o) => o.connections)
-      .flat()
-      .map((c) => c.deserialize());
+    const attributes = {
+      ...cloneObject(this.attributes),
+      refs: this.outputs
+        .map((o) => o.connections)
+        .flat()
+        .map((c) => c.deserialize())
+    };
 
     const state = {};
 
@@ -196,12 +198,11 @@ export default class Node extends EventEmitter {
       }
     });
 
-    return cloneObject(
-      {
-        attributes,
-        state,
-      },
-    );
+    return {
+      attributes,
+      state,
+    }
+
   }
 
   save() {

@@ -49,6 +49,15 @@ export default class NodeView {
 
     this.wrapper = document.createElement('div');
 
+    // Check if we have any states that can be hidden
+    if (Object.values(this.node.states).find(s => "hidden" in s.template)) {
+      this.iconWrapper = document.createElement("div");
+      this.icon = new Icon({ target: this.iconWrapper, props: { name: "cog" } });
+      this.wrapper.appendChild(this.iconWrapper)
+    }
+
+
+
     this.wrapper.style.minHeight = this.height + 'px';
     this.wrapper.style.minWidth = this.width + 'px';
     this.wrapper.classList.add(
@@ -102,13 +111,6 @@ export default class NodeView {
       this.height = height / this.system.view.s;
       this.updateViewPosition(x, y);
     }, 10);
-
-    // Check if we have any states that can be hidden
-    if (Object.values(this.node.states).find(s => "hidden" in s.template)) {
-      this.iconWrapper = document.createElement("div");
-      this.icon = new Icon({ target: this.iconWrapper, props: { name: "cog" } });
-      this.wrapper.appendChild(this.iconWrapper)
-    }
 
     this.bindEventListeners();
   }

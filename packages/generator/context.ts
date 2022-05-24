@@ -18,7 +18,7 @@ const createContext = (s: Partial<PlantariumSettings>) => {
       return noise.n1d(currentNoise++ * scale);
     },
     n1dn(scale: number) {
-      return 1 + noise.n1d(currentNoise++ * scale) / 2;
+      return 0.5 + noise.n1d(currentNoise++ * scale) / 2;
     },
     getSetting(key: string) {
       return s[key];

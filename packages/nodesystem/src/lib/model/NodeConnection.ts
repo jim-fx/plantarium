@@ -11,7 +11,6 @@ interface ConnectionOptions {
 }
 
 export default class NodeConnection {
-  system!: NodeSystem;
 
   input!: NodeInput;
   output!: NodeOutput;
@@ -19,7 +18,7 @@ export default class NodeConnection {
   type!: string;
   view!: NodeConnectionView;
 
-  constructor(system: NodeSystem, { input, output }: ConnectionOptions) {
+  constructor(private system: NodeSystem, { input, output }: ConnectionOptions) {
 
     // TODO: Dont connect if connection already exists
     if (output.connections.find(c => c.input === input)) {
@@ -29,8 +28,6 @@ export default class NodeConnection {
     }
 
     if (!output || !input) return;
-
-    this.system = system;
 
     const children = input.node.getChildren();
 
