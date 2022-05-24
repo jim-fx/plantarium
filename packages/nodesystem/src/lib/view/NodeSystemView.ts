@@ -12,6 +12,7 @@ import ColorStore from './socketColorStore';
 import type { NodeProps } from '../types';
 import visible from '../helpers/visible';
 import SocketLegendView from './SocketLegendView';
+import NodeDrawingView from './NodeDrawingView';
 
 export default class NodeSystemView extends EventEmitter {
   system: NodeSystem;
@@ -80,9 +81,6 @@ export default class NodeSystemView extends EventEmitter {
       system.options.parent.appendChild(this.wrapper);
     }
 
-    if (!system.options?.hideLegend) {
-      new SocketLegendView(this)
-    }
 
     this.transformWrapper = document.createElement('div');
     this.transformWrapper.classList.add('nodesystem-transform');
@@ -95,6 +93,15 @@ export default class NodeSystemView extends EventEmitter {
     this.nodeContainer = document.createElement('div');
     this.nodeContainer.classList.add('nodes-container');
     this.transformWrapper.append(this.nodeContainer);
+
+    if (!system.options?.hideLegend) {
+      new SocketLegendView(this)
+    }
+
+    if (system.options?.enableDrawing) {
+      new NodeDrawingView(this);
+    }
+
 
     this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     this.svg.setAttribute('viewBox', '0 0 1 1');

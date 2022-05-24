@@ -20,6 +20,7 @@ interface NodeSystemOptions {
   defaultNodes: string[] | boolean;
   hideLegend: boolean;
   connectionColors: Record<string, string>,
+  enableDrawing: boolean;
   registerNodes: NodeTypeData[];
   deferCompute: boolean;
   logLevel: number;
@@ -60,9 +61,10 @@ export default class NodeSystem extends EventEmitter {
       registerNodes = false,
       connectionColors = false,
       showUpdates = false,
+      enableDrawing = false,
       deferCompute = false
     } = options;
-    this.options = { view, wrapper, showUpdates, deferCompute };
+    this.options = { view, wrapper, showUpdates, deferCompute, enableDrawing };
 
     try {
       log(`Instantiated id:${this.id}`);

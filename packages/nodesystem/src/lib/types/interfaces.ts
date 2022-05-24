@@ -46,6 +46,7 @@ export interface NodeSystemData {
 
 export interface NodeSystemMeta {
   lastSaved?: number;
+  drawings?: number[][];
   transform?: {
     x: number;
     y: number;

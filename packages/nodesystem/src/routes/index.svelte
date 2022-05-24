@@ -17,6 +17,7 @@
       view: true,
       wrapper,
       defaultNodes: true,
+      enableDrawing: true,
       registerNodes: nodes,
       showUpdates: true,
     });

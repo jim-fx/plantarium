@@ -35,14 +35,14 @@
     } */
   }
   > svg {
-    position: absolute;
-    pointer-events: none;
-    overflow: visible;
-    width: 1px !important;
-    height: 1px !important;
-    left: 50%;
-    top: 50%;
-    z-index: 0;
+    // position: absolute;
+    // pointer-events: none;
+    // overflow: visible;
+    // width: 1px !important;
+    // height: 1px !important;
+    // left: 50%;
+    // top: 50%;
+    // z-index: 0;
 
     > path {
       stroke-linecap: round;
