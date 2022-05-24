@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@ziglang/cli": "^0.0.9",
-    "typescript": "^4.6.4",
+    "typescript": "^4.7.2",
     "vite": "^2.9.9",
     "vite-plugin-zig": "^0.0.11"
   }
