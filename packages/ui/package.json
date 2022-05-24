@@ -21,7 +21,7 @@
   "devDependencies": {
     "@plantarium/helpers": "link:../helpers",
     "@plantarium/theme": "link:../theme",
-    "@sveltejs/adapter-static": "1.0.0-next.31",
+    "@sveltejs/adapter-static": "1.0.0-next.32",
     "@sveltejs/kit": "1.0.0-next.341",
     "@testing-library/svelte": "3.1.1",
     "@typescript-eslint/eslint-plugin": "5.26.0",
