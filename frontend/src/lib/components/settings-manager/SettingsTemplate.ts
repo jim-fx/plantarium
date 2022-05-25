@@ -46,12 +46,10 @@ export default settingsType({
         values: ["MatCap", "Basic", "Debug"],
         value: "Basic"
       },
-
       hideMesh: {
         type: "boolean",
         value: false
       },
-
       showNodeUpdates: {
         type: 'boolean',
         value: false
@@ -66,14 +64,22 @@ export default settingsType({
       },
       pd: {
         type: 'boolean',
+        label: "Show Project Data",
         value: false
       },
       skeleton: {
         type: 'boolean',
+        label: "Show Skeleton",
         value: false
       },
       wireframe: {
         type: 'boolean',
+        label: "Show Wireframe",
+        value: false
+      },
+      boundingBox: {
+        type: "boolean",
+        label: "Show Bounding Box",
         value: false
       },
       logLevel: {

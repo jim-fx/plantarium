@@ -76,6 +76,10 @@ export default class ForegroundScene extends EventEmitter {
       this.mesh.mode = this.gl.TRIANGLES
     }
 
+    if (this.boundingBox) {
+      this.boundingBox.visible = settings?.debug?.boundingBox;
+    }
+
     this.settings = cloneObject(settings);
 
     this.update();
