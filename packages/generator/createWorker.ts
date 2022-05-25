@@ -25,7 +25,7 @@ let workerInstance: Remote<workerType["default"]>;
 async function getWorker() {
   if (workerInstance) return workerInstance;
   const worker = await import("./worker?worker");
-  workerInstance = wrap<workerType>(new worker());
+  workerInstance = wrap<workerType>(new worker.default());
   return workerInstance;
 }
 

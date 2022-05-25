@@ -21,7 +21,10 @@ export default function(
   let prevY = 0;
   let rotationAcc = 0;
 
-  shape.sort((a, b) => a.y > b.y ? -1 : 1).forEach((point, j) => {
+  shape.map(s => {
+    s.y = 1 - s.y;
+    return s;
+  }).sort((a, b) => a.y > b.y ? 1 : -1).forEach((point, j) => {
     const offset = j * amountX;
 
     // We rotate around the previous point, so we need to subtract that.
