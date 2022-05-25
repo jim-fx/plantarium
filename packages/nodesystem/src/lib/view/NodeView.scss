@@ -72,7 +72,10 @@
 }
 
 .socket-type-all {
-  background: conic-gradient(red, orange, yellow, green, blue, purple);
+  background: conic-gradient(red, orange, yellow, green, blue, purple,red, orange, yellow, green, blue, purple);
+  background-size: auto;
+background-position: 28% 50%;
+background-size: 400% 200%;
 }
 
 .nodeview-error-wrapper{
