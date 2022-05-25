@@ -1,7 +1,8 @@
 import { cloneObject, EventEmitter, memoize } from '@plantarium/helpers';
-import type { NodeAttributes, NodeProps, NodeTypeData } from '../types';
+import { SocketType, type NodeAttributes, type NodeProps, type NodeTypeData } from '../types';
 import type NodeView from '../view/NodeView';
 import NodeConnection from './NodeConnection';
+import type NodeInput from './NodeInput';
 import type NodeOutput from './NodeOutput';
 import type NodeState from './NodeState';
 import type NodeSystem from './NodeSystem';
@@ -29,8 +30,6 @@ export default class Node extends EventEmitter {
 
   enableUpdates = true;
   _compute: (state: { [key: string]: unknown }) => unknown;
-
-  refs: { node: Node; keyIn: string[]; indexOut: number }[] = [];
 
   constructor(system: NodeSystem, props: NodeProps) {
     super();
@@ -90,6 +89,14 @@ export default class Node extends EventEmitter {
       .filter((s) => !!s);
   }
 
+  getOutConnections() {
+    return this.outputs.map(out => out.connections).flat()
+  }
+
+  getDownstreamNodes() {
+    return [...(new Set(this.getOutConnections().map(c => c.output.node))).values()];
+  }
+
   setStateValue(key: string, value: unknown) {
     this.states[key].setValue(value);
   }
@@ -104,6 +111,7 @@ export default class Node extends EventEmitter {
       this.view.showUpdate();
     }
 
+
     if (Object.values(this.states).find(s => !s.isOkay)) {
       this.computedData = undefined;
     } else {
@@ -111,20 +119,22 @@ export default class Node extends EventEmitter {
     }
     this.emit('computedData', this.computedData);
 
-
     //Update downstream nodes
-    this.refs.forEach((ref) => {
-      ref.node.enableUpdates = false;
-      ref.keyIn.forEach((keyIn) => {
-        if (this.system.options.deferCompute) {
-          ref.node.setStateValue(keyIn, { type: this.attributes.type, parameters: this.computedData });
-        } else {
-          ref.node.setStateValue(keyIn, this.computedData);
-        }
-      });
-      ref.node.enableUpdates = true;
-      ref.node.update();
-    });
+    this.getOutConnections().forEach(c => {
+      c.output.node.enableUpdates = false;
+      if (this.system.options.deferCompute) {
+        c.output.setValue({ type: this.attributes.type, parameters: this.computedData });
+      } else {
+        c.output.setValue(this.computedData);
+      }
+      return c;
+    })
+
+    this.getDownstreamNodes().forEach(n => {
+      n.enableUpdates = true;
+      n.update()
+    })
+
 
     this.save();
   }
@@ -135,46 +145,103 @@ export default class Node extends EventEmitter {
   }
 
   connectTo(
-    node: Node,
-    indexOut = 0,
-    keyIn: string = node.getInputs()[0].key,
+    socket: NodeInput | NodeOutput | Node,
+    out?: string | number,
   ): NodeConnection {
-    const output = this.outputs[indexOut];
 
-    const input = node.states[keyIn]?.getInput();
-    if (!input) return;
+    if (socket instanceof Node) {
 
-    const connection = new NodeConnection(this.system, { output, input });
+      if (socket === this) {
+        console.warn("Eerrroasd");
+        return;
+      }
 
-    // Check if node already has a connection to this node
-    const existingRef = this.refs.find(
-      (ref) => ref.node.id === node.id && ref.indexOut === indexOut,
-    );
+      let inputs: NodeInput[];
+      let outputs: NodeOutput[]
 
-    if (existingRef) {
-      existingRef.keyIn = [...existingRef.keyIn, keyIn];
-    } else {
-      this.refs.push({ node, keyIn: [keyIn], indexOut });
+      if (this.attributes.pos.x > socket.attributes.pos.x) {
+        inputs = this.getInputs()
+        outputs = socket.outputs;
+      } else {
+        inputs = socket.getInputs()
+        outputs = this.outputs;
+      }
+
+      for (const input of inputs) {
+        const output = outputs.find(o => input.canConnectTo(o));
+        if (output && !input.connection) {
+          return new NodeConnection(this.system, { input: output, output: input });
+        }
+      }
+
+      return;
     }
 
-    output?.view?.updatePosition();
-    input?.view?.updatePosition();
-    this.update();
 
+    if (socket._type === SocketType.OUTPUT) {
 
-    return connection;
+      const inputs = this.getInputs();
+
+      if (typeof out === "string") {
+        const output = inputs[out];
+        if (!output) {
+          console.warn("Cant connect to");
+        }
+        return new NodeConnection(this.system, { input: socket, output })
+      }
+
+      const output = inputs.find(i => socket.canConnectTo(i));
+
+      if (!output) {
+        console.warn("Conat adiajdo", { output, socket, inputs });
+        return;
+      }
+      return new NodeConnection(this.system, { input: socket, output });
+
+    }
+
+    if (socket._type === SocketType.INPUT) {
+
+      const outputs = this.outputs;
+
+      if (typeof out === "number") {
+        let output = outputs[out];
+        if (!output) {
+          console.warn("Cant coansdas");
+          return;
+        }
+        return new NodeConnection(this.system, { input: output, output: socket })
+      }
+
+      const output = outputs.find(out => socket.canConnectTo(out));
+
+      if (!output) {
+        console.warn("Eyyasdasd")
+        return;
+      }
+
+      return new NodeConnection(this.system, { input: output, output: socket });
+
+    }
   }
 
-  disconnectFrom(node: Node, keyIn: string, indexOut: number) {
-    if (!this.refs.length) return;
-    //TODO: theres something missing here
-    this.refs = this.refs.filter((ref) => {
-      if (ref.node.id !== node.id) return true;
-      if (ref.indexOut !== indexOut) return true;
-      ref.keyIn.splice(ref.keyIn.indexOf(keyIn), 1);
-      if (ref.keyIn.length === 0) return true;
-      return false;
-    });
+  disconnectFrom(node: Node, input?: NodeInput) {
+
+    const outConnections = this.getOutConnections();
+
+    if (!outConnections.length) return;
+
+    if (node && input) {
+      const conns = outConnections.filter(c => c.output === input);
+      conns.forEach(conn => conn.remove());
+      return;
+    }
+
+    if (node) {
+      const conns = outConnections.filter(c => c.output.node.id === node.id);
+      conns.forEach(conn => conn.remove());
+      return;
+    }
 
     this.update();
   }
@@ -182,10 +249,7 @@ export default class Node extends EventEmitter {
   deserialize() {
     const attributes = {
       ...cloneObject(this.attributes),
-      refs: this.outputs
-        .map((o) => o.connections)
-        .flat()
-        .map((c) => c.deserialize())
+      refs: this.getOutConnections().map((c) => c.deserialize())
     };
 
     const state = {};

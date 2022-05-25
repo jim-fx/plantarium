@@ -157,28 +157,17 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
   }
 
   createFloatingConnection(socket: NodeInput | NodeOutput) {
+    socket.view.updatePosition()
     const floatingConnection = new FloatingConnectionView(socket, {
       x: this.mx,
       y: this.my,
     });
     return new Promise<void>((res) => {
       floatingConnection.once("remove", res)
-      floatingConnection.once(
-        'connection',
-        ({
-          inputNode,
-          outputNode,
-          keyIn,
-          indexOut,
-        }: {
-          inputNode: Node;
-          outputNode: Node;
-          keyIn: string;
-          indexOut: number;
-        }) => {
-          outputNode.connectTo(inputNode, indexOut, keyIn);
-        },
-      );
+      floatingConnection.once('connection', ({
+        input,
+        output,
+      }) => input.node.connectTo(output));
 
     })
   }
@@ -219,9 +208,9 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
 
           debugNode.enableUpdates = true;
 
-          this.activeNode.connectTo(debugNode, 0, 'input');
+          this.activeNode.connectTo(debugNode);
         } else if (this.system.outputNode) {
-          this.activeNode.connectTo(this.system.outputNode, 0, "input")
+          this.activeNode.connectTo(this.system.outputNode.getInputs()[0])
         }
       }
     } else if (shiftKey) {

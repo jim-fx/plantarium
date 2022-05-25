@@ -25,4 +25,9 @@ export function checkNodeType<T extends NodeParameters>(node: NodeTypeData<T>) {
   return node;
 }
 
+export enum SocketType {
+  INPUT,
+  OUTPUT,
+}
+
 export * from "./interfaces"

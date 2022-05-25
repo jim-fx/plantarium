@@ -68,10 +68,6 @@ export default class NodeStateView {
       }
     }
 
-    this.nodeState.on("connection", () => {
-
-    })
-
     if (template.description) {
       this.helpWrapper = document.createElement("div");
       this.helpWrapper.classList.add("nodeview-help-wrapper", "nodestate-help-wrapper");

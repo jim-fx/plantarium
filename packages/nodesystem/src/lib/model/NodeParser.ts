@@ -32,12 +32,13 @@ export default class NodeParser {
       if (n.attributes.refs)
         n.attributes.refs.forEach((ref) => {
           const n2 = nodeStore.get(ref.id);
-          if (!n2)
+          const input = n2.getInputs().find(i => i.key === ref.in);
+          if (!input)
             throw new Error(
               `Failed ref: from ${n.attributes.name || n.attributes.id} to ${ref.id
               } `,
             );
-          n.connectTo(n2, ref.out, ref.in);
+          n.connectTo(input);
         });
     });
 
@@ -55,6 +56,9 @@ export default class NodeParser {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
     const TempNode = class extends Node {
+
+      outputs = outputs.map(s => new NodeOutput(this, s));
+
       constructor(system: NodeSystem, props: NodeProps) {
         super(system, props);
         this.meta = meta;

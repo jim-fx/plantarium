@@ -11,8 +11,6 @@
   let system: NodeSystem;
 
   onMount(() => {
-    console.log({ nodes });
-
     system = new NodeSystem({
       view: true,
       wrapper,

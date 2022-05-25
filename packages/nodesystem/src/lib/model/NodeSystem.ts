@@ -226,11 +226,11 @@ export default class NodeSystem extends EventEmitter {
   }
 
   spliceNode(node: Node) {
-    const leftSockets = node.getInputs().map((i) => i?.connection?.output);
+    const leftSockets = node.getInputs().map((i) => i?.connection?.input);
     const rightSockets = node.outputs
       .map((o) => o.connections)
       .flat()
-      .map((c) => c.input);
+      .map((c) => c.output);
 
     for (let i = 0; i < leftSockets.length; i++) {
       const leftSocket = leftSockets[i];

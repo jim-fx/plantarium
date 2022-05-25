@@ -7,11 +7,13 @@ import type NodeOutputView from './NodeOutputView';
 export default class NodeConnectionView extends ConnectionView {
   connection!: NodeConnection;
 
-  input!: NodeInputView;
-  output!: NodeOutputView;
+  input!: NodeOutputView;
+  output!: NodeInputView;
 
   constructor(conn: NodeConnection) {
-    super({}, conn.output);
+    conn.input.view.updatePosition()
+    conn.output.view.updatePosition()
+    super({ x2: conn.input.view.x, y2: conn.input.view.y, x1: conn.output.view.x, y1: conn.output.view.y }, conn.output);
     this.connection = conn;
 
     this.input = conn.input.view;
@@ -43,11 +45,12 @@ export default class NodeConnectionView extends ConnectionView {
 
     const colorStore = conn.input.node.system.view.colorStore;
 
-    colorStore.onType(conn.output.type, (color) => {
+    colorStore.onType(conn.input.type, (color) => {
       this.path.style.stroke = color;
       this.svg.style.setProperty("--socket-color", color);
     });
 
+    this.input.updatePosition()
 
   }
 

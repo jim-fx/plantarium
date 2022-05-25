@@ -74,10 +74,10 @@ export default class RightClickMenu {
 
         // We have an input socket
         if (Array.isArray(this.socket.type)) {
-          return v?.outputs?.find(o => this.socket.type.includes(o))
+          return this.socket.type.includes("*") || v?.outputs?.find(o => this.socket.type.includes(o) || o === "*")
           // we have an output socket
         } else {
-          return v?.inputs?.includes(this.socket.type)
+          return this.socket.type === "*" || v?.inputs?.includes(this.socket.type) || v?.inputs?.includes("*")
         }
       })
     );

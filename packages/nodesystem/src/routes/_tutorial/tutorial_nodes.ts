@@ -172,8 +172,6 @@ class HumanView extends NodeView {
 
     node.on('computedData', (data) => {
 
-      console.log({ data })
-
       let result = "Hmm, I received nothing?"
 
       if (data?.type === "fluid") {

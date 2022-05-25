@@ -71,7 +71,7 @@ export default class EventEmitter<T extends EventMap = { [key: string]: unknown 
    * @param {function} cb Listener, gets called everytime the event is emitted
    * @returns {function} Returns a function which removes the listener when called
    */
-  public once(event: string, cb: (data: unknown) => unknown): () => void {
+  public once<K extends EventKey<T>>(event: K, cb: EventReceiver<T[K]>): () => void {
     this.cbsOnce[event] = [...(this.cbsOnce[event] || []), cb];
     return () => {
       this.cbsOnce[event].splice(this.cbsOnce[event].indexOf(cb), 1);

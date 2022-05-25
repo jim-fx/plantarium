@@ -1,7 +1,8 @@
+import { SocketType } from '../types';
 import NodeOutputView from '../view/NodeOutputView';
 import type Node from './Node';
 import type NodeConnection from './NodeConnection';
-import type NodeInput from './NodeInput';
+import NodeInput from './NodeInput';
 
 export default class NodeOutput {
   node: Node;
@@ -9,6 +10,7 @@ export default class NodeOutput {
   isOutput = true;
   connections: NodeConnection[] = [];
   type: string;
+  _type: SocketType.OUTPUT = SocketType.OUTPUT;
 
   constructor(node: Node, type: string) {
     this.node = node;
@@ -18,13 +20,29 @@ export default class NodeOutput {
       throw new Error('Output can only output one type, not ' + type);
   }
 
+  canConnectTo(input: NodeInput) {
+    return input.type.includes("*") || input.type.includes(this.type);
+  }
+
   bindView() {
     this.view = new NodeOutputView(this);
   }
 
-  connectTo(input: NodeInput) {
-    const indexOut = this.node.outputs.indexOf(this);
-    return this.node.connectTo(input.node, indexOut, input.key);
+  connectTo(input: NodeInput | Node) {
+
+    if (input instanceof NodeInput) {
+      return this.node.connectTo(input);
+    }
+
+    const outputs = input.getInputs();
+
+    const output = outputs.find(out => out.canConnectTo(this));
+
+
+    if (output) {
+      this.node.connectTo(output)
+    }
+
   }
 
   removeConnection(conn: NodeConnection) {
@@ -32,13 +50,14 @@ export default class NodeOutput {
     const index = this.connections.indexOf(conn);
     if (index === -1) return;
     this.connections.splice(index, 1);
-    this.node.disconnectFrom(conn.input.node, conn.indexIn, conn.indexOut);
+    this.node.disconnectFrom(conn.output.node, conn.output);
     if (this.view) this.view.connections.splice(index, 1);
   }
 
   setConnection(conn: NodeConnection) {
     this.connections.push(conn);
     if (this.view) this.view.connections.push(conn.view);
+    this.node.update()
   }
 
   remove() {

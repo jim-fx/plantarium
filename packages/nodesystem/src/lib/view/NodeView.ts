@@ -279,13 +279,12 @@ export default class NodeView {
     }
   }
 
-  updateViewPosition(
-    x = this.node.attributes?.pos?.x ?? this.x,
-    y = this.node.attributes?.pos?.y ?? this.y,
-  ) {
-    this.wrapper.style.left = x + 'px';
-    this.wrapper.style.top = y + 'px';
-    Object.values(this.node.states).forEach((s) => s?.view?.updatePosition());
+  updateViewPosition() {
+    this.wrapper.style.left = this.x + 'px';
+    this.wrapper.style.top = this.y + 'px';
+    // This will update all the incomming connections
+    Object.values(this.node.states).forEach((s) => s.view.updatePosition());
+    // This will update all the outgoing connections
     this.node.outputs.forEach((o) => o.view.updatePosition());
   }
 
@@ -294,8 +293,6 @@ export default class NodeView {
     this.y = y;
 
     this.node.setAttributes({ pos: { x, y } });
-
-    this.updateViewPosition();
   }
 
   remove() {

@@ -58,10 +58,7 @@ export default class NodeOutputView {
   private rect: DOMRect;
   updatePosition() {
     this.rect = this.wrapper.getBoundingClientRect();
-
-    this.output.connections.forEach((c) =>
-      c.view.setPosition({ x1: this.x, y1: this.y }),
-    );
+    this.output.connections.forEach((c) => c.view.setPosition({ x1: this.x, y1: this.y }));
   }
 
   get x() {

@@ -3,37 +3,43 @@ import type Node from './Node';
 import type NodeInput from './NodeInput';
 import type NodeSystem from './NodeSystem';
 import NodeConnectionView from '../view/NodeConnectionView';
-import { canSocketsConnect } from '../helpers';
 
 interface ConnectionOptions {
-  output: NodeOutput;
-  input: NodeInput;
+  input: NodeOutput;
+  output: NodeInput;
 }
 
 export default class NodeConnection {
 
-  input!: NodeInput;
-  output!: NodeOutput;
+  /*
+   * output is relative to the connection
+   */
+  output!: NodeInput;
+  /*
+   * input is relative to the connection
+   */
+  input!: NodeOutput;
 
   type!: string;
   view!: NodeConnectionView;
 
   constructor(private system: NodeSystem, { input, output }: ConnectionOptions) {
 
-    // TODO: Dont connect if connection already exists
-    if (output.connections.find(c => c.input === input)) {
+    if (!output || !input) {
+      console.warn("Missing input or output", { input, output });
+    };
+
+    if (input.connections.find(c => c.output === output)) {
+      console.warn("lbur")
       return;
-    } else if (input?.connection?.output === output) {
+    } else if (output?.connection?.input === input) {
+      console.warn("ldasdur")
       return;
     }
 
-    if (!output || !input) return;
-
     const children = input.node.getChildren();
-
     if (children.includes(output.node)) throw new Error('Circular reference');
-
-    if (!canSocketsConnect(output, input))
+    if (!input.canConnectTo(output))
       throw new Error(
         "Can't connect type " + input.type + ' to ' + output.type,
       );
@@ -54,21 +60,19 @@ export default class NodeConnection {
   public joinNode(node: Node) {
     if (!this.isNodeJoinable(node)) return;
     this.system.isPaused = true;
-
     this.remove();
 
-    this.output.node.connectTo(node, 0, node.getInputs()[0].key);
-    const inputs = this.input.node.getInputs();
-    const indexIn = inputs.indexOf(this.input);
-    const keyIn = inputs[indexIn].key;
-    node.connectTo(this.input.node, 0, keyIn);
+    this.input.node.connectTo(node.getInputs()[0]);
+
+    node.connectTo(this.output);
+
     this.system.isPaused = false;
     node.update()
   }
 
   public isNodeJoinable(node: Node) {
-    const outputType = this.input.type;
-    const inputType = this.output.type;
+    const inputType = this.input.type;
+    const outputType = this.output.type;
 
     if (this.input.node === node || this.output.node === node) return false;
 
@@ -96,23 +100,23 @@ export default class NodeConnection {
 
   remove() {
     if (this.view) this.view.remove();
-    this.input.removeConnection();
-    this.output.removeConnection(this);
+    this.input.removeConnection(this);
+    this.output.removeConnection();
   }
 
   deserialize() {
     return {
-      id: this.input.node.attributes.id,
+      id: this.output.node.attributes.id,
       out: this.indexOut,
       in: this.indexIn,
     };
   }
 
   get indexOut(): number {
-    return this.output.node.outputs.indexOf(this.output);
+    return this.output.node.outputs.indexOf(this.input);
   }
 
   get indexIn(): string {
-    return this.input.key;
+    return this.output.key;
   }
 }

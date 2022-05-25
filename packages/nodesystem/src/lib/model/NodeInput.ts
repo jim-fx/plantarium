@@ -2,12 +2,15 @@ import NodeInputView from '../view/NodeInputView';
 import type NodeConnection from './NodeConnection';
 import type Node from './Node';
 import type NodeState from './NodeState';
+import { SocketType } from '../types';
+import type NodeOutput from './NodeOutput';
 
 export default class NodeInput {
   node: Node;
   view: NodeInputView;
   connection!: NodeConnection;
   type: string[];
+  _type: SocketType.INPUT = SocketType.INPUT;
 
   constructor(
     public state: NodeState,
@@ -16,6 +19,10 @@ export default class NodeInput {
   ) {
     this.node = state.node;
     this.type = Array.isArray(type) ? type : [type];
+  }
+
+  canConnectTo(output: NodeOutput) {
+    return output.canConnectTo(this);
   }
 
   bindView() {
@@ -28,6 +35,10 @@ export default class NodeInput {
     conn && conn.remove();
     this.node.setStateValue(this.key, undefined);
     this.state.setIsExternal(false);
+  }
+
+  setValue(v: unknown) {
+    this.node.setStateValue(this.key, v);
   }
 
   setConnection(conn: NodeConnection) {

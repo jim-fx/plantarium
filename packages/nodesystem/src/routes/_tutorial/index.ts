@@ -17,21 +17,16 @@ export default class TutorialManager {
 
     this.stateStore = readable(this.state, (set) => {
       this.setState = async (s) => {
-        console.log("SetState", s)
         if (!s) return;
         set(s);
         this.state = s;
         let newState = await this.start()
         this.isRunning = false;
-        console.log({ newState })
         if (typeof newState === "string" && newState && newState !== this.state) {
           this.setState(newState);
         }
 
       };
-      if (browser) {
-        window.setState = this.setState;
-      }
     })
   }
 

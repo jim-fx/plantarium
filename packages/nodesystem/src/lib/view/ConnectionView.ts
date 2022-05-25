@@ -31,10 +31,10 @@ export default class ConnectionView {
     { x1 = 0, y1 = 0, x2 = 0, y2 = 0 },
     socket: NodeOutput | NodeInput,
   ) {
-    this.x1 = x1;
-    this.y1 = y1;
-    this.x2 = x2;
-    this.y2 = y2;
+    this.x1 = x2;
+    this.y1 = y2;
+    this.x2 = x1;
+    this.y2 = y1;
 
     this.system = socket.node.system;
 
@@ -49,7 +49,7 @@ export default class ConnectionView {
     this.svg.style.position = 'absolute';
     this.svg.style.top = '3.5px';
     this.svg.style.pointerEvents = 'none';
-    this.svg.style.zIndex = '-1';
+    this.svg.style.zIndex = '-2';
     socket.view.wrapper.append(this.svg);
 
     this.path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -75,8 +75,8 @@ export default class ConnectionView {
     this.x2 = limit(x2);
     this.y2 = limit(y2);
 
-    const width = this.x2 - this.x1 + 7;
-    const height = this.y2 - this.y1;
+    const width = this.x1 - this.x2;
+    const height = this.y1 - this.y2;
 
     this?.hoverPath?.setAttribute(
       'd',

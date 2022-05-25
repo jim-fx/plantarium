@@ -28,11 +28,12 @@ export default class NodeInputView {
       async (ev) => {
         ev.stopPropagation();
         ev.preventDefault();
+        if (ev.target !== this.wrapper) return;
         this.node.enableUpdates = false;
         const connection = this.input.connection;
         if (connection) {
           connection.remove();
-          await this.node.system.view.createFloatingConnection(connection.output);
+          await this.node.system.view.createFloatingConnection(connection.input);
         } else {
           await this.node.system.view.createFloatingConnection(this.input);
         }
