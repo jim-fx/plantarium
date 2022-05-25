@@ -62,7 +62,7 @@ export default async function({
 
   // Make the bounding box of the plant fill the viewport of the camera
   renderer.camera.fov = 10;
-  renderer.camera.position.x = mesh.geometry.bounds.center.x;
+  renderer.camera.position.x = mesh.geometry.bounds.max.x;
   renderer.camera.position.y = mesh.geometry.bounds.center.y;
   const radius = Math.max(mesh.geometry.bounds.max.x - mesh.geometry.bounds.min.x, mesh.geometry.bounds.max.y - mesh.geometry.bounds.min.y) / 2;
   const camDistance = radius * Math.tan(Math.PI - renderer.camera.fov / 2) * 0.5;
