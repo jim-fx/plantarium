@@ -9,12 +9,26 @@ import AddMenu from './AddMenu';
 import BoxSelection from './BoxSelection';
 import FloatingConnectionView from './FloatingConnectionView';
 import ColorStore from './socketColorStore';
-import type { NodeProps } from '../types';
+import type { CustomMouseEvent, NodeProps } from '../types';
 import visible from '../helpers/visible';
 import SocketLegendView from './SocketLegendView';
 import NodeDrawingView from './NodeDrawingView';
 
-export default class NodeSystemView extends EventEmitter {
+
+type EventMap = {
+  "transform": {}
+  "resize": {},
+  "mousemove": CustomMouseEvent,
+  "mouseup": CustomMouseEvent,
+  "mousedown": CustomMouseEvent,
+  "keydown": {
+    key: string,
+    keys: Record<string, boolean>
+  }
+
+}
+
+export default class NodeSystemView extends EventEmitter<EventMap> {
   system: NodeSystem;
   wrapper: HTMLElement;
   transformWrapper: HTMLDivElement;

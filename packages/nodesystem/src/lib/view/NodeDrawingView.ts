@@ -1,5 +1,6 @@
 import type NodeSystemView from "./NodeSystemView";
 
+
 export default class NodeDrawingView {
 
   private wrapper: SVGElement;
@@ -8,6 +9,7 @@ export default class NodeDrawingView {
   lines: number[][] = [];
 
   activeLineEl: SVGPolylineElement;
+
 
   constructor(private system: NodeSystemView) {
 
@@ -21,7 +23,7 @@ export default class NodeDrawingView {
     this.wrapper.style.top = "0px"
     this.system.transformWrapper.appendChild(this.wrapper);
 
-    system.on("mousemove", (ev) => this.handleMouseMove(ev as any));
+    system.on("mousemove", (ev) => this.handleMouseMove(ev));
     system.on("mousedown", (ev) => {
       if (ev.keys.ctrlKey && ev.keys.shiftKey) {
         this.startNewLine(ev as any)
@@ -44,7 +46,7 @@ export default class NodeDrawingView {
     this.points = undefined;
   }
 
-  handleMouseMove({ x, y }: { x: number, y: number }) {
+  handleMouseMove({ x, y }: NodeSystemView["eventMap"]["mousemove"]) {
     if (!this.points) return;
     let lastX = this.points[this.points.length - 2]
     let lastY = this.points[this.points.length - 1]

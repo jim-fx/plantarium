@@ -6,8 +6,14 @@ if (typeof self !== 'undefined' && 'window' in self) {
   globalThis['debug'] = debug;
 }
 
-export default class EventEmitter {
+type EventMap = Record<string, any>;
+type EventKey<T extends EventMap> = string & keyof T;
+type EventReceiver<T> = (params: T, stuff?: Record<string, any>) => unknown;
+
+
+export default class EventEmitter<T extends EventMap = { [key: string]: unknown }> {
   index = 0;
+  public eventMap: T;
   constructor() {
     this.index = debug.amountEmitters;
     debug.amountEmitters++;
@@ -31,14 +37,7 @@ export default class EventEmitter {
     }
   }
 
-  /**
-   * Register a new listener on the EventEmitter
-   * @param {string} event Name of the event to listen to
-   * @param {function} cb Listener, gets called everytime the event is emitted
-   * @param {number} [throttleTimer=0] The listener can be throttled
-   * @returns {function} Returns a function which removes the listener when called
-   */
-  public on(event: string, cb: (data?: unknown) => unknown, throttleTimer = 0) {
+  public on<K extends EventKey<T>>(event: K, cb: EventReceiver<T[K]>, throttleTimer = 0) {
     if (throttleTimer > 0) cb = throttle(cb, throttleTimer);
     const cbs = Object.assign(this.cbs, {
       [event]: [...(this.cbs[event] || []), cb],
@@ -72,7 +71,7 @@ export default class EventEmitter {
    * @param {function} cb Listener, gets called everytime the event is emitted
    * @returns {function} Returns a function which removes the listener when called
    */
-  public once(event: string, cb: (data: unknown) => unknown) {
+  public once(event: string, cb: (data: unknown) => unknown): () => void {
     this.cbsOnce[event] = [...(this.cbsOnce[event] || []), cb];
     return () => {
       this.cbsOnce[event].splice(this.cbsOnce[event].indexOf(cb), 1);

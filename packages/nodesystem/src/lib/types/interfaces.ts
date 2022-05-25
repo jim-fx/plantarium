@@ -18,10 +18,13 @@ export interface CustomMouseEvent {
   vy?: number;
   mx: number;
   my: number;
+  target?: HTMLElement,
   keys: {
     shiftKey: boolean;
     ctrlKey: boolean;
-    [x: string]: boolean;
+    altKey: boolean;
+    button: number;
+    [x: string]: boolean | number;
   };
 }
 

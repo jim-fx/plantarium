@@ -49,7 +49,7 @@ export default class BoxSelectionView extends EventEmitter {
       this.wrapper.style.width = '0px';
       this.wrapper.style.height = '0px';
 
-      this.isShiftKey = keys.shift;
+      this.isShiftKey = keys.shiftKey;
 
       this.show();
     });
@@ -138,17 +138,6 @@ export default class BoxSelectionView extends EventEmitter {
     });
   }
 
-  private projectBox(b: Rect) {
-    const { x: x1, y: y1 } = this.view.projectWindowToLocal(b.x1, b.y1);
-    const { x: x2, y: y2 } = this.view.projectWindowToLocal(b.x2, b.y2);
-
-    return {
-      x1,
-      y1,
-      x2,
-      y2,
-    };
-  }
 
   hide() {
     this.wrapper.classList.remove('box-selection-visible');
