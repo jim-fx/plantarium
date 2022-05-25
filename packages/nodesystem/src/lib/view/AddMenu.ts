@@ -149,8 +149,9 @@ export default class RightClickMenu {
     this.updateTypes()
 
     setTimeout(() => {
+      this.searchEl.$set({ value: "" })
       this.searchEl.focus();
-    }, 20);
+    }, 50);
 
     return new Promise((res, rej) => {
       this.res = res;

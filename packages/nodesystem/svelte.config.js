@@ -20,6 +20,7 @@ const config = {
     prerender: { default: true, enabled: true },
 
     vite: {
+      optimizeDeps: { include: ["jsondiffpatch"] },
       server: { host: '0.0.0.0', port: 8085 },
       ssr: { noExternal: ['ogl-typescript'] },
     }

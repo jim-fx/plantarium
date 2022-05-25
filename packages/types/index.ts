@@ -1,5 +1,3 @@
-import type { NodeProps } from "@plantarium/nodesystem"
-
 /**
  * Result of a node which returns geometry
  */
@@ -40,7 +38,7 @@ export interface Vec3 {
 
 export interface PlantProject {
   meta: PlantProjectMeta;
-  nodes: NodeProps[];
+  nodes: any[];
   history?: any;
 }
 

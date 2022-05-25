@@ -32,7 +32,7 @@ export default class NodeParser {
       if (n.attributes.refs)
         n.attributes.refs.forEach((ref) => {
           const n2 = nodeStore.get(ref.id);
-          const input = n2.getInputs().find(i => i.key === ref.in);
+          const input = n2?.getInputs()?.find(i => i.key === ref.in);
           if (!input)
             throw new Error(
               `Failed ref: from ${n.attributes.name || n.attributes.id} to ${ref.id

@@ -29,6 +29,7 @@
     "file-saver": "^2.0.5",
     "gl-matrix": "^3.4.3",
     "idb": "^7.0.1",
+    "jsondiffpatch": "^0.4.1",
     "ogl-typescript": "^0.1.40",
     "open-simplex-noise": "^2.5.0",
     "sass": "^1.52.1",

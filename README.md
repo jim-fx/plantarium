@@ -75,7 +75,8 @@ $ pnpm dev
 - [x] ~~Fix Curve Node -> Maybe Profile Node?~~
 - [ ] chore(tests): more tests and coverage
 - [ ] fix(nodesystem): undo is not reliable
-- [ ] fix(nodesystem): remove duplicate connection state, eg in Node.refs and Node.connections
+- [x] fix(nodesystem): remove duplicate connection state, eg in Node.refs and Node.connections
+- [ ] fix(nodes): rewrite gravity node, its weird right now
 - [x] feat: video tutorial
 - [x] feat(nodesystem): Ability to show and hide inputs
 - [ ] feat(nodes): Add some more nodes

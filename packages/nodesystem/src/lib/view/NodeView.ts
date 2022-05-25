@@ -109,7 +109,7 @@ export default class NodeView {
       const { width, height } = this.wrapper.getBoundingClientRect();
       this.width = width / this.system.view.s;
       this.height = height / this.system.view.s;
-      this.updateViewPosition(x, y);
+      this.updateViewPosition();
     }, 10);
 
     this.bindEventListeners();

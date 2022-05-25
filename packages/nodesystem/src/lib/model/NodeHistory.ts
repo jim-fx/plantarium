@@ -1,6 +1,6 @@
 import { logger } from '@plantarium/helpers/src';
-import { diffBoth, mergeObjects } from '../helpers';
 import type { HistoryData, NodeProps } from '../types';
+import { DiffPatcher } from "jsondiffpatch/dist/jsondiffpatch.umd.js"
 import type NodeSystem from './NodeSystem';
 
 const log = logger('NodeHistory');
@@ -12,6 +12,8 @@ export default class NodeHistory {
   isApplyingChanges = false;
 
   prevState: NodeProps[];
+
+  patcher = new DiffPatcher({ nested: true });
 
   private _timeout: ReturnType<typeof setTimeout>
 
@@ -47,13 +49,11 @@ export default class NodeHistory {
     }
 
     const newState = this.system.serialize().nodes;
-    const [next, previous] = diffBoth(this.prevState, newState);
+    const delta = this.patcher.diff(this.prevState, newState);
 
-    if (!previous || !next) return;
-    this.history.push({
-      previous,
-      next,
-    });
+    console.log({ newState, delta })
+
+    this.history.push(delta);
 
     if (this.history.length > 60) {
       this.history = this.history.reverse().slice(0, 60).reverse();
@@ -83,11 +83,11 @@ export default class NodeHistory {
       return;
     }
 
-    const { previous } = this.history[this.historyIndex];
+    const delta = this.history[this.historyIndex];
 
     const d = this.system.serialize();
 
-    const data = mergeObjects(d.nodes, previous);
+    const data = this.patcher.patch(d.nodes, this.patcher.reverse(delta));
 
     d.nodes = data;
 
@@ -107,16 +107,24 @@ export default class NodeHistory {
       return;
     }
 
-    const { next } = this.history[this.historyIndex + 1];
+    const delta = this.history[this.historyIndex + 1];
 
     const d = this.system.serialize();
 
-    const data = mergeObjects(d.nodes, next);
-    d.nodes = data;
+    console.log({ d, delta })
 
-    this.system.load(d);
+    try {
 
-    this.historyIndex++;
-    this.isApplyingChanges = false;
+      const data = this.patcher.patch(d.nodes, delta);
+      d.nodes = data;
+
+
+      this.system.load(d);
+
+      this.historyIndex++;
+      this.isApplyingChanges = false;
+    } catch (err) {
+      console.log(err)
+    }
   }
 }

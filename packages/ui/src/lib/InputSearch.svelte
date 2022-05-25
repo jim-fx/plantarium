@@ -42,6 +42,7 @@
   }
 
   export function focus() {
+    searchTerm = '';
     inputEl.focus();
   }
 

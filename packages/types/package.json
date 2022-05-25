@@ -8,8 +8,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@plantarium/nodesystem": "link:../nodesystem"
-  }
+  "license": "ISC"
 }
