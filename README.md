@@ -7,21 +7,16 @@
 <a href="https://plant.jim-fx.com/"><h2 align="center">Plantarium</h2></a>
 
   <p align="center">
-    Plantarium is a Tool for the procedural generation of 3D plants.
+    Plantarium is a tool for the procedural generation of 3D plants.
   </p>
 
 </div>
 
 # Table of contents
 
-- [What is Plantarium](#what-is-plantarium)
 - [Architecture](#architecture)
 - [Developing](#developing)
 - [Roadmap](#roadmap)
-
-# What is Plantarium?
-
-Plantarium is a web app that allows the user to procedurally define and generate 3D plant geometry.
 
 # Architecture
 

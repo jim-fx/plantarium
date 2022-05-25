@@ -29,7 +29,7 @@ function setup() {
 
   renderCanvas = document.createElement('canvas');
   renderCanvas.width = renderCanvas.height = 100;
-  ctx = renderCanvas.getContext('2d');
+  ctx = renderCanvas.getContext('2d') as CanvasRenderingContext2D;
 
   mesh.setParent(renderer.scene);
 
@@ -45,13 +45,10 @@ export default async function({
 
   setup()
 
-  let _geometry: TransferGeometry;
+  let _geometry: TransferGeometry | undefined = geo;
 
-  if (geo) {
-    _geometry = geo;
-  }
 
-  if (!_geometry) {
+  if (!_geometry && pd) {
     const result = await webWorker.executeNodeSystem(pd, { stemResX: 12, stemResY: 12 });
 
     _geometry = result.geometry;
@@ -67,9 +64,9 @@ export default async function({
   renderer.camera.fov = 10;
   renderer.camera.position.x = mesh.geometry.bounds.center.x;
   renderer.camera.position.y = mesh.geometry.bounds.center.y;
-  const boundingHeight = mesh.geometry.bounds.max.y - mesh.geometry.bounds.min.y;
-  const camDistance = boundingHeight / 2 / Math.tan((Math.PI * renderer.camera.fov) / 360);
-  renderer.camera.position.z = camDistance / 5;
+  const radius = Math.max(mesh.geometry.bounds.max.x - mesh.geometry.bounds.min.x, mesh.geometry.bounds.max.y - mesh.geometry.bounds.min.y) / 2;
+  const camDistance = radius * Math.tan(Math.PI - renderer.camera.fov / 2) * 0.5;
+  renderer.camera.position.z = camDistance;
 
   renderer.camera.lookAt(mesh.geometry.bounds.center);
 

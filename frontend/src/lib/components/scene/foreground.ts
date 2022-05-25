@@ -7,7 +7,7 @@ import { settingsManager, projectManager } from '..';
 import { Report } from '../../elements';
 import type { ProjectManager } from '../project-manager';
 import DebugScene from './debug';
-import { DebugShader, MatCapShader, NormalShader } from './shaders';
+import { BasicShader, DebugShader, MatCapShader, NormalShader, WireFrameShader } from './shaders';
 import * as performance from '../../helpers/performance';
 import { createWorker } from '@plantarium/generator';
 import type { PlantProject, TransferGeometry } from '@plantarium/types';
@@ -32,6 +32,7 @@ export default class ForegroundScene extends EventEmitter {
   private gl: OGLRenderingContext;
 
   private mesh: Mesh;
+  private boundingBox: Mesh;
 
   private worker = createWorker();
 
@@ -45,6 +46,13 @@ export default class ForegroundScene extends EventEmitter {
       geometry,
       program: getShader(this.settings?.debug.material)(this.gl),
     });
+
+    this.boundingBox = this.scene.addMesh({
+      geometry: new Box(this.gl),
+      program: BasicShader(this.gl)
+    })
+
+    this.boundingBox.mode = this.gl.LINE_LOOP;
 
 
     this.dbg = new DebugScene(scene, pm);
@@ -82,7 +90,9 @@ export default class ForegroundScene extends EventEmitter {
   async update(p = this.plant, s = this.settings) {
     if (!p || !s) return;
 
-    this.scene.isLoading.set(true);
+    let loadingTimeout = setTimeout(() =>
+      this.scene.isLoading.set(true), 400
+    )
 
     try {
       performance.start('generate');
@@ -111,13 +121,20 @@ export default class ForegroundScene extends EventEmitter {
 
       this.mesh.geometry.computeBoundingBox();
 
+      this.boundingBox.geometry = new Box(this.gl, {
+        width: this.mesh.geometry.bounds.max.x - this.mesh.geometry.bounds.min.x,
+        height: this.mesh.geometry.bounds.max.y - this.mesh.geometry.bounds.min.y,
+        depth: this.mesh.geometry.bounds.max.z - this.mesh.geometry.bounds.min.z,
+      })
+      this.boundingBox.position.y = this.mesh.geometry.bounds.center.y
+
       this.scene.renderer.setControlTarget(this.mesh.geometry.bounds.center);
 
-
+      clearTimeout(loadingTimeout)
       this.scene.isLoading.set(false);
     } catch (error) {
-      log.error(error);
-      const res = await createToast(error, {
+      log.error(error as Error);
+      const res = await createToast(error as Error, {
         title: 'Error [Generator]',
         values: ['report']
       });
