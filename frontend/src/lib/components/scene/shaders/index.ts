@@ -14,6 +14,9 @@ import WireFrameVert from "./WireframeShader.vert";
 import NormalFrag from "./NormalShader.frag";
 import NormalVert from "./NormalShader.vert";
 
+import GridFrag from "./GridShader.frag";
+import GridVert from "./GridShader.vert";
+
 import DebugFrag from "./DebugShader.frag";
 import DebugVert from "./DebugShader.vert";
 
@@ -53,6 +56,13 @@ export const ParticleShader = {
   fragment: ParticleFrag,
   vertex: ParticleVert
 };
+
+export const GridShader = (gl: OGLRenderingContext) => {
+  return new Program(gl, {
+    vertex: GridVert,
+    fragment: GridFrag,
+  })
+}
 
 export const MatCapShader = (gl: OGLRenderingContext) => {
   const texture = new Texture(gl);

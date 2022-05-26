@@ -7,7 +7,7 @@ import { Color, Mesh, Plane, Program, type OGLRenderingContext } from 'ogl-types
 import type Scene from '.';
 import { settingsManager } from '..';
 import type { ProjectManager } from '../project-manager';
-import { BasicShader, GroundShader, MatCapShader, ParticleShader, WireFrameShader } from './shaders';
+import { BasicShader, GridShader, GroundShader, MatCapShader, ParticleShader, WireFrameShader } from './shaders';
 
 const createGround = (
   gl: OGLRenderingContext,
@@ -86,7 +86,7 @@ export default class BackgroundScene {
 
     this.grid = this.scene.addMesh({
       geometry: new Plane(this.gl),
-      program: MatCapShader(this.gl)
+      program: GridShader(this.gl)
     })
 
     this.grid.mode = this.gl.LINES;
