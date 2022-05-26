@@ -10,6 +10,7 @@
   },
   "scripts": {
     "prepublish": "npm run package",
+    "postpublish": "rm -r ./package",
     "dev": "svelte-kit dev --host",
     "build": "svelte-kit build",
     "package": "svelte-kit package && pnpm i --filter=./package",
