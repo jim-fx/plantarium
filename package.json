@@ -8,7 +8,7 @@
     "admin:dev": "pnpm --filter=./admin dev",
     "frontend": "pnpm --filter=./frontend dev",
     "ui": "pnpm --filter=./packages/ui dev",
-    "publish": "pnpm -r publish --filter=@plantarium/nodesystem --filter=@plantarium/helpers --filter=@plantarium/ui --filter=@plantarium/theme",
+    "pub": "pnpm -r publish --filter=@plantarium/nodesystem --filter=@plantarium/helpers --filter=@plantarium/ui --filter=@plantarium/theme",
     "nodes": "pnpm --filter=./packages/nodesystem dev",
     "geometry": "pnpm --filter=./packages/geometry dev",
     "frontend:build": "pnpm --filter=./frontend build",
