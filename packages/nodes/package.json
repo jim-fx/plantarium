@@ -8,11 +8,11 @@
     "lint": "eslint src/**/* --cache"
   },
   "dependencies": {
-    "@plantarium/generator": "link:../generator",
-    "@plantarium/geometry": "link:../geometry",
-    "@plantarium/helpers": "link:../helpers",
-    "@plantarium/types": "link:../types",
-    "@plantarium/ui": "link:../ui",
+    "@plantarium/generator": "workspace:*",
+    "@plantarium/geometry": "workspace:*",
+    "@plantarium/helpers": "workspace:*",
+    "@plantarium/types": "workspace:*",
+    "@plantarium/ui": "workspace:*",
     "ogl-typescript": "^0.1.40"
   }
 }

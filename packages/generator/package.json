@@ -10,11 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@plantarium/geometry": "link:../geometry",
-    "@plantarium/helpers": "link:../helpers",
-    "@plantarium/nodes": "link:../nodes",
-    "@plantarium/nodesystem": "link:../nodesystem",
-    "@plantarium/types": "link:../types"
+    "@plantarium/geometry": "workspace:*",
+    "@plantarium/helpers": "workspace:*",
+    "@plantarium/nodes": "workspace:*",
+    "@plantarium/nodesystem": "workspace:*",
+    "@plantarium/types": "workspace:*"
   },
   "devDependencies": {
     "comlink": "4.3.1"

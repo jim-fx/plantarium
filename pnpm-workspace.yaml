@@ -3,3 +3,4 @@ packages:
   - 'admin'
   - 'frontend'
   - 'packages/**'
+  - 'packages/**/package'

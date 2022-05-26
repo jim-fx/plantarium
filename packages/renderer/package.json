@@ -1,6 +1,6 @@
 {
   "name": "@plantarium/renderer",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
@@ -8,7 +8,7 @@
     "lint": "eslint src/**/* --cache"
   },
   "dependencies": {
-    "@plantarium/helpers": "workspace:1.0.0",
+    "@plantarium/helpers": "workspace:*",
     "ogl-typescript": "^0.1.40",
     "resize-observer-polyfill": "^1.5.1",
     "svelte": "^3.48.0"

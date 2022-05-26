@@ -5,10 +5,13 @@
   "source": "src/lib/index.ts",
   "svelte": "src/lib/index.ts",
   "license": "MIT",
+  "publishConfig": {
+    "directory": "./package"
+  },
   "scripts": {
     "dev": "svelte-kit dev --host",
     "build": "svelte-kit build",
-    "package": "svelte-kit package",
+    "package": "svelte-kit package && pnpm i --filter=./package",
     "preview": "svelte-kit preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
@@ -19,10 +22,10 @@
     "clean": "rimraf coverage .nyc_output public/dist .eslintcache"
   },
   "devDependencies": {
-    "@plantarium/helpers": "link:../helpers",
-    "@plantarium/theme": "link:../theme",
+    "@plantarium/helpers": "workspace:*",
+    "@plantarium/theme": "workspace:*",
     "@sveltejs/adapter-static": "1.0.0-next.32",
-    "@sveltejs/kit": "1.0.0-next.344",
+    "@sveltejs/kit": "1.0.0-next.345",
     "@testing-library/svelte": "3.1.1",
     "@typescript-eslint/eslint-plugin": "5.26.0",
     "@typescript-eslint/parser": "5.26.0",
