@@ -60,6 +60,7 @@
     position: absolute;
     cursor: pointer;
     height: 100%;
+    width: 100%;
 
     display: grid;
     place-items: center;
