@@ -99,10 +99,6 @@ export default class ForegroundScene extends EventEmitter {
       this.scene.isLoading.set(true), 400
     )
 
-    if (s?.seed?.useRandom) {
-      s.seed.value = Math.floor(Math.random() * 10000);
-    }
-
     try {
       performance.start('generate');
 
@@ -124,8 +120,8 @@ export default class ForegroundScene extends EventEmitter {
 
         if (result.timings && s?.debug?.nodeTimings) {
           Object.entries(result.timings).forEach(([id, v]) => {
-            if (v) {
-              nodeSystem.view.showNodeLabel(id, `<b>${v}</b> ms`);
+            if (v.time) {
+              nodeSystem.view.showNodeLabel(id, `<b>${v.amount}@${v.time}</b> ms`);
             }
           })
 

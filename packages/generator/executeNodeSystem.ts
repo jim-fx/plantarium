@@ -58,14 +58,15 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
           }
           n.results = Array.isArray(result) ? result : [result];
         }
-        gctx.timings[n.id] = performance.now() - aStem;
+        if (!(n.id in gctx.timings)) gctx.timings[n.id] = { time: performance.now() - aStem, amount: 0 };
 
         let aGeom = performance.now();
         if (execNode?.computeGeometry) {
           const result = execNode.computeGeometry(parameters, n.results[0], ctx);
           n.results[0] = { ...n.results[0], ...result };
         }
-        gctx.timings[n.id] += performance.now() - aGeom;
+        gctx.timings[n.id].time += performance.now() - aGeom;
+        gctx.timings[n.id].amount++;
 
 
       } else {

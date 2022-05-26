@@ -9,7 +9,7 @@ export default function createGeneratorContext({ nodes: _nodes }: PlantProject, 
 
   const ctx = createContext(settings);
 
-  const timings: Record<string, number> = {};
+  const timings: Record<string, { amount: number, time: number }> = {};
 
   const nodeIdMap = new Map<string, WrappedNode>();
   const nodeRefMap = new Map<string, { n: WrappedNode, in: string, out: number }[]>();
@@ -127,10 +127,11 @@ export default function createGeneratorContext({ nodes: _nodes }: PlantProject, 
         if (inputNode.exec?.computeValue) {
           parameters[input.in] = (alpha = 1) => {
             const parameters = constructParametersForNode(input.n);
-            timings[inputNode.id] = timings[inputNode.id] || 0;
+            if (!(inputNode.id in timings)) timings[inputNode.id] = { time: 0, amount: 0 };
             const a = performance.now();
             const res = inputNode.exec.computeValue(parameters, ctx, alpha)
-            timings[inputNode.id] += performance.now() - a;
+            timings[inputNode.id].time += performance.now() - a;
+            timings[inputNode.id].amount++;
             return res;
           }
         } else {
