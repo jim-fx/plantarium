@@ -20,3 +20,4 @@ export { default as bug } from './bug.svg?raw';
 export { default as link } from './link.svelte';
 export { default as import } from "./import.svelte"
 export { default as export } from "./export.svelte"
+export { default as random } from "./random.svelte"

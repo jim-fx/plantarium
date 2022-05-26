@@ -31,10 +31,13 @@ const createContext = (s: Partial<PlantariumSettings>) => {
     },
     refresh() {
       currentNoise = 2;
-      if (s?.useRandomSeed) {
-        seed = Math.floor(Math.random() * 100000);
-        noise.seed = seed;
+      if (s?.seed?.value) {
+        seed = Math.floor(s?.seed?.value);
       }
+      if (s?.seed?.useRandom) {
+        seed = Math.floor(Math.random() * 100000);
+      }
+      noise.seed = seed;
       return;
     },
   };

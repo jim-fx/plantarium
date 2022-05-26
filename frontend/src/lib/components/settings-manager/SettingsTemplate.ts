@@ -19,10 +19,6 @@ function settingsType<T extends MainSettings>(s: T): Settings2Type<T> {
 }
 
 export default settingsType({
-  // enableSync: {
-  //   type: 'boolean',
-  //   value: false
-  // },
   useRandomSeed: {
     type: 'boolean',
     value: false
@@ -87,6 +83,19 @@ export default settingsType({
         min: 0,
         max: 2,
         value: 1
+      }
+    }
+  },
+  seed: {
+    onlyDev: false,
+    options: {
+      value: {
+        type: "number",
+        value: 0
+      },
+      useRandom: {
+        type: "boolean",
+        value: false
       }
     }
   },

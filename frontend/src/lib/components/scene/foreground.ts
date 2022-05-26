@@ -61,8 +61,8 @@ export default class ForegroundScene extends EventEmitter {
     this.setSettings(settingsManager.getSettings());
     this.setPlant(pm.getActiveProject());
 
-    this.pm.on('settings', s => this.setSettings(s as PlantariumSettings));
-    this.pm.on('plant', p => this.setPlant(p as PlantProject));
+    this.pm.on('settings', s => this.setSettings(s));
+    this.pm.on('plant', p => this.setPlant(p));
   }
 
 
@@ -98,6 +98,10 @@ export default class ForegroundScene extends EventEmitter {
     let loadingTimeout = setTimeout(() =>
       this.scene.isLoading.set(true), 400
     )
+
+    if (s?.seed?.useRandom) {
+      s.seed.value = Math.floor(Math.random() * 10000);
+    }
 
     try {
       performance.start('generate');
