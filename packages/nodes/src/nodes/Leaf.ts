@@ -59,6 +59,7 @@ export default typeCheckNode({
   parameters: {
     input: {
       type: 'plant',
+      label: "plant",
       required: true,
       external: true,
       description: "The input the leafs will be placed on."

@@ -9,6 +9,7 @@ import {
 } from '@nestjs/platform-fastify';
 import { JwtAuthGuard } from 'auth/guards/jwt-auth.guard';
 import { PORT } from "./config";
+import helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -22,6 +23,8 @@ async function bootstrap() {
   app.useGlobalGuards(new JwtAuthGuard());
 
   app.use(cookieParser());
+
+  app.use(helmet())
 
   app.enableCors();
 

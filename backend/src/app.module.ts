@@ -7,11 +7,16 @@ import { ReportModule } from './report/report.module';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import config from "./config"
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     MikroOrmModule.forRoot(),
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 10
+    }),
     ReportModule,
     UserModule,
     AuthModule,

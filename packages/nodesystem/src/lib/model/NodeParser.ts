@@ -33,12 +33,14 @@ export default class NodeParser {
         n.attributes.refs.forEach((ref) => {
           const n2 = nodeStore.get(ref.id);
           const input = n2?.getInputs()?.find(i => i.key === ref.in);
-          if (!input)
-            throw new Error(
+          if (!input) {
+            console.warn(
               `Failed ref: from ${n.attributes.name || n.attributes.id} to ${ref.id
               } `,
             );
-          n.connectTo(input);
+          } else {
+            n.connectTo(input);
+          }
         });
     });
 

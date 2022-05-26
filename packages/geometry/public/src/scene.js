@@ -35,7 +35,7 @@ particles.setParent(scene);
 const wireMesh = new Mesh(gl, {
   geometry: new Box(gl, { size: 0 }),
   program: wireframe(gl),
-  mode: gl.LINE_LOOP,
+  mode: gl.LINES,
 });
 wireMesh.setParent(scene);
 wireMesh.visible = store.get("wireframe", false);
@@ -64,8 +64,6 @@ export function add(o) {
   tempScene.push(o);
 }
 
-
-
 export const download = () => {
   const data = toOBJ(geo);
   const blob = new Blob([data], { type: 'text/plain;charset=utf-8' });
@@ -91,7 +89,7 @@ export function commit() {
   if (tempScene.length) {
     geo = tempScene.length > 1 ? join(...tempScene) : tempScene[0];
     obj.geometry = wireMesh.geometry = transferToGeometry(gl, geo);
-    obj.visible = true;
+    obj.visible = !store.get("wireframe");
     if (particles.visible) {
       particles.setPositions(obj.geometry.attributes.position.data);
     }

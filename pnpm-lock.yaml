@@ -128,6 +128,7 @@ importers:
       '@nestjs/schematics': 8.0.11
       '@nestjs/serve-static': 2.2.2
       '@nestjs/testing': 8.4.5
+      '@nestjs/throttler': ^2.0.1
       '@types/bcrypt': 5.0.0
       '@types/cookie-parser': 1.4.3
       '@types/jest': 27.5.1
@@ -145,6 +146,7 @@ importers:
       eslint: 8.16.0
       eslint-config-prettier: 8.5.0
       eslint-plugin-prettier: 4.0.0
+      helmet: ^5.1.0
       jest: 28.1.0
       kill-port: 2.0.0
       morgan: 1.10.0
@@ -183,10 +185,12 @@ importers:
       '@nestjs/passport': 8.2.1_haddxf3tug2r64xzdzfdewacnm
       '@nestjs/platform-fastify': 8.4.5_ydewkhgqdrhc2o62hf5fyq4ami
       '@nestjs/serve-static': 2.2.2_ydewkhgqdrhc2o62hf5fyq4ami
+      '@nestjs/throttler': 2.0.1_vwzjbrckvynfemwboijsh2d5xa
       bcrypt: 5.0.1
       class-transformer: 0.5.1
       class-validator: 0.13.2
       cookie-parser: 1.4.6
+      helmet: 5.1.0
       morgan: 1.10.0
       octokit: 1.7.1
       passport: 0.6.0
@@ -1974,6 +1978,19 @@ packages:
       '@nestjs/core': 8.4.5_oss7laidvsuq5nzygg3pjgpud4
       tslib: 2.4.0
     dev: true
+
+  /@nestjs/throttler/2.0.1_vwzjbrckvynfemwboijsh2d5xa:
+    resolution: {integrity: sha512-ginW73rmOjBN27USuGidetEoa8VSGzxW3kEuCquEd5mETEtBfgIm4901b9tuLDnsczttE01imCHZ53J7+AuLJg==}
+    peerDependencies:
+      '@nestjs/common': ^7.0.0 || ^8.0.0
+      '@nestjs/core': ^7.0.0 || ^8.0.0
+      reflect-metadata: ^0.1.13
+    dependencies:
+      '@nestjs/common': 8.4.5_kgmvgmqc4iohdboj3f7yqhrie4
+      '@nestjs/core': 8.4.5_oss7laidvsuq5nzygg3pjgpud4
+      md5: 2.3.0
+      reflect-metadata: 0.1.13
+    dev: false
 
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -3782,6 +3799,10 @@ packages:
     resolution: {integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==}
     dev: true
 
+  /charenc/0.0.2:
+    resolution: {integrity: sha512-yrLQ/yVUFXkzg7EDQsPieE/53+0RlaWTs+wBrvW36cyilJ2SaDWfl4Yj7MtLTXleV9uEKefbAGUPv2/iWSooRA==}
+    dev: false
+
   /check-error/1.0.2:
     resolution: {integrity: sha512-BrgHpW9NURQgzoNyjfq0Wu6VFO6D7IZEmJNdtgNqpzGG8RuNFHt2jQxWlAs4HMe119chBnv+34syEZtc6IhLtA==}
     dev: true
@@ -4082,6 +4103,10 @@ packages:
       shebang-command: 2.0.0
       which: 2.0.2
     dev: true
+
+  /crypt/0.0.2:
+    resolution: {integrity: sha1-iNf/fsDfuG9xPch7u0LQRNPmxBs=}
+    dev: false
 
   /crypto-random-string/2.0.0:
     resolution: {integrity: sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==}
@@ -5837,6 +5862,11 @@ packages:
       type-fest: 0.8.1
     dev: true
 
+  /helmet/5.1.0:
+    resolution: {integrity: sha512-klsunXs8rgNSZoaUrNeuCiWUxyc+wzucnEnFejUg3/A+CaF589k9qepLZZ1Jehnzig7YbD4hEuscGXuBY3fq+g==}
+    engines: {node: '>=12.0.0'}
+    dev: false
+
   /hexoid/1.0.0:
     resolution: {integrity: sha512-QFLV0taWQOZtvIRIAdBChesmogZrtuXvVWsFHZTk2SU+anspqZ2vMnoLg7IE1+Uk16N19APic1BuF8bC8c2m5g==}
     engines: {node: '>=8'}
@@ -6110,6 +6140,10 @@ packages:
       call-bind: 1.0.2
       has-tostringtag: 1.0.0
     dev: true
+
+  /is-buffer/1.1.6:
+    resolution: {integrity: sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==}
+    dev: false
 
   /is-callable/1.2.4:
     resolution: {integrity: sha512-nsuwtxZfMX67Oryl9LCQ+upnC0Z0BgpwntpS89m1H/TLF0zNfzfLMV/9Wa/6MZsj0acpEjAO0KF1xT6ZdLl95w==}
@@ -7459,6 +7493,14 @@ packages:
   /map-stream/0.1.0:
     resolution: {integrity: sha1-5WqpTEyAVaFkBKBnS3jyFffI4ZQ=}
     dev: true
+
+  /md5/2.3.0:
+    resolution: {integrity: sha512-T1GITYmFaKuO91vxyoQMFETst+O71VUPEU3ze5GNzDm0OWdP8v1ziTaAEPUr/3kLsY3Sftgz242A1SetQiDL7g==}
+    dependencies:
+      charenc: 0.0.2
+      crypt: 0.0.2
+      is-buffer: 1.1.6
+    dev: false
 
   /mdn-data/2.0.14:
     resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==}

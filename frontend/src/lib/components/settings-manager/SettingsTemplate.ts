@@ -19,10 +19,10 @@ function settingsType<T extends MainSettings>(s: T): Settings2Type<T> {
 }
 
 export default settingsType({
-  enableSync: {
-    type: 'boolean',
-    value: false
-  },
+  // enableSync: {
+  //   type: 'boolean',
+  //   value: false
+  // },
   useRandomSeed: {
     type: 'boolean',
     value: false
@@ -36,11 +36,15 @@ export default settingsType({
   debug: {
     onlyDev: true,
     options: {
-      //reportError: {
-      //type: 'boolean',
-      //defaultValue: false,
-      //},
-      //
+      nodeTimings: {
+        type: 'boolean',
+        label: "Show Node Timings",
+        value: false,
+      },
+      showNodeUpdates: {
+        type: 'boolean',
+        value: false
+      },
       material: {
         type: "select",
         values: ["MatCap", "Basic", "Debug"],
@@ -48,10 +52,6 @@ export default settingsType({
       },
       hideMesh: {
         type: "boolean",
-        value: false
-      },
-      showNodeUpdates: {
-        type: 'boolean',
         value: false
       },
       renderPerf: {

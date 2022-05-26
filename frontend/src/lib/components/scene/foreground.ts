@@ -7,11 +7,12 @@ import { settingsManager, projectManager } from '..';
 import { Report } from '../../elements';
 import type { ProjectManager } from '../project-manager';
 import DebugScene from './debug';
-import { BasicShader, DebugShader, MatCapShader, NormalShader, WireFrameShader } from './shaders';
+import { BasicShader, DebugShader, MatCapShader, NormalShader } from './shaders';
 import * as performance from '../../helpers/performance';
 import { createWorker } from '@plantarium/generator';
 import type { PlantProject, TransferGeometry } from '@plantarium/types';
 import type { PlantariumSettings } from "$lib/types"
+import { nodeSystem } from ".."
 
 const updateThumbnail = throttle((geo: TransferGeometry) => {
   projectManager.renderThumbnail({ geo });
@@ -105,15 +106,30 @@ export default class ForegroundScene extends EventEmitter {
 
       performance.stop('generate');
 
-
       if (!result || result.errors || !result.geometry) {
         this.mesh.visible = false;
         if (result.errors) {
-          this.emit("node-errors", result.errors)
+          nodeSystem.view.clearNodeLabel()
+          setTimeout(() => {
+            nodeSystem.view.showErrorMessages(result.errors);
+          }, 100)
         }
         return;
       } else {
-        this.emit("node-errors", []);
+        nodeSystem.view.showErrorMessages([]);
+
+        if (result.timings && s?.debug?.nodeTimings) {
+          Object.entries(result.timings).forEach(([id, v]) => {
+            if (v) {
+              nodeSystem.view.showNodeLabel(id, `<b>${v}</b> ms`);
+            }
+          })
+
+          nodeSystem?.outputNode?.view?.showErrors(`Total Time: <b>${result.timings.global}</b>ms`)
+        } else {
+          nodeSystem.view.clearNodeLabel();
+        }
+
         this.mesh.visible = !this?.settings?.debug?.hideMesh;
       }
 

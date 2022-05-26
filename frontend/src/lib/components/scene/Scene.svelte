@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { browser } from '$app/env';
-	import type { PlantariumSettings, PlantProject } from '@plantarium/types';
+	import type { PlantProject } from '@plantarium/types';
 
 	import type { Writable } from 'svelte/store';
 	import Scene from '.';
@@ -9,6 +9,7 @@
 	import * as perf from '../../helpers/performance';
 	import { cloneObject } from '@plantarium/helpers';
 	import { Icon } from '@plantarium/ui';
+	import type { PlantariumSettings } from '$lib/types';
 
 	let canvas: HTMLCanvasElement;
 
@@ -39,9 +40,6 @@
 
 		perf.createCanvas('render', renderCanvas);
 		perf.createCanvas('generate', generateCanvas);
-		return scene.fg.on('node-errors', (err) => {
-			nodeSystem.view.showErrorMessages(err);
-		});
 	});
 </script>
 

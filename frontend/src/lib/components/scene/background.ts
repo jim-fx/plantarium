@@ -1,15 +1,16 @@
-import { ground } from '@plantarium/geometry';
+import type { PlantariumSettings } from '$lib/types';
+import { grid, ground } from '@plantarium/geometry';
 import { transferToGeometry } from '@plantarium/geometry';
 import { loader } from '@plantarium/helpers';
 import { ThemeStore } from '@plantarium/theme';
-import { Color, Mesh, Plane, Program } from 'ogl-typescript';
+import { Color, Mesh, Plane, Program, type OGLRenderingContext } from 'ogl-typescript';
 import type Scene from '.';
 import { settingsManager } from '..';
 import type { ProjectManager } from '../project-manager';
-import { GroundShader } from './shaders';
+import { BasicShader, GroundShader, MatCapShader, ParticleShader, WireFrameShader } from './shaders';
 
 const createGround = (
-  gl: WebGL2RenderingContext,
+  gl: OGLRenderingContext,
   settings: PlantariumSettings,
 ) => {
   const {
@@ -25,12 +26,22 @@ const createGround = (
   return transferToGeometry(gl, geo);
 };
 
+const createGrid = (gl: OGLRenderingContext, settings: PlantariumSettings) => {
+
+  const { scale = 1, resX = 5 } = settings?.background;
+
+  const geo = grid(scale, resX);
+
+  return transferToGeometry(gl, geo);
+
+}
+
 export default class BackgroundScene {
   private scene: Scene;
-  private gl: WebGL2RenderingContext;
-  private settings: PlantariumSettings;
+  private gl: OGLRenderingContext;
 
-  private ground: Mesh;
+  private ground!: Mesh;
+  private grid!: Mesh;
 
   constructor(scene: Scene, pm: ProjectManager) {
     this.scene = scene;
@@ -38,7 +49,7 @@ export default class BackgroundScene {
 
     this.initMeshes();
 
-    pm.on('settings', this.setSettings.bind(this));
+    pm.on('settings', s => this.setSettings(s));
     this.setSettings(settingsManager.getSettings());
   }
 
@@ -73,6 +84,13 @@ export default class BackgroundScene {
       program: groundShader,
     });
 
+    this.grid = this.scene.addMesh({
+      geometry: new Plane(this.gl),
+      program: MatCapShader(this.gl)
+    })
+
+    this.grid.mode = this.gl.LINES;
+
     const update = (time = 0) => {
       requestAnimationFrame(update);
       groundShader.uniforms.uTime.value = time;
@@ -82,11 +100,16 @@ export default class BackgroundScene {
   }
 
   setSettings(settings: PlantariumSettings) {
-    this.settings = settings;
 
     if (settings?.background?.ground) {
       this.ground.geometry = createGround(this.gl, settings);
     }
     this.ground.visible = !!settings?.background?.ground;
+
+    if (settings?.background?.grid) {
+      this.grid.geometry = createGrid(this.gl, settings);
+    }
+    this.grid.visible = !!settings?.background?.grid;
+
   }
 }

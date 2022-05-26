@@ -1,11 +1,12 @@
 import { get, writable } from "svelte/store";
 import type { Writable } from "svelte/store"
+import type { PlantariumSettings } from "$lib/types";
 
 const renderPerf = writable<number[]>([])
 const generatePerf = writable<number[]>([])
 
-const timers = {}
-const enabled = {
+const timers: Record<string, number> = {}
+const enabled: Record<string, boolean> = {
   render: false,
   generate: false,
 }
@@ -37,10 +38,11 @@ export function add(key: string, time: number) {
 }
 
 export function stop(key: string) {
-  if(!enabled[key])return;
+  if (!enabled[key]) return;
   const time = performance.now() - (timers[key] ?? 0);
   add(key, time);
 }
+
 
 const canvases = {};
 const canvasUpdates = {};
@@ -68,7 +70,7 @@ export function createCanvas(key: string, canvas?: HTMLCanvasElement) {
 
     ctx.clearRect(0, 0, width, height);
     ctx.fillStyle = "rgba(255, 255, 255, 0.5)"
-    ctx.fillRect(0, 0, width,height)
+    ctx.fillRect(0, 0, width, height)
 
     for (let i = 0; i < values.length; i++) {
       sum += values[i];
@@ -81,7 +83,7 @@ export function createCanvas(key: string, canvas?: HTMLCanvasElement) {
     ctx.textAlign = "left";
     ctx.fillText(key + "", 10, 10)
     ctx.textAlign = "right";
-    ctx.fillText(`avg: ${Math.floor(sum/values.length*10)/10}ms max: ${Math.floor(max*10)/10}ms`, 180, 10)
+    ctx.fillText(`avg: ${Math.floor(sum / values.length * 10) / 10}ms max: ${Math.floor(max * 10) / 10}ms`, 180, 10)
 
   };
 

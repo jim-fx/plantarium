@@ -7,6 +7,8 @@ import { PlantProject, PlantariumSettings } from "@plantarium/types";
 export async function executeNodeSystem(project: PlantProject, settings: Partial<PlantariumSettings>) {
 
 
+  const startTime = performance.now();
+
   const gctx = createGeneratorContext(project, settings);
 
   if (gctx.errors) {
@@ -33,7 +35,6 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
 
   let caughtNaN = false;
 
-
   // Now we can start executing buckets
   for (const bucket of nodeBuckets.reverse()) {
     for (const n of bucket) {
@@ -46,6 +47,8 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
           return { errors: parameters.errors }
         }
 
+        let aStem = performance.now();
+
         if (execNode?.computeStem) {
           ctx["_id"] = n.id;
           const result = execNode.computeStem(parameters, ctx);
@@ -55,11 +58,14 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
           }
           n.results = Array.isArray(result) ? result : [result];
         }
+        gctx.timings[n.id] = performance.now() - aStem;
 
+        let aGeom = performance.now();
         if (execNode?.computeGeometry) {
           const result = execNode.computeGeometry(parameters, n.results[0], ctx);
           n.results[0] = { ...n.results[0], ...result };
         }
+        gctx.timings[n.id] += performance.now() - aGeom;
 
 
       } else {
@@ -96,9 +102,12 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
     sanityCheckGeometry(geometry)
   }
 
+  gctx.timings["global"] = performance.now() - startTime;
+
 
   return {
     stems,
+    timings: gctx.timings,
     geometry: calculateNormals(geometry)
   };
 

@@ -14,7 +14,11 @@ const log = logger('ProjectManager');
 
 const PTP_PREFIX = 'pt_project_';
 
-export default class ProjectManager extends EventEmitter {
+type EventMap = {
+  "settings": PlantariumSettings
+}
+
+export default class ProjectManager extends EventEmitter<EventMap> {
   private plant?: PlantProject;
   public activeProjectId?: string;
   public activeProject: Writable<PlantProject | undefined> = writable();

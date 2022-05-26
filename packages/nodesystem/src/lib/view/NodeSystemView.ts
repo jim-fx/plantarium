@@ -147,13 +147,24 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
     })
   }
 
-  showErrorMessages(_errors?: string[] | string) {
+  showErrorMessages(_errors?: string[] | string | { err: string, id: string }[]) {
     if (!_errors) {
       this.errorWrapper.innerHTML = ""
       return;
     }
     const errors = Array.isArray(_errors) ? _errors : [_errors];
-    this.errorWrapper.innerHTML = errors.map(err => `<p>${err}</p>`).join("");
+
+    this.errorWrapper.innerHTML = errors.map(err => {
+      if (typeof err === "string") {
+        return `<p>${err}</p>`;
+      } else {
+        const node = this.system.findNodeById(err.id);
+        if (node) {
+          node?.view.showErrors(err.err);
+          return `<p>${err.err} in ${node.attributes.name || node.attributes.type}</p>`
+        }
+      }
+    }).join("");
   }
 
   createFloatingConnection(socket: NodeInput | NodeOutput) {
@@ -170,6 +181,17 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
       }) => input.node.connectTo(output));
 
     })
+  }
+
+  showNodeLabel(nodeId: string, label: string) {
+    const node = this.system.findNodeById(nodeId);
+    if (node) {
+      node.view.showErrors(label);
+    }
+  }
+
+  clearNodeLabel() {
+    this.system.nodes.forEach(n => n.view.showErrors())
   }
 
   setActive(n?: Node | undefined, { shiftKey = false, ctrlKey = false } = {}) {

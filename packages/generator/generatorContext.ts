@@ -1,6 +1,6 @@
 import nodeMap from "./nodeMap";
 import type { WrappedNode } from "./types";
-import type { PlantariumSettings, PlantProject } from "@plantarium/types"
+import type { PlantProject } from "@plantarium/types"
 
 import createContext from "./context"
 export type GeneratorContext = ReturnType<typeof createGeneratorContext>;
@@ -8,6 +8,8 @@ export type GeneratorContext = ReturnType<typeof createGeneratorContext>;
 export default function createGeneratorContext({ nodes: _nodes }: PlantProject, settings: Partial<PlantariumSettings>) {
 
   const ctx = createContext(settings);
+
+  const timings: Record<string, number> = {};
 
   const nodeIdMap = new Map<string, WrappedNode>();
   const nodeRefMap = new Map<string, { n: WrappedNode, in: string, out: number }[]>();
@@ -21,7 +23,7 @@ export default function createGeneratorContext({ nodes: _nodes }: PlantProject, 
   for (const { attributes, state } of _nodes) {
     const exec = nodeMap.get(attributes.type)
     if (!exec) {
-      console.log("Existing node types: ",{nodeMap})
+      console.log("Existing node types: ", { nodeMap })
       return {
         errors: ["Missing NodeType " + attributes.type]
       };
@@ -125,7 +127,11 @@ export default function createGeneratorContext({ nodes: _nodes }: PlantProject, 
         if (inputNode.exec?.computeValue) {
           parameters[input.in] = (alpha = 1) => {
             const parameters = constructParametersForNode(input.n);
-            return inputNode.exec.computeValue(parameters, ctx, alpha)
+            timings[inputNode.id] = timings[inputNode.id] || 0;
+            const a = performance.now();
+            const res = inputNode.exec.computeValue(parameters, ctx, alpha)
+            timings[inputNode.id] += performance.now() - a;
+            return res;
           }
         } else {
           parameters[input.in] = (alpha = 1) => {
@@ -150,7 +156,7 @@ export default function createGeneratorContext({ nodes: _nodes }: PlantProject, 
         if (execNode.parameters[key]?.required) {
           if (parameters[key] === undefined) {
             return {
-              errors: ["Missing Input [" + (execNode.parameters[key]?.label || key) + "] in " + execNode.type]
+              errors: [{ id: n.id, err: `Missing Input <b>${execNode.parameters[key]?.label || key}</b>` }]
             };
           }
         }
@@ -169,6 +175,7 @@ export default function createGeneratorContext({ nodes: _nodes }: PlantProject, 
     nodes,
     outputNode,
     getNodeRef,
+    timings,
     getNode,
     getBucketsForNode,
     constructParametersForNode,
