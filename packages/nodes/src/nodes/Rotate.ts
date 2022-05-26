@@ -34,6 +34,13 @@ export default typeCheckNode({
       value: "x",
       description: "Along which axis should we rotate?"
     },
+    aroundOrigin: {
+      type: 'boolean',
+      hidden: true,
+      value: false,
+      description: "Rotate around 0,0,0"
+    },
+
     spread: {
       internal: true,
       type: 'boolean',
@@ -65,22 +72,30 @@ export default typeCheckNode({
 
       if (stem.depth !== maxDepth) return;
 
+      const rotateAroundOrigin = parameters.aroundOrigin()
+
 
       const skelly = stem.skeleton;
       const amount = stem.skeleton.length / 4;
 
       // const a = j / skeletons.length;
 
-      const ox = skelly[0];
-      const oy = skelly[1];
-      const oz = skelly[2];
+      let ox = skelly[0];
+      let oy = skelly[1];
+      let oz = skelly[2];
+
+      if (rotateAroundOrigin) {
+        ox = 0;
+        oy = 0;
+        oz = 0;
+      }
 
       const _a = j / stems.length;
 
       const angle = parameters.angle(_a) * (spread ? _a : 1);
 
       // Loop over every single joint in the skeleton
-      for (let i = 1; i < amount; i++) {
+      for (let i = rotateAroundOrigin ? 0 : 1; i < amount; i++) {
         //Current point at skeleton
         let x = skelly[i * 4 + 0];
         let y = skelly[i * 4 + 1];

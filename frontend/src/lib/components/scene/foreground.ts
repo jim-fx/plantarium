@@ -121,11 +121,11 @@ export default class ForegroundScene extends EventEmitter {
         if (result.timings && s?.debug?.nodeTimings) {
           Object.entries(result.timings).forEach(([id, v]) => {
             if (v.time) {
-              nodeSystem.view.showNodeLabel(id, `<b>${v.amount}@${v.time}</b> ms`);
+              nodeSystem.view.showNodeLabel(id, `<b>${v.amount}@${Math.floor(v.time * 10) / 10}</b> ms`);
             }
           })
 
-          nodeSystem?.outputNode?.view?.showErrors(`Total Time: <b>${result.timings.global}</b>ms`)
+          nodeSystem?.outputNode?.view?.showErrors(`Total Time: <b>${Math.floor(result.timings.global * 10) / 10}</b>ms`)
         } else {
           nodeSystem.view.clearNodeLabel();
         }

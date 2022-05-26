@@ -18,3 +18,4 @@ export { default as VecLength } from './VecLength';
 export { default as Split } from './Split';
 export { default as Number } from './Number';
 export { default as Break } from './Break';
+export { default as Force } from './Force';
