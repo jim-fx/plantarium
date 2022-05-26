@@ -1,4 +1,4 @@
-import { rotate3D } from '@plantarium/geometry';
+import { interpolateSkeleton, rotate3D } from '@plantarium/geometry';
 // import { logger } from '@plantarium/helpers';
 import { Vec3 } from 'ogl-typescript';
 import rotate2D from '@plantarium/geometry/src/helpers/rotate2D';
@@ -42,7 +42,7 @@ export default typeCheckNode({
   computeStem(parameters) {
     const { input, type, strength } = parameters;
 
-    const { stems } = input();
+    const { stems, instances } = input();
 
     const maxDepth = Math.max(...stems.map(s => s.depth));
 
@@ -169,8 +169,27 @@ export default typeCheckNode({
       });
     }
 
+    // Correct instances on the changed stems
+    if (instances) {
+      instances.forEach((inst, i) => {
+        if (inst.depth === maxDepth) {
+          const stem = stems[i];
+          const amount = inst.offset.length / 3;
+          for (let j = 0; j < amount; j++) {
+            const p = interpolateSkeleton(stem.skeleton, inst.baseAlpha[j]);
+            if (p) {
+              inst.offset[j * 3 + 0] = p[0];
+              inst.offset[j * 3 + 1] = p[1];
+              inst.offset[j * 3 + 2] = p[2];
+            }
+          }
+        }
+      })
+    }
+
     return {
       stems,
+      instances,
     };
   },
   computeGeometry(parameters) {

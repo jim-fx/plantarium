@@ -176,6 +176,10 @@ export default typeCheckNode({
         rotation[i * 3 + 0] = 0;
         rotation[i * 3 + 1] = angleRadians - (Math.PI / 2) * (i % 2 === 0 ? -1 : 1);
         rotation[i * 3 + 2] = 0;
+
+        if (a > 0.99) {
+          rotation[i * 3 + 1] = angleRadians;
+        }
       }
 
       return {
