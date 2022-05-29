@@ -24,7 +24,7 @@
   "devDependencies": {
     "@plantarium/types": "link:../types",
     "dts-bundle": "0.7.3",
-    "esbuild": "0.14.39",
+    "esbuild": "0.14.42",
     "loadr": "^0.1.1",
     "npm-run-all": "4.1.5",
     "rimraf": "3.0.2",
