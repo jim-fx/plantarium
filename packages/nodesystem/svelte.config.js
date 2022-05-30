@@ -19,7 +19,10 @@ const config = {
 
     prerender: { default: true, enabled: true },
 
+
+
     vite: {
+      resolve: { alias: { "@plantarium/helpers": "../helpers/src/index.ts" } },
       optimizeDeps: { include: ["jsondiffpatch"] },
       server: { host: '0.0.0.0', port: 8085 },
       ssr: { noExternal: ['ogl-typescript'] },
