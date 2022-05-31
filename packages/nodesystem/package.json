@@ -44,7 +44,7 @@
     "@plantarium/helpers": "workspace:*",
     "@plantarium/theme": "workspace:*",
     "@plantarium/ui": "workspace:*",
-    "@sveltejs/adapter-static": "1.0.0-next.32",
+    "@sveltejs/adapter-static": "1.0.0-next.34",
     "@yr/monotone-cubic-spline": "^1.0.3",
     "cookie": "^0.5.0",
     "css-vars-from-json": "^1.1.0",
