@@ -5,9 +5,6 @@
   "source": "src/lib/index.ts",
   "svelte": "src/lib/index.ts",
   "license": "MIT",
-  "publishConfig": {
-    "directory": "./package"
-  },
   "scripts": {
     "prepublish": "npm run package",
     "postpublish": "rm -r ./package",
