@@ -4,7 +4,7 @@ Let users publish their plant models into an online library of plant models.
 
 ## TODO:
 
-- [ ] Fix thumbnail rendering
+- [x] Fix thumbnail rendering
 - [ ] Custom UI for import export
 - [ ] Generate thumbnails on the server, with timeout for complex node trees?
 

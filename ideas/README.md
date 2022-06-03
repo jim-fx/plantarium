@@ -7,6 +7,9 @@
 - [ ] [WASM](./o-wasm.md)
 - [ ] [Blender Plugin](./o-blender-plugin.md)
 - [ ] [Topology](./o-topology.md)
+- [ ] [Flower Node](./o-flower-node.md)
+- [ ] [Taxonomy](./o-taxonomy.md)
+- [ ] [L-Systems](./o-lsystems.md)
 
 *Closed:*
 - [x] [Break Node](./c-break-node.md)
