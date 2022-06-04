@@ -19,3 +19,5 @@ export { default as Split } from './Split';
 export { default as Number } from './Number';
 export { default as Break } from './Break';
 export { default as Force } from './Force';
+export { default as InstanceOnStem } from './InstanceOnStem';
+export { default as Flower } from './Flower';

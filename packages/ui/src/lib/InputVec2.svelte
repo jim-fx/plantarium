@@ -6,7 +6,7 @@
   import InputInteger from './InputInteger.svelte';
   const dispatch = createEventDispatcher();
 
-  export let value = { x: 0, y: 0, z: 0 };
+  export let value = { x: 0, y: 0 };
 
   export let inputType = 'integer';
 
@@ -16,12 +16,10 @@
 <div class="component-wrapper">
   {#if inputType === 'integer'}
     <InputInteger bind:value={value.x} --border-radius="5px 5px 0px 0px" />
-    <InputInteger bind:value={value.y} --border-radius="0px" />
-    <InputInteger bind:value={value.z} --border-radius="0px 0px 5px 5px" />
+    <InputInteger bind:value={value.y} --border-radius="0px 0px 5px 5px" />
   {:else}
     <InputFloat bind:value={value.x} --border-radius="5px 5px 0px 0px" />
-    <InputFloat bind:value={value.y} --border-radius="0px" />
-    <InputFloat bind:value={value.z} --border-radius="0px 0px 5px 5px" />
+    <InputFloat bind:value={value.y} --border-radius="0px 0px 5px 5px" />
   {/if}
 </div>
 

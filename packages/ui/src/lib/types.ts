@@ -43,6 +43,12 @@ export type Vec3Template = {
 }
 
 
+export type Vec2Template = {
+  type: "vec2",
+  inputType?: "float",
+  value?: { x: number, y: number, z: number },
+}
+
 export type CurveTemplate = {
   type: "curve",
   value: {
@@ -61,7 +67,7 @@ export type ShapeTemplate = {
   }[]
 }
 
-export type ValueTemplate = CheckboxTemplate | IntegerTemplate | SelectTemplate | TabTemplate | FloatTemplate | CurveTemplate | ShapeTemplate | Vec3Template;
+export type ValueTemplate = CheckboxTemplate | IntegerTemplate | SelectTemplate | TabTemplate | FloatTemplate | CurveTemplate | ShapeTemplate | Vec3Template | Vec2Template;
 
 
 

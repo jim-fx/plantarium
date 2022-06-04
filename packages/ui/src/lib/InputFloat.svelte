@@ -102,6 +102,7 @@
 
   .component-wrapper {
     overflow: hidden;
+    border-radius: var(--border-radius, 2px);
   }
 
   input[type='number']::-webkit-inner-spin-button,

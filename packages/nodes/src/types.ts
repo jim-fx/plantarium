@@ -14,6 +14,11 @@ type PlantTemplate = {
   value?: PlantValue
 }
 
+type ModelTemplate = {
+  type: "model"
+  value?: TransferGeometry
+}
+
 type Vec2Template = {
   type: "vec2"
   value: { x: number, y: number }
@@ -24,7 +29,7 @@ type Vec3Template = {
   value: { x: number, y: number, z: number }
 }
 
-type AllTemplates = ValueTemplate | PlantTemplate | Vec2Template | Vec3Template;
+type AllTemplates = ValueTemplate | PlantTemplate | Vec2Template | Vec3Template | ModelTemplate;
 
 export type NodeDataTypes = AllTemplates["type"];
 
@@ -34,6 +39,7 @@ type ResolvableParameter<T extends NodeParameters[string], K = T["value"]> = T["
 
 type Parameter<T extends NodeParameters[string]> =
   T extends PlantTemplate ? ResolvableParameter<T, PlantValue>
+  : T extends ModelTemplate ? ResolvableParameter<T, TransferGeometry>
   : ResolvableParameter<T>;
 
 export type Params<T extends NodeParameters = NodeParameters> = {
