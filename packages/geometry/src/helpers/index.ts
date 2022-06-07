@@ -23,4 +23,6 @@ export { default as toOBJ } from './toOBJ';
 export { default as parseOBJ } from './parseOBJ';
 export { default as sanityCheckGeometry } from './sanityCheckGeometry';
 export { default as insertArray } from './insertArray';
+
+export * from "./vec3ToRotation"
 export * from "./findOrthVec"

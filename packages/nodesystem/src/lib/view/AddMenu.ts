@@ -61,26 +61,30 @@ export default class RightClickMenu {
   updateTypes(types = this.types) {
     this.types = types;
     log("register types", types)
-    this.searchEl.setItems(
-      types.map((t) => {
-        return {
-          outputs: t.outputs,
-          inputs: t.inputs,
-          value: t.type || t.title,
-          title: t.title,
-        };
-      }).filter(v => {
-        if (!this.socket) return true;
 
-        // We have an input socket
-        if (Array.isArray(this.socket.type)) {
-          return this.socket.type.includes("*") || v?.outputs?.find(o => this.socket.type.includes(o) || o === "*")
-          // we have an output socket
-        } else {
-          return this.socket.type === "*" || v?.inputs?.includes(this.socket.type) || v?.inputs?.includes("*")
-        }
-      })
-    );
+    const availableTypes = types.map((t) => {
+      return {
+        outputs: t.outputs,
+        inputs: t.inputs,
+        value: t.type || t.title,
+        title: t.title,
+      };
+    }).filter(v => {
+      if (!this.socket) return true;
+
+      // We have an input socket
+      if (Array.isArray(this.socket.type)) {
+        return this.socket.type.includes("*") || v?.outputs?.find(o => this.socket.type.includes(o) || o === "*")
+        // we have an output socket
+      } else {
+        return this.socket.type === "*" || v?.inputs?.includes(this.socket.type) || v?.inputs?.includes("*")
+      }
+    })
+    if (availableTypes.length === 1) {
+      setTimeout(() => {
+        this.resolve(availableTypes[0].value);
+      }, 30)
+    } this.searchEl.setItems(availableTypes);
   }
 
   handleWindowClick(ev: MouseEvent) {

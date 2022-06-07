@@ -87,41 +87,41 @@ export default typeCheckNode({
     }
   },
 
-  computeValue(parameters, ctx) {
-    const { shape, curvature, amount, angle } = parameters;
+  computeValue(params, ctx) {
 
-    const _curvature = curvature();
+    const curvature = params.curvature();
 
-    const geometry = leaf(shape(), {
+    const geometry = leaf(params.shape(), {
       res: ctx.getSetting('leafRes') || 2,
-      xCurvature: _curvature.x,
-      yCurvature: _curvature.y,
+      xCurvature: curvature.x,
+      yCurvature: curvature.y,
     });
 
-    const _amount = amount()
+    const amount = params.amount()
 
-    const offset = new Float32Array(_amount * 3);
-    const scale = new Float32Array(_amount * 3);
-    const rotation = new Float32Array(_amount * 3);
+    const offset = new Float32Array(amount * 3);
+    const scale = new Float32Array(amount * 3);
+    const rotation = new Float32Array(amount * 3);
 
 
-    for (let i = 0; i < _amount; i++) {
+    for (let i = 0; i < amount; i++) {
 
-      const alpha = i / _amount;
+      const alpha = i / amount;
 
-      const _angle = angle(alpha);
+      const _offset = params.offset(alpha);
+      offset[i * 3 + 0] = _offset.x * alpha;
+      offset[i * 3 + 1] = _offset.y * alpha;
+      offset[i * 3 + 2] = _offset.z * alpha;
 
-      offset[i * 3 + 0] = 0;
-      offset[i * 3 + 1] = 0;
-      offset[i * 3 + 2] = 0;
-
-      scale[i * 3 + 0] = 1;
+      const _scale = params.scale(alpha)
+      scale[i * 3 + 0] = _scale.x;
       scale[i * 3 + 1] = 1;
-      scale[i * 3 + 2] = 1;
+      scale[i * 3 + 2] = _scale.y;
 
-      rotation[i * 3 + 0] = alpha * _angle.x * -1;
-      rotation[i * 3 + 1] = alpha * _angle.y * Math.PI * 2;
-      rotation[i * 3 + 2] = 0;
+      const angle = params.angle(alpha);
+      rotation[i * 3 + 0] = alpha * angle.x * -1;
+      rotation[i * 3 + 1] = alpha * angle.y * Math.PI * 2;
+      rotation[i * 3 + 2] = alpha * angle.z;
 
     }
 

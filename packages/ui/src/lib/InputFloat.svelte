@@ -2,6 +2,7 @@
 
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
+  import { getBoundingValue } from './helpers/getBoundingValue';
 
   export let value = 0.5;
   export let step = 0.01;
@@ -17,11 +18,7 @@
   let inputEl: HTMLInputElement;
 
   $: if ((value || 0).toString().length > 5) {
-    const newValue = strip(value || 0);
-
-    if (newValue !== value) {
-      value = newValue;
-    }
+    value = strip(value || 0);
   }
   $: value !== undefined && handleChange();
   let oldValue: number;
@@ -66,13 +63,15 @@
       inputEl.focus();
     }
 
-    if (value < min) {
-      min = value;
+    if (value >= 0) {
+      max = getBoundingValue(value);
+      min = 0;
+    } else {
+      min = getBoundingValue(value);
+      max = 0;
     }
 
-    if (value > max) {
-      max = value;
-    }
+    console.log({ min, max, value });
 
     document.body.style.cursor = 'unset';
     window.removeEventListener('mouseup', handleMouseUp);

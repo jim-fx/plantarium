@@ -1,4 +1,4 @@
-import { instanceGeometry, interpolateSkeleton, interpolateSkeletonVec, normalize2D } from "@plantarium/geometry";
+import { instanceGeometry, interpolateSkeleton, interpolateSkeletonVec, normalize2D, vec3ToRotation } from "@plantarium/geometry";
 import { InstancedGeometry } from "@plantarium/types";
 import { findMaxDepth } from "../helpers";
 import { typeCheckNode } from "../types";
@@ -16,6 +16,10 @@ export default typeCheckNode({
       type: "model",
       external: true,
       required: true,
+    },
+    alignRotation: {
+      type: "boolean",
+      value: false
     },
     size: {
       type: 'number',
@@ -82,7 +86,8 @@ export default typeCheckNode({
       const highestInstance = parameters.highestInstance(alpha);
 
       for (let i = 0; i < amount; i++) {
-        const _alpha = i / (amount - 1);
+        const _alpha = amount === 1 ? 0.5 : i / (amount - 1);
+        const alignRotation = parameters.alignRotation(_alpha);
         const size = parameters.size(1 - _alpha);
 
         const a = lowestInstance + (highestInstance - lowestInstance) * _alpha - 0.001;
@@ -90,7 +95,7 @@ export default typeCheckNode({
         //const isLeft = i % 2 === 0;
 
         const [x, y, z] = interpolateSkeleton(stem.skeleton, a);
-        const [vx, _, vz] = interpolateSkeletonVec(stem.skeleton, a);
+        const [vx, vy, vz] = interpolateSkeletonVec(stem.skeleton, a);
 
         const nv = normalize2D([vx, vz]);
 
@@ -112,6 +117,14 @@ export default typeCheckNode({
         rotation[i * 3 + 1] = angleRadians - (Math.PI / 2) * (i % 2 === 0 ? -1 : 1);
         rotation[i * 3 + 2] = 0;
 
+
+        if (alignRotation) {
+          const rot = vec3ToRotation([vx, vy, vz]);
+          rotation[i * 3 + 0] = rot[0];
+          rotation[i * 3 + 1] = 0;
+          rotation[i * 3 + 2] = rot[2];
+        }
+
         if (a > 0.99) {
           rotation[i * 3 + 1] = angleRadians;
         }
@@ -131,7 +144,6 @@ export default typeCheckNode({
       instances.push(...input.instances)
     }
 
-    console.log("A", { instances })
 
     return {
       stems: input.stems,

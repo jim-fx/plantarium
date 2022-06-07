@@ -62,7 +62,7 @@ export default typeCheckNode({
 
       for (let j = 0; j < amountPoints; j++) {
         const a = j / amountPoints;
-        const thiccness = parameters.thiccness(a) * (1 - a);
+        const thiccness = Math.max(parameters.thiccness(a) * (1 - a), 0.01);
 
         //Create point
         const x = ox;
