@@ -8,17 +8,27 @@
   export let min = 0;
   export let max = 1;
 
-  function strip(number: string) {
-    return parseFloat(number).toPrecision(2);
+  function strip(input: number) {
+    return +parseFloat(input + '').toPrecision(2);
   }
 
   const dispatch = createEventDispatcher();
 
   let inputEl: HTMLInputElement;
-  $: value !== undefined && dispatch('change', parseFloat(value + ''));
 
   $: if ((value || 0).toString().length > 5) {
-    value = strip(value || 0);
+    const newValue = strip(value || 0);
+
+    if (newValue !== value) {
+      value = newValue;
+    }
+  }
+  $: value !== undefined && handleChange();
+  let oldValue: number;
+  function handleChange() {
+    if (value === oldValue) return;
+    oldValue = value;
+    dispatch('change', parseFloat(value + ''));
   }
 
   $: width = Number.isFinite(value)

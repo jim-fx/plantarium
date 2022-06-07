@@ -1,4 +1,4 @@
-import { convertInstancedGeometry, instanceGeometry, leaf } from '@plantarium/geometry';
+import { convertInstancedGeometry, instanceGeometry, join, leaf } from '@plantarium/geometry';
 import { typeCheckNode } from '../types';
 
 const defaultValue = [
@@ -70,7 +70,7 @@ export default typeCheckNode({
       max: 20,
       value: 8
     },
-    size: {
+    scale: {
       type: "vec2",
       inputType: "float",
       value: { x: 1, y: 1 }
@@ -88,7 +88,7 @@ export default typeCheckNode({
   },
 
   computeValue(parameters, ctx) {
-    const { shape, curvature, amount } = parameters;
+    const { shape, curvature, amount, angle } = parameters;
 
     const _curvature = curvature();
 
@@ -101,31 +101,35 @@ export default typeCheckNode({
     const _amount = amount()
 
     const offset = new Float32Array(_amount * 3);
-    const size = new Float32Array(_amount * 3);
+    const scale = new Float32Array(_amount * 3);
     const rotation = new Float32Array(_amount * 3);
 
 
     for (let i = 0; i < _amount; i++) {
 
+      const alpha = i / _amount;
+
+      const _angle = angle(alpha);
+
       offset[i * 3 + 0] = 0;
       offset[i * 3 + 1] = 0;
       offset[i * 3 + 2] = 0;
 
-      size[i * 3 + 0] = 1;
-      size[i * 3 + 1] = 1;
-      size[i * 3 + 2] = 1;
+      scale[i * 3 + 0] = 1;
+      scale[i * 3 + 1] = 1;
+      scale[i * 3 + 2] = 1;
 
-      rotation[i * 3 + 0] = 0;
-      rotation[i * 3 + 1] = 0;
+      rotation[i * 3 + 0] = alpha * _angle.x * -1;
+      rotation[i * 3 + 1] = alpha * _angle.y * Math.PI * 2;
       rotation[i * 3 + 2] = 0;
 
     }
 
-    const instances = instanceGeometry(geometry, [{ offset, size, rotation }])
+    const instances = instanceGeometry(geometry, { offset, scale, rotation })
 
-    debugger;
+    const geo = convertInstancedGeometry(instances)
 
-    return convertInstancedGeometry(instances)
+    return join(...geo);
 
   },
 });

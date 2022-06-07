@@ -1,6 +1,4 @@
 import type { InstancedGeometry, TransferGeometry } from "@plantarium/types"
-import insertArray from "./insertArray";
-import rotate3D from "./rotate3D";
 
 function applyTransformation(
   geo: TransferGeometry,
@@ -8,9 +6,10 @@ function applyTransformation(
   rot: number[] = [0, 0, 0],
   scale: number[] = [1, 1, 1],
 ): TransferGeometry {
-  const newPos = new Float32Array(geo.position.length);
-
   const l = geo.position.length;
+
+  const newPos = new Float32Array(geo.position);
+
   const pos = geo.position;
   for (let i = 0; i < l; i += 3) {
     //Apply scale
@@ -42,23 +41,23 @@ function applyTransformation(
   };
 }
 
-export default function convertInstancedGeometry(instances: InstancedGeometry): TransferGeometry[] {
+export default function convertInstancedGeometry(instance: InstancedGeometry): TransferGeometry[] {
 
-  if (Array.isArray(instances)) return instances.map(i => convertInstancedGeometry(i)).flat()
+  if (Array.isArray(instance)) return instance.map(i => convertInstancedGeometry(i)).flat()
 
   const exp: TransferGeometry[] = [];
   const geometry: TransferGeometry = {
-    position: instances.position,
-    normal: instances.normal,
-    uv: instances.uv,
-    index: instances.index,
+    position: instance.position,
+    normal: instance.normal,
+    uv: instance.uv,
+    index: instance.index,
   };
 
-  const offset = instances.offset;
-  const rotation = instances.rotation;
-  const scale = instances.scale;
+  const offset = instance.offset;
+  const rotation = instance.rotation;
+  const scale = instance.scale;
 
-  const l = instances.offset.length;
+  const l = instance.offset.length;
   for (let i = 0; i < l; i += 3) {
     exp.push(
       applyTransformation(

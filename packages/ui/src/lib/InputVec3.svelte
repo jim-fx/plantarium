@@ -10,7 +10,14 @@
 
   export let inputType = 'integer';
 
-  $: value !== undefined && dispatch('change', value);
+  $: value !== undefined && handleChange();
+
+  let oldValue: typeof value;
+  function handleChange() {
+    if (oldValue?.x === value.x && oldValue.y === value.y && oldValue.z === value.z) return;
+    oldValue = { ...value };
+    dispatch('change', value);
+  }
 </script>
 
 <div class="component-wrapper">

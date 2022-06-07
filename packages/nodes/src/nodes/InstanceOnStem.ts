@@ -131,6 +131,8 @@ export default typeCheckNode({
       instances.push(...input.instances)
     }
 
+    console.log("A", { instances })
+
     return {
       stems: input.stems,
       instances: instances as InstancedGeometry[],
