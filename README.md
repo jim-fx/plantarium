@@ -80,7 +80,7 @@ $ pnpm dev
 - [x] feat: video tutorial
 - [x] feat(nodesystem): Ability to show and hide inputs
 - [ ] feat(nodes): Add some more nodes
-  - [ ] [Flower Node](./ideas/o-flower-node.md)
+  - [x] [Flower Node](./ideas/o-flower-node.md)
   - [ ] Rotate Around? -> Rotate Branch Around Stem, Leaf around Stem
   - [ ] Bend? ->  Sort of like rotate but with lerp
   - [x] Break Branch Node
