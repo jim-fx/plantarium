@@ -74,7 +74,6 @@
   }
 
   onMount(async () => {
-    console.log({ report, reportLabels });
     api.getPermission();
     setTimeout(() => {
       initialized = true;

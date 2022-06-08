@@ -51,8 +51,6 @@ export default class NodeHistory {
     const newState = this.system.serialize().nodes;
     const delta = this.patcher.diff(this.prevState, newState);
 
-    console.log({ newState, delta })
-
     this.history.push(delta);
 
     if (this.history.length > 60) {

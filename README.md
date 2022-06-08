@@ -76,13 +76,13 @@ $ pnpm dev
 - [ ] chore(tests): more tests and coverage
 - [x] fix(nodesystem): undo is not reliable
 - [x] fix(nodesystem): remove duplicate connection state, eg in Node.refs and Node.connections
-- [ ] fix(nodes): rewrite gravity node, its weird right now
+- [x] fix(nodes): rewrite gravity node, its weird right now
 - [x] feat: video tutorial
 - [x] feat(nodesystem): Ability to show and hide inputs
 - [ ] feat(nodes): Add some more nodes
   - [x] [Flower Node](./ideas/o-flower-node.md)
   - [ ] Rotate Around? -> Rotate Branch Around Stem, Leaf around Stem
-  - [ ] Bend? ->  Sort of like rotate but with lerp
+  - [x] Bend? -> Sort of like rotate but with lerp
   - [x] Break Branch Node
   - [x] Split Branch Node
 

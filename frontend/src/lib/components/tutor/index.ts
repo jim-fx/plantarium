@@ -40,8 +40,6 @@ class Tutor {
       return;
     };
 
-    console.log("RUUN", this.state)
-
     for (const step of this.steps) {
       let res = await step(this.state);
       if (res) {

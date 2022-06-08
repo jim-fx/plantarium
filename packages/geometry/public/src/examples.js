@@ -57,3 +57,20 @@ const l = g.leaf([  {
 
 
 scene.add(l)`
+
+
+export const gravity = `import * as g from "geometry";
+
+let skelly = Float32Array.from(new Array(10).fill(null).map((_,i,a) => {
+    const stepSize = 4/a.length;
+    return [
+        0,i*stepSize,0,(1-i/a.length)*0.2
+    ]
+}).flat())
+
+g.rotateSkeleton(skelly,[0,0,1],0.2);
+
+skelly = g.gravitySkeleton(skelly,-2,false);
+
+const tubed = g.tube(Float32Array.from(skelly),6);
+scene.add(tubed)`

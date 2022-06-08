@@ -1,11 +1,9 @@
 import { TransferGeometry } from "@plantarium/types";
-import parseOBJ from "./parseOBJ";
 
 export default function(_geo: TransferGeometry[] | TransferGeometry) {
 
 
   const geometries = Array.isArray(_geo) ? _geo : [_geo];
-  console.log("TOOBJ", geometries)
 
   let output = '';
 

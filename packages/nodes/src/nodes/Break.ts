@@ -53,8 +53,6 @@ export default typeCheckNode({
 
     const maxDepth = Math.max(...stems.map(s => s.depth));
 
-    console.log(maxDepth)
-
     let processingStems = stems.filter(s => s.depth === maxDepth);
 
     processingStems.forEach((stem: PlantStem, i) => {

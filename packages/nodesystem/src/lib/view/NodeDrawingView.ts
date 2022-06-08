@@ -16,7 +16,7 @@ export default class NodeDrawingView {
     this.wrapper = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     this.wrapper.classList.add("nodesystem-drawing-wrapper");
     this.wrapper.style.zIndex = "5"
-    // this.wrapper.style.pointerEvents = "none"
+    this.wrapper.style.pointerEvents = "none"
     this.wrapper.style.overflow = "visible"
     this.wrapper.style.position = "absolute"
     this.wrapper.style.left = "0px"
@@ -26,6 +26,7 @@ export default class NodeDrawingView {
     system.on("mousemove", (ev) => this.handleMouseMove(ev));
     system.on("mousedown", (ev) => {
       if (ev.keys.ctrlKey && ev.keys.shiftKey) {
+        this.wrapper.style.pointerEvents = "all";
         this.startNewLine(ev as any)
       }
     })
@@ -34,6 +35,7 @@ export default class NodeDrawingView {
   }
 
   endLine() {
+    this.wrapper.style.pointerEvents = "none"
     if (!this.activeLineEl) return
     const p = this.points;
     this.lines.push(p);

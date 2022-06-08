@@ -260,6 +260,7 @@ export default class Node extends EventEmitter {
         if (!attributes.visible) attributes.visible = [];
         attributes.visible.push(s.key)
       }
+      if (attributes.visible) attributes.visible = [...new Set(attributes.visible).values()];
     });
 
     return {

@@ -69,7 +69,6 @@ Each Node, or Factory gets some inputs, transforms them and outputs something ne
       const level = +this.state.replace("level-1-interlude-", "");
       if (level === 0) {
         const res = await createToast(`ERROR: Participant did not accept coffee?`, { type: "error", values: ["Accept Coffee", "Nah, dont want coffee"] })
-        console.log({ res })
         if (res === "Accept Coffee") {
           return "level-2"
         } else {
@@ -170,10 +169,7 @@ of the universe, they should be powdered by then.`]
 
       await createToast("Lets add a coffee grinder in between the coffee beans and the coffee machine and connect it", { values: ["Done"] })
 
-
-      const r = await createToast("Yayy, we have coffee", { type: "success" })
-
-      console.log({ r })
+      await createToast("Yayy, we have coffee", { type: "success" })
 
       return "level-7"
 

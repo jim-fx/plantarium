@@ -90,7 +90,7 @@ export default typeCheckNode({
           const strength = parameters.strength(_alpha)
           const downPoint = [0, -length * strength, 0];
 
-          let midPoint = lerp3D(normalizedEndpoint, downPoint, strength * (i / amountPoints));
+          let midPoint = lerp3D(normalizedEndpoint, downPoint, (i / amountPoints));
 
           if (midPoint[0] === 0 && midPoint[2] === 0) {
             midPoint[0] += 0.0001;
@@ -107,7 +107,9 @@ export default typeCheckNode({
           outArray[endIndex + 1] = offsetEndPoint[1];
           outArray[endIndex + 2] = offsetEndPoint[2];
 
-          offsetVec = subtract3D(offsetVec, subtract3D(endPoint, finalEndPoint));
+          const offset = subtract3D(finalEndPoint, endPoint);
+
+          offsetVec = add3D(offsetVec, offset);
 
         }
 

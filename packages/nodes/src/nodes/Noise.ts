@@ -39,7 +39,7 @@ export default typeCheckNode({
   computeStem(parameters) {
     log("computeSkeleton", parameters);
 
-    const { stems } = parameters.input();
+    const { stems, instances } = parameters.input();
 
     const size = parameters.size();
     const strength = parameters.strength();
@@ -53,7 +53,8 @@ export default typeCheckNode({
     });
 
     return {
-      stems
+      stems,
+      instances
     };
   },
 

@@ -39,6 +39,7 @@ const nodeSystem = new NodeSystem({
   view: browser,
   defaultNodes: false,
   registerNodes: Nodes,
+  enableDrawing: true,
   connectionColors: {
     boolean: '#f00',
     number: '#fff',

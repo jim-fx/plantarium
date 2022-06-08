@@ -35,6 +35,14 @@ export default typeCheckNode({
       step: 0.01,
       value: 0.06,
     },
+    minThiccness: {
+      type: "number",
+      inputType: "float",
+      value: 0.001,
+      min: 0,
+      max: 0.2,
+      hidden: true,
+    },
     amount: {
       type: 'number',
       min: 0,
@@ -62,7 +70,7 @@ export default typeCheckNode({
 
       for (let j = 0; j < amountPoints; j++) {
         const a = j / amountPoints;
-        const thiccness = Math.max(parameters.thiccness(a) * (1 - a), 0.0001);
+        const thiccness = Math.max(parameters.thiccness(a) * (1 - a), parameters.minThiccness(a));
 
         //Create point
         const x = ox;
@@ -72,7 +80,8 @@ export default typeCheckNode({
         skeleton[j * 4 + 0] = x;
         skeleton[j * 4 + 1] = y;
         skeleton[j * 4 + 2] = z;
-        skeleton[j * 4 + 3] = thiccness;
+        skeleton[j * 4 + 3] = (j === amountPoints - 1) ? 0.001 : thiccness;
+
       }
 
       stems.push({ depth: 0, skeleton, id: "stem-" + ctx.getId(), baseAlpha: 0 });

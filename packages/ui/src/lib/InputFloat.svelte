@@ -71,8 +71,6 @@
       max = 0;
     }
 
-    console.log({ min, max, value });
-
     document.body.style.cursor = 'unset';
     window.removeEventListener('mouseup', handleMouseUp);
     window.removeEventListener('mousemove', handleMouseMove);

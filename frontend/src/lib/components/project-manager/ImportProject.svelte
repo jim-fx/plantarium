@@ -5,14 +5,11 @@
 
 	import examples from './examples';
 
-	console.log({ examples });
-
 	let inputText: string;
 	let inputType = 'examples';
 	$: [parsed, errors] = checkErrors(inputText) as [PlantProject, string[]];
 
 	function checkErrors(s: string) {
-		console.log({ s });
 		let parsed;
 		try {
 			parsed = JSON.parse(s);
