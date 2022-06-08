@@ -1,6 +1,6 @@
 import { Vec3 } from 'ogl-typescript';
 // import length3D from './length3D';
-import normalize3D from './normalize3D';
+import { normalize3D } from './normalize';
 
 /*
   Javascript version of:  

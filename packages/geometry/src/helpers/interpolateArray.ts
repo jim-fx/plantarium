@@ -1,4 +1,4 @@
-import lerp from './lerp';
+import { lerp } from './lerp';
 
 export default function interpolateArray(array: number[], alpha = 0): number {
   //Clamp to 0-1 range

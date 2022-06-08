@@ -31,6 +31,9 @@
   export let values = [];
   export function setItems(_items) {
     values = _items;
+    if (!values.contains(value)) {
+      value = values[0];
+    }
   }
 
   export function setValue(v) {

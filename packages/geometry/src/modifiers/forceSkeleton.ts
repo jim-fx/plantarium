@@ -12,7 +12,7 @@ export function applyForceToSkeleton(skeleton: Float32Array, origin: { x: number
 
     const vec = [x - origin.x, y - origin.y, z - origin.z];
 
-    const dist = length3D(vec[0], vec[1], vec[2]);
+    const dist = length3D(vec);
 
     const alpha = i / amountPoints;
 

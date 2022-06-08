@@ -1,4 +1,4 @@
-import lerp from './lerp';
+import { lerp4D } from './lerp';
 
 export default function(
   skeleton: Float32Array,
@@ -12,10 +12,6 @@ export default function(
 
   const a = j - _alpha;
 
-  return [
-    lerp(skeleton[j * 4 + 0], skeleton[i * 4 + 0], a),
-    lerp(skeleton[j * 4 + 1], skeleton[i * 4 + 1], a),
-    lerp(skeleton[j * 4 + 2], skeleton[i * 4 + 2], a),
-    lerp(skeleton[j * 4 + 3], skeleton[i * 4 + 3], a),
-  ];
+  return lerp4D(skeleton.slice(j * 4, j * 4 + 4), skeleton.slice(i * 4, i * 4 + 4), a);
+
 }

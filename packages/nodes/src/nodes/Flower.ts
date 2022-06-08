@@ -1,4 +1,4 @@
-import { convertInstancedGeometry, instanceGeometry, join, leaf } from '@plantarium/geometry';
+import { convertInstancedGeometry, instanceGeometry, join, leaf, rotateMesh3D } from '@plantarium/geometry';
 import { typeCheckNode } from '../types';
 
 const defaultValue = [
@@ -78,7 +78,13 @@ export default typeCheckNode({
     angle: {
       type: "vec3",
       inputType: "float",
-      value: { x: 0, y: 0, z: 0 }
+      value: { x: 0, y: 1, z: 0 }
+    },
+    rotation: {
+      type: "vec2",
+      hidden: true,
+      inputType: "float",
+      value: { x: 0, y: 0 }
     },
     offset: {
       type: "vec3",
@@ -103,7 +109,6 @@ export default typeCheckNode({
     const scale = new Float32Array(amount * 3);
     const rotation = new Float32Array(amount * 3);
 
-
     for (let i = 0; i < amount; i++) {
 
       const alpha = i / amount;
@@ -119,9 +124,10 @@ export default typeCheckNode({
       scale[i * 3 + 2] = _scale.y;
 
       const angle = params.angle(alpha);
-      rotation[i * 3 + 0] = alpha * angle.x * -1;
+      const rot = params.rotation(alpha)
+      rotation[i * 3 + 0] = rot.x + alpha * angle.x * -1;
       rotation[i * 3 + 1] = alpha * angle.y * Math.PI * 2;
-      rotation[i * 3 + 2] = alpha * angle.z;
+      rotation[i * 3 + 2] = rot.y + alpha * angle.z;
 
     }
 

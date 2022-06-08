@@ -19,6 +19,7 @@ export default typeCheckNode({
     },
     alignRotation: {
       type: "boolean",
+      hidden: true,
       value: false
     },
     size: {
@@ -140,11 +141,6 @@ export default typeCheckNode({
       };
     }).filter(v => !!v);
 
-    if (input.instances) {
-      instances.push(...input.instances)
-    }
-
-
     return {
       stems: input.stems,
       instances: instances as InstancedGeometry[],
@@ -153,9 +149,12 @@ export default typeCheckNode({
   },
   computeGeometry(parameters, result) {
     const geometry = parameters.model();
+    const input = parameters.input();
+    const instances = result.instances.map(inst => instanceGeometry(geometry, inst));
+    if (input.instances) instances.push(...input.instances);
     return {
       geometry: parameters.input().geometry,
-      instances: result.instances.map(inst => instanceGeometry(geometry, inst))
+      instances
     }
   }
 })
