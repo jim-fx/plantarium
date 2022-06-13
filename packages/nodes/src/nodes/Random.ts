@@ -23,16 +23,12 @@ export default typeCheckNode({
       step: 0.05,
     },
   },
-  computeValue(parameters, ctx, alpha) {
+  compute(parameters, ctx, alpha) {
 
-    const max = parameters.max();
-    const min = parameters.min()
+    const max = parameters.max(alpha);
+    const min = parameters.min(alpha)
 
-    if (max) {
-      const v = min + ctx.n1dn(200 + alpha * 1000) * Math.abs(max - min);
-      return v;
-    }
-    return 0;
+    return min + ctx.n1dn(200 + alpha * 1000) * Math.abs(max - min);
   },
 });
 

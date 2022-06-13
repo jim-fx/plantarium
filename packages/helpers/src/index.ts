@@ -27,4 +27,7 @@ export { default as resizeTable } from './resizeTable';
 export { default as throttle } from './throttle';
 export { default as versionToNumber } from './versionToNumber';
 
+export * from "./arrayHasNaN"
+
 export * from "./cloneObject"
+export * from "./color"

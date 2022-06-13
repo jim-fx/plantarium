@@ -20,10 +20,18 @@ import GridVert from "./GridShader.vert";
 import DebugFrag from "./DebugShader.frag";
 import DebugVert from "./DebugShader.vert";
 
+import CurveFrag from "./Curve.frag"
+import CurveVert from "./Curve.vert"
+
 export const GroundShader = {
   fragment: GroundShaderFrag,
   vertex: GroundShaderVert
 };
+
+export const CurveShader = {
+  fragment: CurveFrag,
+  vertex: CurveVert
+}
 
 
 export const DebugShader = (gl: OGLRenderingContext) => new Program(gl, {

@@ -26,7 +26,7 @@ export default typeCheckNode({
     },
   },
 
-  computeStem(parameters, ctx) {
+  compute(parameters, ctx) {
     log('compute skeleton', parameters, ctx);
 
     const { inputA, inputB } = parameters;
@@ -35,43 +35,26 @@ export default typeCheckNode({
       return inputA ? inputA() : inputB();
     }
 
-    const { stems: stemsA } =
+    const { stems: stemsA, instances: instancesA } =
       inputA()
-    const { stems: stemsB } =
+    const { stems: stemsB, instances: instancesB } =
       inputB();
 
     log(stemsA, stemsB);
 
-    const stems = [...stemsA, ...stemsB];
+    const stems = [];
+    if (stemsA) stems.push(...stemsA);
+    if (stemsB) stems.push(...stemsB);
+
+
+    const instances = []
+    if (instancesA) instances.push(...instancesA)
+    if (instancesB) instances.push(...instancesB)
 
     return {
       stems,
+      instances
     };
-  },
-  computeGeometry(parameters) {
-    const { inputA, inputB } = parameters;
-
-    if (!inputA || !inputB) {
-      return inputA ? inputA() : inputB();
-    }
-
-    const { geometry: geometryA, instances: instancesA } = inputA();
-    const { geometry: geometryB, instances: instancesB } = inputB();
-
-    const result = join(geometryA, geometryB);
-
-    const instances = [];
-
-    if (instancesA) {
-      instances.push(instancesA);
-    }
-    if (instancesB) {
-      instances.push(instancesB);
-    }
-
-    log('compute geometry', { geometryA, geometryB, result });
-
-    return { geometry: result, instances };
-  },
+  }
 });
 

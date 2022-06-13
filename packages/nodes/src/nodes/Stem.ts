@@ -52,7 +52,7 @@ export default typeCheckNode({
     },
   },
 
-  computeStem(parameters, ctx) {
+  compute(parameters, ctx) {
     log('computeSkeleton', parameters);
 
     const amount = parameters.amount();

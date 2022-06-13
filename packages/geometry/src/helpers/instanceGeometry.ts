@@ -12,11 +12,11 @@ type InstanceOptions = {
 
 export default function instanceGeometry(geo: TransferGeometry, { offset, scale, rotation, id, baseAlpha, depth }: InstanceOptions): InstancedGeometry {
 
-  const maxLength = Math.max(...[offset?.length, scale?.length, rotation?.length].filter(v => !!v));
+  const maxLength = (offset?.length / 3) || (scale?.length / 3) || (rotation?.length / 4);
 
-  const _offset = new Float32Array(maxLength)
-  const _scale = new Float32Array(maxLength).fill(1)
-  const _rotation = new Float32Array(maxLength)
+  const _offset = new Float32Array(maxLength * 3)
+  const _scale = new Float32Array(maxLength * 3).fill(1)
+  const _rotation = new Float32Array(maxLength * 4)
 
 
   if (offset?.length) {

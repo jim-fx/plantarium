@@ -42,7 +42,6 @@ function createProxy(w: () => Promise<workerType["default"]>) {
   let res: ReturnType<workerType["executeNodeSystem"]>;
 
   return {
-
     async executeNodeSystem(p: PlantProject, s: unknown) {
       if (res) return res;
       const worker = await w();

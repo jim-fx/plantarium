@@ -1,4 +1,4 @@
-import { rotate3D } from '@plantarium/geometry';
+import { rotate3D, rotateSkeleton } from '@plantarium/geometry';
 import { PlantStem } from '@plantarium/types';
 import { typeCheckNode } from '../types';
 
@@ -40,7 +40,11 @@ export default typeCheckNode({
       value: false,
       description: "Rotate around 0,0,0"
     },
-
+    smooth: {
+      type: "boolean",
+      hidden: true,
+      value: false,
+    },
     spread: {
       internal: true,
       type: 'boolean',
@@ -56,7 +60,7 @@ export default typeCheckNode({
       description: "Rotation angle"
     },
   },
-  computeStem(parameters) {
+  compute(parameters) {
 
     const { input, axis, spread, } = parameters;
 
@@ -72,52 +76,26 @@ export default typeCheckNode({
 
       if (stem.depth !== maxDepth) return;
 
-      const rotateAroundOrigin = parameters.aroundOrigin()
+      const _a = j / stems.length;
 
+      const angle = parameters.angle(_a) * (spread ? _a : 1);
 
       const skelly = stem.skeleton;
-      const amount = stem.skeleton.length / 4;
-
-      // const a = j / skeletons.length;
 
       let ox = skelly[0];
       let oy = skelly[1];
       let oz = skelly[2];
 
-      if (rotateAroundOrigin) {
+
+      if (parameters.aroundOrigin()) {
         ox = 0;
         oy = 0;
         oz = 0;
       }
+      console.log([ox, oy, oz])
 
-      const _a = j / stems.length;
+      rotateSkeleton(stem.skeleton, rotationAxis, angle, [ox, oy, oz], parameters.smooth());
 
-      const angle = parameters.angle(_a) * (spread ? _a : 1);
-
-      // Loop over every single joint in the skeleton
-      for (let i = rotateAroundOrigin ? 0 : 1; i < amount; i++) {
-        //Current point at skeleton
-        let x = skelly[i * 4 + 0];
-        let y = skelly[i * 4 + 1];
-        let z = skelly[i * 4 + 2];
-
-        //Subtract origin from point;
-        x -= ox;
-        y -= oy;
-        z -= oz;
-
-        //Rotate around axis
-        [x, y, z] = rotate3D([x, y, z], rotationAxis, angle);
-
-        //Move the point back
-        x += ox;
-        y += oy;
-        z += oz;
-
-        skelly[i * 4 + 0] = x;
-        skelly[i * 4 + 1] = y;
-        skelly[i * 4 + 2] = z;
-      }
     });
 
     return {

@@ -11,7 +11,7 @@ export default typeCheckNode({
       value: { x: 0, y: 0, z: 0 },
     },
   },
-  computeValue(parameters) {
+  compute(parameters) {
     const vec = parameters.vec();
 
     if (vec) {

@@ -21,3 +21,4 @@ export { default as Break } from './Break';
 export { default as Force } from './Force';
 export { default as InstanceOnStem } from './InstanceOnStem';
 export { default as Flower } from './Flower';
+export { default as Alpha } from './AlphaMap';

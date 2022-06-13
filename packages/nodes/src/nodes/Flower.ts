@@ -1,4 +1,5 @@
-import { convertInstancedGeometry, instanceGeometry, join, leaf, rotateMesh3D } from '@plantarium/geometry';
+import { convertInstancedGeometry, instanceGeometry, join, leaf, rotate2D } from '@plantarium/geometry';
+import { quat } from 'gl-matrix';
 import { typeCheckNode } from '../types';
 
 const defaultValue = [
@@ -93,7 +94,7 @@ export default typeCheckNode({
     }
   },
 
-  computeValue(params, ctx) {
+  compute(params, ctx) {
 
     const curvature = params.curvature();
 
@@ -107,7 +108,7 @@ export default typeCheckNode({
 
     const offset = new Float32Array(amount * 3);
     const scale = new Float32Array(amount * 3);
-    const rotation = new Float32Array(amount * 3);
+    const rotation = new Float32Array(amount * 4);
 
     for (let i = 0; i < amount; i++) {
 
@@ -125,9 +126,20 @@ export default typeCheckNode({
 
       const angle = params.angle(alpha);
       const rot = params.rotation(alpha)
-      rotation[i * 3 + 0] = rot.x + alpha * angle.x * -1;
-      rotation[i * 3 + 1] = alpha * angle.y * Math.PI * 2;
-      rotation[i * 3 + 2] = rot.y + alpha * angle.z;
+      const q = quat.create()
+      quat.rotateY(q, q, rot.y + angle.y * alpha * Math.PI * 2);
+      quat.rotateX(q, q, rot.x + angle.x);
+      quat.rotateZ(q, q, angle.z);
+
+      rotation[i * 4 + 0] = q[0]
+      rotation[i * 4 + 1] = q[1]
+      rotation[i * 4 + 2] = q[2]
+      rotation[i * 4 + 3] = q[3]
+
+      // const vec = rotate2D([1, 0], angle.y);
+      //
+      // rotation[i * 3 + 0] = vec[0];
+      // rotation[i * 3 + 2] = vec[1];
 
     }
 
@@ -136,7 +148,6 @@ export default typeCheckNode({
     const geo = convertInstancedGeometry(instances)
 
     return join(...geo);
-
   },
 });
 

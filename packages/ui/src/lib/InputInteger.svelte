@@ -21,30 +21,32 @@
     Number.isFinite(max);
 
   let inputEl: HTMLInputElement;
-  $: value !== undefined && dispatch('change', parseFloat(value + ''));
+  $: value !== undefined && update();
+
+  let prev = -1;
+  function update() {
+    if (prev === value) return;
+    prev = value;
+    dispatch('change', parseFloat(value + ''));
+  }
 
   $: width = Number.isFinite(value)
     ? Math.max((value?.toString().length ?? 1) * 8, 30) + 'px'
     : '20px';
 
-  function handleChange(change) {
+  function handleChange(change: number) {
     value = Math.max(min, Math.min(+value + change, max));
   }
 
-  let isMouseDown = false;
   let downX = 0;
-  let downY = 0;
   let downV = 0;
   let rect: DOMRect;
 
   function handleMouseDown(ev: MouseEvent) {
     ev.preventDefault();
 
-    isMouseDown = true;
-
     downV = value;
     downX = ev.clientX;
-    downY = ev.clientY;
     rect = inputEl.getBoundingClientRect();
 
     window.removeEventListener('mousemove', handleMouseMove);
@@ -54,8 +56,6 @@
   }
 
   function handleMouseUp() {
-    isMouseDown = false;
-
     if (downV === value) {
       inputEl.focus();
     } else {
@@ -68,7 +68,7 @@
   }
 
   function handleMouseMove(ev: MouseEvent) {
-    if (isClamped) {
+    if (!ev.ctrlKey) {
       const vx = (ev.clientX - rect.left) / rect.width;
       value = Math.max(Math.min(Math.floor(min + (max - min) * vx), max), min);
     } else {

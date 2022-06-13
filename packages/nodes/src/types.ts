@@ -52,10 +52,13 @@ export type PlantNode<T extends NodeParameters = {}> = {
   outputs: NodeDataTypes[],
   meta?: { description?: string, tags?: string },
   parameters: T,
-  computeValue?: (p: Params<T>, ctx: NodeContext, alpha?: number) => unknown
-  computeStem?: (p: Params<T>, ctx: NodeContext) => { stems: PlantStem[], instances?: InstancedGeometry[] }
-  computeGeometry?: (p: Params<T>, result: ReturnType<PlantNode["computeStem"]>, ctx: NodeContext) => { geometry: TransferGeometry }
+  compute?: (p: Params<T>, ctx: NodeContext, alpha?: number) => PlantNodeResult
 }
+
+export type PlantNodeResult = {
+  instances?: [],
+  stems?: [],
+} | unknown;
 
 export function typeCheckNode<T extends NodeParameters>(node: PlantNode<T>): PlantNode {
   return node;

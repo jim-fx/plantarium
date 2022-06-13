@@ -1,4 +1,4 @@
-import { join, noiseSkeleton, tube } from '@plantarium/geometry';
+import { noiseSkeleton } from '@plantarium/geometry';
 import { logger } from '@plantarium/helpers';
 import { PlantStem } from '@plantarium/types';
 import { typeCheckNode } from '../types';
@@ -36,7 +36,7 @@ export default typeCheckNode({
     },
   },
 
-  computeStem(parameters) {
+  compute(parameters) {
     log("computeSkeleton", parameters);
 
     const { stems, instances } = parameters.input();
@@ -56,20 +56,6 @@ export default typeCheckNode({
       stems,
       instances
     };
-  },
-
-  // computeGeometry(parameters, result, ctx) {
-  //   const stemResX = ctx.getSetting('stemResX');
-  //
-  //   const input = parameters?.input?.();
-  //   const { stems } = result;
-  //
-  //   return {
-  //     geometry: join(
-  //       ...[input ? input.geometry : null],
-  //       ...stems.map(({ skeleton }) => tube(skeleton, stemResX)),
-  //     ),
-  //   };
-  // },
+  }
 });
 

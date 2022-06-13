@@ -1,26 +1,43 @@
-/**
- * Result of a node which returns geometry
- */
-export interface TransferGeometry {
+export interface Geometry {
   position: Float32Array;
   normal: Float32Array;
   uv: Float32Array;
   index: Uint16Array | Uint32Array;
+}
+
+export interface TransferGeometry extends Geometry {
   skeleton?: Float32Array[];
   instances?: InstancedGeometry[];
 }
 
-export interface InstancedGeometry {
-  position: Float32Array;
-  normal: Float32Array;
-  uv: Float32Array;
-  index: Uint16Array | Uint32Array;
+export interface InstancedGeometry extends Geometry {
+
   offset: Float32Array;
   rotation: Float32Array;
   scale: Float32Array;
+
   id: string,
   depth: number,
   baseAlpha: Float32Array
+}
+
+export interface PlantStem {
+  /**
+   * How many layers deep is this stem, eg parent->parent->parent = 3
+   */
+  depth: number;
+  /**
+   * Each stem groups gets a unique id like this grandParentId>parentId>myId;
+   */
+  id: string;
+  /**
+   * Where along the parent stem is this stem attached?
+   */
+  baseAlpha: number;
+  /**
+   * Actual data of the stem
+   */
+  skeleton: Float32Array;
 }
 
 export interface Vec2 {
@@ -68,21 +85,4 @@ export interface PlantProjectMeta {
   public?: boolean;
 }
 
-export interface PlantStem {
-  /**
-   * How many layers deep is this stem, eg parent->parent->parent = 3
-   */
-  depth: number;
-  /**
-   * Each stem groups gets a unique id
-   */
-  id: string;
-  /**
-   * Where along the parent stem is this stem attached?
-   */
-  baseAlpha: number;
-  /**
-   * Actual data of the stem
-   */
-  skeleton: Float32Array;
-}
+

@@ -26,9 +26,12 @@
   const updateValue = () => {
     requestAnimationFrame(() => {
       dispatch('change', points);
-      points = points.sort((a, b) => (a.y > b.y ? -1 : 1));
-      /* points[0].y = 1; */
-      /* points[points.length - 1].y = 0; */
+      points = points
+        .sort((a, b) => (a.y < b.y ? -1 : 1))
+        .map((p, i) => {
+          p.pinned = i === 0 || i === points.length - 1;
+          return p;
+        });
     });
   };
 

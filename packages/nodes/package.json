@@ -13,6 +13,7 @@
     "@plantarium/helpers": "workspace:*",
     "@plantarium/types": "workspace:*",
     "@plantarium/ui": "workspace:*",
+    "gl-matrix": "^3.4.3",
     "ogl-typescript": "^0.1.40"
   }
 }

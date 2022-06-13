@@ -12,7 +12,7 @@ export default typeCheckNode({
       value: 0,
     },
   },
-  computeValue({ value = 0 }) {
+  compute({ value = 0 }) {
     return value as number;
   },
 });

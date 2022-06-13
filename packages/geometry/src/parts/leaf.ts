@@ -1,3 +1,4 @@
+import { cloneObject } from "@plantarium/helpers";
 import type { TransferGeometry, Vec2 } from "@plantarium/types";
 import { calculateNormals, normalize3D, rotate2D } from "../helpers";
 
@@ -21,10 +22,9 @@ export default function(
   let prevY = 0;
   let rotationAcc = 0;
 
-  shape.map(s => {
-    s.y = 1 - s.y;
-    return s;
-  }).sort((a, b) => a.y > b.y ? 1 : -1).forEach((point, j) => {
+  shape.sort((a, b) => a.y > b.y ? -1 : 1).map(p => {
+    return { x: p.x, y: 1 - p.y }
+  }).forEach((point, j) => {
     const offset = j * amountX;
 
     // We rotate around the previous point, so we need to subtract that.

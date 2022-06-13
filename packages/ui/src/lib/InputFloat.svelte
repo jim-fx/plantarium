@@ -63,13 +63,15 @@
       inputEl.focus();
     }
 
-    if (value >= 0) {
-      max = getBoundingValue(value);
-      min = 0;
-    } else {
-      min = getBoundingValue(value);
-      max = 0;
-    }
+    setTimeout(() => {
+      if (value >= 0) {
+        max = getBoundingValue(value);
+        min = 0;
+      } else {
+        min = getBoundingValue(value);
+        max = 0;
+      }
+    }, 500);
 
     document.body.style.cursor = 'unset';
     window.removeEventListener('mouseup', handleMouseUp);

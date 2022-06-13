@@ -1,16 +1,23 @@
+import interpolateSkeleton from "./interpolateSkeleton";
+
 export default function(
   skeleton: Float32Array,
   alpha: number,
 ): [number, number, number, number] {
-  const _alpha = (skeleton.length / 4) * Math.max(Math.min(alpha, 0.9999), 0.0001);
 
-  const j = Math.min(Math.ceil(_alpha), skeleton.length / 4 - 1);
-  const i = Math.max(Math.floor(j - 1), 0);
+  const amount = skeleton.length / 4;
+
+  const endAlpha = 1 + (amount - 1) * alpha;
+  const startAlpha = endAlpha - 1;
+
+  const p1 = interpolateSkeleton(skeleton, startAlpha / amount);
+  const p2 = interpolateSkeleton(skeleton, endAlpha / amount);
 
   return [
-    skeleton[j * 4 + 0] - skeleton[i * 4 + 0],
-    skeleton[j * 4 + 1] - skeleton[i * 4 + 1],
-    skeleton[j * 4 + 2] - skeleton[i * 4 + 2],
-    skeleton[j * 4 + 3] + skeleton[i * 4 + 3] / 2,
+    p2[0] - p1[0],
+    p2[1] - p1[1],
+    p2[2] - p1[2],
+    p2[3] + p1[3] / 2,
   ];
 }
+

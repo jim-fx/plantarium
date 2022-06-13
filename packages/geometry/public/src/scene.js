@@ -1,9 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 import { join, toOBJ, transferToGeometry } from '../dist/index.js';
-import { Box, Camera, Mesh, Orbit, Renderer, Transform } from '../ogl.js';
+import { Box, Camera, Mesh, Orbit, Renderer, Transform, Polyline, Vec3, Color, Program } from '../ogl.js';
 import debug from './debug.js';
 import createParticle from './particles.js';
-import { green, NormalShader, wireframe } from './shaders.js';
+import { green, Lines, NormalShader, wireframe } from './shaders.js';
 import store from './store.js';
 
 const renderer = new Renderer({
@@ -46,6 +46,35 @@ const obj = new Mesh(gl, {
 });
 obj.setParent(scene);
 debug.setModel(obj);
+
+const polyline = new Polyline(gl, {
+  points: [new Vec3(0, 0, 0), new Vec3(1, 0, 0)],
+  uniforms: {
+    uColor: { value: new Color('#f00') },
+    uThickness: { value: 3 },
+  },
+});
+
+const polyline2 = new Polyline(gl, {
+  points: [new Vec3(0, 0, 0), new Vec3(0, 1, 0)],
+  uniforms: {
+    uColor: { value: new Color('#0f0') },
+    uThickness: { value: 2 },
+  },
+});
+
+const polyline3 = new Polyline(gl, {
+  points: [new Vec3(0, 0, 0), new Vec3(0, 0, 1)],
+  uniforms: {
+    uColor: { value: new Color('#00f') },
+    uThickness: { value: 4 },
+  },
+});
+
+[polyline, polyline2, polyline3].forEach(l => {
+  const mesh = new Mesh(gl, { geometry: l.geometry, program: l.program });
+  mesh.setParent(scene)
+})
 
 requestAnimationFrame(update);
 function update() {

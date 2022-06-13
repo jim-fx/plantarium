@@ -11,18 +11,21 @@ export default typeCheckNode({
     x: {
       label: false,
       type: 'number',
+      inputType: "float",
       value: 0,
       defaultValue: 0,
     },
     y: {
       label: false,
       type: 'number',
+      inputType: "float",
       value: 0,
       defaultValue: 0,
     },
     z: {
       label: false,
       type: 'number',
+      inputType: "float",
       value: 0,
       defaultValue: 0,
     },

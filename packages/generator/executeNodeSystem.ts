@@ -49,10 +49,10 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
 
         let aStem = performance.now();
 
-        if (execNode?.computeStem) {
+        if (execNode?.compute) {
           ctx["_id"] = n.id;
-          const result = execNode.computeStem(parameters, ctx);
-          if (!caughtNaN && result.stems.find(s => s.skeleton.includes(NaN))) {
+          const result = execNode.compute(parameters, ctx);
+          if (!caughtNaN && result?.stems?.find(s => s.skeleton.includes(NaN))) {
             console.warn("Node " + execNode.type + " produced NaN in skeleton");
             console.log({ result })
           }
@@ -60,12 +60,7 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
         }
         if (!(n.id in gctx.timings)) gctx.timings[n.id] = { time: performance.now() - aStem, amount: 0 };
 
-        let aGeom = performance.now();
-        if (execNode?.computeGeometry) {
-          const result = execNode.computeGeometry(parameters, n.results[0], ctx);
-          n.results[0] = { ...n.results[0], ...result };
-        }
-        gctx.timings[n.id].time += performance.now() - aGeom;
+        gctx.timings[n.id].time += performance.now() - aStem;
         gctx.timings[n.id].amount++;
 
 
@@ -95,12 +90,10 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
   let geometry = join(...stems.map(s => tube(s.skeleton, ctx.getSetting("stemResX"))));
 
   if (instances) {
-    sanityCheckGeometry(geometry)
     const _instances = instances
       ?.map((i) => convertInstancedGeometry(i))
       .flat()
     geometry = join(geometry, ..._instances);
-    sanityCheckGeometry(geometry)
   }
 
   gctx.timings["global"] = performance.now() - startTime;
@@ -108,6 +101,7 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
 
   return {
     stems,
+    debug: gctx.ctx.getDebug(),
     timings: gctx.timings,
     geometry: calculateNormals(geometry)
   };

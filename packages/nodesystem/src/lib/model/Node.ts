@@ -112,7 +112,7 @@ export default class Node extends EventEmitter {
     }
 
 
-    if (Object.values(this.states).find(s => !s.isOkay)) {
+    if (Object.values(this.states).find(s => !s.isOkay) || this.system.options.deferCompute) {
       this.computedData = undefined;
     } else {
       this.computedData = this._compute(this.state);

@@ -1,4 +1,3 @@
-import { join, noiseSkeleton, tube } from '@plantarium/geometry';
 import { logger } from '@plantarium/helpers';
 import { PlantStem } from '@plantarium/types';
 import { typeCheckNode } from '../types';
@@ -43,10 +42,10 @@ export default typeCheckNode({
     },
   },
 
-  computeStem(parameters, ctx) {
+  compute(parameters, ctx) {
     log("computeSkeleton", parameters);
 
-    const { stems } = parameters.input();
+    const { stems, instances } = parameters.input();
 
     const min = parameters.min();
     const max = parameters.max();
@@ -75,7 +74,8 @@ export default typeCheckNode({
     });
 
     return {
-      stems
+      stems,
+      instances
     };
   },
 });

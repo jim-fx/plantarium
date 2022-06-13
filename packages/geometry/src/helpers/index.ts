@@ -28,3 +28,7 @@ export { default as insertArray } from './insertArray';
 
 export * from "./vec3ToRotation"
 export * from "./findOrthVec"
+export * from "./rotationMatrixFromVectors"
+export * from "./applyRotationMatrixVec3"
+
+export { mat3, mat4, vec3 } from "gl-matrix"

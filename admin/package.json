@@ -13,8 +13,8 @@
   "devDependencies": {
     "@sveltejs/adapter-static": "1.0.0-next.34",
     "@sveltejs/kit": "1.0.0-next.350",
-    "@typescript-eslint/eslint-plugin": "5.27.1",
-    "@typescript-eslint/parser": "5.27.1",
+    "@typescript-eslint/eslint-plugin": "5.28.0",
+    "@typescript-eslint/parser": "5.28.0",
     "eslint": "8.17.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-svelte3": "4.0.0",
@@ -43,6 +43,6 @@
     "stacktrace-parser": "^0.1.10",
     "svelte-forms-lib": "2.0.1",
     "svelte-multiselect": "5.0.1",
-    "vite": "2.9.10"
+    "vite": "2.9.12"
   }
 }

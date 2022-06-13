@@ -9,6 +9,8 @@ export default function createGeneratorContext({ nodes: _nodes }: PlantProject, 
 
   const ctx = createContext(settings);
 
+  globalThis["ctx"] = ctx;
+
   const timings: Record<string, { amount: number, time: number }> = {};
 
   const nodeIdMap = new Map<string, WrappedNode>();
@@ -124,18 +126,18 @@ export default function createGeneratorContext({ nodes: _nodes }: PlantProject, 
           return input.n.results[0]
         }
       } else {
-        if (inputNode.exec?.computeValue) {
-          parameters[input.in] = (alpha = 1) => {
+        if (inputNode.exec?.compute) {
+          parameters[input.in] = (alpha: number) => {
             const parameters = constructParametersForNode(input.n);
             if (!(inputNode.id in timings)) timings[inputNode.id] = { time: 0, amount: 0 };
             const a = performance.now();
-            const res = inputNode.exec.computeValue(parameters, ctx, alpha)
+            const res = inputNode.exec.compute(parameters, ctx, alpha)
             timings[inputNode.id].time += performance.now() - a;
             timings[inputNode.id].amount++;
             return res;
           }
         } else {
-          parameters[input.in] = (alpha = 1) => {
+          parameters[input.in] = (alpha: number) => {
             const obj = {};
             const parameters = constructParametersForNode(input.n);
             const keys = Object.keys(parameters)

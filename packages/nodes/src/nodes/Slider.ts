@@ -15,7 +15,7 @@ export default typeCheckNode({
       value: 0,
     },
   },
-  computeValue(parameters) {
+  compute(parameters) {
     return parameters.value;
   },
 });

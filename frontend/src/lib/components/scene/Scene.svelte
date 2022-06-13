@@ -5,7 +5,7 @@
 
 	import type { Writable } from 'svelte/store';
 	import Scene from '.';
-	import { projectManager, settingsManager, nodeSystem } from '..';
+	import { projectManager, settingsManager  } from '..';
 	import * as perf from '../../helpers/performance';
 	import { cloneObject } from '@plantarium/helpers';
 	import { Icon } from '@plantarium/ui';

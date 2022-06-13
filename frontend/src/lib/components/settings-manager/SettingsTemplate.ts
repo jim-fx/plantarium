@@ -43,20 +43,29 @@ export default settingsType({
       },
       material: {
         type: "select",
-        values: ["MatCap", "Basic", "Debug"],
+        label: "Material",
+        values: ["Flat", "Basic", "Debug"],
         value: "Basic"
       },
       hideMesh: {
+        label: "Hide Mesh",
         type: "boolean",
         value: false
       },
       renderPerf: {
+        label: "Render Performance",
         type: 'boolean',
         value: false
       },
       generatePerf: {
+        label: "Generator Performance",
         type: 'boolean',
         value: false
+      },
+      debugVectors: {
+        label: "Show Debug Vectors",
+        type: "boolean",
+        value: false,
       },
       pd: {
         type: 'boolean',

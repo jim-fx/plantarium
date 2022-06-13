@@ -249,3 +249,22 @@ vec2 matcap(vec3 eye, vec3 normal) {
     cullFace: null,
   });
 }
+
+export const Lines = {
+  vertex: `attribute vec3 position;
+                attribute vec3 normal;
+                uniform mat3 normalMatrix;
+                uniform mat4 modelViewMatrix;
+                uniform mat4 projectionMatrix;
+                varying vec3 vNormal;
+                void main() {
+                    vNormal = normalize(normalMatrix * normal);
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }`,
+  fragment: `precision highp float;
+                varying vec3 vNormal;
+                void main() {
+                    gl_FragColor.rgb = normalize(vNormal);
+                    gl_FragColor.a = 1.0;
+                }`
+}

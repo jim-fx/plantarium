@@ -78,7 +78,7 @@ export default typeCheckNode({
     },
   },
 
-  computeStem(parameters, ctx) {
+  compute(parameters, ctx) {
 
     if (!parameters.input) return { stems: [] };
 

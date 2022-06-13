@@ -10,7 +10,14 @@
 
   export let inputType = 'integer';
 
-  $: value !== undefined && dispatch('change', value);
+  let prev = { x: 0, y: 0 };
+  $: value !== undefined && update();
+  function update() {
+    if (value.x === prev.x && value.y === prev.y) return;
+    prev.x = value.x;
+    prev.y = value.y;
+    dispatch('change', value);
+  }
 </script>
 
 <div class="component-wrapper">

@@ -17,7 +17,7 @@ export default typeCheckNode({
       ],
     },
   },
-  computeValue(parameters, _, alpha) {
+  compute(parameters, _, alpha) {
     const values = curve.toArray(parameters.value).map((v) => v.y);
     return interpolateArray(values, 1 - alpha);
   },

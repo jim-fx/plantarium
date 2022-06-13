@@ -23,7 +23,7 @@ export default typeCheckNode({
       description: "How much variation should be applied to the base value"
     },
   },
-  computeValue(parameters, ctx, alpha = 1) {
+  compute(parameters, ctx, alpha = 1) {
 
     const value = parameters.value();
     const variation = parameters.variation();

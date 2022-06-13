@@ -1,23 +1,26 @@
 import type { PlantariumSettings } from '$lib/types';
-import { insertArray } from '@plantarium/geometry';
-import { cloneObject } from '@plantarium/helpers';
+import { cloneObject, groupArray, hslToRgb } from '@plantarium/helpers';
 import type { PlantStem, TransferGeometry } from '@plantarium/types';
-import { Geometry, Mesh, Program, type OGLRenderingContext } from 'ogl-typescript';
+import { Color, Geometry, Mesh, Polyline, Program, Transform, Vec3, type OGLRenderingContext } from 'ogl-typescript';
 import type Scene from '.';
 import { settingsManager } from '..';
 import type { ProjectManager } from '../project-manager';
-import { ParticleShader, WireFrameShader } from './shaders';
+import { ParticleShader } from './shaders';
 
 export default class DebugScene {
   private plant?: {
     stems: PlantStem[]
-    geometry: TransferGeometry
+    geometry: TransferGeometry,
+    debug?: {
+      vec3: number[],
+      point: number[]
+    }
   };
   private settings: PlantariumSettings;
 
   private gl: OGLRenderingContext;
 
-  private m: { [key: string]: Mesh } = {};
+  private m: { [key: string]: Transform } = {};
 
   constructor(private scene: Scene, pm: ProjectManager) {
     this.gl = scene.renderer.gl;
@@ -31,16 +34,7 @@ export default class DebugScene {
   }
 
   initGeometry() {
-    this.m.skeleton = this.scene.addMesh({
-      geometry: new Geometry(this.gl, {
-        position: { size: 3, data: new Float32Array([0, 0, 0]) },
-        uv: { size: 2, data: new Float32Array([0, 0]) },
-        index: { size: 1, data: new Uint16Array([0]) }
-      }),
-      program: WireFrameShader(this.gl),
-      mode: this.gl.LINES
-    });
-    // this.m.skeleton.mode = this.gl.LINES;
+    this.m.skeleton = this.scene.addTransform(new Transform());
 
     this.m.vertices = this.scene.addMesh({
       mode: this.gl.POINTS,
@@ -54,6 +48,8 @@ export default class DebugScene {
         transparent: true
       })
     });
+
+    this.m.vec3 = this.scene.addTransform(new Transform());
   }
 
   setSettings(settings: PlantariumSettings) {
@@ -70,8 +66,48 @@ export default class DebugScene {
     this.update();
   }
 
+  setVec3(vec3?: number[]) {
+
+    this.m.vec3.children = [];
+    if (!vec3?.length) {
+      this.m.vec3.visible = false;
+      return;
+    } else {
+      this.m.vec3.visible = true;
+    }
+
+    const amountVec = vec3.length / 7;
+
+    for (let i = 0; i < amountVec; i++) {
+      const origin = new Vec3(...vec3.slice(i * 7 + 3, i * 7 + 6));
+
+      const endPoint = origin.clone().add(new Vec3(...vec3.slice(i * 7, i * 7 + 3)).normalize().scale(0.2));
+
+      const polyline = new Polyline(this.gl, {
+        points: [origin, endPoint],
+        uniforms: {
+          uColor: { value: Color.from(hslToRgb(vec3[i * 7 + 7], 1, 0.5)) },
+          uThickness: { value: 1 },
+        },
+      });
+      polyline.program.depthTest = false;
+      const mesh = new Mesh(this.gl, { geometry: polyline.geometry, program: polyline.program });
+      mesh.setParent(this.m.vec3);
+    }
+
+
+  }
+
   update(p = this.plant, s = this.settings) {
+
+    if (s?.debug?.debugVectors) {
+      this.setVec3(p?.debug?.vec3)
+    } else {
+      this.m.vec3.visible = false;
+    }
+
     if (!p || !s) return;
+
 
     //Convert skeletons to Geometry
     if (p.stems && s.debug?.skeleton) {
@@ -81,41 +117,46 @@ export default class DebugScene {
         amountPos += (stem.skeleton.length / 4) * 3;
       }
 
-      const positions = new Float32Array(amountPos);
-      const indeces = new Uint32Array((amountPos / 3 - 1) * 2);
-      const depthBuffer = new Float32Array(amountPos);
+      let positions = new Float32Array(amountPos);
 
-      // Transfer positions;
-      let maxDepth = 0;
       let offset = 0;
+      this.m.skeleton.children = [];
       stems.forEach(({ skeleton: skelly, depth }) => {
         const amount = skelly.length / 4;
-
-        maxDepth = Math.max(maxDepth, depth)
-
-        insertArray(depthBuffer, offset, new Float32Array(amount).fill(depth));
+        const polyline = new Polyline(this.gl, {
+          points: groupArray(skelly, 4).map(v => new Vec3(...v)),
+          uniforms: {
+            uColor: { value: new Color("#fff") },
+            uThickness: { value: 1 },
+          },
+        });
+        polyline.program.depthTest = false;
+        const mesh = new Mesh(this.gl, { geometry: polyline.geometry, program: polyline.program });
+        mesh.setParent(this.m.skeleton);
 
         for (let i = 0; i < amount; i++) {
           positions[offset * 3 + i * 3 + 0] = skelly[i * 4 + 0];
           positions[offset * 3 + i * 3 + 1] = skelly[i * 4 + 1];
           positions[offset * 3 + i * 3 + 2] = skelly[i * 4 + 2];
         }
-
-        for (let i = 0; i < amount - 1; i++) {
-          indeces[offset * 2 + i * 2] = offset + i;
-          indeces[offset * 2 + i * 2 + 1] = offset + i + 1;
-        }
-
-        offset += amount;
       });
 
-      this.m.skeleton.program.uniforms.maxDepth.value = maxDepth;
+      // this.m.skeleton.program.uniforms.maxDepth.value = maxDepth;
 
-      this.m.skeleton.geometry = new Geometry(this.gl, {
-        position: { size: 3, data: positions },
-        depth: { size: 1, data: depthBuffer },
-        index: { size: 1, data: indeces }
-      });
+      // this.m.skeleton.geometry = new Geometry(this.gl, {
+      //   position: { size: 3, data: positions },
+      //   depth: { size: 1, data: depthBuffer },
+      //   index: { size: 1, data: indeces }
+      // });
+      //
+      if (p?.debug?.point?.length) {
+        // const _pos = new Float32Array(positions.length + p.debug.point.length);
+        // _pos.set(positions);
+        // _pos.set(p.debug.point, positions.length);
+        // positions = _pos;
+        positions = Float32Array.from(p.debug.point);
+        console.log({ positions })
+      }
 
       this.m.vertices.geometry = new Geometry(this.gl, {
         position: { size: 3, data: positions }

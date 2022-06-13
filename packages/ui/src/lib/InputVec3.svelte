@@ -21,7 +21,7 @@
 </script>
 
 <div class="component-wrapper">
-  {#if inputType === 'integer'}
+  {#if inputType === 'integer' && false}
     <InputInteger bind:value={value.x} --border-radius="5px 5px 0px 0px" />
     <InputInteger bind:value={value.y} --border-radius="0px" />
     <InputInteger bind:value={value.z} --border-radius="0px 0px 5px 5px" />

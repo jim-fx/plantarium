@@ -1,5 +1,5 @@
 import Renderer from '@plantarium/renderer';
-import type { MeshOptions } from 'ogl-typescript';
+import type { MeshOptions, OGLRenderingContext } from 'ogl-typescript';
 import { Mesh, Program, Transform } from 'ogl-typescript';
 import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
@@ -21,7 +21,7 @@ export default class Scene {
 
   program: Program | undefined;
   mesh: Mesh | undefined;
-  gl: WebGL2RenderingContext;
+  gl: OGLRenderingContext;
 
   constructor(pm: ProjectManager, canvas: HTMLCanvasElement) {
 
@@ -49,5 +49,10 @@ export default class Scene {
     const mesh = new Mesh(this.gl, options);
     mesh.setParent(this.scene);
     return mesh;
+  }
+
+  addTransform(t: Transform) {
+    t.setParent(this.scene);
+    return t;
   }
 }

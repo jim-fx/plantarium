@@ -64,15 +64,15 @@ export default typeCheckNode({
     },
   },
 
-  computeValue(parameters, ctx) {
-    const { shape, curvature } = parameters;
+  compute(parameters, ctx, alpha) {
+    const { shape } = parameters;
 
-    const _curvature = curvature();
+    const curvature = parameters.curvature(alpha);
 
     return leaf(shape(), {
       res: ctx.getSetting('leafRes') || 2,
-      xCurvature: _curvature.x,
-      yCurvature: _curvature.y,
+      xCurvature: curvature.x,
+      yCurvature: curvature.y,
     });
   },
 });

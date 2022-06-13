@@ -27,7 +27,7 @@ export default typeCheckNode({
     },
   },
 
-  computeValue(parameters, _, alpha): number {
+  compute(parameters, _, alpha): number {
     const { mode } = parameters;
     const a = parameters.a(alpha);
     const b = parameters.b(alpha);

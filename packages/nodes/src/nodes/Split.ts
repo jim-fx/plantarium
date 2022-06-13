@@ -43,7 +43,7 @@ export default typeCheckNode({
     },
   },
 
-  computeStem(parameters) {
+  compute(parameters) {
 
     const height = parameters.height();
     const angle = parameters.angle();

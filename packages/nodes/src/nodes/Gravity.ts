@@ -39,7 +39,7 @@ export default typeCheckNode({
       value: 1
     },
   },
-  computeStem(parameters) {
+  compute(parameters) {
     const { input, type, strength } = parameters;
 
     const { stems, instances } = input();
@@ -245,9 +245,6 @@ export default typeCheckNode({
       stems,
       instances,
     };
-  },
-  computeGeometry(parameters) {
-    return parameters.input();
   },
 });
 

@@ -1,11 +1,11 @@
-import { applyForceToSkeleton, join, noiseSkeleton, tube } from '@plantarium/geometry';
+import { applyForceToSkeleton } from '@plantarium/geometry';
 import { logger } from '@plantarium/helpers';
 import { PlantStem } from '@plantarium/types';
 import { typeCheckNode } from '../types';
 const log = logger('nodes.noise');
 
 export default typeCheckNode({
-  title: '⬤ Force',
+  title: 'Force',
   type: 'force',
   outputs: ['plant'],
 
@@ -19,6 +19,11 @@ export default typeCheckNode({
       label: 'plant',
       external: true,
       required: true
+    },
+    type: {
+      type: "select",
+      values: ["radial", "directional"],
+      value: "radial"
     },
     origin: {
       type: 'vec3',
@@ -42,10 +47,10 @@ export default typeCheckNode({
 
   },
 
-  computeStem(parameters) {
+  compute(parameters) {
     log("computeSkeleton", parameters);
 
-    const { stems } = parameters.input();
+    const { stems, instances } = parameters.input();
 
     const maxDepth = Math.max(...stems.map(s => s.depth));
 
@@ -59,22 +64,9 @@ export default typeCheckNode({
     });
 
     return {
-      stems
+      stems,
+      instances
     };
   },
-
-  // computeGeometry(parameters, result, ctx) {
-  //   const stemResX = ctx.getSetting('stemResX');
-  //
-  //   const input = parameters?.input?.();
-  //   const { stems } = result;
-  //
-  //   return {
-  //     geometry: join(
-  //       ...[input ? input.geometry : null],
-  //       ...stems.map(({ skeleton }) => tube(skeleton, stemResX)),
-  //     ),
-  //   };
-  // },
 });
 

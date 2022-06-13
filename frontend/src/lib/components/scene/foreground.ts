@@ -19,10 +19,12 @@ const updateThumbnail = throttle((geo: TransferGeometry) => {
 }, 5000);
 
 function getShader(t?: string) {
-  if (t === "MatCap") return MatCapShader;
+  if (t === "Flat") return MatCapShader;
   if (t === "Debug") return DebugShader;
   return NormalShader
 }
+
+let temp: { p: PlantProject, s: PlantariumSettings } | undefined;
 
 const log = logger('scene.foreground');
 export default class ForegroundScene extends EventEmitter {
@@ -36,6 +38,7 @@ export default class ForegroundScene extends EventEmitter {
   private boundingBox: Mesh;
 
   private worker = createWorker();
+  private isGenerating = false;
 
   constructor(private scene: Scene, private pm: ProjectManager) {
     super()
@@ -50,11 +53,9 @@ export default class ForegroundScene extends EventEmitter {
 
     this.boundingBox = this.scene.addMesh({
       geometry: new Box(this.gl),
-      program: BasicShader(this.gl)
+      program: BasicShader(this.gl),
+      mode: this.gl.LINE_LOOP
     })
-
-    this.boundingBox.mode = this.gl.LINE_LOOP;
-
 
     this.dbg = new DebugScene(scene, pm);
 
@@ -92,12 +93,24 @@ export default class ForegroundScene extends EventEmitter {
     this.update();
   }
 
+  postUpdate() {
+    this.isGenerating = false;
+    if (temp) {
+      this.update(temp.p, temp.s);
+      temp = undefined;
+    }
+  }
+
   async update(p = this.plant, s = this.settings) {
     if (!p || !s) return;
 
-    let loadingTimeout = setTimeout(() =>
-      this.scene.isLoading.set(true), 400
-    )
+    if (this.isGenerating) {
+      temp = cloneObject({ p, s });
+      return;
+    }
+    this.isGenerating = true;
+
+    let loadingTimeout = setTimeout(() => this.scene.isLoading.set(true), 400)
 
     try {
       performance.start('generate');
@@ -114,8 +127,10 @@ export default class ForegroundScene extends EventEmitter {
             nodeSystem.view.showErrorMessages(result.errors);
           }, 100)
         }
+        this.postUpdate()
         return;
       } else {
+        // Hide error messages
         nodeSystem.view.showErrorMessages([]);
 
         if (result.timings && s?.debug?.nodeTimings) {
@@ -146,7 +161,8 @@ export default class ForegroundScene extends EventEmitter {
         height: this.mesh.geometry.bounds.max.y - this.mesh.geometry.bounds.min.y,
         depth: this.mesh.geometry.bounds.max.z - this.mesh.geometry.bounds.min.z,
       })
-      this.boundingBox.position.y = this.mesh.geometry.bounds.center.y
+      // this.boundingBox.position.y = this.mesh.geometry.bounds.center.y
+      this.boundingBox.position = this.mesh.geometry.bounds.center;
 
       this.scene.renderer.setControlTarget(this.mesh.geometry.bounds.center);
 
@@ -169,6 +185,8 @@ export default class ForegroundScene extends EventEmitter {
         });
       }
     }
+
+    this.postUpdate()
   }
 }
 
