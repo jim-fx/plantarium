@@ -21,6 +21,12 @@ export default class NodeHistory {
     log(`Initialized`);
   }
 
+
+  clear() {
+    this.history = []
+    this.historyIndex = -1;
+  }
+
   addAction() {
 
     if (!this.system.isLoaded) return;
@@ -41,7 +47,7 @@ export default class NodeHistory {
   private _addAction() {
     log('Register History Step');
 
-    if (this.isApplyingChanges) return;
+    if (this.isApplyingChanges || this.system.isPaused) return;
 
     // Check if we are in detached head mode and remove all other steps
     if (this.historyIndex !== this.history.length - 1) {
@@ -83,16 +89,23 @@ export default class NodeHistory {
 
     const delta = this.history[this.historyIndex];
 
-    const d = this.system.serialize();
-
-    const data = this.patcher.patch(d.nodes, this.patcher.reverse(delta));
-
-    d.nodes = data;
-
-    this.system.load(d);
+    this.applyDelta(this.patcher.reverse(delta));
 
     this.historyIndex--;
     this.isApplyingChanges = false;
+  }
+
+  applyDelta(delta: any) {
+
+    if (!delta) return;
+
+    // Load current state
+    const { nodes: currentNodes } = this.system.serialize()
+
+    const newState = this.patcher.patch(currentNodes, delta);
+
+    this.system.applyNodeState(newState);
+
   }
 
   redo() {
@@ -107,17 +120,8 @@ export default class NodeHistory {
 
     const delta = this.history[this.historyIndex + 1];
 
-    const d = this.system.serialize();
-
-    console.log({ d, delta })
-
     try {
-
-      const data = this.patcher.patch(d.nodes, delta);
-      d.nodes = data;
-
-
-      this.system.load(d);
+      this.applyDelta(delta);
 
       this.historyIndex++;
       this.isApplyingChanges = false;

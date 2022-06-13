@@ -44,6 +44,10 @@
 		display: flex;
 	}
 
+	.left > ::global(div:first-child) {
+		z-index: 2;
+	}
+
 	.right {
 		display: flex;
 	}

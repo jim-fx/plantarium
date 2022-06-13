@@ -145,6 +145,8 @@ export default class NodeSystem extends EventEmitter {
 
       if ('history' in systemData) {
         this.history.deserialize(systemData.history);
+      } else {
+        this.history.clear();
       }
 
       this.isPaused = false;
@@ -159,7 +161,52 @@ export default class NodeSystem extends EventEmitter {
     }
   }
 
-  serialize() {
+  applyNodeState(newNodes: NodeSystemData["nodes"]) {
+    this.isPaused = true;
+
+    let hasDeletedNodes = false;
+    let hasNewNodes = false;
+
+    const currentNodes = this.getNodes();
+
+    for (const n of newNodes) {
+      if (!currentNodes.find(_n => _n.attributes.id === n.attributes.id)) {
+        hasNewNodes = true;
+        break;
+      }
+    }
+
+    for (const n of currentNodes) {
+      if (!newNodes.find(_n => _n.attributes.id === n.id)) {
+        hasDeletedNodes = true;
+        break;
+      }
+    }
+
+    if (hasNewNodes) {
+      const s = this.serialize();
+      s.nodes = newNodes;
+      return this.load(s);
+    }
+
+    if (hasDeletedNodes) {
+      currentNodes.filter(node => !newNodes.find(n => n.attributes.id === node.id)).forEach(n => n.remove());
+    }
+
+    newNodes.forEach(n => {
+      const cn = currentNodes.find(_n => _n.id === n.attributes.id);
+      cn.setAttributes(n.attributes);
+      Object.entries(n.state).forEach(([key, value]) => {
+        cn.setStateValue(key, value);
+      })
+    })
+
+
+    this.isPaused = false;
+
+  }
+
+  serialize(): NodeSystemData {
     return {
       ...this.parser.getData(),
       history: this.history.serialize(),

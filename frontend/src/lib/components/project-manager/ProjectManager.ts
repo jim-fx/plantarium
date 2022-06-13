@@ -16,7 +16,8 @@ const PTP_PREFIX = 'pt_project_';
 
 type EventMap = {
   "settings": PlantariumSettings,
-  "plant": PlantProject
+  "plant": PlantProject,
+  "load": PlantProject
 }
 
 export default class ProjectManager extends EventEmitter<EventMap> {

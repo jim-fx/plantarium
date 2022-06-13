@@ -92,7 +92,6 @@ export default typeCheckNode({
         oy = 0;
         oz = 0;
       }
-      console.log([ox, oy, oz])
 
       rotateSkeleton(stem.skeleton, rotationAxis, angle, [ox, oy, oz], parameters.smooth());
 

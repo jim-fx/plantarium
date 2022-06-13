@@ -155,7 +155,6 @@ export default class DebugScene {
         // _pos.set(p.debug.point, positions.length);
         // positions = _pos;
         positions = Float32Array.from(p.debug.point);
-        console.log({ positions })
       }
 
       this.m.vertices.geometry = new Geometry(this.gl, {

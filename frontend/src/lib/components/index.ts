@@ -53,12 +53,11 @@ settingsManager.on('debug.showNodeUpdates.update', (v) => {
   nodeSystem.options.showUpdates = v as boolean;
 });
 
-projectManager.on('load', (project) => nodeSystem.load(project as PlantProject));
+projectManager.on('load', (project) => nodeSystem.load(project));
 
 nodeSystem.on('result', () => projectManager.setProject(nodeSystem.serialize() as PlantProject), 50);
 
 nodeSystem.on('save', (project) => {
-  console.log(project);
   projectManager.saveProject(project as PlantProject)
 });
 

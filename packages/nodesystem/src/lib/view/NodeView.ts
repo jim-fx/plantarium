@@ -280,6 +280,12 @@ export default class NodeView {
   }
 
   updateViewPosition() {
+
+    if (this.node.attributes.pos.x !== this.x || this.node.attributes.pos.y !== this.y) {
+      this.x = this.node.attributes.pos.x;
+      this.y = this.node.attributes.pos.y;
+    }
+
     this.wrapper.style.left = this.x + 'px';
     this.wrapper.style.top = this.y + 'px';
     // This will update all the incomming connections

@@ -63,6 +63,10 @@
 <style lang="scss">
 	@use '~@plantarium/theme/src/themes.module.scss';
 
+	.project-manager-wrapper {
+		z-index: 4;
+	}
+
 	.header {
 		position: sticky;
 		top: 0px;

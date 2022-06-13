@@ -38,7 +38,9 @@
 	on:click={() => fakeActive() && projectManager.setActiveProject(project.meta.id)}
 >
 	<div class="project-image">
-		<img src={project?.meta.thumbnail} alt="thumbnail of project {project.meta.name}" />
+		{#if project?.meta?.thumbnail}
+			<img src={project?.meta.thumbnail} alt="thumbnail of project {project.meta.name}" />
+		{/if}
 		<!--  -->
 	</div>
 	<div class="project-content">
