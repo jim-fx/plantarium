@@ -76,6 +76,7 @@ async function initEditor(monaco) {
   monaco.languages.typescript.typescriptDefaults.addExtraLib(
     `namespace scene {
       declare function add(i :any) :void;
+      declare function point(i: number[]) :void;
     }`,
     'scene.d.ts',
   );

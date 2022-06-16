@@ -88,9 +88,14 @@ function update() {
 update();
 
 let tempScene = [];
+let tempPoints = []
 let geo;
 export function add(o) {
   tempScene.push(o);
+}
+
+export function point(o) {
+  tempPoints.push(...o)
 }
 
 export const download = () => {
@@ -122,19 +127,23 @@ export function commit() {
     if (particles.visible) {
       particles.setPositions(obj.geometry.attributes.position.data);
     }
+
   } else {
     obj.visible = false;
   }
+  if (tempPoints?.length) {
+    const pointPosition = Float32Array.from(tempPoints);
+    console.log("Set position", pointPosition)
+    particles.setPositions(pointPosition)
+  }
+  console.log("Geom", tempPoints, particles.geometry)
 
   tempScene = [];
+  tempPoints = []
 }
 
 export function getVertices() {
   return obj.geometry.attributes.position.data.length / 3;
-}
-
-export function exportScene() {
-  return downl
 }
 
 export function setParticleVisible(visible) {
