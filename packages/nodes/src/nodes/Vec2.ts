@@ -18,4 +18,7 @@ export default typeCheckNode({
       defaultValue: 0,
     },
   },
+  compute(params, _, alpha) {
+    return { x: params.x(alpha), y: params.y(alpha) }
+  }
 });
