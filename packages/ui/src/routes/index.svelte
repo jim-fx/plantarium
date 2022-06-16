@@ -36,6 +36,7 @@
 
   import * as _icons from '$lib/icons';
   let animateIcons = false;
+  let activeIcon = false;
   const icons = Object.keys(_icons);
 </script>
 
@@ -56,16 +57,16 @@
   <section>
     <h3>Icon</h3>
     <InputCheckbox bind:value={animateIcons} label="Animated" />
-    <table>
+    <InputCheckbox bind:value={activeIcon} label="Active" />
+    <br />
+    <div style="display:flex; max-width: 100%; flex-wrap: wrap;">
       {#each icons as icon}
-        <tr>
-          <td>{icon}</td>
-          <td>
-            <Icon name={icon} --width="40px" animated={animateIcons} hover />
-          </td>
-        </tr>
+        <div style="margin: 10px; display:grid; place-items:center">
+          <Icon name={icon} --width="40px" active={activeIcon} animated={animateIcons} hover />
+          <p>{icon}</p>
+        </div>
       {/each}
-    </table>
+    </div>
   </section>
 
   <section>

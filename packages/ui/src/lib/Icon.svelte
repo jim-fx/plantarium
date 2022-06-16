@@ -21,7 +21,7 @@
   {#if typeof icon === 'string'}
     {@html icon}
   {:else}
-    <svelte:component this={icon} {animated} animIn={animateIn} {hover} />
+    <svelte:component this={icon} {animated} {active} animIn={animateIn} {hover} />
   {/if}
 </div>
 
