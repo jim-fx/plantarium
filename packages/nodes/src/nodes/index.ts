@@ -22,3 +22,4 @@ export { default as Force } from './Force';
 export { default as InstanceOnStem } from './InstanceOnStem';
 export { default as Flower } from './Flower';
 export { default as Alpha } from './AlphaMap';
+export { default as Model } from './Model';

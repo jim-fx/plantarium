@@ -1,5 +1,4 @@
 import { instanceGeometry, interpolateSkeleton, interpolateSkeletonVec } from "@plantarium/geometry";
-import { hasNaN } from "@plantarium/helpers";
 import { InstancedGeometry } from "@plantarium/types";
 import { quat, vec2, vec3 } from "gl-matrix";
 import { findMaxDepth } from "../helpers";
@@ -46,22 +45,11 @@ export default typeCheckNode({
       value: 0.2,
       description: "Size of the individual leaves."
     },
-    lowestInstance: {
-      type: 'number',
-      min: 0,
-      max: 1,
-      step: 0.01,
-      value: 0.5,
-      description: "The lowest leaf on the stem."
-    },
-    highestInstance: {
-      type: 'number',
-      hidden: true,
-      min: 0,
-      max: 1,
-      step: 0.01,
-      value: 1,
-      description: "The highest leaf on the stem."
+    instanceRange: {
+      type: 'vec2',
+      inputType: "range",
+      value: { x: 0.2, y: 1 },
+      description: "The range where instances are placed"
     },
     amount: {
       type: 'number',
@@ -91,6 +79,8 @@ export default typeCheckNode({
   },
   compute(parameters, ctx) {
 
+    console.log({ parameters })
+
     const input = parameters.input();
 
     const geometry = parameters.model();
@@ -112,9 +102,7 @@ export default typeCheckNode({
       const rotation = new Float32Array(amount * 4);
       const baseAlpha = new Float32Array(amount);
 
-      const lowestInstance = parameters.lowestInstance(alpha);
-      const highestInstance = parameters.highestInstance(alpha);
-
+      const { x: lowestInstance, y: highestInstance } = parameters.instanceRange(alpha);
 
       let totalSize = 0;
       const sizes = new Array(amount).fill(null).map((v, i) => {

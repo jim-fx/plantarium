@@ -35,6 +35,7 @@
   ];
 
   import * as _icons from '$lib/icons';
+  import InputRange from '$lib/InputRange.svelte';
   let animateIcons = false;
   let activeIcon = false;
   const icons = Object.keys(_icons);
@@ -105,6 +106,11 @@
   <section>
     <h3>Float</h3>
     <InputFloat />
+  </section>
+
+  <section>
+    <h3>Range</h3>
+    <InputRange />
   </section>
 
   <section>

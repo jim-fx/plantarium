@@ -78,6 +78,13 @@
     window.removeEventListener('mousemove', handleMouseMove);
   }
 
+  function handleKeyDown(ev: KeyboardEvent) {
+    if (ev.key === 'Escape' || ev.key === 'Enter') {
+      handleMouseUp();
+      inputEl.blur();
+    }
+  }
+
   function handleMouseMove(ev: MouseEvent) {
     vx = (ev.clientX - rect.left) / rect.width;
     vy = ev.clientY - downY;
@@ -99,6 +106,7 @@
     {step}
     {max}
     {min}
+    on:keydown={handleKeyDown}
     on:mousedown={handleMouseDown}
     on:mouseup={handleMouseUp}
     type="number"
@@ -149,5 +157,10 @@
     background-color: var(--text-color);
     opacity: 0.3;
     pointer-events: none;
+    transition: width 0.3s ease;
+  }
+
+  .is-down > .overlay {
+    transition: none !important;
   }
 </style>

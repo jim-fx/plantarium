@@ -26,6 +26,12 @@ export type TabTemplate = {
   value: string;
 }
 
+export type RangeTemplate = {
+  type: "vec2"
+  inputType: "range";
+  value?: { x: number, y: number };
+}
+
 
 export type FloatTemplate = {
   type: "number",
@@ -67,7 +73,7 @@ export type ShapeTemplate = {
   }[]
 }
 
-export type ValueTemplate = CheckboxTemplate | IntegerTemplate | SelectTemplate | TabTemplate | FloatTemplate | CurveTemplate | ShapeTemplate | Vec3Template | Vec2Template;
+export type ValueTemplate = RangeTemplate | CheckboxTemplate | IntegerTemplate | SelectTemplate | TabTemplate | FloatTemplate | CurveTemplate | ShapeTemplate | Vec3Template | Vec2Template;
 
 
 

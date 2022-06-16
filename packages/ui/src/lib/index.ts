@@ -17,6 +17,7 @@ import InputTab from './InputTab.svelte';
 import InputSelect from './InputSelect.svelte';
 import InputShape from './InputShape.svelte';
 import InputSlider from './InputSlider.svelte';
+import InputRange from './InputRange.svelte';
 import InputSearch from './InputSearch.svelte';
 import Section from './Section.svelte';
 import StackTrace from './toast/StackTrace.svelte';
@@ -24,6 +25,7 @@ import type { SvelteComponent } from 'svelte';
 import type { ValueTemplate } from './types';
 
 export type {
+  RangeTemplate,
   CheckboxTemplate,
   IntegerTemplate,
   FloatTemplate,
@@ -39,6 +41,7 @@ export {
   InputSlider,
   InputVec2,
   InputVec3,
+  InputRange,
   InputSelect,
   InputCheckbox,
   InputCurve,
@@ -105,6 +108,11 @@ export function stateToComponent(template: ValueTemplate): typeof SvelteComponen
   }
 
   if (template.type === "vec2") {
+
+    if (template.inputType === "range") {
+      return InputRange;
+    }
+
     return InputVec2;
   }
 
