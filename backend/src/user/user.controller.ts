@@ -29,8 +29,13 @@ export class UserController {
   }
 
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  @UseGuards(JwtAuthGuard)
+  async findAll(@Request() req) {
+    const users = await this.userService.findAll();
+    if (req.user.role === Role.ADMIN) return users;
+    return users.filter(u => u.role !== Role.ADMIN).map(u => {
+      return { id: u._id, name: u.username, createdAt: u.createdAt, updatedAt: u.updatedAt, role: u.role }
+    })
   }
 
   @UseGuards(JwtAuthGuard)
