@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
   import { api } from '$lib';
 
-  import type { Report, User } from '@plantarium/backend';
+  import type { User } from '@plantarium/backend';
 
   export async function load({ params }) {
     const user = await api.get('api/user/' + params.userId);
@@ -56,31 +56,9 @@
 
   <footer class="flex items-center justify-between mb-10">
     {#if $userStore?.permissions?.includes('user.delete')}
-      <button
-        class="bg-red-600 rounded-md text-white px-2 py-1 self-start"
-        on:click={deleteReport}>delete</button
+      <button class="bg-red-600 rounded-md text-white px-2 py-1 self-start"
+        >delete</button
       >
     {/if}
   </footer>
 {/if}
-
-<style>
-  h3 {
-    @apply text-md font-bold;
-  }
-
-  :global(.multiselect) {
-    margin: 0px;
-  }
-
-  .stack > :global(.wrapper) {
-    background: white;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  }
-
-  .publish {
-    @apply rounded-md p-2 py-1;
-    color: var(--background-color, white);
-    background-color: var(--text-color, black);
-  }
-</style>

@@ -7,7 +7,6 @@
 
   if (!value.x) value.x = 0;
   if (value?.y === undefined) value.y = 1;
-  export let step = 0.01;
 
   const dispatch = createEventDispatcher();
 
@@ -97,10 +96,6 @@
     min-height: 24px;
     min-width: 50px;
     border-radius: var(--border-radius, 2px);
-  }
-
-  .is-down > input {
-    cursor: ew-resize !important;
   }
 
   .overlay::before,

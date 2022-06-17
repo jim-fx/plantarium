@@ -217,46 +217,4 @@
     position: relative;
     border-radius: var(--border-radius, 2px);
   }
-
-  input[type='number']::-webkit-inner-spin-button,
-  input[type='number']::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-  }
-
-  input[type='number'] {
-    box-sizing: border-box;
-    -webkit-appearance: textfield;
-    -moz-appearance: textfield;
-    appearance: textfield;
-    cursor: pointer;
-    color: var(--text-color);
-    background-color: transparent;
-    padding: 2px;
-    width: 100%;
-    font-size: 1em;
-    text-align: center;
-    border: none;
-    border-style: none;
-    min-width: 100%;
-  }
-
-  .is-down > input {
-    cursor: ew-resize !important;
-  }
-
-  .overlay {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    height: 100%;
-    max-width: 100%;
-    background-color: var(--text-color);
-    opacity: 0.3;
-    pointer-events: none;
-    transition: width 0.3s ease;
-  }
-
-  .is-down > .overlay {
-    transition: none !important;
-  }
 </style>

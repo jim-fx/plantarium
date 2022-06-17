@@ -204,16 +204,4 @@
   h3 {
     margin-top: 0px;
   }
-
-  tr {
-    border-bottom: solid thin gray;
-  }
-
-  tr > td:first-child {
-    text-align: right;
-  }
-
-  tr > td:last-child {
-    padding: 5px 10px;
-  }
 </style>

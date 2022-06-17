@@ -71,21 +71,4 @@
     background-color: var(--text-color);
     color: var(--foreground-color);
   }
-
-  #item-wrapper {
-    width: fit-content;
-    min-width: 100%;
-    border-radius: 2px;
-
-    overflow: hidden;
-    top: 0;
-    z-index: 99;
-    left: 0;
-
-    height: 0px;
-  }
-
-  .open #item-wrapper {
-    height: auto;
-  }
 </style>
