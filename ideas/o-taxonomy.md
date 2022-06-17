@@ -2,6 +2,18 @@
 
 Provide a way to define the taxonomy of the created plant.
 
+
+## GBIF Plant API
+
+```bash
+# We can get the key of the plant through this api
+curl https://api.gbif.org/v1/species/search/\?q\=Bellis%20Perennis\&language\=en\&limit\=1 | jq '.results'
+
+# With the key we can get a list of images
+https://api.gbif.org/v1/species/3117424/media
+
+```
+
 ## Online Taxonomy Databases
 
 [Australasian Virtual Herbarium](http://avh.chah.org.au/)

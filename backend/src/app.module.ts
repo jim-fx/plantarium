@@ -6,8 +6,9 @@ import { AuthModule } from './auth/auth.module';
 import { ReportModule } from './report/report.module';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
-import config from "./config"
 import { ThrottlerModule } from '@nestjs/throttler';
+import { ProjectsModule } from './projects/projects.module';
+import config from "./config"
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
     ReportModule,
     UserModule,
     AuthModule,
+    ProjectsModule,
   ],
 
   controllers: [AppController],

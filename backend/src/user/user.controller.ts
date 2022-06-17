@@ -21,7 +21,7 @@ import { UserService } from './user.service';
 @Controller('api/user')
 @UseInterceptors(ClassSerializerInterceptor)
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
@@ -35,8 +35,20 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
+  getProfile(@Request() req: { user: { sub: any; id: any; }; }) {
     return this.userService.findById(req.user.sub || req.user.id);
+  }
+
+  @Get("exists/:name")
+  async getNameExists(@Param("name") name: string) {
+    const user = await this.userService.findOne(name)
+    return !!user;
+  }
+
+  @Get("existsEmail/:email")
+  async getEmailExists(@Param("email") email: string) {
+    const user = await this.userService.find({ email });
+    return !!user;
   }
 
   @Get(':id')
@@ -55,14 +67,14 @@ export class UserController {
   }
 
   @Get("role")
-  getRole(@Request() req){
-    const {user:{role = Role.ANON} = {}} = req;
+  getRole(@Request() req) {
+    const { user: { role = Role.ANON } = {} } = req;
     console.log("ROLE", role);
     return role;
   }
-  
+
   @Get("permission")
-  getPermissions(@Request() req){
+  getPermissions(@Request() req) {
     const role = this.getRole(req);
     const permissions = [...getPermissionsForRole(role)];
     return permissions;

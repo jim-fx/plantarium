@@ -14,6 +14,7 @@ import InputFloat from './InputFloat.svelte';
 import InputVec3 from './InputVec3.svelte';
 import InputVec2 from './InputVec2.svelte';
 import InputTab from './InputTab.svelte';
+import InputText from './InputText.svelte';
 import InputSelect from './InputSelect.svelte';
 import InputShape from './InputShape.svelte';
 import InputSlider from './InputSlider.svelte';
@@ -38,6 +39,7 @@ export type {
 export {
   InputFloat,
   InputInteger,
+  InputText,
   InputSlider,
   InputVec2,
   InputVec3,

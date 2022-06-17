@@ -1,4 +1,4 @@
-const { VITE_API_URL = 'http://localhost:3000' } = import.meta.env;
+const { VITE_API_URL = 'http://localhost:8081' } = import.meta.env;
 import { getBrowser } from './helper';
 import { userStore } from './user-store';
 
@@ -73,23 +73,20 @@ export async function send({ method, path, data, isJSON = true }: SendOptions) {
     if (isJSON) {
       try {
         return await response.json();
-      }catch(err){
-        console.error("Response from "+path+" failed to parse");
+      } catch (err) {
+        console.error("Response from " + path + " failed to parse");
         console.error(err);
       }
     }
     return response.text();
   }
 
-  const json = await response.json();
-
-  console.error(json);
-  return json;
+  return await response.json()
 
 }
 
-export function get(path: string,options:Partial<SendOptions> = {}) {
-  return send({ method: 'GET', path,...options });
+export function get(path: string, options: Partial<SendOptions> = {}) {
+  return send({ method: 'GET', path, ...options });
 }
 
 export function del(path: string) {

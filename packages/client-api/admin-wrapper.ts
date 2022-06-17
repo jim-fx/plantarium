@@ -26,7 +26,6 @@ export function setReportLabels(reportId: string, labels: string[]) {
   return send({ method: "PUT", path: `api/report/${reportId}`, data: { labels } })
 }
 
-
 export function updateReport(reportId: string, data: Partial<Report>) {
   return send({ method: "PUT", path: `api/report/${reportId}`, data })
 }

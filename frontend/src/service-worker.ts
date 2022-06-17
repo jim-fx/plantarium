@@ -67,12 +67,13 @@ function fetch_listener(event: FetchEvent) {
   const url = new URL(event.request.url);
 
   // don't try to handle e.g. data: URIs
+  const isApiCall = url.pathname.startsWith("/api");
   const isHttp = url.protocol.startsWith('http');
   const isDevServerRequest = url.hostname === sw.location.hostname && url.port !== sw.location.port;
   const isStaticAsset = url.host === sw.location.host && staticAssets.has(url.pathname);
   const skipBecauseUncached = event.request.cache === 'only-if-cached' && !isStaticAsset;
 
-  if (isHttp && !isDevServerRequest && !skipBecauseUncached) {
+  if (isHttp && !isDevServerRequest && !skipBecauseUncached && !isApiCall) {
     event.respondWith(
       (async () => {
         // always serve static files and bundler-generated assets from cache.

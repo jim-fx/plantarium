@@ -2,7 +2,7 @@
 	import { ThemeStore } from '@plantarium/theme';
 	import { Button } from '@plantarium/ui';
 	import type { IconType } from '@plantarium/ui/src/Icon.svelte';
-	import ClickOutside from 'svelte-click-outside';
+	import { clickOutside } from '@plantarium/helpers';
 	import type { SvelteComponentDev } from 'svelte/internal';
 
 	export let name = '';
@@ -13,22 +13,27 @@
 	export let visible = false;
 </script>
 
-<ClickOutside on:clickoutside={() => (visible = false)}>
-	<div class="icon-wrapper" class:active={visible}>
-		<Button
-			useActive
-			{icon}
-			{name}
-			--bg="transparent"
-			--text={$ThemeStore['text-color']}
-			bind:active={visible}
-		/>
+<div
+	class="icon-wrapper"
+	class:active={visible}
+	use:clickOutside
+	on:click_outside={() => {
+		visible = false;
+	}}
+>
+	<Button
+		useActive
+		{icon}
+		{name}
+		--bg="transparent"
+		--text={$ThemeStore['text-color']}
+		bind:active={visible}
+	/>
 
-		<div class="wrapper" class:visible class:right>
-			<svelte:component this={component} {visible} />
-		</div>
+	<div class="wrapper" class:visible class:right>
+		<svelte:component this={component} {visible} />
 	</div>
-</ClickOutside>
+</div>
 
 <style lang="scss">
 	@use '~@plantarium/theme/src/themes.module.scss';

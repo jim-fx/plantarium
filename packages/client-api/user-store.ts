@@ -1,5 +1,6 @@
 import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
+import { getUserInfo } from './user-wrapper';
 
 interface User {
   username?: string;
@@ -12,6 +13,8 @@ let _user = {};
 
 
 const storage = (() => {
+
+
 
   if (!("sessionStorage" in globalThis)) {
     const sto = {
@@ -30,6 +33,13 @@ const storage = (() => {
 if ("user" in storage) {
   try {
     _user = JSON.parse(storage.getItem("user"));
+
+    getUserInfo().then((u) => {
+      console.log({ u })
+    }).catch(err => {
+      console.log({ err })
+    })
+
   } catch (err) {
     //
   }

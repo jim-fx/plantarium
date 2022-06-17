@@ -21,6 +21,7 @@ export { default as loader } from './loader';
 // Misc
 export { default as logger } from './logger';
 export { default as makeEditable } from './makeEditable';
+export * from './clickOutside';
 export { default as memoize } from './memoize';
 export { default as parseStackTrace } from './parseStackTrace';
 export { default as resizeTable } from './resizeTable';
@@ -31,3 +32,7 @@ export * from "./arrayHasNaN"
 
 export * from "./cloneObject"
 export * from "./color"
+
+import * as validator from "./validator"
+
+export { validator }

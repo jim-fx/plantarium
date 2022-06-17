@@ -2,7 +2,7 @@ import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Role } from 'auth/enums/role.enum';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateProviderUserDto, CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './user.entity';
 
@@ -17,7 +17,19 @@ export class UserService implements OnModuleInit {
     await user.setPassword(createUserDto.password);
     user.email = createUserDto.email;
     user.username = createUserDto.name;
-    return this.repository.persistAndFlush(user);
+    await this.repository.persistAndFlush(user);
+    return user;
+  }
+
+  async createProvider(createUserDto: CreateProviderUserDto) {
+    const user = new User();
+    user.email = createUserDto.email;
+    user.profilePic = createUserDto.profilePic;
+    user.username = createUserDto.username;
+    user.provider = createUserDto.provider;
+    user.providerId = createUserDto.providerId;
+    await this.repository.persistAndFlush(user);
+    return user;
   }
 
   findAll() {
@@ -26,6 +38,10 @@ export class UserService implements OnModuleInit {
 
   findOne(username: string) {
     return this.repository.findOne({ username });
+  }
+
+  find(search: Partial<User>) {
+    return this.repository.findOne(search)
   }
 
   findById(id: string) {

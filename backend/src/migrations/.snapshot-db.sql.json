@@ -3,8 +3,8 @@
   "tables": [
     {
       "columns": {
-        "id": {
-          "name": "id",
+        "_id": {
+          "name": "_id",
           "type": "text",
           "unsigned": false,
           "autoincrement": false,
@@ -57,12 +57,34 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
-          "enumItems": [
-            "admin",
-            "user",
-            "anon"
-          ],
-          "mappedType": "enum"
+          "mappedType": "text"
+        },
+        "provider": {
+          "name": "provider",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "provider_id": {
+          "name": "provider_id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
+        "profile_pic": {
+          "name": "profile_pic",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
         },
         "hash": {
           "name": "hash",
@@ -70,7 +92,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "mappedType": "text"
         }
       },
@@ -88,7 +110,7 @@
         {
           "keyName": "primary",
           "columnNames": [
-            "id"
+            "_id"
           ],
           "composite": false,
           "primary": true,
@@ -100,8 +122,8 @@
     },
     {
       "columns": {
-        "id": {
-          "name": "id",
+        "_id": {
+          "name": "_id",
           "type": "text",
           "unsigned": false,
           "autoincrement": false,
@@ -192,6 +214,15 @@
           "nullable": true,
           "mappedType": "text"
         },
+        "logs": {
+          "name": "logs",
+          "type": "json",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
         "browser": {
           "name": "browser",
           "type": "json",
@@ -216,7 +247,7 @@
         {
           "keyName": "primary",
           "columnNames": [
-            "id"
+            "_id"
           ],
           "composite": false,
           "primary": true,

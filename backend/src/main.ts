@@ -3,18 +3,13 @@ import { NestFactory } from '@nestjs/core';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import { AppModule } from './app.module';
-import {
-  FastifyAdapter,
-  NestFastifyApplication,
-} from '@nestjs/platform-fastify';
 import { JwtAuthGuard } from 'auth/guards/jwt-auth.guard';
 import { PORT } from "./config";
 import helmet from 'helmet';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestFastifyApplication>(
+  const app = await NestFactory.create(
     AppModule,
-    new FastifyAdapter(),
     {
       logger: ['log', 'debug', 'error', 'verbose', 'warn'],
     },

@@ -3,6 +3,7 @@
 	import HelpView from './elements/Help.svelte';
 	import ProjectManagerView from './components/project-manager/ProjectManagerView.svelte';
 	import SettingsManagerView from './components/settings-manager/SettingsManagerView.svelte';
+	import ProfileView from './elements/ProfileView.svelte';
 	import HoverWindow from './elements/HoverWindow.svelte';
 	import { Button } from '@plantarium/ui';
 	const activeProject = projectManager.activeProject;
@@ -20,6 +21,7 @@
 	<h3>{$activeProject?.meta.name ?? ''}</h3>
 
 	<div class="right">
+		<HoverWindow icon="user" component={ProfileView} right />
 		<HoverWindow icon="question" component={HelpView} right />
 		<HoverWindow icon="cog" component={SettingsManagerView} right --min-width={'250px'} />
 	</div>

@@ -1,4 +1,4 @@
-const { PORT = 8081, GH_TOKEN, GH_REPO, GH_ORG, DB_NAME, DB_MONGO_URL, ADMIN_PASS } = process.env;
+const { PORT = 8081, GH_TOKEN, GH_REPO, GH_ORG, DB_NAME, DB_MONGO_URL, ADMIN_PASS, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = process.env;
 
 const config = {
   PORT,
@@ -7,6 +7,9 @@ const config = {
   GH_TOKEN,
   GH_REPO,
   GH_ORG,
+
+  GITHUB_CLIENT_ID,
+  GITHUB_CLIENT_SECRET,
 
   DB_NAME,
   DB_MONGO_URL
@@ -19,6 +22,9 @@ export {
   GH_ORG,
   GH_REPO,
   GH_TOKEN,
+
+  GITHUB_CLIENT_ID,
+  GITHUB_CLIENT_SECRET,
 
   DB_NAME,
   DB_MONGO_URL

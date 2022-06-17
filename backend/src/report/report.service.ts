@@ -18,7 +18,6 @@ export class ReportService {
     @InjectRepository(Report)
     private readonly repository: EntityRepository<Report>,
   ) {
-    console.log("TOOTKEN", process.env.GH_TOKEN)
     this.octo = new Octokit({ auth: process.env.GH_TOKEN });
   }
 

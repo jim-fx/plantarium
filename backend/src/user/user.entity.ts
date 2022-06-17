@@ -15,9 +15,18 @@ export class User extends BaseEntity {
   @Property()
   public role: Role = Role.USER;
 
-  @Property()
+  @Property({ nullable: true })
+  public provider?: "github";
+
+  @Property({ nullable: true })
+  public providerId?: string;
+
+  @Property({ nullable: true })
+  public profilePic?: string;
+
+  @Property({ nullable: true })
   @Exclude()
-  private hash: string;
+  private hash?: string;
 
   public async setPassword(pass: string) {
     this.hash = await hash(pass, 12);

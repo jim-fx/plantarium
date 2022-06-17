@@ -79,8 +79,6 @@ export default typeCheckNode({
   },
   compute(parameters, ctx) {
 
-    console.log({ parameters })
-
     const input = parameters.input();
 
     const geometry = parameters.model();

@@ -10,6 +10,7 @@
   $: sites = [
     ['/', 'Home'],
     ['/reports', 'Reports'],
+    ['/users', 'Users'],
     isLoggedIn ? ['/profile', 'Profile'] : [],
     isLoggedIn ? ['/logout', 'Logout'] : ['/login', 'Login'],
   ];

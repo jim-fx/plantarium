@@ -5,6 +5,13 @@ export { default as export } from "./export.svelte"
 export { default as random } from "./random.svelte"
 export { default as bulb } from "./bulb.svelte";
 
+export { default as world } from "./world.svelte";
+export { default as user } from "./user.svelte";
+export { default as edit } from "./edit.svelte";
+
+export { default as eye_open } from "./eye-open.svelte";
+export { default as eye_closed } from "./eye-closed.svelte";
+
 export { default as branch } from './branch.svelte';
 export { default as checkmark } from './checkmark.svelte';
 export { default as cog } from './cog.svg?raw';
