@@ -35,7 +35,7 @@
     "eslint-plugin-svelte3": "4.0.0",
     "file-saver": "2.0.5",
     "highlight.js": "11.5.1",
-    "jsdom": "19.0.0",
+    "jsdom": "20.0.0",
     "prettier": "2.7.1",
     "prettier-plugin-svelte": "2.7.0",
     "sass": "1.52.3",
