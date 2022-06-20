@@ -1,1 +1,6 @@
-export class CreateProjectDto {}
+export class CreateProjectDto {
+
+  readonly data: string;
+  readonly meta: string;
+
+}

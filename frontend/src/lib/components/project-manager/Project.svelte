@@ -16,6 +16,10 @@
 		return true;
 	}
 
+	projectManager.on('loading', () => {
+		active = false;
+	});
+
 	async function handleDelete() {
 		const res = await createAlert(
 			`Are you sure you want to delete ${project.meta.name ?? project.meta.id}?`,
@@ -35,7 +39,10 @@
 	class="project-wrapper"
 	class:active={project.meta.id === projectManager.activeProjectId || active}
 	on:resize={alert}
-	on:click={() => fakeActive() && projectManager.setActiveProject(project.meta.id)}
+	on:click={() => {
+		fakeActive();
+		projectManager.setActiveProject(project.meta.id);
+	}}
 >
 	<div class="project-image">
 		{#if project?.meta?.thumbnail}
@@ -98,6 +105,7 @@
 			height: 100%;
 			display: inline-block;
 			> img {
+				width: 100px;
 				filter: drop-shadow(0px 0px 15px black);
 			}
 		}

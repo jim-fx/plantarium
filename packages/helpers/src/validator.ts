@@ -1,3 +1,8 @@
+import { PlantProject } from "@plantarium/types"
+import { PlantProjectDef } from "@plantarium/types/definition"
+import Ajv, { JSONSchemaType } from "ajv"
+
+
 export function minLength(l: number, err?: string) {
   return (s: string) => {
     if (s.length < l) return [err || `${l - s.length} too short`];
@@ -75,6 +80,36 @@ export function containsNumber(err = "Must contain a number") {
     }
   }
 
+}
+
+const ajv = new Ajv()
+
+const schema = {
+  type: "object",
+  ...PlantProjectDef,
+  additionalProperties: false
+}
+const validate = ajv.compile(schema)
+
+export function isPlantProject(s: PlantProject): string[] | undefined {
+
+  if (typeof s === "string") {
+    try {
+      s = JSON.parse(s)
+    } catch (error) {
+      return ["Not valid json"]
+    }
+  }
+
+  if (typeof s === "object") {
+    if (validate(s)) {
+      return;
+    } else {
+      return validate.errors.map((e) => (typeof e === 'string' ? e : e.message))
+    }
+  }
+
+  return ["Not a valid object"]
 }
 
 

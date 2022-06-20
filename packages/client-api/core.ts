@@ -67,21 +67,30 @@ export async function send({ method, path, data, isJSON = true }: SendOptions) {
     opts.headers['access-token'] = `Bearer ${store.token}`;
   }
 
-  const response = await fetch(`${VITE_API_URL}/${path}`, opts);
 
-  if (response.ok) {
-    if (isJSON) {
-      try {
-        return await response.json();
-      } catch (err) {
-        console.error("Response from " + path + " failed to parse");
-        console.error(err);
+  try {
+
+    const response = await fetch(`${VITE_API_URL}/${path}`, opts);
+
+
+    if (response.ok) {
+      if (isJSON) {
+        try {
+          return await response.json();
+        } catch (err) {
+          console.error("Response from " + path + " failed to parse");
+          console.error(err);
+        }
       }
+      return response.text();
     }
-    return response.text();
-  }
 
-  return await response.json()
+    return await response.json()
+
+
+  } catch (error) {
+    return { statusCode: 500, message: error.message }
+  }
 
 }
 

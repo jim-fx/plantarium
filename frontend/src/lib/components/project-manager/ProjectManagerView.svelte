@@ -5,7 +5,6 @@
 	/* import ResizeObserver from 'svelte-resize-observer'; */
 	import { projectManager } from '..';
 	import { localState } from '../../helpers';
-	import ImportProject from './ImportProject.svelte';
 	import Project from './Project.svelte';
 
 	const { store } = projectManager;
@@ -37,9 +36,6 @@
 		<button class="add-new" on:click={() => projectManager.createNew()}>
 			<p>new</p>
 		</button>
-		<button class="import" on:click={() => createAlert(ImportProject, { timeout: 0 })}>
-			<p>import</p>
-		</button>
 
 		{#if $store.length > 3}
 			<input type="text" class="search" placeholder="Search" bind:value={searchTerm} />
@@ -64,6 +60,7 @@
 	@use '~@plantarium/theme/src/themes.module.scss';
 
 	.project-manager-wrapper {
+		overflow-x: hidden;
 		z-index: 4;
 	}
 

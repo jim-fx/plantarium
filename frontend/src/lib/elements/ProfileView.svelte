@@ -57,10 +57,13 @@
 
 			isLoading = false;
 		} else {
-			isLoading = true;
+			const t = setTimeout(() => {
+				isLoading = true;
+			}, 500);
 
 			const res = await api.login(username, password);
 
+			clearTimeout(t);
 			isLoading = false;
 			if (res.statusCode && res.statusCode !== 200) {
 				errors = [res.message];
@@ -79,7 +82,7 @@
 	{/each}
 	<Button name="← Go Back" on:click={() => (errors = [])} />
 {:else if isLoading}
-	<Icon name="stem" animated />
+	<Icon name="branch" animated />
 {:else if $userStore?.id}
 	<br />
 	<p>Hi, <b>{$userStore.username}</b></p>
@@ -109,7 +112,7 @@
 	/>
 
 	{#if register}
-		<div transition:slide>
+		<div in:slide>
 			<InputText bind:value={email} asyncValidators={[checkEmailExists]} type="email" />
 		</div>
 	{/if}

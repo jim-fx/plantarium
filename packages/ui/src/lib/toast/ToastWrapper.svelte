@@ -29,6 +29,6 @@
   #toast-wrapper {
     position: fixed;
     bottom: 0;
-    z-index: 99;
+    z-index: 999;
   }
 </style>

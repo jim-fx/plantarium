@@ -4,15 +4,14 @@ import {
   Get,
   Post,
   Req,
-  Request,
+  Request as Reque,
   UseGuards,
   Res,
   UnauthorizedException,
   Param,
-  Header,
 } from '@nestjs/common';
 import { randomUUID } from 'crypto';
-import { Response } from "express";
+import type { Response, Request } from "express";
 import { User } from 'types';
 import { AuthService } from './auth.service';
 import { loginUserDto } from './dto/user-login.dto';
@@ -32,7 +31,7 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(@Body() _user: loginUserDto, @Request() req: { user: User; }) {
+  async login(@Body() _user: loginUserDto, @Reque() req: { user: User; }) {
     return this.service.login(req.user);
   }
 
@@ -78,7 +77,7 @@ export class AuthController {
 
   @UseGuards(GithubOauthGuard)
   @Get("github/callback")
-  async githubAuthCallback(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+  async githubAuthCallback(@Req() req: Request & { user: User }, @Res({ passthrough: true }) res: Response) {
 
     const { access_token } = await this.service.login(req.user);
 

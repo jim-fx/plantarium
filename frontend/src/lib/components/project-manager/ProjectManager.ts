@@ -1,4 +1,4 @@
-import { cloneObject, EventEmitter, logger } from '@plantarium/helpers';
+import { cloneObject, EventEmitter, logger, validator } from '@plantarium/helpers';
 import * as storage from '$lib/storage';
 import { browser } from "$app/env"
 import createId from 'shortid';
@@ -17,7 +17,8 @@ const PTP_PREFIX = 'pt_project_';
 type EventMap = {
   "settings": PlantariumSettings,
   "plant": PlantProject,
-  "load": PlantProject
+  "load": PlantProject,
+  "loading": void
 }
 
 export default class ProjectManager extends EventEmitter<EventMap> {
@@ -42,6 +43,7 @@ export default class ProjectManager extends EventEmitter<EventMap> {
           transform: { x: 0, y: 0, s: 1 },
           name: 'DefaultProject',
         }),
+        authorID: "admin",
         id: createId(),
       },
       nodes: p?.nodes || [{
@@ -124,6 +126,16 @@ export default class ProjectManager extends EventEmitter<EventMap> {
 
     const project = cloneObject(_project);
 
+    if (!project?.meta?.authorID) {
+      project.meta.authorID = "anon";
+    }
+
+    const errors = validator.isPlantProject(project);
+    if (errors?.length) {
+      createToast(errors[0], { title: "Can't save project " + project?.meta?.name || project.meta.id, type: "warning" });
+      throw new Error(errors[0]);
+    }
+
     this.projects[project.meta.id] = project;
 
     this.emit('save', project);
@@ -166,6 +178,7 @@ export default class ProjectManager extends EventEmitter<EventMap> {
     this.activeProjectId = id;
 
     this.loadingActiveProject = this.getProject(id);
+    this.emit("loading")
 
     const project = await this.loadingActiveProject;
 

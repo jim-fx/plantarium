@@ -8,6 +8,8 @@ export { default as bulb } from "./bulb.svelte";
 export { default as world } from "./world.svelte";
 export { default as user } from "./user.svelte";
 export { default as edit } from "./edit.svelte";
+export { default as library } from "./library.svelte";
+export { default as arrow } from "./arrow.svelte";
 
 export { default as eye_open } from "./eye-open.svelte";
 export { default as eye_closed } from "./eye-closed.svelte";

@@ -55,7 +55,6 @@
 
 		overflow: auto;
 
-		min-height: 100px;
 		min-width: var(--min-width, unset);
 		max-height: 70vh;
 		max-width: 500px;

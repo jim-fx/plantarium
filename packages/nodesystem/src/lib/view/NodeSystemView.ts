@@ -29,7 +29,6 @@ type EventMap = {
 }
 
 export default class NodeSystemView extends EventEmitter<EventMap> {
-  system: NodeSystem;
   wrapper: HTMLElement;
   transformWrapper: HTMLDivElement;
   errorWrapper: HTMLDivElement;
@@ -38,7 +37,7 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
   boxSelection: BoxSelection;
   colorStore: ColorStore;
 
-  state: "normal" | "help" | "floating";
+  state: "normal" | "help" | "floating" | "loading";
 
   nodeContainer: HTMLDivElement;
 
@@ -82,10 +81,8 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
 
   dpr: number;
 
-  constructor(system: NodeSystem) {
+  constructor(public system: NodeSystem) {
     super();
-
-    this.system = system;
 
     this.colorStore = new ColorStore(this)
 
@@ -136,6 +133,14 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
 
     this.bindEventListeners();
     this.handleResize();
+
+    this.system.on("loading", () => {
+      this.setState("loading")
+    })
+
+    this.system.on("loaded", () => {
+      this.setState()
+    })
 
     visible(() => {
       setTimeout(() => {
@@ -303,7 +308,7 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
     this.panzoom.setTransform(x, y, s);
   }
 
-  setState(s: typeof this["state"]) {
+  setState(s: typeof this["state"] = "normal") {
     this.wrapper.classList.forEach(k => {
       if (k.startsWith("nodesystem-state-")) this.wrapper.classList.remove(k)
     })

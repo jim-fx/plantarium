@@ -39,7 +39,6 @@ export default class ColorStore extends EventEmitter {
   }
 
   private updateTypes(nodeTypes: NodeType[]) {
-
     nodeTypes.forEach(t => {
       t?.inputs?.forEach(s => Array.isArray(s) ? s.forEach(_s => this.setType(_s)) : this.setType(s))
       t?.outputs?.forEach(s => this.setType(s))

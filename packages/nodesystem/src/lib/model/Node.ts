@@ -94,7 +94,7 @@ export default class Node extends EventEmitter {
   }
 
   getDownstreamNodes() {
-    return [...(new Set(this.getOutConnections().map(c => c.output.node))).values()];
+    return Array.from(new Set(this.getOutConnections().map(c => c.output.node)).values());
   }
 
   setStateValue(key: string, value: unknown) {
@@ -260,7 +260,7 @@ export default class Node extends EventEmitter {
         if (!attributes.visible) attributes.visible = [];
         attributes.visible.push(s.key)
       }
-      if (attributes.visible) attributes.visible = [...new Set(attributes.visible).values()];
+      if (attributes.visible) attributes.visible = Array.from(new Set(attributes.visible).values());
     });
 
     return {

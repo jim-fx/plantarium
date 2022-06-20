@@ -22,6 +22,7 @@ export default typeCheckNode({
     },
     type: {
       type: "select",
+      internal: true,
       values: ["radial", "directional"],
       value: "radial"
     },

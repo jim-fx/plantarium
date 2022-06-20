@@ -4,9 +4,13 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "echo \"export const PlantProjectDef = $(pnpm typescript-json-schema  --required ./index.ts PlantProject)\" > definition.ts"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@plantarium/nodesystem": "workspace:*",
+    "typescript-json-schema": "^0.53.1"
+  }
 }

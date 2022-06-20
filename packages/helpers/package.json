@@ -11,11 +11,13 @@
     "lint": "eslint src/**/* --cache"
   },
   "dependencies": {
+    "ajv": "^8.11.0",
     "file-saver": "^2.0.5",
     "ogl-typescript": "^0.1.40",
     "stacktrace-parser": "^0.1.10"
   },
   "devDependencies": {
+    "@plantarium/types": "workspace:*",
     "c8": "7.11.3",
     "svelte": "3.48.0",
     "ts-eager": "2.0.2",

@@ -64,6 +64,10 @@ export default class ForegroundScene extends EventEmitter {
 
     this.pm.on('settings', s => this.setSettings(s));
     this.pm.on('plant', p => this.setPlant(p));
+    this.pm.on("loading", () => {
+      this.mesh.visible = false;
+      this.scene.isLoading.set(true);
+    })
   }
 
 
@@ -172,8 +176,12 @@ export default class ForegroundScene extends EventEmitter {
       log.error(error as Error);
       const res = await createToast(error as Error, {
         title: 'Error [Generator]',
-        values: ['report']
+        values: ['report', "reload"]
       });
+
+      if (res === "reload") {
+        window.location.reload()
+      }
 
       if (res === 'report') {
         console.error(error);

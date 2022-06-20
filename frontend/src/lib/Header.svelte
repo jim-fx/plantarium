@@ -5,17 +5,27 @@
 	import SettingsManagerView from './components/settings-manager/SettingsManagerView.svelte';
 	import ProfileView from './elements/ProfileView.svelte';
 	import HoverWindow from './elements/HoverWindow.svelte';
-	import { Button } from '@plantarium/ui';
+	import Library from './components/library/LibraryView.svelte';
+	import { Button, createAlert } from '@plantarium/ui';
 	const activeProject = projectManager.activeProject;
 </script>
 
 <header>
-	<div class="left">
-		<HoverWindow icon="folder" name="Projects" component={ProjectManagerView} />
-		<Button
-			icon="random"
-			on:click={() => settingsManager.set('seed.value', Math.floor(Math.random() * 100000))}
-		/>
+	<div class="left" style="z-index: 2;">
+		<HoverWindow icon="folder" name="" component={ProjectManagerView} />
+		<span style="z-index: -1;">
+			<Button
+				icon="library"
+				name="Library"
+				on:click={() => createAlert(Library, { timeout: 0, styleVars: { padding: '0px' } })}
+			/>
+		</span>
+		<span style="z-index: -1;">
+			<Button
+				icon="random"
+				on:click={() => settingsManager.set('seed.value', Math.floor(Math.random() * 100000))}
+			/>
+		</span>
 	</div>
 
 	<h3>{$activeProject?.meta.name ?? ''}</h3>

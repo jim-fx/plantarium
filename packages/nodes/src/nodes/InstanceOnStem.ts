@@ -69,6 +69,11 @@ export default typeCheckNode({
         z: 0
       }
     },
+    offsetBySize: {
+      type: "boolean",
+      internal: true,
+      value: true,
+    },
     depth: {
       type: 'number',
       hidden: true,
@@ -85,6 +90,8 @@ export default typeCheckNode({
 
     const maxDepth = findMaxDepth(input);
     const depth = parameters.depth()
+
+    const offsetBySize = parameters.offsetBySize
 
     const instances = input.stems.map((stem, j) => {
 
@@ -113,7 +120,14 @@ export default typeCheckNode({
       let prevAlpha = 0;
       for (let i = 0; i < amount; i++) {
         const size = sizes[i];
-        const _alpha = (amount === 1 ? 0 : size / totalSize) + prevAlpha;
+        let _alpha = 0;
+        if (amount === 1) {
+          _alpha = 0;
+        } else if (offsetBySize) {
+          _alpha = size / totalSize + prevAlpha;
+        } else {
+          _alpha = i / amount;
+        }
         prevAlpha = _alpha;
 
         const a = lowestInstance + (highestInstance - lowestInstance) * _alpha - 0.001;

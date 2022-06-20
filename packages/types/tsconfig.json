@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "module": "ESNext",
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ESNext",
+    "moduleResolution": "Node",
+    "lib": [
+      "ESNext",
+      "DOM"
+    ]
+  }
+}

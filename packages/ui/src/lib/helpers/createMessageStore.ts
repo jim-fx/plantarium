@@ -17,6 +17,7 @@ const createMessageFactory =
         type: MessageType.INFO,
         content,
         props: options.props,
+        styleVars: options.styleVars ?? {},
         title: options?.title ?? options?.type,
         values: options?.values,
         timeout: options?.timeout

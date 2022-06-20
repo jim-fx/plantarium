@@ -1,21 +1,26 @@
 <script lang="ts">
-	import { InputTab, Button } from '@plantarium/ui';
+	import { validator } from '@plantarium/helpers';
+	import type { PlantProject } from '@plantarium/types';
+
+	import { InputTab } from '@plantarium/ui';
 	import { createEventDispatcher } from 'svelte';
 	import { projectManager } from '..';
 
-	import examples from './examples';
-
 	let inputText: string;
-	let inputType = 'examples';
+	let inputType = 'clipboard';
 	$: [parsed, errors] = checkErrors(inputText) as [PlantProject, string[]];
 
 	function checkErrors(s: string) {
 		let parsed;
 		try {
 			parsed = JSON.parse(s);
+
+			const err = validator.isPlantProject(parsed);
+
+			if (err?.length) return [null, err];
 		} catch (err) {
 			if (err) {
-				return [null, ['Not valid JSON', err.message]];
+				return [null, ['Not valid JSON', err?.message]];
 			}
 		}
 
@@ -44,7 +49,7 @@
 <h2>Import</h2>
 
 {#if !inputText}
-	<InputTab values={['clipboard', 'file', 'examples']} bind:value={inputType} />
+	<InputTab values={['clipboard', 'file']} bind:value={inputType} />
 	<br />
 	{#if inputType === 'clipboard'}
 		<p>Paste Here:</p>
@@ -52,20 +57,6 @@
 	{:else if inputType === 'file'}
 		<label for="file">file</label>
 		<input type="file" id="file" on:change={handleFileChange} accept="application/json" />
-	{:else if inputType === 'examples'}
-		<div class="example-wrapper">
-			{#each examples as example}
-				<div class="example">
-					{#if example?.meta?.thumbnail}
-						<img src={example.meta.thumbnail} alt="" />
-					{/if}
-					<div>
-						<h3>{example?.meta.name}</h3>
-						<Button name="import" icon="checkmark" on:click={() => handleFinishImport(example)} />
-					</div>
-				</div>
-			{/each}
-		</div>
 	{/if}
 {:else if errors.length}
 	<p>Errors</p>
@@ -83,19 +74,6 @@
 {/if}
 
 <style>
-	.example-wrapper > .example {
-		display: flex;
-		padding: 10px;
-		box-sizing: border-box;
-		border: solid thin var(--outline-color);
-		border-radius: 5px;
-		margin-bottom: 10px;
-	}
-
-	.example > img {
-		margin-right: 10px;
-	}
-
 	textarea {
 		background-color: var(--midground-color);
 		color: var(--text-color);

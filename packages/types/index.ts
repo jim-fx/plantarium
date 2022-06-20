@@ -1,3 +1,5 @@
+import { NodeProps } from "@plantarium/nodesystem"
+
 export interface Geometry {
   position: Float32Array;
   normal: Float32Array;
@@ -55,7 +57,7 @@ export interface Vec3 {
 
 export interface PlantProject {
   meta: PlantProjectMeta;
-  nodes: any[];
+  nodes: NodeProps[];
   history?: any;
 }
 
@@ -64,17 +66,19 @@ export interface PlantProjectMeta {
 
   id: string;
 
-  authorID?: string;
+  authorID: string;
 
   thumbnail?: string;
+
+  description?: string;
 
   transform?: {
     x: number;
     y: number;
     s: number;
   };
-  active?: boolean;
   plantariumVersion?: string;
+  gbifID?: number;
   seed?: number;
   randomSeed?: boolean;
   lastSaved?: number;
@@ -85,4 +89,4 @@ export interface PlantProjectMeta {
   public?: boolean;
 }
 
-
+export * from "./definition"

@@ -9,6 +9,7 @@ import Icon from './Icon.svelte';
 import InputCheckbox from './InputCheckbox.svelte';
 import InputColor from './InputColor.svelte';
 import InputCurve from './InputCurve.svelte';
+import ButtonGroup from "./ButtonGroup.svelte"
 import InputInteger from './InputInteger.svelte';
 import InputFloat from './InputFloat.svelte';
 import InputVec3 from './InputVec3.svelte';
@@ -18,6 +19,7 @@ import InputText from './InputText.svelte';
 import InputSelect from './InputSelect.svelte';
 import InputShape from './InputShape.svelte';
 import InputSlider from './InputSlider.svelte';
+import LikeButton from './LikeButton.svelte';
 import InputRange from './InputRange.svelte';
 import InputSearch from './InputSearch.svelte';
 import Section from './Section.svelte';
@@ -41,6 +43,8 @@ export {
   InputInteger,
   InputText,
   InputSlider,
+  ButtonGroup,
+  LikeButton,
   InputVec2,
   InputVec3,
   InputRange,

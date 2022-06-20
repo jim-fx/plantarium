@@ -2,8 +2,8 @@ import { createWorker } from '@plantarium/generator';
 import { transferToGeometry } from '@plantarium/geometry';
 import Renderer from '@plantarium/renderer';
 import type { PlantProject, TransferGeometry } from '@plantarium/types';
-import { Box, Mesh } from 'ogl-typescript';
-import { MatCapShader } from '../components/scene/shaders';
+import { Box, Mesh, NormalProgram } from 'ogl-typescript';
+import { BasicShader, MatCapShader, NormalShader } from '../components/scene/shaders';
 
 const webWorker = createWorker();
 
@@ -12,23 +12,26 @@ let mesh: Mesh;
 let ctx: CanvasRenderingContext2D;
 let renderCanvas: HTMLCanvasElement;
 let isSetup = false;
+
+const RENDER_SIZE = 300;
+
 function setup() {
   if (isSetup) return;
   isSetup = true;
 
   renderer = new Renderer({
-    width: 100,
-    height: 100,
+    width: RENDER_SIZE,
+    height: RENDER_SIZE,
     alpha: true,
     clearColor: '000',
   });
   mesh = new Mesh(renderer.gl, {
     geometry: new Box(renderer.gl, { width: 0, height: 0, depth: 0 }),
-    program: MatCapShader(renderer.gl),
+    program: NormalShader(renderer.gl),
   });
 
   renderCanvas = document.createElement('canvas');
-  renderCanvas.width = renderCanvas.height = 100;
+  renderCanvas.width = renderCanvas.height = RENDER_SIZE;
   ctx = renderCanvas.getContext('2d') as CanvasRenderingContext2D;
 
   mesh.setParent(renderer.scene);
@@ -58,17 +61,20 @@ export default async function({
 
   mesh.geometry = transferToGeometry(renderer.gl, _geometry);
 
+  await new Promise((r) => setTimeout(r, 100));
+
   mesh.geometry.computeBoundingBox();
 
   // Make the bounding box of the plant fill the viewport of the camera
   renderer.camera.fov = 10;
   renderer.camera.position.x = mesh.geometry.bounds.max.x;
-  renderer.camera.position.y = mesh.geometry.bounds.center.y;
+  renderer.camera.position.y = mesh.geometry.bounds.max.y;
   const radius = Math.max(mesh.geometry.bounds.max.x - mesh.geometry.bounds.min.x, mesh.geometry.bounds.max.y - mesh.geometry.bounds.min.y) / 2;
   const camDistance = radius * Math.tan(Math.PI - renderer.camera.fov / 2) * 0.5;
   renderer.camera.position.z = camDistance;
 
   renderer.camera.lookAt(mesh.geometry.bounds.center);
+  await new Promise(res => setTimeout(res, 100));
 
   renderer.renderScene(renderer.scene);
 
@@ -76,8 +82,8 @@ export default async function({
 
   if (renderer.canvas.width === 0 || renderer.canvas.height === 0) return;
   //
-  ctx.clearRect(0, 0, 100, 100);
+  ctx.clearRect(0, 0, RENDER_SIZE, RENDER_SIZE);
   ctx.drawImage(renderer.canvas, 0, 0);
 
-  return renderCanvas.toDataURL('image/webp', 1.0);
+  return renderCanvas.toDataURL('image/webp', 0.9);
 }

@@ -12,7 +12,7 @@
     "nodes": "pnpm --filter=./packages/nodesystem dev",
     "geometry": "pnpm --filter=./packages/geometry dev",
     "frontend:build": "pnpm --filter=./frontend build",
-    "backend:dev": "pnpm --filter=backend dev",
+    "backend": "pnpm --filter=backend dev",
     "backend:start": "pnpm --filter=./backend start",
     "backend:build": "pnpm --filter=./backend build",
     "nodes:build": "pnpm --filter=./packages/nodesystem build",

@@ -130,6 +130,7 @@ export default class NodeSystem extends EventEmitter {
       return
     };
     try {
+      this.emit("loading")
       this.isLoaded = false;
       this.isPaused = true;
       this.nodes.forEach((n) => (n.enableUpdates = false));
@@ -154,9 +155,11 @@ export default class NodeSystem extends EventEmitter {
 
       this.result = this._result;
 
+      this.emit("loaded")
       return this;
     } catch (error) {
       console.warn("Error", error)
+      this.emit("loaded")
       this.emit('error', { type: 'loading', error });
     }
   }

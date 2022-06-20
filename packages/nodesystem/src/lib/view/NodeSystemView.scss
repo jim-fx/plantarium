@@ -106,6 +106,12 @@
   cursor: grabbing !important;
 }
 
+.nodesystem-state-loading{
+  opacity:0 !important;
+  pointer-events:none !important;
+  display:none !important;
+}
+
 .nodesystem-state-floating-searching{
   cursor: zoom-in !important;
 }

@@ -2,6 +2,8 @@
   "compilerOptions": {
     "composite": true,
     "outDir": "build",
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "target": "esnext",
     "module": "esnext"
