@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "build": "echo \"export const PlantProjectDef = $(pnpm typescript-json-schema  --required ./index.ts PlantProject)\" > definition.ts"
+    "build-types": "echo \"export const PlantProjectDef = $(pnpm typescript-json-schema  --required ./index.ts PlantProject)\" > definition.ts"
   },
   "keywords": [],
   "author": "",
