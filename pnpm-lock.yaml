@@ -416,6 +416,7 @@ importers:
       '@typescript-eslint/eslint-plugin': ^5.29.0
       '@typescript-eslint/parser': ^5.29.0
       '@yr/monotone-cubic-spline': ^1.0.3
+      ajv: ^8.11.0
       cookie: ^0.5.0
       css-vars-from-json: ^1.1.0
       eslint: ^8.18.0
@@ -441,6 +442,7 @@ importers:
       '@plantarium/ui': link:../ui
       '@sveltejs/adapter-static': 1.0.0-next.34
       '@yr/monotone-cubic-spline': 1.0.3
+      ajv: 8.11.0
       cookie: 0.5.0
       css-vars-from-json: 1.1.0
       file-saver: 2.0.5
@@ -511,6 +513,7 @@ importers:
       '@typescript-eslint/eslint-plugin': 5.29.0
       '@typescript-eslint/parser': 5.29.0
       '@yr/monotone-cubic-spline': 1.0.3
+      ajv: ^8.11.0
       c8: 7.11.3
       css-vars-from-json: ^1.1.0
       eslint: 8.18.0
@@ -535,6 +538,7 @@ importers:
       vite: 2.9.12
       vitest: 0.15.1
     dependencies:
+      ajv: 8.11.0
       css-vars-from-json: 1.1.0
       ogl-typescript: 0.1.40
       stacktrace-parser: 0.1.10
@@ -2402,7 +2406,7 @@ packages:
       magic-string: 0.26.2
       svelte: 3.48.0
       svelte-hmr: 0.14.12_svelte@3.48.0
-      vite: 2.9.12_sass@1.52.3
+      vite: 2.9.12
     transitivePeerDependencies:
       - supports-color
     dev: true

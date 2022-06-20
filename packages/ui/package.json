@@ -55,6 +55,7 @@
     "testRegex": "./tests/.*.ts$"
   },
   "dependencies": {
+    "ajv": "^8.11.0",
     "css-vars-from-json": "^1.1.0",
     "ogl-typescript": "^0.1.40",
     "stacktrace-parser": "^0.1.10"
