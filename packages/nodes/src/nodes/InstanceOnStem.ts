@@ -71,6 +71,7 @@ export default typeCheckNode({
     },
     offsetBySize: {
       type: "boolean",
+      hidden: true,
       internal: true,
       value: true,
     },
