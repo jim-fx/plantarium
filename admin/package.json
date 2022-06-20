@@ -35,6 +35,7 @@
     "@plantarium/theme": "link:../packages/theme",
     "@plantarium/ui": "link:../packages/ui",
     "@yr/monotone-cubic-spline": "1.0.3",
+    "ajv": "^8.11.0",
     "css-vars-from-json": "^1.1.0",
     "dotenv": "16.0.1",
     "file-saver": "2.0.5",

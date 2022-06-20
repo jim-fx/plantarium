@@ -84,9 +84,6 @@ export const PlantProjectDef = {
         },
         "PlantProjectMeta": {
             "properties": {
-                "active": {
-                    "type": "boolean"
-                },
                 "author": {
                     "type": "string"
                 },
@@ -96,8 +93,14 @@ export const PlantProjectDef = {
                 "class": {
                     "type": "string"
                 },
+                "description": {
+                    "type": "string"
+                },
                 "family": {
                     "type": "string"
+                },
+                "gbifID": {
+                    "type": "number"
                 },
                 "id": {
                     "type": "string"
@@ -124,10 +127,7 @@ export const PlantProjectDef = {
                     "type": "number"
                 },
                 "thumbnail": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": "string"
                 },
                 "transform": {
                     "properties": {

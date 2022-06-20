@@ -25,6 +25,7 @@
     "@plantarium/types": "workspace:*",
     "@plantarium/ui": "workspace:*",
     "@yr/monotone-cubic-spline": "^1.0.3",
+    "ajv": "^8.11.0",
     "css-vars-from-json": "^1.1.0",
     "file-saver": "^2.0.5",
     "gl-matrix": "^3.4.3",
