@@ -9,6 +9,7 @@ importers:
     specifiers:
       '@plantarium/backend': link:../backend
       '@plantarium/client-api': link:../packages/client-api
+      '@plantarium/helpers': workspace:*
       '@plantarium/theme': link:../packages/theme
       '@plantarium/ui': link:../packages/ui
       '@sveltejs/adapter-static': 1.0.0-next.34
@@ -41,6 +42,7 @@ importers:
     dependencies:
       '@plantarium/backend': link:../backend
       '@plantarium/client-api': link:../packages/client-api
+      '@plantarium/helpers': link:../packages/helpers
       '@plantarium/theme': link:../packages/theme
       '@plantarium/ui': link:../packages/ui
       '@yr/monotone-cubic-spline': 1.0.3

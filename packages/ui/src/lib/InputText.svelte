@@ -5,7 +5,7 @@
   import { scale, slide } from 'svelte/transition';
   import Icon from './Icon.svelte';
 
-  export let validators: ((s: string) => string[] | undefined)[] | boolean | undefined;
+  export let validators: ((s: string) => string[] | undefined)[] | boolean = [];
   $: _validators = getValidators(validators);
 
   export let placeholder: string | undefined = undefined;

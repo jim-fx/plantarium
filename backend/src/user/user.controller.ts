@@ -8,6 +8,7 @@ import {
   Patch,
   Post,
   Request,
+  UnauthorizedException,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -34,13 +35,16 @@ export class UserController {
     const users = await this.userService.findAll();
     if (req.user.role === Role.ADMIN) return users;
     return users.filter(u => u.role !== Role.ADMIN).map(u => {
-      return { id: u._id, name: u.username, createdAt: u.createdAt, updatedAt: u.updatedAt, role: u.role }
+      return { id: u._id, username: u.username, createdAt: u.createdAt, updatedAt: u.updatedAt, role: u.role }
     })
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req: { user: { sub: any; id: any; }; }) {
+    if (!req.user) {
+      throw new UnauthorizedException();
+    }
     return this.userService.findById(req.user.sub || req.user.id);
   }
 
@@ -80,8 +84,11 @@ export class UserController {
 
   @Get("permission")
   getPermissions(@Request() req) {
+    console.log("Eyy")
     const role = this.getRole(req);
+    console.log({ role })
     const permissions = [...getPermissionsForRole(role)];
-    return permissions;
+    console.log({ permissions })
+    return { permissions };
   }
 }

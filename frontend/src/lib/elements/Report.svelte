@@ -31,7 +31,7 @@
 
 	const dispatch = createEventDispatcher();
 
-	let submitPromise: Promise<unknown> | undefined;
+	let submitPromise: ReturnType<typeof api['submitReport']> | undefined;
 	function submit() {
 		const data = {
 			type: mode,
@@ -58,9 +58,13 @@
 
 		submitPromise = api.submitReport(data);
 
-		submitPromise.then(() => {
-			dispatch('close');
-			createToast('Yeeeah, report submitted', { type: 'success' });
+		submitPromise.then((res) => {
+			if (res.ok) {
+				dispatch('close');
+				createToast('Yeeeah, report submitted', { type: 'success' });
+			} else {
+				createToast(res.message, { type: 'error' });
+			}
 		});
 	}
 

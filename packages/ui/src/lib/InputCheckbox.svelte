@@ -6,7 +6,7 @@
   const dispatch = createEventDispatcher();
 
   export let value = false;
-  export let label: string;
+  export let label: string = undefined;
 
   export let id = createId();
 

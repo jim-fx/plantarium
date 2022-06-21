@@ -1,21 +1,25 @@
 <script lang="ts">
-	import api, { userStore } from '@plantarium/client-api';
+	import * as api from '@plantarium/client-api';
 	import { validator } from '@plantarium/helpers';
 	import { slide } from 'svelte/transition';
-	import { Button, InputText, InputTab, InputCheckbox, createToast } from '@plantarium/ui';
+	import { Button, InputText, InputCheckbox, createToast } from '@plantarium/ui';
 	import Icon from '@plantarium/ui/src/lib/Icon.svelte';
 
 	let register = false;
 
+	const userStore = api.userStore;
+
 	async function checkUsernameExists(s: string) {
-		if (await api.getUserNameExists(s)) {
+		const res = await api.getUserNameExists(s);
+		if (res.ok && res.data) {
 			return ['Username ' + s + ' is already registered'];
 		}
 		return [];
 	}
 
 	async function checkEmailExists(s: string) {
-		if (await api.getEmailExists(s)) {
+		const res = await api.getEmailExists(s);
+		if (res.ok && res.data) {
 			return ['Email ' + s + ' is already registered'];
 		}
 		return [];
@@ -51,7 +55,7 @@
 
 			const req = await api.register(username, email, password);
 
-			if (req._id) {
+			if (req.ok) {
 				await api.login(username, password);
 			}
 
@@ -65,10 +69,10 @@
 
 			clearTimeout(t);
 			isLoading = false;
-			if (res.statusCode && res.statusCode !== 200) {
-				errors = [res.message];
-			} else {
+			if (res.ok) {
 				createToast('Logged In', { type: 'success' });
+			} else {
+				errors = [res.message];
 			}
 		}
 	}
@@ -83,9 +87,15 @@
 	<Button name="← Go Back" on:click={() => (errors = [])} />
 {:else if isLoading}
 	<Icon name="branch" animated />
-{:else if $userStore?.id}
+{:else if $userStore?._id}
 	<br />
-	<p>Hi, <b>{$userStore.username}</b></p>
+
+	<div class="user">
+		{#if $userStore?.profilePic}
+			<img src={$userStore.profilePic} alt="" />
+		{/if}
+		<p>Hi, <b>{$userStore.username}</b></p>
+	</div>
 	<br />
 	<Button
 		name="logout"
@@ -129,3 +139,17 @@
 		disabled={register ? !(email && username && password) : !(username && password)}
 	/>
 {/if}
+
+<style>
+	.user {
+		display: flex;
+		align-items: center;
+	}
+	.user p {
+		margin-left: 10px;
+	}
+	.user img {
+		border-radius: 100%;
+		width: 50px;
+	}
+</style>

@@ -1,10 +1,11 @@
 <script lang="ts" context="module">
-  import { api } from '$lib';
+  import * as api from '@plantarium/client-api';
 
   import type { Report } from '@plantarium/backend';
 
   export async function load({ params }) {
     const report = await api.getReport(params.reportId);
+    console.log({ report });
     let reportLabels = [];
     try {
       reportLabels = await api.getAvailableLabels();
@@ -13,8 +14,8 @@
     }
     return {
       props: {
-        report,
-        reportLabels,
+        report: report.data,
+        reportLabels: reportLabels.data,
       },
     };
   }

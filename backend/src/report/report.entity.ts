@@ -1,7 +1,9 @@
-import { Entity, Property } from '@mikro-orm/core';
+import { Entity, OneToOne, Property } from '@mikro-orm/core';
 import { IsOptional } from 'class-validator';
+import { User } from '../user/user.entity';
 import { BaseEntity } from '../entities/BaseEntity';
 import { PLabel } from './dto/shared-types';
+
 
 @Entity()
 export class Report extends BaseEntity {
@@ -11,6 +13,9 @@ export class Report extends BaseEntity {
   @IsOptional()
   @Property({ type: 'json' })
   labels: PLabel[] = [];
+
+  @OneToOne({ nullable: true })
+  author?: User = null;
 
   @Property()
   title: string;

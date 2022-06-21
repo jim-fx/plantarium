@@ -1,6 +1,6 @@
 import { MikroORM } from '@mikro-orm/core';
-import { MikroOrmMiddleware, MikroOrmModule } from '@mikro-orm/nestjs';
-import { MiddlewareConsumer, Module, NestModule, OnModuleInit } from '@nestjs/common';
+import { MikroOrmModule } from '@mikro-orm/nestjs';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
 import { ReportModule } from './report/report.module';
@@ -8,7 +8,9 @@ import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { ProjectsModule } from './projects/projects.module';
-import config from "./config"
+import { UserService } from 'user/user.service';
+import { User } from 'user/user.entity';
+import { Role } from 'auth/enums/role.enum';
 
 @Module({
   imports: [
@@ -28,7 +30,7 @@ import config from "./config"
 })
 export class AppModule implements OnModuleInit {
 
-  constructor(private readonly orm: MikroORM) { }
+  constructor(private readonly orm: MikroORM, private userService: UserService) { }
 
   async onModuleInit(): Promise<void> {
 
@@ -37,6 +39,9 @@ export class AppModule implements OnModuleInit {
     const migrator = this.orm.getMigrator();
 
     await migrator.up();
+
+    await this.userService.init()
+
   }
 
 }

@@ -1,15 +1,10 @@
 <script lang="ts">
-  import { api } from '$lib';
-  import { ReportCard, SortableTable } from '$lib/components';
+  import ApiCall from '$lib/components/ApiCall.svelte';
+  import SortableTable from '$lib/components/SortableTable.svelte';
 </script>
 
 <div class="container w-min mx-auto rounded overflow-hidden">
-  {#await api.get('api/user')}
-    Loading ...
-  {:then users}
-    {#each users as u}
-      <a href="/users/{u._id}">{u.username}</a>
-      <br />
-    {/each}
-  {/await}
+  <ApiCall path="api/user" let:data>
+    <SortableTable items={data} />
+  </ApiCall>
 </div>

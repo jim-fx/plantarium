@@ -151,6 +151,120 @@
           "length": 0,
           "mappedType": "datetime"
         },
+        "plant_id": {
+          "name": "plant_id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "data": {
+          "name": "data",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "meta": {
+          "name": "meta",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "author__id": {
+          "name": "author__id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        }
+      },
+      "name": "project",
+      "indexes": [
+        {
+          "columnNames": [
+            "plant_id"
+          ],
+          "composite": false,
+          "keyName": "project_plant_id_index",
+          "primary": false,
+          "unique": false
+        },
+        {
+          "columnNames": [
+            "author__id"
+          ],
+          "composite": false,
+          "keyName": "project_author__id_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "primary",
+          "columnNames": [
+            "_id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "project_author__id_foreign": {
+          "constraintName": "project_author__id_foreign",
+          "columnNames": [
+            "author__id"
+          ],
+          "localTableName": "project",
+          "referencedColumnNames": [
+            "_id"
+          ],
+          "referencedTableName": "user",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "_id": {
+          "name": "_id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "datetime",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 0,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "datetime",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 0,
+          "mappedType": "datetime"
+        },
         "type": {
           "name": "type",
           "type": "text",
@@ -168,6 +282,15 @@
           "primary": false,
           "nullable": false,
           "mappedType": "json"
+        },
+        "author__id": {
+          "name": "author__id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
         },
         "title": {
           "name": "title",
@@ -245,6 +368,15 @@
       "name": "report",
       "indexes": [
         {
+          "columnNames": [
+            "author__id"
+          ],
+          "composite": false,
+          "keyName": "report_author__id_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
           "keyName": "primary",
           "columnNames": [
             "_id"
@@ -255,7 +387,21 @@
         }
       ],
       "checks": [],
-      "foreignKeys": {}
+      "foreignKeys": {
+        "report_author__id_foreign": {
+          "constraintName": "report_author__id_foreign",
+          "columnNames": [
+            "author__id"
+          ],
+          "localTableName": "report",
+          "referencedColumnNames": [
+            "_id"
+          ],
+          "referencedTableName": "user",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        }
+      }
     }
   ]
 }

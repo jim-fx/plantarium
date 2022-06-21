@@ -1,13 +1,11 @@
 <script lang="ts">
-  import { api } from '$lib';
+  import ApiCall from '$lib/components/ApiCall.svelte';
 
-  const profile = api.get('api/user/profile');
+  import { getUserInfo } from '@plantarium/client-api';
 </script>
 
-{#await profile}
-  Loading
-{:then prof}
+<ApiCall promise={getUserInfo()} let:data>
   <pre><code>
-  {JSON.stringify(prof, null, 2)}
+  {JSON.stringify(data, null, 2)}
   </code></pre>
-{/await}
+</ApiCall>

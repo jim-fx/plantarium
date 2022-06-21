@@ -1,11 +1,9 @@
 <script lang="ts">
   import { base } from '$app/paths';
   import { page } from '$app/stores';
-  import { api } from '$lib';
+  import { userStore } from '@plantarium/client-api';
 
-  const user = api.userStore;
-
-  $: isLoggedIn = !!$user?.username;
+  $: isLoggedIn = !!$userStore?.username;
 
   $: sites = [
     ['/', 'Home'],

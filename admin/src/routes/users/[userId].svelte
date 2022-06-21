@@ -1,10 +1,10 @@
 <script lang="ts" context="module">
-  import { api } from '$lib';
+  import { get } from '@plantarium/client-api';
 
   import type { User } from '@plantarium/backend';
 
   export async function load({ params }) {
-    const user = await api.get('api/user/' + params.userId);
+    const user = await get('api/user/' + params.userId);
     return {
       props: {
         user,

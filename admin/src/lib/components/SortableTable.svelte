@@ -3,8 +3,8 @@
 
   export let items: unknown[] = [];
 
-  export let keys: string[] | undefined;
-  export let component: SvelteComponent | undefined;
+  export let keys: string[] = undefined;
+  export let component: SvelteComponent = undefined;
   export let componentKey = 'item';
 
   $: _keys =
@@ -24,6 +24,12 @@
   }
 
   $: sortedItems = items.length && activeKey ? sortItems(reverseSort) : [];
+
+  function getKey(item: any) {
+    if ('id' in item) return item['id'];
+    if ('_id' in item) return item['_id'];
+    return '';
+  }
 
   function handleClick(key: string) {
     if (key === activeKey) {
@@ -52,7 +58,7 @@
     </thead>
 
     <tbody>
-      {#each sortedItems as item (item.id)}
+      {#each sortedItems as item (getKey(item))}
         <tr class="my-5" /><tr>
           {#if component}
             <td colspan={component ? _keys.length : 1} class="py-1">

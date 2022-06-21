@@ -6,12 +6,14 @@ import {
   Param,
   Post,
   Put,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { Permissions } from 'auth/decorators/permissions.decorator';
 import { Roles } from 'auth/decorators/roles.decorator';
 import { Permission } from 'auth/enums/permission.enum';
 import { Role } from 'auth/enums/role.enum';
+import { JwtAuthGuard } from 'auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'auth/guards/role.guard';
 import { CreateReportDto } from './dto/create-report.dto';
 import { UpdateReportDto } from './dto/update-report.dto';
@@ -40,8 +42,10 @@ export class ReportController {
   }
 
   @Post()
-  public async create(@Body() createReportDto: CreateReportDto): Promise<Report> {
-    return await this.reportService.create(createReportDto);
+  @UseGuards(JwtAuthGuard)
+  public async create(@Body() createReportDto: CreateReportDto, @Req() request): Promise<Report> {
+    console.log({ request });
+    return await this.reportService.create(createReportDto, request?.user?.sub);
   }
 
   @Put('/:id')

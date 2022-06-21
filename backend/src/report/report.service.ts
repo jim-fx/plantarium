@@ -9,6 +9,7 @@ import { CreateReportDto } from './dto/create-report.dto';
 import { Report } from './report.entity';
 import { Octokit } from 'octokit';
 import { UpdateReportDto } from './dto/update-report.dto';
+import { UserService } from 'user/user.service';
 
 @Injectable()
 export class ReportService {
@@ -17,11 +18,12 @@ export class ReportService {
   constructor(
     @InjectRepository(Report)
     private readonly repository: EntityRepository<Report>,
+    private readonly userService: UserService
   ) {
     this.octo = new Octokit({ auth: process.env.GH_TOKEN });
   }
 
-  async create(dto: CreateReportDto): Promise<Report> {
+  async create(dto: CreateReportDto, userId?: string): Promise<Report> {
     const report = new Report();
 
     report.type = dto.type;
@@ -31,6 +33,13 @@ export class ReportService {
     report.description = dto.description;
     report.browser = dto.browser;
     report.stacktrace = dto.stacktrace;
+
+    if (userId) {
+      const user = await this.userService.find({ _id: userId });
+      if (user) {
+        report.author = user;
+      }
+    }
 
     await this.repository.persistAndFlush(report);
 

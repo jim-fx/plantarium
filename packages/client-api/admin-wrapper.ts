@@ -3,7 +3,7 @@ import { send } from "./core";
 
 
 export function getReport(reportId: string) {
-  return send({ method: "GET", path: `api/report/${reportId}` });
+  return send<Report>({ method: "GET", path: `api/report/${reportId}` });
 }
 
 export function publishReport(reportId: string) {

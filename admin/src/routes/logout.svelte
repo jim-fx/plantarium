@@ -1,5 +1,14 @@
 <script lang="ts">
-  import { api } from '$lib';
+  import { goto } from '$app/navigation';
+
+  import { logout } from '@plantarium/client-api';
+  import { createToast } from '@plantarium/ui';
 </script>
 
-<button on:click={() => api.logout()}>logout</button>
+<button
+  on:click={() => {
+    logout();
+    goto('/');
+    createToast('Logged Out', { type: 'success' });
+  }}>logout</button
+>

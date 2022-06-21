@@ -1,56 +1,52 @@
 <script lang="ts">
-  import { createForm } from 'svelte-forms-lib';
-  import { api } from '$lib';
+  import api, { userStore } from '@plantarium/client-api';
+  import { validator } from '@plantarium/helpers';
+  import { slide } from 'svelte/transition';
+  import {
+    Button,
+    InputText,
+    InputCheckbox,
+    createToast,
+  } from '@plantarium/ui';
+  import Icon from '@plantarium/ui/src/lib/Icon.svelte';
+  import ApiCall from '$lib/components/ApiCall.svelte';
+  import { goto } from '$app/navigation';
 
-  const { form, handleChange, handleSubmit } = createForm({
-    initialValues: {
-      username: '',
-      password: '',
-    },
-    onSubmit: (values) => {
-      api.login(values.username, values.password);
-    },
-  });
+  let username: string;
+  let password: string;
+
+  let prom: Promise<any>;
+
+  async function handleSubmit() {
+    if (!username || !password) return;
+    if (prom) return;
+
+    prom = api.login(username, password);
+  }
 </script>
 
-<div
-  class="bg-white shadow-md my-10 rounded px-8 pt-6 pb-8 mb-4 flex flex-col mx-auto"
-  style="width: 500px;"
->
-  <form on:submit={handleSubmit}>
-    <label for="username">username</label>
-    <input
-      class="mb-4"
-      id="username"
-      name="username"
-      type="username"
-      on:change={handleChange}
-      bind:value={$form.username}
+<div class="wrapper mx-auto w-min p-8">
+  {#if prom}
+    <ApiCall
+      bind:promise={prom}
+      path=""
+      on:success={() => {
+        goto('/');
+        createToast('Logged In', { type: 'success' });
+      }}
     />
+  {:else}
+    <h3>Login</h3>
 
-    <label for="password">password</label>
-    <input
-      class="mb-6"
-      id="password"
-      name="password"
-      type="password"
-      on:change={handleChange}
-      bind:value={$form.password}
+    <InputText bind:value={username} placeholder="Username" />
+
+    <InputText bind:value={password} validators={false} type="password" />
+
+    <br />
+    <Button
+      name={'login'}
+      on:click={handleSubmit}
+      disabled={!(username && password)}
     />
-
-    <button
-      class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
-      type="submit">Submit</button
-    >
-  </form>
+  {/if}
 </div>
-
-<style>
-  label {
-    @apply block text-grey-darker text-sm font-bold mb-2;
-  }
-
-  input {
-    @apply shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker;
-  }
-</style>

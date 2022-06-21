@@ -31,6 +31,7 @@
   "type": "module",
   "dependencies": {
     "@plantarium/backend": "link:../backend",
+    "@plantarium/helpers": "workspace:*",
     "@plantarium/client-api": "link:../packages/client-api",
     "@plantarium/theme": "link:../packages/theme",
     "@plantarium/ui": "link:../packages/ui",

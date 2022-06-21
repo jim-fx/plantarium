@@ -1,24 +1,27 @@
 <script lang="ts">
-	import * as api from '@plantarium/client-api';
+	import { getReports } from '@plantarium/client-api';
 	import { Icon } from '@plantarium/ui';
 
 	import type { Report } from '@plantarium/backend';
 
-	import { scale, slide } from 'svelte/transition';
+	import { slide } from 'svelte/transition';
 
 	let loading = true;
 
 	let openReports: Report[] = [];
 	let closedReports: Report[] = [];
 
-	api.getReports().then((reports) => {
-		reports.forEach((re) => {
-			if (re.open) {
-				openReports.push(re);
-			} else {
-				closedReports.push(re);
-			}
-		});
+	getReports().then((res) => {
+		if (res.ok) {
+			const reports = res.data;
+			reports.forEach((re) => {
+				if (re.open) {
+					openReports.push(re);
+				} else {
+					closedReports.push(re);
+				}
+			});
+		}
 
 		loading = false;
 	});
