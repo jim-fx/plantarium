@@ -13,7 +13,7 @@ importers:
       '@plantarium/theme': link:../packages/theme
       '@plantarium/ui': link:../packages/ui
       '@sveltejs/adapter-static': 1.0.0-next.34
-      '@sveltejs/kit': 1.0.0-next.350
+      '@sveltejs/kit': 1.0.0-next.352
       '@typescript-eslint/eslint-plugin': 5.29.0
       '@typescript-eslint/parser': 5.29.0
       '@yr/monotone-cubic-spline': 1.0.3
@@ -58,7 +58,7 @@ importers:
       vite: 2.9.12
     devDependencies:
       '@sveltejs/adapter-static': 1.0.0-next.34
-      '@sveltejs/kit': 1.0.0-next.350_svelte@3.48.0
+      '@sveltejs/kit': 1.0.0-next.352_svelte@3.48.0
       '@typescript-eslint/eslint-plugin': 5.29.0_qqmbkyiaixvppdwswpytuf2hgm
       '@typescript-eslint/parser': 5.29.0_b5e7v2qnwxfo6hmiq56u52mz3e
       eslint: 8.18.0
@@ -223,7 +223,7 @@ importers:
       '@plantarium/types': workspace:*
       '@plantarium/ui': workspace:*
       '@sveltejs/adapter-static': 1.0.0-next.34
-      '@sveltejs/kit': 1.0.0-next.350
+      '@sveltejs/kit': 1.0.0-next.352
       '@tsconfig/svelte': 3.0.0
       '@typescript-eslint/eslint-plugin': ^5.29.0
       '@typescript-eslint/parser': ^5.29.0
@@ -286,7 +286,7 @@ importers:
       svelte-resize-observer: 2.0.0
     devDependencies:
       '@sveltejs/adapter-static': 1.0.0-next.34
-      '@sveltejs/kit': 1.0.0-next.350_sass@1.52.3+svelte@3.48.0
+      '@sveltejs/kit': 1.0.0-next.352_sass@1.52.3+svelte@3.48.0
       '@tsconfig/svelte': 3.0.0
       '@typescript-eslint/eslint-plugin': 5.29.0_qqmbkyiaixvppdwswpytuf2hgm
       '@typescript-eslint/parser': 5.29.0_b5e7v2qnwxfo6hmiq56u52mz3e
@@ -413,7 +413,7 @@ importers:
       '@playwright/test': ^1.22.2
       '@sveltejs/adapter-auto': 1.0.0-next.50
       '@sveltejs/adapter-static': 1.0.0-next.34
-      '@sveltejs/kit': 1.0.0-next.350
+      '@sveltejs/kit': 1.0.0-next.352
       '@types/cookie': ^0.5.1
       '@typescript-eslint/eslint-plugin': ^5.29.0
       '@typescript-eslint/parser': ^5.29.0
@@ -454,7 +454,7 @@ importers:
     devDependencies:
       '@playwright/test': 1.22.2
       '@sveltejs/adapter-auto': 1.0.0-next.50
-      '@sveltejs/kit': 1.0.0-next.350_svelte@3.48.0
+      '@sveltejs/kit': 1.0.0-next.352_svelte@3.48.0
       '@types/cookie': 0.5.1
       '@typescript-eslint/eslint-plugin': 5.29.0_qqmbkyiaixvppdwswpytuf2hgm
       '@typescript-eslint/parser': 5.29.0_b5e7v2qnwxfo6hmiq56u52mz3e
@@ -510,7 +510,7 @@ importers:
       '@plantarium/helpers': workspace:*
       '@plantarium/theme': workspace:*
       '@sveltejs/adapter-static': 1.0.0-next.34
-      '@sveltejs/kit': 1.0.0-next.350
+      '@sveltejs/kit': 1.0.0-next.352
       '@testing-library/svelte': 3.1.3
       '@typescript-eslint/eslint-plugin': 5.29.0
       '@typescript-eslint/parser': 5.29.0
@@ -548,7 +548,7 @@ importers:
       '@plantarium/helpers': link:../helpers
       '@plantarium/theme': link:../theme
       '@sveltejs/adapter-static': 1.0.0-next.34
-      '@sveltejs/kit': 1.0.0-next.350_sass@1.52.3+svelte@3.48.0
+      '@sveltejs/kit': 1.0.0-next.352_sass@1.52.3+svelte@3.48.0
       '@testing-library/svelte': 3.1.3_svelte@3.48.0
       '@typescript-eslint/eslint-plugin': 5.29.0_qqmbkyiaixvppdwswpytuf2hgm
       '@typescript-eslint/parser': 5.29.0_b5e7v2qnwxfo6hmiq56u52mz3e
@@ -2350,8 +2350,8 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.350_sass@1.52.3+svelte@3.48.0:
-    resolution: {integrity: sha512-qkZNjp7yIj6t91+wMhmMtGJH0Lb89OaKdVXUDy92CS5/4OHRTKcQPdfOKs4no/upkS3RiFb+rEpOkYqTMcPUXg==}
+  /@sveltejs/kit/1.0.0-next.352_sass@1.52.3+svelte@3.48.0:
+    resolution: {integrity: sha512-cYQWGZ2TU1iMsh1cqi44FJm5Aqs3iOkuUOnRpoecthcbmiZaqkD1sPG/uROBIPexXSbfyUfrck/hgr9vdCAmCw==}
     engines: {node: '>=16.7'}
     hasBin: true
     peerDependencies:
@@ -2370,8 +2370,8 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.350_svelte@3.48.0:
-    resolution: {integrity: sha512-qkZNjp7yIj6t91+wMhmMtGJH0Lb89OaKdVXUDy92CS5/4OHRTKcQPdfOKs4no/upkS3RiFb+rEpOkYqTMcPUXg==}
+  /@sveltejs/kit/1.0.0-next.352_svelte@3.48.0:
+    resolution: {integrity: sha512-cYQWGZ2TU1iMsh1cqi44FJm5Aqs3iOkuUOnRpoecthcbmiZaqkD1sPG/uROBIPexXSbfyUfrck/hgr9vdCAmCw==}
     engines: {node: '>=16.7'}
     hasBin: true
     peerDependencies:
