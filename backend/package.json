@@ -83,7 +83,7 @@
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-prettier": "4.0.0",
     "jest": "28.1.1",
-    "kill-port": "2.0.0",
+    "kill-port": "2.0.1",
     "nodemon": "2.0.16",
     "prettier": "2.7.1",
     "source-map-support": "0.5.21",

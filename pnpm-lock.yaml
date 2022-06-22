@@ -121,7 +121,7 @@ importers:
       express: ^4.18.1
       helmet: ^5.1.0
       jest: 28.1.1
-      kill-port: 2.0.0
+      kill-port: 2.0.1
       morgan: 1.10.0
       nodemon: 2.0.16
       octokit: 1.8.0
@@ -201,7 +201,7 @@ importers:
       eslint-config-prettier: 8.5.0_eslint@8.18.0
       eslint-plugin-prettier: 4.0.0_xu6ewijrtliw5q5lksq5uixwby
       jest: 28.1.1_jbmz3vlfopghb5mdasddsdxfzq
-      kill-port: 2.0.0
+      kill-port: 2.0.1
       nodemon: 2.0.16
       prettier: 2.7.1
       source-map-support: 0.5.21
@@ -5597,7 +5597,7 @@ packages:
     dev: true
 
   /get-them-args/1.3.2:
-    resolution: {integrity: sha1-dKILqKSr7OWuGZrQPyvMaP38m6U=}
+    resolution: {integrity: sha512-LRn8Jlk+DwZE4GTlDbT3Hikd1wSHgLMme/+7ddlqKd7ldwR6LjJgTVWzBnR01wnYGe4KgrXjg287RaI22UHmAw==}
     dev: true
 
   /getopts/2.3.0:
@@ -6990,8 +6990,8 @@ packages:
       json-buffer: 3.0.0
     dev: true
 
-  /kill-port/2.0.0:
-    resolution: {integrity: sha512-TWGAJ/SGy52aKhYpPSCw4S/WR0rTYkC2+6oRp5xBlLo4UvJe3Gt0MwROO8hI+Hu4YkTDhe27EPKKeFUtqNNfdA==}
+  /kill-port/2.0.1:
+    resolution: {integrity: sha512-e0SVOV5jFo0mx8r7bS29maVWp17qGqLBZ5ricNSajON6//kmb7qqqNnml4twNE8Dtj97UQD+gNFOaipS/q1zzQ==}
     hasBin: true
     dependencies:
       get-them-args: 1.3.2
