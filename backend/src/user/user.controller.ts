@@ -6,8 +6,7 @@ import {
   Get,
   Param,
   Patch,
-  Post, Req, Request,
-  UnauthorizedException,
+  Post, UnauthorizedException,
   UseGuards, UseInterceptors
 } from '@nestjs/common';
 import { getPermissionsForRole } from 'auth/enums/permission.enum';
@@ -15,6 +14,7 @@ import { Role } from 'auth/enums/role.enum';
 import { JwtAuthGuard } from 'auth/guards/jwt-auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { GetUser, UserRaw } from './user.decorator';
 import { UserService } from './user.service';
 
 @Controller('api/user')
@@ -29,9 +29,9 @@ export class UserController {
 
   @Get()
   @UseGuards(JwtAuthGuard)
-  async findAll(@Request() req) {
+  async findAll(@GetUser() user: UserRaw) {
     const users = await this.userService.findAll();
-    if (req.user.role === Role.ADMIN) return users;
+    if (user.role === Role.ADMIN) return users;
     return users.filter(u => u.role !== Role.ADMIN).map(u => {
       return { id: u._id, username: u.username, createdAt: u.createdAt, updatedAt: u.updatedAt, role: u.role }
     })
@@ -39,11 +39,11 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req: { user: { sub: any; id: any; }; }) {
-    if (!req.user) {
+  getProfile(@GetUser() user: UserRaw) {
+    if (!user) {
       throw new UnauthorizedException();
     }
-    return this.userService.findById(req.user.sub || req.user.id);
+    return this.userService.findById(user.sub);
   }
 
   @Get("exists/:name")
@@ -60,21 +60,20 @@ export class UserController {
 
 
   @Get("role")
-  getRole(@Req() req: Request) {
-    const { user: { role = Role.ANON } = {} } = req;
-    return role;
+  getRole(@GetUser() user: UserRaw) {
+    return user?.role ?? Role.ANON;
   }
 
 
   @Get('profile')
-  async profile(@Req() req: { user: User; }) {
-    return req.user;
+  async profile(@GetUser() user: UserRaw) {
+    return user;
   }
 
   @UseGuards(JwtAuthGuard)
   @Get("permission")
-  getPermissions(@Request() req: Request) {
-    const role = this.getRole(req);
+  getPermissions(@GetUser() user: UserRaw) {
+    const role = this.getRole(user);
     const permissions = [...getPermissionsForRole(role)];
     return permissions;
   }
@@ -86,16 +85,16 @@ export class UserController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Req() req, @Body() updateUserDto: UpdateUserDto) {
-    if (req.user.role !== "ADMIN" && req.user.sub !== id) {
+  update(@Param('id') id: string, @GetUser() user: UserRaw, @Body() updateUserDto: UpdateUserDto) {
+    if (user.role !== Role.ADMIN && user.sub !== id) {
       return new UnauthorizedException()
     }
     return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string, @Req() req) {
-    if (req.user.role !== "ADMIN" && req.user.sub !== id) {
+  remove(@Param('id') id: string, @GetUser() user: UserRaw) {
+    if (user.role !== Role.ADMIN && user.sub !== id) {
       return new UnauthorizedException()
     }
 

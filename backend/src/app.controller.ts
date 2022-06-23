@@ -4,4 +4,4 @@ import { Permission } from 'auth/enums/permission.enum';
 
 @Controller()
 @Permissions(Permission["user.delete"])
-export class AppController {}
+export class AppController { }

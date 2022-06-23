@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Req, UnauthorizedException } from '@nestjs/common';
 import { PlantProject } from "@plantarium/types";
 import { Permissions } from 'auth/decorators/permissions.decorator';
 import { Permission } from 'auth/enums/permission.enum';
 import { Request } from 'express';
+import { GetUser, UserRaw } from 'user/user.decorator';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from '../auth/enums/role.enum';
 import { UpdateProjectDto } from './dto/update-project.dto';
@@ -58,13 +59,35 @@ export class ProjectsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
+  async update(@Param('id') id: string, @GetUser() user: UserRaw, @Body() updateProjectDto: UpdateProjectDto) {
+
+    const project = await this.projectsService.findOne(id);
+
+    if (!project) {
+      throw new NotFoundException()
+    }
+
+    if (user.role !== Role.ADMIN && user.sub !== project.author?._id) {
+      throw new UnauthorizedException()
+    }
+
     return this.projectsService.update(id, updateProjectDto);
   }
 
   @Delete(':id')
   @Permissions(Permission["project.delete"])
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string, @GetUser() user: UserRaw) {
+
+    const project = await this.projectsService.findOne(id);
+
+    if (!project) {
+      throw new NotFoundException()
+    }
+
+    if (user.role !== Role.ADMIN && project.author?._id !== user.sub) {
+      throw new UnauthorizedException()
+    }
+
     return this.projectsService.remove(id);
   }
 }
