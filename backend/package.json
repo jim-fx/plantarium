@@ -50,7 +50,7 @@
     "express": "^4.18.1",
     "helmet": "^5.1.0",
     "morgan": "1.10.0",
-    "octokit": "1.8.0",
+    "octokit": "1.8.1",
     "passport": "0.6.0",
     "passport-github": "^1.1.0",
     "passport-github2": "^0.1.12",
