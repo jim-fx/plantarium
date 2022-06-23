@@ -1,4 +1,4 @@
-import { NodeProps } from "@plantarium/nodesystem"
+import { NodeProps } from "./nodesystem";
 
 export interface Geometry {
   position: Float32Array;
@@ -70,6 +70,8 @@ export interface PlantProjectMeta {
 
   thumbnail?: string;
 
+  public?: boolean;
+
   description?: string;
 
   transform?: {
@@ -86,7 +88,7 @@ export interface PlantProjectMeta {
   latinName?: string;
   family?: string;
   class?: string;
-  public?: boolean;
 }
 
-export * from "./definition"
+export * from "./definition";
+

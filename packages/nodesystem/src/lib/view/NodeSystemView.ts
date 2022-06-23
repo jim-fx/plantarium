@@ -1,18 +1,18 @@
-import './NodeSystemView.scss';
 import { EventEmitter, throttle } from '@plantarium/helpers';
 import { createPanZoom } from '../helpers';
+import visible from '../helpers/visible';
 import type Node from '../model/Node';
 import type NodeInput from '../model/NodeInput';
 import type NodeOutput from '../model/NodeOutput';
 import type NodeSystem from '../model/NodeSystem';
+import type { CustomMouseEvent, NodeProps } from '../types';
 import AddMenu from './AddMenu';
 import BoxSelection from './BoxSelection';
 import FloatingConnectionView from './FloatingConnectionView';
-import ColorStore from './socketColorStore';
-import type { CustomMouseEvent, NodeProps } from '../types';
-import visible from '../helpers/visible';
-import SocketLegendView from './SocketLegendView';
 import NodeDrawingView from './NodeDrawingView';
+import './NodeSystemView.scss';
+import ColorStore from './socketColorStore';
+import SocketLegendView from './SocketLegendView';
 
 
 type EventMap = {
@@ -28,6 +28,8 @@ type EventMap = {
 
 }
 
+type NodeSystemState = "normal" | "help" | "floating" | "loading";
+
 export default class NodeSystemView extends EventEmitter<EventMap> {
   wrapper: HTMLElement;
   transformWrapper: HTMLDivElement;
@@ -37,7 +39,7 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
   boxSelection: BoxSelection;
   colorStore: ColorStore;
 
-  state: "normal" | "help" | "floating" | "loading";
+  state: NodeSystemState;
 
   nodeContainer: HTMLDivElement;
 
@@ -148,7 +150,7 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
         this.system.nodes.forEach(n => {
           n.view.updateViewPosition()
         })
-      }, 500)
+      }, 10)
     })
   }
 
@@ -308,7 +310,7 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
     this.panzoom.setTransform(x, y, s);
   }
 
-  setState(s: typeof this["state"] = "normal") {
+  setState(s: NodeSystemState = "normal") {
     this.wrapper.classList.forEach(k => {
       if (k.startsWith("nodesystem-state-")) this.wrapper.classList.remove(k)
     })

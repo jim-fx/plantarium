@@ -1,16 +1,15 @@
 import { MikroORM } from '@mikro-orm/core';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module, OnModuleInit } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AuthModule } from './auth/auth.module';
-import { ReportModule } from './report/report.module';
-import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { ThrottlerModule } from '@nestjs/throttler';
-import { ProjectsModule } from './projects/projects.module';
+import { ProjectsService } from 'projects/projects.service';
 import { UserService } from 'user/user.service';
-import { User } from 'user/user.entity';
-import { Role } from 'auth/enums/role.enum';
+import { AppController } from './app.controller';
+import { AuthModule } from './auth/auth.module';
+import { ProjectsModule } from './projects/projects.module';
+import { ReportModule } from './report/report.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -30,7 +29,7 @@ import { Role } from 'auth/enums/role.enum';
 })
 export class AppModule implements OnModuleInit {
 
-  constructor(private readonly orm: MikroORM, private userService: UserService) { }
+  constructor(private readonly orm: MikroORM, private userService: UserService, private projectService: ProjectsService) { }
 
   async onModuleInit(): Promise<void> {
 
@@ -41,6 +40,8 @@ export class AppModule implements OnModuleInit {
     await migrator.up();
 
     await this.userService.init()
+
+    await this.projectService.init()
 
   }
 

@@ -1,8 +1,9 @@
-import store, { userStore } from "./store";
-import { send, post } from "./core";
-import type { CreateReportDto, Report, User } from "@plantarium/backend";
+import type { CreateReportDto, Project, Report, User } from "@plantarium/backend";
+import { validator } from "@plantarium/helpers";
+import { PlantProject } from "@plantarium/types";
+import { post, send } from "./core";
+import store, { permissions, userStore } from "./store";
 const { VITE_API_URL = 'http://localhost:8081' } = import.meta.env;
-
 
 export async function login(username: string, password: string) {
   const res = await post('api/auth/login', { username, password });
@@ -16,8 +17,6 @@ export async function oauth(provider: string) {
 
   const res = await post("api/auth/" + provider + "/register-token", {});
 
-  console.log({ res })
-
   if (res.ok) {
 
     const { token } = res.data;
@@ -25,7 +24,6 @@ export async function oauth(provider: string) {
     if (token && "open" in globalThis) {
       globalThis.open(VITE_API_URL + "/api/auth/" + provider + "/set-token/" + token, "__blank")
       const response = await post("api/auth/" + provider + "/token", { token })
-      console.log({ response })
       if (response.ok) {
         const { access_token } = response.data;
         store.token = access_token;
@@ -63,8 +61,98 @@ export function getUserNameExists(name: string) {
   return send<boolean>({ path: "api/user/exists/" + name })
 }
 
+export function getProject(id: string) {
+  return send<Project>({ path: "api/project/" + id });
+}
+
+interface ProjectFilter {
+  user: boolean;
+  official: boolean;
+  approved: boolean;
+  name: string;
+  offset: number;
+}
+
+export async function getProjects(filter: Partial<ProjectFilter> = {}) {
+
+  let query: string[][] = []
+  let type = [];
+
+  if (filter.official) {
+    type.push(2)
+  }
+
+  if (filter.approved) {
+    type.push(1)
+  }
+
+  if (filter.user) {
+    type.push(0)
+  }
+
+  if (type.length) {
+    query.push(...type.map(t => ["type", "" + t]))
+  }
+
+  const res = await send<Project[]>({ path: "api/project?" + query.map(q => q.join("=")).join("&") });
+  if (!res.ok) return res;
+
+  return {
+    ok: true,
+    data: res.data.map(p => {
+      p.type = parseInt(p.type + "");
+      return p
+    })
+  }
+
+}
+
+export interface GbifResult<T> {
+  offset: number;
+  limit: number;
+  endOfRecords: boolean;
+  results: T[];
+}
+
+export interface GbifMedia {
+  type: string;
+  format: string;
+  source: string;
+  created: Date;
+  license: string;
+  rightsHolder: string;
+  taxonKey: number;
+  sourceTaxonKey: number;
+  identifier: string;
+}
+
+
+export function getImagesForPlant(gbifId: number) {
+  return send<GbifResult<GbifMedia>>({ path: "api/project/gbif/media/" + gbifId });
+}
+
 export function getEmailExists(email: string) {
   return send<boolean>({ path: "api/user/existsEmail/" + email })
+}
+
+export async function publishProject(project: PlantProject) {
+
+  const errors = validator.isPlantProject(project);
+
+  if (errors?.length) {
+    return {
+      ok: false,
+      statusCode: 400,
+      message: errors[0]
+    }
+  }
+
+  return send<PlantProject>({ path: "api/project", method: "POST", data: project })
+
+}
+
+export async function deleteProject(id: string) {
+  return send<string>({ path: "api/project/" + id, method: "DELETE" });
 }
 
 export async function getRole() {
@@ -80,12 +168,9 @@ export async function getRole() {
 
 export async function getPermission() {
   const response = await send<string[]>({ path: `api/user/permission` });
+  console.log({ response })
   if (response.ok) {
-
-    userStore.update(s => {
-      s.permissions = response.data;
-      return s
-    })
+    permissions.set(response.data);
     return response.data;
   }
 }

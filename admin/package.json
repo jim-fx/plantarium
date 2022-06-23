@@ -11,8 +11,9 @@
     "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
   },
   "devDependencies": {
+    "@plantarium/types": "link:../packages/types",
     "@sveltejs/adapter-static": "1.0.0-next.34",
-    "@sveltejs/kit": "1.0.0-next.350",
+    "@sveltejs/kit": "1.0.0-next.351",
     "@typescript-eslint/eslint-plugin": "5.29.0",
     "@typescript-eslint/parser": "5.29.0",
     "eslint": "8.18.0",
@@ -31,8 +32,8 @@
   "type": "module",
   "dependencies": {
     "@plantarium/backend": "link:../backend",
-    "@plantarium/helpers": "workspace:*",
     "@plantarium/client-api": "link:../packages/client-api",
+    "@plantarium/helpers": "workspace:*",
     "@plantarium/theme": "link:../packages/theme",
     "@plantarium/ui": "link:../packages/ui",
     "@yr/monotone-cubic-spline": "1.0.3",

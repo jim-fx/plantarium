@@ -1,4 +1,4 @@
-import { typeCheckNode } from "../types"
+import { typeCheckNode } from "../types";
 
 export default typeCheckNode({
   title: 'Vec3',
@@ -30,5 +30,12 @@ export default typeCheckNode({
       defaultValue: 0,
     },
   },
+  compute(params, _, alpha) {
+    return {
+      x: params.x(alpha),
+      y: params.y(alpha),
+      z: params.z(alpha),
+    }
+  }
 });
 

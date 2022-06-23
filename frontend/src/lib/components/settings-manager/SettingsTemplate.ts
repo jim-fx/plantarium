@@ -26,8 +26,8 @@ export default settingsType({
   theme: {
     type: 'select',
     inputType: "tab",
-    values: ['dark', 'light'],
-    value: 'dark',
+    values: ['dark', 'light', 'auto'],
+    value: 'auto',
   },
   debug: {
     onlyDev: true,

@@ -1,43 +1,37 @@
-import AlertWrapper from './alert/AlertWrapper.svelte';
 import { createAlert } from './alert/AlertStore';
+import AlertWrapper from './alert/AlertWrapper.svelte';
 
-import ToastWrapper from './toast/ToastWrapper.svelte';
 import { createToast } from './toast/ToastStore';
+import ToastWrapper from './toast/ToastWrapper.svelte';
 
+import type { SvelteComponent } from 'svelte';
 import Button from './Button.svelte';
+import ButtonGroup from "./ButtonGroup.svelte";
 import Icon from './Icon.svelte';
 import InputCheckbox from './InputCheckbox.svelte';
 import InputColor from './InputColor.svelte';
 import InputCurve from './InputCurve.svelte';
-import ButtonGroup from "./ButtonGroup.svelte"
-import InputInteger from './InputInteger.svelte';
 import InputFloat from './InputFloat.svelte';
-import InputVec3 from './InputVec3.svelte';
-import InputVec2 from './InputVec2.svelte';
-import InputTab from './InputTab.svelte';
-import InputText from './InputText.svelte';
+import InputInteger from './InputInteger.svelte';
+import InputRange from './InputRange.svelte';
+import InputSearch from './InputSearch.svelte';
 import InputSelect from './InputSelect.svelte';
 import InputShape from './InputShape.svelte';
 import InputSlider from './InputSlider.svelte';
+import InputTab from './InputTab.svelte';
+import InputText from './InputText.svelte';
+import InputVec2 from './InputVec2.svelte';
+import InputVec3 from './InputVec3.svelte';
 import LikeButton from './LikeButton.svelte';
-import InputRange from './InputRange.svelte';
-import InputSearch from './InputSearch.svelte';
 import Section from './Section.svelte';
 import StackTrace from './toast/StackTrace.svelte';
-import type { SvelteComponent } from 'svelte';
 import type { ValueTemplate } from './types';
-
+export { default as Gallery } from "./Gallery.svelte";
+export { default as GalleryItem } from "./GalleryItem.svelte";
+export { default as LogViewer } from "./LogViewer.svelte";
 export type {
-  RangeTemplate,
-  CheckboxTemplate,
-  IntegerTemplate,
-  FloatTemplate,
-  ShapeTemplate,
-  CurveTemplate,
-  SelectTemplate,
-  ValueTemplate
-} from "./types"
-
+  CheckboxTemplate, CurveTemplate, FloatTemplate, IntegerTemplate, RangeTemplate, SelectTemplate, ShapeTemplate, ValueTemplate
+} from "./types";
 export {
   InputFloat,
   InputInteger,
@@ -65,7 +59,8 @@ export {
   StackTrace
 };
 
-export { default as LogViewer } from "./LogViewer.svelte"
+
+
 
 // *****************************************
 // * Notice that the component is not instantiated and mounted to the document <body className="">

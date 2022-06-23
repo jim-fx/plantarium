@@ -160,26 +160,27 @@
           "nullable": false,
           "mappedType": "text"
         },
-        "data": {
-          "name": "data",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "text"
-        },
-        "meta": {
-          "name": "meta",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "text"
-        },
         "author__id": {
           "name": "author__id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "0",
+          "mappedType": "text"
+        },
+        "data": {
+          "name": "data",
           "type": "text",
           "unsigned": false,
           "autoincrement": false,
@@ -204,9 +205,18 @@
             "author__id"
           ],
           "composite": false,
-          "keyName": "project_author__id_unique",
+          "keyName": "project_author__id_index",
           "primary": false,
-          "unique": true
+          "unique": false
+        },
+        {
+          "keyName": "project_author__id_index",
+          "columnNames": [
+            "author__id"
+          ],
+          "composite": false,
+          "primary": false,
+          "unique": false
         },
         {
           "keyName": "primary",
@@ -230,6 +240,88 @@
             "_id"
           ],
           "referencedTableName": "user",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "project__id": {
+          "name": "project__id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "user__id": {
+          "name": "user__id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        }
+      },
+      "name": "project__likes",
+      "indexes": [
+        {
+          "columnNames": [
+            "project__id"
+          ],
+          "composite": false,
+          "keyName": "project__likes_project__id_index",
+          "primary": false,
+          "unique": false
+        },
+        {
+          "columnNames": [
+            "user__id"
+          ],
+          "composite": false,
+          "keyName": "project__likes_user__id_index",
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "primary",
+          "columnNames": [
+            "project__id",
+            "user__id"
+          ],
+          "composite": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "project__likes_project__id_foreign": {
+          "constraintName": "project__likes_project__id_foreign",
+          "columnNames": [
+            "project__id"
+          ],
+          "localTableName": "project__likes",
+          "referencedColumnNames": [
+            "_id"
+          ],
+          "referencedTableName": "project",
+          "deleteRule": "cascade",
+          "updateRule": "cascade"
+        },
+        "project__likes_user__id_foreign": {
+          "constraintName": "project__likes_user__id_foreign",
+          "columnNames": [
+            "user__id"
+          ],
+          "localTableName": "project__likes",
+          "referencedColumnNames": [
+            "_id"
+          ],
+          "referencedTableName": "user",
+          "deleteRule": "cascade",
           "updateRule": "cascade"
         }
       }
@@ -354,15 +446,6 @@
           "primary": false,
           "nullable": true,
           "mappedType": "json"
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": true,
-          "mappedType": "text"
         }
       },
       "name": "report",

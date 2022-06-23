@@ -1,4 +1,4 @@
-import store from "./store"
+import store from "./store";
 const { VITE_API_URL = 'http://localhost:8081' } = import.meta.env;
 
 interface SendOptions {
@@ -6,15 +6,20 @@ interface SendOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
   data?: any;
   isJSON?: boolean;
+  mode?: RequestMode;
 }
 
 type Response<T = any> = { ok: false, statusCode: number, message: string } | { ok: true, data: T };
 
-export async function send<T>({ method = "GET", path, data, isJSON = true }: SendOptions): Promise<Response<T>> {
-  const opts: { method: string; headers: Record<string, string>; body?: string } = {
+export async function send<T>({ method = "GET", path, data, isJSON = true, mode }: SendOptions): Promise<Response<T>> {
+  const opts: { method: string; headers: Record<string, string>; body?: string, mode?: RequestMode } = {
     method,
     headers: {}
   };
+
+  if (mode) {
+    opts.mode = mode;
+  }
 
   if (data) {
     opts.headers['Content-Type'] = 'application/json';
@@ -25,7 +30,10 @@ export async function send<T>({ method = "GET", path, data, isJSON = true }: Sen
     opts.headers['access-token'] = `Bearer ${store.token}`;
   }
 
-  const response = await fetch(`${VITE_API_URL}/${path}`, opts);
+  let url = path.startsWith("http") ? path : `${VITE_API_URL}/${path}`
+
+
+  const response = await fetch(url, opts);
 
   if (response.ok) {
     if (isJSON) {
@@ -41,7 +49,7 @@ export async function send<T>({ method = "GET", path, data, isJSON = true }: Sen
         return {
           statusCode: 400,
           ok: false,
-          message: "Response from " + path + "failed to parse",
+          message: "Response from " + path + " failed to parse",
         };
       }
     }

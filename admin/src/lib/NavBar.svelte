@@ -8,6 +8,7 @@
   $: sites = [
     ['/', 'Home'],
     ['/reports', 'Reports'],
+    ['/projects', 'Projects'],
     ['/users', 'Users'],
     isLoggedIn ? ['/profile', 'Profile'] : [],
     isLoggedIn ? ['/logout', 'Logout'] : ['/login', 'Login'],

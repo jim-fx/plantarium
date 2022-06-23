@@ -100,7 +100,7 @@ export default typeCheckNode({
 
       const alpha = j / input.stems.length;
 
-      const amount = Math.max(0, parameters.amount(alpha));
+      const amount = Math.max(0, Math.floor(parameters.amount(alpha)));
       if (!amount) return
 
       const offset = new Float32Array(amount * 3);

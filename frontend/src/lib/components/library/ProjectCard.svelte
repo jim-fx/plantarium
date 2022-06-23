@@ -2,8 +2,10 @@
 	import type { PlantProject } from '@plantarium/types';
 	import { Button } from '@plantarium/ui';
 	import { getContext } from 'svelte';
+	import type { Project } from '@plantarium/backend';
 
-	export let plant: PlantProject;
+	export let project: Project | undefined = undefined;
+	export let plant: PlantProject = (project as Project)?.data;
 
 	export let isRemote = false;
 
@@ -17,9 +19,9 @@
 		<h3>{plant.meta.name}</h3>
 		<div class="actions">
 			<Button
-				on:click={() => openPlant(plant.meta.id)}
-				icon="link"
-				name={isRemote ? 'import' : 'open'}
+				on:click={() => openPlant(project?._id || plant.meta.id)}
+				icon={isRemote ? 'import' : 'link'}
+				name={isRemote ? 'download' : 'open'}
 				--foreground-color="var(--background-color)"
 			/>
 
@@ -33,7 +35,11 @@
 		</div>
 	</div>
 	{#if plant?.meta.thumbnail}
-		<img src={plant.meta.thumbnail} alt="" on:click={() => showPlant(plant.meta.id)} />
+		<img
+			src={plant.meta.thumbnail}
+			alt=""
+			on:click={() => showPlant(project?._id || plant.meta.id)}
+		/>
 	{/if}
 </div>
 
@@ -41,7 +47,7 @@
 	.wrapper {
 		position: relative;
 		overflow: visible;
-		background-color: var(--foreground-color);
+		background-color: var(--midground-color);
 		width: 200px;
 		height: 200px;
 		border-radius: 10px;
@@ -68,8 +74,7 @@
 		overflow: hidden;
 	}
 
-	h3,
-	button {
+	h3 {
 		padding: 3px;
 		text-shadow: 0px 0px 0px transparent;
 		font-weight: medium;
@@ -77,9 +82,8 @@
 		transition: text-shadow 0.3 ease, box-shadow 0.3s ease;
 	}
 
-	.wrapper:hover h3,
-	.wrapper:hover button {
-		text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.6);
+	.wrapper:hover h3 {
+		text-shadow: 0px 0px 5px var(--background-color);
 	}
 
 	img {
@@ -98,14 +102,6 @@
 		border-radius: 0px 0px 10px 10px;
 		transition: max-height 0.7s ease;
 		display: flex;
-	}
-
-	.actions button {
-		flex: 1;
-		background-color: var(--background-color);
-		cursor: pointer;
-		color: var(--text-color);
-		border: none;
 	}
 
 	.wrapper:hover .actions {

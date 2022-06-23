@@ -36,6 +36,8 @@
 
   import * as _icons from '$lib/icons';
   import InputRange from '$lib/InputRange.svelte';
+  import Gallery from '$lib/Gallery.svelte';
+  import GalleryItem from '$lib/GalleryItem.svelte';
   let animateIcons = false;
   let activeIcon = false;
   const icons = Object.keys(_icons);
@@ -124,6 +126,24 @@
   </section>
 
   <section>
+    <h3>Gallery</h3>
+    <Gallery>
+      <GalleryItem>
+        <img src="https://cdn.lorem.space/images/movie/.cache/500x0/matrix-1999.jpg" alt="" />
+      </GalleryItem>
+      <GalleryItem>
+        <img src="https://cdn.lorem.space/images/movie/.cache/500x0/max-max-2015.jpeg" alt="" />
+      </GalleryItem>
+      <GalleryItem>
+        <img src="https://cdn.lorem.space/images/movie/.cache/500x0/wonder-woman-2.jpg" alt="" />
+      </GalleryItem>
+      <GalleryItem>
+        <img src="https://cdn.lorem.space/images/movie/.cache/500x0/leon-1994.jpg" alt="" />
+      </GalleryItem>
+    </Gallery>
+  </section>
+
+  <section>
     <h3>Search</h3>
     <InputSearch
       values={searchItems}
@@ -194,11 +214,16 @@
   main {
     margin: 0 auto;
     max-width: 600px;
+    background-color: var(--background-color);
   }
 
   section {
     padding: 50px 0px;
     border-bottom: solid thin gray;
+  }
+
+  img {
+    max-height: 30vh;
   }
 
   h3 {

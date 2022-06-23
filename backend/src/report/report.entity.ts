@@ -1,7 +1,7 @@
 import { Entity, OneToOne, Property } from '@mikro-orm/core';
 import { IsOptional } from 'class-validator';
-import { User } from '../user/user.entity';
 import { BaseEntity } from '../entities/BaseEntity';
+import { User } from '../user/user.entity';
 import { PLabel } from './dto/shared-types';
 
 
@@ -37,7 +37,4 @@ export class Report extends BaseEntity {
 
   @Property({ type: 'json' })
   browser?: any;
-
-  @Property()
-  userId?: string;
 }

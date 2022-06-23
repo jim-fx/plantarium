@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "moduleResolution":"node",
+    "moduleResolution": "node",
     "declaration": true,
     "removeComments": true,
     "esModuleInterop": true,
@@ -10,6 +10,7 @@
     "allowSyntheticDefaultImports": true,
     "target": "es2017",
     "sourceMap": true,
+    "resolveJsonModule": true,
     "outDir": "./dist",
     "baseUrl": "src",
     "incremental": true,
@@ -20,9 +21,15 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "auth/*": ["auth/*"],
-      "user/*": ["user/*"],
-      "report/*": ["report/*"]
+      "auth/*": [
+        "auth/*"
+      ],
+      "user/*": [
+        "user/*"
+      ],
+      "report/*": [
+        "report/*"
+      ]
     }
   }
 }

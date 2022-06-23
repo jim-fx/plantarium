@@ -5,7 +5,7 @@
   "scripts": {
     "commit:log": "echo \"[$(git log --pretty=format:'{\"id\":\"%h\",\"subject\":\"%s\",\"date\":\"%cD\"},')]\" | sed 's/,]/]/g' > frontend/static/commits.json",
     "admin:build": "pnpm --filter=./admin build",
-    "admin:dev": "pnpm --filter=./admin dev",
+    "admin": "pnpm --filter=./admin dev",
     "frontend": "pnpm --filter=./frontend dev",
     "ui": "pnpm --filter=./packages/ui dev",
     "pub": "pnpm -r publish --filter=@plantarium/nodesystem --filter=@plantarium/helpers --filter=@plantarium/ui --filter=@plantarium/theme",

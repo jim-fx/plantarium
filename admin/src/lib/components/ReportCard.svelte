@@ -30,6 +30,11 @@
 
   <div class="flex">
     <i class="text-xs">{humane.secondsToString(secondsAgo)} ago</i>
+    {#if report.author}
+      <b class="text-xs">
+        &nbsp; by {report.author}
+      </b>
+    {/if}
   </div>
 </a>
 

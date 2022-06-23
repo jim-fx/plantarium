@@ -60,7 +60,7 @@ export class UserService {
   async init() {
     const { ADMIN_PASS } = process.env;
     if (ADMIN_PASS) {
-      let admin = await this.repository.findOne({ username: 'admin' });
+      let admin = await this.repository.findOne({ role: Role.ADMIN });
       if (!admin) {
         admin = new User();
         admin.username = 'admin';

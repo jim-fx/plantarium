@@ -1,5 +1,5 @@
+import { Icon } from "@plantarium/ui";
 import type Node from '../model/Node';
-import { Icon } from "@plantarium/ui"
 import type System from '../model/NodeSystem';
 import type { CustomMouseEvent } from '../types';
 import type NodeConnectionView from './NodeConnectionView';

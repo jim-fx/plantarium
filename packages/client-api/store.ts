@@ -1,6 +1,6 @@
 import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
-import { getBrowser, parseJwt } from "./helper"
+import { getBrowser, parseJwt } from "./helper";
 import { getUserInfo } from './user-wrapper';
 
 const browser = getBrowser()
@@ -15,6 +15,7 @@ interface User {
 }
 
 let _user = {};
+let _permissions = []
 
 const storage = (() => {
   if (!("sessionStorage" in globalThis)) {
@@ -33,9 +34,16 @@ const storage = (() => {
 if ("user" in storage) {
   try {
     _user = JSON.parse(storage.getItem("user"));
-
   } catch (err) {
+    console.log("Heeere 4")
+  }
+}
 
+
+if ("permissions" in storage) {
+  try {
+    _permissions = JSON.parse(storage.getItem("permissions"));
+  } catch (err) {
     console.log("Heeere 4")
   }
 }
@@ -43,12 +51,21 @@ if ("user" in storage) {
 
 const user: Writable<User> = writable(_user);
 
+const isLoggedIn: Writable<boolean> = writable(!!user);
+
 user.subscribe(v => {
-  console.log("UserStore", { v })
+  isLoggedIn.set(!!v);
   storage.setItem("user", JSON.stringify(v))
 })
 
 export const userStore = user;
+export { isLoggedIn };
+console.log({ _permissions })
+export const permissions = writable<string[]>(_permissions)
+permissions.subscribe((p) => {
+  console.log({ p })
+  storage.setItem("permissions", JSON.stringify(p))
+})
 
 export default {
   set token(v) {

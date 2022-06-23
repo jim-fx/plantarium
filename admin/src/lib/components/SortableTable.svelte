@@ -1,11 +1,14 @@
 <script lang="ts">
   import type { SvelteComponent } from 'svelte';
+  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
 
   export let items: unknown[] = [];
 
   export let keys: string[] = undefined;
   export let component: SvelteComponent = undefined;
   export let componentKey = 'item';
+  export let useLink = false;
 
   $: _keys =
     keys && keys.length ? keys : items.length ? Object.keys(items[0]) : [];
@@ -59,7 +62,10 @@
 
     <tbody>
       {#each sortedItems as item (getKey(item))}
-        <tr class="my-5" /><tr>
+        <tr
+          class="my-5"
+          on:click={() => useLink && goto($page.url + '/' + getKey(item))}
+        >
           {#if component}
             <td colspan={component ? _keys.length : 1} class="py-1">
               <svelte:component

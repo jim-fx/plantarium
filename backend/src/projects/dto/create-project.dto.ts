@@ -1,6 +1,5 @@
+import { PlantProject } from "@plantarium/types";
+
 export class CreateProjectDto {
-
-  readonly data: string;
-  readonly meta: string;
-
+  data: PlantProject;
 }

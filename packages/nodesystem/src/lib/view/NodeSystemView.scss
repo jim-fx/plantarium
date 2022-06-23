@@ -109,7 +109,8 @@
 .nodesystem-state-loading{
   opacity:0 !important;
   pointer-events:none !important;
-  display:none !important;
+  display: none !important;
+  transition: opacity 0.3s ease;
 }
 
 .nodesystem-state-floating-searching{

@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@plantarium/nodesystem": "workspace:*",
     "typescript-json-schema": "^0.53.1"
   }
 }

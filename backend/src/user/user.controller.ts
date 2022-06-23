@@ -6,11 +6,9 @@ import {
   Get,
   Param,
   Patch,
-  Post,
-  Request,
+  Post, Req, Request,
   UnauthorizedException,
-  UseGuards,
-  UseInterceptors,
+  UseGuards, UseInterceptors
 } from '@nestjs/common';
 import { getPermissionsForRole } from 'auth/enums/permission.enum';
 import { Role } from 'auth/enums/role.enum';
@@ -60,35 +58,47 @@ export class UserController {
     return !!user;
   }
 
+
+  @Get("role")
+  getRole(@Req() req: Request) {
+    const { user: { role = Role.ANON } = {} } = req;
+    return role;
+  }
+
+
+  @Get('profile')
+  async profile(@Req() req: { user: User; }) {
+    return req.user;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get("permission")
+  getPermissions(@Request() req: Request) {
+    const role = this.getRole(req);
+    const permissions = [...getPermissionsForRole(role)];
+    return permissions;
+  }
+
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userService.findById(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  update(@Param('id') id: string, @Req() req, @Body() updateUserDto: UpdateUserDto) {
+    if (req.user.role !== "ADMIN" && req.user.sub !== id) {
+      return new UnauthorizedException()
+    }
     return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string, @Req() req) {
+    if (req.user.role !== "ADMIN" && req.user.sub !== id) {
+      return new UnauthorizedException()
+    }
+
     return this.userService.remove(id);
-  }
-
-  @Get("role")
-  getRole(@Request() req) {
-    const { user: { role = Role.ANON } = {} } = req;
-    console.log("ROLE", role);
-    return role;
-  }
-
-  @Get("permission")
-  getPermissions(@Request() req) {
-    console.log("Eyy")
-    const role = this.getRole(req);
-    console.log({ role })
-    const permissions = [...getPermissionsForRole(role)];
-    console.log({ permissions })
-    return { permissions };
   }
 }

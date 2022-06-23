@@ -1,5 +1,17 @@
+<script lang="ts" context="module">
+	import * as projectStore from './project-store';
+
+	const { setFilter, store: remotePlantStore } = projectStore;
+
+	export async function load() {
+		await setFilter({ official: true });
+	}
+</script>
+
 <script lang="ts">
 	import { projectManager } from '$lib/components';
+
+	import api, { isLoggedIn } from '@plantarium/client-api';
 
 	import examples from '../project-manager/examples';
 
@@ -18,13 +30,21 @@
 	import type { PlantProject } from '@plantarium/types';
 	import { setContext } from 'svelte';
 	import { writable } from 'svelte/store';
-	import InputText from '@plantarium/ui/src/lib/InputText.svelte';
 	import ImportProject from '../project-manager/ImportProject.svelte';
 	import ExportProject from '../project-manager/ExportProject.svelte';
+	import InputCheckbox from '@plantarium/ui/src/lib/InputCheckbox.svelte';
+	import { onMount } from 'svelte';
 
 	const dispatch = createEventDispatcher();
 
 	const localPlantStore = projectManager.store;
+
+	const filter = {
+		official: true,
+		user: false,
+		approved: false
+	};
+	$: setFilter(filter);
 
 	let isRemote = writable(false);
 	setContext('isRemote', isRemote);
@@ -33,6 +53,33 @@
 
 	let isLoading = false;
 	let activePlantPromise: Promise<PlantProject> | undefined;
+
+	async function handlePublish(id: string) {
+		if (!$isLoggedIn) {
+			createToast('Must be logged in to publish', { type: 'warning' });
+			return;
+		}
+
+		const answer = await createAlert('If you publish it, everyone can download it.', {
+			title: 'Sure?',
+			values: ['Yes', 'No']
+		});
+		if (answer !== 'Yes') {
+			return;
+		}
+
+		const p = await loadPlant(id);
+
+		const r = await api.publishProject(p);
+
+		p.meta.public = true;
+
+		if (r.ok) {
+			createToast('Published Project', { type: 'success' });
+		} else {
+			createToast(r.message, { type: 'error', title: 'Could not publish' });
+		}
+	}
 
 	setContext('showPlant', showPlant);
 	async function showPlant(id?: string) {
@@ -49,6 +96,10 @@
 			clearTimeout(t);
 		});
 	}
+
+	const getKey = (p: any) => {
+		return p?.id || p?._id || p?.data?.meta?.id;
+	};
 
 	setContext('openPlant', openPlant);
 	async function openPlant(id: string) {
@@ -72,7 +123,11 @@
 
 			if (p) return p;
 
-			alert('Eyyy');
+			const res = await projectStore.loadPlant(id);
+
+			if (res) {
+				return res;
+			}
 
 			// TODO: implement load
 		}
@@ -96,6 +151,10 @@
 			createToast(`Project ${plant.meta.name ?? plant.meta.id} deleted!`, { type: 'success' });
 		}
 	}
+
+	onMount(() => {
+		setFilter(filter);
+	});
 </script>
 
 <div class="wrapper" class:activePlant={!isLoading && activePlantPromise}>
@@ -116,15 +175,24 @@
 		<input type="text" bind:value={searchText} placeholder="Search.." />
 
 		<br />
-		<br />
+
+		{#if $isRemote}
+			<div class="filter-types">
+				<InputCheckbox label="Official" bind:value={filter.official} />
+				<InputCheckbox label="Approved" bind:value={filter.approved} />
+				<InputCheckbox label="User" bind:value={filter.user} />
+			</div>
+		{/if}
 
 		<div class="actions">
-			<Button
-				icon="import"
-				name="import"
-				--foreground-color="var(--background-color)"
-				on:click={() => createAlert(ImportProject, { timeout: 0 })}
-			/>
+			{#if !$isRemote}
+				<Button
+					icon="import"
+					name="import"
+					--foreground-color="var(--background-color)"
+					on:click={() => createAlert(ImportProject, { timeout: 0 })}
+				/>
+			{/if}
 		</div>
 	</aside>
 
@@ -135,8 +203,8 @@
 			<PlantView plant={activePlantPromise} />
 		{:else if $isRemote}
 			<div class="list">
-				{#each examples as plant}
-					<ProjectCard isRemote={$isRemote} {plant} />
+				{#each $remotePlantStore as project (getKey(project))}
+					<ProjectCard isRemote={$isRemote} {project} />
 				{/each}
 			</div>
 		{:else}
@@ -197,7 +265,7 @@
 								on:click={() => {}}
 							/>
 							<Button
-								name="load"
+								name="download"
 								icon="import"
 								--foreground-color="var(--background-color)"
 								on:click={() => openPlant(plant.meta.id)}
@@ -205,9 +273,10 @@
 						{:else}
 							<Button
 								name="publish"
-								icon="export"
+								--opacity={$isLoggedIn ? 1 : 0.2}
 								--foreground-color="var(--background-color)"
-								on:click={() => createToast('Not yet implemented')}
+								icon="export"
+								on:click={() => handlePublish(plant.meta.id)}
 							/>
 							<Button
 								name="export"
@@ -244,11 +313,16 @@
 		display: grid;
 		overflow: hidden;
 		transition: grid-template-columns 0.3s ease;
-		background-color: var(--midground-color);
+		background-color: var(--background-color);
 		grid-template-columns: 200px 1fr 0px;
 	}
 	.activePlant {
 		grid-template-columns: min-content 1fr 300px;
+	}
+
+	.filter-types {
+		display: grid;
+		row-gap: 15px;
 	}
 
 	.list {
@@ -262,7 +336,7 @@
 		box-sizing: content-box;
 		padding: 15px;
 		opacity: 1;
-		background-color: var(--foreground-color);
+		background-color: var(--midground-color);
 		transition: opacity 0.3s ease, padding 0.3s ease, max-width 0.3s ease, opacity 0.3s ease;
 	}
 
@@ -293,9 +367,6 @@
 	.activePlant > aside:last-child {
 		opacity: 1;
 		padding: 10px;
-	}
-
-	.actions {
 	}
 
 	main {
