@@ -33,7 +33,7 @@
     "jsondiffpatch": "^0.4.1",
     "ogl-typescript": "^0.1.40",
     "open-simplex-noise": "^2.5.0",
-    "sass": "^1.52.3",
+    "sass": "^1.53.0",
     "shortid": "^2.2.16",
     "stacktrace-parser": "^0.1.10",
     "svelte-click-outside": "^1.0.0",
@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "1.0.0-next.34",
-    "@sveltejs/kit": "1.0.0-next.351",
+    "@sveltejs/kit": "1.0.0-next.352",
     "@tsconfig/svelte": "3.0.0",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
