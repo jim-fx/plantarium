@@ -1,5 +1,5 @@
 import { Collection, Entity, Index, ManyToMany, ManyToOne, Property } from "@mikro-orm/core";
-import { PlantProject } from "@plantarium/types";
+import type { PlantProject } from "@plantarium/types";
 import { Exclude, Expose } from "class-transformer";
 import { User } from "user/user.entity";
 import { BaseEntity } from "../../entities/BaseEntity";

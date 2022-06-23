@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Req, UnauthorizedException } from '@nestjs/common';
-import { PlantProject } from "@plantarium/types";
+import type { PlantProject } from "@plantarium/types";
 import { Permissions } from 'auth/decorators/permissions.decorator';
 import { Permission } from 'auth/enums/permission.enum';
 import { Request } from 'express';
