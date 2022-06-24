@@ -2,7 +2,7 @@
 	import * as api from '@plantarium/client-api';
 	import { validator } from '@plantarium/helpers';
 	import { slide } from 'svelte/transition';
-	import { Button, InputText, InputCheckbox, createToast } from '@plantarium/ui';
+	import { Button, InputText, InputCheckbox, createToast, Form } from '@plantarium/ui';
 	import Icon from '@plantarium/ui/src/lib/Icon.svelte';
 
 	let register = false;
@@ -25,14 +25,37 @@
 		return [];
 	}
 
-	let username: string;
-	let email: string;
-	let password: string;
-
 	let errors: string[] = [];
+
 	let isLoading = false;
 
+	let formData = {} as any;
+
+	$: register = !!formData?.register;
+
+	$: formFields = register
+		? {
+				username: {
+					type: 'username',
+					placeholder: 'Username',
+					validators: validator.username,
+					asyncValidators: [checkUsernameExists]
+				},
+				email: { type: 'email', validators: validator.email, asyncValidators: [checkEmailExists] },
+				password: { type: 'password', validators: validator.password },
+				register: { type: 'checkbox', label: 'register' },
+				submit: { type: 'submit' }
+		  }
+		: {
+				username: { label: 'Username/Email', placeholder: 'Username/Email' },
+				password: { type: 'password' },
+				register: { type: 'checkbox', label: 'register' },
+				submit: { type: 'submit' }
+		  };
+
 	async function handleSubmit() {
+		const { username, password, email } = formData;
+
 		if (!username || !password) return;
 		if (register && !email) return;
 
@@ -45,7 +68,6 @@
 				...validator.password.map((v) => v(password)).flat()
 			].filter((v) => !!v);
 
-			console.log({ err });
 			if (err.length) {
 				errors = err as string[];
 				return;
@@ -112,31 +134,12 @@
 		--width="100%"
 	/>
 	<br />
-	<h3>Login / Register</h3>
 
-	<InputText
-		bind:value={username}
-		placeholder={register ? 'Username' : 'Username/Email'}
-		validators={register ? validator.username : []}
-		asyncValidators={register ? [checkUsernameExists] : []}
-	/>
-
-	{#if register}
-		<div in:slide>
-			<InputText bind:value={email} asyncValidators={[checkEmailExists]} type="email" />
-		</div>
-	{/if}
-
-	<InputText bind:value={password} validators={register} type="password" />
-
-	<br />
-	<InputCheckbox bind:value={register} label="Register" />
-
-	<br />
-	<Button
-		name={register ? 'register' : 'login'}
-		on:click={handleSubmit}
-		disabled={register ? !(email && username && password) : !(username && password)}
+	<Form
+		title="Login / Register"
+		fields={formFields}
+		bind:data={formData}
+		on:submit={(ev) => handleSubmit(ev)}
 	/>
 {/if}
 

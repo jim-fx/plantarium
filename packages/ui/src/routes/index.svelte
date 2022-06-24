@@ -16,7 +16,8 @@
     InputShape,
     Section,
     AlertWrapper,
-    InputTab
+    InputTab,
+    Form
   } from '$lib';
   import { Highlight } from 'svelte-highlight';
   import atomOneDark from 'svelte-highlight/styles/atom-one-dark';
@@ -41,6 +42,26 @@
   let animateIcons = false;
   let activeIcon = false;
   const icons = Object.keys(_icons);
+
+  let formData = {};
+  const formFields = {
+    username: {
+      type: 'username',
+      label: 'Username',
+      placeholder: 'Username',
+      validators: [(s: string) => s.length < 3 && ['Username must be longer than 3 characters']]
+    },
+    password: {
+      type: 'password',
+      label: 'password',
+      placeholder: 'Password',
+      validators: [(s: string) => s.length < 8 && ['Password must be longer than 8 characters']]
+    },
+    submit: {
+      type: 'submit',
+      label: 'login'
+    }
+  };
 </script>
 
 <svelte:head>
@@ -90,6 +111,14 @@
   <section>
     <h3>Curve</h3>
     <InputCurve />
+  </section>
+
+  <section>
+    <h3>Form</h3>
+    <Form title="Login" fields={formFields} bind:data={formData} />
+    <br />
+    <br />
+    <pre><code>{JSON.stringify(formData, null, 2)}</code></pre>
   </section>
 
   <section>

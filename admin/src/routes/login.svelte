@@ -1,23 +1,20 @@
 <script lang="ts">
-  import api, { userStore } from '@plantarium/client-api';
-  import { validator } from '@plantarium/helpers';
-  import { slide } from 'svelte/transition';
-  import {
-    Button,
-    InputText,
-    InputCheckbox,
-    createToast,
-  } from '@plantarium/ui';
-  import Icon from '@plantarium/ui/src/lib/Icon.svelte';
+  import api from '@plantarium/client-api';
+  import { createToast, Form } from '@plantarium/ui';
   import ApiCall from '$lib/components/ApiCall.svelte';
   import { goto } from '$app/navigation';
 
-  let username: string;
-  let password: string;
-
   let prom: Promise<any>;
 
-  async function handleSubmit() {
+  const formField = {
+    username: { label: 'Username/Email', placeholder: 'Username/Email' },
+    password: { type: 'password' },
+    submit: { type: 'submit', label: 'login' },
+  };
+
+  async function handleSubmit(ev) {
+    const { username, password } = ev.data;
+
     if (!username || !password) return;
     if (prom) return;
 
@@ -36,17 +33,6 @@
       }}
     />
   {:else}
-    <h3>Login</h3>
-
-    <InputText bind:value={username} placeholder="Username" />
-
-    <InputText bind:value={password} validators={false} type="password" />
-
-    <br />
-    <Button
-      name={'login'}
-      on:click={handleSubmit}
-      disabled={!(username && password)}
-    />
+    <Form title="Login" fields={formField} on:submit={handleSubmit} />
   {/if}
 </div>

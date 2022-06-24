@@ -1,3 +1,4 @@
+import type { User } from "@plantarium/backend";
 import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
 import { getBrowser, parseJwt } from "./helper";
@@ -7,12 +8,6 @@ const browser = getBrowser()
 
 let token = browser && localStorage.getItem('token');
 
-interface User {
-  username?: string;
-  id?: string;
-  role?: string;
-  permissions?: string[];
-}
 
 let _user = {};
 let _permissions = []
@@ -49,7 +44,7 @@ if ("permissions" in storage) {
 }
 
 
-const user: Writable<User> = writable(_user);
+const user: Writable<User | {}> = writable(_user);
 
 const isLoggedIn: Writable<boolean> = writable(!!user);
 
@@ -60,10 +55,8 @@ user.subscribe(v => {
 
 export const userStore = user;
 export { isLoggedIn };
-console.log({ _permissions })
 export const permissions = writable<string[]>(_permissions)
 permissions.subscribe((p) => {
-  console.log({ p })
   storage.setItem("permissions", JSON.stringify(p))
 })
 

@@ -11,7 +11,7 @@
   export let placeholder: string | undefined = undefined;
   $: _placeholder = getPlaceholder(placeholder);
 
-  let autocomplete = 'none';
+  export let autocomplete = 'none';
 
   export let type: 'email' | 'username' | 'password' | string = 'text';
 
@@ -52,8 +52,10 @@
 
   let showPassword = false;
 
+  let focused = false;
+
   // Export the internal errors
-  let errors: string[] = [];
+  export let errors: string[] = [];
 
   let _errors: string[] = [];
   let asyncErrors = [];
@@ -128,11 +130,17 @@
 
 {#if _placeholder}
   <div class="spacer" />
-  <span class="placeholder" class:empty={!_value}>{_placeholder}</span>
+  <span class="placeholder" class:empty={!_value && !focused}>{_placeholder}</span>
 {/if}
-<div class="component-wrapper" class:has-placeholder={_placeholder}>
+<div
+  class="component-wrapper"
+  class:has-placeholder={_placeholder}
+  class:has-errors={errors?.length}
+>
   <input
     on:input={handleInput}
+    on:focus={() => (focused = true)}
+    on:blur={() => (focused = false)}
     {autocomplete}
     type={type === 'password' ? (showPassword ? 'text' : 'password') : type}
   />
@@ -163,7 +171,7 @@
     position: absolute;
     cursor: pointer;
     right: 10px;
-    top: 5px;
+    top: 0.55em;
     width: 25px;
   }
 
@@ -178,20 +186,24 @@
     background-color: transparent;
     transform-origin: left center;
     transition: transform 0.1s ease, opacity 0.1s ease;
-    opacity: 1;
+    opacity: 0.6;
     transform: translateY(-1.3em) translateX(0px) scale(0.9);
   }
 
   .error-wrapper {
     background-color: var(--error);
-    border-radius: 5px;
-    margin-top: 5px;
+    border-radius: 0px 0px 5px 5px;
+    box-sizing: border-box;
     padding: 3px 5px;
     overflow: hidden;
+
+    width: min-content;
+    min-width: 100%;
   }
 
   .error-wrapper > p {
     border-bottom: solid white 0.5px;
+    margin: 0;
     padding: 2px 0px;
   }
 
@@ -202,19 +214,26 @@
 
   .placeholder.empty {
     opacity: 0.5;
-    transform: translateY(0.5em) translateX(7px);
+    transform: translateY(0.6em) translateX(7px);
+  }
+
+  .has-errors .component-wrapper {
+    border-radius: var(--border-radius, 5px) var(--border-radius, 5px) 0px 0px;
   }
 
   input {
     z-index: -1;
     border: none;
-    padding: 5px;
-    margin: 2px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    background-color: var(--foreground-color);
+    color: var(--text-color);
+    padding: 10px;
   }
 
   .component-wrapper {
     overflow: hidden;
     position: relative;
-    border-radius: var(--border-radius, 2px);
+    border-radius: var(--border-radius, 5px);
   }
 </style>
