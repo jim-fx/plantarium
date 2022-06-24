@@ -422,7 +422,7 @@ importers:
       '@plantarium/theme': workspace:*
       '@plantarium/ui': workspace:*
       '@playwright/test': ^1.22.2
-      '@sveltejs/adapter-auto': 1.0.0-next.51
+      '@sveltejs/adapter-auto': 1.0.0-next.52
       '@sveltejs/adapter-static': 1.0.0-next.34
       '@sveltejs/kit': 1.0.0-next.352
       '@types/cookie': ^0.5.1
@@ -464,7 +464,7 @@ importers:
       stacktrace-parser: 0.1.10
     devDependencies:
       '@playwright/test': 1.22.2
-      '@sveltejs/adapter-auto': 1.0.0-next.51
+      '@sveltejs/adapter-auto': 1.0.0-next.52
       '@sveltejs/kit': 1.0.0-next.352_svelte@3.48.0
       '@types/cookie': 0.5.1
       '@typescript-eslint/eslint-plugin': 5.29.0_qqmbkyiaixvppdwswpytuf2hgm
@@ -2332,12 +2332,12 @@ packages:
       '@sinonjs/commons': 1.8.3
     dev: true
 
-  /@sveltejs/adapter-auto/1.0.0-next.51:
-    resolution: {integrity: sha512-jvoYLFhIwqPBWGy1IrkhhYmXrDgCnPI1GO9tjbh3NqJHc5vbpI2B9qudE/UzgGNz9xXYSGIw3H2aeSX3HZg4nA==}
+  /@sveltejs/adapter-auto/1.0.0-next.52:
+    resolution: {integrity: sha512-jOuC7RauiwGg7BQQEZxBGcwtwynNqQSuGJ7MJ9kk5WIrFCMrZSclwnpO1yLmUUYFKvJ61Z7bvVoDqm6+CgLEaw==}
     dependencies:
       '@sveltejs/adapter-cloudflare': 1.0.0-next.23
       '@sveltejs/adapter-netlify': 1.0.0-next.65
-      '@sveltejs/adapter-vercel': 1.0.0-next.58
+      '@sveltejs/adapter-vercel': 1.0.0-next.59
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -2364,10 +2364,10 @@ packages:
     dependencies:
       tiny-glob: 0.2.9
 
-  /@sveltejs/adapter-vercel/1.0.0-next.58:
-    resolution: {integrity: sha512-Gw76HhwHh2sWP2RN8jwm4jMmO5rnvvWsPsnAhFRCYlIs6gwKf/mNE/CfTQ1nkqKEm15YEYHjKXRVRjI8BniwxA==}
+  /@sveltejs/adapter-vercel/1.0.0-next.59:
+    resolution: {integrity: sha512-1lq5IFLWiLUXmNJVUXjwaInDb07BJg5er43xlMilpFpTA9BZI2hqjYCgtdtk7O6ee5EYJk876b2riM1m+y1M4Q==}
     dependencies:
-      '@vercel/nft': 0.19.1
+      '@vercel/nft': 0.20.0
       esbuild: 0.14.47
     transitivePeerDependencies:
       - encoding
@@ -2973,8 +2973,8 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
-  /@vercel/nft/0.19.1:
-    resolution: {integrity: sha512-klR5oN7S3WJsZz0r6Xsq7o8YlFEyU3/00VmlpZzIPVFzKfbcEjXo/sVR5lQBUqNKuOzhcbxaFtzW9aOyHjmPYA==}
+  /@vercel/nft/0.20.0:
+    resolution: {integrity: sha512-+lxsJP/sG4E8UkhfrJC6evkLLfUpZrjXxqEdunr3Q9kiECi8JYBGz6B5EpU1+MmeNnRoSphLcLh/1tI998ye4w==}
     hasBin: true
     dependencies:
       '@mapbox/node-pre-gyp': 1.0.9
@@ -6967,6 +6967,7 @@ packages:
       chalk: 2.4.2
       diff-match-patch: 1.0.5
     dev: false
+    bundledDependencies: []
 
   /jsonfile/6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
