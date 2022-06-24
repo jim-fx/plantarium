@@ -39,7 +39,7 @@ importers:
       typescript: 4.7.4
       vite: 2.9.12
       vite-plugin-windicss: 1.8.4
-      windicss: 3.5.4
+      windicss: 3.5.5
     dependencies:
       '@plantarium/backend': link:../backend
       '@plantarium/client-api': link:../packages/client-api
@@ -74,7 +74,7 @@ importers:
       tslib: 2.4.0
       typescript: 4.7.4
       vite-plugin-windicss: 1.8.4_vite@2.9.12
-      windicss: 3.5.4
+      windicss: 3.5.5
 
   backend:
     specifiers:
@@ -3104,7 +3104,7 @@ packages:
     dependencies:
       debug: 4.3.4
       jiti: 1.14.0
-      windicss: 3.5.4
+      windicss: 3.5.5
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -3118,7 +3118,7 @@ packages:
       fast-glob: 3.2.11
       magic-string: 0.26.2
       micromatch: 4.0.5
-      windicss: 3.5.4
+      windicss: 3.5.5
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6967,6 +6967,7 @@ packages:
       chalk: 2.4.2
       diff-match-patch: 1.0.5
     dev: false
+    bundledDependencies: []
 
   /jsonfile/6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
@@ -10424,7 +10425,7 @@ packages:
       debug: 4.3.4
       kolorist: 1.5.1
       vite: 2.9.12
-      windicss: 3.5.4
+      windicss: 3.5.5
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -10704,8 +10705,8 @@ packages:
       string-width: 4.2.3
     dev: true
 
-  /windicss/3.5.4:
-    resolution: {integrity: sha512-x2Iu0a69dtNiKHMkR886lx0WKbZI5GqvXyvGBCJ2VA6rcjKYjnzCA/Ljd6hNQBfqlkSum8J+qAVcCfLzQFI4rQ==}
+  /windicss/3.5.5:
+    resolution: {integrity: sha512-Mnbb9DT+74cw3UxcVimbwCw5tKxITNvOBwTFMFdUv9f5KoZensestA4vKUM8tw74QAwyjE5bqH0QQufgFQwj0Q==}
     engines: {node: '>= 12'}
     hasBin: true
     dev: true
