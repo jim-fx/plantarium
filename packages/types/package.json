@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.ts",
+  "types": "index.ts",
   "scripts": {
     "build-types": "echo \"export const PlantProjectDef = $(pnpm typescript-json-schema  --required ./index.ts PlantProject)\" > definition.ts"
   },
