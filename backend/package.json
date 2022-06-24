@@ -66,7 +66,7 @@
     "uuid": "8.3.2"
   },
   "devDependencies": {
-    "@nestjs/cli": "8.2.7",
+    "@nestjs/cli": "8.2.8",
     "@nestjs/schematics": "8.0.11",
     "@nestjs/testing": "8.4.7",
     "@types/bcrypt": "5.0.0",
