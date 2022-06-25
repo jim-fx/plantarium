@@ -12,12 +12,11 @@
 //   }
 // ));
 
-import { Strategy, Profile } from "passport-github2";
+import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { AuthService } from '../auth.service';
+import { Profile, Strategy } from "passport-github2";
 import { UserService } from "user/user.service";
-import { User } from "user/user.entity";
+import { AuthService } from '../auth.service';
 
 @Injectable()
 export class GithubStrategy extends PassportStrategy(Strategy, "github") {
@@ -25,11 +24,12 @@ export class GithubStrategy extends PassportStrategy(Strategy, "github") {
 
     const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
     const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
+    const { OAUTH_CALLBACK } = process.env;
 
     super({
       clientID: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
-      callbackURL: "http://localhost:8081/api/auth/github/callback",
+      callbackURL: OAUTH_CALLBACK,
       scope: ["public_profile"]
     });
   }
