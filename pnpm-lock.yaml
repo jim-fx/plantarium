@@ -101,7 +101,6 @@ importers:
       '@nestjs/serve-static': 2.2.2
       '@nestjs/testing': 8.4.7
       '@nestjs/throttler': ^2.0.1
-      '@plantarium/helpers': workspace:*
       '@plantarium/types': workspace:*
       '@types/bcrypt': 5.0.0
       '@types/cookie-parser': 1.4.3
@@ -166,7 +165,6 @@ importers:
       '@nestjs/platform-fastify': 8.4.7_7tsmhnugyerf5okgqzer2mfqme
       '@nestjs/serve-static': 2.2.2_7tsmhnugyerf5okgqzer2mfqme
       '@nestjs/throttler': 2.0.1_zysgbzrbqurgi5bpxpfkrj3lie
-      '@plantarium/helpers': link:../packages/helpers
       bcrypt: 5.0.1
       class-transformer: 0.5.1
       class-validator: 0.13.2
