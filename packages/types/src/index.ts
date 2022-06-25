@@ -90,5 +90,3 @@ export interface PlantProjectMeta {
   class?: string;
 }
 
-export * from "./definition";
-
