@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "prebuild": "rimraf dist",
-    "start": "nest start",
+    "start": "node dist/main",
     "dev": "nodemon",
     "start:dev": "ts-eager src/main.ts",
     "start:debug": "nest start --debug --watch",
