@@ -13,7 +13,7 @@
   };
 
   async function handleSubmit(ev) {
-    const { username, password } = ev.data;
+    const { username, password } = ev.detail;
 
     if (!username || !password) return;
     if (prom) return;
