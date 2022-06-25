@@ -2,8 +2,9 @@
   "name": "@plantarium/types",
   "version": "0.0.1",
   "description": "",
-  "main": "index.ts",
-  "types": "index.ts",
+  "main": "src/index.ts",
+  "source": "src/index.ts",
+  "types": "src/index.ts",
   "scripts": {
     "build-types": "echo \"export const PlantProjectDef = $(pnpm typescript-json-schema  --required ./index.ts PlantProject)\" > definition.ts"
   },

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "composite": true,
     "resolveJsonModule": true,
     "module": "ESNext",
     "experimentalDecorators": true,
@@ -10,5 +11,11 @@
       "ESNext",
       "DOM"
     ]
-  }
+  },
+  "include": [
+    "src/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

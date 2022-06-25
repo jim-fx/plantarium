@@ -12,6 +12,7 @@ WORKDIR /app
 COPY package.json ./ 
 COPY pnpm-* ./
 COPY backend backend
+COPY packages packages
 
 RUN pnpm i -r --frozen-lockfile --filter="./backend" && pnpm backend:build
 
@@ -26,6 +27,7 @@ COPY backend/package.json ./backend/package.json
 COPY --from=build /app/backend/dist ./backend/dist
 
 RUN pnpm i -r -P --frozen-lockfile --filter="./backend" 
+
 
 EXPOSE 8081
 
