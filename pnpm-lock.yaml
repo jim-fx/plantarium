@@ -33,7 +33,7 @@ importers:
       svelte: 3.48.0
       svelte-check: 2.7.2
       svelte-forms-lib: 2.0.1
-      svelte-multiselect: 5.0.1
+      svelte-multiselect: 5.0.3
       svelte-preprocess: 4.10.7
       tslib: 2.4.0
       typescript: 4.7.4
@@ -55,7 +55,7 @@ importers:
       shortid: 2.2.16
       stacktrace-parser: 0.1.10
       svelte-forms-lib: 2.0.1
-      svelte-multiselect: 5.0.1
+      svelte-multiselect: 5.0.3
       vite: 2.9.12
     devDependencies:
       '@plantarium/types': link:../packages/types
@@ -6966,6 +6966,7 @@ packages:
       chalk: 2.4.2
       diff-match-patch: 1.0.5
     dev: false
+    bundledDependencies: []
 
   /jsonfile/6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
@@ -9597,6 +9598,10 @@ packages:
 
   /svelte-multiselect/5.0.1:
     resolution: {integrity: sha512-SD2Kk7rv5koFQ4rvIrlw2c6c+htQ5LXz45RCH2BbEyTBanXgAhF5mscth9rtEnuoH7nDftNLLdO4zv+4302Rjw==}
+    dev: false
+
+  /svelte-multiselect/5.0.3:
+    resolution: {integrity: sha512-YYKCljvV68dyaM9DMKKK5Q2pJ8A0FdIqwVCqJumB7IrUMkSUeHmIJpn5MVxCq2ih0vR8n0RGvnjsnsFQ3rDAvg==}
     dev: false
 
   /svelte-preprocess/4.10.7_cskk2ketiwcmbharqp7ehzkhki:
