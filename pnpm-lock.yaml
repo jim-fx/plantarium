@@ -539,7 +539,7 @@ importers:
       stacktrace-parser: ^0.1.10
       svelte: 3.48.0
       svelte-check: 2.7.2
-      svelte-highlight: 6.1.0
+      svelte-highlight: 6.1.2
       svelte-preprocess: 4.10.7
       tslib: 2.4.0
       typescript: 4.7.4
@@ -573,7 +573,7 @@ importers:
       shortid: 2.2.16
       svelte: 3.48.0
       svelte-check: 2.7.2_sass@1.53.0+svelte@3.48.0
-      svelte-highlight: 6.1.0
+      svelte-highlight: 6.1.2
       svelte-preprocess: 4.10.7_cskk2ketiwcmbharqp7ehzkhki
       tslib: 2.4.0
       typescript: 4.7.4
@@ -6966,6 +6966,7 @@ packages:
       chalk: 2.4.2
       diff-match-patch: 1.0.5
     dev: false
+    bundledDependencies: []
 
   /jsonfile/6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
@@ -9580,8 +9581,8 @@ packages:
       dequal: 2.0.2
     dev: false
 
-  /svelte-highlight/6.1.0:
-    resolution: {integrity: sha512-1v8UI3OyPPOk37AwYB515+6/H8TVTCY8G9p84bmo8jvqvDq8Y0G0Q7d31684yVU4NatKsMZ+2lo1VRJvdu9R8Q==}
+  /svelte-highlight/6.1.2:
+    resolution: {integrity: sha512-Oe78gBhU8YrQSA9K8mBYn23oNLtitEi7dO0AvKmDKHqNvQR9WCBFT6BhPPWXC7ONInH8F6dv4hRrgJYJM7iXOw==}
     dependencies:
       highlight.js: 11.5.0
     dev: true
