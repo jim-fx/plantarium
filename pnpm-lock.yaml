@@ -14,7 +14,7 @@ importers:
       '@plantarium/types': workspace:*
       '@plantarium/ui': workspace:*
       '@sveltejs/adapter-static': 1.0.0-next.34
-      '@sveltejs/kit': 1.0.0-next.354
+      '@sveltejs/kit': 1.0.0-next.359
       '@typescript-eslint/eslint-plugin': 5.29.0
       '@typescript-eslint/parser': 5.29.0
       '@yr/monotone-cubic-spline': 1.0.3
@@ -60,7 +60,7 @@ importers:
     devDependencies:
       '@plantarium/types': link:../packages/types
       '@sveltejs/adapter-static': 1.0.0-next.34
-      '@sveltejs/kit': 1.0.0-next.354_svelte@3.48.0
+      '@sveltejs/kit': 1.0.0-next.359_svelte@3.48.0+vite@2.9.12
       '@typescript-eslint/eslint-plugin': 5.29.0_qqmbkyiaixvppdwswpytuf2hgm
       '@typescript-eslint/parser': 5.29.0_b5e7v2qnwxfo6hmiq56u52mz3e
       eslint: 8.18.0
@@ -227,7 +227,7 @@ importers:
       '@plantarium/types': workspace:*
       '@plantarium/ui': workspace:*
       '@sveltejs/adapter-static': 1.0.0-next.34
-      '@sveltejs/kit': 1.0.0-next.354
+      '@sveltejs/kit': 1.0.0-next.359
       '@tsconfig/svelte': 3.0.0
       '@typescript-eslint/eslint-plugin': ^5.29.0
       '@typescript-eslint/parser': ^5.29.0
@@ -290,7 +290,7 @@ importers:
       svelte-resize-observer: 2.0.0
     devDependencies:
       '@sveltejs/adapter-static': 1.0.0-next.34
-      '@sveltejs/kit': 1.0.0-next.354_sass@1.53.0+svelte@3.48.0
+      '@sveltejs/kit': 1.0.0-next.359_svelte@3.48.0+vite@2.9.12
       '@tsconfig/svelte': 3.0.0
       '@typescript-eslint/eslint-plugin': 5.29.0_qqmbkyiaixvppdwswpytuf2hgm
       '@typescript-eslint/parser': 5.29.0_b5e7v2qnwxfo6hmiq56u52mz3e
@@ -422,7 +422,7 @@ importers:
       '@playwright/test': ^1.22.2
       '@sveltejs/adapter-auto': 1.0.0-next.52
       '@sveltejs/adapter-static': 1.0.0-next.34
-      '@sveltejs/kit': 1.0.0-next.354
+      '@sveltejs/kit': 1.0.0-next.359
       '@types/cookie': ^0.5.1
       '@typescript-eslint/eslint-plugin': ^5.29.0
       '@typescript-eslint/parser': ^5.29.0
@@ -463,7 +463,7 @@ importers:
     devDependencies:
       '@playwright/test': 1.22.2
       '@sveltejs/adapter-auto': 1.0.0-next.52
-      '@sveltejs/kit': 1.0.0-next.354_svelte@3.48.0
+      '@sveltejs/kit': 1.0.0-next.359_svelte@3.48.0+vite@2.9.12
       '@types/cookie': 0.5.1
       '@typescript-eslint/eslint-plugin': 5.29.0_qqmbkyiaixvppdwswpytuf2hgm
       '@typescript-eslint/parser': 5.29.0_b5e7v2qnwxfo6hmiq56u52mz3e
@@ -517,7 +517,7 @@ importers:
       '@plantarium/helpers': workspace:*
       '@plantarium/theme': workspace:*
       '@sveltejs/adapter-static': 1.0.0-next.34
-      '@sveltejs/kit': 1.0.0-next.354
+      '@sveltejs/kit': 1.0.0-next.359
       '@testing-library/svelte': 3.1.3
       '@typescript-eslint/eslint-plugin': 5.29.0
       '@typescript-eslint/parser': 5.29.0
@@ -555,7 +555,7 @@ importers:
       '@plantarium/helpers': link:../helpers
       '@plantarium/theme': link:../theme
       '@sveltejs/adapter-static': 1.0.0-next.34
-      '@sveltejs/kit': 1.0.0-next.354_sass@1.53.0+svelte@3.48.0
+      '@sveltejs/kit': 1.0.0-next.359_svelte@3.48.0+vite@2.9.12
       '@testing-library/svelte': 3.1.3_svelte@3.48.0
       '@typescript-eslint/eslint-plugin': 5.29.0_qqmbkyiaixvppdwswpytuf2hgm
       '@typescript-eslint/parser': 5.29.0_b5e7v2qnwxfo6hmiq56u52mz3e
@@ -2373,12 +2373,13 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.354_sass@1.53.0+svelte@3.48.0:
-    resolution: {integrity: sha512-dTfFT0c3sxztFpiw6H4bQnPd+PtHgEZG6j6ssT9sWLONfzUgWRX0S7H/WoPEjr7u65o2HNazoj8jmEq3ZTwb9g==}
+  /@sveltejs/kit/1.0.0-next.359_svelte@3.48.0+vite@2.9.12:
+    resolution: {integrity: sha512-3WH198JhOI9rmDlVSPPHlgg+/R/gS4x5cETjYsIw3XckpN2zExDqlYHUBUwk/dEG/12BfPB3rDMNzdZ0QHtubQ==}
     engines: {node: '>=16.7'}
     hasBin: true
     peerDependencies:
       svelte: ^3.44.0
+      vite: ^2.9.10
     dependencies:
       '@sveltejs/vite-plugin-svelte': 1.0.0-next.49_svelte@3.48.0+vite@2.9.12
       chokidar: 3.5.3
@@ -2387,29 +2388,6 @@ packages:
       vite: 2.9.12_sass@1.53.0
     transitivePeerDependencies:
       - diff-match-patch
-      - less
-      - sass
-      - stylus
-      - supports-color
-    dev: true
-
-  /@sveltejs/kit/1.0.0-next.354_svelte@3.48.0:
-    resolution: {integrity: sha512-dTfFT0c3sxztFpiw6H4bQnPd+PtHgEZG6j6ssT9sWLONfzUgWRX0S7H/WoPEjr7u65o2HNazoj8jmEq3ZTwb9g==}
-    engines: {node: '>=16.7'}
-    hasBin: true
-    peerDependencies:
-      svelte: ^3.44.0
-    dependencies:
-      '@sveltejs/vite-plugin-svelte': 1.0.0-next.49_svelte@3.48.0+vite@2.9.12
-      chokidar: 3.5.3
-      sade: 1.8.1
-      svelte: 3.48.0
-      vite: 2.9.12
-    transitivePeerDependencies:
-      - diff-match-patch
-      - less
-      - sass
-      - stylus
       - supports-color
     dev: true
 
@@ -6966,6 +6944,7 @@ packages:
       chalk: 2.4.2
       diff-match-patch: 1.0.5
     dev: false
+    bundledDependencies: []
 
   /jsonfile/6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
