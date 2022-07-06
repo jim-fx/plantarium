@@ -1,6 +1,5 @@
-import { Collection, Entity, Index, ManyToMany, ManyToOne, Property } from "@mikro-orm/core";
+import { Collection, Entity, ManyToMany, ManyToOne, Property } from "@mikro-orm/core";
 import type { PlantProject } from "@plantarium/types";
-import { Exclude, Expose } from "class-transformer";
 import { User } from "user/user.entity";
 import { BaseEntity } from "../../entities/BaseEntity";
 
@@ -14,37 +13,28 @@ export enum ProjectType {
 export class Project extends BaseEntity {
 
   @Property()
-  @Index()
   public plantId: string;
 
-  @Index()
   @ManyToOne()
   public author: User;
 
   @Property({ default: ProjectType.USER })
   public type: ProjectType = 0;
 
-  @Exclude()
-  @ManyToMany()
-  public _likes = new Collection<User>(this);
-
-  @Expose()
-  get likes(): number {
-    return this._likes.length;
-  }
+  @ManyToMany({ serializer: u => u.toArray().map((u: User) => u._id) })
+  public likes = new Collection<User>(this);
 
   @Property()
   public data: PlantProject;
 
-
   public addLike(u: User) {
-    if (!this._likes.contains(u)) {
-      this._likes.add(u);
+    if (!this.likes.contains(u)) {
+      this.likes.add(u);
     }
   }
 
   public removeLike(u: User) {
-    this._likes.remove(u);
+    this.likes.remove(u);
   }
 
 

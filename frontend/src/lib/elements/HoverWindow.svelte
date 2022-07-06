@@ -3,12 +3,10 @@
 	import { Button } from '@plantarium/ui';
 	import type { IconType } from '@plantarium/ui/src/Icon.svelte';
 	import { clickOutside } from '@plantarium/helpers';
-	import type { SvelteComponentDev } from 'svelte/internal';
 
 	export let name = '';
 	export let right = false;
 	export let icon: IconType;
-	export let component: SvelteComponentDev;
 
 	export let visible = false;
 </script>
@@ -31,7 +29,7 @@
 	/>
 
 	<div class="wrapper" class:visible class:right>
-		<svelte:component this={component} {visible} />
+		<slot {visible} />
 	</div>
 </div>
 

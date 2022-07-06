@@ -46,13 +46,13 @@ function applyFilter() {
 
 export async function loadPlant(id: string) {
 
-  if (projects.has(id)) { return projects.get(id)?.data };
+  if (projects.has(id)) { return projects.get(id) };
 
   const res = await clientApi.getProject(id);
 
   if (res.ok) {
     projects.set(res.data._id, res.data);
-    return res.data.data;
+    return res.data;
   }
 
 }

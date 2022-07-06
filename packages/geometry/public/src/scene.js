@@ -1,9 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 import { join, toOBJ, transferToGeometry } from '../dist/index.js';
-import { Box, Camera, Mesh, Orbit, Renderer, Transform, Polyline, Vec3, Color, Program } from '../ogl.js';
+import { Box, Camera, Color, Mesh, Orbit, Polyline, Renderer, Transform, Vec3 } from '../ogl.js';
 import debug from './debug.js';
 import createParticle from './particles.js';
-import { green, Lines, NormalShader, wireframe } from './shaders.js';
+import { green, wireframe } from './shaders.js';
 import store from './store.js';
 
 const renderer = new Renderer({
@@ -136,7 +136,6 @@ export function commit() {
     console.log("Set position", pointPosition)
     particles.setPositions(pointPosition)
   }
-  console.log("Geom", tempPoints, particles.geometry)
 
   tempScene = [];
   tempPoints = []

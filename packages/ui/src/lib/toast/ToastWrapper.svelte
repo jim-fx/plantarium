@@ -2,30 +2,44 @@
   import { store } from './ToastStore';
   import { slide } from 'svelte/transition';
   import { backInOut } from 'svelte/easing';
-  import Toast from './Toast.svelte';
-  import { onMount } from 'svelte';
-
-  let isCustomElement = false;
-  let el: HTMLElement;
-
-  onMount(function () {
-    isCustomElement = !el.parentElement;
-  });
+  import Message from '../Message.svelte';
+  import Icon from '../Icon.svelte';
 </script>
 
-<div id="toast-wrapper" bind:this={el}>
+<div id="toast-wrapper">
   {#each $store as toast (toast.id)}
-    <div transition:slide={{ easing: backInOut }}>
-      {#if isCustomElement}
-        <plant-toast {toast} />
-      {:else}
-        <Toast {toast} />
-      {/if}
+    <div transition:slide={{ easing: backInOut }} style="position: relative; width:fit-content;">
+      <div class="toast-close" on:click={() => toast?.reject?.()}>
+        <Icon
+          dark={['warning', 'error', 'success'].includes(toast?.type)}
+          name="cross"
+          --width="fit-content"
+        />
+      </div>
+
+      <Message
+        type={toast.type}
+        timeout={toast.timeout}
+        message={toast.content}
+        values={toast.values}
+        reject={toast.reject}
+        resolve={toast.resolve}
+        title={toast.title}
+      />
     </div>
   {/each}
 </div>
 
 <style lang="scss">
+  .toast-close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 99;
+    width: 20px;
+    cursor: pointer;
+  }
+
   #toast-wrapper {
     position: fixed;
     bottom: 0;

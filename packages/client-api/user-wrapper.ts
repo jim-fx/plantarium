@@ -1,6 +1,5 @@
 import type { CreateReportDto, Project, Report, User } from "@plantarium/backend";
 import { validator } from "@plantarium/helpers";
-import { PlantProject } from "@plantarium/types";
 import { post, send } from "./core";
 import store, { permissions, userStore } from "./store";
 const { VITE_API_URL = 'http://localhost:8081' } = import.meta.env;
@@ -135,9 +134,9 @@ export function getEmailExists(email: string) {
   return send<boolean>({ path: "api/user/existsEmail/" + email })
 }
 
-export async function publishProject(project: PlantProject) {
+export async function publishProject(project: Project) {
 
-  const errors = validator.isPlantProject(project);
+  const errors = validator.isPlantProject(project.data);
 
   if (errors?.length) {
     return {
@@ -147,8 +146,15 @@ export async function publishProject(project: PlantProject) {
     }
   }
 
-  return send<PlantProject>({ path: "api/project", method: "POST", data: project })
+  return send<Project>({ path: "api/project", method: "POST", data: project.data })
+}
 
+export async function likeProject(id: string) {
+  return send<Project>({ path: `api/project/${id}/like`, method: "PUT" })
+}
+
+export async function unlikeProject(id: string) {
+  return send<Project>({ path: `api/project/${id}/like`, method: "DELETE" })
 }
 
 export async function deleteProject(id: string) {
@@ -173,4 +179,8 @@ export async function getPermission() {
     permissions.set(response.data);
     return response.data;
   }
+}
+
+export async function getHealth() {
+  return send({ path: "health" })
 }

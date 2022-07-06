@@ -72,6 +72,8 @@ const createMessageFactory =
         setTimeout(message.resolve, message.timeout);
       }
 
+      console.log(message);
+
       return p;
     };
 

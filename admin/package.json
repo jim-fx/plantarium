@@ -13,21 +13,21 @@
   "devDependencies": {
     "@plantarium/types": "workspace:*",
     "@sveltejs/adapter-static": "1.0.0-next.34",
-    "@sveltejs/kit": "1.0.0-next.354",
-    "@typescript-eslint/eslint-plugin": "5.29.0",
-    "@typescript-eslint/parser": "5.29.0",
-    "eslint": "8.18.0",
+    "@sveltejs/kit": "1.0.0-next.359",
+    "@typescript-eslint/eslint-plugin": "5.30.5",
+    "@typescript-eslint/parser": "5.30.5",
+    "eslint": "8.19.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-svelte3": "4.0.0",
     "prettier": "2.7.1",
     "prettier-plugin-svelte": "2.7.0",
     "svelte": "3.48.0",
-    "svelte-check": "2.7.2",
+    "svelte-check": "2.8.0",
     "svelte-preprocess": "4.10.7",
     "tslib": "2.4.0",
     "typescript": "4.7.4",
-    "vite-plugin-windicss": "1.8.4",
-    "windicss": "3.5.5"
+    "vite-plugin-windicss": "1.8.6",
+    "windicss": "3.5.6"
   },
   "type": "module",
   "dependencies": {
@@ -45,7 +45,7 @@
     "shortid": "2.2.16",
     "stacktrace-parser": "^0.1.10",
     "svelte-forms-lib": "2.0.1",
-    "svelte-multiselect": "5.0.1",
-    "vite": "2.9.12"
+    "svelte-multiselect": "5.0.3",
+    "vite": "2.9.13"
   }
 }

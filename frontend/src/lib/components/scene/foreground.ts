@@ -1,18 +1,17 @@
-import { transferToGeometry } from '@plantarium/geometry';
+import type { PlantariumSettings } from "$lib/types";
+import { createWorker } from '@plantarium/generator';
+import { join, transferToGeometry } from '@plantarium/geometry';
 import { cloneObject, EventEmitter, logger, throttle } from '@plantarium/helpers';
+import type { PlantProject, TransferGeometry } from '@plantarium/types';
 import { createAlert, createToast } from '@plantarium/ui';
 import { Box, Mesh, type OGLRenderingContext } from 'ogl-typescript';
 import type Scene from '.';
-import { settingsManager, projectManager } from '..';
+import { nodeSystem, projectManager, settingsManager } from '..';
 import { Report } from '../../elements';
+import * as performance from '../../helpers/performance';
 import type { ProjectManager } from '../project-manager';
 import DebugScene from './debug';
 import { BasicShader, DebugShader, MatCapShader, NormalShader } from './shaders';
-import * as performance from '../../helpers/performance';
-import { createWorker } from '@plantarium/generator';
-import type { PlantProject, TransferGeometry } from '@plantarium/types';
-import type { PlantariumSettings } from "$lib/types"
-import { nodeSystem } from ".."
 
 const updateThumbnail = throttle((geo: TransferGeometry) => {
   projectManager.renderThumbnail({ geo });
@@ -123,7 +122,7 @@ export default class ForegroundScene extends EventEmitter {
 
       performance.stop('generate');
 
-      if (!result || result.errors || !result.geometry) {
+      if (!result || result.errors || !result.geometries) {
         this.mesh.visible = false;
         if (result.errors) {
           nodeSystem.view.clearNodeLabel()
@@ -144,7 +143,7 @@ export default class ForegroundScene extends EventEmitter {
             }
           })
 
-          nodeSystem?.outputNode?.view?.showErrors(`Total Time: <b>${Math.floor(result.timings.global * 10) / 10}</b>ms`)
+          nodeSystem?.outputNode?.view?.showErrors(`Total Time: <b>${Math.floor(result.timings.global.time * 10) / 10}</b>ms`)
         } else {
           nodeSystem.view.clearNodeLabel();
         }
@@ -152,7 +151,8 @@ export default class ForegroundScene extends EventEmitter {
         this.mesh.visible = !this?.settings?.debug?.hideMesh;
       }
 
-      updateThumbnail(result.geometry);
+
+      updateThumbnail(join(...result.geometries));
 
       this.dbg.setPlant(result);
 

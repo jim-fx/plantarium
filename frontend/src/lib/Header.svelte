@@ -7,12 +7,15 @@
 	import HoverWindow from './elements/HoverWindow.svelte';
 	import Library from './components/library/LibraryView.svelte';
 	import { Button, createAlert } from '@plantarium/ui';
+	import ApiWrapper from './elements/ApiWrapper.svelte';
 	const activeProject = projectManager.activeProject;
 </script>
 
 <header>
 	<div class="left" style="z-index: 2;">
-		<HoverWindow icon="folder" name="" component={ProjectManagerView} />
+		<HoverWindow icon="folder" name="" let:visible>
+			<ProjectManagerView {visible} />
+		</HoverWindow>
 		<span style="z-index: -1;">
 			<Button
 				icon="library"
@@ -31,9 +34,13 @@
 	<h3>{$activeProject?.meta.name ?? ''}</h3>
 
 	<div class="right">
-		<HoverWindow icon="user" component={ProfileView} right />
-		<HoverWindow icon="question" component={HelpView} right />
-		<HoverWindow icon="cog" component={SettingsManagerView} right --min-width={'250px'} />
+		<HoverWindow icon="user" right>
+			<ApiWrapper>
+				<ProfileView />
+			</ApiWrapper>
+		</HoverWindow>
+		<HoverWindow icon="question" right><HelpView /></HoverWindow>
+		<HoverWindow icon="cog" right --min-width={'250px'}><SettingsManagerView /></HoverWindow>
 	</div>
 </header>
 

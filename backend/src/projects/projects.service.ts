@@ -45,11 +45,60 @@ export class ProjectsService {
       query["type"] = { $in: type }
     }
 
-    return this.repository.find(query, { limit: 20, offset });
+    return this.repository.find(query, { limit: 20, offset, populate: ["likes"] });
   }
 
   findOne(id: string) {
     return this.repository.findOne({ _id: id });
+  }
+
+  async like(id: string, userId: string) {
+
+    console.log({ id, userId });
+
+    const project = await this.repository.findOne({ _id: id });
+
+    if (!project) {
+      throw new NotFoundException()
+    }
+
+    await project.likes.init()
+
+    const user = await this.userService.findById(userId);
+
+    console.log({ id, userId, user })
+
+    if (!user) {
+      throw new NotFoundException()
+    }
+
+    project.addLike(user);
+
+    await this.repository.persistAndFlush(project);
+
+    return project;
+  }
+
+  async removeLike(id: string, userId: string) {
+
+    const project = await this.repository.findOne({ _id: id });
+
+    if (!project) {
+      throw new NotFoundException()
+    }
+    const user = await this.userService.findOne(userId);
+
+    if (!user) {
+      throw new NotFoundException()
+    }
+
+    await project.likes.init()
+
+    project.removeLike(user);
+
+    await this.repository.persistAndFlush(project);
+
+    return project;
   }
 
   async update(id: string, updateProjectDto: UpdateProjectDto) {

@@ -5,7 +5,8 @@
 		Section,
 		StackTrace,
 		LogViewer,
-		createToast
+		createToast,
+		InputText
 	} from '@plantarium/ui';
 	import { onMount } from 'svelte';
 	import { detect, api } from '../helpers';
@@ -85,30 +86,13 @@
 		<button on:click={() => (submitPromise = undefined)}>go back</button>
 	{/await}
 {:else}
-	<section>
-		<label for="title">Title</label>
-		<input
-			type="text"
-			id="title"
-			placeholder="Simple Title"
-			on:keydown|stopPropagation
-			bind:value={title}
-		/>
-	</section>
+	<InputText placeholder="Title" bind:value={title} />
 
-	<section>
-		<label for="description">Description</label>
-		<textarea
-			type="text"
-			id="description"
-			rowspan="5"
-			on:keydown|stopPropagation
-			bind:value={description}
-			placeholder={mode === 'bug'
-				? 'Please provide a detailed description of what happened.'
-				: 'Please describe the idea.'}
-		/>
-	</section>
+	<InputText
+		type="area"
+		bind:value={description}
+		placeholder={mode === 'bug' ? 'Description of what happened.' : 'Please describe the idea.'}
+	/>
 
 	{#if mode === 'bug'}
 		{#if stackTrace}

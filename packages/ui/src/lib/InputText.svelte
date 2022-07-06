@@ -137,13 +137,21 @@
   class:has-placeholder={_placeholder}
   class:has-errors={errors?.length}
 >
-  <input
-    on:input={handleInput}
-    on:focus={() => (focused = true)}
-    on:blur={() => (focused = false)}
-    {autocomplete}
-    type={type === 'password' ? (showPassword ? 'text' : 'password') : type}
-  />
+  {#if type === 'area'}
+    <textarea
+      on:input={handleInput}
+      on:focus={() => (focused = true)}
+      on:blur={() => (focused = false)}
+    />
+  {:else}
+    <input
+      on:input={handleInput}
+      on:focus={() => (focused = true)}
+      on:blur={() => (focused = false)}
+      {autocomplete}
+      type={type === 'password' ? (showPassword ? 'text' : 'password') : type}
+    />
+  {/if}
 
   {#if type === 'password' && _value}
     <span class="icon" on:click={() => (showPassword = !showPassword)} transition:scale>
@@ -221,7 +229,8 @@
     border-radius: var(--border-radius, 5px) var(--border-radius, 5px) 0px 0px;
   }
 
-  input {
+  input,
+  textarea {
     z-index: -1;
     border: none;
     font-size: 1.1em;

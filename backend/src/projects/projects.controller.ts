@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Req, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Delete, Get, InternalServerErrorException, NotFoundException, Param, Patch, Post, Put, Req, UnauthorizedException } from '@nestjs/common';
 import type { PlantProject } from "@plantarium/types";
 import { Permissions } from 'auth/decorators/permissions.decorator';
 import { Permission } from 'auth/enums/permission.enum';
@@ -41,6 +41,16 @@ export class ProjectsController {
     return this.projectsService.findAll({ type });
   }
 
+  @Put(':id/like')
+  likeProject(@Param('id') id: string, @GetUser() user: UserRaw) {
+    return this.projectsService.like(id, user.sub);
+  }
+
+  @Delete(':id/like')
+  removeLike(@Param('id') id: string, @GetUser() user: UserRaw) {
+    return this.projectsService.removeLike(id, user.sub);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.projectsService.findOne(id);
@@ -50,10 +60,15 @@ export class ProjectsController {
   @Get("/gbif/media/:gbifId")
   async getGbifImages(@Param("gbifId") id: string) {
     if (id in this.gbifMediaCache) return this.gbifMediaCache[id];
-    const res = await fetch(`https://api.gbif.org/v1/species/${id}/media`)
-    if (res.ok) {
-      const json = await res.json();
-      return json
+    try {
+      const res = await fetch(`https://api.gbif.org/v1/species/${id}/media`)
+      if (res.ok) {
+        const json = await res.json();
+        return json
+      }
+    } catch (error) {
+      console.log(error);
+      throw new InternalServerErrorException()
     }
     return {}
   }

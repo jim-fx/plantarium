@@ -3,13 +3,13 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import {
   ConflictException,
   Injectable,
-  NotFoundException,
+  NotFoundException
 } from '@nestjs/common';
-import { CreateReportDto } from './dto/create-report.dto';
-import { Report } from './report.entity';
 import { Octokit } from 'octokit';
-import { UpdateReportDto } from './dto/update-report.dto';
 import { UserService } from 'user/user.service';
+import { CreateReportDto } from './dto/create-report.dto';
+import { UpdateReportDto } from './dto/update-report.dto';
+import { Report } from './report.entity';
 
 @Injectable()
 export class ReportService {
@@ -21,6 +21,7 @@ export class ReportService {
     private readonly userService: UserService
   ) {
     this.octo = new Octokit({ auth: process.env.GH_TOKEN });
+
   }
 
   async create(dto: CreateReportDto, userId?: string): Promise<Report> {

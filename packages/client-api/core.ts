@@ -32,6 +32,7 @@ export async function send<T>({ method = "GET", path, data, isJSON = true, mode 
 
   let url = path.startsWith("http") ? path : `${VITE_API_URL}/${path}`
 
+  console.log({ url })
 
   const response = await fetch(url, opts);
 

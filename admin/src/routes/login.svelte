@@ -3,6 +3,7 @@
   import { createToast, Form } from '@plantarium/ui';
   import ApiCall from '$lib/components/ApiCall.svelte';
   import { goto } from '$app/navigation';
+  import { base } from '$app/paths';
 
   let prom: Promise<any>;
 
@@ -28,7 +29,6 @@
       bind:promise={prom}
       path=""
       on:success={() => {
-        goto('/');
         createToast('Logged In', { type: 'success' });
       }}
     />

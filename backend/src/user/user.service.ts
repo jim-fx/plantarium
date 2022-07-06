@@ -60,14 +60,19 @@ export class UserService {
   async init() {
     const { ADMIN_PASS } = process.env;
     if (ADMIN_PASS) {
-      let admin = await this.repository.findOne({ role: Role.ADMIN });
-      if (!admin) {
-        admin = new User();
-        admin.username = 'admin';
-        admin.role = Role.ADMIN;
-        admin.email = 'test@example.com';
-        await admin.setPassword(ADMIN_PASS);
-        this.repository.persistAndFlush(admin);
+      try {
+
+        let admin = await this.repository.findOne({ role: Role.ADMIN });
+        if (!admin) {
+          admin = new User();
+          admin.username = 'admin';
+          admin.role = Role.ADMIN;
+          admin.email = 'test@example.com';
+          await admin.setPassword(ADMIN_PASS);
+          this.repository.persistAndFlush(admin);
+        }
+      } catch (error) {
+
       }
     }
   }

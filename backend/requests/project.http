@@ -1,0 +1,2 @@
+GET {{API_URL}}/api/project
+Content-Type: application/json

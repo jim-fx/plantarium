@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { ProjectsModule } from './projects/projects.module';
 import { ReportModule } from './report/report.module';
 import { UserModule } from './user/user.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { UserModule } from './user/user.module';
     UserModule,
     AuthModule,
     ProjectsModule,
+    HealthModule,
   ],
 
   controllers: [AppController],

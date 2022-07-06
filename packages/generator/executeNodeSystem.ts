@@ -1,7 +1,7 @@
-import nodeMap from "./nodeMap";
+import { calculateNormals, convertInstancedGeometry, join, tube } from "@plantarium/geometry";
+import { InstancedGeometry, PlantariumSettings, PlantProject, PlantStem } from "@plantarium/types";
 import createGeneratorContext from "./generatorContext";
-import { tube, join, convertInstancedGeometry, calculateNormals, sanityCheckGeometry } from "@plantarium/geometry";
-import { PlantProject, PlantariumSettings } from "@plantarium/types";
+import nodeMap from "./nodeMap";
 
 
 export async function executeNodeSystem(project: PlantProject, settings: Partial<PlantariumSettings>) {
@@ -84,26 +84,29 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
     }
   }
 
-  const { stems, instances } = res;
+  const { stems, instances } = res as { stems: PlantStem[], instances: InstancedGeometry[] };
 
+  const geometries = stems.map(s => tube(s.skeleton, ctx.getSetting("stemResX")));
 
-  let geometry = join(...stems.map(s => tube(s.skeleton, ctx.getSetting("stemResX"))));
+  const ids = stems.map(s => s.id);
 
   if (instances) {
     const _instances = instances
       ?.map((i) => convertInstancedGeometry(i))
       .flat()
-    geometry = join(geometry, ..._instances);
+    geometries.push(..._instances);
+    ids.push(...instances.map(i => i.id));
   }
 
-  gctx.timings["global"] = performance.now() - startTime;
-
+  gctx.timings["global"] = { time: performance.now() - startTime, amount: 1 };
 
   return {
     stems,
     debug: gctx.ctx.getDebug(),
     timings: gctx.timings,
-    geometry: calculateNormals(geometry)
+    geometry: calculateNormals(join(...geometries)),
+    ids,
+    geometries
   };
 
 }

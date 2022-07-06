@@ -10,10 +10,7 @@
 
 <script lang="ts">
 	import { projectManager } from '$lib/components';
-
-	import api, { isLoggedIn } from '@plantarium/client-api';
-
-	import examples from '../project-manager/examples';
+	import api, { isLoggedIn, userStore } from '@plantarium/client-api';
 
 	import {
 		InputTab,
@@ -27,17 +24,20 @@
 	import { createEventDispatcher } from 'svelte';
 	import ProjectCard from './ProjectCard.svelte';
 	import PlantView from './PlantView.svelte';
-	import type { PlantProject } from '@plantarium/types';
 	import { setContext } from 'svelte';
 	import { writable } from 'svelte/store';
 	import ImportProject from '../project-manager/ImportProject.svelte';
 	import ExportProject from '../project-manager/ExportProject.svelte';
 	import InputCheckbox from '@plantarium/ui/src/lib/InputCheckbox.svelte';
 	import { onMount } from 'svelte';
+	import ApiWrapper from '$lib/elements/ApiWrapper.svelte';
+	import type { Project } from '@plantarium/backend';
 
 	const dispatch = createEventDispatcher();
 
-	const localPlantStore = projectManager.store;
+	const localProjectStore = projectManager.store;
+
+	let offline = false;
 
 	const filter = {
 		official: true,
@@ -52,7 +52,7 @@
 	let searchText: string;
 
 	let isLoading = false;
-	let activePlantPromise: Promise<PlantProject> | undefined;
+	let activeProjectPromise: Promise<Project> | undefined;
 
 	async function handlePublish(id: string) {
 		if (!$isLoggedIn) {
@@ -68,11 +68,11 @@
 			return;
 		}
 
-		const p = await loadPlant(id);
+		const p = (await loadPlant(id)) as Project;
 
 		const r = await api.publishProject(p);
 
-		p.meta.public = true;
+		p.data.meta.public = true;
 
 		if (r.ok) {
 			createToast('Published Project', { type: 'success' });
@@ -84,14 +84,15 @@
 	setContext('showPlant', showPlant);
 	async function showPlant(id?: string) {
 		if (!id) {
-			activePlantPromise = undefined;
+			activeProjectPromise = undefined;
 			return;
 		}
-		if (activePlantPromise) return;
+		if (activeProjectPromise) return;
 
-		activePlantPromise = loadPlant(id);
+		activeProjectPromise = loadPlant(id);
 		let t = setTimeout(() => (isLoading = true), 500);
-		activePlantPromise.then(() => {
+		activeProjectPromise.then((p) => {
+			console.log(p);
 			isLoading = false;
 			clearTimeout(t);
 		});
@@ -109,7 +110,9 @@
 				isLoading = false;
 				clearTimeout(t);
 				dispatch('close');
-				projectManager.createNew(project);
+				if (project) {
+					projectManager.createNew(project.data);
+				}
 			});
 		} else {
 			dispatch('close');
@@ -119,36 +122,40 @@
 
 	async function loadPlant(id: string) {
 		if ($isRemote) {
-			const p = examples.find((e) => e.meta.id === id);
-
-			if (p) return p;
-
-			const res = await projectStore.loadPlant(id);
-
-			if (res) {
-				return res;
-			}
-
-			// TODO: implement load
+			return await projectStore.loadPlant(id);
 		}
-		return projectManager.getProject(id);
+
+		return {
+			data: await projectManager.getProject(id)
+		};
 	}
 
 	setContext('deletePlant', deletePlant);
 	async function deletePlant(id: string) {
-		let plant = await loadPlant(id);
+		let project = await loadPlant(id);
+
+		if (!project) return;
 
 		const res = await createAlert(
-			`Are you sure you want to delete ${plant.meta.name ?? plant.meta.id}?`,
+			`Are you sure you want to delete ${project.data.meta.name ?? project.data.meta.id}?`,
 			{
 				values: ['Yes', 'No']
 			}
 		);
 
 		if (res === 'Yes') {
-			await projectManager.deleteProject(plant.meta.id);
-			activePlantPromise = undefined;
-			createToast(`Project ${plant.meta.name ?? plant.meta.id} deleted!`, { type: 'success' });
+			await projectManager.deleteProject(project.data.meta.id);
+			activeProjectPromise = undefined;
+			createToast(`Project ${project.data.meta.name ?? project.data.meta.id} deleted!`, {
+				type: 'success'
+			});
+		}
+	}
+
+	async function handleLike(projectId: string, like: boolean) {
+		const res = await api[like ? 'likeProject' : 'unlikeProject'](projectId);
+		if (!res.ok) {
+			console.log({ res });
 		}
 	}
 
@@ -157,7 +164,7 @@
 	});
 </script>
 
-<div class="wrapper" class:activePlant={!isLoading && activePlantPromise}>
+<div class="wrapper" class:activePlant={!isLoading && activeProjectPromise}>
 	<aside>
 		<InputTab
 			values={['local', 'remote']}
@@ -165,8 +172,8 @@
 			--width="100%"
 			on:change={({ detail }) => {
 				$isRemote = detail === 'remote';
-				if (activePlantPromise) {
-					activePlantPromise = undefined;
+				if (activeProjectPromise) {
+					activeProjectPromise = undefined;
 				}
 			}}
 		/>
@@ -176,7 +183,7 @@
 
 		<br />
 
-		{#if $isRemote}
+		{#if $isRemote && !offline}
 			<div class="filter-types">
 				<InputCheckbox label="Official" bind:value={filter.official} />
 				<InputCheckbox label="Approved" bind:value={filter.approved} />
@@ -199,17 +206,19 @@
 	<main>
 		{#if isLoading}
 			<Icon name="branch" animated />
-		{:else if activePlantPromise}
-			<PlantView plant={activePlantPromise} />
+		{:else if activeProjectPromise}
+			<PlantView project={activeProjectPromise} />
 		{:else if $isRemote}
-			<div class="list">
-				{#each $remotePlantStore as project (getKey(project))}
-					<ProjectCard isRemote={$isRemote} {project} />
-				{/each}
-			</div>
+			<ApiWrapper bind:offline>
+				<div class="list">
+					{#each $remotePlantStore as project (getKey(project))}
+						<ProjectCard isRemote={$isRemote} {project} />
+					{/each}
+				</div>
+			</ApiWrapper>
 		{:else}
 			<div class="list">
-				{#each $localPlantStore as plant}
+				{#each $localProjectStore as plant}
 					<ProjectCard isRemote={$isRemote} {plant} />
 				{/each}
 			</div>
@@ -217,41 +226,45 @@
 	</main>
 
 	<aside>
-		{#if activePlantPromise}
+		{#if activeProjectPromise}
 			<Button icon="arrow" name="" on:click={() => showPlant()} />
-			{#await activePlantPromise}
-				<p />
-			{:then plant}
-				<h1>{plant.meta.name}</h1>
+			{#await activeProjectPromise}
+				<Icon name="branch" animated />
+			{:then project}
+				<h1>{project.data.meta.name}</h1>
 
-				{#if plant?.meta?.latinName}
-					{#if plant?.meta?.gbifID}
-						<a href="https://www.gbif.org/species/{plant.meta.gbifID}" target="__blank"
-							>{plant.meta.latinName}</a
+				{#if project.data?.meta?.latinName}
+					{#if project.data?.meta?.gbifID}
+						<a href="https://www.gbif.org/species/{project.data.meta.gbifID}" target="__blank"
+							>{project.data.meta.latinName}</a
 						>
 					{:else}
 						<a
-							href="https://www.gbif.org/search?q={encodeURIComponent(plant.meta.latinName)}"
-							target="__blank">{plant.meta.latinName}</a
+							href="https://www.gbif.org/search?q={encodeURIComponent(project.data.meta.latinName)}"
+							target="__blank">{project.data.meta.latinName}</a
 						>
 					{/if}
 				{/if}
 
 				{#if $isRemote}
-					{#if plant?.meta?.authorID}
+					{#if project.data?.meta?.authorID}
 						<br />
 						<br />
-						<p>by <i>{plant.meta.authorID}</i></p>
+						<p>by <i>{project.data.meta.authorID}</i></p>
 					{/if}
 
 					<br />
-					<LikeButton />
+					<LikeButton
+						on:click={(ev) => handleLike(project._id, ev.detail)}
+						likeAmount={project?.likes?.length - (project.likes.includes($userStore?.id) ? 1 : 0)}
+						active={project?.likes?.includes($userStore.id)}
+					/>
 				{/if}
 
-				{#if plant?.meta?.description}
+				{#if project.data?.meta?.description}
 					<br />
 					<br />
-					<p>{plant.meta.description}</p>
+					<p>{project.data.meta.description}</p>
 				{/if}
 				<br />
 

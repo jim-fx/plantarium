@@ -39,6 +39,7 @@
   import InputRange from '$lib/InputRange.svelte';
   import Gallery from '$lib/Gallery.svelte';
   import GalleryItem from '$lib/GalleryItem.svelte';
+  import Message from '$lib/Message.svelte';
   let animateIcons = false;
   let activeIcon = false;
   const icons = Object.keys(_icons);
@@ -91,6 +92,11 @@
         </div>
       {/each}
     </div>
+  </section>
+
+  <section>
+    <h3>Message</h3>
+    <Message type="error" message={['Oh', 'No', 'Something went wrong']} />
   </section>
 
   <section>

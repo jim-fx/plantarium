@@ -193,28 +193,10 @@
       "indexes": [
         {
           "columnNames": [
-            "plant_id"
-          ],
-          "composite": false,
-          "keyName": "project_plant_id_index",
-          "primary": false,
-          "unique": false
-        },
-        {
-          "columnNames": [
             "author__id"
           ],
           "composite": false,
           "keyName": "project_author__id_index",
-          "primary": false,
-          "unique": false
-        },
-        {
-          "keyName": "project_author__id_index",
-          "columnNames": [
-            "author__id"
-          ],
-          "composite": false,
           "primary": false,
           "unique": false
         },
@@ -265,14 +247,14 @@
           "mappedType": "text"
         }
       },
-      "name": "project__likes",
+      "name": "project_likes",
       "indexes": [
         {
           "columnNames": [
             "project__id"
           ],
           "composite": false,
-          "keyName": "project__likes_project__id_index",
+          "keyName": "project_likes_project__id_index",
           "primary": false,
           "unique": false
         },
@@ -281,7 +263,7 @@
             "user__id"
           ],
           "composite": false,
-          "keyName": "project__likes_user__id_index",
+          "keyName": "project_likes_user__id_index",
           "primary": false,
           "unique": false
         },
@@ -298,12 +280,12 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "project__likes_project__id_foreign": {
-          "constraintName": "project__likes_project__id_foreign",
+        "project_likes_project__id_foreign": {
+          "constraintName": "project_likes_project__id_foreign",
           "columnNames": [
             "project__id"
           ],
-          "localTableName": "project__likes",
+          "localTableName": "project_likes",
           "referencedColumnNames": [
             "_id"
           ],
@@ -311,12 +293,12 @@
           "deleteRule": "cascade",
           "updateRule": "cascade"
         },
-        "project__likes_user__id_foreign": {
-          "constraintName": "project__likes_user__id_foreign",
+        "project_likes_user__id_foreign": {
+          "constraintName": "project_likes_user__id_foreign",
           "columnNames": [
             "user__id"
           ],
-          "localTableName": "project__likes",
+          "localTableName": "project_likes",
           "referencedColumnNames": [
             "_id"
           ],

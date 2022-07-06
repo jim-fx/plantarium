@@ -1,12 +1,13 @@
 <script lang="ts">
+	import type { Project } from '@plantarium/backend';
+
 	import clientApi from '@plantarium/client-api';
-	import type { PlantProject } from '@plantarium/types';
 	import { Gallery, GalleryItem } from '@plantarium/ui';
 
-	export let plant: Promise<PlantProject>;
+	export let project: Promise<Project>;
 </script>
 
-{#await plant then p}
+{#await project then { data: p }}
 	<Gallery>
 		<GalleryItem>
 			<img src={p.meta.thumbnail} alt="" />
@@ -29,10 +30,6 @@
 							<i style="font-size:0.5em">Image from {img.source}</i>
 						</GalleryItem>
 					{/each}
-				{:else}
-					<GalleryItem>
-						<p>{res.message}</p>
-					</GalleryItem>
 				{/if}
 			{/await}
 		{/if}

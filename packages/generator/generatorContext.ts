@@ -1,8 +1,8 @@
+import type { PlantProject } from "@plantarium/types";
 import nodeMap from "./nodeMap";
 import type { WrappedNode } from "./types";
-import type { PlantProject } from "@plantarium/types"
 
-import createContext from "./context"
+import createContext from "./context";
 export type GeneratorContext = ReturnType<typeof createGeneratorContext>;
 
 export default function createGeneratorContext({ nodes: _nodes }: PlantProject, settings: Partial<PlantariumSettings>) {

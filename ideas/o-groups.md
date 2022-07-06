@@ -1,6 +1,9 @@
 # Model Groups
 
-	
+## Visual Editing
+
+I think we can output a group id from the generator, pass it as a uniform to the shader, render a id map to a second rendertarget and then use that render target to create hover effects of certain parts of the plant model.
+
 
 ```
 brnaftr361 20 days ago | prev | next [–]

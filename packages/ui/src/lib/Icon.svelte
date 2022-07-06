@@ -40,7 +40,7 @@
     &.circle {
       border-radius: 50%;
       padding: 5px;
-      border: solid 2px white;
+      border: solid 1.5px white;
     }
   }
 

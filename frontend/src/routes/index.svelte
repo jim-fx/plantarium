@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { ThemeProvider } from '@plantarium/theme';
-	import { goto } from '$app/navigation';
 	import { AlertWrapper, ToastWrapper } from '@plantarium/ui';
 	import { onMount } from 'svelte';
 	import { nodeSystem } from '$lib/components';
@@ -18,7 +17,6 @@
 		let path = localStorage.getItem('path');
 		if (path) {
 			localStorage.removeItem('path');
-			goto(path);
 		}
 
 		await settingsManager.loadFromLocal();

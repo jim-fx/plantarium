@@ -30,6 +30,7 @@ export { default as Form } from "./Form.svelte";
 export { default as Gallery } from "./Gallery.svelte";
 export { default as GalleryItem } from "./GalleryItem.svelte";
 export { default as LogViewer } from "./LogViewer.svelte";
+export { default as Message } from "./Message.svelte";
 export type {
   CheckboxTemplate, CurveTemplate, FloatTemplate, IntegerTemplate, RangeTemplate, SelectTemplate, ShapeTemplate, ValueTemplate
 } from "./types";

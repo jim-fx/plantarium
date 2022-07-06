@@ -1,18 +1,29 @@
 <script lang="ts">
   import Button from './Button.svelte';
+  import { tick, createEventDispatcher } from 'svelte';
 
   export let likeAmount = 0;
 
   export let active = false;
+
+  const dispatch = createEventDispatcher();
+  async function handleClick() {
+    await tick();
+    active = !active;
+    dispatch('click', active);
+  }
 </script>
 
-<div on:click={() => (active = !active)} class:active>
+{JSON.stringify({ likeAmount, active })}
+
+<div class:active>
   <Button
     icon="thumb"
     invert={active}
     {active}
+    on:click={handleClick}
     --foreground-color="transparent"
-    name={likeAmount || active ? likeAmount + (active ? 1 : 0) + '' : ''}
+    name={likeAmount + (active ? 1 : 0) + ''}
   />
 </div>
 
