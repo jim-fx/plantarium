@@ -1,5 +1,4 @@
 import adapter from '@sveltejs/adapter-static';
-import path from 'path';
 import preprocess from 'svelte-preprocess';
 
 let { BASE_PATH = '', IS_GH_PAGES = false } = process.env;
@@ -20,12 +19,6 @@ const config = {
 
     prerender: { default: true, enabled: true },
 
-    vite: {
-      server: { host: '0.0.0.0', port: 8085 },
-      optimizeDeps: { include: ["highlight.js", 'highlight.js/lib/core'] },
-      ssr: { noExternal: ['ogl-typescript'] },
-      resolve: { alias: { '@plantarium/ui': path.resolve('src/lib') } }
-    }
   }
 };
 
