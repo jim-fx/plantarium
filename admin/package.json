@@ -2,9 +2,9 @@
   "name": "@plantarium/admin",
   "version": "0.0.1",
   "scripts": {
-    "dev": "svelte-kit dev --port 8082",
-    "build": "svelte-kit build",
-    "preview": "svelte-kit preview",
+    "dev": "vite dev --port 8082",
+    "build": "vite build",
+    "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --ignore-path .gitignore  --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
@@ -26,6 +26,7 @@
     "svelte-preprocess": "4.10.7",
     "tslib": "2.4.0",
     "typescript": "4.7.4",
+    "vite": "2.9.13",
     "vite-plugin-windicss": "1.8.6",
     "windicss": "3.5.6"
   },
@@ -45,7 +46,6 @@
     "shortid": "2.2.16",
     "stacktrace-parser": "^0.1.10",
     "svelte-forms-lib": "2.0.1",
-    "svelte-multiselect": "5.0.3",
-    "vite": "2.9.13"
+    "svelte-multiselect": "5.0.3"
   }
 }

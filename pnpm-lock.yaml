@@ -56,7 +56,6 @@ importers:
       stacktrace-parser: 0.1.10
       svelte-forms-lib: 2.0.1
       svelte-multiselect: 5.0.3
-      vite: 2.9.13
     devDependencies:
       '@plantarium/types': link:../packages/types
       '@sveltejs/adapter-static': 1.0.0-next.34
@@ -73,6 +72,7 @@ importers:
       svelte-preprocess: 4.10.7_lvfi2wesz6u4l5rfbnetbucfmm
       tslib: 2.4.0
       typescript: 4.7.4
+      vite: 2.9.13
       vite-plugin-windicss: 1.8.6_vite@2.9.13
       windicss: 3.5.6
 
@@ -261,6 +261,7 @@ importers:
       svelte-resize-observer: 2.0.0
       tslib: 2.4.0
       typescript: 4.7.4
+      vite: 2.9.13
       vite-plugin-comlink: 3.0.3
       vite-plugin-glslify: 2.0.1
     dependencies:
@@ -309,6 +310,7 @@ importers:
       svelte-preprocess: 4.10.7_cskk2ketiwcmbharqp7ehzkhki
       tslib: 2.4.0
       typescript: 4.7.4
+      vite: 2.9.13_sass@1.53.0
       vite-plugin-comlink: 3.0.3_comlink@4.3.1+vite@2.9.13
       vite-plugin-glslify: 2.0.1_vite@2.9.13
 
@@ -447,6 +449,7 @@ importers:
       svelte2tsx: ^0.5.11
       tslib: ^2.4.0
       typescript: ~4.7.4
+      vite: 2.9.13
     dependencies:
       '@fontsource/fira-mono': 4.5.8
       '@lukeed/uuid': 2.0.0
@@ -480,6 +483,7 @@ importers:
       svelte2tsx: 0.5.11_lvfi2wesz6u4l5rfbnetbucfmm
       tslib: 2.4.0
       typescript: 4.7.4
+      vite: 2.9.13
 
   packages/renderer:
     specifiers:
@@ -2397,7 +2401,7 @@ packages:
       chokidar: 3.5.3
       sade: 1.8.1
       svelte: 3.48.0
-      vite: 2.9.13_sass@1.53.0
+      vite: 2.9.13
     transitivePeerDependencies:
       - diff-match-patch
       - supports-color
@@ -2421,7 +2425,7 @@ packages:
       magic-string: 0.26.2
       svelte: 3.48.0
       svelte-hmr: 0.14.12_svelte@3.48.0
-      vite: 2.9.13_sass@1.53.0
+      vite: 2.9.13
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4452,6 +4456,7 @@ packages:
     cpu: [x64]
     os: [android]
     requiresBuild: true
+    dev: true
     optional: true
 
   /esbuild-android-arm64/0.14.48:
@@ -4460,6 +4465,7 @@ packages:
     cpu: [arm64]
     os: [android]
     requiresBuild: true
+    dev: true
     optional: true
 
   /esbuild-darwin-64/0.14.48:
@@ -4468,6 +4474,7 @@ packages:
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
+    dev: true
     optional: true
 
   /esbuild-darwin-arm64/0.14.48:
@@ -4476,6 +4483,7 @@ packages:
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
+    dev: true
     optional: true
 
   /esbuild-freebsd-64/0.14.48:
@@ -4484,6 +4492,7 @@ packages:
     cpu: [x64]
     os: [freebsd]
     requiresBuild: true
+    dev: true
     optional: true
 
   /esbuild-freebsd-arm64/0.14.48:
@@ -4492,6 +4501,7 @@ packages:
     cpu: [arm64]
     os: [freebsd]
     requiresBuild: true
+    dev: true
     optional: true
 
   /esbuild-linux-32/0.14.48:
@@ -4500,6 +4510,7 @@ packages:
     cpu: [ia32]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /esbuild-linux-64/0.14.48:
@@ -4508,6 +4519,7 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /esbuild-linux-arm/0.14.48:
@@ -4516,6 +4528,7 @@ packages:
     cpu: [arm]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /esbuild-linux-arm64/0.14.48:
@@ -4524,6 +4537,7 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /esbuild-linux-mips64le/0.14.48:
@@ -4532,6 +4546,7 @@ packages:
     cpu: [mips64el]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /esbuild-linux-ppc64le/0.14.48:
@@ -4540,6 +4555,7 @@ packages:
     cpu: [ppc64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /esbuild-linux-riscv64/0.14.48:
@@ -4548,6 +4564,7 @@ packages:
     cpu: [riscv64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /esbuild-linux-s390x/0.14.48:
@@ -4556,6 +4573,7 @@ packages:
     cpu: [s390x]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /esbuild-netbsd-64/0.14.48:
@@ -4564,6 +4582,7 @@ packages:
     cpu: [x64]
     os: [netbsd]
     requiresBuild: true
+    dev: true
     optional: true
 
   /esbuild-openbsd-64/0.14.48:
@@ -4572,6 +4591,7 @@ packages:
     cpu: [x64]
     os: [openbsd]
     requiresBuild: true
+    dev: true
     optional: true
 
   /esbuild-plugin-sass/1.0.1_esbuild@0.14.48:
@@ -4592,6 +4612,7 @@ packages:
     cpu: [x64]
     os: [sunos]
     requiresBuild: true
+    dev: true
     optional: true
 
   /esbuild-windows-32/0.14.48:
@@ -4600,6 +4621,7 @@ packages:
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
+    dev: true
     optional: true
 
   /esbuild-windows-64/0.14.48:
@@ -4608,6 +4630,7 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
+    dev: true
     optional: true
 
   /esbuild-windows-arm64/0.14.48:
@@ -4616,6 +4639,7 @@ packages:
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
+    dev: true
     optional: true
 
   /esbuild/0.11.23:
@@ -4650,6 +4674,7 @@ packages:
       esbuild-windows-32: 0.14.48
       esbuild-windows-64: 0.14.48
       esbuild-windows-arm64: 0.14.48
+    dev: true
 
   /escalade/3.1.1:
     resolution: {integrity: sha512-k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==}
@@ -6682,6 +6707,7 @@ packages:
       chalk: 2.4.2
       diff-match-patch: 1.0.5
     dev: false
+    bundledDependencies: []
 
   /jsonfile/6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
@@ -7404,6 +7430,7 @@ packages:
     resolution: {integrity: sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+    dev: true
 
   /natural-compare/1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
@@ -7941,6 +7968,7 @@ packages:
 
   /picocolors/1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
+    dev: true
 
   /picomatch/2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
@@ -8009,6 +8037,7 @@ packages:
       nanoid: 3.3.4
       picocolors: 1.0.0
       source-map-js: 1.0.2
+    dev: true
 
   /prelude-ls/1.1.2:
     resolution: {integrity: sha512-ESF23V4SKG6lVSGZgYNpbsiaAkdab6ZgOxe52p7+Kid3W3u3bxR4Vfd/o21dmN7jSt0IwgZ4v5MUd26FEtXE9w==}
@@ -8402,6 +8431,7 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.2
+    dev: true
 
   /run-async/2.4.1:
     resolution: {integrity: sha512-tvVnVv01b8c1RrA6Ep7JkStj85Guv/YrMcwqYQnwjsAS2cTmmPGBBjAjpCW7RrSodNSoE2/qg9O4bceNvUuDgQ==}
@@ -9899,6 +9929,7 @@ packages:
       rollup: 2.75.7
     optionalDependencies:
       fsevents: 2.3.2
+    dev: true
 
   /vite/2.9.13_sass@1.53.0:
     resolution: {integrity: sha512-AsOBAaT0AD7Mhe8DuK+/kE4aWYFMx/i0ZNi98hJclxb4e0OhQcZYUrvLjIaQ8e59Ui7txcvKMiJC1yftqpQoDw==}

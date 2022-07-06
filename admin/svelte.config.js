@@ -1,6 +1,5 @@
-import preprocess from 'svelte-preprocess';
 import adapter from '@sveltejs/adapter-static';
-import WindiCSS from 'vite-plugin-windicss';
+import preprocess from 'svelte-preprocess';
 
 let { BASE_PATH = '', IS_GH_PAGES = false } = process.env;
 if (IS_GH_PAGES) {
@@ -24,12 +23,6 @@ const config = {
       base: BASE_PATH,
     },
 
-    vite: {
-      ssr: {
-        noExternal: ['ogl-typescript'],
-      },
-      plugins: [WindiCSS()],
-    },
   },
 };
 
