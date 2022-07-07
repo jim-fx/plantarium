@@ -19,7 +19,7 @@
   "devDependencies": {
     "@plantarium/types": "workspace:*",
     "c8": "7.11.3",
-    "svelte": "3.48.0",
+    "svelte": "3.49.0",
     "ts-eager": "2.0.2",
     "vitest": "0.17.0"
   }
