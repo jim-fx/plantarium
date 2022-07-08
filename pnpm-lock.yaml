@@ -37,7 +37,7 @@ importers:
       svelte-preprocess: 4.10.7
       tslib: 2.4.0
       typescript: 4.7.4
-      vite: 2.9.13
+      vite: 2.9.14
       vite-plugin-windicss: 1.8.6
       windicss: 3.5.6
     dependencies:
@@ -59,7 +59,7 @@ importers:
     devDependencies:
       '@plantarium/types': link:../packages/types
       '@sveltejs/adapter-static': 1.0.0-next.34
-      '@sveltejs/kit': 1.0.0-next.359_svelte@3.48.0+vite@2.9.13
+      '@sveltejs/kit': 1.0.0-next.359_svelte@3.48.0+vite@2.9.14
       '@typescript-eslint/eslint-plugin': 5.30.5_6zdoc3rn4mpiddqwhppni2mnnm
       '@typescript-eslint/parser': 5.30.5_4x5o4skxv6sl53vpwefgt23khm
       eslint: 8.19.0
@@ -72,8 +72,8 @@ importers:
       svelte-preprocess: 4.10.7_lvfi2wesz6u4l5rfbnetbucfmm
       tslib: 2.4.0
       typescript: 4.7.4
-      vite: 2.9.13
-      vite-plugin-windicss: 1.8.6_vite@2.9.13
+      vite: 2.9.14
+      vite-plugin-windicss: 1.8.6_vite@2.9.14
       windicss: 3.5.6
 
   backend:
@@ -261,7 +261,7 @@ importers:
       svelte-resize-observer: 2.0.0
       tslib: 2.4.0
       typescript: 4.7.4
-      vite: 2.9.13
+      vite: 2.9.14
       vite-plugin-comlink: 3.0.3
       vite-plugin-glslify: 2.0.1
     dependencies:
@@ -293,7 +293,7 @@ importers:
       svelte-resize-observer: 2.0.0
     devDependencies:
       '@sveltejs/adapter-static': 1.0.0-next.34
-      '@sveltejs/kit': 1.0.0-next.359_svelte@3.48.0+vite@2.9.13
+      '@sveltejs/kit': 1.0.0-next.359_svelte@3.48.0+vite@2.9.14
       '@tsconfig/svelte': 3.0.0
       '@typescript-eslint/eslint-plugin': 5.30.5_6zdoc3rn4mpiddqwhppni2mnnm
       '@typescript-eslint/parser': 5.30.5_4x5o4skxv6sl53vpwefgt23khm
@@ -310,9 +310,9 @@ importers:
       svelte-preprocess: 4.10.7_cskk2ketiwcmbharqp7ehzkhki
       tslib: 2.4.0
       typescript: 4.7.4
-      vite: 2.9.13_sass@1.53.0
-      vite-plugin-comlink: 3.0.3_comlink@4.3.1+vite@2.9.13
-      vite-plugin-glslify: 2.0.1_vite@2.9.13
+      vite: 2.9.14_sass@1.53.0
+      vite-plugin-comlink: 3.0.3_comlink@4.3.1+vite@2.9.14
+      vite-plugin-glslify: 2.0.1_vite@2.9.14
 
   packages/client-api:
     specifiers:
@@ -449,7 +449,7 @@ importers:
       svelte2tsx: ^0.5.11
       tslib: ^2.4.0
       typescript: ~4.7.4
-      vite: 2.9.13
+      vite: 2.9.14
     dependencies:
       '@fontsource/fira-mono': 4.5.8
       '@lukeed/uuid': 2.0.0
@@ -468,7 +468,7 @@ importers:
     devDependencies:
       '@playwright/test': 1.23.1
       '@sveltejs/adapter-auto': 1.0.0-next.53
-      '@sveltejs/kit': 1.0.0-next.359_svelte@3.48.0+vite@2.9.13
+      '@sveltejs/kit': 1.0.0-next.359_svelte@3.48.0+vite@2.9.14
       '@types/cookie': 0.5.1
       '@typescript-eslint/eslint-plugin': 5.30.5_6zdoc3rn4mpiddqwhppni2mnnm
       '@typescript-eslint/parser': 5.30.5_4x5o4skxv6sl53vpwefgt23khm
@@ -483,7 +483,7 @@ importers:
       svelte2tsx: 0.5.11_lvfi2wesz6u4l5rfbnetbucfmm
       tslib: 2.4.0
       typescript: 4.7.4
-      vite: 2.9.13
+      vite: 2.9.14
 
   packages/renderer:
     specifiers:
@@ -550,7 +550,7 @@ importers:
       tslib: 2.4.0
       typescript: 4.7.4
       uvu: 0.5.6
-      vite: 2.9.13
+      vite: 2.9.14
       vitest: 0.17.0
     dependencies:
       ajv: 8.11.0
@@ -561,7 +561,7 @@ importers:
       '@plantarium/helpers': link:../helpers
       '@plantarium/theme': link:../theme
       '@sveltejs/adapter-static': 1.0.0-next.34
-      '@sveltejs/kit': 1.0.0-next.359_svelte@3.48.0+vite@2.9.13
+      '@sveltejs/kit': 1.0.0-next.359_svelte@3.48.0+vite@2.9.14
       '@testing-library/svelte': 3.1.3_svelte@3.48.0
       '@typescript-eslint/eslint-plugin': 5.30.5_6zdoc3rn4mpiddqwhppni2mnnm
       '@typescript-eslint/parser': 5.30.5_4x5o4skxv6sl53vpwefgt23khm
@@ -584,7 +584,7 @@ importers:
       tslib: 2.4.0
       typescript: 4.7.4
       uvu: 0.5.6
-      vite: 2.9.13_sass@1.53.0
+      vite: 2.9.14_sass@1.53.0
       vitest: 0.17.0_vs4ynxdsik6xxhenabq2vr32cy
 
 packages:
@@ -2389,7 +2389,7 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.359_svelte@3.48.0+vite@2.9.13:
+  /@sveltejs/kit/1.0.0-next.359_svelte@3.48.0+vite@2.9.14:
     resolution: {integrity: sha512-3WH198JhOI9rmDlVSPPHlgg+/R/gS4x5cETjYsIw3XckpN2zExDqlYHUBUwk/dEG/12BfPB3rDMNzdZ0QHtubQ==}
     engines: {node: '>=16.7'}
     hasBin: true
@@ -2397,17 +2397,17 @@ packages:
       svelte: ^3.44.0
       vite: ^2.9.10
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 1.0.0-next.49_svelte@3.48.0+vite@2.9.13
+      '@sveltejs/vite-plugin-svelte': 1.0.0-next.49_svelte@3.48.0+vite@2.9.14
       chokidar: 3.5.3
       sade: 1.8.1
       svelte: 3.48.0
-      vite: 2.9.13_sass@1.53.0
+      vite: 2.9.14_sass@1.53.0
     transitivePeerDependencies:
       - diff-match-patch
       - supports-color
     dev: true
 
-  /@sveltejs/vite-plugin-svelte/1.0.0-next.49_svelte@3.48.0+vite@2.9.13:
+  /@sveltejs/vite-plugin-svelte/1.0.0-next.49_svelte@3.48.0+vite@2.9.14:
     resolution: {integrity: sha512-AKh0Ka8EDgidnxWUs8Hh2iZLZovkETkefO99XxZ4sW4WGJ7VFeBx5kH/NIIGlaNHLcrIvK3CK0HkZwC3Cici0A==}
     engines: {node: ^14.13.1 || >= 16}
     peerDependencies:
@@ -2425,7 +2425,7 @@ packages:
       magic-string: 0.26.2
       svelte: 3.48.0
       svelte-hmr: 0.14.12_svelte@3.48.0
-      vite: 2.9.13_sass@1.53.0
+      vite: 2.9.14_sass@1.53.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -9870,7 +9870,7 @@ packages:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
 
-  /vite-plugin-comlink/3.0.3_comlink@4.3.1+vite@2.9.13:
+  /vite-plugin-comlink/3.0.3_comlink@4.3.1+vite@2.9.14:
     resolution: {integrity: sha512-qZSXLujach/pJbyZrZo3zFOfhpVjxmhbzkWnfvcLNZTraWhmysRE6LPw/QdMJcbApJyO9j7ZUaR2Po3HvFjW7w==}
     peerDependencies:
       comlink: ^4.3.1
@@ -9879,10 +9879,10 @@ packages:
       comlink: 4.3.1
       json5: 2.2.1
       magic-string: 0.26.2
-      vite: 2.9.13_sass@1.53.0
+      vite: 2.9.14_sass@1.53.0
     dev: true
 
-  /vite-plugin-glslify/2.0.1_vite@2.9.13:
+  /vite-plugin-glslify/2.0.1_vite@2.9.14:
     resolution: {integrity: sha512-bZeMZqYQUQE2TtQiUgQq1ephmMOrbnE/O7nwD+Wo/pA4IXLG5sduFEPLs8K1hzxbNoz9QkDxHee5+01x3GLHLg==}
     peerDependencies:
       vite: ^2.6.3
@@ -9891,10 +9891,10 @@ packages:
       astring: 1.8.3
       glslify: 7.1.1
       magic-string: 0.25.9
-      vite: 2.9.13_sass@1.53.0
+      vite: 2.9.14_sass@1.53.0
     dev: true
 
-  /vite-plugin-windicss/1.8.6_vite@2.9.13:
+  /vite-plugin-windicss/1.8.6_vite@2.9.14:
     resolution: {integrity: sha512-D4G4qmumgklPiPrq/ZALqq8Mby6krskFVShbmb5c+0VCSsLUN96qyFRTwi81rNIHwFvlbpqflgh+BpUM/9VjQg==}
     peerDependencies:
       vite: ^2.0.1
@@ -9902,7 +9902,7 @@ packages:
       '@windicss/plugin-utils': 1.8.6
       debug: 4.3.4
       kolorist: 1.5.1
-      vite: 2.9.13
+      vite: 2.9.14
       windicss: 3.5.6
     transitivePeerDependencies:
       - supports-color
@@ -9932,8 +9932,32 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vite/2.9.13_sass@1.53.0:
-    resolution: {integrity: sha512-AsOBAaT0AD7Mhe8DuK+/kE4aWYFMx/i0ZNi98hJclxb4e0OhQcZYUrvLjIaQ8e59Ui7txcvKMiJC1yftqpQoDw==}
+  /vite/2.9.14:
+    resolution: {integrity: sha512-P/UCjSpSMcE54r4mPak55hWAZPlyfS369svib/gpmz8/01L822lMPOJ/RYW6tLCe1RPvMvOsJ17erf55bKp4Hw==}
+    engines: {node: '>=12.2.0'}
+    hasBin: true
+    peerDependencies:
+      less: '*'
+      sass: '*'
+      stylus: '*'
+    peerDependenciesMeta:
+      less:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+    dependencies:
+      esbuild: 0.14.48
+      postcss: 8.4.14
+      resolve: 1.22.1
+      rollup: 2.75.7
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
+
+  /vite/2.9.14_sass@1.53.0:
+    resolution: {integrity: sha512-P/UCjSpSMcE54r4mPak55hWAZPlyfS369svib/gpmz8/01L822lMPOJ/RYW6tLCe1RPvMvOsJ17erf55bKp4Hw==}
     engines: {node: '>=12.2.0'}
     hasBin: true
     peerDependencies:
@@ -10028,7 +10052,7 @@ packages:
       local-pkg: 0.4.1
       tinypool: 0.2.2
       tinyspy: 0.3.3
-      vite: 2.9.13_sass@1.53.0
+      vite: 2.9.14_sass@1.53.0
     transitivePeerDependencies:
       - less
       - sass
