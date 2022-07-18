@@ -5,7 +5,7 @@ import glslify from 'vite-plugin-glslify';
 
 export default {
   clearScreen: true,
-  ssr: { noExternal: ['ogl-typescript'] },
+  ssr: { noExternal: ['ogl-typescript', "@plantarium/*"] },
   logLevel: 'silent',
   server: {
     host: '0.0.0.0',

@@ -13,7 +13,6 @@
   export let icon: string | boolean = false;
   export let values: string[] = undefined;
   export let timeout: number = 0;
-  export let reject: () => void = undefined;
   export let resolve: (v: string) => void = undefined;
 
   let animateProgress = false;

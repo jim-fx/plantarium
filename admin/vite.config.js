@@ -3,7 +3,7 @@ import WindiCSS from 'vite-plugin-windicss';
 
 export default {
   ssr: {
-    noExternal: ['ogl-typescript'],
+    noExternal: ['ogl-typescript', "@plantarium/helpers"],
   },
   plugins: [WindiCSS(), sveltekit()],
 }

@@ -225,7 +225,7 @@
     transform: translateY(0.6em) translateX(7px);
   }
 
-  .has-errors .component-wrapper {
+  .has-errors.component-wrapper {
     border-radius: var(--border-radius, 5px) var(--border-radius, 5px) 0px 0px;
   }
 
