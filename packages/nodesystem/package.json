@@ -1,7 +1,7 @@
 {
   "name": "@plantarium/nodesystem",
   "version": "0.0.6",
-  "main": "src/lib/index.ts",
+  "module": "src/lib/index.ts",
   "scripts": {
     "prepublish": "npm run package",
     "dev": "vite dev",

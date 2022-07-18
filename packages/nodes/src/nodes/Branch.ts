@@ -1,11 +1,10 @@
-import { interpolateSkeleton } from '@plantarium/geometry';
-import { findMaxDepth } from "../helpers"
 import {
-  interpolateSkeletonVec,
+  interpolateSkeleton, interpolateSkeletonVec,
   normalize2D,
-} from '@plantarium/geometry/src/helpers';
-import rotate2D from '@plantarium/geometry/src/helpers/rotate2D';
+  rotate2D
+} from '@plantarium/geometry';
 import { PlantStem } from '@plantarium/types';
+import { findMaxDepth } from "../helpers";
 import { typeCheckNode } from '../types';
 
 

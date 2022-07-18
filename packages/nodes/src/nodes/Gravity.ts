@@ -1,9 +1,8 @@
-import { add3D, distance3D, interpolateSkeleton, length3D, lerp3D, multiply3D, rotate3D, subtract3D } from '@plantarium/geometry';
+import { add3D, distance3D, interpolateSkeleton, length3D, lerp3D, multiply3D, rotate2D, rotate3D, subtract3D } from '@plantarium/geometry';
 // import { logger } from '@plantarium/helpers';
-import { Vec3 } from 'ogl-typescript';
-import rotate2D from '@plantarium/geometry/src/helpers/rotate2D';
-import { typeCheckNode } from '../types';
 import { PlantStem } from '@plantarium/types';
+import { Vec3 } from 'ogl-typescript';
+import { typeCheckNode } from '../types';
 
 // const log = logger('node.gravity');
 

@@ -1,9 +1,7 @@
 {
   "name": "@plantarium/ui",
   "version": "1.0.0",
-  "main": "src/lib/index.ts",
-  "source": "src/lib/index.ts",
-  "svelte": "src/lib/index.ts",
+  "module": "src/lib/index.ts",
   "license": "MIT",
   "scripts": {
     "prepublish": "npm run package",

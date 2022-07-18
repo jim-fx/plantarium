@@ -7,7 +7,8 @@
 
 <header>
   <Button
-    icon={$currentTheme === 'dark' ? 'bulb_dark' : 'bulb'}
+    icon="bulb"
+    active={$currentTheme === 'dark'}
     on:click={() => setTheme($currentTheme === 'dark' ? 'light' : 'dark')}
   />
   <slot />

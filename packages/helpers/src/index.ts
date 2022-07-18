@@ -1,5 +1,9 @@
 // Perf Helpers
 export { default as aggregate } from './aggregate';
+export * from "./arrayHasNaN";
+export * from './clickOutside';
+export * from "./cloneObject";
+export * from "./color";
 // Error handling
 export { default as ComposableError } from './composeableError';
 export { default as convertHexToRGB } from './convertHexToRGB';
@@ -15,24 +19,21 @@ export { default as groupArray } from './groupArray';
 export * as humane from './humane';
 export { default as inputChanged } from './inputChanged';
 export { default as interval } from './interval';
-export { default as wait } from './wait';
 // Geometry Stuff
 export { default as loader } from './loader';
 // Misc
 export { default as logger } from './logger';
 export { default as makeEditable } from './makeEditable';
-export * from './clickOutside';
 export { default as memoize } from './memoize';
 export { default as parseStackTrace } from './parseStackTrace';
 export { default as resizeTable } from './resizeTable';
 export { default as throttle } from './throttle';
 export { default as versionToNumber } from './versionToNumber';
+export { default as wait } from './wait';
+export { validator };
 
-export * from "./arrayHasNaN"
 
-export * from "./cloneObject"
-export * from "./color"
 
-import * as validator from "./validator"
+import * as validator from "./validator";
 
-export { validator }
+

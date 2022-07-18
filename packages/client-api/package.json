@@ -2,7 +2,7 @@
   "name": "@plantarium/client-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "module": "index.ts",
   "scripts": {},
   "keywords": [],
   "author": "",

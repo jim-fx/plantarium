@@ -13,7 +13,7 @@
   "devDependencies": {
     "@plantarium/types": "workspace:*",
     "@sveltejs/adapter-static": "1.0.0-next.37",
-    "@sveltejs/kit": "1.0.0-next.377",
+    "@sveltejs/kit": "1.0.0-next.372",
     "@typescript-eslint/eslint-plugin": "5.30.6",
     "@typescript-eslint/parser": "5.30.6",
     "eslint": "8.20.0",
@@ -26,7 +26,7 @@
     "svelte-preprocess": "4.10.7",
     "tslib": "2.4.0",
     "typescript": "4.7.4",
-    "vite": "3.0.1",
+    "vite": "2.9.14",
     "vite-plugin-windicss": "1.8.7",
     "windicss": "3.5.6"
   },

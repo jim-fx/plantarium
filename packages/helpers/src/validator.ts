@@ -1,6 +1,6 @@
-import { PlantProject } from "@plantarium/types"
-import { PlantProjectDef } from "@plantarium/types/definition"
-import Ajv, { JSONSchemaType } from "ajv"
+import { PlantProject } from "@plantarium/types";
+import { PlantProjectDef } from "@plantarium/types/definition";
+import Ajv from "ajv";
 
 
 export function minLength(l: number, err?: string) {

@@ -1,17 +1,14 @@
 {
+  "extends": "./.svelte-kit/tsconfig.json",
   "compilerOptions": {
-    "emitDeclarationOnly": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "declaration": true,
-    "outDir": "public/dist/geometry/src",
-    "target": "ESNext",
-    "module": "commonjs",
+    "allowJs": true,
+    "checkJs": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
-  },
-  "include": [
-    "src/**/*",
-    "test/**/*"
-  ]
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true
+  }
 }

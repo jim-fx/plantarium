@@ -1,7 +1,6 @@
+import type { NodeContext } from "@plantarium/generator";
+import type { InstancedGeometry, PlantStem, TransferGeometry } from "@plantarium/types";
 import type { ValueTemplate } from "@plantarium/ui";
-import type { NodeContext } from "@plantarium/generator"
-import type { InstancedGeometry, PlantStem } from "@plantarium/types"
-import { TransferGeometry } from "@plantarium/types";
 
 export type PlantValue = {
   stems: PlantStem[]
