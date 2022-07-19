@@ -13,7 +13,7 @@ importers:
       '@plantarium/theme': workspace:*
       '@plantarium/types': workspace:*
       '@plantarium/ui': workspace:*
-      '@sveltejs/adapter-static': 1.0.0-next.37
+      '@sveltejs/adapter-static': 1.0.0-next.38
       '@sveltejs/kit': 1.0.0-next.372
       '@typescript-eslint/eslint-plugin': 5.30.6
       '@typescript-eslint/parser': 5.30.6
@@ -58,7 +58,7 @@ importers:
       svelte-multiselect: 5.0.4
     devDependencies:
       '@plantarium/types': link:../packages/types
-      '@sveltejs/adapter-static': 1.0.0-next.37
+      '@sveltejs/adapter-static': 1.0.0-next.38
       '@sveltejs/kit': 1.0.0-next.372_svelte@3.49.0+vite@2.9.14
       '@typescript-eslint/eslint-plugin': 5.30.6_b7n364ggt6o4xlkgyoaww3ph3q
       '@typescript-eslint/parser': 5.30.6_he2ccbldppg44uulnyq4rwocfa
@@ -228,7 +228,7 @@ importers:
       '@plantarium/theme': workspace:*
       '@plantarium/types': workspace:*
       '@plantarium/ui': workspace:*
-      '@sveltejs/adapter-static': 1.0.0-next.37
+      '@sveltejs/adapter-static': 1.0.0-next.38
       '@sveltejs/kit': 1.0.0-next.372
       '@tsconfig/svelte': 3.0.0
       '@typescript-eslint/eslint-plugin': ^5.30.6
@@ -292,7 +292,7 @@ importers:
       svelte-multiselect: 5.0.4
       svelte-resize-observer: 2.0.0
     devDependencies:
-      '@sveltejs/adapter-static': 1.0.0-next.37
+      '@sveltejs/adapter-static': 1.0.0-next.38
       '@sveltejs/kit': 1.0.0-next.372_svelte@3.49.0+vite@2.9.14
       '@tsconfig/svelte': 3.0.0
       '@typescript-eslint/eslint-plugin': 5.30.6_b7n364ggt6o4xlkgyoaww3ph3q
@@ -385,7 +385,7 @@ importers:
       '@codemirror/state': 6.1.0
       '@codemirror/view': 6.0.3
       '@plantarium/types': link:../types
-      '@sveltejs/adapter-static': 1.0.0-next.37
+      '@sveltejs/adapter-static': 1.0.0-next.38
       '@sveltejs/kit': 1.0.0-next.372_svelte@3.49.0+vite@2.9.14
       '@typescript-eslint/eslint-plugin': 5.30.6_b7n364ggt6o4xlkgyoaww3ph3q
       '@typescript-eslint/parser': 5.30.6_he2ccbldppg44uulnyq4rwocfa
@@ -453,7 +453,7 @@ importers:
       '@plantarium/ui': workspace:*
       '@playwright/test': ^1.23.4
       '@sveltejs/adapter-auto': 1.0.0-next.61
-      '@sveltejs/adapter-static': 1.0.0-next.37
+      '@sveltejs/adapter-static': 1.0.0-next.38
       '@sveltejs/kit': 1.0.0-next.377
       '@types/cookie': ^0.5.1
       '@typescript-eslint/eslint-plugin': ^5.30.6
@@ -484,7 +484,7 @@ importers:
       '@plantarium/helpers': link:../helpers
       '@plantarium/theme': link:../theme
       '@plantarium/ui': link:../ui
-      '@sveltejs/adapter-static': 1.0.0-next.37
+      '@sveltejs/adapter-static': 1.0.0-next.38
       '@yr/monotone-cubic-spline': 1.0.3
       ajv: 8.11.0
       cookie: 0.5.0
@@ -550,7 +550,7 @@ importers:
     specifiers:
       '@plantarium/helpers': workspace:*
       '@plantarium/theme': workspace:*
-      '@sveltejs/adapter-static': 1.0.0-next.37
+      '@sveltejs/adapter-static': 1.0.0-next.38
       '@sveltejs/kit': 1.0.0-next.377
       '@testing-library/svelte': 3.1.3
       '@typescript-eslint/eslint-plugin': 5.30.6
@@ -588,7 +588,7 @@ importers:
     devDependencies:
       '@plantarium/helpers': link:../helpers
       '@plantarium/theme': link:../theme
-      '@sveltejs/adapter-static': 1.0.0-next.37
+      '@sveltejs/adapter-static': 1.0.0-next.38
       '@sveltejs/kit': 1.0.0-next.377_svelte@3.49.0+vite@3.0.1
       '@testing-library/svelte': 3.1.3_svelte@3.49.0
       '@typescript-eslint/eslint-plugin': 5.30.6_b7n364ggt6o4xlkgyoaww3ph3q
@@ -2545,8 +2545,8 @@ packages:
       tiny-glob: 0.2.9
     dev: true
 
-  /@sveltejs/adapter-static/1.0.0-next.37:
-    resolution: {integrity: sha512-BDFkx4CGAd6pG4e3+zYjy/eM9UDbhkRgXqavUzCO5oT8xXao5TeprY1AIbdzjMTmFjsWdeSXE9TbIsT0iikpyQ==}
+  /@sveltejs/adapter-static/1.0.0-next.38:
+    resolution: {integrity: sha512-O1b264K62E3OrUnsFxMjKn3CUJF50fxGcW0rWk8fa5kjzskPsSyTxS3jnWNryFaVJ3oSUtx57m4qFW43S1910Q==}
     dependencies:
       tiny-glob: 0.2.9
 
@@ -2590,7 +2590,7 @@ packages:
       chokidar: 3.5.3
       sade: 1.8.1
       svelte: 3.49.0
-      vite: 3.0.1
+      vite: 3.0.1_sass@1.53.0
     transitivePeerDependencies:
       - diff-match-patch
       - supports-color
@@ -2637,7 +2637,7 @@ packages:
       magic-string: 0.26.2
       svelte: 3.49.0
       svelte-hmr: 0.14.12_svelte@3.49.0
-      vite: 3.0.1
+      vite: 3.0.1_sass@1.53.0
     transitivePeerDependencies:
       - supports-color
     dev: true
