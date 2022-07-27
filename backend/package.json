@@ -41,7 +41,7 @@
     "@nestjs/serve-static": "3.0.0",
     "@nestjs/terminus": "^9.0.0",
     "@nestjs/throttler": "^3.0.0",
-    "@plantarium/helpers": "link:../packages/helpers",
+    "@plantarium/helpers": "workspace:*",
     "bcrypt": "5.0.1",
     "class-transformer": "0.5.1",
     "class-validator": "0.13.2",
