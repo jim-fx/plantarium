@@ -5,12 +5,12 @@ export class UpdateReportDto {
   @IsIn(['bug', 'feat'])
   @IsString()
   @IsOptional()
-  readonly type: 'bug' | 'feat';
+  readonly type?: 'bug' | 'feat';
 
   @IsString()
   @Length(2, 400)
   @IsOptional()
-  readonly description: string;
+  readonly description?: string;
 
   @IsOptional()
   @IsIn(labels, {
@@ -19,10 +19,13 @@ export class UpdateReportDto {
   readonly labels?: PLabel[];
 
   @IsOptional()
+  readonly logs?: any[];
+
+  @IsOptional()
   readonly open?: boolean;
 
   @IsOptional()
-  readonly title: string;
+  readonly title?: string;
 
   @IsOptional()
   @IsString()

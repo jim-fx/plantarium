@@ -82,7 +82,7 @@ jobs:
       - run: 'cp -r admin/build frontend/build/admin'
       - run: 'cp -r packages/ui/build frontend/build/ui'
       - run: 'cp -r packages/nodesystem/build frontend/build/nodes'
-      - run: 'cp -r packages/geometry/public frontend/build/geometry'
+      - run: 'cp -r packages/geometry/build frontend/build/geometry'
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.3.3

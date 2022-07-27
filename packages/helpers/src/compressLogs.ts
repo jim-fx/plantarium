@@ -1,4 +1,4 @@
-export function compressLogs(log: any[]) {
+export function compressLogs(log: any[]): any[] {
   return log.map((l) => {
     if (l.args) {
       if (Array.isArray(l.args)) {
