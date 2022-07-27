@@ -22,7 +22,7 @@
     "@codemirror/view": "^6.0.3",
     "@plantarium/types": "link:../types",
     "@sveltejs/adapter-static": "next",
-    "@sveltejs/kit": "1.0.0-next.372",
+    "@sveltejs/kit": "1.0.0-next.396",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
     "codemirror": "^6.0.1",
