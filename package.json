@@ -18,7 +18,7 @@
     "nodes:build": "pnpm --filter=./packages/nodesystem build",
     "ui:build": "pnpm --filter=@plantarium/ui build",
     "build": "pnpm ui:build && pnpm --filter=!./backend --filter=!./packages/ui -r build",
-    "dev": "pnpm -r dev --filter=./frontend --filter=./backend --filter=./admin",
+    "dev": "pnpm -r --parallel --filter=./* dev ",
     "start": "pnpm -r build && pnpm backend:start",
     "test": "pnpm -r test",
     "coverage": "pnpm -r coverage && node bin/combine_coverage.js",

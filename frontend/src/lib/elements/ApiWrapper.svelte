@@ -60,5 +60,5 @@
 	<Icon name="branch" animated />
 	<p>Contacting Api...</p>
 {:else}
-	<Message type="warning" icon={true} message="API offline" />
+	<Message type="warning" icon={true} message="Server offline" />
 {/if}

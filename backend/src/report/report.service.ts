@@ -5,6 +5,7 @@ import {
   Injectable,
   NotFoundException
 } from '@nestjs/common';
+import { compressLogs } from "@plantarium/helpers";
 import { Octokit } from 'octokit';
 import { UserService } from 'user/user.service';
 import { CreateReportDto } from './dto/create-report.dto';
@@ -45,6 +46,16 @@ export class ReportService {
     await this.repository.persistAndFlush(report);
 
     return report;
+  }
+
+  async compressReports() {
+    const reports = await this.getAll();
+
+    await Promise.all(reports.map(r => {
+      return this.updateReport(r._id, { logs: compressLogs(r.logs) })
+    }))
+
+    return { amount: reports.length }
   }
 
   async updateReport(reportId: string, dto: UpdateReportDto): Promise<Report> {

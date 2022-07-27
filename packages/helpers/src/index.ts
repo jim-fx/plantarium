@@ -6,6 +6,7 @@ export * from "./cloneObject";
 export * from "./color";
 // Error handling
 export { default as ComposableError } from './composeableError';
+export * from "./compressLogs";
 export { default as convertHexToRGB } from './convertHexToRGB';
 export * as curve from './curve';
 export { default as debounce } from './debounce';
@@ -34,6 +35,6 @@ export { validator };
 
 
 
-import * as validator from "./validator";
+  import * as validator from "./validator";
 
 

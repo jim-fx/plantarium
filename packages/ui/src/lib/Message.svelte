@@ -170,8 +170,6 @@
       }
 
       > .toast-text {
-        display: flex;
-        align-items: center;
         max-width: max(30vw, 200px);
         h3 {
           margin: 0;

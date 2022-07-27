@@ -10,7 +10,7 @@
 	} from '@plantarium/ui';
 	import { onMount } from 'svelte';
 	import { detect, api } from '../helpers';
-	import { logger, parseStackTrace } from '@plantarium/helpers';
+	import { logger, parseStackTrace, compressLogs } from '@plantarium/helpers';
 	import type { CreateReportDto } from '@plantarium/backend';
 	import { createEventDispatcher } from 'svelte';
 	import Icon from '@plantarium/ui/src/lib/Icon.svelte';
@@ -54,7 +54,7 @@
 		}
 
 		if (includeLogs) {
-			data.logs = logs;
+			data.logs = compressLogs(logs);
 		}
 
 		submitPromise = api.submitReport(data);

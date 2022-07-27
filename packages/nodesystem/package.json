@@ -16,12 +16,12 @@
     "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
   },
   "devDependencies": {
-    "@playwright/test": "^1.23.4",
-    "@sveltejs/adapter-auto": "1.0.0-next.61",
-    "@sveltejs/kit": "1.0.0-next.377",
+    "@playwright/test": "^1.24.1",
+    "@sveltejs/adapter-auto": "1.0.0-next.64",
+    "@sveltejs/kit": "1.0.0-next.396",
     "@types/cookie": "^0.5.1",
-    "@typescript-eslint/eslint-plugin": "^5.30.6",
-    "@typescript-eslint/parser": "^5.30.6",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
     "eslint": "^8.20.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-svelte3": "^4.0.0",
@@ -30,10 +30,10 @@
     "svelte": "^3.49.0",
     "svelte-check": "^2.8.0",
     "svelte-preprocess": "^4.10.7",
-    "svelte2tsx": "^0.5.11",
+    "svelte2tsx": "^0.5.13",
     "tslib": "^2.4.0",
     "typescript": "~4.7.4",
-    "vite": "3.0.1"
+    "vite": "3.0.3"
   },
   "type": "module",
   "dependencies": {
@@ -42,7 +42,7 @@
     "@plantarium/helpers": "workspace:*",
     "@plantarium/theme": "workspace:*",
     "@plantarium/ui": "workspace:*",
-    "@sveltejs/adapter-static": "1.0.0-next.37",
+    "@sveltejs/adapter-static": "1.0.0-next.38",
     "@yr/monotone-cubic-spline": "^1.0.3",
     "ajv": "^8.11.0",
     "cookie": "^0.5.0",
