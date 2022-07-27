@@ -102,7 +102,7 @@ importers:
       '@nestjs/terminus': ^9.0.0
       '@nestjs/testing': 9.0.5
       '@nestjs/throttler': ^3.0.0
-      '@plantarium/helpers': link:../packages/helpers
+      '@plantarium/helpers': workspace:*
       '@plantarium/types': workspace:*
       '@types/bcrypt': 5.0.0
       '@types/cookie-parser': 1.4.3
