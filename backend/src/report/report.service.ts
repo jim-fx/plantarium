@@ -5,7 +5,7 @@ import {
   Injectable,
   NotFoundException
 } from '@nestjs/common';
-import { compressLogs } from "@plantarium/helpers";
+import { compressLogs } from "@plantarium/helpers/src/compressLogs";
 import { Octokit } from 'octokit';
 import { UserService } from 'user/user.service';
 import { CreateReportDto } from './dto/create-report.dto';
