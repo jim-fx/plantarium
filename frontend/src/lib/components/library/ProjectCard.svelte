@@ -21,8 +21,8 @@
 			<Button
 				on:click={() => openPlant(project?._id || plant.meta.id)}
 				icon={isRemote ? 'import' : 'link'}
-				name={isRemote ? 'download' : 'open'}
-				--foreground-color="var(--background-color)"
+				name={isRemote ? '' : 'open'}
+				--foreground-color="var(--midground-color)"
 			/>
 
 			{#if !isRemote}
@@ -47,7 +47,6 @@
 	.wrapper {
 		position: relative;
 		overflow: visible;
-		background-color: var(--midground-color);
 		width: 200px;
 		height: 200px;
 		border-radius: 10px;
@@ -78,6 +77,7 @@
 		padding: 3px;
 		text-shadow: 0px 0px 0px transparent;
 		font-weight: medium;
+		text-align: center;
 		white-space: nowrap;
 		transition: text-shadow 0.3 ease, box-shadow 0.3s ease;
 	}

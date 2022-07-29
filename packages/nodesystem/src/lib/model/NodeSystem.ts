@@ -1,6 +1,6 @@
 import { debounceDecorator, EventEmitter, logger } from '@plantarium/helpers';
-import type { NodeProps, NodeSystemData, NodeSystemMeta, NodeTypeData } from '../types';
 import DefaultNodes from '../nodes';
+import type { NodeProps, NodeSystemData, NodeSystemMeta, NodeTypeData } from '../types';
 import NodeSystemView from '../view/NodeSystemView';
 import type Node from './Node';
 import NodeFactory from './NodeFactory';
@@ -131,6 +131,7 @@ export default class NodeSystem extends EventEmitter {
     };
     try {
       this.emit("loading")
+      this?.view.setState("loading")
       this.isLoaded = false;
       this.isPaused = true;
       this.nodes.forEach((n) => (n.enableUpdates = false));
@@ -156,6 +157,9 @@ export default class NodeSystem extends EventEmitter {
       this.result = this._result;
 
       this.emit("loaded")
+      if (this.view) {
+        setTimeout(() => this.view.setState(), 150)
+      }
       return this;
     } catch (error) {
       console.warn("Error", error)

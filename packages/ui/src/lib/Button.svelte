@@ -34,7 +34,7 @@
   >
     {#if icon}
       {#if notWebComponent}
-        <Icon name={icon} {active} --width={'25px'} />
+        <Icon name={icon} {active} dark={invert} --width={'25px'} />
       {:else}
         <plant-icon name={icon} {active} />
       {/if}
@@ -76,8 +76,8 @@
   }
 
   button.invert {
-    /* background-color: var(--text-color); */
-    /* color: var(--foreground-color); */
+    background-color: var(--text-color);
+    color: var(--foreground-color);
   }
 
   button:disabled {

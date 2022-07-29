@@ -2,10 +2,11 @@
 	import { onMount } from 'svelte';
 	import { browser } from '$app/env';
 	import type { PlantProject } from '@plantarium/types';
+	import { Button } from '@plantarium/ui';
 
 	import type { Writable } from 'svelte/store';
 	import Scene from '.';
-	import { projectManager, settingsManager  } from '..';
+	import { projectManager, settingsManager } from '..';
 	import * as perf from '../../helpers/performance';
 	import { cloneObject } from '@plantarium/helpers';
 	import { Icon } from '@plantarium/ui';
@@ -76,6 +77,13 @@
 			<h2>Logs:</h2>
 		</div>
 	{/if}
+
+	<span id="random-button">
+		<Button
+			icon="random"
+			on:click={() => settingsManager.set('seed.value', Math.floor(Math.random() * 100000))}
+		/>
+	</span>
 </div>
 
 <style lang="scss">
@@ -114,6 +122,13 @@
 		left: 10px;
 		z-index: 99;
 		width: 20px;
+	}
+
+	#random-button {
+		position: absolute;
+		z-index: 2;
+		right: 10px;
+		bottom: 10px;
 	}
 
 	code {

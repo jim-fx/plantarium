@@ -1,6 +1,6 @@
 import { convertHexToRGB, EventEmitter, throttle } from '@plantarium/helpers';
 import { Camera, OGLRenderingContext, Renderer as oRenderer, Transform, Vec3 } from 'ogl-typescript';
-import { Orbit } from "ogl-typescript/lib/extras/Orbit"
+import { Orbit } from "ogl-typescript/lib/extras/Orbit";
 
 interface RendererOptions {
   clearColor: string;
@@ -37,6 +37,13 @@ export default class Renderer extends EventEmitter {
   }: Partial<RendererOptions> = {}) {
     super();
 
+    if (!globalThis["document"]) {
+      return
+    }
+
+
+    console.log("REnder", { canvas })
+
     this.canvas = canvas;
 
     if ((!width || !height) && canvas) {
@@ -45,9 +52,6 @@ export default class Renderer extends EventEmitter {
       height = rect.height;
     }
 
-    if (!globalThis["document"]) {
-      return
-    }
     this.renderer = new oRenderer({
       canvas,
       width,

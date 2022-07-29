@@ -15,7 +15,6 @@ export function maxLength(l: number, err?: string) {
   }
 }
 
-
 export function isEmail(err = "Does not appear to be an email") {
   return (s: string) => {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(s)) {

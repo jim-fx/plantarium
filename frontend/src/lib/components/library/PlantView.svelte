@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PlantView from '$lib/elements/PlantView.svelte';
 	import type { Project } from '@plantarium/backend';
 
 	import clientApi from '@plantarium/client-api';
@@ -10,7 +11,9 @@
 {#await project then { data: p }}
 	<Gallery>
 		<GalleryItem>
-			<img src={p.meta.thumbnail} alt="" />
+			<div class="item-wrapper">
+				<PlantView project={p} />
+			</div>
 		</GalleryItem>
 
 		{#if p.meta.gbifID}
@@ -22,12 +25,14 @@
 				{#if res.ok}
 					{#each res.data.results as img, i (i)}
 						<GalleryItem>
-							<img
-								style="width: 100%; max-height: 100%;"
-								src={img.identifier}
-								alt="Image of {p.meta.latinName || p.meta.name || p.meta.description}"
-							/>
-							<i style="font-size:0.5em">Image from {img.source}</i>
+							<div class="item-wrapper">
+								<img
+									style="width: 100%; max-height: 100%;"
+									src={img.identifier}
+									alt="Image of {p.meta.latinName || p.meta.name || p.meta.description}"
+								/>
+								<i style="font-size:0.5em">Image from {img.source}</i>
+							</div>
 						</GalleryItem>
 					{/each}
 				{/if}
@@ -35,3 +40,12 @@
 		{/if}
 	</Gallery>
 {/await}
+
+<style>
+	.item-wrapper {
+		height: 80%;
+	}
+	img {
+		object-fit: contain;
+	}
+</style>

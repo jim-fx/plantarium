@@ -7,6 +7,8 @@ export type GeneratorContext = ReturnType<typeof createGeneratorContext>;
 
 export default function createGeneratorContext({ nodes: _nodes }: PlantProject, settings: Partial<PlantariumSettings>) {
 
+  console.log({ _nodes, settings })
+
   const ctx = createContext(settings);
 
   globalThis["ctx"] = ctx;

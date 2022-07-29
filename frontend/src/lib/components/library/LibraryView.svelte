@@ -32,6 +32,7 @@
 	import { onMount } from 'svelte';
 	import ApiWrapper from '$lib/elements/ApiWrapper.svelte';
 	import type { Project } from '@plantarium/backend';
+	import { activeView } from '$lib/stores';
 
 	const dispatch = createEventDispatcher();
 
@@ -113,10 +114,12 @@
 				if (project) {
 					projectManager.createNew(project.data);
 				}
+				$activeView = 'plant';
 			});
 		} else {
 			dispatch('close');
 			projectManager.setActiveProject(id);
+			$activeView = 'plant';
 		}
 	}
 
@@ -182,6 +185,7 @@
 		<input type="text" bind:value={searchText} placeholder="Search.." />
 
 		<br />
+		<br />
 
 		{#if $isRemote && !offline}
 			<div class="filter-types">
@@ -227,7 +231,7 @@
 
 	<aside>
 		{#if activeProjectPromise}
-			<Button icon="arrow" name="" on:click={() => showPlant()} />
+			<Button icon="cross" name="" on:click={() => showPlant()} />
 			{#await activeProjectPromise}
 				<Icon name="branch" animated />
 			{:then project}
@@ -256,7 +260,8 @@
 					<br />
 					<LikeButton
 						on:click={(ev) => handleLike(project._id, ev.detail)}
-						likeAmount={project?.likes?.length - (project.likes.includes($userStore?.id) ? 1 : 0)}
+						disabled={!$isLoggedIn}
+						likeAmount={project?.likes?.length}
 						active={project?.likes?.includes($userStore.id)}
 					/>
 				{/if}
@@ -281,7 +286,7 @@
 								name="download"
 								icon="import"
 								--foreground-color="var(--background-color)"
-								on:click={() => openPlant(plant.meta.id)}
+								on:click={() => openPlant(project.data.meta.id)}
 							/>
 						{:else}
 							<Button
@@ -289,27 +294,26 @@
 								--opacity={$isLoggedIn ? 1 : 0.2}
 								--foreground-color="var(--background-color)"
 								icon="export"
-								on:click={() => handlePublish(plant.meta.id)}
+								on:click={() => handlePublish(project.data.meta.id)}
 							/>
 							<Button
 								name="export"
 								icon="export"
 								--foreground-color="var(--background-color)"
-								on:click={() =>
-									createAlert(ExportProject, { props: { project: plant }, timeout: 0 })}
+								on:click={() => createAlert(ExportProject, { props: { project }, timeout: 0 })}
 							/>
 
 							<Button
 								name="open"
 								icon="link"
 								--foreground-color="var(--background-color)"
-								on:click={() => openPlant(plant.meta.id)}
+								on:click={() => openPlant(project.data.meta.id)}
 							/>
 							<Button
 								name="delete"
 								icon="cross"
 								--foreground-color="var(--error)"
-								on:click={() => deletePlant(plant.meta.id)}
+								on:click={() => deletePlant(project.data.meta.id)}
 							/>
 						{/if}
 					</ButtonGroup>
@@ -321,8 +325,8 @@
 
 <style>
 	.wrapper {
-		min-width: 80vw;
-		min-height: 80vh;
+		width: 100vw;
+		height: 100%;
 		display: grid;
 		overflow: hidden;
 		transition: grid-template-columns 0.3s ease;
@@ -330,7 +334,7 @@
 		grid-template-columns: 200px 1fr 0px;
 	}
 	.activePlant {
-		grid-template-columns: min-content 1fr 300px;
+		grid-template-columns: 200px 1fr 300px;
 	}
 
 	.filter-types {
@@ -363,10 +367,10 @@
 		max-width: 200px !important;
 	}
 
-	.activePlant > aside:first-child {
-		opacity: 0.5;
-		max-width: 20px;
-	}
+	/* .activePlant > aside:first-child { */
+	/* 	opacity: 0.5; */
+	/* 	max-width: 20px; */
+	/* } */
 
 	.activePlant main {
 		display: grid;

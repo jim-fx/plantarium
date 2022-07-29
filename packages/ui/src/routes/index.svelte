@@ -77,6 +77,8 @@
     <Button icon="cog" name="Projects" />
     <br />
     <Button name="Projects" />
+    <br />
+    <Button name="Primary" invert />
   </section>
 
   <section>

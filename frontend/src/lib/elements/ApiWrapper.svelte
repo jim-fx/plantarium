@@ -14,7 +14,7 @@
 	async function checkOnline() {
 		const time = Date.now();
 
-		if (time - lastCheck > 5000) {
+		if (time - lastCheck > 10000) {
 			const t = setTimeout(() => {
 				apiState.set('loading');
 			}, 500);

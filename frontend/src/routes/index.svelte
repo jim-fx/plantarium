@@ -5,13 +5,19 @@
 	import { nodeSystem } from '$lib/components';
 	import Scene from '$lib/components/scene/Scene.svelte';
 	import TutorWrapper from '$lib/components/tutor/Tutor.svelte';
-	import Header from '$lib/Header.svelte';
+	import Header from '$lib/components/Header.svelte';
+	import { activeView } from '$lib/stores';
 
 	import { settingsManager } from '$lib/components';
 
 	import './global.scss';
+	import LibraryView from '$lib/components/library/LibraryView.svelte';
 
 	let nodeSystemWrapper: HTMLElement;
+	$: if (nodeSystemWrapper) {
+		nodeSystemWrapper.append(nodeSystem.view.wrapper);
+		nodeSystem.view.handleResize();
+	}
 
 	onMount(async () => {
 		let path = localStorage.getItem('path');
@@ -21,7 +27,6 @@
 
 		await settingsManager.loadFromLocal();
 		nodeSystemWrapper.append(nodeSystem.view.wrapper);
-		nodeSystem.view.handleResize();
 	});
 </script>
 
@@ -33,8 +38,12 @@
 <Header />
 
 <main>
-	<Scene />
-	<div id="nodesystem-view" bind:this={nodeSystemWrapper} />
+	{#if $activeView === 'plant'}
+		<Scene />
+		<div id="nodesystem-view" bind:this={nodeSystemWrapper} />
+	{:else if $activeView === 'library'}
+		<LibraryView />
+	{/if}
 </main>
 
 <style lang="scss">

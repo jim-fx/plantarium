@@ -6,6 +6,8 @@
 
   export let active = false;
 
+  export let disabled = false;
+
   const dispatch = createEventDispatcher();
   async function handleClick() {
     await tick();
@@ -14,12 +16,11 @@
   }
 </script>
 
-{JSON.stringify({ likeAmount, active })}
-
-<div class:active>
+<div class:active class:disabled>
   <Button
     icon="thumb"
     invert={active}
+    {disabled}
     {active}
     on:click={handleClick}
     --foreground-color="transparent"
@@ -34,6 +35,11 @@
     border-radius: 10px;
     cursor: pointer;
     border: solid 1.5px var(--text-color);
+  }
+
+  .disabled {
+    opacity: 0.8;
+    pointer-events: none;
   }
 
   .active {

@@ -58,7 +58,7 @@ export class ProjectsController {
 
   private gbifMediaCache: Record<string, any> = {};
   @Get("/gbif/media/:gbifId")
-  async getGbifImages(@Param("gbifId") id: string) {
+  async getGbifImages(@Param("gbifId") id: number) {
     if (id in this.gbifMediaCache) return this.gbifMediaCache[id];
     try {
       const res = await fetch(`https://api.gbif.org/v1/species/${id}/media`)

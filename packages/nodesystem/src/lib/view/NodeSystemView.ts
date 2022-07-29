@@ -14,7 +14,6 @@ import './NodeSystemView.scss';
 import ColorStore from './socketColorStore';
 import SocketLegendView from './SocketLegendView';
 
-
 type EventMap = {
   "transform": {}
   "resize": {},
@@ -25,7 +24,6 @@ type EventMap = {
     key: string,
     keys: Record<string, boolean>
   }
-
 }
 
 type NodeSystemState = "normal" | "help" | "floating" | "loading";
@@ -135,14 +133,6 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
 
     this.bindEventListeners();
     this.handleResize();
-
-    this.system.on("loading", () => {
-      this.setState("loading")
-    })
-
-    this.system.on("loaded", () => {
-      this.setState()
-    })
 
     visible(() => {
       setTimeout(() => {
