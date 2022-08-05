@@ -46,6 +46,6 @@
     "shortid": "2.2.16",
     "stacktrace-parser": "^0.1.10",
     "svelte-forms-lib": "2.0.1",
-    "svelte-multiselect": "5.0.4"
+    "svelte-multiselect": "5.0.6"
   }
 }
