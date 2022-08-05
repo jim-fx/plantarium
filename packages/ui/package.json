@@ -30,7 +30,7 @@
     "@vitest/ui": "latest",
     "@yr/monotone-cubic-spline": "1.0.3",
     "c8": "7.12.0",
-    "eslint": "8.20.0",
+    "eslint": "8.21.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-svelte3": "4.0.0",
     "file-saver": "2.0.5",
