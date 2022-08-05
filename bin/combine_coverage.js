@@ -82,12 +82,12 @@ async function generateMonorepoReport(projects) {
   // Create and execute the report, passing in the expected options
   const htmlReport = createReport('istanbul-reporter-html-monorepo', {
     reportTitle: '@plantarium',
-    base: 'packages',
+    base: '.',
     projects: projects.map((p) => {
       return {
         ...p,
         name: p.name.replace('@plantarium/', ''),
-        path: p.path.replace('packages/', ''),
+        path: p.path,
       };
     }),
     defaultProjectName: false,
