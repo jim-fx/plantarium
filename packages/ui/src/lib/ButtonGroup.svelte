@@ -16,9 +16,6 @@
     width: var(--width, fit-content);
   }
 
-  .wrapper:vertical {
-  }
-
   .wrapper.vertical :global(.component-wrapper) {
     --width: 100%;
     width: 100%;

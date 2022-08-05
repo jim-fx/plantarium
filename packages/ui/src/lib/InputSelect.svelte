@@ -6,7 +6,6 @@
 
   export let value = undefined;
   let open = false;
-  let main;
 
   $: value && dispatch('change', value);
 
@@ -42,7 +41,7 @@
 </script>
 
 <div class="component-wrapper" class:open>
-  <div id="main" bind:this={main}>
+  <div id="main">
     {#if value !== undefined}
       <div id="selected-value" on:click={handleOpen}>{value}</div>
     {:else}

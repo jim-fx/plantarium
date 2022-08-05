@@ -1,40 +1,45 @@
+import { cleanup, fireEvent, render, screen } from '@testing-library/svelte';
+import { afterEach, describe, expect, it } from "vitest";
 import InputInteger from '../src/lib/InputInteger.svelte';
-import { fireEvent, cleanup, render, screen } from '@testing-library/svelte';
 
 const renderInput = (opts?: Record<string, unknown>) => render(InputInteger, opts);
 
-test('Should render the default value', async () => {
+describe("InputInteger.svelte", () => {
   afterEach(() => cleanup());
 
-  const value = 42;
 
-  renderInput({ value });
+  it('Should render the default value', async () => {
 
-  const input = (await screen.findByRole('spinbutton')) as HTMLInputElement;
+    const value = 42;
 
-  expect(+input.value).toEqual(value);
-});
+    renderInput({ value });
 
-test('Increase in plus click', async () => {
-  renderInput({ value: 41 });
+    const input = (await screen.findByRole('spinbutton')) as HTMLInputElement;
 
-  const input = (await screen.findByRole('spinbutton')) as HTMLInputElement;
+    expect(+input.value).toEqual(value);
+  });
 
-  const increaseButton = screen.queryByText('+') as HTMLButtonElement;
+  it('Increase in plus click', async () => {
+    renderInput({ value: 41 });
 
-  await fireEvent.click(increaseButton);
+    const input = (await screen.findByRole('spinbutton')) as HTMLInputElement;
 
-  expect(+input.value).toEqual(42);
-});
+    const increaseButton = screen.queryByText('+') as HTMLButtonElement;
 
-test('Decrease on minus click', async () => {
-  renderInput({ value: 43 });
+    await fireEvent.click(increaseButton);
 
-  const input = (await screen.findByRole('spinbutton')) as HTMLInputElement;
+    expect(+input.value).toEqual(42);
+  });
 
-  const decreaseButton = screen.queryByText('-') as HTMLButtonElement;
+  it('Decrease on minus click', async () => {
+    renderInput({ value: 43 });
 
-  await fireEvent.click(decreaseButton);
+    const input = (await screen.findByRole('spinbutton')) as HTMLInputElement;
 
-  expect(+input.value).toEqual(42);
-});
+    const decreaseButton = screen.queryByText('-') as HTMLButtonElement;
+
+    await fireEvent.click(decreaseButton);
+
+    expect(+input.value).toEqual(42);
+  });
+})

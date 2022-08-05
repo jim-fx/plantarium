@@ -1,17 +1,35 @@
-import Button from '../src/lib/Button.svelte';
-import { cleanup, render } from '@testing-library/svelte';
+import { cleanup, fireEvent, render, screen } from '@testing-library/svelte';
+import { afterEach, describe, expect, test } from "vitest";
 
-test('It should render the passed text', () => {
+import Button from '../src/lib/Button.svelte';
+
+describe('Hello.svelte', () => {
+
   afterEach(() => cleanup());
 
-  const name = 'Duuuude';
+  test('It should render the passed text', () => {
 
-  const { container } = render(Button, { name });
-  expect(container.innerHTML).toContain(name);
-});
+    const name = 'Duuuude';
 
-test('Should render with icon', async () => {
-  const { container } = render(Button, { icon: 'cog' });
+    const { container } = render(Button, { name });
+    expect(container.innerHTML).toContain(name);
+  });
 
-  expect(container.innerHTML).toContain('svg');
+  test('Should render with icon', async () => {
+    const { container } = render(Button, { icon: 'cog' });
+
+    expect(container.innerHTML).toContain('svg');
+  });
+
+
+  test('Should fire click event', async () => {
+
+    render(Button);
+
+    const btn = screen.getByRole('button')
+
+    await fireEvent.click(btn)
+
+  });
+
 });
