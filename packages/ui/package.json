@@ -21,7 +21,7 @@
   "devDependencies": {
     "@plantarium/helpers": "workspace:1.0.0",
     "@plantarium/theme": "workspace:0.0.1",
-    "@sveltejs/adapter-static": "1.0.0-next.38",
+    "@sveltejs/adapter-static": "1.0.0-next.39",
     "@sveltejs/kit": "1.0.0-next.403",
     "@sveltejs/vite-plugin-svelte": "^1.0.1",
     "@testing-library/svelte": "^3.1.3",
