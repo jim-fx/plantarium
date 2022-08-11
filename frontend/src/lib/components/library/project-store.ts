@@ -10,14 +10,34 @@ interface ProjectFilter {
   official: boolean;
   user: boolean;
   approved: boolean;
+  search: string;
 }
 let filter: Partial<ProjectFilter>;
+
+export function applySearchTerm(project: Project, searchTerm: string) {
+
+  let projectString = "";
+
+  const { meta } = project?.data || project;
+
+  if (meta.name) projectString += "~ " + meta.name;
+  if (meta.description) projectString += "~ " + meta.description;
+  if (meta.scientificName) projectString += "~ " + meta.scientificName;
+  if (meta.family) projectString += "~ " + meta.family;
+  if (meta.author) projectString += "~ " + meta.author;
+  if (meta.tags) {
+    projectString += "~ " + meta.tags.join(" ");
+  }
+
+  if (projectString.toLowerCase().includes(searchTerm.toLowerCase())) return true;
+  return false;
+}
 
 function applyFilter() {
 
   if (!projects.size) return;
 
-  let outArray: Project[] = [];
+  const outArray: Project[] = [];
 
   const acceptedTypes: number[] = []
 
@@ -35,8 +55,13 @@ function applyFilter() {
 
   projects.forEach(project => {
     if (acceptedTypes.length) {
-      if (!(acceptedTypes.includes(project.type || 0))) return;
+      if (!(acceptedTypes.includes(project.type))) return;
     }
+
+    if (filter.search && filter.search.length) {
+      if (!applySearchTerm(project, filter.search)) return;
+    }
+
     outArray.push(project);
   })
 
@@ -57,22 +82,24 @@ export async function loadPlant(id: string) {
 
 }
 
-export async function setFilter(f: Partial<ProjectFilter>) {
+export async function setFilter(f: Partial<ProjectFilter>, isOnline: boolean) {
 
   filter = f;
   applyFilter();
 
-  const res = await clientApi.getProjects({ ...filter });
+  if (isOnline) {
+    const res = await clientApi.getProjects({ ...filter });
 
-  if (res.ok) {
-    res.data.forEach(p => {
-      try {
-        p.data = JSON.parse(p.data as unknown as string);
-      } catch (err) { }
-      projects.set(p._id, p)
-    })
-    applyFilter()
-    return { ok: true, data: store }
+    if (res.ok) {
+      res.data.forEach(p => {
+        try {
+          p.data = JSON.parse(p.data as unknown as string);
+        } catch (err) { }
+        projects.set(p._id, p)
+      })
+      applyFilter()
+      return { ok: true, data: store }
+    }
   }
 
 }

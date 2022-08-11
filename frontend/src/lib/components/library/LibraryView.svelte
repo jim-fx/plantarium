@@ -34,6 +34,7 @@
 	import ApiWrapper from '$lib/elements/ApiWrapper.svelte';
 	import type { Project } from '@plantarium/backend';
 	import { activeView } from '$lib/stores';
+	import { applySearchTerm } from './project-store';
 
 	const dispatch = createEventDispatcher();
 
@@ -44,14 +45,13 @@
 	const filter = {
 		official: true,
 		user: false,
-		approved: false
+		approved: false,
+		search: ''
 	};
-	$: setFilter(filter);
+	$: setFilter(filter, $isRemote);
 
 	let isRemote = writable(false);
 	setContext('isRemote', isRemote);
-
-	let searchText: string;
 
 	let isLoading = false;
 	let activeProjectPromise: Promise<Project> | undefined;
@@ -182,7 +182,7 @@
 			}}
 		/>
 
-		<InputText placeholder="Search" --width="100%" />
+		<InputText placeholder="Search" --width="100%" bind:value={filter.search} />
 
 		<br />
 
@@ -222,7 +222,9 @@
 		{:else}
 			<div class="list">
 				{#each $localProjectStore as plant}
-					<ProjectCard isRemote={$isRemote} {plant} />
+					{#if !filter?.search?.length || applySearchTerm(plant, filter?.search)}
+						<ProjectCard isRemote={$isRemote} {plant} />
+					{/if}
 				{/each}
 			</div>
 		{/if}
