@@ -30,7 +30,10 @@ export class ProjectsService {
 
     p.plantId = createProjectDto.meta.id;
 
-    p.data = createProjectDto;
+    p.data = {
+      nodes: createProjectDto.nodes,
+      meta: createProjectDto.meta
+    };
 
     await this.repository.persistAndFlush(p)
 

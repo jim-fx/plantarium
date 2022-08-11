@@ -30,9 +30,7 @@ export async function send<T>({ method = "GET", path, data, isJSON = true, mode 
     opts.headers['access-token'] = `Bearer ${store.token}`;
   }
 
-  let url = path.startsWith("http") ? path : `${VITE_API_URL}/${path}`
-
-  console.log({ url })
+  const url = path.startsWith("http") ? path : `${VITE_API_URL}/${path}`
 
   const response = await fetch(url, opts);
 

@@ -6,9 +6,6 @@ import createContext from "./context";
 export type GeneratorContext = ReturnType<typeof createGeneratorContext>;
 
 export default function createGeneratorContext({ nodes: _nodes }: PlantProject, settings: Partial<PlantariumSettings>) {
-
-  console.log({ _nodes, settings })
-
   const ctx = createContext(settings);
 
   globalThis["ctx"] = ctx;
@@ -21,13 +18,12 @@ export default function createGeneratorContext({ nodes: _nodes }: PlantProject, 
   const getNodeRef = (id: string) => nodeRefMap.get(id) ?? []
   const getNode = (id: string) => nodeIdMap.get(id) ?? []
 
-  let nodes = [];
+  const nodes = [];
 
   // Create a wrapper objects for all of our nodes
   for (const { attributes, state } of _nodes) {
     const exec = nodeMap.get(attributes.type)
     if (!exec) {
-      console.log("Existing node types: ", { nodeMap })
       return {
         errors: ["Missing NodeType " + attributes.type]
       };
@@ -72,8 +68,8 @@ export default function createGeneratorContext({ nodes: _nodes }: PlantProject, 
     if (n?.buckets) return n.buckets;
 
 
-    let backlog: WrappedNode[] = [n];
-    let processedNodes: WrappedNode[] = [n]
+    const backlog: WrappedNode[] = [n];
+    const processedNodes: WrappedNode[] = [n]
 
     while (backlog.length) {
 
@@ -117,7 +113,7 @@ export default function createGeneratorContext({ nodes: _nodes }: PlantProject, 
       return n.parameters
     };
 
-    let parameters = {};
+    const parameters = {};
 
     const execNode = nodeMap.get(n.type);
 

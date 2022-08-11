@@ -36,11 +36,11 @@ export class AppModule implements OnModuleInit {
 
   async onModuleInit(): Promise<void> {
 
-    if (process.env.DB_MONGO_URL) return;
+    if (!process.env.DB_MONGO_URL) {
+      const migrator = this.orm.getMigrator();
 
-    const migrator = this.orm.getMigrator();
-
-    await migrator.up();
+      await migrator.up();
+    };
 
     await this.userService.init()
 

@@ -38,12 +38,14 @@
 <Header />
 
 <main>
-	{#if $activeView === 'plant'}
-		<Scene />
-		<div id="nodesystem-view" bind:this={nodeSystemWrapper} />
-	{:else if $activeView === 'library'}
+	{#if $activeView === 'library'}
 		<LibraryView />
 	{/if}
+
+	<div class:visible={$activeView === 'plant'}>
+		<Scene />
+		<div id="nodesystem-view" bind:this={nodeSystemWrapper} />
+	</div>
 </main>
 
 <style lang="scss">
@@ -54,10 +56,24 @@
 		user-select: none;
 	}
 
-	main {
+	main,
+	main > div {
 		height: 100%;
 		max-height: calc(100vh - 50px);
+	}
+
+	main > div {
+		opacity: 0;
+		pointer-events: none;
+		width: 100vw;
+		height: 100vh;
+
 		display: grid;
 		grid-template-columns: minmax(50vw, 25%) 1fr;
+	}
+
+	main > div.visible {
+		opacity: 1;
+		pointer-events: all;
 	}
 </style>

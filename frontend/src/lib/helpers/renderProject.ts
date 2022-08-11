@@ -1,9 +1,9 @@
 import { createWorker } from '@plantarium/generator';
-import { transferToGeometry } from '@plantarium/geometry';
+import { calculateNormals, transferToGeometry } from '@plantarium/geometry';
 import Renderer from '@plantarium/renderer';
 import type { PlantProject, TransferGeometry } from '@plantarium/types';
-import { Box, Mesh, NormalProgram } from 'ogl-typescript';
-import { BasicShader, MatCapShader, NormalShader } from '../components/scene/shaders';
+import { Box, Mesh } from 'ogl-typescript';
+import { NormalShader } from '../components/scene/shaders';
 
 const webWorker = createWorker();
 
@@ -13,7 +13,7 @@ let ctx: CanvasRenderingContext2D;
 let renderCanvas: HTMLCanvasElement;
 let isSetup = false;
 
-const RENDER_SIZE = 300;
+const RENDER_SIZE = 500;
 
 function setup() {
   if (isSetup) return;
@@ -59,9 +59,9 @@ export default async function({
 
   if (!_geometry) return;
 
-  mesh.geometry = transferToGeometry(renderer.gl, _geometry);
+  mesh.geometry = transferToGeometry(renderer.gl, calculateNormals(_geometry));
 
-  await new Promise((r) => setTimeout(r, 100));
+  await new Promise((r) => setTimeout(r, 200));
 
   mesh.geometry.computeBoundingBox();
 
@@ -74,11 +74,11 @@ export default async function({
   renderer.camera.position.z = camDistance;
 
   renderer.camera.lookAt(mesh.geometry.bounds.center);
-  await new Promise(res => setTimeout(res, 100));
+  await new Promise(res => setTimeout(res, 50));
 
   renderer.renderScene(renderer.scene);
 
-  await new Promise(res => setTimeout(res, 100));
+  await new Promise(res => setTimeout(res, 50));
 
   if (renderer.canvas.width === 0 || renderer.canvas.height === 0) return;
   //

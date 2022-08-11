@@ -1,53 +1,54 @@
 <script lang="ts">
-	import { projectManager, settingsManager } from '.';
+	import { settingsManager } from '.';
 	import HelpView from '../elements/Help.svelte';
 	import ProjectManagerView from './project-manager/ProjectManagerView.svelte';
 	import SettingsManagerView from './settings-manager/SettingsManagerView.svelte';
 	import ProfileView from '../elements/ProfileView.svelte';
 	import HoverWindow from '../elements/HoverWindow.svelte';
-	import Library from './library/LibraryView.svelte';
-	import { Button, createAlert } from '@plantarium/ui';
+	import { Button } from '@plantarium/ui';
 	import ApiWrapper from '../elements/ApiWrapper.svelte';
 	import { activeView } from '$lib/stores';
-	const activeProject = projectManager.activeProject;
 </script>
 
 <header>
 	<div class="left" style="z-index: 2;">
-		<span style="z-index: -1;">
-			<Button
-				icon="branch"
-				name="Plant"
-				invert={$activeView === 'plant'}
-				on:click={() => ($activeView = 'plant')}
-			/>
+		<span class:hidden={$activeView !== 'plant'}>
+			<HoverWindow icon="folder" name="" let:visible>
+				<ProjectManagerView {visible} />
+			</HoverWindow>
 		</span>
-
-		<span style="z-index: -1;">
+		<span class:hidden={$activeView !== 'plant'} style="z-index:-1">
 			<Button
-				icon="library"
-				name="Library"
-				invert={$activeView === 'library'}
-				on:click={() => ($activeView = 'library')}
+				icon="random"
+				on:click={() => settingsManager.set('seed.value', Math.floor(Math.random() * 100000))}
 			/>
 		</span>
 	</div>
 
+	<div class="center">
+		<Button
+			icon="branch"
+			name="Plant"
+			invert={$activeView === 'plant'}
+			on:click={() => ($activeView = 'plant')}
+		/>
+
+		<Button
+			icon="library"
+			name="Library"
+			invert={$activeView === 'library'}
+			on:click={() => ($activeView = 'library')}
+		/>
+	</div>
+
 	<div class="right">
-		{#if $activeView === 'plant'}
-			<HoverWindow icon="folder" name="" let:visible right>
-				<ProjectManagerView {visible} />
-			</HoverWindow>
-		{/if}
 		<HoverWindow icon="user" right>
 			<ApiWrapper>
 				<ProfileView />
 			</ApiWrapper>
 		</HoverWindow>
 		<HoverWindow icon="question" right><HelpView /></HoverWindow>
-		{#if $activeView === 'plant'}
-			<HoverWindow icon="cog" right --min-width={'250px'}><SettingsManagerView /></HoverWindow>
-		{/if}
+		<HoverWindow icon="cog" right --min-width={'250px'}><SettingsManagerView /></HoverWindow>
 	</div>
 </header>
 
@@ -74,7 +75,16 @@
 		z-index: 2;
 	}
 
+	.center {
+		display: flex;
+	}
+
 	.right {
 		display: flex;
+	}
+
+	.hidden {
+		opacity: 0;
+		pointer-events: none;
 	}
 </style>

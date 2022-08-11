@@ -77,13 +77,6 @@
 			<h2>Logs:</h2>
 		</div>
 	{/if}
-
-	<span id="random-button">
-		<Button
-			icon="random"
-			on:click={() => settingsManager.set('seed.value', Math.floor(Math.random() * 100000))}
-		/>
-	</span>
 </div>
 
 <style lang="scss">
@@ -122,13 +115,6 @@
 		left: 10px;
 		z-index: 99;
 		width: 20px;
-	}
-
-	#random-button {
-		position: absolute;
-		z-index: 2;
-		right: 10px;
-		bottom: 10px;
 	}
 
 	code {

@@ -8,16 +8,16 @@
 	import { onMount } from 'svelte';
 	import { createWorker } from '@plantarium/generator';
 	import { NormalShader } from '$lib/components/scene/shaders';
-	import { Box, Mesh, type OGLRenderingContext } from 'ogl-typescript';
+	import { Box, Mesh } from 'ogl-typescript';
 	import { transferToGeometry } from '@plantarium/geometry';
 
 	export let project: PlantProject;
 	let canvas: HTMLCanvasElement;
 	let mesh: Mesh;
-	let renderer: { gl: OGLRenderingContext; handleResize: () => void };
+	let renderer: Renderer;
 	let loaded = false;
 
-	async function generatePlant(project) {
+	async function generatePlant(project: PlantProject) {
 		if (!worker) worker = createWorker();
 
 		const result = await worker.executeNodeSystem(project, {
@@ -29,7 +29,10 @@
 	}
 
 	onMount(async () => {
-		renderer = new Renderer({ canvas, alpha: true, clearColor: '000000' });
+		const dim = Math.max(window.innerWidth, window.innerHeight);
+		canvas.width = dim;
+		canvas.height = dim;
+		renderer = new Renderer({ canvas, height: dim, width: dim, alpha: true, clearColor: '000000' });
 		renderer.handleResize();
 
 		mesh = new Mesh(renderer.gl, {
@@ -47,7 +50,7 @@
 
 <div class:loaded>
 	<img src={project.meta.thumbnail} alt="" />
-	<canvas bind:this={canvas} />
+	<canvas bind:this={canvas} width="500" height="500" />
 </div>
 
 <style>

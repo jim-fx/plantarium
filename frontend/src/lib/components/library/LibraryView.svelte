@@ -18,6 +18,7 @@
 		Icon,
 		LikeButton,
 		ButtonGroup,
+		InputText,
 		createAlert,
 		createToast
 	} from '@plantarium/ui';
@@ -181,10 +182,8 @@
 			}}
 		/>
 
-		<br />
-		<input type="text" bind:value={searchText} placeholder="Search.." />
+		<InputText placeholder="Search" --width="100%" />
 
-		<br />
 		<br />
 
 		{#if $isRemote && !offline}
@@ -231,7 +230,7 @@
 
 	<aside>
 		{#if activeProjectPromise}
-			<Button icon="cross" name="" on:click={() => showPlant()} />
+			<Button icon="arrow" name="" on:click={() => showPlant()} --foreground-color="transparent" />
 			{#await activeProjectPromise}
 				<Icon name="branch" animated />
 			{:then project}

@@ -41,9 +41,6 @@ export default class Renderer extends EventEmitter {
       return
     }
 
-
-    console.log("REnder", { canvas })
-
     this.canvas = canvas;
 
     if ((!width || !height) && canvas) {
@@ -55,8 +52,8 @@ export default class Renderer extends EventEmitter {
     this.renderer = new oRenderer({
       canvas,
       width,
-      premultipliedAlpha: true,
       height,
+      premultipliedAlpha: true,
       alpha,
       antialias: true,
       // dpr: 1,
