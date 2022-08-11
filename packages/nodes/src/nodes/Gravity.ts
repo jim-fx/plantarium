@@ -76,11 +76,11 @@ export default typeCheckNode({
 
         for (let i = 1; i < amountPoints; i++) {
 
-          let startIndex = (i - 1) * 4;
-          let endIndex = startIndex + 4;
+          const startIndex = (i - 1) * 4;
+          const endIndex = startIndex + 4;
 
-          let startPoint = skeleton.slice(startIndex, endIndex)
-          let endPoint = skeleton.slice(endIndex, endIndex + 4) as unknown as number[]
+          const startPoint = skeleton.slice(startIndex, endIndex)
+          const endPoint = skeleton.slice(endIndex, endIndex + 4) as unknown as number[]
           const length = distance3D(startPoint, endPoint);
 
           const normalizedEndpoint = subtract3D(endPoint, startPoint);

@@ -4,7 +4,7 @@
 	const { setFilter, store: remotePlantStore } = projectStore;
 
 	export async function load() {
-		await setFilter({ official: true });
+		await setFilter({ official: true }, true);
 	}
 </script>
 
@@ -53,8 +53,13 @@
 	let isRemote = writable(false);
 	setContext('isRemote', isRemote);
 
+	let plantTitle: string;
 	let isLoading = false;
 	let activeProjectPromise: Promise<Project> | undefined;
+
+	$: if (filter) {
+		activeProjectPromise = undefined;
+	}
 
 	async function handlePublish(id: string) {
 		if (!$isLoggedIn) {
@@ -95,6 +100,7 @@
 		let t = setTimeout(() => (isLoading = true), 500);
 		activeProjectPromise.then((p) => {
 			console.log(p);
+			plantTitle = p?.data?.meta?.title || p?.meta?.title;
 			isLoading = false;
 			clearTimeout(t);
 		});
@@ -236,7 +242,11 @@
 			{#await activeProjectPromise}
 				<Icon name="branch" animated />
 			{:then project}
-				<h1>{project.data.meta.name}</h1>
+				{#if $isRemote}
+					<h1>{project.data.meta.name}</h1>
+				{:else}
+					<h1 bind:textContent={plantTitle} contenteditable>{project.data.meta.name}</h1>
+				{/if}
 
 				{#if project.data?.meta?.latinName}
 					{#if project.data?.meta?.gbifID}

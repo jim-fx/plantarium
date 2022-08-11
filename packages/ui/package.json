@@ -2,6 +2,7 @@
   "name": "@plantarium/ui",
   "version": "1.0.0",
   "module": "src/lib/index.ts",
+  "types": "src/lib/index.ts",
   "license": "MIT",
   "scripts": {
     "prepublish": "npm run package",
@@ -19,8 +20,8 @@
     "clean": "rimraf coverage .nyc_output public/dist .eslintcache"
   },
   "devDependencies": {
-    "@plantarium/helpers": "workspace:1.0.0",
-    "@plantarium/theme": "workspace:0.0.1",
+    "@plantarium/helpers": "workspace:*",
+    "@plantarium/theme": "workspace:*",
     "@sveltejs/adapter-static": "1.0.0-next.39",
     "@sveltejs/kit": "1.0.0-next.405",
     "@sveltejs/vite-plugin-svelte": "^1.0.1",

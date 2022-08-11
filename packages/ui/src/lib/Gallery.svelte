@@ -18,6 +18,17 @@
     };
   };
   setContext('registerElement', registerElement);
+
+  function handleWindowKeyDown(e: KeyboardEvent) {
+    if (e.key === 'ArrowLeft') {
+      $activeIndex = $activeIndex - 1;
+      if ($activeIndex < 0) {
+        $activeIndex = els.length - 1;
+      }
+    } else if (e.key === 'ArrowRight') {
+      $activeIndex = ($activeIndex + 1) % els.length;
+    }
+  }
 </script>
 
 <div class="gallery">
@@ -30,6 +41,8 @@
     {/each}
   </div>
 </div>
+
+<svelte:window on:keydown={handleWindowKeyDown} />
 
 <style>
   .gallery {
@@ -45,6 +58,7 @@
   }
 
   .button {
+    position: relative;
     width: 100%;
     margin-top: 20px;
     display: flex;

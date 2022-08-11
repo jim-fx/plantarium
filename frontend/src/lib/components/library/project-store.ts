@@ -82,13 +82,16 @@ export async function loadPlant(id: string) {
 
 }
 
-export async function setFilter(f: Partial<ProjectFilter>, isOnline: boolean) {
+export async function setFilter(f: Partial<ProjectFilter>, isOnline: boolean = false) {
 
   filter = f;
   applyFilter();
 
   if (isOnline) {
-    const res = await clientApi.getProjects({ ...filter });
+
+    const exludeIds = projects.keys();
+
+    const res = await clientApi.getProjects({ ...filter, exclude: exludeIds });
 
     if (res.ok) {
       res.data.forEach(p => {

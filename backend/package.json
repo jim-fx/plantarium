@@ -2,6 +2,7 @@
   "name": "@plantarium/backend",
   "version": "0.0.1",
   "module": "src/types.ts",
+  "types": "src/types.ts",
   "private": true,
   "scripts": {
     "prebuild": "rimraf dist",

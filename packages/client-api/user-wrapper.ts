@@ -105,12 +105,13 @@ interface ProjectFilter {
   approved: boolean;
   name: string;
   offset: number;
+  exclude: string[];
 }
 
 export async function getProjects(filter: Partial<ProjectFilter> = {}) {
 
-  let query: string[][] = []
-  let type = [];
+  const query: string[][] = []
+  const type = [];
 
   if (filter.official) {
     type.push(2)
