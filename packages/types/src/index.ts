@@ -1,5 +1,8 @@
 import { NodeProps } from "./nodesystem";
 
+/**
+ * Geometry which gets passed directly to the render engine
+ */
 export interface Geometry {
   position: Float32Array;
   normal: Float32Array;

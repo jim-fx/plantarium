@@ -92,6 +92,7 @@ export default class Renderer extends EventEmitter {
     if (canvas) {
       this.render();
     }
+
   }
 
   setControlTarget(vec: Vec3) {

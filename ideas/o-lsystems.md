@@ -1,9 +1,9 @@
 # L-Systems
 
-A few people mentioned l-systems, but something always irked me about it and I was not sure what. 
-But I think its the imperative nature of them, we provide some parameters and leave everything to the allgorithm.
+A few people mentioned l-systems, but something always irked me about it, and I was not sure what. 
+But I think its the imperative nature of them, we provide some parameters and leave everything to the algorithm.
 
-Also I think most of the results I have seen have some sort of "mathematical/allgorithmical" look to it.
+Also I think most of the results I have seen have some sort of "mathematical/algorithmical" look to it.
 
 But nonetheless I think I will implement them, also just to check "learning l-systems" of my list of things to learn :)
 

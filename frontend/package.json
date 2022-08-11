@@ -33,7 +33,7 @@
     "jsondiffpatch": "^0.4.1",
     "ogl-typescript": "^0.1.40",
     "open-simplex-noise": "^2.5.0",
-    "sass": "^1.54.3",
+    "sass": "^1.54.4",
     "shortid": "^2.2.16",
     "stacktrace-parser": "^0.1.10",
     "svelte-click-outside": "^1.0.0",
@@ -41,11 +41,11 @@
     "svelte-resize-observer": "2.0.0"
   },
   "devDependencies": {
-    "@sveltejs/adapter-static": "1.0.0-next.38",
-    "@sveltejs/kit": "1.0.0-next.403",
+    "@sveltejs/adapter-static": "1.0.0-next.39",
+    "@sveltejs/kit": "1.0.0-next.405",
     "@tsconfig/svelte": "3.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.32.0",
-    "@typescript-eslint/parser": "^5.32.0",
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
+    "@typescript-eslint/parser": "^5.33.0",
     "comlink": "^4.3.1",
     "eslint": "8.21.0",
     "eslint-config-prettier": "8.5.0",
@@ -59,7 +59,7 @@
     "svelte-preprocess": "4.10.7",
     "tslib": "2.4.0",
     "typescript": "4.7.4",
-    "vite": "3.0.4",
+    "vite": "3.0.5",
     "vite-plugin-comlink": "3.0.4",
     "vite-plugin-glslify": "2.0.1"
   },
