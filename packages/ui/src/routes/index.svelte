@@ -17,12 +17,12 @@
     Section,
     AlertWrapper,
     InputTab,
-    Form
+    Form,
+    InputEditable
   } from '$lib';
   import { Highlight } from 'svelte-highlight';
   import atomOneDark from 'svelte-highlight/styles/atom-one-dark';
-  import { setTheme, ThemeProvider, ThemeStore } from '@plantarium/theme';
-
+  import { setTheme, ThemeProvider } from '@plantarium/theme';
   export const prerender = true;
 
   const searchItems = [
@@ -40,8 +40,10 @@
   import Gallery from '$lib/Gallery.svelte';
   import GalleryItem from '$lib/GalleryItem.svelte';
   import Message from '$lib/Message.svelte';
+  import ButtonGroup from '$lib/ButtonGroup.svelte';
   let animateIcons = false;
   let activeIcon = false;
+  let editableValue = 'Cheeckthis';
   const icons = Object.keys(_icons);
 
   let formData = {};
@@ -82,12 +84,31 @@
   </section>
 
   <section>
+    <h3>ButtonGroup</h3>
+    <i>Vertical:</i>
+    <ButtonGroup>
+      <Button icon="cog" name="Projects" />
+      <Button name="Projects" />
+      <Button name="Primary" />
+    </ButtonGroup>
+
+    <br />
+
+    <i>Horizontal:</i>
+    <ButtonGroup direction="horizontal">
+      <Button icon="cog" name="Projects" />
+      <Button name="Projects" />
+      <Button name="Primary" />
+    </ButtonGroup>
+  </section>
+
+  <section>
     <h3>Icon</h3>
     <InputCheckbox bind:value={animateIcons} label="Animated" />
     <InputCheckbox bind:value={activeIcon} label="Active" />
     <br />
     <div style="display:flex; max-width: 100%; flex-wrap: wrap;">
-      {#each icons as icon}
+      {#each icons as icon (icon)}
         <div style="margin: 10px; display:grid; place-items:center">
           <Icon name={icon} --width="40px" active={activeIcon} animated={animateIcons} hover />
           <p>{icon}</p>
@@ -140,6 +161,19 @@
     <br />
     <i>With min/max</i>
     <InputInteger min={0} max={100} />
+  </section>
+
+  <section>
+    <h3>InputEditable</h3>
+    <InputEditable
+      value={editableValue}
+      on:submit={(ev) => {
+        editableValue = ev.detail;
+      }}
+    />
+    <p>
+      Value: {editableValue}
+    </p>
   </section>
 
   <section>

@@ -7,9 +7,8 @@
 	import store from './_editor/store';
 	import * as ogl from 'ogl-typescript';
 	import { onMount } from 'svelte';
-	import { javascript } from '@codemirror/lang-javascript';
 
-	let value: string = '';
+	let value = store.get('code');
 	let generatorTime = 0;
 	let verticeAmount = 0;
 	$: handleValueChange(value);
@@ -25,14 +24,19 @@
 	let debugCanvas: HTMLCanvasElement;
 	let renderCanvas: HTMLCanvasElement;
 
+	let error: Error | null;
+
 	function handleValueChange(v: string) {
+		store.set('code', v);
 		let generatorTime = 0;
 		try {
 			const a = performance.now();
 			eval(`(g,scene,ogl) => {${v}\n}`)(geometry, scene, ogl);
 			generatorTime = performance.now() - a;
-		} catch (error) {
-			console.log(error);
+			error = null;
+		} catch (err) {
+			console.log(err);
+			error = err as Error;
 		} finally {
 			scene.commit();
 		}
@@ -57,7 +61,7 @@
 			<label for="show-points">Show Vertices</label>
 			<input type="checkbox" id="show-points" bind:checked={$showVertices} />
 			<button on:click={() => scene.download()}>download</button>
-			<p>Time: {generatorTime} | Vertices: ${verticeAmount}</p>
+			<p>Time: {generatorTime} | Vertices: {verticeAmount}</p>
 		</div>
 		<canvas id="debug-canvas" bind:this={debugCanvas} />
 		<canvas id="render-canvas" bind:this={renderCanvas} />
@@ -72,7 +76,13 @@
 				>
 			{/each}
 		</div>
-		<CodeMirror bind:value lang={javascript()} />
+		<CodeMirror bind:value />
+		{#if error}
+			<div class="error">
+				<h4>{error.name}</h4>
+				<p>{error.message}</p>
+			</div>
+		{/if}
 	</div>
 </div>
 
@@ -117,5 +127,21 @@
 		width: 100%;
 		height: 100%;
 		pointer-events: none;
+	}
+	.error {
+		background: #fb000069;
+	}
+
+	.error > h4,
+	.error > p {
+		padding: 10px;
+		margin: 0;
+	}
+
+	.error > h4 {
+		padding-bottom: 0px;
+	}
+	.error > p {
+		padding-top: 2px;
 	}
 </style>

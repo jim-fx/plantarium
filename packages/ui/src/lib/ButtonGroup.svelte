@@ -1,8 +1,12 @@
 <script lang="ts">
-  export let vertical = false;
+  export let direction: 'vertical' | 'horizontal' = 'vertical';
 </script>
 
-<div class="wrapper" class:vertical>
+<div
+  class="wrapper"
+  class:vertical={direction === 'vertical'}
+  class:horizontal={direction === 'horizontal'}
+>
   <slot />
 </div>
 
@@ -22,15 +26,19 @@
     position: relative;
   }
 
+  .wrapper.horizontal :global(.component-wrapper) {
+    display: flex;
+  }
+
   .wrapper.vertical > :global(.component-wrapper:after),
   .wrapper.vertical > :global(div > .component-wrapper:after) {
-    width: calc(100% - 8px);
+    width: 100%;
     height: 1px;
-    left: 4px;
+    left: 0px;
     top: 0px;
   }
 
-  .wrapper :global(*:first-child > .component-wrapper:after),
+  .wrapper :global(*:first-child:after),
   .wrapper :global(*:first-child > div > .component-wrapper:after) {
     display: none;
   }

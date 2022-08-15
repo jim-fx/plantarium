@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "module": "src/index.ts",
+  "types": "src/index.ts",
   "styles": "src/theme.module.scss",
   "keywords": [],
   "author": "",
@@ -13,7 +14,7 @@
   },
   "devDependencies": {
     "@tsconfig/svelte": "3.0.0",
-    "esbuild": "0.15.1",
+    "esbuild": "0.15.3",
     "esbuild-plugin-sass": "1.0.1"
   }
 }

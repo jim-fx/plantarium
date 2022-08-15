@@ -1,7 +1,7 @@
 import type { Writable } from "svelte/store";
 import { writable } from "svelte/store";
 const store =
-  ('localStorage' in globalThis && 'store' in localStorage) ? JSON.parse(localStorage.getItem('store')) : {};
+  ('localStorage' in globalThis) ? JSON.parse(localStorage.getItem('store') || "{}") : {};
 save();
 
 function save() {

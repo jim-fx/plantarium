@@ -20,7 +20,8 @@
 		ButtonGroup,
 		InputText,
 		createAlert,
-		createToast
+		createToast,
+		InputEditable
 	} from '@plantarium/ui';
 	import { createEventDispatcher } from 'svelte';
 	import ProjectCard from './ProjectCard.svelte';
@@ -162,6 +163,10 @@
 		}
 	}
 
+	async function setName(id: string, name: string) {
+		await projectManager.updateProjectMeta(id, { name });
+	}
+
 	async function handleLike(projectId: string, like: boolean) {
 		const res = await api[like ? 'likeProject' : 'unlikeProject'](projectId);
 		if (!res.ok) {
@@ -245,7 +250,14 @@
 				{#if $isRemote}
 					<h1>{project.data.meta.name}</h1>
 				{:else}
-					<h1 bind:textContent={plantTitle} contenteditable>{project.data.meta.name}</h1>
+					<InputEditable
+						value={project.data.meta.name}
+						on:submit={({ detail }) => {
+							plantTitle = detail;
+							project.data.meta.name = detail;
+							setName(project.data.meta.id, detail);
+						}}
+					/>
 				{/if}
 
 				{#if project.data?.meta?.latinName}
@@ -285,41 +297,28 @@
 				<br />
 
 				<div class="actions">
-					<ButtonGroup vertical={!$isRemote}>
+					<ButtonGroup direction={$isRemote ? 'horizontal' : 'vertical'}>
 						{#if $isRemote}
-							<Button
-								name="open"
-								icon="link"
-								--foreground-color="var(--background-color)"
-								on:click={() => {}}
-							/>
+							<Button name="open" icon="link" on:click={() => {}} />
 							<Button
 								name="download"
 								icon="import"
-								--foreground-color="var(--background-color)"
 								on:click={() => openPlant(project.data.meta.id)}
 							/>
 						{:else}
 							<Button
 								name="publish"
 								--opacity={$isLoggedIn ? 1 : 0.2}
-								--foreground-color="var(--background-color)"
 								icon="export"
 								on:click={() => handlePublish(project.data.meta.id)}
 							/>
 							<Button
 								name="export"
 								icon="export"
-								--foreground-color="var(--background-color)"
 								on:click={() => createAlert(ExportProject, { props: { project }, timeout: 0 })}
 							/>
 
-							<Button
-								name="open"
-								icon="link"
-								--foreground-color="var(--background-color)"
-								on:click={() => openPlant(project.data.meta.id)}
-							/>
+							<Button name="open" icon="link" on:click={() => openPlant(project.data.meta.id)} />
 							<Button
 								name="delete"
 								icon="cross"

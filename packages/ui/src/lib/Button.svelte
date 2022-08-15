@@ -25,6 +25,7 @@
   <button
     bind:this={buttonEl}
     on:click={handleClick}
+    on:mousedown={() => dispatch('mousedown')}
     class:active
     class:invert
     class:useActive

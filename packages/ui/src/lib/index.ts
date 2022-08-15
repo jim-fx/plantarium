@@ -11,6 +11,7 @@ import Icon from './Icon.svelte';
 import InputCheckbox from './InputCheckbox.svelte';
 import InputColor from './InputColor.svelte';
 import InputCurve from './InputCurve.svelte';
+import InputEditable from "./InputEditable.svelte";
 import InputFloat from './InputFloat.svelte';
 import InputInteger from './InputInteger.svelte';
 import InputRange from './InputRange.svelte';
@@ -51,6 +52,7 @@ export {
   InputSearch,
   InputTab,
   InputColor,
+  InputEditable,
   Button,
   Icon,
   Section,
@@ -60,15 +62,6 @@ export {
   createToast,
   StackTrace
 };
-
-
-
-
-// *****************************************
-// * Notice that the component is not instantiated and mounted to the document <body className="">
-// * Since the compiler is creating a custom element, we instead define and use the custom element
-// * in the index.html file to simulate the end-user experience.
-// ******************************************
 
 export function stateToElement({
   target,

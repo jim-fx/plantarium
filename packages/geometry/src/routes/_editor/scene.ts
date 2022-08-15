@@ -1,4 +1,4 @@
-import { join, toOBJ, transferToGeometry } from '$lib';
+import { calculateNormals, join, toOBJ, transferToGeometry } from '$lib';
 import { Box, Camera, Color, Mesh, Orbit, Polyline, Renderer, Transform, Vec3, type OGLRenderingContext } from 'ogl-typescript';
 import debug from './debug';
 import createParticle from './particles';
@@ -145,7 +145,8 @@ export function commit() {
   if (!renderer) return;
   if (tempScene.length) {
     geo = tempScene.length > 1 ? join(...tempScene) : tempScene[0];
-    obj.geometry = wireMesh.geometry = transferToGeometry(gl, geo);
+    if (!geo) return;
+    obj.geometry = wireMesh.geometry = transferToGeometry(gl, calculateNormals(geo));
     obj.visible = !store.get("wireframe");
     if (particles.visible) {
       particles.setPositions(obj.geometry.attributes.position.data);

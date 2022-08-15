@@ -25,10 +25,12 @@
     "@sveltejs/kit": "1.0.0-next.405",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
+    "ajv": "^8.11.0",
     "codemirror": "^6.0.1",
-    "eslint": "^8.21.0",
+    "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-svelte3": "^4.0.0",
+    "file-saver": "^2.0.5",
     "ogl": "^0.0.97",
     "prettier": "^2.7.1",
     "prettier-plugin-svelte": "^2.7.0",
@@ -37,10 +39,11 @@
     "svelte-preprocess": "^4.10.7",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4",
-    "vite": "3.0.5"
+    "vite": "3.0.7"
   },
   "dependencies": {
     "@codemirror/lang-javascript": "^6.0.2",
+    "@codemirror/theme-one-dark": "^6.0.0",
     "@plantarium/helpers": "workspace:*",
     "gl-matrix": "^3.4.3",
     "ogl-typescript": "^0.1.40",
