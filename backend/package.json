@@ -52,7 +52,7 @@
     "file-saver": "^2.0.5",
     "helmet": "^5.1.1",
     "morgan": "1.10.0",
-    "octokit": "2.0.5",
+    "octokit": "2.0.7",
     "passport": "0.6.0",
     "passport-github": "^1.1.0",
     "passport-github2": "^0.1.12",
