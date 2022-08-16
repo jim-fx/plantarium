@@ -7,7 +7,7 @@
   import { setTheme, currentTheme } from '@plantarium/theme';
   import { Button, createToast } from '@plantarium/ui';
 
-  $: isLoggedIn = !!$userStore?.username;
+  $: isLoggedIn = !!$userStore['username'];
   $: sites = [
     ['/', 'Home'],
     ['/reports', 'Reports'],
@@ -22,7 +22,7 @@
     {#if href}
       <a
         class="p-3 rounded block"
-        class:active={href === $page.url.pathname}
+        class:active={base + href === $page.url.pathname}
         href={base + href}
       >
         {title}

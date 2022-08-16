@@ -21,8 +21,8 @@
 		if (!worker) worker = createWorker();
 
 		const result = await worker.executeNodeSystem(project, {
-			stemResX: 12,
-			stemResY: 12
+			stemResX: 8,
+			stemResY: 4
 		});
 
 		return transferToGeometry(renderer.gl, result.geometry);

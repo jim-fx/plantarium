@@ -54,7 +54,6 @@
 	let isRemote = writable(false);
 	setContext('isRemote', isRemote);
 
-	let plantTitle: string;
 	let isLoading = false;
 	let activeProjectPromise: Promise<Project> | undefined;
 
@@ -99,9 +98,7 @@
 
 		activeProjectPromise = loadPlant(id);
 		let t = setTimeout(() => (isLoading = true), 500);
-		activeProjectPromise.then((p) => {
-			console.log(p);
-			plantTitle = p?.data?.meta?.title || p?.meta?.title;
+		activeProjectPromise.then(() => {
 			isLoading = false;
 			clearTimeout(t);
 		});
@@ -253,7 +250,6 @@
 					<InputEditable
 						value={project.data.meta.name}
 						on:submit={({ detail }) => {
-							plantTitle = detail;
 							project.data.meta.name = detail;
 							setName(project.data.meta.id, detail);
 						}}
@@ -285,7 +281,7 @@
 						on:click={(ev) => handleLike(project._id, ev.detail)}
 						disabled={!$isLoggedIn}
 						likeAmount={project?.likes?.length}
-						active={project?.likes?.includes($userStore.id)}
+						active={project?.likes?.includes($userStore['id'])}
 					/>
 				{/if}
 
