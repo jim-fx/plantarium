@@ -15,7 +15,7 @@
   style={'background-color: var(--foreground-color)'}
   class="w-full p-4 block"
   class:closed={!report.open}
-  href={base + '/reports/' + report._id}
+  href={base + '/reports/' + report.id}
 >
   <div class="flex items-center py-1">
     <b class="text-xl">{report.type}</b>

@@ -123,6 +123,7 @@ importers:
       '@types/passport-jwt': 3.0.6
       '@types/passport-local': 1.0.34
       '@types/supertest': 2.0.12
+      '@types/uuid': ^8.3.4
       '@typescript-eslint/eslint-plugin': 5.33.0
       '@typescript-eslint/parser': 5.33.0
       bcrypt: 5.0.1
@@ -219,6 +220,7 @@ importers:
       '@types/passport-jwt': 3.0.6
       '@types/passport-local': 1.0.34
       '@types/supertest': 2.0.12
+      '@types/uuid': 8.3.4
       '@typescript-eslint/eslint-plugin': 5.33.0_yy5c4q6zhpajzhorvwhnwvctfe
       '@typescript-eslint/parser': 5.33.0_4rv7y5c6xz3vfxwhbrcxxi73bq
       eslint: 8.22.0
@@ -3032,6 +3034,10 @@ packages:
     resolution: {integrity: sha512-X3HPWTwXRerBZS7Mo1k6vMVR1Z6zmJcDVn5O/31whe0tnjE4te6ZJSJGq1RiqHPjzPdMTfjCFogDJmwng9xHaQ==}
     dependencies:
       '@types/superagent': 4.1.15
+    dev: true
+
+  /@types/uuid/8.3.4:
+    resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
     dev: true
 
   /@types/webidl-conversions/6.1.1:

@@ -7,7 +7,7 @@ import {
   Post,
   Put,
   Req,
-  UseGuards,
+  UseGuards
 } from '@nestjs/common';
 import { Permissions } from 'auth/decorators/permissions.decorator';
 import { Roles } from 'auth/decorators/roles.decorator';
@@ -31,8 +31,10 @@ export class ReportController {
   }
 
   @Get()
-  public getReports(): Promise<Report[]> {
-    return this.reportService.getAll();
+  public async getReports(): Promise<Report[]> {
+    const reports = await this.reportService.getAll()
+    console.log("Reports", { reports })
+    return reports;
   }
 
   @Delete('/:id')

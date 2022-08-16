@@ -4,17 +4,19 @@ const { VITE_API_URL = 'http://localhost:8081' } = import.meta.env;
 interface SendOptions {
   path: string;
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
-  data?: any;
+  data?: unknown;
   isJSON?: boolean;
   mode?: RequestMode;
 }
 
-type Response<T = any> = { ok: false, statusCode: number, message: string } | { ok: true, data: T };
+type Response<T = unknown> = { ok: false, statusCode: number, message: string } | { ok: true, data: T, statusCode: number };
 
 export async function send<T>({ method = "GET", path, data, isJSON = true, mode }: SendOptions): Promise<Response<T>> {
   const opts: { method: string; headers: Record<string, string>; body?: string, mode?: RequestMode } = {
     method,
-    headers: {}
+    headers: {
+      "Content-Type": "application/json"
+    }
   };
 
   if (mode) {
@@ -22,7 +24,6 @@ export async function send<T>({ method = "GET", path, data, isJSON = true, mode 
   }
 
   if (data) {
-    opts.headers['Content-Type'] = 'application/json';
     opts.body = JSON.stringify(data);
   }
 
@@ -40,7 +41,8 @@ export async function send<T>({ method = "GET", path, data, isJSON = true, mode 
         const json = await response.json();
         return {
           ok: true,
-          data: json
+          data: json,
+          statusCode: response.status
         };
       } catch (err) {
         console.error("Response from " + path + " failed to parse");
@@ -72,7 +74,7 @@ export async function send<T>({ method = "GET", path, data, isJSON = true, mode 
 
 }
 
-export function get<T = any>(path: string, options: Partial<SendOptions> = {}) {
+export function get<T = unknown>(path: string, options: Partial<SendOptions> = {}) {
   return send<T>({ method: 'GET', path, ...options });
 }
 
@@ -80,10 +82,10 @@ export function del<T>(path: string) {
   return send<T>({ method: 'DELETE', path });
 }
 
-export function post<T = any>(path: string, data: any) {
+export function post<T = unknown>(path: string, data: unknown) {
   return send<T>({ method: 'POST', path, data });
 }
 
-export function put<T>(path: string, data: any) {
+export function put<T>(path: string, data: unknown) {
   return send<T>({ method: 'PUT', path, data });
 }

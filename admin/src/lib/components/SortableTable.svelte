@@ -8,12 +8,17 @@
   export let keys: string[] = undefined;
   export let component: SvelteComponent = undefined;
   export let componentKey = 'item';
+  export let defaultKey: string | null;
   export let useLink = false;
 
   $: _keys =
     keys && keys.length ? keys : items.length ? Object.keys(items[0]) : [];
 
   $: activeKey = _keys.length && _keys[0];
+
+  if (defaultKey && _keys.includes(defaultKey)) {
+    activeKey = defaultKey;
+  }
 
   let reverseSort = false;
 

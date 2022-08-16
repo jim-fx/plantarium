@@ -5,6 +5,11 @@
 
 <div class="container w-min mx-auto rounded overflow-hidden">
   <ApiCall path="api/report" let:data>
-    <SortableTable items={data} component={ReportCard} componentKey="report" />
+    <SortableTable
+      items={data}
+      component={ReportCard}
+      componentKey="report"
+      defaultKey="open"
+    />
   </ApiCall>
 </div>
