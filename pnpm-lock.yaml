@@ -28,7 +28,9 @@ importers:
       '@typescript-eslint/parser': 5.33.1
       '@yr/monotone-cubic-spline': 1.0.3
       ajv: ^8.11.0
+      cookie: ^0.5.0
       css-vars-from-json: ^1.1.0
+      devalue: ^2.0.1
       dotenv: 16.0.1
       eslint: 8.22.0
       eslint-config-prettier: 8.5.0
@@ -37,6 +39,7 @@ importers:
       ogl-typescript: ^0.1.40
       prettier: 2.7.1
       prettier-plugin-svelte: 2.7.0
+      set-cookie-parser: ^2.5.1
       shortid: 2.2.16
       stacktrace-parser: ^0.1.10
       svelte: 3.49.0
@@ -57,10 +60,13 @@ importers:
       '@plantarium/ui': link:../packages/ui
       '@yr/monotone-cubic-spline': 1.0.3
       ajv: 8.11.0
+      cookie: 0.5.0
       css-vars-from-json: 1.1.0
+      devalue: 2.0.1
       dotenv: 16.0.1
       file-saver: 2.0.5
       ogl-typescript: 0.1.40
+      set-cookie-parser: 2.5.1
       shortid: 2.2.16
       stacktrace-parser: 0.1.10
       svelte-forms-lib: 2.0.1
@@ -2717,7 +2723,7 @@ packages:
       svelte: 3.49.0
       tiny-glob: 0.2.9
       undici: 5.8.2
-      vite: 3.0.8_sass@1.54.4
+      vite: 3.0.8
     transitivePeerDependencies:
       - diff-match-patch
       - supports-color
@@ -4588,7 +4594,6 @@ packages:
 
   /devalue/2.0.1:
     resolution: {integrity: sha512-I2TiqT5iWBEyB8GRfTDP0hiLZ0YeDJZ+upDxjBfOC2lebO5LezQMv7QvIUTzdb64jQyAKLf1AHADtGN+jw6v8Q==}
-    dev: true
 
   /dezalgo/1.0.3:
     resolution: {integrity: sha1-f3Qt4Gb8dIvI24IFad3c5Jvw1FY=}

@@ -1,36 +1,14 @@
-<script lang="ts" context="module">
-  import * as api from '@plantarium/client-api';
-
-  import type { Project } from '@plantarium/backend';
-  import type { PlantProject } from '@plantarium/types';
-
-  export async function load({ params }) {
-    const project = await api.getProject(params.projectId);
-
-    if (project.ok) {
-      const plant = JSON.parse(project.data.data as unknown as string);
-
-      return {
-        props: {
-          project: project.data,
-          plant,
-        },
-      };
-    } else {
-      throw new Error(project.message);
-    }
-  }
-</script>
-
 <script lang="ts">
   import { Detail } from '$lib/components';
   import { onMount } from 'svelte';
-  import { permissions } from '@plantarium/client-api';
+  import type { PageData } from './$types';
+  import api, { permissions } from '@plantarium/client-api';
   import { createAlert } from '@plantarium/ui';
   const { VITE_API_URL } = import.meta.env;
 
-  export let project: Project;
-  export let plant: PlantProject;
+  export let data: PageData;
+
+  $: ({ project, plant } = data);
 
   async function handleDelete() {
     const res = await createAlert(
@@ -89,22 +67,7 @@
 </footer>
 
 <style>
-  h3 {
-    @apply text-md font-bold;
-  }
-
   :global(.multiselect) {
     margin: 0px;
-  }
-
-  .stack > :global(.wrapper) {
-    background: white;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  }
-
-  .publish {
-    @apply rounded-md p-2 py-1;
-    color: var(--background-color, white);
-    background-color: var(--text-color, black);
   }
 </style>

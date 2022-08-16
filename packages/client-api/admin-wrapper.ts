@@ -19,7 +19,7 @@ export function unpublishReport(reportId: string) {
 }
 
 export function getAvailableLabels() {
-  return send({ method: "GET", path: `api/report/labels` });
+  return send<string[]>({ method: "GET", path: `api/report/labels` });
 }
 
 export function setReportLabels(reportId: string, labels: string[]) {

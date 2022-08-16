@@ -1,33 +1,15 @@
-<script lang="ts" context="module">
-  import * as api from '@plantarium/client-api';
-
-  import type { Report } from '@plantarium/backend';
-
-  export async function load({ params }) {
-    const report = await api.getReport(params.reportId);
-    console.log({ report });
-    let reportLabels = [];
-    try {
-      reportLabels = await api.getAvailableLabels();
-    } catch (err) {
-      console.log('Cant get report labels');
-    }
-    return {
-      props: {
-        report: report.data,
-        reportLabels: reportLabels.data,
-      },
-    };
-  }
-</script>
-
 <script lang="ts">
+  export let data: import('./$types').PageData;
+
+  $: report = data?.report;
+  $: reportLabels = data?.reportLabels;
+
   import { page } from '$app/stores';
   import { Detail, Select } from '$lib/components';
   import { onMount } from 'svelte';
   const { reportId } = $page.params;
   import { createAlert, LogViewer, StackTrace } from '@plantarium/ui';
-  import { userStore } from '@plantarium/client-api';
+  import api, { userStore } from '@plantarium/client-api';
 
   const {
     VITE_API_URL = 'http://localhost:3000',
@@ -35,11 +17,9 @@
     VITE_GH_REPO,
   } = import.meta.env;
 
-  export let report: Report;
-  export let reportLabels: unknown[] = [];
   let initialized = false;
 
-  let publishPromise;
+  let publishPromise: number | boolean | Promise<any> | PromiseLike<number>;
   async function togglePublish() {
     if (publishPromise) return;
     if (!report.gh_issue) {
@@ -52,20 +32,18 @@
     publishPromise.then(() => (publishPromise = null));
   }
 
-  let labels = report.labels;
+  let labels = report?.labels;
   $: report.labels = labels;
   $: report.labels && labels && updateLabels();
-  let labelPromise;
   async function updateLabels() {
     if (!initialized) return;
-    labelPromise = api.setReportLabels(reportId, labels);
+    api.setReportLabels(reportId, labels);
   }
 
-  let deletePromise;
   async function deleteReport() {
     const res = await createAlert('Delete Report?', { values: ['yes', 'no'] });
     if (res === 'yes') {
-      deletePromise = api.deleteReport(reportId);
+      api.deleteReport(reportId);
     }
   }
 
@@ -136,7 +114,6 @@
   <p>{report.description}</p>
 
   <br />
-
 
   <h3>Tags:</h3>
   {#if Array.isArray(reportLabels)}

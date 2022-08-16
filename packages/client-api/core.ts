@@ -1,5 +1,5 @@
 import store from "./store";
-const { VITE_API_URL = 'http://localhost:8081' } = import.meta.env;
+const { VITE_API_URL = 'http://127.0.0.1:8081' } = import.meta.env;
 
 interface SendOptions {
   path: string;

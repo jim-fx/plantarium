@@ -17,7 +17,7 @@
 
   $: activeKey = _keys.length && _keys[0];
 
-  if (defaultKey && _keys.includes(defaultKey)) {
+  if (defaultKey && _keys?.length && _keys.includes(defaultKey)) {
     activeKey = defaultKey;
   }
 

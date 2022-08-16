@@ -1,29 +1,13 @@
-<script lang="ts" context="module">
-  import { get } from '@plantarium/client-api';
-
-  import type { User } from '@plantarium/backend';
-
-  export async function load({ params }) {
-    const user = await get('api/user/' + params.userId);
-    return {
-      props: {
-        user,
-        userId: params.userId,
-      },
-    };
-  }
-</script>
-
 <script lang="ts">
+  import type { PageData } from './$types';
+  export let data: PageData;
   import { page } from '$app/stores';
   const { reportId } = $page.params;
   import { userStore } from '@plantarium/client-api';
 
   const { VITE_API_URL = 'http://localhost:3000' } = import.meta.env;
 
-  export let user: User;
-  export let userId: string;
-
+  $: ({ user, userId } = data);
   console.log({ user, userId });
 </script>
 

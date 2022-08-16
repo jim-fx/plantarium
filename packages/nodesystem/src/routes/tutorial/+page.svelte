@@ -1,11 +1,11 @@
 <script lang="ts">
   import { NodeSystem } from '$lib';
-  import { dev, stressTest, tutorial } from './_tutorial/projects';
-  import Header from './_tutorial/Header.svelte';
-  import nodes from './_tutorial/tutorial_nodes';
+  import { dev, stressTest, tutorial } from '../_tutorial/projects';
+  import Header from '../_tutorial/Header.svelte';
+  import nodes from '../_tutorial/tutorial_nodes';
   import { Button } from '@plantarium/ui';
   import { onMount } from 'svelte';
-  import TutorialManager from './_tutorial';
+  import TutorialManager from '../_tutorial';
   import { goto } from '$app/navigation';
 
   let wrapper: HTMLDivElement;
