@@ -10,7 +10,6 @@ export async function load() {
 
   } catch (error) {
     console.log(error)
-    throw error;
   }
 
 

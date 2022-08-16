@@ -8,7 +8,6 @@
   const { VITE_API_URL = 'http://localhost:3000' } = import.meta.env;
 
   $: ({ user, userId } = data);
-  console.log({ user, userId });
 </script>
 
 {#if !user}
