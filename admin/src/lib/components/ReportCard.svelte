@@ -2,6 +2,7 @@
   import { base } from '$app/paths';
 
   import { humane } from '$lib/helpers';
+  import { getId } from '$lib/helpers/getId';
   import type { Report } from '@plantarium/backend';
   const { VITE_GH_ORG, VITE_GH_REPO } = import.meta.env;
   export let report: Report;
@@ -15,11 +16,13 @@
   style={'background-color: var(--foreground-color)'}
   class="w-full p-4 block"
   class:closed={!report.open}
-  href={base + '/reports/' + report.id}
+  href={base + '/reports/' + getId(report)}
 >
   <div class="flex items-center py-1">
     <b class="text-xl">{report.type}</b>
-    <p class="mx-2 whitespace-nowrap">{report.description}</p>
+    <p class="mx-2 whitespace-nowrap max-w-1/2 text-ellipsis overflow-hidden">
+      {report.description}
+    </p>
     {#if report.gh_issue}
       <a
         href="https://github.com/{VITE_GH_ORG}/{VITE_GH_REPO}/issues/{report.gh_issue}"

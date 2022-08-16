@@ -3,8 +3,8 @@
   import { browser } from '$app/env';
   import NavBar from '$lib/NavBar.svelte';
   if (browser) import('virtual:windi-devtools');
-  import { AlertWrapper, Button } from '@plantarium/ui';
-  import { ThemeProvider, currentTheme, setTheme } from '@plantarium/theme';
+  import { AlertWrapper } from '@plantarium/ui';
+  import { ThemeProvider } from '@plantarium/theme';
   import { onMount } from 'svelte';
   import api from '@plantarium/client-api';
 
@@ -13,23 +13,23 @@
   });
 </script>
 
-<Button
-  --foreground-color="transparent"
-  on:click={() => setTheme($currentTheme === 'dark' ? 'light' : 'dark')}
-  icon="bulb"
-  active={$currentTheme === 'dark'}
-/>
-
 <AlertWrapper />
 
 <ThemeProvider />
 
-<div class="container mx-auto">
+<div class="fixed h-screen w-screen">
   <NavBar />
-  <slot />
+  <main class="overflow-scroll p-5 w-full">
+    <slot />
+  </main>
 </div>
 
 <style>
+  div {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    gap: 3px;
+  }
   :global(a)::before {
     content: 🔗;
   }

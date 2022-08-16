@@ -2,9 +2,7 @@ import { Options } from '@mikro-orm/core';
 import { MongoHighlighter } from '@mikro-orm/mongo-highlighter';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
-import conf, { DB_MONGO_URL, DB_NAME, DB_POSTGRES_URL } from "./config";
-console.log({ conf })
-
+import { DB_MONGO_URL, DB_NAME, DB_POSTGRES_URL } from "./config";
 
 const defaultOptions: Options = {
   type: 'sqlite',

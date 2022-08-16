@@ -68,6 +68,10 @@
 
 <br />
 
+{#if plant.meta.description}
+  <p>{plant.meta.description}</p>
+{/if}
+
 <br />
 
 <hr class="my-2" />

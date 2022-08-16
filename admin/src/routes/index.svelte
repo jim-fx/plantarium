@@ -1,4 +1,7 @@
-<h1>Welcome to SvelteKit</h1>
-<p>
-  Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation
-</p>
+<script>
+  import Icon from '@plantarium/ui/src/lib/Icon.svelte';
+</script>
+
+<Icon name="branch" --width="50px" />
+<br />
+<h1 class="text-3xl font-bold">Welcome to the Plantarium Backend</h1>

@@ -2,13 +2,14 @@
   import type { SvelteComponent } from 'svelte';
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
+  import { getId } from '$lib/helpers/getId';
 
   export let items: unknown[] = [];
 
   export let keys: string[] = undefined;
   export let component: SvelteComponent = undefined;
   export let componentKey = 'item';
-  export let defaultKey: string | null;
+  export let defaultKey: string | null = null;
   export let useLink = false;
 
   $: _keys =
@@ -33,12 +34,6 @@
 
   $: sortedItems = items.length && activeKey ? sortItems(reverseSort) : [];
 
-  function getKey(item: any) {
-    if ('id' in item) return item['id'];
-    if ('_id' in item) return item['_id'];
-    return '';
-  }
-
   function handleClick(key: string) {
     if (key === activeKey) {
       reverseSort = !reverseSort;
@@ -58,7 +53,7 @@
           class:font-bold={key === activeKey}
         >
           <span class="text-xs"
-            >{key === activeKey ? (reverseSort ? '⮝' : '⮟') : '  '}</span
+            >{key === activeKey ? (reverseSort ? '▲' : '▼') : '  '}</span
           >
           {key}
         </td>
@@ -66,10 +61,10 @@
     </thead>
 
     <tbody>
-      {#each sortedItems as item (getKey(item))}
+      {#each sortedItems as item (getId(item))}
         <tr
           class="my-5"
-          on:click={() => useLink && goto($page.url + '/' + getKey(item))}
+          on:click={() => useLink && goto($page.url + '/' + getId(item))}
         >
           {#if component}
             <td colspan={component ? _keys.length : 1} class="py-1">
@@ -81,7 +76,11 @@
           {:else}
             {#each _keys as key}
               <td>
-                {item[key]}
+                {#if item[key]?.length > 200}
+                  {item[key].slice(0, 100)}
+                {:else}
+                  {item[key]}
+                {/if}
               </td>
             {/each}
           {/if}
