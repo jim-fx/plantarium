@@ -42,10 +42,10 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "1.0.0-next.39",
-    "@sveltejs/kit": "1.0.0-next.405",
+    "@sveltejs/kit": "1.0.0-next.410",
     "@tsconfig/svelte": "3.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.33.0",
-    "@typescript-eslint/parser": "^5.33.0",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
+    "@typescript-eslint/parser": "^5.33.1",
     "comlink": "^4.3.1",
     "eslint": "8.22.0",
     "eslint-config-prettier": "8.5.0",
@@ -59,7 +59,7 @@
     "svelte-preprocess": "4.10.7",
     "tslib": "2.4.0",
     "typescript": "4.7.4",
-    "vite": "3.0.7",
+    "vite": "3.0.8",
     "vite-plugin-comlink": "3.0.4",
     "vite-plugin-glslify": "2.0.1"
   },

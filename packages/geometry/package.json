@@ -22,9 +22,9 @@
     "@codemirror/view": "6.2.0",
     "@plantarium/types": "link:../types",
     "@sveltejs/adapter-static": "1.0.0-next.39",
-    "@sveltejs/kit": "1.0.0-next.405",
-    "@typescript-eslint/eslint-plugin": "^5.33.0",
-    "@typescript-eslint/parser": "^5.33.0",
+    "@sveltejs/kit": "1.0.0-next.410",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
+    "@typescript-eslint/parser": "^5.33.1",
     "ajv": "^8.11.0",
     "codemirror": "^6.0.1",
     "eslint": "^8.22.0",
@@ -39,7 +39,7 @@
     "svelte-preprocess": "^4.10.7",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4",
-    "vite": "3.0.7"
+    "vite": "3.0.8"
   },
   "dependencies": {
     "@codemirror/lang-javascript": "^6.0.2",
