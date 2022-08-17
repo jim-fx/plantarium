@@ -1,4 +1,4 @@
-import { Collection, Entity, ManyToMany, ManyToOne, Property, wrap } from "@mikro-orm/core";
+import { Collection, Entity, ManyToMany, ManyToOne, Property } from "@mikro-orm/core";
 import type { PlantProject } from "@plantarium/types";
 import { User } from "user/user.entity";
 import { BaseEntity } from "../../entities/BaseEntity";
@@ -36,21 +36,5 @@ export class Project extends BaseEntity {
   public removeLike(u: User) {
     this.likes.remove(u);
   }
-
-
-  toJSON(strict = true, strip = ['id', 'email'], ...args: any[]): { [p: string]: any } {
-    const o = wrap(this, true).toObject(...args); // do not forget to pass rest params here
-
-    if (strict) {
-      strip.forEach(k => delete o[k]);
-    }
-
-    if (typeof o["data"] === "string") {
-      o["data"] = JSON.parse(o["data"]);
-    }
-
-    return o;
-  }
-
 
 }
