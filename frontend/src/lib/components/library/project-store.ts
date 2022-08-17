@@ -76,7 +76,7 @@ export async function loadPlant(id: string) {
   const res = await clientApi.getProject(id);
 
   if (res.ok) {
-    projects.set(res.data._id, res.data);
+    projects.set(res.data.id, res.data);
     return res.data;
   }
 
@@ -93,7 +93,7 @@ export async function setFilter(f: Partial<ProjectFilter>, isOnline = false) {
 
     if (res.ok) {
       res.data.forEach(p => {
-        projects.set(p._id || p["id"], p)
+        projects.set(p.id, p)
       })
       applyFilter()
       return { ok: true, data: store }

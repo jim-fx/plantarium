@@ -1,36 +1,35 @@
 import type { User } from "@plantarium/backend";
 import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
-import { getBrowser, parseJwt } from "./helper";
+import { getBrowser } from "./helper";
 import { getUserInfo } from './user-wrapper';
 
 const browser = getBrowser()
 
 let token = browser && localStorage.getItem('token');
 
-
-let _user = {};
+let _user: User | null;
 let _permissions = []
 
 const storage = (() => {
-  if (!("sessionStorage" in globalThis)) {
-    const sto = {
-      getItem: (k) => undefined,
-      setItem: (k, v) => {
-        sto[k] = v;
-      },
-    }
-    return sto;
-  }
+  if ("sessionStorage" in globalThis)
+    return globalThis["sessionStorage"]
 
-  return globalThis["sessionStorage"]
+  const sto = {
+    getItem: () => undefined,
+    setItem: (k: string, v: unknown) => {
+      sto[k] = v;
+    },
+  }
+  return sto;
+
 })()
 
 if ("user" in storage) {
   try {
     _user = JSON.parse(storage.getItem("user"));
   } catch (err) {
-    console.log("Heeere 4")
+    console.error(err)
   }
 }
 
@@ -39,17 +38,17 @@ if ("permissions" in storage) {
   try {
     _permissions = JSON.parse(storage.getItem("permissions"));
   } catch (err) {
-    console.log("Heeere 4")
+    console.error(err)
   }
 }
 
 
-const user: Writable<User | {}> = writable(_user);
+const user: Writable<User | null> = writable(_user);
 
-const isLoggedIn: Writable<boolean> = writable(_user && "_id" in _user);
+const isLoggedIn: Writable<boolean> = writable(_user && "id" in _user);
 
 user.subscribe(v => {
-  isLoggedIn.set("_id" in v);
+  isLoggedIn.set("id" in v);
   storage.setItem("user", JSON.stringify(v))
 })
 
@@ -65,16 +64,13 @@ export default {
     token = v;
     browser && localStorage.setItem('token', v);
     if (!token) {
-      userStore.set({})
+      user.set(null)
     } else {
-      const parsed = parseJwt(v);
-      console.log({ parsed });
       getUserInfo().then(res => {
-        console.log({ res })
         if (res.ok) {
-          console.log("Setting Store", res.data)
           user.set(res.data);
         } else {
+          user.set(null)
         }
       })
     }

@@ -57,8 +57,6 @@ export class ProjectsService {
 
   async like(id: string, userId: string) {
 
-    console.log({ id, userId });
-
     const project = await this.repository.findOne({ _id: id });
 
     if (!project) {
@@ -68,8 +66,6 @@ export class ProjectsService {
     await project.likes.init()
 
     const user = await this.userService.findById(userId);
-
-    console.log({ id, userId, user })
 
     if (!user) {
       throw new NotFoundException()

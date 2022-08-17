@@ -21,7 +21,7 @@
     );
 
     if (res === 'yes') {
-      const resp = await api.deleteProject(project._id);
+      const resp = await api.deleteProject(project.id);
       console.log({ resp });
     }
   }
@@ -38,7 +38,7 @@
     </h2>
 
     <div>
-      <a href={`${VITE_API_URL}/api/project/${project._id}`}>api</a>
+      <a href={`${VITE_API_URL}/api/project/${project.id}`}>api</a>
     </div>
   </header>
 

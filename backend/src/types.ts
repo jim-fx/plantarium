@@ -1,15 +1,18 @@
-export type { Project } from "./projects/entities/project.entity"
-export type { CreateReportDto } from "./report/dto/create-report.dto"
-export type { Report } from "./report/report.entity"
-export { User }
-import { User as InternalUser } from "./user/user.entity"
+import type { Project as InternalProject } from "./projects/entities/project.entity";
+import type { Report as InternalReport } from "./report/report.entity";
+import { User as InternalUser } from "./user/user.entity";
 
-interface User extends Omit<InternalUser, "likes"> {
-  likes: string[]
-}
-
+type ReplaceId<T> = Omit<T, "_id"> & { id: string };
 export type PaginatedResult<T> = {
   amount: number,
   offset: number,
   result: T
 }
+
+type User = Omit<ReplaceId<InternalUser>, "likes"> & { likes: string[] };
+type Project = ReplaceId<InternalProject>;
+type Report = ReplaceId<InternalReport>;
+
+export type { CreateReportDto } from "./report/dto/create-report.dto";
+export { User, Project, Report };
+

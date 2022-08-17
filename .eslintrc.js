@@ -25,7 +25,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,
     '@typescript-eslint/no-explicit-any': 1,
-    'no-console': 2,
+    'no-console': 1,
   },
   settings: {
     'svelte3/typescript': true,

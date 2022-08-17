@@ -19,7 +19,7 @@
 		<h3>{plant.meta.name}</h3>
 		<div class="actions">
 			<Button
-				on:click={() => openPlant(project?._id || plant.meta.id)}
+				on:click={() => openPlant(project.id || plant.meta.id)}
 				icon={isRemote ? 'import' : 'link'}
 				name={isRemote ? '' : 'open'}
 				--foreground-color="var(--midground-color)"
@@ -38,7 +38,7 @@
 		<img
 			src={plant.meta.thumbnail}
 			alt=""
-			on:click={() => showPlant(project?._id || plant.meta.id)}
+			on:click={() => showPlant(project.id || plant.meta.id)}
 		/>
 	{/if}
 </div>
