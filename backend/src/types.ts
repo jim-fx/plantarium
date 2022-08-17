@@ -9,8 +9,8 @@ export type PaginatedResult<T> = {
   result: T
 }
 
-type User = Omit<ReplaceId<InternalUser>, "likes"> & { likes: string[] };
-type Project = ReplaceId<InternalProject>;
+type User = ReplaceId<InternalUser>;
+type Project = Omit<ReplaceId<InternalProject>, "likes" | "addLike" | "removeLike" | "toJSON"> & { likes: string[] };
 type Report = ReplaceId<InternalReport>;
 
 export type { CreateReportDto } from "./report/dto/create-report.dto";

@@ -15,8 +15,8 @@ import ColorStore from './socketColorStore';
 import SocketLegendView from './SocketLegendView';
 
 type EventMap = {
-  "transform": {}
-  "resize": {},
+  "transform": { x: number, y: number, s: number }
+  "resize": { width: number, height: number, },
   "mousemove": CustomMouseEvent,
   "mouseup": CustomMouseEvent,
   "mousedown": CustomMouseEvent,

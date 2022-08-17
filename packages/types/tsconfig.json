@@ -9,6 +9,7 @@
     "moduleResolution": "Node",
     "lib": [
       "ESNext",
+      "ES5",
       "DOM"
     ]
   },

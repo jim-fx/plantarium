@@ -1,11 +1,11 @@
 import { Body, Controller, Delete, Get, InternalServerErrorException, NotFoundException, Param, Patch, Post, Put, Req, UnauthorizedException } from '@nestjs/common';
-import type { PlantProject } from "@plantarium/types";
 import { Permissions } from 'auth/decorators/permissions.decorator';
 import { Permission } from 'auth/enums/permission.enum';
 import { Request } from 'express';
 import { GetUser, UserRaw } from 'user/user.decorator';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from '../auth/enums/role.enum';
+import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { ProjectsService } from './projects.service';
 
@@ -21,7 +21,7 @@ export class ProjectsController {
 
   @Roles(Role.USER, Role.ADMIN)
   @Post()
-  create(@Body() createProjectDto: PlantProject, @Req() req: _Request) {
+  create(@Body() createProjectDto: CreateProjectDto, @Req() req: _Request) {
     return this.projectsService.create(createProjectDto, req?.user?.sub);
   }
 

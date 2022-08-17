@@ -1,13 +1,3 @@
-<script lang="ts" context="module">
-	import * as projectStore from './project-store';
-
-	const { setFilter, store: remotePlantStore } = projectStore;
-
-	export async function load() {
-		await setFilter({ official: true }, true);
-	}
-</script>
-
 <script lang="ts">
 	import { projectManager } from '$lib/components';
 	import api, { isLoggedIn, userStore } from '@plantarium/client-api';
@@ -33,9 +23,9 @@
 	import InputCheckbox from '@plantarium/ui/src/lib/InputCheckbox.svelte';
 	import { onMount } from 'svelte';
 	import ApiWrapper from '$lib/elements/ApiWrapper.svelte';
-	import type { Project } from '@plantarium/backend';
 	import { activeView } from '$lib/stores';
-	import { applySearchTerm } from './project-store';
+	import * as projectStore from './project-store';
+	import type { Project } from '@plantarium/types';
 
 	const dispatch = createEventDispatcher();
 
@@ -49,7 +39,7 @@
 		approved: false,
 		search: ''
 	};
-	$: setFilter(filter, $isRemote);
+	$: projectStore.setFilter(filter, $isRemote);
 
 	let isRemote = writable(false);
 	setContext('isRemote', isRemote);
@@ -78,8 +68,7 @@
 		const p = (await loadPlant(id)) as Project;
 
 		const r = await api.publishProject(p);
-
-		p.data.meta.public = true;
+		p.public = true;
 
 		if (r.ok) {
 			createToast('Published Project', { type: 'success' });
@@ -104,10 +93,6 @@
 		});
 	}
 
-	const getKey = (p: any) => {
-		return p?.id || p?._id || p?.data?.meta?.id;
-	};
-
 	setContext('openPlant', openPlant);
 	async function openPlant(id: string) {
 		if ($isRemote) {
@@ -117,7 +102,7 @@
 				clearTimeout(t);
 				dispatch('close');
 				if (project) {
-					projectManager.createNew(project.data);
+					projectManager.createNew(project);
 				}
 				$activeView = 'plant';
 			});
@@ -133,9 +118,7 @@
 			return await projectStore.loadPlant(id);
 		}
 
-		return {
-			data: await projectManager.getProject(id)
-		};
+		return await projectManager.getProject(id);
 	}
 
 	setContext('deletePlant', deletePlant);
@@ -145,16 +128,16 @@
 		if (!project) return;
 
 		const res = await createAlert(
-			`Are you sure you want to delete ${project.data.meta.name ?? project.data.meta.id}?`,
+			`Are you sure you want to delete ${project?.meta?.name || project.id}?`,
 			{
 				values: ['Yes', 'No']
 			}
 		);
 
 		if (res === 'Yes') {
-			await projectManager.deleteProject(project.data.meta.id);
+			await projectManager.deleteProject(project.id);
 			activeProjectPromise = undefined;
-			createToast(`Project ${project.data.meta.name ?? project.data.meta.id} deleted!`, {
+			createToast(`Project ${project.meta.name ?? project.id} deleted!`, {
 				type: 'success'
 			});
 		}
@@ -172,7 +155,7 @@
 	}
 
 	onMount(() => {
-		setFilter(filter);
+		projectStore.setFilter(filter);
 	});
 </script>
 
@@ -222,16 +205,16 @@
 		{:else if $isRemote}
 			<ApiWrapper bind:offline>
 				<div class="list">
-					{#each $remotePlantStore as project (getKey(project))}
+					{#each $localProjectStore as project (project.id)}
 						<ProjectCard isRemote={$isRemote} {project} />
 					{/each}
 				</div>
 			</ApiWrapper>
 		{:else}
 			<div class="list">
-				{#each $localProjectStore as plant}
-					{#if !filter?.search?.length || applySearchTerm(plant, filter?.search)}
-						<ProjectCard isRemote={$isRemote} {plant} />
+				{#each $localProjectStore as project (project.id)}
+					{#if !filter?.search?.length || projectStore.applySearchTerm(project, filter?.search)}
+						<ProjectCard isRemote={$isRemote} {project} />
 					{/if}
 				{/each}
 			</div>
@@ -245,35 +228,35 @@
 				<Icon name="branch" animated />
 			{:then project}
 				{#if $isRemote}
-					<h1>{project.data.meta.name}</h1>
+					<h1>{project.meta.name}</h1>
 				{:else}
 					<InputEditable
-						value={project.data.meta.name}
+						value={project.meta.name}
 						on:submit={({ detail }) => {
-							project.data.meta.name = detail;
-							setName(project.data.meta.id, detail);
+							project.meta.name = detail;
+							setName(project.id, detail);
 						}}
 					/>
 				{/if}
 
-				{#if project.data?.meta?.latinName}
-					{#if project.data?.meta?.gbifID}
-						<a href="https://www.gbif.org/species/{project.data.meta.gbifID}" target="__blank"
-							>{project.data.meta.latinName}</a
+				{#if project.meta?.scientificName}
+					{#if project.meta?.gbifID}
+						<a href="https://www.gbif.org/species/{project.meta.gbifID}" target="__blank"
+							>{project.meta.scientificName}</a
 						>
 					{:else}
 						<a
-							href="https://www.gbif.org/search?q={encodeURIComponent(project.data.meta.latinName)}"
-							target="__blank">{project.data.meta.latinName}</a
+							href="https://www.gbif.org/search?q={encodeURIComponent(project.meta.scientificName)}"
+							target="__blank">{project.meta.scientificName}</a
 						>
 					{/if}
 				{/if}
 
 				{#if $isRemote}
-					{#if project.data?.meta?.authorID}
+					{#if project?.author}
 						<br />
 						<br />
-						<p>by <i>{project.data.meta.authorID}</i></p>
+						<p>by <i>{project.author}</i></p>
 					{/if}
 
 					<br />
@@ -285,10 +268,10 @@
 					/>
 				{/if}
 
-				{#if project.data?.meta?.description}
+				{#if project?.meta?.description}
 					<br />
 					<br />
-					<p>{project.data.meta.description}</p>
+					<p>{project.meta.description}</p>
 				{/if}
 				<br />
 
@@ -296,17 +279,13 @@
 					<ButtonGroup direction={$isRemote ? 'horizontal' : 'vertical'}>
 						{#if $isRemote}
 							<Button name="open" icon="link" on:click={() => {}} />
-							<Button
-								name="download"
-								icon="import"
-								on:click={() => openPlant(project.data.meta.id)}
-							/>
+							<Button name="download" icon="import" on:click={() => openPlant(project.id)} />
 						{:else}
 							<Button
 								name="publish"
 								--opacity={$isLoggedIn ? 1 : 0.2}
 								icon="export"
-								on:click={() => handlePublish(project.data.meta.id)}
+								on:click={() => handlePublish(project.id)}
 							/>
 							<Button
 								name="export"
@@ -314,12 +293,12 @@
 								on:click={() => createAlert(ExportProject, { props: { project }, timeout: 0 })}
 							/>
 
-							<Button name="open" icon="link" on:click={() => openPlant(project.data.meta.id)} />
+							<Button name="open" icon="link" on:click={() => openPlant(project.id)} />
 							<Button
 								name="delete"
 								icon="cross"
 								--foreground-color="var(--error)"
-								on:click={() => deletePlant(project.data.meta.id)}
+								on:click={() => deletePlant(project.id)}
 							/>
 						{/if}
 					</ButtonGroup>

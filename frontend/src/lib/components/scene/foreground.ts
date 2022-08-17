@@ -13,8 +13,8 @@ import type { ProjectManager } from '../project-manager';
 import DebugScene from './debug';
 import { BasicShader, DebugShader, MatCapShader, NormalShader } from './shaders';
 
-const updateThumbnail = throttle((geo: TransferGeometry) => {
-  projectManager.renderThumbnail({ geo });
+const updateThumbnail = throttle((id: string, geo: TransferGeometry) => {
+  projectManager.renderThumbnail(id, { geo });
 }, 5000);
 
 function getShader(t?: string) {
@@ -113,7 +113,7 @@ export default class ForegroundScene extends EventEmitter {
     }
     this.isGenerating = true;
 
-    let loadingTimeout = setTimeout(() => this.scene.isLoading.set(true), 400)
+    const loadingTimeout = setTimeout(() => this.scene.isLoading.set(true), 400)
 
     try {
       performance.start('generate');
@@ -152,7 +152,7 @@ export default class ForegroundScene extends EventEmitter {
       }
 
 
-      updateThumbnail(join(...result.geometries));
+      updateThumbnail(this.plant.id, join(...result.geometries));
 
       this.dbg.setPlant(result);
 

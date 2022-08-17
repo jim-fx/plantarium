@@ -24,7 +24,7 @@ export default class NodeStateView {
       this.visibleInput = document.createElement("input")
       this.visibleInput.type = "checkbox";
       // Bruuuuuh, dis be one long asss line
-      let visible = !!this.nodeState?.node?.attributes?.visible?.includes(this.nodeState.key);
+      const visible = !!this.nodeState?.node?.attributes?.visible?.includes(this.nodeState.key);
       this.visibleInput.checked = visible;
       this.setVisible(visible)
       this.visibleInput.addEventListener("input", () => this.setVisible(this.visibleInput.checked))

@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { humane } from '@plantarium/helpers';
-	import type { PlantProject } from '@plantarium/types';
+	import type { Project } from '@plantarium/types';
 	import { createAlert, createToast } from '@plantarium/ui';
 	import { projectManager } from '..';
 	import ExportProject from './ExportProject.svelte';
 
-	export let project: PlantProject;
+	export let project: Project;
 
 	let active = false;
 	function fakeActive() {
@@ -22,26 +22,26 @@
 
 	async function handleDelete() {
 		const res = await createAlert(
-			`Are you sure you want to delete ${project.meta.name ?? project.meta.id}?`,
+			`Are you sure you want to delete ${project.meta.name ?? project.id}?`,
 			{
 				values: ['Yes', 'No']
 			}
 		);
 
 		if (res === 'Yes') {
-			await projectManager.deleteProject(project.meta.id);
-			createToast(`Project ${project.meta.name ?? project.meta.id} deleted!`, { type: 'success' });
+			await projectManager.deleteProject(project.id);
+			createToast(`Project ${project.meta.name ?? project.id} deleted!`, { type: 'success' });
 		}
 	}
 </script>
 
 <div
 	class="project-wrapper"
-	class:active={project.meta.id === projectManager.activeProjectId || active}
+	class:active={project.id === projectManager.activeProjectId || active}
 	on:resize={alert}
 	on:click={() => {
 		fakeActive();
-		projectManager.setActiveProject(project.meta.id);
+		projectManager.setActiveProject(project.id);
 	}}
 >
 	<div class="project-image">
@@ -57,19 +57,19 @@
 				value={project?.meta.name}
 				on:blur={function () {
 					const value = this.value.split('\n').join('').trim();
-					projectManager.updateProjectMeta(project.meta.id, { name: value });
+					projectManager.updateProjectMeta(project.id, { name: value });
 				}}
 				on:keydown={function (ev) {
 					if (ev.key === 'Enter') {
 						const value = this.value.split('\n').join('').trim();
 						this.blur();
 						ev.preventDefault();
-						projectManager.updateProjectMeta(project?.meta.id, { name: value });
+						projectManager.updateProjectMeta(project?.id, { name: value });
 					}
 				}}
 			/>
 
-			<p>{humane.time(Date.now() - project?.meta.lastSaved)} ago</p>
+			<p>{humane.time(new Date().getTime() - project.updatedAt.getTime())} ago</p>
 		</div>
 		<div class="project-content-main" />
 		<div class="project-content-footer">

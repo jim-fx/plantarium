@@ -1,5 +1,4 @@
-import type { NodeTypeData } from '../types';
-import type { NodeProps, NodeSystemData } from '../types';
+import type { NodeProps, NodeSystemData, NodeTypeData } from '../types';
 import NodeView from '../view/NodeView';
 import Node from './Node';
 import NodeOutput from './NodeOutput';

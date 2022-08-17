@@ -151,194 +151,6 @@
           "length": 0,
           "mappedType": "datetime"
         },
-        "plant_id": {
-          "name": "plant_id",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "text"
-        },
-        "author__id": {
-          "name": "author__id",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "text"
-        },
-        "type": {
-          "name": "type",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "default": "0",
-          "mappedType": "text"
-        },
-        "data": {
-          "name": "data",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "text"
-        }
-      },
-      "name": "project",
-      "indexes": [
-        {
-          "columnNames": [
-            "author__id"
-          ],
-          "composite": false,
-          "keyName": "project_author__id_index",
-          "primary": false,
-          "unique": false
-        },
-        {
-          "keyName": "primary",
-          "columnNames": [
-            "_id"
-          ],
-          "composite": false,
-          "primary": true,
-          "unique": true
-        }
-      ],
-      "checks": [],
-      "foreignKeys": {
-        "project_author__id_foreign": {
-          "constraintName": "project_author__id_foreign",
-          "columnNames": [
-            "author__id"
-          ],
-          "localTableName": "project",
-          "referencedColumnNames": [
-            "_id"
-          ],
-          "referencedTableName": "user",
-          "updateRule": "cascade"
-        }
-      }
-    },
-    {
-      "columns": {
-        "project__id": {
-          "name": "project__id",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "text"
-        },
-        "user__id": {
-          "name": "user__id",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "text"
-        }
-      },
-      "name": "project_likes",
-      "indexes": [
-        {
-          "columnNames": [
-            "project__id"
-          ],
-          "composite": false,
-          "keyName": "project_likes_project__id_index",
-          "primary": false,
-          "unique": false
-        },
-        {
-          "columnNames": [
-            "user__id"
-          ],
-          "composite": false,
-          "keyName": "project_likes_user__id_index",
-          "primary": false,
-          "unique": false
-        },
-        {
-          "keyName": "primary",
-          "columnNames": [
-            "project__id",
-            "user__id"
-          ],
-          "composite": true,
-          "primary": true,
-          "unique": true
-        }
-      ],
-      "checks": [],
-      "foreignKeys": {
-        "project_likes_project__id_foreign": {
-          "constraintName": "project_likes_project__id_foreign",
-          "columnNames": [
-            "project__id"
-          ],
-          "localTableName": "project_likes",
-          "referencedColumnNames": [
-            "_id"
-          ],
-          "referencedTableName": "project",
-          "deleteRule": "cascade",
-          "updateRule": "cascade"
-        },
-        "project_likes_user__id_foreign": {
-          "constraintName": "project_likes_user__id_foreign",
-          "columnNames": [
-            "user__id"
-          ],
-          "localTableName": "project_likes",
-          "referencedColumnNames": [
-            "_id"
-          ],
-          "referencedTableName": "user",
-          "deleteRule": "cascade",
-          "updateRule": "cascade"
-        }
-      }
-    },
-    {
-      "columns": {
-        "_id": {
-          "name": "_id",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "text"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "datetime",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 0,
-          "mappedType": "datetime"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "datetime",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 0,
-          "mappedType": "datetime"
-        },
         "type": {
           "name": "type",
           "type": "text",
@@ -464,6 +276,203 @@
           ],
           "referencedTableName": "user",
           "deleteRule": "set null",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "_id": {
+          "name": "_id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "datetime",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 0,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "datetime",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 0,
+          "mappedType": "datetime"
+        },
+        "author__id": {
+          "name": "author__id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "public": {
+          "name": "public",
+          "type": "integer",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "0",
+          "mappedType": "text"
+        },
+        "meta": {
+          "name": "meta",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "nodes": {
+          "name": "nodes",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        }
+      },
+      "name": "project",
+      "indexes": [
+        {
+          "columnNames": [
+            "author__id"
+          ],
+          "composite": false,
+          "keyName": "project_author__id_index",
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "primary",
+          "columnNames": [
+            "_id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "project_author__id_foreign": {
+          "constraintName": "project_author__id_foreign",
+          "columnNames": [
+            "author__id"
+          ],
+          "localTableName": "project",
+          "referencedColumnNames": [
+            "_id"
+          ],
+          "referencedTableName": "user",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "project__id": {
+          "name": "project__id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "user__id": {
+          "name": "user__id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        }
+      },
+      "name": "project_likes",
+      "indexes": [
+        {
+          "columnNames": [
+            "project__id"
+          ],
+          "composite": false,
+          "keyName": "project_likes_project__id_index",
+          "primary": false,
+          "unique": false
+        },
+        {
+          "columnNames": [
+            "user__id"
+          ],
+          "composite": false,
+          "keyName": "project_likes_user__id_index",
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "primary",
+          "columnNames": [
+            "project__id",
+            "user__id"
+          ],
+          "composite": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "project_likes_project__id_foreign": {
+          "constraintName": "project_likes_project__id_foreign",
+          "columnNames": [
+            "project__id"
+          ],
+          "localTableName": "project_likes",
+          "referencedColumnNames": [
+            "_id"
+          ],
+          "referencedTableName": "project",
+          "deleteRule": "cascade",
+          "updateRule": "cascade"
+        },
+        "project_likes_user__id_foreign": {
+          "constraintName": "project_likes_user__id_foreign",
+          "columnNames": [
+            "user__id"
+          ],
+          "localTableName": "project_likes",
+          "referencedColumnNames": [
+            "_id"
+          ],
+          "referencedTableName": "user",
+          "deleteRule": "cascade",
           "updateRule": "cascade"
         }
       }

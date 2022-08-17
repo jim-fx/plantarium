@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PlantView from '$lib/elements/PlantView.svelte';
-	import type { Project } from '@plantarium/backend';
+	import type { Project } from '@plantarium/types';
 
 	import clientApi from '@plantarium/client-api';
 	import { Gallery, GalleryItem } from '@plantarium/ui';
@@ -8,7 +8,7 @@
 	export let project: Promise<Project>;
 </script>
 
-{#await project then { data: p }}
+{#await project then p}
 	<Gallery>
 		<GalleryItem>
 			<div class="item-wrapper">
@@ -29,7 +29,7 @@
 								<img
 									style="width: 100%; max-height: 100%;"
 									src={img.identifier}
-									alt="Image of {p.meta.latinName || p.meta.name || p.meta.description}"
+									alt="Image of {p.meta.scientificName || p.meta.name || p.meta.description}"
 								/>
 								<i style="font-size:0.5em">Image from {img.source}</i>
 							</div>

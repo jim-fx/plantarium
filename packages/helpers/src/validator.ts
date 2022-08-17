@@ -1,7 +1,7 @@
-import { PlantProject } from "@plantarium/types";
-import { PlantProjectDef } from "@plantarium/types/definition";
+import { Project } from "@plantarium/types";
+import { ProjectDef } from "@plantarium/types/definition";
 import Ajv from "ajv";
-
+import addFormats from 'ajv-formats';
 
 export function minLength(l: number, err?: string) {
   return (s: string) => {
@@ -17,7 +17,7 @@ export function maxLength(l: number, err?: string) {
 
 export function isEmail(err = "Does not appear to be an email") {
   return (s: string) => {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(s)) {
+    if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(s)) {
       return []
     } else {
       return [err]
@@ -82,15 +82,16 @@ export function containsNumber(err = "Must contain a number") {
 }
 
 const ajv = new Ajv()
+addFormats(ajv)
 
 const schema = {
   type: "object",
-  ...PlantProjectDef,
+  ...ProjectDef,
   additionalProperties: false
 }
 const validate = ajv.compile(schema)
 
-export function isPlantProject(s: PlantProject): string[] | undefined {
+export function isPlantProject(s: Project): string[] | undefined {
 
   if (typeof s === "string") {
     try {
@@ -104,6 +105,7 @@ export function isPlantProject(s: PlantProject): string[] | undefined {
     if (validate(s)) {
       return;
     } else {
+      console.log({ e: validate.errors })
       return validate.errors.map((e) => (typeof e === 'string' ? e : e.message))
     }
   }

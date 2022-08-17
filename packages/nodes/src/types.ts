@@ -45,11 +45,11 @@ export type Params<T extends NodeParameters = NodeParameters> = {
   [K in keyof T]: Parameter<T[K]>
 };
 
-export type PlantNode<T extends NodeParameters = {}> = {
+export type PlantNode<T extends NodeParameters = Record<string, any>> = {
   title: string,
   type: string,
   outputs: NodeDataTypes[],
-  meta?: { description?: string, tags?: string },
+  meta?: { description?: string, tags?: string[] },
   parameters: T,
   compute?: (p: Params<T>, ctx: NodeContext, alpha?: number) => PlantNodeResult
 }

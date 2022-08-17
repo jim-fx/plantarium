@@ -1,14 +1,13 @@
-import { cloneObject, EventEmitter, logger, validator } from '@plantarium/helpers';
+import { browser } from "$app/env";
 import * as storage from '$lib/storage';
-import { browser } from "$app/env"
-import createId from 'shortid';
-import type { Writable } from 'svelte/store';
-import type { PlantariumSettings } from "$lib/types"
-import { writable } from 'svelte/store';
-import { renderProject } from '../../helpers';
-import type { PlantProject, TransferGeometry } from '@plantarium/types';
-import { fernSimple } from "./examples"
+import type { PlantariumSettings } from "$lib/types";
+import { cloneObject, EventEmitter, logger, validator } from '@plantarium/helpers';
+import type { Project, TransferGeometry } from '@plantarium/types';
 import { createToast } from '@plantarium/ui';
+import * as createId from 'shortid';
+import { get, writable, type Writable } from 'svelte/store';
+import { renderProject } from '../../helpers';
+import { fernSimple } from "./examples";
 
 const log = logger('ProjectManager');
 
@@ -16,36 +15,68 @@ const PTP_PREFIX = 'pt_project_';
 
 type EventMap = {
   "settings": PlantariumSettings,
-  "plant": PlantProject,
-  "load": PlantProject,
+  "plant": Project,
+  "load": Project,
+  "save": Project,
+  "delete": string,
   "loading": void
 }
 
+function migrateToProject(p: Project | Record<string, unknown>): Project {
+  if ("id" in p && !p["meta"]["lastSaved"]) return p as Project;
+
+  const { meta, nodes } = p as unknown as Project;
+
+  const result = {
+    id: (p["id"] || meta["id"] || meta["plantId"]) as string,
+    public: !!p.public,
+    meta: { ...meta },
+    nodes: nodes,
+    author: (p.author || "") as string,
+    likes: p?.likes ? p.likes as string[] : [],
+    type: (p.type || 0) as number,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  };
+
+  delete result["meta"]["plantId"];
+  delete result["meta"]["lastSaved"];
+
+  return result;
+}
+
 export default class ProjectManager extends EventEmitter<EventMap> {
-  private plant?: PlantProject;
+
   public activeProjectId?: string;
-  public activeProject: Writable<PlantProject | undefined> = writable();
-  private projects: { [key: string]: PlantProject } = {};
-  private loadingActiveProject?: Promise<PlantProject>;
-  public store: Writable<PlantProject[]> = writable([]);
+  public activeProject: Writable<Project | undefined> = writable();
+
+  private projects: { [key: string]: Project } = {};
+
+  private loadingActiveProject?: Promise<Project>;
+
+  public store: Writable<Project[]> = writable([]);
 
   constructor() {
     super();
-
+    globalThis["pm"] = this;
     this.loadProjects();
   }
 
 
-  private createNewProject(p?: PlantProject): PlantProject {
-    const plant = {
+  private createNewProject(p?: Project): Project {
+    const plant: Project = {
+      id: createId(),
+      likes: [],
+      type: 0,
+      public: false,
       meta: {
         ...(p?.meta || {
           transform: { x: 0, y: 0, s: 1 },
           name: 'DefaultProject',
         }),
-        authorID: "admin",
-        id: createId(),
       },
+      createdAt: new Date(),
+      updatedAt: new Date(),
       nodes: p?.nodes || [{
         "attributes": {
           "pos": {
@@ -87,8 +118,9 @@ export default class ProjectManager extends EventEmitter<EventMap> {
     };
 
     const currentProjectNames = Object.values(this.projects).map(_p => _p.meta.name);
+
     if (currentProjectNames.includes(plant.meta.name)) {
-      let currentName = plant.meta.name.replace(/\d+$/, "");
+      const currentName = plant.meta.name.replace(/\d+$/, "");
       let i = 0;
       while (currentProjectNames.includes(plant.meta.name)) {
         plant.meta.name = currentName + i;
@@ -101,16 +133,22 @@ export default class ProjectManager extends EventEmitter<EventMap> {
     return plant;
   }
 
-  public createNew(p?: PlantProject): void {
-    const plant = this.createNewProject(p);
-    this.emit('new', plant);
+  public createNew(p?: Project): void {
 
-    this.saveProject(plant);
+    const project = this.createNewProject(p);
 
-    this.setActiveProject(plant.meta.id)
+    console.log({ project });
+
+    this.emit('new', project);
+
+    this.projects[project.id] = project;
+
+    this.saveProject(project);
+
+    this.setActiveProject(project.id)
   }
 
-  async updateProjectMeta(id: string, meta: Partial<PlantProject["meta"]>): Promise<void> {
+  async updateProjectMeta(id: string, meta: Partial<Project["meta"]>): Promise<void> {
     const project = await this.getProject(id);
 
     project.meta = { ...project.meta, ...meta };
@@ -122,39 +160,41 @@ export default class ProjectManager extends EventEmitter<EventMap> {
     this.saveProject(project);
   }
 
-  async saveProject(_project: PlantProject) {
+  private async saveProject(_p: Project) {
 
-    const project = cloneObject(_project);
+    const project = cloneObject(_p);
 
-    if (!project?.meta?.authorID) {
-      project.meta.authorID = "anon";
-    }
+    project.createdAt = project.createdAt.toISOString() as unknown as Date;
+    project.updatedAt = new Date().toISOString() as unknown as Date;
 
     const errors = validator.isPlantProject(project);
     if (errors?.length) {
-      createToast(errors[0], { title: "Can't save project " + project?.meta?.name || project.meta.id, type: "warning" });
+      createToast(errors[0], { title: "Can't save project " + project?.meta?.name || project.id, type: "warning" });
+      console.log({ project, errors })
       throw new Error(errors[0]);
     }
 
-    this.projects[project.meta.id] = project;
-
     this.emit('save', project);
 
-    // if (!project?.meta?.thumbnail) this.renderThumbnail({ project });
+    if (!project?.meta?.thumbnail) this.renderThumbnail(project.id, { project });
 
     await storage.setItem('pt_project_ids', Object.keys(this.projects));
 
-    await storage.setItem(PTP_PREFIX + project.meta.id, project);
+    await storage.setItem(PTP_PREFIX + project.id, project);
 
-    log('saved plant id: ', project.meta.id);
+    log('saved plant id: ', project.id);
 
     this.store.set(Object.values(this.projects));
   }
 
-  async getProject(id: string): Promise<PlantProject> {
+  async getProject(id: string): Promise<Project> {
+    if (id === this.activeProjectId) return get(this.activeProject);
     if (id in this.projects) return this.projects[id];
-    const project = (await storage.getItem(PTP_PREFIX + id)) as PlantProject;
+    const project = (await storage.getItem(PTP_PREFIX + id)) as Project;
+    project.updatedAt = new Date(project.updatedAt);
+    project.createdAt = new Date(project.createdAt);
     this.projects[id] = project;
+    console.log("LOOADED", { project })
     return project;
   }
 
@@ -175,9 +215,9 @@ export default class ProjectManager extends EventEmitter<EventMap> {
     this.loadingActiveProject && (await this.loadingActiveProject);
     if (id === this.activeProjectId) return;
 
-    this.activeProjectId = id;
 
     this.loadingActiveProject = this.getProject(id);
+    this.activeProjectId = id;
     this.emit("loading")
 
     const project = await this.loadingActiveProject;
@@ -195,8 +235,7 @@ export default class ProjectManager extends EventEmitter<EventMap> {
     }
   }
 
-  async renderThumbnail({ project, geo }: { project?: PlantProject; geo?: TransferGeometry }) {
-    const projectId = project?.meta?.id || this.activeProjectId;
+  async renderThumbnail(projectId: string, { project, geo }: { project?: Project; geo?: TransferGeometry }) {
 
     if (!projectId || !(projectId in this.projects)) return;
 
@@ -207,13 +246,10 @@ export default class ProjectManager extends EventEmitter<EventMap> {
     if (thumbDataString) {
       const b = performance.now() - a;
 
-      this.projects[projectId].meta.thumbnail = thumbDataString;
-
       log('generated thumbnail for ' + projectId + ' in ' + Math.floor(b) + 'ms');
 
-      this.saveProject(this.projects[projectId]);
+      this.updateProjectMeta(projectId, { thumbnail: thumbDataString })
 
-      this.store.set(Object.values(this.projects));
     } else {
       log.warn('There was an error rendering a thumbnail for: ' + projectId);
     }
@@ -227,15 +263,17 @@ export default class ProjectManager extends EventEmitter<EventMap> {
     const activeProjectId = (await storage.getItem('pt_active_id')) as string;
 
     if (!projectIds.length && browser) {
-      const plant = this.createNewProject(fernSimple);
-      projectIds.push(plant.meta.id);
-      await this.saveProject(plant);
+      const project = this.createNewProject(fernSimple);
+      console.log("new project", { project });
+      projectIds.push(project.id);
+      await this.saveProject(project);
       createToast("Because you had no projects, (yet) I loaded the Fern Simple example for you", { type: "success" });
     }
 
     await Promise.all(
       projectIds.map(async (id) => {
-        const p = await this.getProject(id);
+        let p = await this.getProject(id);
+        p = migrateToProject(p);
         log('loaded ', id);
         this.projects[id] = p;
       })
@@ -250,13 +288,27 @@ export default class ProjectManager extends EventEmitter<EventMap> {
     this.store.set(Object.values(this.projects));
   }
 
-  setProject(plant: PlantProject) {
-    this.plant = plant;
-    this.emit('plant', plant);
+  async updateProject(dto: { id: string, meta?: Partial<Project["meta"]>, nodes?: Project["nodes"] }) {
+
+    const project = await this.getProject(dto.id);
+
+    if (dto.nodes) {
+      project.nodes = dto.nodes;
+    }
+
+    if (dto.meta) {
+      project.meta = { ...project.meta, ...dto.meta };
+    }
+
+    if (dto.id === this.activeProjectId) {
+      this.activeProject.set(project);
+      this.emit('plant', project);
+    }
+
   }
 
   getActiveProject() {
-    return this.plant;
+    return get(this.activeProject);
   }
 
   setSettings(settings: PlantariumSettings) {

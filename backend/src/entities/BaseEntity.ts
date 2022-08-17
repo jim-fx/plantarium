@@ -12,7 +12,6 @@ export abstract class BaseEntity {
   @Property({ onUpdate: () => new Date() })
   updatedAt: Date = new Date();
 
-
   toJSON(strict = true, strip = [], ...args: any[]): { [p: string]: any } {
     const o = wrap(this, true).toObject(...args); // do not forget to pass rest params here
 
@@ -24,10 +23,6 @@ export abstract class BaseEntity {
       const id = o["_id"];
       delete o["_id"]
       o["id"] = id;
-    }
-
-    if (typeof o["data"] === "string") {
-      o["data"] = JSON.parse(o["data"]);
     }
 
     return o;

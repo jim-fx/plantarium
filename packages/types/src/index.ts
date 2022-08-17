@@ -58,22 +58,23 @@ export interface Vec3 {
   pinned?: boolean;
 }
 
-export interface PlantProject {
-  meta: PlantProjectMeta;
+export interface Project {
+  id: string;
+  type: number;
+  public: boolean;
+  author?: string;
+  updatedAt: Date;
+  createdAt: Date;
+  meta: ProjectMeta;
   nodes: NodeProps[];
+  likes: string[];
   history?: any;
 }
 
-export interface PlantProjectMeta {
+export interface ProjectMeta {
   name: string;
 
-  id: string;
-
-  authorID: string;
-
   thumbnail?: string;
-
-  public?: boolean;
 
   description?: string;
 
@@ -86,10 +87,9 @@ export interface PlantProjectMeta {
   gbifID?: number;
   seed?: number;
   randomSeed?: boolean;
-  lastSaved?: number;
-  author?: string;
-  latinName?: string;
+  scientificName?: string;
   family?: string;
   class?: string;
+  tags?: string[]
 }
 

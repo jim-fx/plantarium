@@ -1,11 +1,10 @@
 <script lang="ts">
-	import type { PlantProject } from '@plantarium/types';
 	import { Button } from '@plantarium/ui';
 	import { getContext } from 'svelte';
 	import type { Project } from '@plantarium/backend';
 
 	export let project: Project | undefined = undefined;
-	export let plant: PlantProject = (project as Project)?.data;
+	$: plant = project.data;
 
 	export let isRemote = false;
 
@@ -19,7 +18,7 @@
 		<h3>{plant.meta.name}</h3>
 		<div class="actions">
 			<Button
-				on:click={() => openPlant(project.id || plant.meta.id)}
+				on:click={() => openPlant(project?.id || plant.meta.id)}
 				icon={isRemote ? 'import' : 'link'}
 				name={isRemote ? '' : 'open'}
 				--foreground-color="var(--midground-color)"
@@ -38,7 +37,7 @@
 		<img
 			src={plant.meta.thumbnail}
 			alt=""
-			on:click={() => showPlant(project.id || plant.meta.id)}
+			on:click={() => showPlant(project?.id || plant.meta.id)}
 		/>
 	{/if}
 </div>

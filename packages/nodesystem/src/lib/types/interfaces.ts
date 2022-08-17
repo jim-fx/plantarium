@@ -55,6 +55,7 @@ export interface HistoryData {
 }
 
 export interface NodeSystemData {
+  id?: string;
   meta: NodeSystemMeta;
   nodes: NodeProps[];
   history?: HistoryData;

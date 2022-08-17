@@ -47,7 +47,7 @@ export default class NodeSystem extends EventEmitter {
 
   states: NodeSystemData[] = [];
 
-  id: number = systemID++;
+  id: number | string = systemID++;
 
   view!: NodeSystemView;
   options: Partial<NodeSystemOptions>;
@@ -128,10 +128,13 @@ export default class NodeSystem extends EventEmitter {
     if (!systemData) {
       this.isLoaded = true;
       return
-    };
+    }
     try {
       this.emit("loading")
       this?.view.setState("loading")
+      if (systemData.id) {
+        this.id = systemData.id;
+      }
       this.isLoaded = false;
       this.isPaused = true;
       this.nodes.forEach((n) => (n.enableUpdates = false));
@@ -139,8 +142,7 @@ export default class NodeSystem extends EventEmitter {
       this.factory.reset();
       const nodes = this.parser.parseSystem(systemData);
       this.addNodes(nodes);
-      this.meta = systemData.meta || { lastSaved: 0 };
-      this.meta.lastSaved = Date.now();
+      this.meta = systemData.meta;
       this?.view?.setTransform(this.meta.transform);
 
       log(`Loaded NodeSystemData with ${nodes.length} Nodes`, systemData);
@@ -215,6 +217,7 @@ export default class NodeSystem extends EventEmitter {
 
   serialize(): NodeSystemData {
     return {
+      id: this.id.toString(),
       ...this.parser.getData(),
       history: this.history.serialize(),
       meta: this.meta,

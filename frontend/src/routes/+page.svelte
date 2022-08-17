@@ -14,19 +14,11 @@
 	import LibraryView from '$lib/components/library/LibraryView.svelte';
 
 	let nodeSystemWrapper: HTMLElement;
-	$: if (nodeSystemWrapper) {
-		nodeSystemWrapper.append(nodeSystem.view.wrapper);
-		nodeSystem.view.handleResize();
-	}
 
 	onMount(async () => {
-		let path = localStorage.getItem('path');
-		if (path) {
-			localStorage.removeItem('path');
-		}
-
 		await settingsManager.loadFromLocal();
 		nodeSystemWrapper.append(nodeSystem.view.wrapper);
+		nodeSystem.view.handleResize();
 	});
 </script>
 

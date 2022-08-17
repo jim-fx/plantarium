@@ -1,8 +1,8 @@
 import { EntityRepository, FilterQuery } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import type { PlantProject } from '@plantarium/types';
 import { UserService } from 'user/user.service';
+import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { Project, ProjectType } from './entities/project.entity';
 import * as examples from "./examples";
@@ -15,7 +15,7 @@ export class ProjectsService {
     private readonly userService: UserService
   ) { }
 
-  async create(createProjectDto: PlantProject, userId: string) {
+  async create(createProjectDto: CreateProjectDto, userId: string) {
 
     const p = new Project();
 
@@ -28,12 +28,9 @@ export class ProjectsService {
 
     p.author = user;
 
-    p.plantId = createProjectDto.meta.id;
+    p.nodes = createProjectDto.nodes;
 
-    p.data = {
-      nodes: createProjectDto.nodes,
-      meta: createProjectDto.meta
-    };
+    p.meta = createProjectDto.meta;
 
     await this.repository.persistAndFlush(p)
 
@@ -108,8 +105,12 @@ export class ProjectsService {
       throw new NotFoundException()
     }
 
-    if (updateProjectDto.data) {
-      p.data = updateProjectDto.data;
+    if (updateProjectDto.nodes) {
+      p.nodes = updateProjectDto.nodes;
+    }
+
+    if (updateProjectDto.meta) {
+      p.meta = updateProjectDto.meta;
     }
 
     await this.repository.persistAndFlush(p);
@@ -134,37 +135,24 @@ export class ProjectsService {
 
     const admin = await this.userService.findOne("admin");
 
-    let ladyFern = await this.repository.findOne({ plantId: examples.fern.meta.id });
-    if (!ladyFern) {
-      ladyFern = new Project();
-      ladyFern.plantId = examples.fern.meta.id;
-      ladyFern.data = examples.fern
-      ladyFern.author = admin;
-      ladyFern.type = ProjectType.OFFICIAL;
-      await this.repository.persistAndFlush(ladyFern);
+    const existingExamples = await this.repository.find({ type: ProjectType.OFFICIAL });
+
+    for (const key of Object.keys(examples)) {
+      const example = examples[key];
+
+      const existing = existingExamples.find(v => {
+        console.log({ v, example })
+        return v.meta.name === example.meta.name
+      });
+
+      if (!existing) {
+        const newExample = new Project();
+        newExample.meta = example.meta;
+        newExample.nodes = example.nodes;
+        newExample.author = admin;
+        newExample.type = ProjectType.OFFICIAL;
+        await this.repository.persistAndFlush(newExample);
+      }
     }
-
-    let daisy = await this.repository.findOne({ plantId: examples.daisy.meta.id });
-    if (!daisy) {
-      daisy = new Project();
-      daisy.plantId = examples.daisy.meta.id;
-      daisy.data = examples.daisy
-      daisy.author = admin;
-      daisy.type = ProjectType.OFFICIAL;
-      await this.repository.persistAndFlush(daisy);
-    }
-
-
-    let ladyHairFern = await this.repository.findOne({ plantId: examples.fernLadyHair.meta.id });
-    if (!ladyHairFern) {
-      ladyHairFern = new Project();
-      ladyHairFern.plantId = examples.fernLadyHair.meta.id;
-      ladyHairFern.data = examples.fernLadyHair
-      ladyHairFern.author = admin;
-      ladyHairFern.type = ProjectType.OFFICIAL;
-      await this.repository.persistAndFlush(ladyHairFern);
-    }
-
-
   }
 }

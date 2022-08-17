@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import { writable } from 'svelte/store';
 import type { Writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 interface Logger {
   (...args: unknown[]): void;
   warn(...args: unknown[]): void;
@@ -173,7 +173,9 @@ log.setFilter = (...f: string[]) => {
 
 log.setLevel = (l = 0) => {
   level = l;
-  localStorage.setItem('pt-log-level', '' + l);
+  if (globalThis["localStorage"]) {
+    localStorage.setItem('pt-log-level', '' + l);
+  }
 };
 
 export default log;

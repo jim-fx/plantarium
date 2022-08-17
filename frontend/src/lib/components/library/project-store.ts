@@ -1,5 +1,5 @@
-import type { Project } from "@plantarium/backend";
 import clientApi from "@plantarium/client-api";
+import type { Project } from "@plantarium/types";
 import { writable } from "svelte/store";
 
 const projects = new Map<string, Project>();
@@ -18,16 +18,16 @@ export function applySearchTerm(project: Project, searchTerm: string) {
 
   let projectString = "";
 
-  const { meta } = project?.data || project;
+  const { meta, author } = project;
 
   if (meta.name) projectString += "~ " + meta.name;
   if (meta.description) projectString += "~ " + meta.description;
   if (meta.scientificName) projectString += "~ " + meta.scientificName;
   if (meta.family) projectString += "~ " + meta.family;
-  if (meta.author) projectString += "~ " + meta.author;
-  if (meta.tags) {
-    projectString += "~ " + meta.tags.join(" ");
-  }
+  if (author) projectString += "~ " + author;
+  // if (meta.tags) {
+  //   projectString += "~ " + meta.tags.join(" ");
+  // }
 
   if (projectString.toLowerCase().includes(searchTerm.toLowerCase())) return true;
   return false;

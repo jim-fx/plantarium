@@ -1,18 +1,17 @@
 <script lang="ts">
-	import { createAlert } from '@plantarium/ui';
-	import type { PlantProject } from '@plantarium/types';
+	import type { Project } from '@plantarium/types';
 
 	/* import ResizeObserver from 'svelte-resize-observer'; */
 	import { projectManager } from '..';
 	import { localState } from '../../helpers';
-	import Project from './Project.svelte';
+	import ProjectCard from './Project.svelte';
 
 	const { store } = projectManager;
 	export let visible: boolean;
 
 	let searchTerm: string;
 
-	function showProject(search: string, project: PlantProject) {
+	function showProject(search: string, project: Project) {
 		if (!search || search.length < 1) return true;
 
 		const projectName = project.meta.name.toLowerCase();
@@ -49,7 +48,7 @@
 		<div class="project-list">
 			{#each $store as project}
 				{#if showProject(searchTerm, project)}
-					<Project {project} />
+					<ProjectCard {project} />
 				{/if}
 			{/each}
 		</div>

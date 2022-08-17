@@ -1,15 +1,15 @@
+import { browser } from "$app/env";
+import type { PlantariumSettings } from '$lib/types';
+import { logger } from '@plantarium/helpers';
 import Nodes from '@plantarium/nodes';
 import { NodeSystem } from '@plantarium/nodesystem';
 import { setTheme } from '@plantarium/theme';
+import type { Project } from '@plantarium/types';
 import { createToast } from '@plantarium/ui';
-import { browser } from "$app/env"
+import * as performance from '../helpers/performance';
 import { ProjectManager } from './project-manager';
 import { SettingsManager } from './settings-manager';
 import Tutor from './tutor';
-import * as performance from '../helpers/performance';
-import { logger } from '@plantarium/helpers';
-import type { PlantariumSettings } from '$lib/types';
-import type { PlantProject } from '@plantarium/types';
 
 const settingsManager = new SettingsManager();
 const projectManager = new ProjectManager();
@@ -26,13 +26,7 @@ settingsManager.on('debug.logLevel.update', (logLevel) => {
 });
 
 settingsManager.on('theme.update', (v) => {
-  document.body.classList.add('transition-all');
-  setTimeout(() => {
-    setTheme(v as string);
-    setTimeout(() => {
-      document.body.classList.remove('transition-all');
-    }, 400);
-  }, 100);
+  setTheme(v as string);
 });
 
 const nodeSystem = new NodeSystem({
@@ -53,18 +47,20 @@ settingsManager.on('debug.showNodeUpdates.update', (v) => {
   nodeSystem.options.showUpdates = v as boolean;
 });
 
-projectManager.on('load', (project) => nodeSystem.load(project));
+projectManager.on('load', (project) => nodeSystem.load(project), 100);
 
-nodeSystem.on('result', () => projectManager.setProject(nodeSystem.serialize() as PlantProject), 50);
+nodeSystem.on('result', () => {
+  projectManager.updateProject(nodeSystem.serialize() as Project)
+}, 50);
 
-nodeSystem.on('save', (project) => {
-  projectManager.saveProject(project as PlantProject)
+nodeSystem.on('save', (project: Project) => {
+  projectManager.updateProject(project)
 });
 
 settingsManager.on(
-  'settings', (s) => {
-    projectManager.setSettings(s as PlantariumSettings);
-    performance.setSettings(s as PlantariumSettings);
+  'settings', (s: PlantariumSettings) => {
+    projectManager.setSettings(s);
+    performance.setSettings(s);
   },
   50
 );

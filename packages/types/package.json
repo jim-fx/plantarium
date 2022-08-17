@@ -3,15 +3,17 @@
   "version": "0.0.1",
   "description": "",
   "module": "src/index.ts",
-  "source": "src/index.ts",
   "types": "src/index.ts",
   "scripts": {
-    "build-types": "echo \"export const PlantProjectDef = $(pnpm typescript-json-schema  --required ./index.ts PlantProject)\" > definition.ts"
+    "build-types": "echo \"export const ProjectDef = $(pnpm typescript-json-schema  --required ./tsconfig.json Project)\" > definition.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "typescript-json-schema": "^0.54.0"
+  },
+  "dependencies": {
+    "ajv-formats": "^2.1.1"
   }
 }
