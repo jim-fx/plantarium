@@ -12,6 +12,11 @@
   async function handleClick() {
     await tick();
     active = !active;
+    if (active) {
+      likeAmount++;
+    } else {
+      likeAmount--;
+    }
     dispatch('click', active);
   }
 </script>
@@ -19,22 +24,20 @@
 <div class:active class:disabled>
   <Button
     icon="thumb"
-    invert={active}
     {disabled}
-    {active}
+    invert={active}
     on:click={handleClick}
     --foreground-color="transparent"
-    name={likeAmount + (active ? 1 : 0) + ''}
+    name={likeAmount + ''}
   />
 </div>
 
 <style>
   div {
-    padding: 2px;
     width: min-content;
-    border-radius: 10px;
+    border-radius: 7px;
     cursor: pointer;
-    border: solid 1.5px var(--text-color);
+    border: solid thin var(--text-color);
   }
 
   .disabled {

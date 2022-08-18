@@ -62,10 +62,12 @@
 
 		display: grid;
 		grid-template-columns: minmax(50vw, 25%) 1fr;
+		visibility: hidden;
 	}
 
 	main > div.visible {
 		opacity: 1;
+		visibility: visible;
 		pointer-events: all;
 	}
 </style>

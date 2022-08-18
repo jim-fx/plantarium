@@ -7,7 +7,7 @@ if (IS_GH_PAGES) {
 }
 
 /** @type {import('@sveltejs/kit').Config} */
-const config = {
+export default {
   // Consult https://github.com/sveltejs/svelte-preprocess
   // for more information about preprocessors
   preprocess: preprocess(),
@@ -21,5 +21,3 @@ const config = {
 
   }
 };
-
-export default config;

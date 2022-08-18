@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { projectManager } from '$lib/components';
-	import api, { isLoggedIn, userStore } from '@plantarium/client-api';
+	import api, { getUserName, isLoggedIn, userStore } from '@plantarium/client-api';
 
 	import {
 		InputTab,
@@ -29,6 +29,7 @@
 
 	const dispatch = createEventDispatcher();
 
+	const remoteProjectStore = projectStore.store;
 	const localProjectStore = projectManager.store;
 
 	let offline = false;
@@ -70,7 +71,7 @@
 		const r = await api.publishProject(p);
 		p.public = true;
 
-		if (r.ok) {
+		if (r.ok === true) {
 			createToast('Published Project', { type: 'success' });
 		} else {
 			createToast(r.message, { type: 'error', title: 'Could not publish' });
@@ -148,10 +149,7 @@
 	}
 
 	async function handleLike(projectId: string, like: boolean) {
-		const res = await api[like ? 'likeProject' : 'unlikeProject'](projectId);
-		if (!res.ok) {
-			console.log({ res });
-		}
+		await api[like ? 'likeProject' : 'unlikeProject'](projectId);
 	}
 
 	onMount(() => {
@@ -205,7 +203,7 @@
 		{:else if $isRemote}
 			<ApiWrapper bind:offline>
 				<div class="list">
-					{#each $localProjectStore as project (project.id)}
+					{#each $remoteProjectStore as project (project.id)}
 						<ProjectCard isRemote={$isRemote} {project} />
 					{/each}
 				</div>
@@ -254,9 +252,11 @@
 
 				{#if $isRemote}
 					{#if project?.author}
-						<br />
-						<br />
-						<p>by <i>{project.author}</i></p>
+						{#await api.getUserName(project.author)}
+							<p>by <i>{project.author}</i></p>
+						{:then name}
+							<p>by <i>{name}</i></p>
+						{/await}
 					{/if}
 
 					<br />
@@ -264,12 +264,11 @@
 						on:click={(ev) => handleLike(project.id, ev.detail)}
 						disabled={!$isLoggedIn}
 						likeAmount={project?.likes?.length}
-						active={project?.likes?.includes($userStore['id'])}
+						active={project?.likes?.includes($userStore['_id'])}
 					/>
 				{/if}
 
 				{#if project?.meta?.description}
-					<br />
 					<br />
 					<p>{project.meta.description}</p>
 				{/if}

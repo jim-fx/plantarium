@@ -69,7 +69,7 @@
   }
 
   .dark :global(*) {
-    stroke: #303030 !important;
+    stroke: var(--background-color) !important;
   }
   .icon-wrapper :global(svg > *) {
     transition: stroke 0.1s ease;

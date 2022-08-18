@@ -1,10 +1,10 @@
 import { calculateNormals, convertInstancedGeometry, join, tube } from "@plantarium/geometry";
-import { InstancedGeometry, PlantariumSettings, PlantProject, PlantStem } from "@plantarium/types";
+import { InstancedGeometry, PlantariumSettings, PlantStem, Project } from "@plantarium/types";
 import createGeneratorContext from "./generatorContext";
 import nodeMap from "./nodeMap";
 
 
-export async function executeNodeSystem(project: PlantProject, settings: Partial<PlantariumSettings>) {
+export async function executeNodeSystem(project: Project, settings: Partial<PlantariumSettings>) {
 
 
   const startTime = performance.now();
@@ -33,26 +33,24 @@ export async function executeNodeSystem(project: PlantProject, settings: Partial
 
   const nodeBuckets = gctx.getBucketsForNode(gctx.outputNode);
 
-  let caughtNaN = false;
-
   // Now we can start executing buckets
   for (const bucket of nodeBuckets.reverse()) {
     for (const n of bucket) {
       const execNode = nodeMap.get(n.type);
       if (execNode) {
 
-        let parameters = gctx.constructParametersForNode(n)
+        const parameters = gctx.constructParametersForNode(n)
 
         if (parameters?.errors) {
           return { errors: parameters.errors }
         }
 
-        let aStem = performance.now();
+        const aStem = performance.now();
 
         if (execNode?.compute) {
           ctx["_id"] = n.id;
           const result = execNode.compute(parameters, ctx);
-          if (!caughtNaN && result?.stems?.find(s => s.skeleton.includes(NaN))) {
+          if (result?.stems?.find(s => s.skeleton.includes(NaN))) {
             console.warn("Node " + execNode.type + " produced NaN in skeleton");
             console.log({ result })
           }

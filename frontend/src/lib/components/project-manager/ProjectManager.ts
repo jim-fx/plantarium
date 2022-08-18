@@ -194,7 +194,6 @@ export default class ProjectManager extends EventEmitter<EventMap> {
     project.updatedAt = new Date(project.updatedAt);
     project.createdAt = new Date(project.createdAt);
     this.projects[id] = project;
-    console.log("LOOADED", { project })
     return project;
   }
 

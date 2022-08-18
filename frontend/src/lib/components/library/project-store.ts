@@ -65,6 +65,8 @@ function applyFilter() {
     outArray.push(project);
   })
 
+  console.log({ outArray })
+
   store.set(outArray)
 
 }

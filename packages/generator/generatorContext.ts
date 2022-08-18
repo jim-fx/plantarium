@@ -1,11 +1,11 @@
-import type { PlantProject } from "@plantarium/types";
+import type { Project } from "@plantarium/types";
 import nodeMap from "./nodeMap";
 import type { WrappedNode } from "./types";
 
 import createContext from "./context";
 export type GeneratorContext = ReturnType<typeof createGeneratorContext>;
 
-export default function createGeneratorContext({ nodes: _nodes }: PlantProject, settings: Partial<PlantariumSettings>) {
+export default function createGeneratorContext({ nodes: _nodes }: Project, settings: Partial<PlantariumSettings>) {
   const ctx = createContext(settings);
 
   globalThis["ctx"] = ctx;
@@ -48,7 +48,6 @@ export default function createGeneratorContext({ nodes: _nodes }: PlantProject, 
       outputNode = n
       outputNode.level = 0;
     }
-
     n.attributes.refs.forEach(r => {
       if (nodeRefMap.has(r.id)) {
         nodeRefMap.set(r.id, [...nodeRefMap.get(r.id), { n, in: r.in, out: r.out }])

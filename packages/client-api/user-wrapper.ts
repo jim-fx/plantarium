@@ -1,5 +1,6 @@
-import type { CreateReportDto, Project, Report, User } from "@plantarium/backend";
-import { validator } from "@plantarium/helpers";
+import type { CreateReportDto, Report, User } from "@plantarium/backend";
+import { cloneObject, validator } from "@plantarium/helpers";
+import type { Project } from "@plantarium/types";
 import { post, send } from "./core";
 import store, { permissions, userStore } from "./store";
 const { VITE_API_URL = 'http://localhost:8081' } = import.meta.env;
@@ -14,7 +15,7 @@ export async function login(username: string, password: string) {
 
 export async function oauth(provider: string) {
 
-  const res = await post("api/auth/" + provider + "/register-token", {});
+  const res = await post<{ token: string }>("api/auth/" + provider + "/register-token", {});
 
   if (res.ok) {
 
@@ -22,7 +23,7 @@ export async function oauth(provider: string) {
 
     if (token && "open" in globalThis) {
       globalThis.open(VITE_API_URL + "/api/auth/" + provider + "/set-token/" + token, "__blank")
-      const response = await post("api/auth/" + provider + "/token", { token })
+      const response = await post<{ access_token: string }>("api/auth/" + provider + "/token", { token })
       if (response.ok) {
         const { access_token } = response.data;
         store.token = access_token;
@@ -43,40 +44,6 @@ export async function register(username: string, email: string, password: string
 export function logout() {
   store.token = '';
 }
-
-function roughSizeOfObject(object) {
-
-  const objectList = [];
-  const stack = [object];
-  let bytes = 0;
-
-  while (stack.length) {
-    const value = stack.pop();
-
-    if (typeof value === 'boolean') {
-      bytes += 4;
-    }
-    else if (typeof value === 'string') {
-      bytes += value.length * 2;
-    }
-    else if (typeof value === 'number') {
-      bytes += 8;
-    }
-    else if
-      (
-      typeof value === 'object'
-      && objectList.indexOf(value) === -1
-    ) {
-      objectList.push(value);
-
-      for (const i in value) {
-        stack.push(value[i]);
-      }
-    }
-  }
-  return bytes;
-}
-
 
 export function submitReport(data: CreateReportDto) {
   return send<Report>({ method: "POST", path: `api/report`, data })
@@ -169,9 +136,13 @@ export function getEmailExists(email: string) {
   return send<boolean>({ path: "api/user/existsEmail/" + email })
 }
 
-export async function publishProject(project: Project) {
+export async function publishProject(_p: Project) {
+  const project = cloneObject(_p);
 
-  const errors = validator.isPlantProject(project.data);
+  project.createdAt = typeof project.createdAt === "string" ? project.createdAt : project.createdAt.toISOString() as unknown as Date;
+  project.updatedAt = typeof project.updatedAt === "string" ? project.updatedAt : project.updatedAt.toISOString() as unknown as Date;
+
+  const errors = validator.isPlantProject(project);
 
   if (errors?.length) {
     return {
@@ -181,7 +152,7 @@ export async function publishProject(project: Project) {
     }
   }
 
-  return send<Project>({ path: "api/project", method: "POST", data: project.data })
+  return send<Project>({ path: "api/project", method: "POST", data: project })
 }
 
 export async function likeProject(id: string) {
@@ -215,6 +186,23 @@ export async function getPermission() {
   }
 }
 
+const userCache = new Map<string, string>();
+export async function getUserName(id: string): Promise<string> {
+
+  if (userCache.has(id)) return userCache.get(id);
+
+  const response = await send<User>({ path: `api/user/${id}` });
+
+  if (response.ok === true) {
+    userCache.set(id, response.data.username)
+    return response.data.username;
+  }
+
+  throw new Error(response.message)
+}
+
 export async function getHealth() {
   return send({ path: "health" })
 }
+
+

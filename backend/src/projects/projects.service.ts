@@ -48,8 +48,10 @@ export class ProjectsService {
     return this.repository.find(query, { limit: 20, offset, populate: ["likes"] });
   }
 
-  findOne(id: string) {
-    return this.repository.findOne({ _id: id });
+  async findOne(id: string) {
+    const project = await this.repository.findOne({ _id: id }, { populate: ["likes"] });
+    console.log("Likes", { l: project.likes })
+    return project;
   }
 
   async like(id: string, userId: string) {
@@ -141,7 +143,6 @@ export class ProjectsService {
       const example = examples[key];
 
       const existing = existingExamples.find(v => {
-        console.log({ v, example })
         return v.meta.name === example.meta.name
       });
 

@@ -48,7 +48,7 @@ const user: Writable<User | null> = writable(_user);
 const isLoggedIn: Writable<boolean> = writable(_user && "id" in _user);
 
 user.subscribe(v => {
-  isLoggedIn.set(v && "id" in v);
+  isLoggedIn.set(v && "_id" in v);
   storage.setItem("user", JSON.stringify(v))
 })
 

@@ -13,6 +13,7 @@
     InputFloat,
     InputSlider,
     InputSearch,
+    LikeButton,
     InputShape,
     Section,
     AlertWrapper,
@@ -81,6 +82,8 @@
     <Button name="Projects" />
     <br />
     <Button name="Primary" invert />
+    <br />
+    <LikeButton />
   </section>
 
   <section>

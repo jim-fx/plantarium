@@ -78,7 +78,7 @@
 
   button.invert {
     background-color: var(--text-color);
-    color: var(--foreground-color);
+    color: var(--background-color);
   }
 
   button:disabled {

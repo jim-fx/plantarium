@@ -2,7 +2,7 @@ import type { PlantariumSettings } from "$lib/types";
 import { createWorker } from '@plantarium/generator';
 import { join, transferToGeometry } from '@plantarium/geometry';
 import { cloneObject, EventEmitter, logger, throttle } from '@plantarium/helpers';
-import type { PlantProject, TransferGeometry } from '@plantarium/types';
+import type { Project, TransferGeometry } from '@plantarium/types';
 import { createAlert, createToast } from '@plantarium/ui';
 import { Box, Mesh, type OGLRenderingContext } from 'ogl-typescript';
 import type Scene from '.';
@@ -23,11 +23,11 @@ function getShader(t?: string) {
   return NormalShader
 }
 
-let temp: { p: PlantProject, s: PlantariumSettings } | undefined;
+let temp: { p: Project, s: PlantariumSettings } | undefined;
 
 const log = logger('scene.foreground');
 export default class ForegroundScene extends EventEmitter {
-  private plant: PlantProject | undefined;
+  private plant: Project | undefined;
   private settings: PlantariumSettings | undefined;
   private dbg: DebugScene;
 
@@ -90,7 +90,7 @@ export default class ForegroundScene extends EventEmitter {
     this.update();
   }
 
-  setPlant(plant?: PlantProject) {
+  setPlant(plant?: Project) {
     if (!plant) return;
     this.plant = cloneObject(plant);
     this.update();
@@ -155,6 +155,8 @@ export default class ForegroundScene extends EventEmitter {
       updateThumbnail(this.plant.id, join(...result.geometries));
 
       this.dbg.setPlant(result);
+
+      console.log
 
       this.mesh.geometry = transferToGeometry(this.gl, result.geometry);
 
