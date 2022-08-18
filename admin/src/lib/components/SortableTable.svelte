@@ -76,10 +76,14 @@
           {:else}
             {#each _keys as key}
               <td>
-                {#if item[key]?.length > 200}
-                  {item[key].slice(0, 100)}
+                {#if ['number', 'boolean', 'string'].includes(typeof item[key])}
+                  {#if item[key].toString().length > 100}
+                    {item[key].toString().slice(0, 50)}
+                  {:else}
+                    {item[key]}
+                  {/if}
                 {:else}
-                  {item[key]}
+                  {JSON.stringify(item[key]).slice(0, 100)}
                 {/if}
               </td>
             {/each}

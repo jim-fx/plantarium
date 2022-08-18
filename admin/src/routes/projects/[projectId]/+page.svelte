@@ -10,13 +10,11 @@
 
   $: ({ project } = data);
 
-  $: console.log({ project });
-
   async function handleDelete() {
     if (!project) return;
 
     const res = await createAlert(
-      'Do you want to delete ' + project.data.meta.name + '?',
+      'Do you want to delete ' + project.meta.name + '?',
       { values: ['yes', 'no'] },
     );
 
@@ -31,10 +29,10 @@
   });
 </script>
 
-{#if project?.data}
+{#if project}
   <header class="flex justify-between border-bottom items-center">
     <h2 class="text-4xl">
-      <b>{project.data.meta.name}</b>
+      <b>{project.meta.name}</b>
     </h2>
 
     <div>
@@ -44,14 +42,14 @@
 
   <hr class="my-2" />
 
-  {#if project.data.meta.thumbnail}
-    <img src={project.data.meta.thumbnail} alt="" />
+  {#if project.meta.thumbnail}
+    <img src={project.meta.thumbnail} alt="" />
   {/if}
 
   <br />
 
-  {#if project.data.meta.description}
-    <p>{project.data.meta.description}</p>
+  {#if project.meta.description}
+    <p>{project.meta.description}</p>
   {/if}
 
   <br />

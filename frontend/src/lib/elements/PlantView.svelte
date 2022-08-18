@@ -1,9 +1,5 @@
-<script lang="ts" context="module">
-	let worker;
-</script>
-
 <script lang="ts">
-	import type { PlantProject } from '@plantarium/types';
+	import type { Project } from '@plantarium/types';
 	import Renderer from '@plantarium/renderer';
 	import { onMount } from 'svelte';
 	import { createWorker } from '@plantarium/generator';
@@ -11,13 +7,14 @@
 	import { Box, Mesh } from 'ogl-typescript';
 	import { transferToGeometry } from '@plantarium/geometry';
 
-	export let project: PlantProject;
+	export let project: Project;
 	let canvas: HTMLCanvasElement;
 	let mesh: Mesh;
 	let renderer: Renderer;
 	let loaded = false;
+	let worker: ReturnType<typeof createWorker>;
 
-	async function generatePlant(project: PlantProject) {
+	async function generatePlant(project: Project) {
 		if (!worker) worker = createWorker();
 
 		const result = await worker.executeNodeSystem(project, {

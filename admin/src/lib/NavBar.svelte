@@ -7,7 +7,7 @@
   import { setTheme, currentTheme } from '@plantarium/theme';
   import { Button, createToast } from '@plantarium/ui';
 
-  $: isLoggedIn = !!$userStore['username'];
+  $: isLoggedIn = !!$userStore?.username;
   $: sites = [
     ['/', 'Home'],
     ['/reports', 'Reports'],
