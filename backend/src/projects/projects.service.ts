@@ -142,6 +142,8 @@ export class ProjectsService {
     for (const key of Object.keys(examples)) {
       const example = examples[key];
 
+      if (!example.meta.scientificName) continue;
+
       const existing = existingExamples.find(v => {
         return v.meta.name === example.meta.name
       });

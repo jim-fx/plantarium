@@ -48,7 +48,8 @@ export default function createGeneratorContext({ nodes: _nodes }: Project, setti
       outputNode = n
       outputNode.level = 0;
     }
-    n.attributes.refs.forEach(r => {
+
+    n.attributes?.refs?.forEach(r => {
       if (nodeRefMap.has(r.id)) {
         nodeRefMap.set(r.id, [...nodeRefMap.get(r.id), { n, in: r.in, out: r.out }])
       } else {

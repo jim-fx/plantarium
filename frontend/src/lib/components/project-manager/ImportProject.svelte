@@ -5,6 +5,7 @@
 	import { InputTab } from '@plantarium/ui';
 	import { createEventDispatcher } from 'svelte';
 	import { projectManager } from '..';
+	import ProjectManager from './ProjectManager';
 
 	let inputText: string;
 	let inputType = 'clipboard';
@@ -40,8 +41,9 @@
 
 	const dispatch = createEventDispatcher();
 
-	function handleFinishImport(project = parsed) {
-		projectManager.createNew(project);
+	async function handleFinishImport(project = parsed) {
+		const p = await projectManager.createNew(project);
+		projectManager.setActiveProject(p.id);
 		dispatch('close');
 	}
 </script>

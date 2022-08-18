@@ -49,19 +49,16 @@ export default class ProjectManager extends EventEmitter<EventMap> {
 
   public activeProjectId?: string;
   public activeProject: Writable<Project | undefined> = writable();
+  private loadingActiveProject?: Promise<Project>;
 
   private projects: { [key: string]: Project } = {};
-
-  private loadingActiveProject?: Promise<Project>;
 
   public store: Writable<Project[]> = writable([]);
 
   constructor() {
     super();
-    globalThis["pm"] = this;
     this.loadProjects();
   }
-
 
   private createNewProject(p?: Project): Project {
     const plant: Project = {
@@ -133,19 +130,17 @@ export default class ProjectManager extends EventEmitter<EventMap> {
     return plant;
   }
 
-  public createNew(p?: Project): void {
+  public async createNew(p?: Project) {
 
     const project = this.createNewProject(p);
 
-    console.log({ project });
+    this.projects[project.id] = project;
+
+    await this.saveProject(project);
 
     this.emit('new', project);
 
-    this.projects[project.id] = project;
-
-    this.saveProject(project);
-
-    this.setActiveProject(project.id)
+    return project;
   }
 
   async updateProjectMeta(id: string, meta: Partial<Project["meta"]>): Promise<void> {
@@ -164,8 +159,8 @@ export default class ProjectManager extends EventEmitter<EventMap> {
 
     const project = cloneObject(_p);
 
-    project.createdAt = project.createdAt.toISOString() as unknown as Date;
-    project.updatedAt = new Date().toISOString() as unknown as Date;
+    project.createdAt = typeof project.createdAt === "string" ? project.createdAt : project.createdAt.toISOString() as unknown as Date;
+    project.updatedAt = typeof project.updatedAt === "string" ? project.updatedAt : project.updatedAt.toISOString() as unknown as Date;
 
     const errors = validator.isPlantProject(project);
     if (errors?.length) {
@@ -205,12 +200,22 @@ export default class ProjectManager extends EventEmitter<EventMap> {
       this.store.set(Object.values(this.projects));
       this.emit('delete', id);
       log('deleted project with id: ' + id);
+      this.setActiveProject(null);
     } else {
       log.warn('cant delete project with id: ' + id);
     }
   }
 
   async setActiveProject(id: string) {
+
+    if (!id) {
+      this.activeProject.set(null);
+      this.activeProjectId = null;
+      this.loadingActiveProject = null;
+      this.emit("load", null)
+      return
+    }
+
     this.loadingActiveProject && (await this.loadingActiveProject);
     if (id === this.activeProjectId) return;
 

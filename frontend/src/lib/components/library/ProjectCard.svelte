@@ -1,14 +1,10 @@
 <script lang="ts">
 	import { Button } from '@plantarium/ui';
-	import { getContext } from 'svelte';
 	import type { Project } from '@plantarium/types';
+	import { deleteProject, downloadProject, openProject, setActiveProject } from './common';
 
 	export let project: Project | undefined = undefined;
 	export let isRemote = false;
-
-	const showPlant = getContext('showPlant') as (id: string) => void;
-	const openPlant = getContext('openPlant') as (id: string) => void;
-	const deletePlant = getContext('deletePlant') as (id: string) => void;
 </script>
 
 <div class="wrapper">
@@ -16,7 +12,7 @@
 		<h3>{project.meta.name}</h3>
 		<div class="actions">
 			<Button
-				on:click={() => openPlant(project.id)}
+				on:click={() => (isRemote ? downloadProject(project.id) : openProject(project.id))}
 				icon={isRemote ? 'import' : 'link'}
 				name={isRemote ? '' : 'open'}
 				--foreground-color="var(--midground-color)"
@@ -24,7 +20,7 @@
 
 			{#if !isRemote}
 				<Button
-					on:click={() => deletePlant(project.id)}
+					on:click={() => deleteProject(project.id)}
 					name="delete"
 					--foreground-color="var(--error)"
 				/>
@@ -32,7 +28,7 @@
 		</div>
 	</div>
 	{#if project.meta.thumbnail}
-		<img src={project.meta.thumbnail} alt="" on:click={() => showPlant(project.id)} />
+		<img src={project.meta.thumbnail} alt="" on:click={() => setActiveProject(project.id)} />
 	{/if}
 </div>
 

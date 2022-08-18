@@ -63,6 +63,11 @@ export default class ForegroundScene extends EventEmitter {
 
     this.pm.on('settings', s => this.setSettings(s));
     this.pm.on('plant', p => this.setPlant(p));
+    this.pm.on("load", p => {
+      if (!p) {
+        this.mesh.visible = false;
+      }
+    })
     this.pm.on("loading", () => {
       this.mesh.visible = false;
       this.scene.isLoading.set(true);

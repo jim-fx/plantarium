@@ -127,6 +127,7 @@ export default class NodeSystem extends EventEmitter {
     log("Loading NodeSystemData", { systemData })
     if (!systemData) {
       this.isLoaded = true;
+      this?.view?.setState("loading")
       return
     }
     try {

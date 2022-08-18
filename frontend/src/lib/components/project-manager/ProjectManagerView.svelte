@@ -32,7 +32,14 @@
 
 <div class="project-manager-wrapper" style={`width: ${width}px; height: ${height}px;`}>
 	<div class="header">
-		<button class="add-new" on:click={() => projectManager.createNew()}>
+		<button
+			class="add-new"
+			on:click={() => {
+				projectManager.createNew().then((p) => {
+					projectManager.setActiveProject(p.id);
+				});
+			}}
+		>
 			<p>new</p>
 		</button>
 

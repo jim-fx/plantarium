@@ -1,38 +1,23 @@
 <script lang="ts">
 	import { projectManager } from '$lib/components';
-	import api, { getUserName, isLoggedIn, userStore } from '@plantarium/client-api';
 
-	import {
-		InputTab,
-		Button,
-		Icon,
-		LikeButton,
-		ButtonGroup,
-		InputText,
-		createAlert,
-		createToast,
-		InputEditable
-	} from '@plantarium/ui';
-	import { createEventDispatcher } from 'svelte';
+	import { InputTab, Button, Icon, InputText, createAlert } from '@plantarium/ui';
 	import ProjectCard from './ProjectCard.svelte';
 	import PlantView from './PlantView.svelte';
-	import { setContext } from 'svelte';
-	import { writable } from 'svelte/store';
 	import ImportProject from '../project-manager/ImportProject.svelte';
-	import ExportProject from '../project-manager/ExportProject.svelte';
 	import InputCheckbox from '@plantarium/ui/src/lib/InputCheckbox.svelte';
 	import { onMount } from 'svelte';
 	import ApiWrapper from '$lib/elements/ApiWrapper.svelte';
-	import { activeView } from '$lib/stores';
 	import * as projectStore from './project-store';
-	import type { Project } from '@plantarium/types';
-
-	const dispatch = createEventDispatcher();
+	import { state, isLoading, activeProject } from './stores';
+	import SidePanel from './SidePanel.svelte';
 
 	const remoteProjectStore = projectStore.store;
 	const localProjectStore = projectManager.store;
 
 	let offline = false;
+
+	$: isRemote = $state === 'remote';
 
 	const filter = {
 		official: true,
@@ -40,134 +25,22 @@
 		approved: false,
 		search: ''
 	};
-	$: projectStore.setFilter(filter, $isRemote);
-
-	let isRemote = writable(false);
-	setContext('isRemote', isRemote);
-
-	let isLoading = false;
-	let activeProjectPromise: Promise<Project> | undefined;
-
-	$: if (filter) {
-		activeProjectPromise = undefined;
-	}
-
-	async function handlePublish(id: string) {
-		if (!$isLoggedIn) {
-			createToast('Must be logged in to publish', { type: 'warning' });
-			return;
-		}
-
-		const answer = await createAlert('If you publish it, everyone can download it.', {
-			title: 'Sure?',
-			values: ['Yes', 'No']
-		});
-		if (answer !== 'Yes') {
-			return;
-		}
-
-		const p = (await loadPlant(id)) as Project;
-
-		const r = await api.publishProject(p);
-		p.public = true;
-
-		if (r.ok === true) {
-			createToast('Published Project', { type: 'success' });
-		} else {
-			createToast(r.message, { type: 'error', title: 'Could not publish' });
-		}
-	}
-
-	setContext('showPlant', showPlant);
-	async function showPlant(id?: string) {
-		if (!id) {
-			activeProjectPromise = undefined;
-			return;
-		}
-		if (activeProjectPromise) return;
-
-		activeProjectPromise = loadPlant(id);
-		let t = setTimeout(() => (isLoading = true), 500);
-		activeProjectPromise.then(() => {
-			isLoading = false;
-			clearTimeout(t);
-		});
-	}
-
-	setContext('openPlant', openPlant);
-	async function openPlant(id: string) {
-		if ($isRemote) {
-			let t = setTimeout(() => (isLoading = true), 500);
-			loadPlant(id).then((project) => {
-				isLoading = false;
-				clearTimeout(t);
-				dispatch('close');
-				if (project) {
-					projectManager.createNew(project);
-				}
-				$activeView = 'plant';
-			});
-		} else {
-			dispatch('close');
-			projectManager.setActiveProject(id);
-			$activeView = 'plant';
-		}
-	}
-
-	async function loadPlant(id: string) {
-		if ($isRemote) {
-			return await projectStore.loadPlant(id);
-		}
-
-		return await projectManager.getProject(id);
-	}
-
-	setContext('deletePlant', deletePlant);
-	async function deletePlant(id: string) {
-		let project = await loadPlant(id);
-
-		if (!project) return;
-
-		const res = await createAlert(
-			`Are you sure you want to delete ${project?.meta?.name || project.id}?`,
-			{
-				values: ['Yes', 'No']
-			}
-		);
-
-		if (res === 'Yes') {
-			await projectManager.deleteProject(project.id);
-			activeProjectPromise = undefined;
-			createToast(`Project ${project.meta.name ?? project.id} deleted!`, {
-				type: 'success'
-			});
-		}
-	}
-
-	async function setName(id: string, name: string) {
-		await projectManager.updateProjectMeta(id, { name });
-	}
-
-	async function handleLike(projectId: string, like: boolean) {
-		await api[like ? 'likeProject' : 'unlikeProject'](projectId);
-	}
+	$: state && projectStore.setFilter(filter);
 
 	onMount(() => {
 		projectStore.setFilter(filter);
 	});
 </script>
 
-<div class="wrapper" class:activePlant={!isLoading && activeProjectPromise}>
+<div class="wrapper" class:activePlant={!$isLoading && $activeProject}>
 	<aside>
 		<InputTab
 			values={['local', 'remote']}
-			value="local"
+			value={$state}
 			--width="100%"
 			on:change={({ detail }) => {
-				$isRemote = detail === 'remote';
-				if (activeProjectPromise) {
-					activeProjectPromise = undefined;
-				}
+				$state = detail;
+				$activeProject = null;
 			}}
 		/>
 
@@ -175,7 +48,7 @@
 
 		<br />
 
-		{#if $isRemote && !offline}
+		{#if isRemote && !offline}
 			<div class="filter-types">
 				<InputCheckbox label="Official" bind:value={filter.official} />
 				<InputCheckbox label="Approved" bind:value={filter.approved} />
@@ -184,7 +57,7 @@
 		{/if}
 
 		<div class="actions">
-			{#if !$isRemote}
+			{#if !isRemote}
 				<Button
 					icon="import"
 					name="import"
@@ -196,15 +69,15 @@
 	</aside>
 
 	<main>
-		{#if isLoading}
+		{#if $isLoading && !$activeProject}
 			<Icon name="branch" animated />
-		{:else if activeProjectPromise}
-			<PlantView project={activeProjectPromise} />
-		{:else if $isRemote}
+		{:else if $activeProject}
+			<PlantView project={$activeProject} />
+		{:else if isRemote}
 			<ApiWrapper bind:offline>
 				<div class="list">
 					{#each $remoteProjectStore as project (project.id)}
-						<ProjectCard isRemote={$isRemote} {project} />
+						<ProjectCard {isRemote} {project} />
 					{/each}
 				</div>
 			</ApiWrapper>
@@ -212,7 +85,7 @@
 			<div class="list">
 				{#each $localProjectStore as project (project.id)}
 					{#if !filter?.search?.length || projectStore.applySearchTerm(project, filter?.search)}
-						<ProjectCard isRemote={$isRemote} {project} />
+						<ProjectCard {isRemote} {project} />
 					{/if}
 				{/each}
 			</div>
@@ -220,89 +93,10 @@
 	</main>
 
 	<aside>
-		{#if activeProjectPromise}
-			<Button icon="arrow" name="" on:click={() => showPlant()} --foreground-color="transparent" />
-			{#await activeProjectPromise}
-				<Icon name="branch" animated />
-			{:then project}
-				{#if $isRemote}
-					<h1>{project.meta.name}</h1>
-				{:else}
-					<InputEditable
-						value={project.meta.name}
-						on:submit={({ detail }) => {
-							project.meta.name = detail;
-							setName(project.id, detail);
-						}}
-					/>
-				{/if}
-
-				{#if project.meta?.scientificName}
-					{#if project.meta?.gbifID}
-						<a href="https://www.gbif.org/species/{project.meta.gbifID}" target="__blank"
-							>{project.meta.scientificName}</a
-						>
-					{:else}
-						<a
-							href="https://www.gbif.org/search?q={encodeURIComponent(project.meta.scientificName)}"
-							target="__blank">{project.meta.scientificName}</a
-						>
-					{/if}
-				{/if}
-
-				{#if $isRemote}
-					{#if project?.author}
-						{#await api.getUserName(project.author)}
-							<p>by <i>{project.author}</i></p>
-						{:then name}
-							<p>by <i>{name}</i></p>
-						{/await}
-					{/if}
-
-					<br />
-					<LikeButton
-						on:click={(ev) => handleLike(project.id, ev.detail)}
-						disabled={!$isLoggedIn}
-						likeAmount={project?.likes?.length}
-						active={project?.likes?.includes($userStore['_id'])}
-					/>
-				{/if}
-
-				{#if project?.meta?.description}
-					<br />
-					<p>{project.meta.description}</p>
-				{/if}
-				<br />
-
-				<div class="actions">
-					<ButtonGroup direction={$isRemote ? 'horizontal' : 'vertical'}>
-						{#if $isRemote}
-							<Button name="open" icon="link" on:click={() => {}} />
-							<Button name="download" icon="import" on:click={() => openPlant(project.id)} />
-						{:else}
-							<Button
-								name="publish"
-								--opacity={$isLoggedIn ? 1 : 0.2}
-								icon="export"
-								on:click={() => handlePublish(project.id)}
-							/>
-							<Button
-								name="export"
-								icon="export"
-								on:click={() => createAlert(ExportProject, { props: { project }, timeout: 0 })}
-							/>
-
-							<Button name="open" icon="link" on:click={() => openPlant(project.id)} />
-							<Button
-								name="delete"
-								icon="cross"
-								--foreground-color="var(--error)"
-								on:click={() => deletePlant(project.id)}
-							/>
-						{/if}
-					</ButtonGroup>
-				</div>
-			{/await}
+		{#if $isLoading}
+			<p>Loading...</p>
+		{:else if $activeProject}
+			<SidePanel project={$activeProject} />
 		{/if}
 	</aside>
 </div>

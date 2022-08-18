@@ -1,6 +1,7 @@
 import clientApi from "@plantarium/client-api";
 import type { Project } from "@plantarium/types";
-import { writable } from "svelte/store";
+import { get, writable } from "svelte/store";
+import { state } from "./stores";
 
 const projects = new Map<string, Project>();
 
@@ -65,13 +66,11 @@ function applyFilter() {
     outArray.push(project);
   })
 
-  console.log({ outArray })
-
   store.set(outArray)
 
 }
 
-export async function loadPlant(id: string) {
+export async function loadProject(id: string) {
 
   if (projects.has(id)) { return projects.get(id) };
 
@@ -84,12 +83,12 @@ export async function loadPlant(id: string) {
 
 }
 
-export async function setFilter(f: Partial<ProjectFilter>, isOnline = false) {
+export async function setFilter(f: Partial<ProjectFilter>) {
 
   filter = f;
   applyFilter();
 
-  if (isOnline) {
+  if (get(state) === "remote") {
 
     const res = await clientApi.getProjects({ ...filter, exclude: [...projects.keys()] });
 

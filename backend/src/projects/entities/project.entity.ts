@@ -9,13 +9,6 @@ export enum ProjectType {
   USER = 0,
 }
 
-const serializer = u => {
-  console.log({ u })
-  const arr = u.toArray();
-  console.log({ arr })
-  return u.toArray().map((u: User) => u["id"])
-}
-
 @Entity()
 export class Project extends BaseEntity implements IProject {
 
@@ -29,7 +22,7 @@ export class Project extends BaseEntity implements IProject {
   @Property({ default: ProjectType.USER })
   public type: ProjectType = 0;
 
-  @ManyToMany({ serializer })
+  @ManyToMany({ serializer:u => u.toArray().map((u: User) => u["id"]) })
   //@ts-ignore
   public likes = new Collection<User>(this);
 
