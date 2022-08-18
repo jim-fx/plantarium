@@ -9,8 +9,10 @@
 	import { onMount } from 'svelte';
 	import ApiWrapper from '$lib/elements/ApiWrapper.svelte';
 	import * as projectStore from './project-store';
-	import { state, isLoading, activeProject } from './stores';
+	import { state, isLoading, activeProject, newIDS, transitionImage } from './stores';
 	import SidePanel from './SidePanel.svelte';
+	import { scale } from 'svelte/transition';
+	import FlyImage from './FlyImage.svelte';
 
 	const remoteProjectStore = projectStore.store;
 	const localProjectStore = projectManager.store;
@@ -25,15 +27,42 @@
 		approved: false,
 		search: ''
 	};
-	$: state && projectStore.setFilter(filter);
+	$: if (filter) {
+		$activeProject = null;
+		projectStore.setFilter(filter);
+	}
+
+	$: if ($state === 'remote') {
+		projectStore.setFilter(filter);
+	}
+
+	let transitionImages = [];
+	let aside: HTMLElement;
+
+	transitionImage.subscribe((img) => {
+		if (img) {
+			transitionImages = [...transitionImages, img];
+			setTimeout(() => {
+				transitionImages = transitionImages.filter((i) => i !== img);
+			}, 1200);
+		}
+	});
 
 	onMount(() => {
 		projectStore.setFilter(filter);
 	});
 </script>
 
+{#each transitionImages as img}
+	<FlyImage target={aside} {img} />
+{/each}
+
 <div class="wrapper" class:activePlant={!$isLoading && $activeProject}>
-	<aside>
+	<aside bind:this={aside}>
+		{#if $newIDS.length}
+			<span class="hint" transition:scale>{$newIDS.length}</span>
+		{/if}
+
 		<InputTab
 			values={['local', 'remote']}
 			value={$state}
@@ -77,7 +106,7 @@
 			<ApiWrapper bind:offline>
 				<div class="list">
 					{#each $remoteProjectStore as project (project.id)}
-						<ProjectCard {isRemote} {project} />
+						<ProjectCard {project} />
 					{/each}
 				</div>
 			</ApiWrapper>
@@ -85,7 +114,7 @@
 			<div class="list">
 				{#each $localProjectStore as project (project.id)}
 					{#if !filter?.search?.length || projectStore.applySearchTerm(project, filter?.search)}
-						<ProjectCard {isRemote} {project} />
+						<ProjectCard {project} />
 					{/if}
 				{/each}
 			</div>
@@ -126,6 +155,7 @@
 	}
 
 	aside {
+		position: relative;
 		overflow: hidden;
 		overflow-y: auto;
 		box-sizing: content-box;
@@ -166,5 +196,22 @@
 
 	main {
 		padding: 20px;
+	}
+
+	.hint {
+		background: var(--text-color);
+		color: var(--background-color);
+		border-radius: 100%;
+		width: 15px;
+		height: 15px;
+		display: block;
+		text-align: center;
+		line-height: 1.4em;
+		font-weight: bold;
+		font-size: 0.7em;
+		position: absolute;
+		top: 10px;
+		left: 10px;
+		z-index: 99;
 	}
 </style>

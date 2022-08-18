@@ -50,10 +50,12 @@
 			target="__blank">{project.meta.scientificName}</a
 		>
 	{/if}
+	<br />
 {/if}
 
 {#if isRemote}
 	{#if project?.author}
+		<br />
 		{#await api.getUserName(project.author)}
 			<p>by <i>{project.author}</i></p>
 		{:then name}

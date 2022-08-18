@@ -2,17 +2,25 @@
 	import { Button } from '@plantarium/ui';
 	import type { Project } from '@plantarium/types';
 	import { deleteProject, downloadProject, openProject, setActiveProject } from './common';
+	import { newIDS, state, transitionImage } from './stores';
 
 	export let project: Project | undefined = undefined;
-	export let isRemote = false;
+
+	$: isRemote = $state === 'remote';
+	$: newProject = !isRemote && $newIDS.includes(project.id);
+
+	let img: HTMLImageElement;
 </script>
 
-<div class="wrapper">
+<div class="wrapper" class:newProject>
 	<div class="bottom">
 		<h3>{project.meta.name}</h3>
 		<div class="actions">
 			<Button
-				on:click={() => (isRemote ? downloadProject(project.id) : openProject(project.id))}
+				on:click={() =>
+					isRemote
+						? downloadProject(project.id).then(() => ($transitionImage = img))
+						: openProject(project.id)}
 				icon={isRemote ? 'import' : 'link'}
 				name={isRemote ? '' : 'open'}
 				--foreground-color="var(--midground-color)"
@@ -28,7 +36,12 @@
 		</div>
 	</div>
 	{#if project.meta.thumbnail}
-		<img src={project.meta.thumbnail} alt="" on:click={() => setActiveProject(project.id)} />
+		<img
+			src={project.meta.thumbnail}
+			bind:this={img}
+			alt=""
+			on:click={() => setActiveProject(project.id)}
+		/>
 	{/if}
 </div>
 
@@ -43,6 +56,19 @@
 		box-shadow: 0px 0px 0px transparent;
 		transition: box-shadow 0.3s ease;
 		cursor: pointer;
+	}
+
+	.newProject::before {
+		content: 'new';
+		background: var(--text-color);
+		color: var(--background-color);
+		height: 20px;
+		padding: 5px;
+		border-radius: 5px;
+		position: absolute;
+		top: 10px;
+		left: 10px;
+		opacity: 0.8;
 	}
 
 	.wrapper:hover {

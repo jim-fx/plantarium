@@ -5,7 +5,7 @@ import { createAlert, createToast } from "@plantarium/ui";
 import { get } from "svelte/store";
 import { projectManager } from "..";
 import * as projectStore from "./project-store";
-import { activeProject, isLoading, state } from "./stores";
+import { activeProject, isLoading, newIDS, state } from "./stores";
 
 export async function loadProject(id: string) {
 
@@ -57,6 +57,8 @@ export async function setActiveProject(id?: string) {
     return
   }
 
+  newIDS.update(ids => ids.filter(_id => _id !== id));
+
   const projectPromise = loadProject(id);
   const t = setTimeout(() => (isLoading.set(true)), 500);
   projectPromise.then((project) => {
@@ -76,6 +78,12 @@ export async function downloadProject(id: string) {
   const project = await projectStore.loadProject(id);
   const p = await projectManager.createNew(project);
   createToast('Downloaded ' + project.meta.name, { type: 'success' });
+
+  newIDS.update(ids => {
+    ids.push(p.id);
+    return ids;
+  })
+
   return p;
 }
 
@@ -94,6 +102,8 @@ export async function deleteProject(id: string) {
   );
 
   if (res === 'Yes') {
+
+    newIDS.update(ids => ids.filter(_id => _id !== id));
     isLoading.set(true);
     await projectManager.deleteProject(project.id);
     isLoading.set(false);
@@ -110,6 +120,8 @@ export async function handleLike(projectId: string, like: boolean) {
 }
 
 export async function openProject(id: string) {
+
+  newIDS.update(ids => ids.filter(_id => _id !== id));
   if (get(state) === "remote") {
     const t = setTimeout(() => (isLoading.set(true)), 500);
     const project = await downloadProject(id);
