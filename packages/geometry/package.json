@@ -9,7 +9,6 @@
     "build": "vite build",
     "package": "svelte-kit package",
     "preview": "vite preview",
-    "prepare": "svelte-kit sync",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --check --plugin-search-dir=. . && eslint .",
@@ -45,6 +44,7 @@
     "@codemirror/lang-javascript": "^6.0.2",
     "@codemirror/theme-one-dark": "^6.0.0",
     "@plantarium/helpers": "workspace:*",
+    "ajv-formats": "^2.1.1",
     "gl-matrix": "^3.4.3",
     "ogl-typescript": "^0.1.40",
     "open-simplex-noise": "^2.5.0"
