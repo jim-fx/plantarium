@@ -21,35 +21,33 @@
   };
 </script>
 
-<div class="component-wrapper">
-  <button
-    bind:this={buttonEl}
-    on:click={handleClick}
-    on:mousedown={() => dispatch('mousedown')}
-    class:active
-    class:invert
-    class:useActive
-    {disabled}
-    class:only-icon={!name}
-    class:has-icon={!!icon}
-  >
-    {#if icon}
-      {#if notWebComponent}
-        <Icon name={icon} {active} dark={invert} --width={'25px'} />
-      {:else}
-        <plant-icon name={icon} {active} />
-      {/if}
+<button
+  bind:this={buttonEl}
+  on:click={handleClick}
+  on:mousedown={() => dispatch('mousedown')}
+  class:active
+  class:invert
+  class:useActive
+  {disabled}
+  class:only-icon={!name}
+  class:has-icon={!!icon}
+>
+  {#if icon}
+    {#if notWebComponent}
+      <Icon name={icon} {active} dark={invert} --width={'25px'} />
+    {:else}
+      <plant-icon name={icon} {active} />
     {/if}
+  {/if}
 
-    {#if name}
-      <p>{name}</p>
-    {/if}
+  {#if name}
+    <p>{name}</p>
+  {/if}
 
-    <div class="content">
-      <slot />
-    </div>
-  </button>
-</div>
+  <div class="content">
+    <slot />
+  </div>
+</button>
 
 <style lang="scss">
   @use '~@plantarium/theme/src/themes.module.scss';
@@ -58,7 +56,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    min-height: 40px;
+    min-height: var(--min-height, 40px);
     height: var(--height, 40px);
     width: var(--width, auto);
     border-radius: 5px;

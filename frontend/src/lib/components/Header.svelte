@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { settingsManager } from '.';
 	import HelpView from '../elements/Help.svelte';
-	import ProjectManagerView from './project-manager/ProjectManagerView.svelte';
+	import QuickSelect from './quick-select/QuickSelect.svelte';
 	import SettingsManagerView from './settings-manager/SettingsManagerView.svelte';
 	import ProfileView from '../elements/ProfileView.svelte';
 	import HoverWindow from '../elements/HoverWindow.svelte';
@@ -14,7 +14,7 @@
 	<div class="left" style="z-index: 2;">
 		<span class:hidden={$activeView !== 'plant'}>
 			<HoverWindow icon="folder" name="" let:visible>
-				<ProjectManagerView {visible} />
+				<QuickSelect {visible} />
 			</HoverWindow>
 		</span>
 		<span class:hidden={$activeView !== 'plant'} style="z-index:-1">
@@ -30,6 +30,8 @@
 			icon="branch"
 			name="Plant"
 			invert={$activeView === 'plant'}
+			--min-height={'35px'}
+			--height={'35px'}
 			on:click={() => ($activeView = 'plant')}
 		/>
 
@@ -37,6 +39,8 @@
 			icon="library"
 			name="Library"
 			invert={$activeView === 'library'}
+			--min-height={'35px'}
+			--height={'35px'}
 			on:click={() => ($activeView = 'library')}
 		/>
 	</div>
@@ -77,6 +81,7 @@
 
 	.center {
 		display: flex;
+		align-items: center;
 	}
 
 	.right {

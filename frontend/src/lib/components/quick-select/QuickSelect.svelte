@@ -30,7 +30,7 @@
 	});
 </script>
 
-<div class="project-manager-wrapper" style={`width: ${width}px; height: ${height}px;`}>
+<div class="quick-select-wrapper" style={`width: ${width}px; height: ${height}px;`}>
 	<div class="header">
 		<button
 			class="add-new"
@@ -65,7 +65,7 @@
 <style lang="scss">
 	@use '~@plantarium/theme/src/themes.module.scss';
 
-	.project-manager-wrapper {
+	.quick-select-wrapper {
 		overflow-x: hidden;
 		z-index: 4;
 	}

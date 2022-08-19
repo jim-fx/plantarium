@@ -1,18 +1,17 @@
 <script lang="ts">
 	import { validator } from '@plantarium/helpers';
-	import type { PlantProject } from '@plantarium/types';
+	import type { Project } from '@plantarium/types';
 
 	import { InputTab } from '@plantarium/ui';
 	import { createEventDispatcher } from 'svelte';
 	import { projectManager } from '..';
-	import ProjectManager from './ProjectManager';
 
 	let inputText: string;
 	let inputType = 'clipboard';
-	$: [parsed, errors] = checkErrors(inputText) as [PlantProject, string[]];
+	$: [parsed, errors] = checkErrors(inputText) as [Project, string[]];
 
 	function checkErrors(s: string) {
-		let parsed;
+		let parsed: Project;
 		try {
 			parsed = JSON.parse(s);
 

@@ -2,24 +2,23 @@
 	import exportModel from '$lib/helpers/exportProject';
 	import { cloneObject, download, wait } from '@plantarium/helpers';
 
-	import type { PlantProject } from '@plantarium/types';
+	import type { Project } from '@plantarium/types';
 	import { Button, createToast } from '@plantarium/ui';
 	import { createEventDispatcher } from 'svelte';
 	import { settingsManager } from '..';
 
 	const dispatch = createEventDispatcher();
 
-	export let project: PlantProject;
+	export let project: Project;
 
 	let textarea: HTMLTextAreaElement;
 
 	$: cleaned = cleanProject(project);
 
-	function cleanProject(p: PlantProject) {
+	function cleanProject(p: Project) {
 		const clone = cloneObject(p);
 
 		/* delete clone.meta.thumbnail; */
-		delete clone.meta.lastSaved;
 		delete clone.history;
 
 		return clone;
@@ -50,7 +49,7 @@
 		<Button name="copy" on:click={handleCopy} />
 		<Button
 			name="download"
-			on:click={() => download.json(cleaned, project.meta.name ?? `plant-${project.meta.id}`)}
+			on:click={() => download.json(cleaned, project.meta.name ?? `plant-${project.id}`)}
 		/>
 		<Button name="download obj" on:click={handleObjDownload} />
 	</div>

@@ -205,7 +205,7 @@ export default class Node extends EventEmitter {
       const outputs = this.outputs;
 
       if (typeof out === "number") {
-        let output = outputs[out];
+        const output = outputs[out];
         if (!output) {
           console.warn("Cant coansdas");
           return;

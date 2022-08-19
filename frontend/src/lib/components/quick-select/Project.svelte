@@ -3,7 +3,7 @@
 	import type { Project } from '@plantarium/types';
 	import { createAlert, createToast } from '@plantarium/ui';
 	import { projectManager } from '..';
-	import ExportProject from './ExportProject.svelte';
+	import ExportProject from '../project-manager/ExportProject.svelte';
 
 	export let project: Project;
 

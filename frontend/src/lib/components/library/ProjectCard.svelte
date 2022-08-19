@@ -84,7 +84,7 @@
 
 	.bottom {
 		position: absolute;
-		z-index: 2;
+		z-index: 1;
 		bottom: 0px;
 		width: 100%;
 		overflow: hidden;

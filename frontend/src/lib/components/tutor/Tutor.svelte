@@ -7,6 +7,11 @@
 	$: selector = active && $store?.selector;
 
 	$: element = selector && document.querySelector(selector);
+
+	$: if (selector && !element) {
+		console.log({ selector, element });
+	}
+
 	$: elementRect = element && element.getBoundingClientRect();
 
 	$: clickElement = active && $store?.clickSelector && document.querySelector($store.clickSelector);

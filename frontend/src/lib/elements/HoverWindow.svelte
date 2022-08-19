@@ -12,7 +12,7 @@
 </script>
 
 <div
-	class="icon-wrapper"
+	class="hover-wrapper"
 	class:active={visible}
 	use:clickOutside
 	on:click_outside={() => {
@@ -36,7 +36,7 @@
 <style lang="scss">
 	@use '~@plantarium/theme/src/themes.module.scss';
 
-	.icon-wrapper {
+	.hover-wrapper {
 		position: relative;
 	}
 

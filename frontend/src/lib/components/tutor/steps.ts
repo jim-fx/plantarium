@@ -1,10 +1,9 @@
 import { goto } from "$app/navigation";
 import { wait } from "@plantarium/helpers";
 import { createAlert, createToast } from "@plantarium/ui";
-import Greeting from "./elements/Greeting.svelte"
-import Final from "./elements/Final.svelte"
+import Final from "./elements/Final.svelte";
+import Greeting from "./elements/Greeting.svelte";
 import { createOverlay } from "./store";
-import Math from "@plantarium/nodesystem/src/lib/nodes/Math";
 
 export async function intro(s: string) {
 
@@ -30,7 +29,7 @@ export async function level1(s: string) {
 
   if (s !== "intro") return;
 
-  let res = await createAlert(Greeting, { values: ["Lets go!"] });
+  const res = await createAlert(Greeting, { values: ["Lets go!"] });
 
   if (res === "exit") return "exit";
 
@@ -41,7 +40,7 @@ export async function test(s: string) {
 
   if (s !== "level-plantview") return;
 
-  let res = await createOverlay({
+  const res = await createOverlay({
     selector: ".scene-wrapper", description: `This is the <b>Plant View</b>, here you can explore the generated 3D model of your plant. 
 Try to change the view by:
 
@@ -55,30 +54,30 @@ Try to change the view by:
   if (res === "exit") return "exit";
 
 
-  return "level-projectmanager"
+  return "level-quickselect"
 }
 
 export async function projectHelp(s: string) {
 
-  if (s !== "level-projectmanager") return;
+  if (s !== "level-quickselect") return;
 
   let res = await createOverlay({
-    description: 'This Button opens the project view',
-    clickSelector: 'header > div.left > div > div',
+    description: 'This Button opens the quick select menu',
+    clickSelector: 'header > div.left > span:first-child',
   })
 
   if (res === "exit") return "exit"
 
   res = await createOverlay({
     description:
-      'This is the ProjectView, here you can create, rename, delete, import and export projects.',
-    selector: '.project-manager-wrapper',
+      'This is the <b>QuickSelect</b> menu, here you can create, rename, delete, import and export projects.',
+    selector: '.quick-select-wrapper',
   })
   if (res === "exit") return "exit"
 
   res = await createOverlay({
     description: 'This Button opens the <b>Settings View</b>',
-    clickSelector: 'header > div.right > div:nth-child(2) .icon-wrapper',
+    clickSelector: 'header > div.right > div:nth-child(3) .icon-wrapper',
   })
 
   return "level-settings";
@@ -94,7 +93,7 @@ export async function settings(s: string) {
     description:
       'This is the <b>SettingView</b>, here you can change some general settings.',
     selector:
-      'header > div.right > div:nth-child(2) > div > div > div.wrapper.right.visible',
+      'header > div.right > div > .hover-wrapper > .wrapper',
   });
 
   if (res === "exit") return "exit"
@@ -102,7 +101,7 @@ export async function settings(s: string) {
   res = await createOverlay({
     description:
       'When you encounter something which doesnt work or you have an idea for a new feature, use this button to report it.',
-    clickSelector: 'header > div.right > div:nth-child(1) > div',
+    clickSelector: 'header > div.right > .hover-wrapper:nth-child(2)',
   })
 
   await wait(1000);
@@ -116,7 +115,7 @@ export async function levelNodeIntro(s: string) {
 
   if (s !== "level-nodeintro") return;
 
-  let visit = "Node Introduction";
+  const visit = "Node Introduction";
 
   const res = await createOverlay({
     selector: '#nodesystem-view',
@@ -142,7 +141,7 @@ export async function plantNodes(s: string) {
   if (level === 0) {
     await createAlert(`This is the introduction to the <b>Plantarium</b> NodeSystem. <br>. You can also get here by using the <b>?</b> panel on the top right.`, { values: ["Lets Go"] })
 
-    await createToast(`First, lets make sure that we start with a clean project, be opening the project manager and clicking <b>new</b>`, { values: ["Done!"] });
+    await createToast(`First, lets make sure that we start with a clean project, be opening the project manager <b>QuickSelect</b> menu and clicking <b>new</b>`, { values: ["Done!"] });
 
     return "level-plantnodes-1"
   }
@@ -171,8 +170,12 @@ export async function plantNodes(s: string) {
     res = await createToast(`Now, create a <b>gravity</b> node and connect it between the last rotate node and the output, set the strength to ~0.5`, { values: ["Done"] });
     if (!res) return "final";
 
-    res = await createToast(`For the final touch create a <b>leaf</b> node and connect it between the gravity and the output`, { values: ["Done"] });
+    res = await createToast(`For the final touch create an <b>instance</b> node and connect it between the gravity and the output`, { values: ["Done"] });
     if (!res) return "final";
+
+
+    res = await createToast("The node will complain that it needs a model to instance, create a <b>leaf</b> node and connect it to the model input of the instance node", { values: ["Done"] })
+
 
     await createToast(`<i>Tip:</i> when you drag a node socket while holding <b>[ctrl]</b> and release, it shows you a menu of available nodes`, { values: ["Cool!"] });
 
