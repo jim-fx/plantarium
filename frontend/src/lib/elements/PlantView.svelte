@@ -7,7 +7,6 @@
 	import { Box, Mesh } from 'ogl-typescript';
 	import { transferToGeometry } from '@plantarium/geometry';
 	import { Icon } from '@plantarium/ui';
-	import { scale } from 'svelte/transition';
 
 	export let project: Project;
 	let canvas: HTMLCanvasElement;
@@ -50,7 +49,7 @@
 	});
 </script>
 
-<div class:loaded>
+<div class:loaded class:showHint={loaded && showHint}>
 	<img src={project.meta.thumbnail} alt="" />
 	<canvas
 		bind:this={canvas}
@@ -64,9 +63,7 @@
 			}
 		}}
 	/>
-	{#if loaded && showHint}
-		<span transition:scale><Icon animated name="hand_rotate" /></span>
-	{/if}
+	<span><Icon animated name="hand_rotate" /></span>
 </div>
 
 <style>
@@ -89,7 +86,14 @@
 		height: 50px;
 		right: 20px;
 		bottom: 20px;
-		opacity: 0.4;
+		opacity: 0;
+		transform: scale(0);
+		transition: transform 0.3s ease, opacity 0.3s ease;
+	}
+
+	.showHint span {
+		opacity: 1;
+		transform: scale(1);
 	}
 
 	canvas {

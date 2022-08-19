@@ -54,7 +54,8 @@
 		border-radius: 10px;
 		margin: 0px 20px 20px 0px;
 		box-shadow: 0px 0px 0px transparent;
-		transition: box-shadow 0.3s ease;
+		transition: box-shadow 0.3s ease, outline 0.3s ease;
+		outline: solid thin transparent;
 		cursor: pointer;
 	}
 
@@ -73,6 +74,7 @@
 
 	.wrapper:hover {
 		box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
+		outline: solid thin var(--outline-color);
 	}
 
 	.wrapper:hover img {
