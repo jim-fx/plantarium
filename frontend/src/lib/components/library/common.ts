@@ -75,16 +75,21 @@ export async function setProjectName(id: string, name: string) {
 }
 
 export async function downloadProject(id: string) {
-  const project = await projectStore.loadProject(id);
-  const p = await projectManager.createNew(project);
-  createToast('Downloaded ' + project.meta.name, { type: 'success' });
+  try {
 
-  newIDS.update(ids => {
-    ids.push(p.id);
-    return ids;
-  })
+    const project = await projectStore.loadProject(id);
+    const p = await projectManager.createNew(project);
+    createToast('Downloaded ' + project.meta.name, { type: 'success' });
 
-  return p;
+    newIDS.update(ids => {
+      ids.push(p.id);
+      return ids;
+    })
+
+    return p;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 

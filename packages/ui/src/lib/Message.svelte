@@ -37,7 +37,6 @@
   $: isInverted = type === 'success' || type === 'warning' || type === 'error';
 
   onMount(() => {
-    console.log({ message });
     setTimeout(() => {
       animateProgress = true;
     }, 10);

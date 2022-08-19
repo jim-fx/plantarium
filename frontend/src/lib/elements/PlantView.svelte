@@ -6,6 +6,8 @@
 	import { NormalShader } from '$lib/components/scene/shaders';
 	import { Box, Mesh } from 'ogl-typescript';
 	import { transferToGeometry } from '@plantarium/geometry';
+	import { Icon } from '@plantarium/ui';
+	import { scale } from 'svelte/transition';
 
 	export let project: Project;
 	let canvas: HTMLCanvasElement;
@@ -13,6 +15,9 @@
 	let renderer: Renderer;
 	let loaded = false;
 	let worker: ReturnType<typeof createWorker>;
+
+	let showHint = true;
+	let hintTimeout: NodeJS.Timeout;
 
 	async function generatePlant(project: Project) {
 		if (!worker) worker = createWorker();
@@ -47,7 +52,21 @@
 
 <div class:loaded>
 	<img src={project.meta.thumbnail} alt="" />
-	<canvas bind:this={canvas} width="500" height="500" />
+	<canvas
+		bind:this={canvas}
+		width="500"
+		height="500"
+		on:click={() => {
+			if (showHint && !hintTimeout) {
+				hintTimeout = setTimeout(() => {
+					showHint = false;
+				}, 500);
+			}
+		}}
+	/>
+	{#if loaded && showHint}
+		<span transition:scale><Icon animated name="hand_rotate" /></span>
+	{/if}
 </div>
 
 <style>
@@ -63,8 +82,22 @@
 		display: none;
 	}
 
+	span {
+		display: block;
+		position: absolute;
+		width: 50px;
+		height: 50px;
+		right: 20px;
+		bottom: 20px;
+		opacity: 0.4;
+	}
+
 	canvas {
 		display: none;
+	}
+
+	div {
+		position: relative;
 	}
 
 	.loaded > canvas {

@@ -24,8 +24,6 @@
 		ox = imgRect.x + 'px';
 		oy = imgRect.y + 'px';
 
-		console.log({ img, width, height, x, y });
-
 		setTimeout(() => {
 			visible = true;
 		}, 50);
