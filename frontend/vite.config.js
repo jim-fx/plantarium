@@ -3,11 +3,16 @@ import path from 'path';
 import { visualizer } from 'rollup-plugin-visualizer';
 import glslify from 'vite-plugin-glslify';
 
+
+/** @type {import('vite').UserConfig} */
 export default {
   clearScreen: true,
   legacy: { buildSsrCjsExternalHeuristics: true },
   ssr: { noExternal: ['ogl-typescript', "@plantarium/ui", "@plantarium/helpers"] },
   logLevel: 'silent',
+  build: {
+    sourcemap: true
+  },
   server: {
     host: '0.0.0.0',
     port: 8080

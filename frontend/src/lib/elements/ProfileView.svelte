@@ -109,7 +109,7 @@
 	<Button name="← Go Back" on:click={() => (errors = [])} />
 {:else if isLoading}
 	<Icon name="branch" animated />
-{:else if $userStore?.id}
+{:else if $userStore?._id}
 	<br />
 
 	<div class="user">

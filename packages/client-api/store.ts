@@ -45,12 +45,14 @@ if ("permissions" in storage) {
 
 const user: Writable<User | null> = writable(_user);
 
-const isLoggedIn: Writable<boolean> = writable(_user && "id" in _user);
+const isLoggedIn: Writable<boolean> = writable(_user && "_id" in _user);
 
 user.subscribe(v => {
   isLoggedIn.set(v && "_id" in v);
   storage.setItem("user", JSON.stringify(v))
 })
+
+globalThis["loggedIn"] = isLoggedIn;
 
 export const userStore = user;
 export { isLoggedIn };

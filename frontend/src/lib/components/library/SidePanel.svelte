@@ -68,7 +68,7 @@
 		on:click={(ev) => handleLike(project.id, ev.detail)}
 		disabled={!$isLoggedIn}
 		likeAmount={project?.likes?.length}
-		active={project?.likes?.includes($userStore['_id'])}
+		active={project?.likes?.includes($userStore?._id)}
 	/>
 {/if}
 
