@@ -37,11 +37,11 @@ importers:
       eslint-config-prettier: 8.5.0
       eslint-plugin-svelte3: 4.0.0
       file-saver: 2.0.5
+      nanoid: ^4.0.0
       ogl-typescript: ^0.1.40
       prettier: 2.7.1
       prettier-plugin-svelte: 2.7.0
       set-cookie-parser: ^2.5.1
-      shortid: 2.2.16
       stacktrace-parser: ^0.1.10
       svelte: 3.49.0
       svelte-check: 2.8.0
@@ -67,9 +67,9 @@ importers:
       devalue: 2.0.1
       dotenv: 16.0.1
       file-saver: 2.0.5
+      nanoid: 4.0.0
       ogl-typescript: 0.1.40
       set-cookie-parser: 2.5.1
-      shortid: 2.2.16
       stacktrace-parser: 0.1.10
       svelte-forms-lib: 2.0.1
       svelte-multiselect: 5.0.6
@@ -279,6 +279,7 @@ importers:
       gl-matrix: ^3.4.3
       idb: ^7.0.2
       jsondiffpatch: ^0.4.1
+      nanoid: ^4.0.0
       ogl-typescript: ^0.1.40
       open-simplex-noise: ^2.5.0
       prettier: 2.7.1
@@ -287,7 +288,6 @@ importers:
       rollup-plugin-visualizer: 5.7.1
       sass: ^1.54.4
       set-cookie-parser: ^2.5.1
-      shortid: ^2.2.16
       stacktrace-parser: ^0.1.10
       svelte: 3.49.0
       svelte-check: 2.8.0
@@ -322,11 +322,11 @@ importers:
       gl-matrix: 3.4.3
       idb: 7.0.2
       jsondiffpatch: 0.4.1
+      nanoid: 4.0.0
       ogl-typescript: 0.1.40
       open-simplex-noise: 2.5.0
       sass: 1.54.4
       set-cookie-parser: 2.5.1
-      shortid: 2.2.16
       stacktrace-parser: 0.1.10
       svelte-click-outside: 1.0.0
       svelte-multiselect: 5.0.6
@@ -527,7 +527,6 @@ importers:
       jsondiffpatch: ^0.4.1
       prettier: ^2.7.1
       prettier-plugin-svelte: ^2.7.0
-      shortid: ^2.2.16
       stacktrace-parser: ^0.1.10
       svelte: ^3.49.0
       svelte-check: ^2.8.0
@@ -550,7 +549,6 @@ importers:
       css-vars-from-json: 1.1.0
       file-saver: 2.0.5
       jsondiffpatch: 0.4.1
-      shortid: 2.2.16
       stacktrace-parser: 0.1.10
     devDependencies:
       '@playwright/test': 1.25.0
@@ -630,11 +628,11 @@ importers:
       file-saver: 2.0.5
       highlight.js: 11.6.0
       jsdom: ^20.0.0
+      nanoid: ^4.0.0
       ogl-typescript: ^0.1.40
       prettier: 2.7.1
       prettier-plugin-svelte: 2.7.0
       sass: 1.54.4
-      shortid: 2.2.16
       stacktrace-parser: ^0.1.10
       svelte: ^3.49.0
       svelte-check: 2.8.0
@@ -649,6 +647,7 @@ importers:
       ajv: 8.11.0
       ajv-formats: 2.1.1
       css-vars-from-json: 1.1.0
+      nanoid: 4.0.0
       ogl-typescript: 0.1.40
       stacktrace-parser: 0.1.10
     devDependencies:
@@ -672,7 +671,6 @@ importers:
       prettier: 2.7.1
       prettier-plugin-svelte: 2.7.0_o3ioganyptcsrh6x4hnxvjkpqi
       sass: 1.54.4
-      shortid: 2.2.16
       svelte: 3.49.0
       svelte-check: 2.8.0_sass@1.54.4+svelte@3.49.0
       svelte-highlight: 6.2.1
@@ -7976,14 +7974,17 @@ packages:
       lru-cache: 4.1.5
     dev: false
 
-  /nanoid/2.1.11:
-    resolution: {integrity: sha512-s/snB+WGm6uwi0WjsZdaVcuf3KJXlfGl2LcxgwkEwJF0D/BWzVWAZW/XY4bFaiR7s0Jk3FPvlnepg1H1b1UwlA==}
-
   /nanoid/3.3.4:
     resolution: {integrity: sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
     dev: true
+
+  /nanoid/4.0.0:
+    resolution: {integrity: sha512-IgBP8piMxe/gf73RTQx7hmnhwz0aaEXYakvqZyE302IXW3HyVNhdNGC+O2MwMAVhLEnvXlvKtGbtJf6wvHihCg==}
+    engines: {node: ^14 || ^16 || >=18}
+    hasBin: true
+    dev: false
 
   /natural-compare/1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
@@ -9250,11 +9251,6 @@ packages:
       interpret: 1.4.0
       rechoir: 0.6.2
     dev: true
-
-  /shortid/2.2.16:
-    resolution: {integrity: sha512-Ugt+GIZqvGXCIItnsL+lvFJOiN7RYqlGy7QE41O3YC1xbNSeDGIRO7xg2JJXIAj1cAGnOeC1r7/T9pgrtQbv4g==}
-    dependencies:
-      nanoid: 2.1.11
 
   /side-channel/1.0.4:
     resolution: {integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==}

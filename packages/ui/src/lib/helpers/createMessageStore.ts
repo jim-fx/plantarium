@@ -1,4 +1,4 @@
-import createId from 'shortid';
+import { nanoid } from 'nanoid';
 import type { SvelteComponent } from 'svelte';
 import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
@@ -13,7 +13,7 @@ const createMessageFactory =
       const hasValues = Array.isArray(options?.values);
 
       const message: Message = {
-        id: createId(),
+        id: nanoid(),
         type: MessageType.INFO,
         content,
         props: options.props,

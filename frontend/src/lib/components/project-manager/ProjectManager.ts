@@ -4,7 +4,7 @@ import type { PlantariumSettings } from "$lib/types";
 import { cloneObject, EventEmitter, logger, validator } from '@plantarium/helpers';
 import type { Project, TransferGeometry } from '@plantarium/types';
 import { createToast } from '@plantarium/ui';
-import * as createId from 'shortid';
+import { nanoid } from 'nanoid';
 import { get, writable, type Writable } from 'svelte/store';
 import { renderProject } from '../../helpers';
 import { fernSimple } from "./examples";
@@ -62,7 +62,7 @@ export default class ProjectManager extends EventEmitter<EventMap> {
 
   private createNewProject(p?: Project): Project {
     const plant: Project = {
-      id: createId(),
+      id: nanoid(),
       likes: [],
       type: 0,
       public: false,

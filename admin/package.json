@@ -45,9 +45,9 @@
     "devalue": "^2.0.1",
     "dotenv": "16.0.1",
     "file-saver": "2.0.5",
+    "nanoid": "^4.0.0",
     "ogl-typescript": "^0.1.40",
     "set-cookie-parser": "^2.5.1",
-    "shortid": "2.2.16",
     "stacktrace-parser": "^0.1.10",
     "svelte-forms-lib": "2.0.1",
     "svelte-multiselect": "5.0.6"

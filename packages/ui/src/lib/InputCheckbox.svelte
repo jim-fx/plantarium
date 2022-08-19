@@ -1,14 +1,14 @@
 <svelte:options accessors />
 
 <script lang="ts">
-  import createId from 'shortid';
+  import { nanoid } from 'nanoid';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
 
   export let value = false;
   export let label: string = undefined;
 
-  export let id = createId();
+  export let id = nanoid();
 
   $: value !== undefined && dispatch('change', !!value);
 </script>

@@ -40,7 +40,6 @@
     "prettier": "2.7.1",
     "prettier-plugin-svelte": "2.7.0",
     "sass": "1.54.4",
-    "shortid": "2.2.16",
     "svelte": "^3.49.0",
     "svelte-check": "2.8.0",
     "svelte-highlight": "6.2.1",
@@ -59,6 +58,7 @@
     "ajv": "^8.11.0",
     "ajv-formats": "^2.1.1",
     "css-vars-from-json": "^1.1.0",
+    "nanoid": "^4.0.0",
     "ogl-typescript": "^0.1.40",
     "stacktrace-parser": "^0.1.10"
   }

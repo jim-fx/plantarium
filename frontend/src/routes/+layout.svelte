@@ -4,7 +4,7 @@
 
 	if (!browser) {
 		// This disables the logger during build serverside
-		logger.setLevel(5);
+		logger.setFilter('');
 	}
 </script>
 
