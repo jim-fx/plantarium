@@ -15,15 +15,15 @@
     "format": "prettier --write --plugin-search-dir=. ."
   },
   "devDependencies": {
-    "@codemirror/commands": "6.0.1",
+    "@codemirror/commands": "6.1.0",
     "@codemirror/language": "6.2.1",
     "@codemirror/state": "6.1.1",
     "@codemirror/view": "6.2.0",
     "@plantarium/types": "link:../types",
     "@sveltejs/adapter-static": "1.0.0-next.39",
-    "@sveltejs/kit": "1.0.0-next.410",
-    "@typescript-eslint/eslint-plugin": "^5.33.1",
-    "@typescript-eslint/parser": "^5.33.1",
+    "@sveltejs/kit": "1.0.0-next.429",
+    "@typescript-eslint/eslint-plugin": "^5.34.0",
+    "@typescript-eslint/parser": "^5.34.0",
     "ajv": "^8.11.0",
     "codemirror": "^6.0.1",
     "eslint": "^8.22.0",
@@ -34,11 +34,11 @@
     "prettier": "^2.7.1",
     "prettier-plugin-svelte": "^2.7.0",
     "svelte": "^3.49.0",
-    "svelte-check": "^2.8.0",
+    "svelte-check": "^2.8.1",
     "svelte-preprocess": "^4.10.7",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4",
-    "vite": "3.0.8"
+    "vite": "3.0.9"
   },
   "dependencies": {
     "@codemirror/lang-javascript": "^6.0.2",
