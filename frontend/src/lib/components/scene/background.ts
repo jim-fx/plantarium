@@ -5,7 +5,6 @@ import { ThemeStore } from '@plantarium/theme';
 import { Color, Mesh, Plane, Program, type OGLRenderingContext } from 'ogl-typescript';
 import type Scene from '.';
 import { settingsManager } from '..';
-import type { ProjectManager } from '../project-manager';
 import {
   GridShader,
   GroundShader
@@ -39,7 +38,7 @@ export default class BackgroundScene {
   private ground!: Mesh;
   private grid!: Mesh;
 
-  constructor(scene: Scene, pm: ProjectManager) {
+  constructor(scene: Scene) {
     this.scene = scene;
     this.gl = scene.renderer.gl;
 
