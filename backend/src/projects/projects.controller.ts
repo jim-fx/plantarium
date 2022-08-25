@@ -1,10 +1,10 @@
 import { Body, Controller, Delete, Get, InternalServerErrorException, NotFoundException, Param, Patch, Post, Put, Req, UnauthorizedException } from '@nestjs/common';
-import { Permissions } from 'auth/decorators/permissions.decorator';
-import { Permission } from 'auth/enums/permission.enum';
 import { Request } from 'express';
-import { GetUser, UserRaw } from 'user/user.decorator';
+import { Permissions } from '../auth/decorators/permissions.decorator';
 import { Roles } from '../auth/decorators/roles.decorator';
+import { Permission } from '../auth/enums/permission.enum';
 import { Role } from '../auth/enums/role.enum';
+import { GetUser, UserRaw } from '../user/user.decorator';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { ProjectsService } from './projects.service';

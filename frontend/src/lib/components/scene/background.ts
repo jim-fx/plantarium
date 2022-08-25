@@ -1,21 +1,19 @@
 import type { PlantariumSettings } from '$lib/types';
-import { grid, ground } from '@plantarium/geometry';
-import { transferToGeometry } from '@plantarium/geometry';
+import { grid, ground, transferToGeometry } from '@plantarium/geometry';
 import { loader } from '@plantarium/helpers';
 import { ThemeStore } from '@plantarium/theme';
 import { Color, Mesh, Plane, Program, type OGLRenderingContext } from 'ogl-typescript';
 import type Scene from '.';
 import { settingsManager } from '..';
 import type { ProjectManager } from '../project-manager';
-import { BasicShader, GridShader, GroundShader, MatCapShader, ParticleShader, WireFrameShader } from './shaders';
+import {
+  GridShader,
+  GroundShader
+} from './shaders';
 
-const createGround = (
-  gl: OGLRenderingContext,
-  settings: PlantariumSettings,
-) => {
-  const {
-    background: { scale: _scale = 1, resX: _resX = 16, resY: _resY = 16 } = {},
-  } = settings || {};
+const createGround = (gl: OGLRenderingContext, settings: PlantariumSettings) => {
+  const { background: { scale: _scale = 1, resX: _resX = 16, resY: _resY = 16 } = {} } =
+    settings || {};
 
   const scale = _scale ?? 0;
   const resX = _resX ?? 8;
@@ -27,14 +25,12 @@ const createGround = (
 };
 
 const createGrid = (gl: OGLRenderingContext, settings: PlantariumSettings) => {
-
-  const { scale = 1, resX = 5 } = settings?.background;
+  const { scale = 1, resX = 5 } = settings?.background || {};
 
   const geo = grid(scale, resX);
 
   return transferToGeometry(gl, geo);
-
-}
+};
 
 export default class BackgroundScene {
   private scene: Scene;
@@ -49,20 +45,16 @@ export default class BackgroundScene {
 
     this.initMeshes();
 
-    pm.on('settings', s => this.setSettings(s));
+    settingsManager.on('settings', (s) => this.setSettings(s));
     this.setSettings(settingsManager.getSettings());
   }
 
   initMeshes(): void {
     const groundGeometry = new Plane(this.gl);
-    const groundTexture = loader.texture(
-      this.gl,
-      'assets/rocky_dirt1-albedo.jpg',
-      {
-        wrapS: this.gl.REPEAT,
-        wrapT: this.gl.REPEAT,
-      },
-    );
+    const groundTexture = loader.texture(this.gl, 'assets/rocky_dirt1-albedo.jpg', {
+      wrapS: this.gl.REPEAT,
+      wrapT: this.gl.REPEAT
+    });
     const groundShader = new Program(this.gl, {
       vertex: GroundShader.vertex,
       fragment: GroundShader.fragment,
@@ -73,21 +65,21 @@ export default class BackgroundScene {
         uFogColor: { value: new Color('#ffffff') },
         uFogNear: { value: 10 },
         uFogFar: { value: 30 },
-        texScale: { value: 1 },
-      },
+        texScale: { value: 1 }
+      }
     });
     ThemeStore.subscribe((t) => {
       groundShader.uniforms.uFogColor.value = new Color(t['background-color']);
     });
     this.ground = this.scene.addMesh({
       geometry: groundGeometry,
-      program: groundShader,
+      program: groundShader
     });
 
     this.grid = this.scene.addMesh({
       geometry: new Plane(this.gl),
       program: GridShader(this.gl)
-    })
+    });
 
     this.grid.mode = this.gl.LINES;
 
@@ -100,7 +92,6 @@ export default class BackgroundScene {
   }
 
   setSettings(settings: PlantariumSettings) {
-
     if (settings?.background?.ground) {
       this.ground.geometry = createGround(this.gl, settings);
     }
@@ -110,6 +101,5 @@ export default class BackgroundScene {
       this.grid.geometry = createGrid(this.gl, settings);
     }
     this.grid.visible = !!settings?.background?.grid;
-
   }
 }

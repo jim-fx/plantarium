@@ -299,6 +299,7 @@ importers:
       typescript: 4.7.4
       vite: 3.0.9
       vite-plugin-comlink: 3.0.4
+      vite-plugin-glsl: ^0.3.0
       vite-plugin-glslify: 2.0.1
     dependencies:
       '@plantarium/backend': link:../backend
@@ -353,6 +354,7 @@ importers:
       typescript: 4.7.4
       vite: 3.0.9_sass@1.54.5
       vite-plugin-comlink: 3.0.4_comlink@4.3.1+vite@3.0.9
+      vite-plugin-glsl: 0.3.0
       vite-plugin-glslify: 2.0.1_vite@3.0.9
 
   packages/client-api:
@@ -10508,6 +10510,13 @@ packages:
       json5: 2.2.1
       magic-string: 0.26.2
       vite: 3.0.9_sass@1.54.5
+    dev: true
+
+  /vite-plugin-glsl/0.3.0:
+    resolution: {integrity: sha512-cH7ni+Y3Vz1yOumvrP/71hXVdyTxZIaYYNDeK7KMvO5nzo0uGZZrrkwEVUaESS8/5dYemb/6G0YBj3jsP2sW1A==}
+    engines: {node: '>= 14.18.0', npm: '>= 6.14.17'}
+    dependencies:
+      '@rollup/pluginutils': 4.2.1
     dev: true
 
   /vite-plugin-glslify/2.0.1_vite@3.0.9:

@@ -1,39 +1,20 @@
-export default function throttle<T>(_func: T, wait: number): T {
-  let context: (() => unknown) | null;
-  let args: IArguments;
-  let result: unknown;
-
-  let timeout: number | null = null;
-  let previous = 0;
-
-  const func = _func as unknown as () => void;
-
-  const later = () => {
-    previous = 0;
-    timeout = null;
-    result = func.apply(context, args);
-    if (!timeout) context = args = null;
-  };
-
-  const f = function(...args: unknown[]) {
-    const now = Date.now();
-    if (!previous) previous = now;
-    const remaining = wait - (now - previous);
-    //eslint-disable-next-line
-    context = this;
-    // eslint-disable-next-line prefer-rest-params
-    if (remaining <= 0 || remaining > wait) {
-      if (timeout) {
-        clearTimeout(timeout);
-        timeout = null;
-      }
-      previous = now;
-      result = func.apply(context, args);
-      if (!timeout) context = args = null;
-    } else if (!timeout) {
-      timeout = setTimeout(later, remaining) as unknown as number;
+export default (fn: (...args: unknown[]) => unknown, wait = 300) => {
+  let inThrottle: boolean,
+    lastFn: ReturnType<typeof setTimeout>,
+    lastTime: number;
+  return function(...args: unknown[]) {
+    if (!inThrottle) {
+      fn(...args);
+      lastTime = Date.now();
+      inThrottle = true;
+    } else {
+      clearTimeout(lastFn);
+      lastFn = setTimeout(() => {
+        if (Date.now() - lastTime >= wait) {
+          fn(...args);
+          lastTime = Date.now();
+        }
+      }, Math.max(wait - (Date.now() - lastTime), 0));
     }
-    return result;
   };
-  return f as unknown as T;
-}
+};

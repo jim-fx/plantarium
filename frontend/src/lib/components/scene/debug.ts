@@ -1,20 +1,28 @@
 import type { PlantariumSettings } from '$lib/types';
 import { cloneObject, groupArray, hslToRgb } from '@plantarium/helpers';
 import type { PlantStem, TransferGeometry } from '@plantarium/types';
-import { Color, Geometry, Mesh, Polyline, Program, Transform, Vec3, type OGLRenderingContext } from 'ogl-typescript';
+import {
+  Color,
+  Geometry,
+  Mesh,
+  Polyline,
+  Program,
+  Transform,
+  Vec3,
+  type OGLRenderingContext
+} from 'ogl-typescript';
 import type Scene from '.';
 import { settingsManager } from '..';
-import type { ProjectManager } from '../project-manager';
 import { ParticleShader } from './shaders';
 
 export default class DebugScene {
   private plant?: {
-    stems: PlantStem[]
-    geometry: TransferGeometry,
+    stems: PlantStem[];
+    geometry: TransferGeometry;
     debug?: {
-      vec3: number[],
-      point: number[]
-    }
+      vec3: number[];
+      point: number[];
+    };
   };
   private settings: PlantariumSettings;
 
@@ -22,15 +30,16 @@ export default class DebugScene {
 
   private m: { [key: string]: Transform } = {};
 
-  constructor(private scene: Scene, pm: ProjectManager) {
+  constructor(private scene: Scene) {
     this.gl = scene.renderer.gl;
 
     this.initGeometry();
 
-    this.settings = settingsManager.getSettings()
+    this.settings = settingsManager.getSettings();
+
     this.setSettings(this.settings);
 
-    pm.on('settings', s => this.setSettings(s as PlantariumSettings));
+    settingsManager.on('settings', (s) => this.setSettings(s as PlantariumSettings));
   }
 
   initGeometry() {
@@ -52,8 +61,13 @@ export default class DebugScene {
     this.m.vec3 = this.scene.addTransform(new Transform());
   }
 
-  setSettings(settings: PlantariumSettings) {
+  setSettings(settings: PlantariumSettings = this.settings) {
+
     this.settings = cloneObject(settings);
+    if (!settings) {
+
+      console.trace({ settings, s: this.settings, cloneObject })
+    }
 
     this.m.skeleton.visible = !!this.settings.debug?.skeleton;
     this.m.vertices.visible = !!this.settings.debug?.skeleton;
@@ -67,7 +81,6 @@ export default class DebugScene {
   }
 
   setVec3(vec3?: number[]) {
-
     this.m.vec3.children = [];
     if (!vec3?.length) {
       this.m.vec3.visible = false;
@@ -81,33 +94,31 @@ export default class DebugScene {
     for (let i = 0; i < amountVec; i++) {
       const origin = new Vec3(...vec3.slice(i * 7 + 3, i * 7 + 6));
 
-      const endPoint = origin.clone().add(new Vec3(...vec3.slice(i * 7, i * 7 + 3)).normalize().scale(0.2));
+      const endPoint = origin
+        .clone()
+        .add(new Vec3(...vec3.slice(i * 7, i * 7 + 3)).normalize().scale(0.2));
 
       const polyline = new Polyline(this.gl, {
         points: [origin, endPoint],
         uniforms: {
           uColor: { value: Color.from(hslToRgb(vec3[i * 7 + 7], 1, 0.5)) },
-          uThickness: { value: 1 },
-        },
+          uThickness: { value: 1 }
+        }
       });
       polyline.program.depthTest = false;
       const mesh = new Mesh(this.gl, { geometry: polyline.geometry, program: polyline.program });
       mesh.setParent(this.m.vec3);
     }
-
-
   }
 
   update(p = this.plant, s = this.settings) {
-
     if (s?.debug?.debugVectors) {
-      this.setVec3(p?.debug?.vec3)
+      this.setVec3(p?.debug?.vec3);
     } else {
       this.m.vec3.visible = false;
     }
 
     if (!p || !s) return;
-
 
     //Convert skeletons to Geometry
     if (p.stems && s.debug?.skeleton) {
@@ -124,11 +135,11 @@ export default class DebugScene {
       stems.forEach(({ skeleton: skelly, depth }) => {
         const amount = skelly.length / 4;
         const polyline = new Polyline(this.gl, {
-          points: groupArray(skelly, 4).map(v => new Vec3(...v)),
+          points: groupArray(skelly, 4).map((v) => new Vec3(...v)),
           uniforms: {
-            uColor: { value: new Color("#fff") },
-            uThickness: { value: 1 },
-          },
+            uColor: { value: new Color('#fff') },
+            uThickness: { value: 1 }
+          }
         });
         polyline.program.depthTest = false;
         const mesh = new Mesh(this.gl, { geometry: polyline.geometry, program: polyline.program });

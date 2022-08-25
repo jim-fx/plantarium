@@ -1,7 +1,7 @@
 import { Collection, Entity, ManyToMany, ManyToOne, Property } from "@mikro-orm/core";
 import type { Project as IProject } from "@plantarium/types";
-import { User } from "user/user.entity";
 import { BaseEntity } from "../../entities/BaseEntity";
+import { User } from "../../user/user.entity";
 
 export enum ProjectType {
   OFFICIAL = 2,

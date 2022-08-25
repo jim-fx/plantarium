@@ -1,9 +1,5 @@
 <script lang="ts">
-import clientApi,{isLoggedIn} from "@plantarium/client-api";
+	import clientApi, { isLoggedIn } from '@plantarium/client-api';
 </script>
 
-{#if $isLoggedIn}
-
-{:else}
-
-{/if}
+{#if $isLoggedIn}{:else}{/if}

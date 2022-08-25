@@ -1,4 +1,4 @@
-import { browser } from "$app/env";
+import { browser } from '$app/env';
 import type { PlantariumSettings } from '$lib/types';
 import { logger } from '@plantarium/helpers';
 import Nodes from '@plantarium/nodes';
@@ -38,7 +38,7 @@ const nodeSystem = new NodeSystem({
     boolean: '#f00',
     number: '#fff',
     plant: '#65e2a0',
-    vec3: '#6363C7',
+    vec3: '#6363C7'
   },
   deferCompute: true
 });
@@ -49,23 +49,27 @@ settingsManager.on('debug.showNodeUpdates.update', (v) => {
 
 projectManager.on('load', (project) => nodeSystem.load(project), 100);
 
-nodeSystem.on('result', () => {
-  projectManager.updateProject(nodeSystem.serialize() as Project)
-}, 50);
+nodeSystem.on(
+  'result',
+  () => {
+    projectManager.updateProject(nodeSystem.serialize());
+  },
+  50
+);
 
 nodeSystem.on('save', (project: Project) => {
-  projectManager.updateProject(project)
+  projectManager.updateProject(project);
 });
 
 settingsManager.on(
-  'settings', (s: PlantariumSettings) => {
-    projectManager.setSettings(s);
+  'settings',
+  (s: PlantariumSettings) => {
     performance.setSettings(s);
   },
   50
 );
 
-Tutor.init()
+Tutor.init();
 
 export { projectManager, settingsManager, nodeSystem };
 export default { projectManager, settingsManager, nodeSystem };

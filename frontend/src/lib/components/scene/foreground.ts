@@ -1,4 +1,4 @@
-import type { PlantariumSettings } from "$lib/types";
+import type { PlantariumSettings } from '$lib/types';
 import { createWorker } from '@plantarium/generator';
 import { join, transferToGeometry } from '@plantarium/geometry';
 import { cloneObject, EventEmitter, logger, throttle } from '@plantarium/helpers';
@@ -18,12 +18,12 @@ const updateThumbnail = throttle((id: string, geo: TransferGeometry) => {
 }, 5000);
 
 function getShader(t?: string) {
-  if (t === "Flat") return MatCapShader;
-  if (t === "Debug") return DebugShader;
-  return NormalShader
+  if (t === 'Flat') return MatCapShader;
+  if (t === 'Debug') return DebugShader;
+  return NormalShader;
 }
 
-let temp: { p: Project, s: PlantariumSettings } | undefined;
+let temp: { p: Project; s: PlantariumSettings } | undefined;
 
 const log = logger('scene.foreground');
 export default class ForegroundScene extends EventEmitter {
@@ -40,40 +40,39 @@ export default class ForegroundScene extends EventEmitter {
   private isGenerating = false;
 
   constructor(private scene: Scene, private pm: ProjectManager) {
-    super()
+    super();
     this.gl = scene.renderer.gl;
 
     const geometry = new Box(this.gl, { width: 0, height: 0, depth: 0 });
 
     this.mesh = this.scene.addMesh({
       geometry,
-      program: getShader(this.settings?.debug.material)(this.gl),
+      program: getShader(this.settings?.debug.material)(this.gl)
     });
 
     this.boundingBox = this.scene.addMesh({
       geometry: new Box(this.gl),
       program: BasicShader(this.gl),
       mode: this.gl.LINE_LOOP
-    })
+    });
 
-    this.dbg = new DebugScene(scene, pm);
+    this.dbg = new DebugScene(scene);
 
     this.setSettings(settingsManager.getSettings());
     this.setPlant(pm.getActiveProject());
 
-    this.pm.on('settings', s => this.setSettings(s));
-    this.pm.on('plant', p => this.setPlant(p));
-    this.pm.on("load", p => {
+    settingsManager.on("settings", s => this.setSettings(s))
+    this.pm.on('plant', (p) => this.setPlant(p));
+    this.pm.on('load', (p) => {
       if (!p) {
         this.mesh.visible = false;
       }
-    })
-    this.pm.on("loading", () => {
+    });
+    this.pm.on('loading', () => {
       this.mesh.visible = false;
       this.scene.isLoading.set(true);
-    })
+    });
   }
-
 
   setSettings(settings: PlantariumSettings) {
     if (this.mesh && settings?.debug?.material !== this.settings?.debug?.material) {
@@ -81,9 +80,9 @@ export default class ForegroundScene extends EventEmitter {
     }
 
     if (this.mesh && settings?.debug?.wireframe) {
-      this.mesh.mode = this.gl.LINE_LOOP
+      this.mesh.mode = this.gl.LINE_LOOP;
     } else {
-      this.mesh.mode = this.gl.TRIANGLES
+      this.mesh.mode = this.gl.TRIANGLES;
     }
 
     if (this.boundingBox) {
@@ -118,7 +117,7 @@ export default class ForegroundScene extends EventEmitter {
     }
     this.isGenerating = true;
 
-    const loadingTimeout = setTimeout(() => this.scene.isLoading.set(true), 400)
+    const loadingTimeout = setTimeout(() => this.scene.isLoading.set(true), 400);
 
     try {
       performance.start('generate');
@@ -130,12 +129,12 @@ export default class ForegroundScene extends EventEmitter {
       if (!result || result.errors || !result.geometries) {
         this.mesh.visible = false;
         if (result.errors) {
-          nodeSystem.view.clearNodeLabel()
+          nodeSystem.view.clearNodeLabel();
           setTimeout(() => {
             nodeSystem.view.showErrorMessages(result.errors);
-          }, 100)
+          }, 100);
         }
-        this.postUpdate()
+        this.postUpdate();
         return;
       } else {
         // Hide error messages
@@ -144,11 +143,16 @@ export default class ForegroundScene extends EventEmitter {
         if (result.timings && s?.debug?.nodeTimings) {
           Object.entries(result.timings).forEach(([id, v]) => {
             if (v.time) {
-              nodeSystem.view.showNodeLabel(id, `<b>${v.amount}@${Math.floor(v.time * 10) / 10}</b> ms`);
+              nodeSystem.view.showNodeLabel(
+                id,
+                `<b>${v.amount}@${Math.floor(v.time * 10) / 10}</b> ms`
+              );
             }
-          })
+          });
 
-          nodeSystem?.outputNode?.view?.showErrors(`Total Time: <b>${Math.floor(result.timings.global.time * 10) / 10}</b>ms`)
+          nodeSystem?.outputNode?.view?.showErrors(
+            `Total Time: <b>${Math.floor(result.timings.global.time * 10) / 10}</b>ms`
+          );
         } else {
           nodeSystem.view.clearNodeLabel();
         }
@@ -156,12 +160,11 @@ export default class ForegroundScene extends EventEmitter {
         this.mesh.visible = !this?.settings?.debug?.hideMesh;
       }
 
-
       updateThumbnail(this.plant.id, join(...result.geometries));
 
       this.dbg.setPlant(result);
 
-      console.log
+      console.log;
 
       this.mesh.geometry = transferToGeometry(this.gl, result.geometry);
 
@@ -170,24 +173,24 @@ export default class ForegroundScene extends EventEmitter {
       this.boundingBox.geometry = new Box(this.gl, {
         width: this.mesh.geometry.bounds.max.x - this.mesh.geometry.bounds.min.x,
         height: this.mesh.geometry.bounds.max.y - this.mesh.geometry.bounds.min.y,
-        depth: this.mesh.geometry.bounds.max.z - this.mesh.geometry.bounds.min.z,
-      })
+        depth: this.mesh.geometry.bounds.max.z - this.mesh.geometry.bounds.min.z
+      });
       // this.boundingBox.position.y = this.mesh.geometry.bounds.center.y
       this.boundingBox.position = this.mesh.geometry.bounds.center;
 
       this.scene.renderer.setControlTarget(this.mesh.geometry.bounds.center);
 
-      clearTimeout(loadingTimeout)
+      clearTimeout(loadingTimeout);
       this.scene.isLoading.set(false);
     } catch (error) {
       log.error(error as Error);
       const res = await createToast(error as Error, {
         title: 'Error [Generator]',
-        values: ['report', "reload"]
+        values: ['report', 'reload']
       });
 
-      if (res === "reload") {
-        window.location.reload()
+      if (res === 'reload') {
+        window.location.reload();
       }
 
       if (res === 'report') {
@@ -201,7 +204,6 @@ export default class ForegroundScene extends EventEmitter {
       }
     }
 
-    this.postUpdate()
+    this.postUpdate();
   }
 }
-

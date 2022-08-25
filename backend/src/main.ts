@@ -1,11 +1,11 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import cookieParser from 'cookie-parser';
+import helmet from 'helmet';
 import morgan from 'morgan';
 import { AppModule } from './app.module';
-import { JwtAuthGuard } from 'auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { PORT } from "./config";
-import helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create(

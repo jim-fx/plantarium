@@ -16,74 +16,69 @@ let isSetup = false;
 const RENDER_SIZE = 500;
 
 function setup() {
-  if (isSetup) return;
-  isSetup = true;
+	if (isSetup) return;
+	isSetup = true;
 
-  renderer = new Renderer({
-    width: RENDER_SIZE,
-    height: RENDER_SIZE,
-    alpha: true,
-    clearColor: '000',
-  });
-  mesh = new Mesh(renderer.gl, {
-    geometry: new Box(renderer.gl, { width: 0, height: 0, depth: 0 }),
-    program: NormalShader(renderer.gl),
-  });
+	renderer = new Renderer({
+		width: RENDER_SIZE,
+		height: RENDER_SIZE,
+		alpha: true,
+		clearColor: '000'
+	});
+	mesh = new Mesh(renderer.gl, {
+		geometry: new Box(renderer.gl, { width: 0, height: 0, depth: 0 }),
+		program: NormalShader(renderer.gl)
+	});
 
-  renderCanvas = document.createElement('canvas');
-  renderCanvas.width = renderCanvas.height = RENDER_SIZE;
-  ctx = renderCanvas.getContext('2d') as CanvasRenderingContext2D;
+	renderCanvas = document.createElement('canvas');
+	renderCanvas.width = renderCanvas.height = RENDER_SIZE;
+	ctx = renderCanvas.getContext('2d') as CanvasRenderingContext2D;
 
-  mesh.setParent(renderer.scene);
-
+	mesh.setParent(renderer.scene);
 }
 
-export default async function({
-  pd,
-  geo,
-}: {
-  pd?: PlantProject;
-  geo?: TransferGeometry;
-}) {
+export default async function ({ pd, geo }: { pd?: PlantProject; geo?: TransferGeometry }) {
+	setup();
 
-  setup()
+	let _geometry: TransferGeometry | undefined = geo;
 
-  let _geometry: TransferGeometry | undefined = geo;
+	if (!_geometry && pd) {
+		const result = await webWorker.executeNodeSystem(pd, { stemResX: 12, stemResY: 12 });
 
+		_geometry = result.geometry;
+	}
 
-  if (!_geometry && pd) {
-    const result = await webWorker.executeNodeSystem(pd, { stemResX: 12, stemResY: 12 });
+	if (!_geometry) return;
 
-    _geometry = result.geometry;
-  }
+	mesh.geometry = transferToGeometry(renderer.gl, calculateNormals(_geometry));
 
-  if (!_geometry) return;
+	await new Promise((r) => setTimeout(r, 200));
 
-  mesh.geometry = transferToGeometry(renderer.gl, calculateNormals(_geometry));
+	mesh.geometry.computeBoundingBox();
 
-  await new Promise((r) => setTimeout(r, 200));
+	// Make the bounding box of the plant fill the viewport of the camera
+	renderer.camera.fov = 10;
+	renderer.camera.position.x = mesh.geometry.bounds.max.x;
+	renderer.camera.position.y = mesh.geometry.bounds.max.y;
+	const radius =
+		Math.max(
+			mesh.geometry.bounds.max.x - mesh.geometry.bounds.min.x,
+			mesh.geometry.bounds.max.y - mesh.geometry.bounds.min.y
+		) / 2;
+	const camDistance = radius * Math.tan(Math.PI - renderer.camera.fov / 2) * 0.5;
+	renderer.camera.position.z = camDistance;
 
-  mesh.geometry.computeBoundingBox();
+	renderer.camera.lookAt(mesh.geometry.bounds.center);
+	await new Promise((res) => setTimeout(res, 50));
 
-  // Make the bounding box of the plant fill the viewport of the camera
-  renderer.camera.fov = 10;
-  renderer.camera.position.x = mesh.geometry.bounds.max.x;
-  renderer.camera.position.y = mesh.geometry.bounds.max.y;
-  const radius = Math.max(mesh.geometry.bounds.max.x - mesh.geometry.bounds.min.x, mesh.geometry.bounds.max.y - mesh.geometry.bounds.min.y) / 2;
-  const camDistance = radius * Math.tan(Math.PI - renderer.camera.fov / 2) * 0.5;
-  renderer.camera.position.z = camDistance;
+	renderer.renderScene(renderer.scene);
 
-  renderer.camera.lookAt(mesh.geometry.bounds.center);
-  await new Promise(res => setTimeout(res, 50));
+	await new Promise((res) => setTimeout(res, 50));
 
-  renderer.renderScene(renderer.scene);
+	if (renderer.canvas.width === 0 || renderer.canvas.height === 0) return;
+	//
+	ctx.clearRect(0, 0, RENDER_SIZE, RENDER_SIZE);
+	ctx.drawImage(renderer.canvas, 0, 0);
 
-  await new Promise(res => setTimeout(res, 50));
-
-  if (renderer.canvas.width === 0 || renderer.canvas.height === 0) return;
-  //
-  ctx.clearRect(0, 0, RENDER_SIZE, RENDER_SIZE);
-  ctx.drawImage(renderer.canvas, 0, 0);
-
-  return renderCanvas.toDataURL('image/webp', 0.9);
+	return renderCanvas.toDataURL('image/webp', 0.9);
 }

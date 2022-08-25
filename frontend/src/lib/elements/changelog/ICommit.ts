@@ -1,6 +1,6 @@
-export default interface Commit{
-  id: string;
-  subject: string;
-  date: Date;
-  new:boolean;
+export default interface Commit {
+	id: string;
+	subject: string;
+	date: Date;
+	new: boolean;
 }

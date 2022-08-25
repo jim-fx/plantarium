@@ -1,5 +1,5 @@
 import { cleanup, render } from '@testing-library/svelte';
-import "vitest";
+import 'vitest';
 
 import { afterEach, describe, expect, it } from 'vitest';
 

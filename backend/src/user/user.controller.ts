@@ -9,9 +9,9 @@ import {
   Post, UnauthorizedException,
   UseGuards, UseInterceptors
 } from '@nestjs/common';
-import { getPermissionsForRole } from 'auth/enums/permission.enum';
-import { Role } from 'auth/enums/role.enum';
-import { JwtAuthGuard } from 'auth/guards/jwt-auth.guard';
+import { getPermissionsForRole } from '../auth/enums/permission.enum';
+import { Role } from '../auth/enums/role.enum';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { GetUser, UserRaw } from './user.decorator';

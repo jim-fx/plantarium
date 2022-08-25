@@ -11,48 +11,47 @@ import * as performance from '../../helpers/performance';
 import { ThemeStore } from '@plantarium/theme';
 
 export default class Scene {
-  renderer: Renderer;
-  bg: BackgroundScene;
-  fg: ForegroundScene;
-  scene: Transform;
-  wrapper: HTMLElement;
+	renderer: Renderer;
+	bg: BackgroundScene;
+	fg: ForegroundScene;
+	scene: Transform;
+	wrapper: HTMLElement;
 
-  isLoading: Writable<boolean> = writable(false);
+	isLoading: Writable<boolean> = writable(false);
 
-  program: Program | undefined;
-  mesh: Mesh | undefined;
-  gl: OGLRenderingContext;
+	program: Program | undefined;
+	mesh: Mesh | undefined;
+	gl: OGLRenderingContext;
 
-  constructor(pm: ProjectManager, canvas: HTMLCanvasElement) {
+	constructor(pm: ProjectManager, canvas: HTMLCanvasElement) {
+		this.renderer = new Renderer({
+			canvas,
+			camPos: localState.get('camPos') as [number, number, number]
+		});
+		this.renderer.on('camPos', (camPos) => localState.set('camPos', camPos));
+		this.renderer.on('perf', (perf: number) => performance.add('render', perf), 40);
+		this.renderer.handleResize();
+		this.scene = this.renderer.scene;
+		this.gl = this.renderer.gl;
 
-    this.renderer = new Renderer({
-      canvas,
-      camPos: localState.get('camPos') as [number, number, number]
-    });
-    this.renderer.on('camPos', (camPos) => localState.set('camPos', camPos));
-    this.renderer.on('perf', (perf: number) => performance.add('render', perf), 40);
-    this.renderer.handleResize();
-    this.scene = this.renderer.scene;
-    this.gl = this.renderer.gl;
+		ThemeStore.subscribe((t) => {
+			this.renderer.setClearColor(t['background-color']);
+		});
 
-    ThemeStore.subscribe((t) => {
-      this.renderer.setClearColor(t['background-color']);
-    });
+		this.wrapper = canvas.parentElement as HTMLElement;
 
-    this.wrapper = canvas.parentElement as HTMLElement;
+		this.bg = new BackgroundScene(this, pm);
+		this.fg = new ForegroundScene(this, pm);
+	}
 
-    this.bg = new BackgroundScene(this, pm);
-    this.fg = new ForegroundScene(this, pm);
-  }
+	addMesh(options: Partial<MeshOptions>): Mesh {
+		const mesh = new Mesh(this.gl, options);
+		mesh.setParent(this.scene);
+		return mesh;
+	}
 
-  addMesh(options: Partial<MeshOptions>): Mesh {
-    const mesh = new Mesh(this.gl, options);
-    mesh.setParent(this.scene);
-    return mesh;
-  }
-
-  addTransform(t: Transform) {
-    t.setParent(this.scene);
-    return t;
-  }
+	addTransform(t: Transform) {
+		t.setParent(this.scene);
+		return t;
+	}
 }

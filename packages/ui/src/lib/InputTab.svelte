@@ -4,7 +4,7 @@
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher<{ change: string }>();
 
-  export let value: string = '';
+  export let value = '';
   export let values: string[] = [];
 
   $: value && dispatch('change', value);

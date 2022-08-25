@@ -89,7 +89,7 @@ export default class RightClickMenu {
           );
         }
       });
-    if (availableTypes.length === 1) {
+    if (availableTypes.length === 1 && this.res) {
       setTimeout(() => {
         this.resolve(availableTypes[0].value);
       }, 30);

@@ -6,8 +6,8 @@ import {
   NotFoundException
 } from '@nestjs/common';
 import { Octokit } from 'octokit';
-import { UserService } from 'user/user.service';
 import { compressLogs } from "../common";
+import { UserService } from '../user/user.service';
 import { CreateReportDto } from './dto/create-report.dto';
 import { UpdateReportDto } from './dto/update-report.dto';
 import { Report } from './report.entity';

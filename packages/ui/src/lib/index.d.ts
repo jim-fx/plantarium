@@ -1,3 +1,3 @@
-declare module "@yr/monotone-cubic-spline" {
+declare module '@yr/monotone-cubic-spline' {
   type exp = () => void;
 }

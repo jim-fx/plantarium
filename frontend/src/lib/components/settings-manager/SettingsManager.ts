@@ -1,16 +1,19 @@
-import { debounce, EventEmitter, logger, cloneObject } from '@plantarium/helpers';
 import * as storage from '$lib/storage';
+import type { PlantariumSettings } from '$lib/types';
+import { cloneObject, debounce, EventEmitter, logger } from '@plantarium/helpers';
 import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
 import './index.scss';
 import SettingsTemplate from './SettingsTemplate';
-import type { PlantariumSettings } from "$lib/types"
 
 const obj = {};
 
 const log = logger('SettingsManager');
 
-const templateToSettings = (template: typeof SettingsTemplate, store?: typeof obj): PlantariumSettings => {
+const templateToSettings = (
+  template: typeof SettingsTemplate,
+  store?: typeof obj
+): PlantariumSettings => {
   const settings = {} as PlantariumSettings;
 
   Object.entries(template).forEach(([key, _template]) => {
@@ -37,7 +40,12 @@ const resolveDeep = (object: typeof obj, path: string[]) => {
 
 const keyToPath = (key: string) => (key.includes('.') ? key.split('.') : [key]);
 
-export default class SettingsManager extends EventEmitter {
+type EventMap = {
+  "settings": PlantariumSettings,
+  [key: string]: unknown
+}
+
+export default class SettingsManager extends EventEmitter<EventMap> {
   private settings: PlantariumSettings = {} as PlantariumSettings;
 
   public store: Writable<PlantariumSettings> = writable(this.settings);

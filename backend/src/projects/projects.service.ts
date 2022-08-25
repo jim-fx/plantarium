@@ -1,7 +1,7 @@
 import { EntityRepository, FilterQuery } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { UserService } from 'user/user.service';
+import { UserService } from '../user/user.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { Project, ProjectType } from './entities/project.entity';

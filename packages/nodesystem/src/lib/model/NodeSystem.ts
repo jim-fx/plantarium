@@ -4,7 +4,7 @@ import type {
   NodeProps,
   NodeSystemData,
   NodeSystemMeta,
-  NodeTypeData
+  NodeTypeData,
 } from '../types';
 import NodeSystemView from '../view/NodeSystemView';
 import type Node from './Node';

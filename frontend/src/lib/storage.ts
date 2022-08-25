@@ -1,57 +1,58 @@
-import { browser } from "$app/env";
+import { browser } from '$app/env';
+import { throttle } from '@plantarium/helpers';
 
 import { openDB } from 'idb';
 
-const dbPromise = browser && openDB('keyval-store', 1, {
-  upgrade(db) {
-    db.createObjectStore('keyval');
-  },
-});
+const dbPromise =
+  browser &&
+  openDB('plantarium-store', 1, {
+    upgrade(db) {
+      db.createObjectStore('projects');
+    }
+  });
+
 
 const readCache: Record<string, unknown> = {};
 const writeCache: Record<string, unknown> = {};
 
-let lastSave = 0;
+const persistWriteCache = throttle(async function() {
+  for (const [_key, _val] of Object.entries(writeCache)) {
+    (await dbPromise).put('projects', _val, _key);
+    delete writeCache[_key];
+  }
+}, 1000)
+
 export async function setItem<T>(key: string, val: T) {
   if (!browser) {
     readCache[key] = val;
     return;
   }
 
-  if (performance.now() - lastSave > 2000) {
-    for (const [_key, _val] of Object.entries(writeCache)) {
-      (await dbPromise).put('keyval', _val, _key);
-      delete writeCache[_key];
-    }
-    lastSave = performance.now();
-
-  }
+  persistWriteCache()
 
   writeCache[key] = val;
   readCache[key] = val;
-
 }
 
-export async function getItem(key: string) {
+export async function getItem<T = unknown>(key: string): Promise<T | null> {
+
   if (!browser) {
-    return readCache[key];
+    return readCache[key] as T | null;
   }
 
   if (key in readCache) {
-    return readCache[key];
+    return readCache[key] as T | null;
   }
 
-  const value = (await dbPromise).get('keyval', key);
+  const value = await (await dbPromise).get('projects', key) as Promise<T | null>;
 
   readCache[key] = value;
 
-  return value;
+  return value as Promise<T | null>;
 }
 
 export async function removeItem(key: string) {
-  if (!browser) {
-    delete readCache[key]
-    return;
-  }
-  return (await dbPromise).delete('keyval', key);
+  delete readCache[key];
+  if (!browser) { return; }
+  return (await dbPromise).delete('projects', key);
 }

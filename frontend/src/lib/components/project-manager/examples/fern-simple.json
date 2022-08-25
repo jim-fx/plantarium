@@ -1,563 +1,558 @@
 {
-  "meta": {
-    "name": "Simple Fern",
-    "description": "Model of a simple fern",
-    "transform": {
-      "x": -330.95060709372206,
-      "y": -106.3566339131105,
-      "s": 0.7551234783317522
-    },
-    "thumbnail": "data:image/webp;base64,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"
-  },
-  "nodes": [
-    {
-      "attributes": {
-        "pos": {
-          "x": 700,
-          "y": 0
-        },
-        "type": "output",
-        "id": "0",
-        "refs": []
-      },
-      "state": {}
-    },
-    {
-      "attributes": {
-        "pos": {
-          "x": -450,
-          "y": -150
-        },
-        "id": "2",
-        "name": "Stem",
-        "type": "stem",
-        "refs": [
-          {
-            "id": "9",
-            "out": -1,
-            "in": "input"
-          }
-        ],
-        "visible": [
-          "origin"
-        ]
-      },
-      "state": {
-        "origin": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "height": 1,
-        "thiccness": 0.03,
-        "minThiccness": 0.001,
-        "amount": 6
-      }
-    },
-    {
-      "attributes": {
-        "pos": {
-          "x": -600,
-          "y": -150
-        },
-        "id": "7",
-        "name": "Vec3",
-        "type": "vec3",
-        "refs": [
-          {
-            "id": "2",
-            "out": -1,
-            "in": "origin"
-          }
-        ]
-      },
-      "state": {
-        "x": 0,
-        "y": 0,
-        "z": 0
-      }
-    },
-    {
-      "attributes": {
-        "pos": {
-          "x": -750,
-          "y": -200
-        },
-        "id": "3",
-        "name": "Parameter",
-        "type": "parameter",
-        "refs": [
-          {
-            "id": "7",
-            "out": -1,
-            "in": "x"
-          }
-        ]
-      },
-      "state": {
-        "value": 0,
-        "variation": 0.4
-      }
-    },
-    {
-      "attributes": {
-        "pos": {
-          "x": -750,
-          "y": -50
-        },
-        "id": "8",
-        "name": "Parameter",
-        "type": "parameter",
-        "refs": [
-          {
-            "id": "7",
-            "out": -1,
-            "in": "z"
-          }
-        ]
-      },
-      "state": {
-        "value": 0,
-        "variation": 0.32
-      }
-    },
-    {
-      "attributes": {
-        "pos": {
-          "x": -300,
-          "y": -150
-        },
-        "id": "9",
-        "name": "Rotate",
-        "type": "rotate",
-        "refs": [
-          {
-            "id": "10",
-            "out": -1,
-            "in": "input"
-          }
-        ]
-      },
-      "state": {
-        "axis": "x",
-        "aroundOrigin": false,
-        "smooth": false,
-        "spread": false,
-        "angle": 0
-      }
-    },
-    {
-      "attributes": {
-        "pos": {
-          "x": -150,
-          "y": -150
-        },
-        "id": "10",
-        "name": "Rotate",
-        "type": "rotate",
-        "refs": [
-          {
-            "id": "1",
-            "out": -1,
-            "in": "input"
-          }
-        ]
-      },
-      "state": {
-        "axis": "y",
-        "aroundOrigin": false,
-        "smooth": false,
-        "spread": true,
-        "angle": 6.2
-      }
-    },
-    {
-      "attributes": {
-        "pos": {
-          "x": -450,
-          "y": 100
-        },
-        "id": "11",
-        "name": "Parameter",
-        "type": "parameter",
-        "refs": [
-          {
-            "id": "9",
-            "out": -1,
-            "in": "angle"
-          }
-        ]
-      },
-      "state": {
-        "value": 0.87,
-        "variation": 0.27
-      }
-    },
-    {
-      "attributes": {
-        "pos": {
-          "x": 200,
-          "y": -150
-        },
-        "id": "12",
-        "name": "Gravity",
-        "type": "gravity",
-        "refs": [
-          {
-            "id": "18",
-            "out": -1,
-            "in": "input"
-          }
-        ]
-      },
-      "state": {
-        "type": "simple",
-        "strength": 0.62
-      }
-    },
-    {
-      "attributes": {
-        "pos": {
-          "x": -600,
-          "y": 0
-        },
-        "id": "16",
-        "name": "Parameter",
-        "type": "parameter",
-        "refs": [
-          {
-            "id": "2",
-            "out": -1,
-            "in": "height"
-          }
-        ]
-      },
-      "state": {
-        "value": 3,
-        "variation": 0.052
-      }
-    },
-    {
-      "attributes": {
-        "pos": {
-          "x": 350,
-          "y": -150
-        },
-        "id": "18",
-        "name": "Gravity",
-        "type": "gravity",
-        "refs": [
-          {
-            "id": "6",
-            "out": -1,
-            "in": "input"
-          }
-        ]
-      },
-      "state": {
-        "type": "simple",
-        "strength": 0.7
-      }
-    },
-    {
-      "attributes": {
-        "pos": {
-          "x": 321,
-          "y": 2
-        },
-        "id": "19",
-        "name": "Leaf",
-        "type": "leaf",
-        "refs": [
-          {
-            "id": "6",
-            "out": -1,
-            "in": "model"
-          }
-        ]
-      },
-      "state": {
-        "shape": [
-          {
-            "x": 1,
-            "y": 1,
-            "pinned": true
-          },
-          {
-            "x": 0.62,
-            "y": 0.84,
-            "pinned": false
-          },
-          {
-            "x": 0.54,
-            "y": 0.63,
-            "pinned": false
-          },
-          {
-            "x": 0.38,
-            "y": 0.41,
-            "pinned": true
-          },
-          {
-            "x": 0.44,
-            "y": 0.23,
-            "pinned": false
-          },
-          {
-            "x": 0.64,
-            "y": 0.12,
-            "pinned": false
-          },
-          {
-            "x": 0.98,
-            "y": 0.02,
-            "pinned": true
-          }
-        ],
-        "curvature": {
-          "x": 1,
-          "y": 1.5
-        }
-      }
-    },
-    {
-      "attributes": {
-        "pos": {
-          "x": 100,
-          "y": 362
-        },
-        "id": "22",
-        "name": "Curve",
-        "type": "curve",
-        "refs": []
-      },
-      "state": {
-        "value": [
-          {
-            "x": 0,
-            "y": 1,
-            "pinned": true
-          },
-          {
-            "x": 1,
-            "y": 0,
-            "pinned": true
-          }
-        ]
-      }
-    },
-    {
-      "attributes": {
-        "pos": {
-          "x": 235,
-          "y": 379
-        },
-        "id": "24",
-        "name": "Parameter",
-        "type": "parameter",
-        "refs": []
-      },
-      "state": {
-        "value": 0.56,
-        "variation": 0.082
-      }
-    },
-    {
-      "attributes": {
-        "pos": {
-          "x": 0,
-          "y": -150
-        },
-        "id": "1",
-        "name": "Noise",
-        "type": "noise",
-        "refs": [
-          {
-            "id": "12",
-            "out": -1,
-            "in": "input"
-          }
-        ]
-      },
-      "state": {
-        "size": 0.38,
-        "strength": 0.15
-      }
-    },
-    {
-      "attributes": {
-        "pos": {
-          "x": 81,
-          "y": 75
-        },
-        "id": "5",
-        "name": "Shape",
-        "type": "shape",
-        "refs": [
-          {
-            "id": "19",
-            "out": -1,
-            "in": "shape"
-          }
-        ]
-      },
-      "state": {
-        "value": [
-          {
-            "x": 1,
-            "y": 1,
-            "pinned": true
-          },
-          {
-            "x": 0.9,
-            "y": 0.93,
-            "pinned": false
-          },
-          {
-            "x": 0.86,
-            "y": 0.76,
-            "pinned": false
-          },
-          {
-            "x": 0.84,
-            "y": 0.64,
-            "pinned": false
-          },
-          {
-            "x": 0.82,
-            "y": 0.5,
-            "pinned": false
-          },
-          {
-            "x": 0.8,
-            "y": 0.26,
-            "pinned": false
-          },
-          {
-            "x": 0.8,
-            "y": 0.13,
-            "pinned": true
-          },
-          {
-            "x": 0.84,
-            "y": 0.05,
-            "pinned": false
-          },
-          {
-            "x": 1,
-            "y": 0,
-            "pinned": true
-          }
-        ]
-      }
-    },
-    {
-      "attributes": {
-        "pos": {
-          "x": -900,
-          "y": -50
-        },
-        "id": "15",
-        "name": "Slider",
-        "type": "slider",
-        "refs": [
-          {
-            "id": "3",
-            "out": -1,
-            "in": "variation"
-          },
-          {
-            "id": "8",
-            "out": -1,
-            "in": "variation"
-          }
-        ]
-      },
-      "state": {
-        "value": 0.11
-      }
-    },
-    {
-      "attributes": {
-        "pos": {
-          "x": -300,
-          "y": 100
-        },
-        "id": "4",
-        "name": "Parameter",
-        "type": "parameter",
-        "refs": [
-          {
-            "id": "10",
-            "out": -1,
-            "in": "angle"
-          }
-        ]
-      },
-      "state": {
-        "value": 6.3,
-        "variation": 0.21
-      }
-    },
-    {
-      "attributes": {
-        "pos": {
-          "x": 500,
-          "y": -150
-        },
-        "id": "6",
-        "name": "Instance",
-        "type": "instance",
-        "refs": [
-          {
-            "id": "0",
-            "out": -1,
-            "in": "input"
-          }
-        ],
-        "visible": [
-          "alternateRotation",
-          "alignRotation"
-        ]
-      },
-      "state": {
-        "alignRotation": 0,
-        "alternateRotation": 1,
-        "size": 0.29,
-        "instanceRange": {
-          "x": 0.2,
-          "y": 1
-        },
-        "amount": 20,
-        "rotation": {
-          "x": -0.82,
-          "y": 1,
-          "z": 0
-        },
-        "depth": 1
-      }
-    },
-    {
-      "attributes": {
-        "pos": {
-          "x": 321,
-          "y": 193
-        },
-        "id": "13",
-        "name": "Alpha",
-        "type": "alpha",
-        "refs": [
-          {
-            "id": "6",
-            "out": -1,
-            "in": "size"
-          }
-        ]
-      },
-      "state": {
-        "min": 0,
-        "max": 0.5
-      }
-    }
-  ]
+	"meta": {
+		"name": "Simple Fern",
+		"description": "Model of a simple fern",
+		"transform": {
+			"x": -330.95060709372206,
+			"y": -106.3566339131105,
+			"s": 0.7551234783317522
+		},
+		"thumbnail": "data:image/webp;base64,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"
+	},
+	"nodes": [
+		{
+			"attributes": {
+				"pos": {
+					"x": 700,
+					"y": 0
+				},
+				"type": "output",
+				"id": "0",
+				"refs": []
+			},
+			"state": {}
+		},
+		{
+			"attributes": {
+				"pos": {
+					"x": -450,
+					"y": -150
+				},
+				"id": "2",
+				"name": "Stem",
+				"type": "stem",
+				"refs": [
+					{
+						"id": "9",
+						"out": -1,
+						"in": "input"
+					}
+				],
+				"visible": ["origin"]
+			},
+			"state": {
+				"origin": {
+					"x": 0,
+					"y": 0,
+					"z": 0
+				},
+				"height": 1,
+				"thiccness": 0.03,
+				"minThiccness": 0.001,
+				"amount": 6
+			}
+		},
+		{
+			"attributes": {
+				"pos": {
+					"x": -600,
+					"y": -150
+				},
+				"id": "7",
+				"name": "Vec3",
+				"type": "vec3",
+				"refs": [
+					{
+						"id": "2",
+						"out": -1,
+						"in": "origin"
+					}
+				]
+			},
+			"state": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			}
+		},
+		{
+			"attributes": {
+				"pos": {
+					"x": -750,
+					"y": -200
+				},
+				"id": "3",
+				"name": "Parameter",
+				"type": "parameter",
+				"refs": [
+					{
+						"id": "7",
+						"out": -1,
+						"in": "x"
+					}
+				]
+			},
+			"state": {
+				"value": 0,
+				"variation": 0.4
+			}
+		},
+		{
+			"attributes": {
+				"pos": {
+					"x": -750,
+					"y": -50
+				},
+				"id": "8",
+				"name": "Parameter",
+				"type": "parameter",
+				"refs": [
+					{
+						"id": "7",
+						"out": -1,
+						"in": "z"
+					}
+				]
+			},
+			"state": {
+				"value": 0,
+				"variation": 0.32
+			}
+		},
+		{
+			"attributes": {
+				"pos": {
+					"x": -300,
+					"y": -150
+				},
+				"id": "9",
+				"name": "Rotate",
+				"type": "rotate",
+				"refs": [
+					{
+						"id": "10",
+						"out": -1,
+						"in": "input"
+					}
+				]
+			},
+			"state": {
+				"axis": "x",
+				"aroundOrigin": false,
+				"smooth": false,
+				"spread": false,
+				"angle": 0
+			}
+		},
+		{
+			"attributes": {
+				"pos": {
+					"x": -150,
+					"y": -150
+				},
+				"id": "10",
+				"name": "Rotate",
+				"type": "rotate",
+				"refs": [
+					{
+						"id": "1",
+						"out": -1,
+						"in": "input"
+					}
+				]
+			},
+			"state": {
+				"axis": "y",
+				"aroundOrigin": false,
+				"smooth": false,
+				"spread": true,
+				"angle": 6.2
+			}
+		},
+		{
+			"attributes": {
+				"pos": {
+					"x": -450,
+					"y": 100
+				},
+				"id": "11",
+				"name": "Parameter",
+				"type": "parameter",
+				"refs": [
+					{
+						"id": "9",
+						"out": -1,
+						"in": "angle"
+					}
+				]
+			},
+			"state": {
+				"value": 0.87,
+				"variation": 0.27
+			}
+		},
+		{
+			"attributes": {
+				"pos": {
+					"x": 200,
+					"y": -150
+				},
+				"id": "12",
+				"name": "Gravity",
+				"type": "gravity",
+				"refs": [
+					{
+						"id": "18",
+						"out": -1,
+						"in": "input"
+					}
+				]
+			},
+			"state": {
+				"type": "simple",
+				"strength": 0.62
+			}
+		},
+		{
+			"attributes": {
+				"pos": {
+					"x": -600,
+					"y": 0
+				},
+				"id": "16",
+				"name": "Parameter",
+				"type": "parameter",
+				"refs": [
+					{
+						"id": "2",
+						"out": -1,
+						"in": "height"
+					}
+				]
+			},
+			"state": {
+				"value": 3,
+				"variation": 0.052
+			}
+		},
+		{
+			"attributes": {
+				"pos": {
+					"x": 350,
+					"y": -150
+				},
+				"id": "18",
+				"name": "Gravity",
+				"type": "gravity",
+				"refs": [
+					{
+						"id": "6",
+						"out": -1,
+						"in": "input"
+					}
+				]
+			},
+			"state": {
+				"type": "simple",
+				"strength": 0.7
+			}
+		},
+		{
+			"attributes": {
+				"pos": {
+					"x": 321,
+					"y": 2
+				},
+				"id": "19",
+				"name": "Leaf",
+				"type": "leaf",
+				"refs": [
+					{
+						"id": "6",
+						"out": -1,
+						"in": "model"
+					}
+				]
+			},
+			"state": {
+				"shape": [
+					{
+						"x": 1,
+						"y": 1,
+						"pinned": true
+					},
+					{
+						"x": 0.62,
+						"y": 0.84,
+						"pinned": false
+					},
+					{
+						"x": 0.54,
+						"y": 0.63,
+						"pinned": false
+					},
+					{
+						"x": 0.38,
+						"y": 0.41,
+						"pinned": true
+					},
+					{
+						"x": 0.44,
+						"y": 0.23,
+						"pinned": false
+					},
+					{
+						"x": 0.64,
+						"y": 0.12,
+						"pinned": false
+					},
+					{
+						"x": 0.98,
+						"y": 0.02,
+						"pinned": true
+					}
+				],
+				"curvature": {
+					"x": 1,
+					"y": 1.5
+				}
+			}
+		},
+		{
+			"attributes": {
+				"pos": {
+					"x": 100,
+					"y": 362
+				},
+				"id": "22",
+				"name": "Curve",
+				"type": "curve",
+				"refs": []
+			},
+			"state": {
+				"value": [
+					{
+						"x": 0,
+						"y": 1,
+						"pinned": true
+					},
+					{
+						"x": 1,
+						"y": 0,
+						"pinned": true
+					}
+				]
+			}
+		},
+		{
+			"attributes": {
+				"pos": {
+					"x": 235,
+					"y": 379
+				},
+				"id": "24",
+				"name": "Parameter",
+				"type": "parameter",
+				"refs": []
+			},
+			"state": {
+				"value": 0.56,
+				"variation": 0.082
+			}
+		},
+		{
+			"attributes": {
+				"pos": {
+					"x": 0,
+					"y": -150
+				},
+				"id": "1",
+				"name": "Noise",
+				"type": "noise",
+				"refs": [
+					{
+						"id": "12",
+						"out": -1,
+						"in": "input"
+					}
+				]
+			},
+			"state": {
+				"size": 0.38,
+				"strength": 0.15
+			}
+		},
+		{
+			"attributes": {
+				"pos": {
+					"x": 81,
+					"y": 75
+				},
+				"id": "5",
+				"name": "Shape",
+				"type": "shape",
+				"refs": [
+					{
+						"id": "19",
+						"out": -1,
+						"in": "shape"
+					}
+				]
+			},
+			"state": {
+				"value": [
+					{
+						"x": 1,
+						"y": 1,
+						"pinned": true
+					},
+					{
+						"x": 0.9,
+						"y": 0.93,
+						"pinned": false
+					},
+					{
+						"x": 0.86,
+						"y": 0.76,
+						"pinned": false
+					},
+					{
+						"x": 0.84,
+						"y": 0.64,
+						"pinned": false
+					},
+					{
+						"x": 0.82,
+						"y": 0.5,
+						"pinned": false
+					},
+					{
+						"x": 0.8,
+						"y": 0.26,
+						"pinned": false
+					},
+					{
+						"x": 0.8,
+						"y": 0.13,
+						"pinned": true
+					},
+					{
+						"x": 0.84,
+						"y": 0.05,
+						"pinned": false
+					},
+					{
+						"x": 1,
+						"y": 0,
+						"pinned": true
+					}
+				]
+			}
+		},
+		{
+			"attributes": {
+				"pos": {
+					"x": -900,
+					"y": -50
+				},
+				"id": "15",
+				"name": "Slider",
+				"type": "slider",
+				"refs": [
+					{
+						"id": "3",
+						"out": -1,
+						"in": "variation"
+					},
+					{
+						"id": "8",
+						"out": -1,
+						"in": "variation"
+					}
+				]
+			},
+			"state": {
+				"value": 0.11
+			}
+		},
+		{
+			"attributes": {
+				"pos": {
+					"x": -300,
+					"y": 100
+				},
+				"id": "4",
+				"name": "Parameter",
+				"type": "parameter",
+				"refs": [
+					{
+						"id": "10",
+						"out": -1,
+						"in": "angle"
+					}
+				]
+			},
+			"state": {
+				"value": 6.3,
+				"variation": 0.21
+			}
+		},
+		{
+			"attributes": {
+				"pos": {
+					"x": 500,
+					"y": -150
+				},
+				"id": "6",
+				"name": "Instance",
+				"type": "instance",
+				"refs": [
+					{
+						"id": "0",
+						"out": -1,
+						"in": "input"
+					}
+				],
+				"visible": ["alternateRotation", "alignRotation"]
+			},
+			"state": {
+				"alignRotation": 0,
+				"alternateRotation": 1,
+				"size": 0.29,
+				"instanceRange": {
+					"x": 0.2,
+					"y": 1
+				},
+				"amount": 20,
+				"rotation": {
+					"x": -0.82,
+					"y": 1,
+					"z": 0
+				},
+				"depth": 1
+			}
+		},
+		{
+			"attributes": {
+				"pos": {
+					"x": 321,
+					"y": 193
+				},
+				"id": "13",
+				"name": "Alpha",
+				"type": "alpha",
+				"refs": [
+					{
+						"id": "6",
+						"out": -1,
+						"in": "size"
+					}
+				]
+			},
+			"state": {
+				"min": 0,
+				"max": 0.5
+			}
+		}
+	]
 }

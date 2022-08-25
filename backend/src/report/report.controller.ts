@@ -9,12 +9,12 @@ import {
   Req,
   UseGuards
 } from '@nestjs/common';
-import { Permissions } from 'auth/decorators/permissions.decorator';
-import { Roles } from 'auth/decorators/roles.decorator';
-import { Permission } from 'auth/enums/permission.enum';
-import { Role } from 'auth/enums/role.enum';
-import { JwtAuthGuard } from 'auth/guards/jwt-auth.guard';
-import { RolesGuard } from 'auth/guards/role.guard';
+import { Permissions } from '../auth/decorators/permissions.decorator';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { Permission } from '../auth/enums/permission.enum';
+import { Role } from '../auth/enums/role.enum';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../auth/guards/role.guard';
 import { CreateReportDto } from './dto/create-report.dto';
 import { UpdateReportDto } from './dto/update-report.dto';
 import { Report } from './report.entity';

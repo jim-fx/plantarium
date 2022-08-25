@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type ICommit from './ICommit';
+	import type ICommit from './ICommit';
 
-  export let commit: ICommit;
+	export let commit: ICommit;
 
-  export let isNew = false;
+	export let isNew = false;
 </script>
 
 <p>
-  {@html isNew ? '<b>[NEW]</b>' : ''}
-  {commit.subject}
+	{@html isNew ? '<b>[NEW]</b>' : ''}
+	{commit.subject}
 </p>
