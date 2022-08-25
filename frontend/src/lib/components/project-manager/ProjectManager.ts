@@ -187,6 +187,8 @@ export default class ProjectManager extends EventEmitter<EventMap> {
     log('saved plant id: ', project.id);
 
     this.store.set(Object.values(this.projects));
+
+    return project;
   }
 
   async getProject(id: string): Promise<Project> {
@@ -303,25 +305,37 @@ export default class ProjectManager extends EventEmitter<EventMap> {
     this.store.set(Object.values(this.projects));
   }
 
-  async updateProject(dto: {
-    id: string;
+  async updateProject(id: string, dto: {
+    public?: boolean;
+    author?: string;
     meta?: Partial<Project['meta']>;
     nodes?: Project['nodes'];
   }) {
-    const project = await this.getProject(dto.id);
+    const project = await this.getProject(id);
 
     if (dto.nodes) {
       project.nodes = dto.nodes;
+    }
+
+    if (dto.author) {
+      project.author = dto.author;
     }
 
     if (dto.meta) {
       project.meta = { ...project.meta, ...dto.meta };
     }
 
-    if (dto.id === this.activeProjectId) {
+    if ("public" in dto) {
+      project.public = !!dto.public;
+    }
+
+    if (id === this.activeProjectId) {
       this.activeProject.set(project);
       this.emit('plant', project);
     }
+
+    return this.saveProject(project)
+
   }
 
   getActiveProject() {

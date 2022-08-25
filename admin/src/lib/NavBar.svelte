@@ -21,7 +21,7 @@
   {#each sites as [href, title]}
     {#if href}
       <a
-        class="p-3 rounded block"
+        class="px-3 py-2 rounded block my-2"
         class:active={base + href === $page.url.pathname}
         href={base + href}
       >

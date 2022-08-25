@@ -98,9 +98,8 @@ export default class NodeView {
 
     if (this.node?.meta?.description) {
       this.helpWrapper = document.createElement('div');
-      this.helpWrapper.innerHTML = `<h3>${
-        node.attributes.name || node.attributes.type
-      }</h3>
+      this.helpWrapper.innerHTML = `<h3>${node.attributes.name || node.attributes.type
+        }</h3>
 <p>${this.node.meta.description}</p>`;
       this.helpWrapper.classList.add('nodeview-help-wrapper');
       this.wrapper.append(this.helpWrapper);
@@ -299,9 +298,9 @@ export default class NodeView {
     this.wrapper.style.left = this.x + 'px';
     this.wrapper.style.top = this.y + 'px';
     // This will update all the incomming connections
-    Object.values(this.node.states).forEach((s) => s.view.updatePosition());
+    Object.values(this.node.states).forEach((s) => s?.view?.updatePosition());
     // This will update all the outgoing connections
-    this.node.outputs.forEach((o) => o.view.updatePosition());
+    this.node.outputs.forEach((o) => o?.view?.updatePosition());
   }
 
   setPosition(x: number, y: number) {

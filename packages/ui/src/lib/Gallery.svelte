@@ -35,11 +35,13 @@
   <div class="content">
     <slot />
   </div>
-  <div class="button">
-    {#each els as _, index}
-      <button class:active={$activeIndex === index} on:click={() => ($activeIndex = index)} />
-    {/each}
-  </div>
+  {#if els.length > 1}
+    <div class="button">
+      {#each els as _, index}
+        <button class:active={$activeIndex === index} on:click={() => ($activeIndex = index)} />
+      {/each}
+    </div>
+  {/if}
 </div>
 
 <svelte:window on:keydown={handleWindowKeyDown} />

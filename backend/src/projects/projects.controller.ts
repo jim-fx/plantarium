@@ -43,12 +43,12 @@ export class ProjectsController {
 
   @Put(':id/like')
   likeProject(@Param('id') id: string, @GetUser() user: UserRaw) {
-    return this.projectsService.like(id, user.sub);
+    return this.projectsService.setLike(id, user.sub, true);
   }
 
   @Delete(':id/like')
   removeLike(@Param('id') id: string, @GetUser() user: UserRaw) {
-    return this.projectsService.removeLike(id, user.sub);
+    return this.projectsService.setLike(id, user.sub, false);
   }
 
   @Get(':id')

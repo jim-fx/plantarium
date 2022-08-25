@@ -1,7 +1,7 @@
 import type { CreateReportDto, Report, User } from "@plantarium/backend";
 import { cloneObject, validator } from "@plantarium/helpers";
 import type { Project } from "@plantarium/types";
-import { post, send } from "./core";
+import { ErrorResponse, post, send } from "./core";
 import store, { permissions, userStore } from "./store";
 const { VITE_API_URL = 'http://localhost:8081' } = import.meta.env;
 
@@ -34,7 +34,7 @@ export async function oauth(provider: string) {
 }
 
 export async function register(username: string, email: string, password: string) {
-  const res = await post<{ access_token: string }>('api/user', { name: username, email, password });
+  const res = await post<{ access_token: string }>('api/user', { username, email, password });
   if (res.ok) {
     store.token = res.data.access_token;
   }
@@ -149,7 +149,7 @@ export async function publishProject(_p: Project) {
       ok: false,
       statusCode: 400,
       message: errors[0]
-    }
+    } as ErrorResponse;
   }
 
   return send<Project>({ path: "api/project", method: "POST", data: project })

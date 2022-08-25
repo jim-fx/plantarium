@@ -12,7 +12,7 @@
 
   $: value !== undefined && handleChange();
 
-  let oldValue: typeof value;
+  let oldValue: typeof value = { ...value };
   function handleChange() {
     if (oldValue?.x === value.x && oldValue.y === value.y && oldValue.z === value.z) return;
     oldValue = { ...value };

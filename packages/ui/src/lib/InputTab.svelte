@@ -2,12 +2,12 @@
 
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher<{ change: string }>();
+  const dispatch = createEventDispatcher<{ change: typeof values[number] }>();
 
   export let value = '';
   export let values: string[] = [];
 
-  $: value && dispatch('change', value);
+  $: value && dispatch('change', value as typeof values[number]);
 
   function setSelected(v: string) {
     value = v;

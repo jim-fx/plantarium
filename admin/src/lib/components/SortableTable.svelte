@@ -3,6 +3,7 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { getId } from '$lib/helpers/getId';
+  import { InputCheckbox } from '@plantarium/ui';
 
   export let items: unknown[] = [];
 
@@ -76,7 +77,9 @@
           {:else}
             {#each _keys as key}
               <td>
-                {#if ['number', 'boolean', 'string'].includes(typeof item[key])}
+                {#if typeof item[key] === 'boolean'}
+                  <InputCheckbox value={item[key]} disabled />
+                {:else if ['number', 'boolean', 'string'].includes(typeof item[key])}
                   {#if item[key].toString().length > 100}
                     {item[key].toString().slice(0, 50)}
                   {:else}

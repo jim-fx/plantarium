@@ -4,6 +4,7 @@
   import { page } from '$app/stores';
   const { reportId } = $page.params;
   import { userStore } from '@plantarium/client-api';
+  import JsonView from '@plantarium/ui/src/lib/JSONView.svelte';
 
   const { VITE_API_URL = 'http://localhost:3000' } = import.meta.env;
 
@@ -38,6 +39,8 @@
   <hr class="my-2" />
 
   <footer class="flex items-center justify-between mb-10">
+    <JsonView value={user} />
+
     {#if $userStore?.permissions?.includes('user.delete')}
       <button class="bg-red-600 rounded-md text-white px-2 py-1 self-start"
         >delete</button

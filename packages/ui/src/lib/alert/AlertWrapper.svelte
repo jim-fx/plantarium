@@ -66,7 +66,7 @@
                 --bg={'#303030'}
                 --text={'white'}
                 --margin="0 10px 0 0"
-                on:click={() => alert.resolve(value)}
+                on:click={() => alert.resolve?.(value)}
                 name={value}
               />
             {/each}
@@ -117,6 +117,7 @@
     padding: var(--padding, 25px);
 
     border-radius: 30px;
+    outline: solid thin var(--outline-color);
 
     backdrop-filter: blur(10px) contrast(0.5) brightness(1.5);
     overflow-y: auto;

@@ -1,9 +1,8 @@
 <script lang="ts">
-  import { Detail } from '$lib/components';
   import { onMount } from 'svelte';
   import type { PageData } from './$types';
   import api, { permissions } from '@plantarium/client-api';
-  import { createAlert } from '@plantarium/ui';
+  import { createAlert, JSONView } from '@plantarium/ui';
   const { VITE_API_URL } = import.meta.env;
 
   export let data: PageData;
@@ -57,7 +56,7 @@
   <hr class="my-2" />
 
   <footer class="flex items-center justify-between mb-10">
-    <Detail object={project} />
+    <JSONView value={project} />
 
     {#if $permissions.includes('project.delete')}
       <button

@@ -12,8 +12,9 @@ export enum ProjectType {
 @Entity()
 export class Project extends BaseEntity {
 
-  @ManyToOne()
+  @ManyToOne({ serializer: u => u["_id"] })
   public author: User;
+
   @Property()
   public public = true;
 

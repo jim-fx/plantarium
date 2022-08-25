@@ -641,6 +641,7 @@ importers:
       svelte: ^3.49.0
       svelte-check: 2.8.1
       svelte-highlight: 6.2.1
+      svelte-json-tree: ^1.0.0
       svelte-preprocess: 4.10.7
       tslib: 2.4.0
       typescript: 4.7.4
@@ -655,6 +656,7 @@ importers:
       nanoid: 4.0.0
       ogl-typescript: 0.1.40
       stacktrace-parser: 0.1.10
+      svelte-json-tree: 1.0.0
     devDependencies:
       '@plantarium/helpers': link:../helpers
       '@plantarium/theme': link:../theme
@@ -9767,6 +9769,10 @@ packages:
     dependencies:
       svelte: 3.49.0
     dev: true
+
+  /svelte-json-tree/1.0.0:
+    resolution: {integrity: sha512-scs1OdkC8uFpTN4MX0yKkOzZ1/EG3eP1ARC+xcFthXp2IfcwBaXgab0FqA4Am0vQwffNNB+1Gd1LFkJBlynWTA==}
+    dev: false
 
   /svelte-multiselect/5.0.6:
     resolution: {integrity: sha512-buF8Fokw6RSmNIDyVr5TL3NN+aMyjengcXvswWjOtKmJQf7tvQOlrQ4g42H47kNWfBW532QR5Igug2sZ4I9r0A==}

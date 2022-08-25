@@ -5,10 +5,10 @@
   $: reportLabels = data?.reportLabels;
 
   import { page } from '$app/stores';
-  import { Detail, Select } from '$lib/components';
+  import { Select } from '$lib/components';
   import { onMount } from 'svelte';
   const { reportId } = $page.params;
-  import { createAlert, LogViewer, StackTrace } from '@plantarium/ui';
+  import { createAlert, LogViewer, StackTrace, JSONView } from '@plantarium/ui';
   import api, { userStore } from '@plantarium/client-api';
 
   const {
@@ -146,7 +146,7 @@
   <hr class="my-2" />
 
   <footer class="flex items-center justify-between mb-10">
-    <Detail object={report} />
+    <JSONView value={report} />
 
     {#if $userStore?.permissions?.includes('report.delete')}
       <button

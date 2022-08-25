@@ -29,7 +29,7 @@
 		return transferToGeometry(renderer.gl, result.geometry);
 	}
 
-	onMount(async () => {
+	onMount(() => {
 		const dim = Math.max(window.innerWidth, window.innerHeight);
 		canvas.width = dim;
 		canvas.height = dim;
@@ -43,9 +43,10 @@
 
 		mesh.setParent(renderer.scene);
 
-		mesh.geometry = await generatePlant(project);
-
-		loaded = true;
+		setTimeout(async () => {
+			mesh.geometry = await generatePlant(project);
+			loaded = true;
+		}, 500);
 	});
 </script>
 
@@ -75,8 +76,14 @@
 		z-index: -1;
 	}
 
+	img {
+		opacity: 1;
+		transition: opacity 1s ease;
+		pointer-events: none;
+	}
 	.loaded > img {
-		display: none;
+		position: absolute;
+		opacity: 0;
 	}
 
 	span {

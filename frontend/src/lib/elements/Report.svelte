@@ -153,6 +153,7 @@
 			</div>
 		</section>
 	{/if}
+	<br />
 	<Button name="Submit" on:click={submit} />
 {/if}
 

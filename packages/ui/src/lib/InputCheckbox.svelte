@@ -8,12 +8,14 @@
   export let value = false;
   export let label: string | undefined = undefined;
 
+  export let disabled = false;
+
   export let id = nanoid();
 
   $: value !== undefined && dispatch('change', !!value);
 </script>
 
-<div class="component-wrapper">
+<div class="component-wrapper" class:disabled>
   <!-- <span class="tooltip-text">Enables syncing of projects to the cloud</span> -->
   <input type="checkbox" bind:checked={value} {id} />
   <!-- svelte-ignore a11y-label-has-associated-control -->
@@ -31,6 +33,11 @@
 
 <style lang="scss">
   @import './global.scss';
+
+  .component-wrapper.disabled {
+    pointer-events: none;
+    opacity: 0.8;
+  }
 
   input[type='checkbox'] {
     opacity: 0;

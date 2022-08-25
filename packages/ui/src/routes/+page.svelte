@@ -19,8 +19,24 @@
     AlertWrapper,
     InputTab,
     Form,
-    InputEditable
+    InputEditable,
+    JSONView
   } from '$lib';
+
+  const ProjectDef = {
+    array: [1, 2, 3],
+    bool: true,
+    object: {
+      foo: 'bar'
+    },
+    symbol: Symbol('foo'),
+    nested: [
+      {
+        a: [1, '2', null, undefined]
+      }
+    ]
+  };
+
   import { Highlight } from 'svelte-highlight';
   import atomOneDark from 'svelte-highlight/styles/atom-one-dark';
   import { setTheme, ThemeProvider } from '@plantarium/theme';
@@ -178,6 +194,11 @@
     <p>
       Value: {editableValue}
     </p>
+  </section>
+
+  <section>
+    <h3>JSONView</h3>
+    <JSONView value={ProjectDef} />
   </section>
 
   <section>

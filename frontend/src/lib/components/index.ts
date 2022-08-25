@@ -52,13 +52,13 @@ projectManager.on('load', (project) => nodeSystem.load(project), 100);
 nodeSystem.on(
   'result',
   () => {
-    projectManager.updateProject(nodeSystem.serialize());
+    projectManager.updateProject(nodeSystem.id as string, nodeSystem.serialize());
   },
   50
 );
 
 nodeSystem.on('save', (project: Project) => {
-  projectManager.updateProject(project);
+  projectManager.updateProject(nodeSystem.id as string, project);
 });
 
 settingsManager.on(

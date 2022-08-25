@@ -4,7 +4,7 @@
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher<{ change: string }>();
 
-  export let value = '';
+  export let value: string | null = null;
   let open = false;
 
   $: value && dispatch('change', value);
@@ -30,7 +30,7 @@
   export let values: string[] = [];
   export function setItems(_items: string[]) {
     values = _items;
-    if (!values.includes(value)) {
+    if (!value || !values.includes(value)) {
       value = values[0];
     }
   }

@@ -50,16 +50,15 @@ export class ProjectsService {
 
   async findOne(id: string) {
     const project = await this.repository.findOne({ _id: id }, { populate: ["likes"] });
-    console.log("Likes", { l: project.likes })
     return project;
   }
 
-  async like(id: string, userId: string) {
+  async setLike(id: string, userId: string, like: boolean) {
 
     const project = await this.repository.findOne({ _id: id });
 
     if (!project) {
-      throw new NotFoundException()
+      throw new NotFoundException("Proejct not found")
     }
 
     await project.likes.init()
@@ -67,37 +66,21 @@ export class ProjectsService {
     const user = await this.userService.findById(userId);
 
     if (!user) {
-      throw new NotFoundException()
+      throw new NotFoundException("User not found")
     }
 
-    project.addLike(user);
+    if (like) {
+
+      project.addLike(user);
+    } else {
+      project.removeLike(user);
+    }
 
     await this.repository.persistAndFlush(project);
 
     return project;
   }
 
-  async removeLike(id: string, userId: string) {
-
-    const project = await this.repository.findOne({ _id: id });
-
-    if (!project) {
-      throw new NotFoundException()
-    }
-    const user = await this.userService.findOne(userId);
-
-    if (!user) {
-      throw new NotFoundException()
-    }
-
-    await project.likes.init()
-
-    project.removeLike(user);
-
-    await this.repository.persistAndFlush(project);
-
-    return project;
-  }
 
   async update(id: string, updateProjectDto: UpdateProjectDto) {
 

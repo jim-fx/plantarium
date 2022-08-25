@@ -9,7 +9,19 @@ interface SendOptions {
   mode?: RequestMode;
 }
 
-type Response<T = unknown> = { ok: false, statusCode: number, message: string } | { ok: true, data: T, statusCode: number };
+export type ErrorResponse = {
+  ok: false,
+  statusCode: number;
+  message: string;
+}
+
+export type SuccessResponse<T = unknown> = {
+  ok: true,
+  statusCode: number;
+  data: T
+}
+
+export type Response<T = unknown> = ErrorResponse | SuccessResponse<T>;
 
 export async function send<T>({ method = "GET", path, data, isJSON = true, mode }: SendOptions): Promise<Response<T>> {
   const opts: { method: string; headers: Record<string, string>; body?: string, mode?: RequestMode } = {
@@ -35,7 +47,6 @@ export async function send<T>({ method = "GET", path, data, isJSON = true, mode 
 
   try {
 
-
     const response = await fetch(url, opts);
 
     if (response.ok) {
@@ -44,13 +55,13 @@ export async function send<T>({ method = "GET", path, data, isJSON = true, mode 
           const json = await response.json();
           return {
             ok: true,
+            statusCode: response.status,
             data: json,
-            statusCode: response.status
           };
         } catch (err) {
           return {
-            statusCode: 400,
             ok: false,
+            statusCode: 400,
             message: "Response from " + path + " failed to parse",
           };
         }
@@ -59,15 +70,15 @@ export async function send<T>({ method = "GET", path, data, isJSON = true, mode 
       if (response.headers.get("Content-Type")?.startsWith("application/json")) {
         const res = await response.json()
         return {
-          statusCode: response.status,
           ok: false,
+          statusCode: response.status,
           message: res.message,
         };
       } else {
         const res = await response.text()
         return {
-          statusCode: response.status,
           ok: false,
+          statusCode: response.status,
           message: res
         }
       }
@@ -76,9 +87,9 @@ export async function send<T>({ method = "GET", path, data, isJSON = true, mode 
 
   } catch (error) {
     return {
-      message: "Fetch failed",
       ok: false,
-      statusCode: 400
+      statusCode: 400,
+      message: "Fetch failed"
     }
   }
 

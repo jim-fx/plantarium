@@ -15,10 +15,17 @@
 		setActiveProject,
 		setProjectName
 	} from './common';
+	import { onMount } from 'svelte';
 
 	$: isRemote = $state === 'remote';
 
+	$: isOwnProject = $isLoggedIn && project?.public && $userStore['_id'] === project.author;
+
 	export let project: Project;
+
+	onMount(() => {
+		console.log({ project, user: $userStore });
+	});
 </script>
 
 <Button
@@ -83,13 +90,26 @@
 		{#if isRemote}
 			<Button name="open" icon="link" on:click={() => openProject(project.id)} />
 			<Button name="download" icon="import" on:click={() => downloadProject(project.id)} />
+
+			{#if isOwnProject}
+				<p>This is yoours</p>
+			{/if}
 		{:else}
-			<Button
-				name="publish"
-				--opacity={$isLoggedIn ? 1 : 0.2}
-				icon="export"
-				on:click={() => publishProject(project.id)}
-			/>
+			{#if isOwnProject}
+				<Button
+					name="published"
+					--opacity={$isLoggedIn ? 1 : 0.2}
+					icon="checkmark"
+					on:click={() => publishProject(project.id)}
+				/>
+			{:else}
+				<Button
+					name="publish"
+					--opacity={$isLoggedIn ? 1 : 0.2}
+					icon="export"
+					on:click={() => publishProject(project.id)}
+				/>
+			{/if}
 			<Button
 				name="export"
 				icon="export"

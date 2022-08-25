@@ -23,10 +23,12 @@ import InputTab from './InputTab.svelte';
 import InputText from './InputText.svelte';
 import InputVec2 from './InputVec2.svelte';
 import InputVec3 from './InputVec3.svelte';
+import JSONView from './JSONView.svelte';
 import LikeButton from './LikeButton.svelte';
 import Section from './Section.svelte';
 import StackTrace from './toast/StackTrace.svelte';
 import type { ValueTemplate } from './types';
+;
 export { default as Form } from './Form.svelte';
 export { default as Gallery } from './Gallery.svelte';
 export { default as GalleryItem } from './GalleryItem.svelte';
@@ -47,6 +49,7 @@ export {
   InputInteger,
   InputText,
   InputSlider,
+  JSONView,
   ButtonGroup,
   LikeButton,
   InputVec2,
