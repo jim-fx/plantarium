@@ -394,7 +394,7 @@ importers:
       '@codemirror/language': 6.2.1
       '@codemirror/state': 6.1.1
       '@codemirror/theme-one-dark': ^6.0.0
-      '@codemirror/view': 6.2.0
+      '@codemirror/view': 6.2.1
       '@plantarium/helpers': workspace:*
       '@plantarium/types': link:../types
       '@sveltejs/adapter-static': 1.0.0-next.39
@@ -432,7 +432,7 @@ importers:
       '@codemirror/commands': 6.1.0
       '@codemirror/language': 6.2.1
       '@codemirror/state': 6.1.1
-      '@codemirror/view': 6.2.0
+      '@codemirror/view': 6.2.1
       '@plantarium/types': link:../types
       '@sveltejs/adapter-static': 1.0.0-next.39
       '@sveltejs/kit': 1.0.0-next.429_svelte@3.49.0+vite@3.0.9
@@ -1087,7 +1087,7 @@ packages:
     resolution: {integrity: sha512-B1/plF62pt+H2IJHvApK8fdOJAVsvojvacuac8x8s+JIyqbropMyqNqHTKLm3YD8ZFLGwYeFTudU+PQ7vGvBdA==}
     dev: true
 
-  /@codemirror/autocomplete/6.1.0_nq4pwfkqi5icglf26kczcr4s2i:
+  /@codemirror/autocomplete/6.1.0_b7ru7qlm4kpxzc5cyozgmh4nta:
     resolution: {integrity: sha512-wtO4O5WDyXhhCd4q4utDIDZxnQfmJ++3dGBCG9LMtI79+92OcA1DVk/n7BEupKmjIr8AzvptDz7YQ9ud6OkU+A==}
     peerDependencies:
       '@codemirror/language': ^6.0.0
@@ -1097,7 +1097,7 @@ packages:
     dependencies:
       '@codemirror/language': 6.2.1
       '@codemirror/state': 6.1.1
-      '@codemirror/view': 6.2.0
+      '@codemirror/view': 6.2.1
       '@lezer/common': 1.0.0
 
   /@codemirror/commands/6.1.0:
@@ -1105,18 +1105,18 @@ packages:
     dependencies:
       '@codemirror/language': 6.2.1
       '@codemirror/state': 6.1.1
-      '@codemirror/view': 6.2.0
+      '@codemirror/view': 6.2.1
       '@lezer/common': 1.0.0
     dev: true
 
   /@codemirror/lang-javascript/6.0.2:
     resolution: {integrity: sha512-BZRJ9u/zl16hLkSpDAWm73mrfIR7HJrr0lvnhoSOCQVea5BglguWI/slxexhvUb0CB5cXgKWuo2bM+N9EhIaZw==}
     dependencies:
-      '@codemirror/autocomplete': 6.1.0_nq4pwfkqi5icglf26kczcr4s2i
+      '@codemirror/autocomplete': 6.1.0_b7ru7qlm4kpxzc5cyozgmh4nta
       '@codemirror/language': 6.2.1
       '@codemirror/lint': 6.0.0
       '@codemirror/state': 6.1.1
-      '@codemirror/view': 6.2.0
+      '@codemirror/view': 6.2.1
       '@lezer/common': 1.0.0
       '@lezer/javascript': 1.0.2
     dev: false
@@ -1125,7 +1125,7 @@ packages:
     resolution: {integrity: sha512-MC3svxuvIj0MRpFlGHxLS6vPyIdbTr2KKPEW46kCoCXw2ktb4NTkpkPBI/lSP/FoNXLCBJ0mrnUi1OoZxtpW1Q==}
     dependencies:
       '@codemirror/state': 6.1.1
-      '@codemirror/view': 6.2.0
+      '@codemirror/view': 6.2.1
       '@lezer/common': 1.0.0
       '@lezer/highlight': 1.0.0
       '@lezer/lr': 1.2.3
@@ -1135,14 +1135,14 @@ packages:
     resolution: {integrity: sha512-nUUXcJW1Xp54kNs+a1ToPLK8MadO0rMTnJB8Zk4Z8gBdrN0kqV7uvUraU/T2yqg+grDNR38Vmy/MrhQN/RgwiA==}
     dependencies:
       '@codemirror/state': 6.1.1
-      '@codemirror/view': 6.2.0
+      '@codemirror/view': 6.2.1
       crelt: 1.0.5
 
   /@codemirror/search/6.1.0:
     resolution: {integrity: sha512-ye6m0jFHSgQ4qnfWVwArvm7XrCMNppMYnL5f4M0WdBScslnckomf5eVacYCw8P0UBWeq72lCSXA0/eo1piZxLA==}
     dependencies:
       '@codemirror/state': 6.1.1
-      '@codemirror/view': 6.2.0
+      '@codemirror/view': 6.2.1
       crelt: 1.0.5
     dev: true
 
@@ -1154,12 +1154,12 @@ packages:
     dependencies:
       '@codemirror/language': 6.2.1
       '@codemirror/state': 6.1.1
-      '@codemirror/view': 6.2.0
+      '@codemirror/view': 6.2.1
       '@lezer/highlight': 1.0.0
     dev: false
 
-  /@codemirror/view/6.2.0:
-    resolution: {integrity: sha512-3emW1symh+GoteFMBPsltjmF790U/trouLILATh3JodbF/z98HvcQh2g3+H6dfNIHx16uNonsAF4mNzVr1TJNA==}
+  /@codemirror/view/6.2.1:
+    resolution: {integrity: sha512-r1svbtAj2Lp/86F3yy1TfDAOAtJRGLINLSEqByETyUaGo1EnLS+P+bbGCVHV62z46BzZYm16noDid69+4bzn0g==}
     dependencies:
       '@codemirror/state': 6.1.1
       style-mod: 4.0.0
@@ -2756,7 +2756,7 @@ packages:
       svelte: 3.49.0
       tiny-glob: 0.2.9
       undici: 5.9.1
-      vite: 3.0.9_sass@1.54.5
+      vite: 3.0.9
     transitivePeerDependencies:
       - diff-match-patch
       - supports-color
@@ -2780,7 +2780,7 @@ packages:
       magic-string: 0.26.2
       svelte: 3.49.0
       svelte-hmr: 0.14.12_svelte@3.49.0
-      vite: 3.0.9_sass@1.54.5
+      vite: 3.0.9
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4333,13 +4333,13 @@ packages:
   /codemirror/6.0.1_@lezer+common@1.0.0:
     resolution: {integrity: sha512-J8j+nZ+CdWmIeFIGXEFbFPtpiYacFMDR8GlHK3IyHQJMCaVRfGx9NT+Hxivv1ckLWPvNdZqndbr/7lVhrf/Svg==}
     dependencies:
-      '@codemirror/autocomplete': 6.1.0_nq4pwfkqi5icglf26kczcr4s2i
+      '@codemirror/autocomplete': 6.1.0_b7ru7qlm4kpxzc5cyozgmh4nta
       '@codemirror/commands': 6.1.0
       '@codemirror/language': 6.2.1
       '@codemirror/lint': 6.0.0
       '@codemirror/search': 6.1.0
       '@codemirror/state': 6.1.1
-      '@codemirror/view': 6.2.0
+      '@codemirror/view': 6.2.1
     transitivePeerDependencies:
       - '@lezer/common'
     dev: true
