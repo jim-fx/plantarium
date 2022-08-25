@@ -28,26 +28,30 @@ const COLORS = [
 ];
 
 export default class ColorStore extends EventEmitter {
-  colors: { [type: string]: string } = {
-  };
+  colors: { [type: string]: string } = {};
   index = 0;
   constructor(view: NodeSystemView) {
-
     super();
     this.updateTypes(view.system.store.types);
-    view.system.store.on("types", (nodeTypes: NodeType[]) => this.updateTypes(nodeTypes))
+    view.system.store.on('types', (nodeTypes: NodeType[]) =>
+      this.updateTypes(nodeTypes),
+    );
   }
 
   private updateTypes(nodeTypes: NodeType[]) {
-    nodeTypes.forEach(t => {
-      t?.inputs?.forEach(s => Array.isArray(s) ? s.forEach(_s => this.setType(_s)) : this.setType(s))
-      t?.outputs?.forEach(s => this.setType(s))
-    })
+    nodeTypes.forEach((t) => {
+      t?.inputs?.forEach((s) =>
+        Array.isArray(s)
+          ? s.forEach((_s) => this.setType(_s))
+          : this.setType(s),
+      );
+      t?.outputs?.forEach((s) => this.setType(s));
+    });
   }
 
   setColors(colors: Record<string, string>) {
     for (const k in colors) {
-      this.colors[k] = colors[k]
+      this.colors[k] = colors[k];
     }
   }
 
@@ -58,11 +62,11 @@ export default class ColorStore extends EventEmitter {
       this.index++;
     }
     this.emit(socketType, this.colors[socketType]);
-    this.emit("colors", Object.entries(this.colors))
+    this.emit('colors', Object.entries(this.colors));
   }
 
   get(socketType: string) {
-    return this.colors[socketType]
+    return this.colors[socketType];
   }
 
   onType(socketType: string, cb: (color: string) => unknown) {

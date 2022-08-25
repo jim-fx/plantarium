@@ -1,5 +1,5 @@
-import { type Remote, wrap } from "comlink"
-import { PlantProject } from "@plantarium/types";
+import { Project } from "@plantarium/types";
+import { wrap, type Remote } from "comlink";
 const { DEV } = import.meta.env;
 
 type workerType = typeof import("./worker");
@@ -42,7 +42,7 @@ function createProxy(w: () => Promise<workerType["default"]>) {
   let res: ReturnType<workerType["executeNodeSystem"]>;
 
   return {
-    async executeNodeSystem(p: PlantProject, s: unknown) {
+    async executeNodeSystem(p: Project, s: unknown) {
       if (res) return res;
       const worker = await w();
       res = worker.executeNodeSystem(p, s)
@@ -50,7 +50,7 @@ function createProxy(w: () => Promise<workerType["default"]>) {
       res = undefined;
       return result
     },
-    async exportToObject(p: PlantProject, s: unknown) {
+    async exportToObject(p: Project, s: unknown) {
       const worker = await w();
       return worker.exportToObject(p, s)
     }

@@ -6,7 +6,7 @@
   const dispatch = createEventDispatcher();
 
   export let value = false;
-  export let label: string = undefined;
+  export let label: string | undefined = undefined;
 
   export let id = nanoid();
 

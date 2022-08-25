@@ -20,16 +20,5 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "paths": {
-      "auth/*": [
-        "auth/*"
-      ],
-      "user/*": [
-        "user/*"
-      ],
-      "report/*": [
-        "report/*"
-      ]
-    }
-  }
+  },
 }

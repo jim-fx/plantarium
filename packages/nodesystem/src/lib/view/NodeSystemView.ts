@@ -15,18 +15,18 @@ import ColorStore from './socketColorStore';
 import SocketLegendView from './SocketLegendView';
 
 type EventMap = {
-  "transform": { x: number, y: number, s: number }
-  "resize": { width: number, height: number, },
-  "mousemove": CustomMouseEvent,
-  "mouseup": CustomMouseEvent,
-  "mousedown": CustomMouseEvent,
-  "keydown": {
-    key: string,
-    keys: Record<string, boolean>
-  }
-}
+  transform: { x: number; y: number; s: number };
+  resize: { width: number; height: number };
+  mousemove: CustomMouseEvent;
+  mouseup: CustomMouseEvent;
+  mousedown: CustomMouseEvent;
+  keydown: {
+    key: string;
+    keys: Record<string, boolean>;
+  };
+};
 
-type NodeSystemState = "normal" | "help" | "floating" | "loading";
+type NodeSystemState = 'normal' | 'help' | 'floating' | 'loading';
 
 export default class NodeSystemView extends EventEmitter<EventMap> {
   wrapper: HTMLElement;
@@ -84,7 +84,7 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
   constructor(public system: NodeSystem) {
     super();
 
-    this.colorStore = new ColorStore(this)
+    this.colorStore = new ColorStore(this);
 
     this.wrapper = system.options?.wrapper ?? document.createElement('div');
     this.wrapper.classList.add('nodesystem-wrapper');
@@ -92,27 +92,25 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
       system.options.parent.appendChild(this.wrapper);
     }
 
-
     this.transformWrapper = document.createElement('div');
     this.transformWrapper.classList.add('nodesystem-transform');
     this.wrapper.appendChild(this.transformWrapper);
 
-    this.errorWrapper = document.createElement("div")
-    this.errorWrapper.classList.add("nodesystem-errors");
-    this.wrapper.appendChild(this.errorWrapper)
+    this.errorWrapper = document.createElement('div');
+    this.errorWrapper.classList.add('nodesystem-errors');
+    this.wrapper.appendChild(this.errorWrapper);
 
     this.nodeContainer = document.createElement('div');
     this.nodeContainer.classList.add('nodes-container');
     this.transformWrapper.append(this.nodeContainer);
 
     if (!system.options?.hideLegend) {
-      new SocketLegendView(this)
+      new SocketLegendView(this);
     }
 
     if (system.options?.enableDrawing) {
       new NodeDrawingView(this);
     }
-
 
     this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     this.svg.setAttribute('viewBox', '0 0 1 1');
@@ -136,48 +134,52 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
 
     visible(() => {
       setTimeout(() => {
-        this.handleResize()
-        this.system.nodes.forEach(n => {
-          n.view.updateViewPosition()
-        })
-      }, 10)
-    })
+        this.handleResize();
+        this.system.nodes.forEach((n) => {
+          n.view.updateViewPosition();
+        });
+      }, 10);
+    });
   }
 
-  showErrorMessages(_errors?: string[] | string | { err: string, id: string }[]) {
+  showErrorMessages(
+    _errors?: string[] | string | { err: string; id: string }[],
+  ) {
     if (!_errors) {
-      this.errorWrapper.innerHTML = ""
+      this.errorWrapper.innerHTML = '';
       return;
     }
     const errors = Array.isArray(_errors) ? _errors : [_errors];
 
-    this.errorWrapper.innerHTML = errors.map(err => {
-      if (typeof err === "string") {
-        return `<p>${err}</p>`;
-      } else {
-        const node = this.system.findNodeById(err.id);
-        if (node) {
-          node?.view.showErrors(err.err);
-          return `<p>${err.err} in ${node.attributes.name || node.attributes.type}</p>`
+    this.errorWrapper.innerHTML = errors
+      .map((err: string | { id: string; err: string | string[] }) => {
+        if (typeof err === 'string') {
+          return `<p>${err}</p>`;
+        } else {
+          const node = this.system.findNodeById(err.id);
+          if (node) {
+            node?.view.showErrors(err.err);
+            return `<p>${err.err} in ${
+              node.attributes.name || node.attributes.type
+            }</p>`;
+          }
         }
-      }
-    }).join("");
+      })
+      .join('');
   }
 
   createFloatingConnection(socket: NodeInput | NodeOutput) {
-    socket.view.updatePosition()
+    socket.view.updatePosition();
     const floatingConnection = new FloatingConnectionView(socket, {
       x: this.mx,
       y: this.my,
     });
     return new Promise<void>((res) => {
-      floatingConnection.once("remove", res)
-      floatingConnection.once('connection', ({
-        input,
-        output,
-      }) => input.node.connectTo(output));
-
-    })
+      floatingConnection.once('remove', res);
+      floatingConnection.once('connection', ({ input, output }) =>
+        input.node.connectTo(output),
+      );
+    });
   }
 
   showNodeLabel(nodeId: string, label: string) {
@@ -188,7 +190,7 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
   }
 
   clearNodeLabel() {
-    this.system.nodes.forEach(n => n.view.showErrors())
+    this.system.nodes.forEach((n) => n.view.showErrors());
   }
 
   setActive(n?: Node | undefined, { shiftKey = false, ctrlKey = false } = {}) {
@@ -209,8 +211,7 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
       this.activeNode.view.state = 'active';
 
       if (this.activeNode.outputs.length) {
-
-        if ("debug" in this.system.store.typeMap) {
+        if ('debug' in this.system.store.typeMap) {
           const debugNode = this.system.createNode({
             state: {},
             attributes: {
@@ -229,7 +230,7 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
 
           this.activeNode.connectTo(debugNode);
         } else if (this.system.outputNode) {
-          this.activeNode.connectTo(this.system.outputNode.getInputs()[0])
+          this.activeNode.connectTo(this.system.outputNode.getInputs()[0]);
         }
       }
     } else if (shiftKey) {
@@ -244,6 +245,7 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
       }
     } else {
       if (this.activeNode) {
+        if (this.activeNode === n) return;
         this.selectedNodes.forEach((s) => (s.view.state = 'normal'));
         this.selectedNodes = [];
         if (this.activeNode !== n) {
@@ -300,12 +302,12 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
     this.panzoom.setTransform(x, y, s);
   }
 
-  setState(s: NodeSystemState = "normal") {
-    this.wrapper.classList.forEach(k => {
-      if (k.startsWith("nodesystem-state-")) this.wrapper.classList.remove(k)
-    })
+  setState(s: NodeSystemState = 'normal') {
+    this.wrapper.classList.forEach((k) => {
+      if (k.startsWith('nodesystem-state-')) this.wrapper.classList.remove(k);
+    });
     this.state = s;
-    this.wrapper.classList.add("nodesystem-state-" + s);
+    this.wrapper.classList.add('nodesystem-state-' + s);
   }
 
   private showAddMenu() {
@@ -362,7 +364,7 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
         this.wrapper.style.setProperty('--pos-x', `${x}px`);
         this.wrapper.style.setProperty('--pos-y', `${y}px`);
         this.system.setMetaData({ transform: { x, y, s } });
-        this.emit("transform", { x, y, s })
+        this.emit('transform', { x, y, s });
       },
     });
   }
@@ -457,7 +459,6 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
   }
 
   handleKeyDown({ key, ctrlKey, shiftKey }: KeyboardEvent) {
-
     key = key === ' ' ? 'space' : key.toLowerCase();
     this.keyMap[key && key.toLowerCase()] = true;
     if (key === 'space') {
@@ -466,10 +467,10 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
     switch (key) {
       case 'escape':
         this.addMenu.hide();
-        this.setState("normal");
+        this.setState('normal');
         break;
-      case "?":
-        this.setState("help")
+      case '?':
+        this.setState('help');
         break;
       case 'a':
         if (shiftKey) {
@@ -478,7 +479,7 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
         break;
       case 'c':
         if (shiftKey && ctrlKey) {
-          if (window.confirm("Clear Storage?")) {
+          if (window.confirm('Clear Storage?')) {
             localStorage.clear();
             window.location.reload();
           }
@@ -486,11 +487,13 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
           const s = this.selectedNodes.splice(0);
           if (this.activeNode && !s.includes(this.activeNode))
             s.push(this.activeNode);
-          this.clipboard = s.map((n) => n.deserialize()).map(n => {
-            n.attributes.pos.x -= this.mx;
-            n.attributes.pos.y -= this.my;
-            return n
-          });
+          this.clipboard = s
+            .map((n) => n.deserialize())
+            .map((n) => {
+              n.attributes.pos.x -= this.mx;
+              n.attributes.pos.y -= this.my;
+              return n;
+            });
         } else if (this.selectedNodes.length && this.activeNode) {
           this.selectedNodes[0].connectTo(this.activeNode);
         }
@@ -546,8 +549,6 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
       // v
       case 'v':
         if (ctrlKey) {
-
-
           this.clipboard
             .map((node) => {
               const { pos: { x = 0, y = 0 } = {} } = node.attributes;

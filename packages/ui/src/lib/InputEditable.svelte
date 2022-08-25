@@ -4,7 +4,7 @@
   import Button from './Button.svelte';
   import ButtonGroup from './ButtonGroup.svelte';
 
-  export let value: string;
+  export let value: string | null;
   let initialValue = value;
   let el: HTMLHeadingElement;
 
@@ -38,7 +38,6 @@
     dispatch('submit', value);
     el.contentEditable = 'false'; // No longer editable
     el.blur(); // Remove selection box on Firefox
-    console.log({ value });
   }
 
   function clear() {
@@ -46,7 +45,6 @@
     el.contentEditable = 'false';
     el.blur();
     el.textContent = initialValue;
-    console.log({ value });
   }
 
   function enableEdit() {
@@ -62,14 +60,12 @@
       <Button
         icon="cross"
         on:mousedown={() => {
-          console.log('Clllleaear');
           clear();
         }}
       />
       <Button
         icon="checkmark"
         on:mousedown={() => {
-          console.log('Submit');
           submit();
         }}
       />

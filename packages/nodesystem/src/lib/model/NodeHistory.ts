@@ -1,6 +1,6 @@
 import { logger } from '@plantarium/helpers/src';
+import { DiffPatcher } from 'jsondiffpatch/dist/jsondiffpatch.umd.js';
 import type { HistoryData, NodeProps } from '../types';
-import { DiffPatcher } from "jsondiffpatch/dist/jsondiffpatch.umd.js"
 import type NodeSystem from './NodeSystem';
 
 const log = logger('NodeHistory');
@@ -15,20 +15,18 @@ export default class NodeHistory {
 
   patcher = new DiffPatcher({ nested: true });
 
-  private _timeout: ReturnType<typeof setTimeout>
+  private _timeout: ReturnType<typeof setTimeout>;
 
   constructor(private system: NodeSystem) {
     log(`Initialized`);
   }
 
-
   clear() {
-    this.history = []
+    this.history = [];
     this.historyIndex = -1;
   }
 
   addAction() {
-
     if (!this.system.isLoaded) return;
     if (this.isApplyingChanges) return;
 
@@ -95,17 +93,18 @@ export default class NodeHistory {
     this.isApplyingChanges = false;
   }
 
-  applyDelta(delta: any) {
-
+  applyDelta(delta: {
+    previous: Partial<NodeProps>;
+    next: Partial<NodeProps>;
+  }) {
     if (!delta) return;
 
     // Load current state
-    const { nodes: currentNodes } = this.system.serialize()
+    const { nodes: currentNodes } = this.system.serialize();
 
     const newState = this.patcher.patch(currentNodes, delta);
 
     this.system.applyNodeState(newState);
-
   }
 
   redo() {
@@ -126,7 +125,7 @@ export default class NodeHistory {
       this.historyIndex++;
       this.isApplyingChanges = false;
     } catch (err) {
-      console.log(err)
+      log(err);
     }
   }
 }

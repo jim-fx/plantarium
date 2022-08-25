@@ -160,7 +160,6 @@ const grid = new Array(gridSize)
     }),
   );
 
-
 stressTest.nodes.push(...grid.flat().flat(), {
   attributes: {
     id: (gridSize * gridSize + 1).toString(),
@@ -185,15 +184,14 @@ stressTest.nodes[stressTest.nodes.length - 2].attributes.refs = [
 ];
 
 export const tutorial = {
-  "meta": {
-    "lastSaved": 1652709738865
+  meta: {
+    lastSaved: 1652709738865,
   },
-  "nodes": [],
-  "history": {
-    "steps": [],
-    "index": -1
-  }
-}
-
+  nodes: [],
+  history: {
+    steps: [],
+    index: -1,
+  },
+};
 
 export { dev, stressTest };

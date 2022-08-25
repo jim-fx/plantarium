@@ -74,7 +74,7 @@ const history = hasLocalStorage
   : [];
 
 if (hasLocalStorage) {
-  level = parseInt(localStorage.getItem('pt-log-level')) || 2;
+  level = parseInt(localStorage.getItem('pt-log-level') || "2") || 2;
 }
 
 function saveHistory() {

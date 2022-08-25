@@ -22,11 +22,12 @@
   "devDependencies": {
     "@plantarium/helpers": "workspace:*",
     "@plantarium/theme": "workspace:*",
+    "@plantarium/types": "workspace:*",
     "@sveltejs/adapter-static": "1.0.0-next.39",
     "@sveltejs/kit": "1.0.0-next.429",
     "@sveltejs/vite-plugin-svelte": "^1.0.2",
     "@testing-library/svelte": "^3.2.1",
-    "@typescript-eslint/eslint-plugin": "5.34.0",
+    "@typescript-eslint/eslint-plugin": "5.33.0",
     "@typescript-eslint/parser": "5.34.0",
     "@vitest/ui": "^0.22.1",
     "@yr/monotone-cubic-spline": "1.0.3",
@@ -55,6 +56,7 @@
     "testRegex": "./tests/.*.ts$"
   },
   "dependencies": {
+    "@plantarium/ui": "link:",
     "ajv": "^8.11.0",
     "ajv-formats": "^2.1.1",
     "css-vars-from-json": "^1.1.0",

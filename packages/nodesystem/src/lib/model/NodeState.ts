@@ -26,7 +26,6 @@ export default class NodeState extends EventEmitter {
     if (!this.template.internal) {
       this.input = new NodeInput(this, template.type, key);
     }
-
   }
 
   setIsExternal(isExternal = false) {
@@ -39,24 +38,22 @@ export default class NodeState extends EventEmitter {
   }
 
   private checkErrors(value = this.template.value) {
-
     if (this.template?.required && value === undefined) {
       this.isOkay = false;
 
       if (this.node.view) {
-        this.node.view.showErrors(`Input <b>${this.template?.label || this.key}</b> is required`)
+        this.node.view.showErrors(
+          `Input <b>${this.template?.label || this.key}</b> is required`,
+        );
       }
-
     } else {
       this.isOkay = true;
-      this.node.view.showErrors()
+      this.node.view.showErrors();
     }
-
 
     if (this?.view) {
-      this.view.setErrorState(!this.isOkay)
+      this.view.setErrorState(!this.isOkay);
     }
-
   }
 
   setValue(value: unknown = this.template.value) {
@@ -67,7 +64,7 @@ export default class NodeState extends EventEmitter {
       this.value = value;
     }
     this.node._state[this.key] = value;
-    this.checkErrors(value)
+    this.checkErrors(value);
     if (this.node.enableUpdates) {
       this?.view.updateValue();
       this.isOkay && this.node.update();
@@ -85,6 +82,6 @@ export default class NodeState extends EventEmitter {
   bindView() {
     this.view = new NodeStateView(this);
     this.input && this.input.bindView();
-    this.checkErrors()
+    this.checkErrors();
   }
 }

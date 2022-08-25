@@ -2,10 +2,8 @@
   import api from '@plantarium/client-api';
   import { createToast, Form } from '@plantarium/ui';
   import ApiCall from '$lib/components/ApiCall.svelte';
-  import { goto } from '$app/navigation';
-  import { base } from '$app/paths';
 
-  let prom: Promise<any>;
+  let prom: ReturnType<typeof api['login']>;
 
   const formField = {
     username: { label: 'Username/Email', placeholder: 'Username/Email' },
@@ -13,7 +11,9 @@
     submit: { type: 'submit', label: 'login' },
   };
 
-  async function handleSubmit(ev) {
+  async function handleSubmit(ev: {
+    detail: { username: string; password: string };
+  }) {
     const { username, password } = ev.detail;
 
     if (!username || !password) return;

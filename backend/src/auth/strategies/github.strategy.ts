@@ -37,7 +37,7 @@ export class GithubStrategy extends PassportStrategy(Strategy, "github") {
     const { id, username, emails, photos } = profile;
 
 
-    let user = await this.userService.find({ provider: "github", providerId: id })
+    const user = await this.userService.find({ provider: "github", providerId: id })
     if (user) return user;
 
     return this.userService.createProvider({

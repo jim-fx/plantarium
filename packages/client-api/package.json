@@ -9,10 +9,10 @@
   "license": "ISC",
   "dependencies": {
     "@plantarium/backend": "workspace:*",
-    "@plantarium/helpers": "link:../helpers",
+    "@plantarium/helpers": "workspace:*",
     "svelte": "^3.49.0"
   },
   "devDependencies": {
-    "@plantarium/types": "link:../types"
+    "@plantarium/types": "workspace:*"
   }
 }

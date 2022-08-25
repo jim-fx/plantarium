@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES5",
+    "lib": [
+      "ESNext",
+      "DOM"
+    ]
+  },
+}

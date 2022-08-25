@@ -1,4 +1,4 @@
-import { NodeProps } from "./nodesystem";
+import type { NodeProps } from "./nodesystem";
 
 /**
  * Geometry which gets passed directly to the render engine
@@ -68,7 +68,7 @@ export interface Project {
   meta: ProjectMeta;
   nodes: NodeProps[];
   likes: string[];
-  history?: any;
+  history?: unknown[];
 }
 
 export interface ProjectMeta {

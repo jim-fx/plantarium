@@ -17,7 +17,7 @@
   export let showOutput = false;
 
   const dispatch = createEventDispatcher();
-  let tracked;
+  let tracked: HTMLElement | null;
   let h = 1;
   let s = 1;
   let v = 1;
@@ -29,7 +29,7 @@
 
   let colorSquare: HTMLElement;
   let colorSquarePicker: HTMLElement;
-  let pickedColor: HTMLElement;
+  /* let pickedColor: HTMLElement; */
   let huePicker: HTMLElement;
   let alphaPicker: HTMLElement;
 
@@ -54,7 +54,18 @@
     updateHuePicker();
   }
 
-  function removeEventListenerFromElement(elementId, eventName, listenerCallback) {
+  function removeEventListenerFromElement(
+    elementId: string,
+    eventName: string,
+    listenerCallback: {
+      (event: any): void;
+      (event: any): void;
+      (event: any): void;
+      (event: any): void;
+      (event: any): void;
+      (event: any): void;
+    }
+  ) {
     let element = document.querySelector(elementId);
     if (element) element.removeEventListener(eventName, listenerCallback);
   }
@@ -100,20 +111,20 @@
     });
   }
 
-  function mouseMove(event) {
+  function mouseMove(event: MouseEvent) {
     if (tracked) {
       let mouseX = event.clientX;
       let mouseY = event.clientY;
       let trackedPos = tracked.getBoundingClientRect();
-      let xPercentage, yPercentage;
+      let xPercentage: number, yPercentage: number;
       switch (tracked.id) {
         case 'colorsquare-event':
           xPercentage = ((mouseX - trackedPos.x) / 240) * 100;
           yPercentage = ((mouseY - trackedPos.y) / 160) * 100;
           xPercentage > 100 ? (xPercentage = 100) : xPercentage < 0 ? (xPercentage = 0) : null;
           yPercentage > 100 ? (yPercentage = 100) : yPercentage < 0 ? (yPercentage = 0) : null;
-          yPercentage = yPercentage.toFixed(2);
-          xPercentage = xPercentage.toFixed(2);
+          yPercentage = yPercentage.toFixed(2) as unknown as number;
+          xPercentage = xPercentage.toFixed(2) as unknown as number;
           colorSquarePicker.style.top = yPercentage + '%';
           colorSquarePicker.style.left = xPercentage + '%';
           s = xPercentage / 100;
@@ -123,7 +134,7 @@
         case 'hue-event':
           xPercentage = ((mouseX - 10 - trackedPos.x) / 220) * 100;
           xPercentage > 100 ? (xPercentage = 100) : xPercentage < 0 ? (xPercentage = 0) : null;
-          xPercentage = xPercentage.toFixed(2);
+          xPercentage = xPercentage.toFixed(2) as unknown as number;
           huePicker.style.left = xPercentage + '%';
           h = xPercentage / 100;
           hueChange();
@@ -131,7 +142,7 @@
         case 'alpha-event':
           xPercentage = ((mouseX - 10 - trackedPos.x) / 220) * 100;
           xPercentage > 100 ? (xPercentage = 100) : xPercentage < 0 ? (xPercentage = 0) : null;
-          xPercentage = xPercentage.toFixed(2);
+          xPercentage = xPercentage.toFixed(2) as unknown as number;
           alphaPicker.style.left = xPercentage + '%';
           a = xPercentage / 100;
           colorChange();
@@ -140,20 +151,20 @@
     }
   }
 
-  function touchMove(event) {
+  function touchMove(event: TouchEvent) {
     if (tracked) {
       let mouseX = event.touches[0].clientX;
       let mouseY = event.touches[0].clientY;
       let trackedPos = tracked.getBoundingClientRect();
-      let xPercentage, yPercentage;
+      let xPercentage: number, yPercentage: number;
       switch (tracked.id) {
         case 'colorsquare-event':
           xPercentage = ((mouseX - trackedPos.x) / 240) * 100;
           yPercentage = ((mouseY - trackedPos.y) / 160) * 100;
           xPercentage > 100 ? (xPercentage = 100) : xPercentage < 0 ? (xPercentage = 0) : null;
           yPercentage > 100 ? (yPercentage = 100) : yPercentage < 0 ? (yPercentage = 0) : null;
-          yPercentage = yPercentage.toFixed(2);
-          xPercentage = xPercentage.toFixed(2);
+          yPercentage = yPercentage.toFixed(2) as unknown as number;
+          xPercentage = xPercentage.toFixed(2) as unknown as number;
           colorSquarePicker.style.top = yPercentage + '%';
           colorSquarePicker.style.left = xPercentage + '%';
           s = xPercentage / 100;
@@ -163,7 +174,7 @@
         case 'hue-event':
           xPercentage = ((mouseX - 10 - trackedPos.x) / 220) * 100;
           xPercentage > 100 ? (xPercentage = 100) : xPercentage < 0 ? (xPercentage = 0) : null;
-          xPercentage = xPercentage.toFixed(2);
+          xPercentage = xPercentage.toFixed(2) as unknown as number;
           huePicker.style.left = xPercentage + '%';
           h = xPercentage / 100;
           hueChange();
@@ -171,7 +182,7 @@
         case 'alpha-event':
           xPercentage = ((mouseX - 10 - trackedPos.x) / 220) * 100;
           xPercentage > 100 ? (xPercentage = 100) : xPercentage < 0 ? (xPercentage = 0) : null;
-          xPercentage = xPercentage.toFixed(2);
+          xPercentage = xPercentage.toFixed(2) as unknown as number;
           alphaPicker.style.left = xPercentage + '%';
           a = xPercentage / 100;
           colorChange();
@@ -180,8 +191,8 @@
     }
   }
 
-  function csDown(event) {
-    tracked = event.currentTarget;
+  function csDown(event: MouseEvent) {
+    tracked = event.currentTarget as HTMLElement;
     let xPercentage = ((event.offsetX + 1) / 240) * 100;
     let yPercentage = ((event.offsetY + 1) / 160) * 100;
     yPercentage = +yPercentage.toFixed(2);
@@ -193,9 +204,9 @@
     colorChange();
   }
 
-  function csDownTouch(event) {
-    tracked = event.currentTarget;
-    let rect = event.target.getBoundingClientRect();
+  function csDownTouch(event: TouchEvent) {
+    tracked = event.currentTarget as HTMLElement;
+    let rect = (event.target as HTMLElement).getBoundingClientRect();
     let offsetX = event.targetTouches[0].clientX - rect.left;
     let offsetY = event.targetTouches[0].clientY - rect.top;
     let xPercentage = ((offsetX + 1) / 240) * 100;
@@ -213,8 +224,8 @@
     tracked = null;
   }
 
-  function hueDown(event) {
-    tracked = event.currentTarget;
+  function hueDown(event: MouseEvent) {
+    tracked = event.currentTarget as HTMLElement;
     let xPercentage = ((event.offsetX - 9) / 220) * 100;
     xPercentage = +xPercentage.toFixed(2);
     huePicker.style.left = xPercentage + '%';
@@ -222,9 +233,9 @@
     hueChange();
   }
 
-  function hueDownTouch(event) {
-    tracked = event.currentTarget;
-    let rect = event.target.getBoundingClientRect();
+  function hueDownTouch(event: TouchEvent) {
+    tracked = event.currentTarget as HTMLElement;
+    let rect = (event.target as HTMLElement).getBoundingClientRect();
     let offsetX = event.targetTouches[0].clientX - rect.left;
     let xPercentage = ((offsetX - 9) / 220) * 100;
     xPercentage = +xPercentage.toFixed(2);
@@ -249,8 +260,8 @@
     colorChangeCallback();
   }
 
-  function alphaDown(event) {
-    tracked = event.currentTarget;
+  function alphaDown(event: MouseEvent) {
+    tracked = event.currentTarget as HTMLElement;
     let xPercentage = ((event.offsetX - 9) / 220) * 100;
     xPercentage = +xPercentage.toFixed(2);
     alphaPicker.style.left = xPercentage + '%';
@@ -258,9 +269,9 @@
     colorChange();
   }
 
-  function alphaDownTouch(event) {
-    tracked = event.currentTarget;
-    let rect = event.target.getBoundingClientRect();
+  function alphaDownTouch(event: TouchEvent) {
+    tracked = event.currentTarget as HTMLElement;
+    let rect = (event.target as HTMLElement).getBoundingClientRect();
     let offsetX = event.targetTouches[0].clientX - rect.left;
     let xPercentage = ((offsetX - 9) / 220) * 100;
     xPercentage = +xPercentage.toFixed(2);
@@ -270,14 +281,16 @@
   }
 
   //Math algorithms
-  function hsvToRgb(h, s, v) {
-    var r, g, b;
+  function hsvToRgb(h: number, s: number, v: number) {
+    let r = 0,
+      g = 0,
+      b = 0;
 
-    var i = Math.floor(h * 6);
-    var f = h * 6 - i;
-    var p = v * (1 - s);
-    var q = v * (1 - f * s);
-    var t = v * (1 - (1 - f) * s);
+    let i = Math.floor(h * 6);
+    let f = h * 6 - i;
+    let p = v * (1 - s);
+    let q = v * (1 - f * s);
+    let t = v * (1 - (1 - f) * s);
 
     switch (i % 6) {
       case 0:
@@ -315,8 +328,17 @@
     return ('#' + rHex + gHex + bHex).toUpperCase();
   }
 
-  function rgbToHSV(r, g, b, update) {
-    let rperc, gperc, bperc, max, min, diff, pr, hueNew, satNew, valNew;
+  function rgbToHSV(r: number, g: number, b: number, update: boolean) {
+    let rperc,
+      gperc,
+      bperc,
+      max,
+      min,
+      diff,
+      pr,
+      hueNew = 0,
+      satNew,
+      valNew;
     rperc = r / 255;
     gperc = g / 255;
     bperc = b / 255;
@@ -397,7 +419,7 @@
     {#if showOutput}
       <div class="color-info-box">
         <div class="color-picked-bg">
-          <div class="color-picked" bind:this={pickedColor} />
+          <div class="color-picked" />
         </div>
 
         <div class="hex-text-block">

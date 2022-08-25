@@ -1,8 +1,8 @@
-export function compressLogs(log: any[]): any[] {
+export function compressLogs(log: { args: unknown }[]): { args: unknown }[] {
   return log.map((l) => {
     if (l.args) {
       if (Array.isArray(l.args)) {
-        l.args = l.args.map((a) => {
+        l.args = l.args.map((a: unknown) => {
           if (typeof a === 'string' && a.length < 500) return a;
           const arg = JSON.stringify(a);
           if (arg.length < 2000) return a;

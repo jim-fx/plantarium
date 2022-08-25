@@ -5,7 +5,7 @@
   import { scale, slide } from 'svelte/transition';
   import Icon from './Icon.svelte';
 
-  export let validators: ((s: string) => string[] | undefined)[] | boolean = [];
+  export let validators: ((s: string) => string[] | boolean | undefined)[] | boolean = [];
   $: _validators = getValidators(validators);
 
   export let placeholder: string | undefined = undefined;
@@ -27,7 +27,7 @@
     }
   }
 
-  function getValidators(v: typeof validators): ((s: string) => string[] | undefined)[] {
+  function getValidators(v: typeof validators): ((s: string) => string[] | boolean | undefined)[] {
     _errors = [];
     asyncErrors = [];
     mergeErrors();
@@ -58,7 +58,7 @@
   export let errors: string[] = [];
 
   let _errors: string[] = [];
-  let asyncErrors = [];
+  let asyncErrors: string[] = [];
 
   const mergeErrors = () => {
     errors = [..._errors, ...asyncErrors].filter((v) => !!v?.length);
@@ -69,13 +69,13 @@
     }
   };
   let isAsyncRunning = false;
-  let errorCheckTimeout: NodeJS.Timeout;
+  let errorCheckTimeout: NodeJS.Timeout | null;
   const getErrors = () => {
     if (!_validators?.length) return [];
     const err = _validators
       .map((v) => v(_value))
       .flat()
-      .filter((v) => !!v);
+      .filter((v) => !!v) as string[];
 
     return err.slice(0, 2);
   };
@@ -91,7 +91,7 @@
     if (!isAsyncRunning && asyncValidators?.length) {
       isAsyncRunning = true;
       Promise.all(asyncValidators.map((v) => v(_value))).then((err) => {
-        asyncErrors = err;
+        asyncErrors = err.flat();
         isAsyncRunning = false;
         mergeErrors();
       });
@@ -106,7 +106,7 @@
     } else {
       if (!errorCheckTimeout) {
         errorCheckTimeout = setTimeout(() => {
-          errorCheckTimeout = undefined;
+          errorCheckTimeout = null;
           _errors = getErrors();
           mergeErrors();
         }, 1000);
@@ -115,7 +115,8 @@
   }
 
   $: _value !== undefined && handleChange();
-  let oldValue = _value;
+  let oldValue: string;
+
   function handleChange() {
     if (_value === oldValue) return;
     oldValue = _value;
@@ -124,7 +125,7 @@
   }
 
   function handleInput(e: Event) {
-    _value = e.target.value;
+    _value = (e?.target as HTMLInputElement)?.value;
   }
 </script>
 

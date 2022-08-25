@@ -21,7 +21,7 @@ export default class NodeOutput {
   }
 
   canConnectTo(input: NodeInput) {
-    return input.type.includes("*") || input.type.includes(this.type);
+    return input.type.includes('*') || input.type.includes(this.type);
   }
 
   bindView() {
@@ -29,20 +29,17 @@ export default class NodeOutput {
   }
 
   connectTo(input: NodeInput | Node) {
-
     if (input instanceof NodeInput) {
       return this.node.connectTo(input);
     }
 
     const outputs = input.getInputs();
 
-    const output = outputs.find(out => out.canConnectTo(this));
-
+    const output = outputs.find((out) => out.canConnectTo(this));
 
     if (output) {
-      this.node.connectTo(output)
+      this.node.connectTo(output);
     }
-
   }
 
   removeConnection(conn: NodeConnection) {
@@ -57,7 +54,7 @@ export default class NodeOutput {
   setConnection(conn: NodeConnection) {
     this.connections.push(conn);
     if (this.view) this.view.connections.push(conn.view);
-    this.node.update()
+    this.node.update();
   }
 
   remove() {

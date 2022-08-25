@@ -1,15 +1,15 @@
-.context-wrapper{
+.context-wrapper {
   position: absolute;
-  opacity:0;
+  opacity: 0;
   z-index: 99;
   transform-origin: 0px 0px;
   transform: scale(0.4);
-  pointer-events:none;
+  pointer-events: none;
   transition: opacity 0.1s ease, transform 0.1s ease;
 }
 
-.context-wrapper.context-visible{
-  opacity:1;
+.context-wrapper.context-visible {
+  opacity: 1;
   transform: scale(1);
-  pointer-events:all
+  pointer-events: all;
 }

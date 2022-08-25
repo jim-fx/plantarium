@@ -10,13 +10,12 @@ export interface NodeRef {
 }
 
 /**
-* Serialized version of a node
-*/
+ * Serialized version of a node
+ */
 export interface NodeProps {
   attributes: NodeAttributes;
   state?: unknown;
 }
-
 
 /**
  * Common attributes across all nodes
@@ -28,7 +27,7 @@ export interface NodeAttributes {
   name?: string;
   pos?: NodePosition;
   refs?: NodeRef[];
-  visible?: string[]
+  visible?: string[];
 }
 
 export interface CustomMouseEvent {
@@ -38,7 +37,7 @@ export interface CustomMouseEvent {
   vy?: number;
   mx: number;
   my: number;
-  target?: HTMLElement,
+  target?: HTMLElement;
   keys: {
     shiftKey: boolean;
     ctrlKey: boolean;
@@ -47,7 +46,6 @@ export interface CustomMouseEvent {
     [x: string]: boolean | number;
   };
 }
-
 
 export interface HistoryData {
   index: number;
@@ -76,7 +74,6 @@ export interface Vec2 {
   y: number;
   pinned?: boolean;
 }
-
 
 export interface Rect {
   x1: number;

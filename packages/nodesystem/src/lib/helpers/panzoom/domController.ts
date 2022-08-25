@@ -1,4 +1,4 @@
-export default function makeDomController(domElement) {
+export default function makeDomController(domElement: HTMLElement) {
   const elementValid = isDomElement(domElement);
   if (!elementValid) {
     throw new Error(
@@ -31,7 +31,7 @@ export default function makeDomController(domElement) {
     };
   }
 
-  function applyTransform(transform) {
+  function applyTransform(transform: { scale: number; x: number; y: number }) {
     // TODO: Should we cache this?
     domElement.style.transformOrigin = '0 0 0';
     domElement.style.transform =
@@ -47,6 +47,6 @@ export default function makeDomController(domElement) {
   }
 }
 
-export function isDomElement(element) {
+export function isDomElement(element: HTMLElement) {
   return element && element.parentElement && element.style;
 }

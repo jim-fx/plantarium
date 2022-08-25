@@ -11,7 +11,7 @@ export interface Message {
   id: string | Error | unknown;
   type: MessageType;
   content: string | Error | typeof SvelteComponent;
-  title: string;
+  title?: string;
   props?: Record<string, unknown>;
   styleVars?: Record<string, string>;
   values?: string[];

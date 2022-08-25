@@ -1,6 +1,11 @@
 import { debounceDecorator, EventEmitter, logger } from '@plantarium/helpers';
 import DefaultNodes from '../nodes';
-import type { NodeProps, NodeSystemData, NodeSystemMeta, NodeTypeData } from '../types';
+import type {
+  NodeProps,
+  NodeSystemData,
+  NodeSystemMeta,
+  NodeTypeData
+} from '../types';
 import NodeSystemView from '../view/NodeSystemView';
 import type Node from './Node';
 import NodeFactory from './NodeFactory';
@@ -19,7 +24,7 @@ interface NodeSystemOptions {
   wrapper: HTMLElement | null;
   defaultNodes: string[] | boolean;
   hideLegend: boolean;
-  connectionColors: Record<string, string>,
+  connectionColors: Record<string, string>;
   enableDrawing: boolean;
   registerNodes: NodeTypeData[];
   deferCompute: boolean;
@@ -62,7 +67,7 @@ export default class NodeSystem extends EventEmitter {
       connectionColors = false,
       showUpdates = false,
       enableDrawing = false,
-      deferCompute = false
+      deferCompute = false,
     } = options;
     this.options = { view, wrapper, showUpdates, deferCompute, enableDrawing };
 
@@ -76,9 +81,8 @@ export default class NodeSystem extends EventEmitter {
         this.view = new NodeSystemView(this);
 
         if (connectionColors) {
-          this.view.colorStore.setColors(connectionColors)
+          this.view.colorStore.setColors(connectionColors);
         }
-
       }
 
       if (defaultNodes) {
@@ -96,15 +100,13 @@ export default class NodeSystem extends EventEmitter {
           });
         }
 
-
         nodesToRegister.forEach((nodeType) => this.registerNodeType(nodeType));
       }
       if (registerNodes && registerNodes.length) {
-        registerNodes.forEach(n => this.registerNodeType(n))
+        registerNodes.forEach((n) => this.registerNodeType(n));
       }
-
     } catch (error) {
-      console.warn("Error Loading", error)
+      log.warn('Error Loading', error);
       this.emit('error', { type: 'init', error });
     }
   }
@@ -124,15 +126,15 @@ export default class NodeSystem extends EventEmitter {
   }
 
   load(systemData: NodeSystemData) {
-    log("Loading NodeSystemData", { systemData })
+    log('Loading NodeSystemData', { systemData });
     if (!systemData) {
       this.isLoaded = true;
-      this?.view?.setState("loading")
-      return
+      this?.view?.setState('loading');
+      return;
     }
     try {
-      this.emit("loading")
-      this?.view.setState("loading")
+      this.emit('loading');
+      this?.view.setState('loading');
       if (systemData.id) {
         this.id = systemData.id;
       }
@@ -159,19 +161,19 @@ export default class NodeSystem extends EventEmitter {
 
       this.result = this._result;
 
-      this.emit("loaded")
+      this.emit('loaded');
       if (this.view) {
-        setTimeout(() => this.view.setState(), 150)
+        setTimeout(() => this.view.setState(), 150);
       }
       return this;
     } catch (error) {
-      console.warn("Error", error)
-      this.emit("loaded")
+      log.warn('Error', error);
+      this.emit('loaded');
       this.emit('error', { type: 'loading', error });
     }
   }
 
-  applyNodeState(newNodes: NodeSystemData["nodes"]) {
+  applyNodeState(newNodes: NodeSystemData['nodes']) {
     this.isPaused = true;
 
     let hasDeletedNodes = false;
@@ -180,14 +182,14 @@ export default class NodeSystem extends EventEmitter {
     const currentNodes = this.getNodes();
 
     for (const n of newNodes) {
-      if (!currentNodes.find(_n => _n.attributes.id === n.attributes.id)) {
+      if (!currentNodes.find((_n) => _n.attributes.id === n.attributes.id)) {
         hasNewNodes = true;
         break;
       }
     }
 
     for (const n of currentNodes) {
-      if (!newNodes.find(_n => _n.attributes.id === n.id)) {
+      if (!newNodes.find((_n) => _n.attributes.id === n.id)) {
         hasDeletedNodes = true;
         break;
       }
@@ -200,20 +202,20 @@ export default class NodeSystem extends EventEmitter {
     }
 
     if (hasDeletedNodes) {
-      currentNodes.filter(node => !newNodes.find(n => n.attributes.id === node.id)).forEach(n => n.remove());
+      currentNodes
+        .filter((node) => !newNodes.find((n) => n.attributes.id === node.id))
+        .forEach((n) => n.remove());
     }
 
-    newNodes.forEach(n => {
-      const cn = currentNodes.find(_n => _n.id === n.attributes.id);
+    newNodes.forEach((n) => {
+      const cn = currentNodes.find((_n) => _n.id === n.attributes.id);
       cn.setAttributes(n.attributes);
       Object.entries(n.state).forEach(([key, value]) => {
         cn.setStateValue(key, value);
-      })
-    })
-
+      });
+    });
 
     this.isPaused = false;
-
   }
 
   serialize(): NodeSystemData {
@@ -242,9 +244,9 @@ export default class NodeSystem extends EventEmitter {
     node.on('computedData', (data) => {
       if (this.options.deferCompute) {
         this.result = {
-          type: "output",
-          parameters: data
-        }
+          type: 'output',
+          parameters: data,
+        };
       } else {
         this.result = data;
       }
@@ -341,9 +343,13 @@ export default class NodeSystem extends EventEmitter {
     return this.store.types;
   }
 
-  registerNodeType(type: NodeType | NodeTypeData | NodeType[] | NodeTypeData[]) {
+  registerNodeType(
+    type: NodeType | NodeTypeData | NodeType[] | NodeTypeData[],
+  ) {
     if (Array.isArray(type)) {
-      return type.forEach((t: NodeType | NodeTypeData) => this.registerNodeType(t))
+      return type.forEach((t: NodeType | NodeTypeData) =>
+        this.registerNodeType(t),
+      );
     }
     if ('node' in type) {
       this.store.add(type);

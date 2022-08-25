@@ -1,10 +1,10 @@
 <svelte:options accessors />
 
-<script>
+<script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher<{ change: string }>();
 
-  export let value = undefined;
+  export let value: string = '';
   let open = false;
 
   $: value && dispatch('change', value);
@@ -22,20 +22,20 @@
     }, 50);
   }
 
-  function setSelected(v) {
+  function setSelected(v: string) {
     value = v;
     open = false;
   }
 
-  export let values = [];
-  export function setItems(_items) {
+  export let values: string[] = [];
+  export function setItems(_items: string[]) {
     values = _items;
-    if (!values.contains(value)) {
+    if (!values.includes(value)) {
       value = values[0];
     }
   }
 
-  export function setValue(v) {
+  export function setValue(v: string) {
     value = v;
   }
 </script>

@@ -36,7 +36,7 @@
     })
   ];
 
-  import * as _icons from '$lib/icons';
+  import * as _icons from '$lib/icons/index.js';
   import InputRange from '$lib/InputRange.svelte';
   import Gallery from '$lib/Gallery.svelte';
   import GalleryItem from '$lib/GalleryItem.svelte';
@@ -45,7 +45,7 @@
   let animateIcons = false;
   let activeIcon = false;
   let editableValue = 'Cheeckthis';
-  const icons = Object.keys(_icons);
+  const icons = Object.keys(_icons) as unknown as keyof typeof _icons;
 
   let formData = {};
   const formFields = {
@@ -65,6 +65,12 @@
       type: 'submit',
       label: 'login'
     }
+  };
+
+  const handleThemeChange = (e: CustomEvent<string>) => setTheme(e.detail);
+  const handleSearchInput = (e: CustomEvent<string>) => createToast('You selected ' + e.detail);
+  const handleEditableChange = (e: CustomEvent<string>) => {
+    editableValue = e.detail;
   };
 </script>
 
@@ -155,7 +161,7 @@
 
   <section>
     <h3>Tab</h3>
-    <InputTab values={['dark', 'light', 'pinky']} on:change={({ detail }) => setTheme(detail)} />
+    <InputTab values={['dark', 'light', 'pinky']} on:change={handleThemeChange} />
   </section>
 
   <section>
@@ -168,12 +174,7 @@
 
   <section>
     <h3>InputEditable</h3>
-    <InputEditable
-      value={editableValue}
-      on:submit={(ev) => {
-        editableValue = ev.detail;
-      }}
-    />
+    <InputEditable value={editableValue} on:submit={handleEditableChange} />
     <p>
       Value: {editableValue}
     </p>
@@ -189,7 +190,7 @@
     <InputRange />
   </section>
 
-  <section>
+  <section class="deprecated">
     <h3>Slider</h3>
     <InputSlider />
   </section>
@@ -219,10 +220,7 @@
 
   <section>
     <h3>Search</h3>
-    <InputSearch
-      values={searchItems}
-      on:input={({ detail: value }) => createToast('You selected ' + value)}
-    />
+    <InputSearch values={searchItems} on:input={handleSearchInput} />
   </section>
 
   <section>
@@ -302,5 +300,18 @@
 
   h3 {
     margin-top: 0px;
+  }
+  .deprecated {
+    opacity: 0.8;
+  }
+  .deprecated > h3::after {
+    width: fit-content;
+    content: 'deprecated';
+    font-weight: normal;
+    background: rgba(255, 50, 50, 0.5);
+    border-radius: 5px;
+    padding: 5px 7px;
+    font-size: 0.8em;
+    margin-left: 10px;
   }
 </style>

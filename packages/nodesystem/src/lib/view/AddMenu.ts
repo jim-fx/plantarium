@@ -1,14 +1,14 @@
-import './AddMenu.css';
-import type NodeSystemView from './NodeSystemView';
+import { logger } from '@plantarium/helpers';
+import { InputSearch } from '@plantarium/ui';
 import type NodeInput from '../model/NodeInput';
 import type NodeOutput from '../model/NodeOutput';
-import type NodeType from '../model/NodeType';
 import type NodeSystem from '../model/NodeSystem';
-import { InputSearch } from '@plantarium/ui';
+import type NodeType from '../model/NodeType';
 import type { NodeProps } from '../types';
-import { logger } from '@plantarium/helpers';
+import './AddMenu.css';
+import type NodeSystemView from './NodeSystemView';
 
-const log = logger("AddMenu")
+const log = logger('AddMenu');
 
 interface ContextOptions {
   x: number;
@@ -60,31 +60,41 @@ export default class RightClickMenu {
 
   updateTypes(types = this.types) {
     this.types = types;
-    log("register types", types)
+    log('register types', types);
 
-    const availableTypes = types.map((t) => {
-      return {
-        outputs: t.outputs,
-        inputs: t.inputs,
-        value: t.type || t.title,
-        title: t.title,
-      };
-    }).filter(v => {
-      if (!this.socket) return true;
+    const availableTypes = types
+      .map((t) => {
+        return {
+          outputs: t.outputs,
+          inputs: t.inputs,
+          value: t.type || t.title,
+          title: t.title,
+        };
+      })
+      .filter((v) => {
+        if (!this.socket) return true;
 
-      // We have an input socket
-      if (Array.isArray(this.socket.type)) {
-        return this.socket.type.includes("*") || v?.outputs?.find(o => this.socket.type.includes(o) || o === "*")
-        // we have an output socket
-      } else {
-        return this.socket.type === "*" || v?.inputs?.includes(this.socket.type) || v?.inputs?.includes("*")
-      }
-    })
+        // We have an input socket
+        if (Array.isArray(this.socket.type)) {
+          return (
+            this.socket.type.includes('*') ||
+            v?.outputs?.find((o) => this.socket.type.includes(o) || o === '*')
+          );
+          // we have an output socket
+        } else {
+          return (
+            this.socket.type === '*' ||
+            v?.inputs?.includes(this.socket.type) ||
+            v?.inputs?.includes('*')
+          );
+        }
+      });
     if (availableTypes.length === 1) {
       setTimeout(() => {
         this.resolve(availableTypes[0].value);
-      }, 30)
-    } this.searchEl.setItems(availableTypes);
+      }, 30);
+    }
+    this.searchEl.setItems(availableTypes);
   }
 
   handleWindowClick(ev: MouseEvent) {
@@ -134,7 +144,7 @@ export default class RightClickMenu {
     this.searchEl.clear();
     this.wrapper.classList.remove('context-visible');
     this.wrapper.blur();
-    if (this.rej) this.rej()
+    if (this.rej) this.rej();
     this.res = (d: NodeProps) => d;
     this.reject = () => {
       return;
@@ -150,10 +160,10 @@ export default class RightClickMenu {
     this.wrapper.style.top = (y / this.system.view.height) * 100 + '%';
     this.wrapper.classList.add('context-visible');
 
-    this.updateTypes()
+    this.updateTypes();
 
     setTimeout(() => {
-      this.searchEl.$set({ value: "" })
+      this.searchEl.$set({ value: '' });
       this.searchEl.focus();
     }, 50);
 

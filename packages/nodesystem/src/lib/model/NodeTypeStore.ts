@@ -27,14 +27,15 @@ export default class NodeTypeStore extends EventEmitter {
   }
 
   clear() {
-    this.typeMap = {}
-    this.types = []
+    this.typeMap = {};
+    this.types = [];
     this.emit('types', this.types);
   }
 
   getByType(type: string) {
     if (type in this.typeMap) return this.typeMap[type];
-    if (type.toLowerCase() in this.typeMap) return this.typeMap[type.toLowerCase()]
+    if (type.toLowerCase() in this.typeMap)
+      return this.typeMap[type.toLowerCase()];
     throw new Error('NodeTypeStore: type ' + type + ' does not exist');
   }
 }

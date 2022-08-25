@@ -19,7 +19,7 @@
 
   let initialized = false;
 
-  let publishPromise: number | boolean | Promise<any> | PromiseLike<number>;
+  let publishPromise: number | boolean | Promise<unknown> | PromiseLike<number>;
   async function togglePublish() {
     if (publishPromise) return;
     if (!report.gh_issue) {
@@ -87,14 +87,14 @@
         {#if $userStore?.permissions?.includes('report.update')}
           <button
             class="publish"
-            disabled={publishPromise}
+            disabled={!!publishPromise}
             on:click={togglePublish}>unpublish</button
           >
         {/if}
       {:else if $userStore?.permissions?.includes('report.update')}
         <button
           class="publish"
-          disabled={publishPromise}
+          disabled={!!publishPromise}
           on:click={togglePublish}>publish</button
         >
       {/if}

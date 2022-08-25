@@ -1,4 +1,4 @@
-@use "../variables.scss";
+@use '../variables.scss';
 
 .node-output-wrapper {
   margin-top: 7px;
@@ -6,28 +6,28 @@
   height: 7px;
   box-sizing: border-box;
   border-radius: 0px 10px 10px 0px;
-	position:relative;
+  position: relative;
   cursor: pointer;
 }
 
-.node-output-wrapper:hover{
-  &::after{
-    opacity:0.5;
+.node-output-wrapper:hover {
+  &::after {
+    opacity: 0.5;
     transform: scale(0.9);
   }
 }
 
-.node-output-wrapper::after{
-  content:"";
+.node-output-wrapper::after {
+  content: '';
   position: absolute;
   width: 20px;
   height: 20px;
-  background:var(--socket-color);
+  background: var(--socket-color);
   transform: scale(1.1);
   transition: opacity 0.3s ease, transform 0.3s ease;
-  opacity:0;
-  z-index:-1;
+  opacity: 0;
+  z-index: -1;
   left: -11px;
   top: -6px;
-  border-radius:20px;
+  border-radius: 20px;
 }

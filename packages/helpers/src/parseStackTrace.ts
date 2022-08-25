@@ -1,6 +1,6 @@
 import { parse } from "stacktrace-parser";
 
-const stripPath = (s) =>
+const stripPath = (s: string) =>
   s
     .replace(window.location.href, '')
     .replace(/^node_modules/, '')

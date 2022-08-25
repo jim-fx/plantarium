@@ -23,10 +23,10 @@
 
   let isMouseDown = false;
   let downX = 0;
-  let downY = 0;
+  /* let downY = 0; */
   let downV: typeof value;
   let vx = 0;
-  let vy = 0;
+  /* let vy = 0; */
   let rect: DOMRect;
   let isLeftSide = false;
 
@@ -37,7 +37,7 @@
 
     downV = value;
     downX = ev.clientX;
-    downY = ev.clientY;
+    /* downY = ev.clientY; */
     rect = wrapper.getBoundingClientRect();
 
     const nx = (downX - rect.left) / rect.width;

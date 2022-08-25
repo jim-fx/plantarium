@@ -33,42 +33,52 @@ export async function send<T>({ method = "GET", path, data, isJSON = true, mode 
 
   const url = path.startsWith("http") ? path : `${VITE_API_URL}/${path}`
 
-  const response = await fetch(url, opts);
+  try {
 
-  if (response.ok) {
-    if (isJSON) {
-      try {
-        const json = await response.json();
+
+    const response = await fetch(url, opts);
+
+    if (response.ok) {
+      if (isJSON) {
+        try {
+          const json = await response.json();
+          return {
+            ok: true,
+            data: json,
+            statusCode: response.status
+          };
+        } catch (err) {
+          return {
+            statusCode: 400,
+            ok: false,
+            message: "Response from " + path + " failed to parse",
+          };
+        }
+      }
+    } else {
+      if (response.headers.get("Content-Type")?.startsWith("application/json")) {
+        const res = await response.json()
         return {
-          ok: true,
-          data: json,
-          statusCode: response.status
-        };
-      } catch (err) {
-        console.error("Response from " + path + " failed to parse");
-        console.error(err);
-        return {
-          statusCode: 400,
+          statusCode: response.status,
           ok: false,
-          message: "Response from " + path + " failed to parse",
+          message: res.message,
         };
+      } else {
+        const res = await response.text()
+        return {
+          statusCode: response.status,
+          ok: false,
+          message: res
+        }
       }
     }
-  } else {
-    if (response.headers.get("Content-Type")?.startsWith("application/json")) {
-      const res = await response.json()
-      return {
-        statusCode: response.status,
-        ok: false,
-        message: res.message,
-      };
-    } else {
-      const res = await response.text()
-      return {
-        statusCode: response.status,
-        ok: false,
-        message: res
-      }
+
+
+  } catch (error) {
+    return {
+      message: "Fetch failed",
+      ok: false,
+      statusCode: 400
     }
   }
 

@@ -19,7 +19,7 @@ export class ProjectsService {
 
     const p = new Project();
 
-    let user = await this.userService.findById(userId);
+    const user = await this.userService.findById(userId);
     if (!user) {
       throw new UnauthorizedException()
     }

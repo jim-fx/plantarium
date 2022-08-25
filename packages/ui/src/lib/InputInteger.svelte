@@ -14,12 +14,6 @@
     value = 0;
   }
 
-  $: isClamped =
-    typeof min !== 'undefined' &&
-    typeof max !== 'undefined' &&
-    Number.isFinite(min) &&
-    Number.isFinite(max);
-
   let inputEl: HTMLInputElement;
   $: value !== undefined && update();
 

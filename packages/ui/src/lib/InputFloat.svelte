@@ -33,11 +33,11 @@
     : '20px';
 
   let isMouseDown = false;
-  let downX = 0;
-  let downY = 0;
+  /* let downX = 0; */
+  /* let downY = 0; */
   let downV = 0;
   let vx = 0;
-  let vy = 0;
+  /* let vy = 0; */
   let rect: DOMRect;
 
   function handleMouseDown(ev: MouseEvent) {
@@ -46,8 +46,8 @@
     isMouseDown = true;
 
     downV = value;
-    downX = ev.clientX;
-    downY = ev.clientY;
+    /* downX = ev.clientX; */
+    /* downY = ev.clientY; */
     rect = inputEl.getBoundingClientRect();
 
     window.removeEventListener('mousemove', handleMouseMove);
@@ -87,7 +87,7 @@
 
   function handleMouseMove(ev: MouseEvent) {
     vx = (ev.clientX - rect.left) / rect.width;
-    vy = ev.clientY - downY;
+    /* vy = ev.clientY - downY; */
 
     if (ev.ctrlKey) {
       let v = min + (max - min) * vx;

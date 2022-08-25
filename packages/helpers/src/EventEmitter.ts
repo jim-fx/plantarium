@@ -6,9 +6,9 @@ if (typeof self !== 'undefined' && 'window' in self) {
   globalThis['debug'] = debug;
 }
 
-type EventMap = Record<string, any>;
+type EventMap = Record<string, unknown>;
 type EventKey<T extends EventMap> = string & keyof T;
-type EventReceiver<T> = (params: T, stuff?: Record<string, any>) => unknown;
+type EventReceiver<T> = (params: T, stuff?: Record<string, unknown>) => unknown;
 
 
 export default class EventEmitter<T extends EventMap = { [key: string]: unknown }> {

@@ -16,7 +16,7 @@ const config = {
     adapter: adapter(),
     paths: { base: BASE_PATH },
     prerender: { default: true, enabled: true },
-  }
+  },
 };
 
 export default config;

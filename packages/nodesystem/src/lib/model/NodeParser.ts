@@ -31,10 +31,11 @@ export default class NodeParser {
       if (n.attributes.refs)
         n.attributes.refs.forEach((ref) => {
           const n2 = nodeStore.get(ref.id);
-          const input = n2?.getInputs()?.find(i => i.key === ref.in);
+          const input = n2?.getInputs()?.find((i) => i.key === ref.in);
           if (!input) {
             console.warn(
-              `Failed ref: from ${n.attributes.name || n.attributes.id} to ${ref.id
+              `Failed ref: from ${n.attributes.name || n.attributes.id} to ${
+                ref.id
               } `,
             );
           } else {
@@ -57,8 +58,7 @@ export default class NodeParser {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
     const TempNode = class extends Node {
-
-      outputs = outputs.map(s => new NodeOutput(this, s));
+      outputs = outputs.map((s) => new NodeOutput(this, s));
 
       constructor(system: NodeSystem, props: NodeProps) {
         super(system, props);
@@ -74,11 +74,11 @@ export default class NodeParser {
           this.states[key] = new NodeState(this, key, template);
         });
       }
-    }
+    };
 
     const inputs = Object.values(parameters)
-      .filter((p) => p["internal"] !== true)
-      .map((p) => p["type"]);
+      .filter((p) => p['internal'] !== true)
+      .map((p) => p['type']);
 
     if (this.system.options.view) {
       const V = class TempView extends NodeView {

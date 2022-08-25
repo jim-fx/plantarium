@@ -1,17 +1,17 @@
 import { Vec3 } from 'ogl-typescript';
-import type { TransferGeometry } from "@plantarium/types"
+import type { TransferGeometry } from '@plantarium/types';
 
 let lastNormal: Vec3;
 
-export default function(geometry: TransferGeometry) {
-  const position = geometry.position;
-  const index = geometry.index;
-  const normals = geometry.normal;
+export default function (geometry: TransferGeometry) {
+	const position = geometry.position;
+	const index = geometry.index;
+	const normals = geometry.normal;
 
-  //Calculate normals per face
-  //Process 3 vertices at a time
+	//Calculate normals per face
+	//Process 3 vertices at a time
 
-  /*let vA, vB, vC;
+	/*let vA, vB, vC;
   const cb = new Vec3();
   const ab = new Vec3();
 
@@ -39,39 +39,39 @@ export default function(geometry: TransferGeometry) {
     normals[index[f * 9 + 8]] = cb[8];
   }*/
 
-  for (let i = 0; i < index.length / 3; i++) {
-    const v1 = new Vec3(
-      position[index[i * 3 + 0] * 3 + 0],
-      position[index[i * 3 + 0] * 3 + 1],
-      position[index[i * 3 + 0] * 3 + 2],
-    );
+	for (let i = 0; i < index.length / 3; i++) {
+		const v1 = new Vec3(
+			position[index[i * 3 + 0] * 3 + 0],
+			position[index[i * 3 + 0] * 3 + 1],
+			position[index[i * 3 + 0] * 3 + 2]
+		);
 
-    const v2 = new Vec3(
-      position[index[i * 3 + 1] * 3 + 0] - v1.x,
-      position[index[i * 3 + 1] * 3 + 1] - v1.y,
-      position[index[i * 3 + 1] * 3 + 2] - v1.z,
-    );
+		const v2 = new Vec3(
+			position[index[i * 3 + 1] * 3 + 0] - v1.x,
+			position[index[i * 3 + 1] * 3 + 1] - v1.y,
+			position[index[i * 3 + 1] * 3 + 2] - v1.z
+		);
 
-    const v3 = new Vec3(
-      position[index[i * 3 + 2] * 3 + 0] - v1.x,
-      position[index[i * 3 + 2] * 3 + 1] - v1.y,
-      position[index[i * 3 + 2] * 3 + 2] - v1.z,
-    );
+		const v3 = new Vec3(
+			position[index[i * 3 + 2] * 3 + 0] - v1.x,
+			position[index[i * 3 + 2] * 3 + 1] - v1.y,
+			position[index[i * 3 + 2] * 3 + 2] - v1.z
+		);
 
-    let normal = new Vec3().cross(v2, v3).normalize();
+		let normal = new Vec3().cross(v2, v3).normalize();
 
-    if (normal[0] === 0 && normal[1] === 0 && normal[3] === 0) {
-      normal = lastNormal;
-    }
+		if (normal[0] === 0 && normal[1] === 0 && normal[3] === 0) {
+			normal = lastNormal;
+		}
 
-    for (let j = 0; j < 3; j++) {
-      normals[index[i * 3 + j] * 3 + 0] = normal.x;
-      normals[index[i * 3 + j] * 3 + 1] = normal.y;
-      normals[index[i * 3 + j] * 3 + 2] = normal.z;
-    }
+		for (let j = 0; j < 3; j++) {
+			normals[index[i * 3 + j] * 3 + 0] = normal.x;
+			normals[index[i * 3 + j] * 3 + 1] = normal.y;
+			normals[index[i * 3 + j] * 3 + 2] = normal.z;
+		}
 
-    lastNormal = normal;
-  }
+		lastNormal = normal;
+	}
 
-  return geometry;
+	return geometry;
 }

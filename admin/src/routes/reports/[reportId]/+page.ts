@@ -1,11 +1,10 @@
 import * as api from '@plantarium/client-api';
 import { error } from '@sveltejs/kit';
 
-
 export async function load({ params }) {
   const reportResponse = await api.getReport(params.reportId);
   if (!reportResponse.ok) {
-    throw error(500)
+    throw error(500);
   }
   let reportLabels = [];
   try {
@@ -16,7 +15,6 @@ export async function load({ params }) {
   } catch (err) {
     console.log('Cant get report labels');
   }
-
 
   return {
     report: reportResponse.data,

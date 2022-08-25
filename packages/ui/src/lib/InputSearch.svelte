@@ -73,7 +73,7 @@
     selectedValue = filteredItems[nextIndex].value;
   }
 
-  function handleKeyDown({ key }) {
+  function handleKeyDown({ key }: KeyboardEvent) {
     if (key === 'Enter' && selectedValue.length) {
       handleSelect();
     }

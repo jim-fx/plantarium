@@ -29,7 +29,6 @@ if ("user" in storage) {
   try {
     _user = JSON.parse(storage.getItem("user"));
   } catch (err) {
-    console.error(err)
   }
 }
 
@@ -49,7 +48,7 @@ const isLoggedIn: Writable<boolean> = writable(_user && "_id" in _user);
 
 user.subscribe(v => {
   isLoggedIn.set(v && "_id" in v);
-  storage.setItem("user", JSON.stringify(v))
+  storage.setItem("user", v ? JSON.stringify(v) : null)
 })
 
 globalThis["loggedIn"] = isLoggedIn;

@@ -1,5 +1,5 @@
-export default function (obj) {
-  const themes = {};
+export default function(obj: Record<string, string>) {
+  const themes: Record<string, Record<string, string>> = {};
 
   Object.entries(obj).forEach(([key, value]) => {
     const [themeName, variableName] = key.split('_');

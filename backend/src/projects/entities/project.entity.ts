@@ -10,20 +10,17 @@ export enum ProjectType {
 }
 
 @Entity()
-export class Project extends BaseEntity implements IProject {
+export class Project extends BaseEntity {
 
   @ManyToOne()
-  //@ts-ignore we can ignore this
   public author: User;
-
   @Property()
   public public = true;
 
   @Property({ default: ProjectType.USER })
   public type: ProjectType = 0;
 
-  @ManyToMany({ serializer:u => u.toArray().map((u: User) => u["id"]) })
-  //@ts-ignore
+  @ManyToMany({ serializer: u => u.toArray().map((u: User) => u["id"]) })
   public likes = new Collection<User>(this);
 
   @Property({ type: "json" })

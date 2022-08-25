@@ -3,11 +3,12 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
 
+  import type { Vec2 } from '@plantarium/types';
   const dispatch = createEventDispatcher();
 
   export let value = [
     { x: 1, y: 0, pinned: true },
-    { x: 0.5, y: 0.5, pinned: true },
+    { x: 0.5, y: 0.5 },
     { x: 1, y: 1, pinned: true }
   ];
 
@@ -17,8 +18,8 @@
 
   let isHovered = false;
   // let isRendering = false;
-  let activePoint = undefined;
-  let draggingPoint = undefined;
+  let activePoint: Vec2 | undefined = undefined;
+  let draggingPoint: Vec2 | undefined = undefined;
 
   let mousePosX = 0;
   let mousePosY = 0;
@@ -35,13 +36,14 @@
     });
   };
 
-  const removePoint = (p) => {
+  const removePoint = (p: Vec2) => {
     if (p.pinned) return;
+    if (!activePoint) return;
     points.splice(points.indexOf(activePoint), 1);
     updateValue();
   };
 
-  const handleMouseMove = (ev) => {
+  const handleMouseMove = (ev: MouseEvent) => {
     if (isHovered) {
       mousePosX = ev.offsetX;
       mousePosY = ev.offsetY;
@@ -91,9 +93,9 @@
     isHovered = false;
   };
 
-  const lineCommand = (point) => `L ${point.x * 100} ${point.y * 200 - 50}`;
+  const lineCommand = (point: Vec2) => `L ${point.x * 100} ${point.y * 200 - 50}`;
 
-  function renderPath(points) {
+  function renderPath(points: Vec2[]) {
     // build the d attributes by looping over the points
 
     let _points = [...points];

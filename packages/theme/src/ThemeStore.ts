@@ -4,8 +4,7 @@ import { themeNames, themes } from './Themes';
 let activeTheme = 'dark';
 
 if ('localStorage' in globalThis) {
-  activeTheme =
-    'theme' in localStorage ? localStorage.getItem('theme') : themeNames[0];
+  activeTheme = localStorage.getItem("theme") || themeNames[0];
 }
 if (!themeNames.includes(activeTheme)) activeTheme = themeNames[0];
 if (globalThis["window"]) {
@@ -38,11 +37,9 @@ export const setTheme = (style = activeTheme) => {
     if (globalThis["window"] && window.matchMedia) {
       removeThemeClasses()
       if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        console.log("dark")
         document.body.classList.add("theme-dark");
         store.set(themes["dark"])
       } else {
-        console.log("light")
         store.set(themes["light"])
         document.body.classList.add("theme-light");
       }

@@ -1,62 +1,55 @@
-.nodesystem-socket-legend{
-
-
-  z-index:5;
+.nodesystem-socket-legend {
+  z-index: 5;
 
   padding: 10px 15px;
-  padding-bottom:0px;
+  padding-bottom: 0px;
   width: fit-content;
   position: absolute;
   bottom: 20px;
   right: 20px;
 
+  border-radius: 10px;
+  opacity: 0.7;
+  background: var(--foreground-color);
 
-
-    border-radius:10px;
-    opacity:0.7;
-    background:var(--foreground-color);
-
-  > .socket-legend-type-wrapper
-  {
-    opacity:0;
+  > .socket-legend-type-wrapper {
+    opacity: 0;
     border-top: solid thin var(--background-color);
     display: grid;
-    align-items:center;
+    align-items: center;
     gap: 10px;
     grid-template-columns: 10px 1fr;
     transition: max-height 0.3s ease, opacity 0.3s ease;
     max-height: 0px;
-    overflow:hidden;
-  >.socket-legend-col {
-    width: 10px;
-    height: 10px;
-    border-radius: 10px;
-  }
-
+    overflow: hidden;
+    > .socket-legend-col {
+      width: 10px;
+      height: 10px;
+      border-radius: 10px;
+    }
   }
 
   > input,
-  > label{
+  > label {
     font-size: 1em;
-    color: var(--text-color,white);
-    margin:0px;
-    display:inline;
+    color: var(--text-color, white);
+    margin: 0px;
+    display: inline;
     margin-bottom: 10px;
   }
 
-  >input{
-    margin-right:10px;
+  > input {
+    margin-right: 10px;
   }
 
-  > input:checked ~ .socket-legend-type-wrapper{
+  > input:checked ~ .socket-legend-type-wrapper {
     margin-bottom: 10px;
     padding-top: 5px;
     max-height: var(--max-height, 50vh) !important;
-    opacity:1;
+    opacity: 1;
   }
-
 }
 
-.nodesystem-socket-legend::has(input:checked){
-  background:red;
+.nodesystem-socket-legend::has(input:checked) {
+  background: red;
 }

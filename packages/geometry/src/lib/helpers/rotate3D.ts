@@ -16,28 +16,24 @@ import { normalize3D } from './normalize';
    Assume right hand coordinate system.
 */
 
-export default function rotate3D(
-  point: number[] | Vec3,
-  rawAxis: number[] | Vec3,
-  theta: number,
-) {
-  const [px, py, pz] = point;
-  const [ax, ay, az] = normalize3D(rawAxis);
+export default function rotate3D(point: number[] | Vec3, rawAxis: number[] | Vec3, theta: number) {
+	const [px, py, pz] = point;
+	const [ax, ay, az] = normalize3D(rawAxis);
 
-  const costheta = Math.cos(theta);
-  const sintheta = Math.sin(theta);
+	const costheta = Math.cos(theta);
+	const sintheta = Math.sin(theta);
 
-  return new Vec3(
-    (costheta + (1 - costheta) * ax * ax) * px +
-    ((1 - costheta) * ax * ay - az * sintheta) * py +
-    ((1 - costheta) * ax * az + ay * sintheta) * pz,
+	return new Vec3(
+		(costheta + (1 - costheta) * ax * ax) * px +
+			((1 - costheta) * ax * ay - az * sintheta) * py +
+			((1 - costheta) * ax * az + ay * sintheta) * pz,
 
-    ((1 - costheta) * ax * ay + az * sintheta) * px +
-    (costheta + (1 - costheta) * ay * ay) * py +
-    ((1 - costheta) * ay * az - ax * sintheta) * pz,
+		((1 - costheta) * ax * ay + az * sintheta) * px +
+			(costheta + (1 - costheta) * ay * ay) * py +
+			((1 - costheta) * ay * az - ax * sintheta) * pz,
 
-    ((1 - costheta) * ax * az - ay * sintheta) * px +
-    ((1 - costheta) * ay * az + ax * sintheta) * py +
-    (costheta + (1 - costheta) * az * az) * pz,
-  );
+		((1 - costheta) * ax * az - ay * sintheta) * px +
+			((1 - costheta) * ay * az + ax * sintheta) * py +
+			(costheta + (1 - costheta) * az * az) * pz
+	);
 }

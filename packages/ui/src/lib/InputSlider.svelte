@@ -23,7 +23,7 @@
     type="range"
     on:focus={() => (isActive = true)}
     on:blur={() => (isActive = false)}
-    on:input={dispatch('change', value)}
+    on:input={() => dispatch('change', value)}
     bind:value
     {min}
     {step}

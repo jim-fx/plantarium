@@ -1,16 +1,15 @@
-import createMessageStore from '../helpers/createMessageStore';
 import 'svelte/store';
-import type { SvelteComponentDev } from 'svelte/internal';
-import type { Message, MessageOptions } from '../helpers/IMessage';
 import type { Writable } from 'svelte/store';
+import createMessageStore from '../helpers/createMessageStore';
+import type { Message, MessageOptions } from '../helpers/IMessage';
 
 const { store: _store, createMessage } = createMessageStore();
 
 const store: Writable<Message[]> = _store;
 
 const createToast: (
-  content: string | Error | typeof SvelteComponentDev,
+  content: string | Error,
   options?: Partial<MessageOptions>
-) => Promise<unknown> = createMessage;
+) => Promise<unknown> | undefined = createMessage;
 
 export { store, createToast };

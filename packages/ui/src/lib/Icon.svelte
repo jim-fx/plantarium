@@ -1,11 +1,10 @@
 <script context="module" lang="ts">
   import * as icons from './icons';
-
   export type IconType = keyof typeof icons;
 </script>
 
 <script lang="ts">
-  export let name: IconType = 'triangle';
+  export let name: IconType | string = 'triangle';
 
   export let active = false;
   export let dark = false;
@@ -14,7 +13,7 @@
   export let animated = false;
   export let animateIn = false;
 
-  $: icon = name in icons ? icons[name] : name.toString() + ' icon not found';
+  $: icon = name in icons ? icons[name as IconType] : name.toString() + ' icon not found';
 </script>
 
 <div class="icon-wrapper" class:active class:dark class:circle class:animated>

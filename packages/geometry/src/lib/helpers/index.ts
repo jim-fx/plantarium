@@ -26,9 +26,9 @@ export { default as parseOBJ } from './parseOBJ';
 export { default as sanityCheckGeometry } from './sanityCheckGeometry';
 export { default as insertArray } from './insertArray';
 
-export * from "./vec3ToRotation"
-export * from "./findOrthVec"
-export * from "./rotationMatrixFromVectors"
-export * from "./applyRotationMatrixVec3"
+export * from './vec3ToRotation';
+export * from './findOrthVec';
+export * from './rotationMatrixFromVectors';
+export * from './applyRotationMatrixVec3';
 
-export { mat3, mat4, vec3 } from "gl-matrix"
+export { mat3, mat4, vec3 } from 'gl-matrix';

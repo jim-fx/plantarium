@@ -9,15 +9,15 @@
     label?: string;
     autocomplete?: boolean;
     placeholder?: string;
-    validators?: ((s: string) => string[] | undefined)[];
-    asyncValidators?: ((s: string) => Promise<string[] | undefined>)[];
+    validators?: ((s: string) => string[] | boolean | undefined)[];
+    asyncValidators?: ((s: string) => Promise<string[] | boolean | undefined>)[];
   }
 
   export let fields: Record<string, Field> = {};
 
-  export const data = {};
+  export const data: Record<string, boolean & string> = {};
   $: dispatch('data', data);
-  const errors = {};
+  const errors: Record<string, string[]> = {};
 
   export let title: string;
 

@@ -7,14 +7,16 @@ import ConnectionView from './ConnectionView';
 import type NodeSystemView from './NodeSystemView';
 
 type EventMap = {
-  "connection": {
-    output: NodeInput,
-    input: NodeOutput
-  },
-  remove: void
-}
+  connection: {
+    output: NodeInput;
+    input: NodeOutput;
+  };
+  remove: void;
+};
 
-interface FloatingConnectionView extends ConnectionView, EventEmitter<EventMap> { }
+interface FloatingConnectionView
+  extends ConnectionView,
+    EventEmitter<EventMap> {}
 
 class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
   socket: NodeInput | NodeOutput;
@@ -91,8 +93,7 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
     );
     potentialSockets.forEach((s) => (s.view.state = 'middle'));
 
-
-    this.system.view.setState("floating");
+    this.system.view.setState('floating');
 
     // -- Filter out already connected sockets;
     // get current connection(s) of socket
@@ -117,8 +118,12 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
     // this.potentialSockets.forEach((s) => s.view.updatePosition());
     this.potentialSockets.forEach((s) => (s.view.state = 'highlight'));
 
-    this._unsubMouseUp = this.view.on('mouseup', ev => this.handleMouseUp(ev));
-    this._unsubMouseMove = this.view.on('mousemove', ev => this.handleMouseMove(ev));
+    this._unsubMouseUp = this.view.on('mouseup', (ev) =>
+      this.handleMouseUp(ev),
+    );
+    this._unsubMouseMove = this.view.on('mousemove', (ev) =>
+      this.handleMouseMove(ev),
+    );
 
     this.mdx = this.view.mx;
     this.mdy = this.view.my;
@@ -133,7 +138,6 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
     this._unsubMouseMove();
 
     this.allSockets.forEach((s) => (s.view.state = ''));
-
 
     if (this.hoveredSocket) {
       this.emit('connection', {
@@ -210,8 +214,8 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
 
   remove() {
     super.remove();
-    this.emit("remove")
-    this.system.view.setState("normal")
+    this.emit('remove');
+    this.system.view.setState('normal');
     this.system.isPaused = false;
   }
 }

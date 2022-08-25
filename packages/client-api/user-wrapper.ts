@@ -6,7 +6,7 @@ import store, { permissions, userStore } from "./store";
 const { VITE_API_URL = 'http://localhost:8081' } = import.meta.env;
 
 export async function login(username: string, password: string) {
-  const res = await post('api/auth/login', { username, password });
+  const res = await post<{ access_token: string }>('api/auth/login', { username, password });
   if (res.ok) {
     store.token = res.data.access_token;
   }
@@ -171,7 +171,7 @@ export async function getRole() {
   const response = await send<string>({ path: "api/user/role", isJSON: false });
   if (response.ok) {
     userStore.update(s => {
-      s.role = response.data;
+      s.role = response.data as User["role"];
       return s
     })
   }

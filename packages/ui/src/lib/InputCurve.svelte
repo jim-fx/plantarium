@@ -1,12 +1,15 @@
 <svelte:options accessors />
 
 <script lang="ts">
+  import type { Vec2 } from '@plantarium/types';
+
   import spline from '@yr/monotone-cubic-spline';
+
   import { createEventDispatcher } from 'svelte';
 
   const dispatch = createEventDispatcher();
 
-  export let value = [
+  export let value: Vec2[] = [
     { x: 0, y: 1, pinned: true },
     { x: 1, y: 0, pinned: true }
   ];
@@ -16,13 +19,13 @@
 
   let isHovered = false;
   // let isRendering = false;
-  let activePoint = undefined;
-  let draggingPoint = undefined;
+  let activePoint: Vec2 | undefined = undefined;
+  let draggingPoint: Vec2 | undefined = undefined;
 
   let mousePosX = 0;
   let mousePosY = 0;
 
-  let controlPoints = [];
+  let controlPoints: Vec2[] = [];
 
   const updateValue = () => {
     requestAnimationFrame(() => {
@@ -35,13 +38,14 @@
     });
   };
 
-  const removePoint = (p) => {
+  const removePoint = (p: Vec2) => {
     if (p.pinned) return;
+    if (!activePoint) return;
     points.splice(points.indexOf(activePoint), 1);
     updateValue();
   };
 
-  const handleMouseMove = (ev) => {
+  const handleMouseMove = (ev: MouseEvent) => {
     if (isHovered) {
       mousePosX = ev.offsetX;
       mousePosY = ev.offsetY;
@@ -91,7 +95,7 @@
     isHovered = false;
   };
 
-  function renderPath(points) {
+  function renderPath(points: Vec2[]) {
     const pts = spline.points(points.map((p) => [p.x * 100, p.y * 100]));
     return spline.svgPath(pts);
   }

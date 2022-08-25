@@ -6,12 +6,12 @@ import ToastWrapper from './toast/ToastWrapper.svelte';
 
 import type { SvelteComponent } from 'svelte';
 import Button from './Button.svelte';
-import ButtonGroup from "./ButtonGroup.svelte";
+import ButtonGroup from './ButtonGroup.svelte';
 import Icon from './Icon.svelte';
 import InputCheckbox from './InputCheckbox.svelte';
 import InputColor from './InputColor.svelte';
 import InputCurve from './InputCurve.svelte';
-import InputEditable from "./InputEditable.svelte";
+import InputEditable from './InputEditable.svelte';
 import InputFloat from './InputFloat.svelte';
 import InputInteger from './InputInteger.svelte';
 import InputRange from './InputRange.svelte';
@@ -27,14 +27,21 @@ import LikeButton from './LikeButton.svelte';
 import Section from './Section.svelte';
 import StackTrace from './toast/StackTrace.svelte';
 import type { ValueTemplate } from './types';
-export { default as Form } from "./Form.svelte";
-export { default as Gallery } from "./Gallery.svelte";
-export { default as GalleryItem } from "./GalleryItem.svelte";
-export { default as LogViewer } from "./LogViewer.svelte";
-export { default as Message } from "./Message.svelte";
+export { default as Form } from './Form.svelte';
+export { default as Gallery } from './Gallery.svelte';
+export { default as GalleryItem } from './GalleryItem.svelte';
+export { default as LogViewer } from './LogViewer.svelte';
+export { default as Message } from './Message.svelte';
 export type {
-  CheckboxTemplate, CurveTemplate, FloatTemplate, IntegerTemplate, RangeTemplate, SelectTemplate, ShapeTemplate, ValueTemplate
-} from "./types";
+  CheckboxTemplate,
+  CurveTemplate,
+  FloatTemplate,
+  IntegerTemplate,
+  RangeTemplate,
+  SelectTemplate,
+  ShapeTemplate,
+  ValueTemplate
+} from './types';
 export {
   InputFloat,
   InputInteger,
@@ -74,19 +81,19 @@ export function stateToElement({
 }): SvelteComponent {
   const component = stateToComponent(template);
 
-  const props = { ...template, ...{ value } };
-  delete props["type"]
-  delete props["internal"]
-  delete props["label"]
-  delete props["description"]
+  const props = { ...template, ...{ value } } as Record<string, unknown>;
+  delete props['type'];
+  delete props['internal'];
+  delete props['label'];
+  delete props['description'];
 
   return new component({ target, props });
 }
 
 export function stateToComponent(template: ValueTemplate): typeof SvelteComponent {
   if (template.type === 'select') {
-    if (template.inputType === "tab") {
-      return InputTab
+    if (template.inputType === 'tab') {
+      return InputTab;
     }
     return InputSelect;
   }
@@ -99,13 +106,12 @@ export function stateToComponent(template: ValueTemplate): typeof SvelteComponen
     return InputShape;
   }
 
-  if (template.type === "vec3") {
-    return InputVec3
+  if (template.type === 'vec3') {
+    return InputVec3;
   }
 
-  if (template.type === "vec2") {
-
-    if (template.inputType === "range") {
+  if (template.type === 'vec2') {
+    if (template.inputType === 'range') {
       return InputRange;
     }
 
@@ -114,15 +120,15 @@ export function stateToComponent(template: ValueTemplate): typeof SvelteComponen
 
   if (template.type === 'number') {
     if (template.inputType) {
-      if (template.inputType === "float") {
+      if (template.inputType === 'float') {
         return InputFloat;
       }
-      if (template.inputType === "integer") {
-        return InputInteger
+      if (template.inputType === 'integer') {
+        return InputInteger;
       }
     }
 
-    if (template?.step && (template.step % 1 !== 0)) {
+    if (template?.step && template.step % 1 !== 0) {
       return InputFloat;
     }
 

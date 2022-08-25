@@ -33,12 +33,14 @@ export default class NodeInputView {
         const connection = this.input.connection;
         if (connection) {
           connection.remove();
-          await this.node.system.view.createFloatingConnection(connection.input);
+          await this.node.system.view.createFloatingConnection(
+            connection.input,
+          );
         } else {
           await this.node.system.view.createFloatingConnection(this.input);
         }
         this.node.enableUpdates = true;
-        this.node.update()
+        this.node.update();
       },
       false,
     );
@@ -47,7 +49,7 @@ export default class NodeInputView {
       const col = window
         .getComputedStyle(this.wrapper, null)
         .getPropertyValue('background-color');
-      this.wrapper.style.setProperty("--socket-color", color)
+      this.wrapper.style.setProperty('--socket-color', color);
       this.wrapper.style.backgroundColor =
         col !== 'rgba(0, 0, 0, 0)' ? col : color;
     });

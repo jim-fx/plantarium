@@ -1,8 +1,11 @@
-import type NodeOutput from './NodeOutput';
+import { logger } from '@plantarium/helpers';
+import NodeConnectionView from '../view/NodeConnectionView';
 import type Node from './Node';
 import type NodeInput from './NodeInput';
+import type NodeOutput from './NodeOutput';
 import type NodeSystem from './NodeSystem';
-import NodeConnectionView from '../view/NodeConnectionView';
+
+const log = logger('node');
 
 interface ConnectionOptions {
   input: NodeOutput;
@@ -10,7 +13,6 @@ interface ConnectionOptions {
 }
 
 export default class NodeConnection {
-
   /*
    * output is relative to the connection
    */
@@ -23,17 +25,19 @@ export default class NodeConnection {
   type!: string;
   view!: NodeConnectionView;
 
-  constructor(private system: NodeSystem, { input, output }: ConnectionOptions) {
-
+  constructor(
+    private system: NodeSystem,
+    { input, output }: ConnectionOptions,
+  ) {
     if (!output || !input) {
-      console.warn("Missing input or output", { input, output });
-    };
+      log.warn('Missing input or output', { input, output });
+    }
 
-    if (input.connections.find(c => c.output === output)) {
-      console.warn("lbur")
+    if (input.connections.find((c) => c.output === output)) {
+      log.warn('lbur');
       return;
     } else if (output?.connection?.input === input) {
-      console.warn("ldasdur")
+      log.warn('ldasdur');
       return;
     }
 
@@ -67,7 +71,7 @@ export default class NodeConnection {
     node.connectTo(this.output);
 
     this.system.isPaused = false;
-    node.update()
+    node.update();
   }
 
   public isNodeJoinable(node: Node) {

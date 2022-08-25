@@ -1,5 +1,8 @@
-export default (baseClass, ...mixins) => {
-  const copyProps = (target, source) => {
+class cl { }
+
+
+export default (baseClass: new (...args: unknown[]) => typeof cl, ...mixins: typeof cl[]) => {
+  const copyProps = (target: unknown, source: unknown) => {
     // this function copies all properties and symbols, filtering out some special ones
     Object.getOwnPropertyNames(source)
       .concat(Object.getOwnPropertySymbols(source).map((s) => s.toString()))
@@ -17,7 +20,7 @@ export default (baseClass, ...mixins) => {
       });
   };
   const base = class Base extends baseClass {
-    constructor(...args) {
+    constructor(...args: unknown[]) {
       super(...args);
       mixins.forEach((mixin) => copyProps(this, new mixin()));
     }

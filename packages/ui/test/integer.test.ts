@@ -1,15 +1,13 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/svelte';
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from 'vitest';
 import InputInteger from '../src/lib/InputInteger.svelte';
 
 const renderInput = (opts?: Record<string, unknown>) => render(InputInteger, opts);
 
-describe("InputInteger.svelte", () => {
+describe('InputInteger.svelte', () => {
   afterEach(() => cleanup());
 
-
   it('Should render the default value', async () => {
-
     const value = 42;
 
     renderInput({ value });
@@ -42,4 +40,4 @@ describe("InputInteger.svelte", () => {
 
     expect(+input.value).toEqual(42);
   });
-})
+});

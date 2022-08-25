@@ -1,24 +1,23 @@
 <svelte:options accessors />
 
-<script>
+<script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher<{ change: string }>();
 
-  export let value = undefined;
+  export let value: string = '';
+  export let values: string[] = [];
 
   $: value && dispatch('change', value);
 
-  function setSelected(v) {
+  function setSelected(v: string) {
     value = v;
-    open = false;
   }
 
-  export let values = [];
-  export function setItems(_items) {
+  export function setItems(_items: string[]) {
     values = _items;
   }
 
-  export function setValue(v) {
+  export function setValue(v: string) {
     value = v;
   }
 </script>

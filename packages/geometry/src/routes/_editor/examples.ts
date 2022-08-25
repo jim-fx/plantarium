@@ -10,8 +10,7 @@ let skellies = g.splitSkeleton(skelly, 0.4,4,.4)
 for(const s of skellies){
     const tubed = g.tube(Float32Array.from(s),6);
     scene.add(tubed)
-}`
-
+}`;
 
 export const leaf = `
 const l = g.leaf([  {
@@ -52,8 +51,7 @@ const l = g.leaf([  {
 ],{res:12,xCurvature:4,yCurvature:0})
 
 
-scene.add(l)`
-
+scene.add(l)`;
 
 export const gravity = `let skelly = Float32Array.from(new Array(10).fill(null).map((_,i,a) => {
     const stepSize = 4/a.length;
@@ -67,4 +65,4 @@ g.rotateSkeleton(skelly,[0,0,1],0.2);
 skelly = g.gravitySkeleton(skelly,-2,false);
 
 const tubed = g.tube(Float32Array.from(skelly),6);
-scene.add(tubed)`
+scene.add(tubed)`;

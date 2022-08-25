@@ -1,4 +1,4 @@
-import { checkNodeType } from "../types"
+import { checkNodeType } from '../types';
 
 export default checkNodeType({
   title: 'Boolean',
@@ -11,7 +11,7 @@ export default checkNodeType({
     value: {
       type: 'boolean',
       value: false,
-      description: "The value of the boolean, true or false."
+      description: 'The value of the boolean, true or false.',
     },
   },
   compute({ value = false }) {

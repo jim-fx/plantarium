@@ -1,8 +1,8 @@
 import { Program, Texture } from 'ogl-typescript';
 
 export const wireframe = (gl) =>
-  new Program(gl, {
-    vertex: `attribute vec3 position;
+	new Program(gl, {
+		vertex: `attribute vec3 position;
             attribute vec3 normal;
             uniform mat4 modelViewMatrix;
             uniform mat4 projectionMatrix;
@@ -11,7 +11,7 @@ export const wireframe = (gl) =>
                 gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
             }
 `,
-    fragment: `
+		fragment: `
     precision highp float;
     varying vec3 vNormal;
     void main() {
@@ -19,13 +19,13 @@ export const wireframe = (gl) =>
         gl_FragColor.a = 0.5;
     }
   `,
-    depthTest: false,
-    transparent: true,
-  });
+		depthTest: false,
+		transparent: true
+	});
 
 export const text = (gl) =>
-  new Program(gl, {
-    vertex: `#version 300 es
+	new Program(gl, {
+		vertex: `#version 300 es
     #define attribute in
     #define varying out
     attribute vec2 uv;
@@ -39,7 +39,7 @@ export const text = (gl) =>
         gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
     }
 `,
-    fragment: `#version 300 es
+		fragment: `#version 300 es
     precision highp float;
     #define varying in
     #define texture2D texture
@@ -57,13 +57,13 @@ export const text = (gl) =>
         gl_FragColor.a = alpha;
     }
   `,
-    depthTest: false,
-    transparent: true,
-  });
+		depthTest: false,
+		transparent: true
+	});
 
 export const blue = (gl) =>
-  new Program(gl, {
-    vertex: `attribute vec3 position;
+	new Program(gl, {
+		vertex: `attribute vec3 position;
             attribute vec3 normal;
             uniform mat4 modelViewMatrix;
             uniform mat4 projectionMatrix;
@@ -74,7 +74,7 @@ export const blue = (gl) =>
                 gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
             }
 `,
-    fragment: `
+		fragment: `
     precision highp float;
     varying vec3 vNormal;
     void main() {
@@ -83,16 +83,16 @@ export const blue = (gl) =>
         gl_FragColor.rgb = vec3(0.2, 0.8, 1.0) + lighting * 0.1;
         gl_FragColor.a = 1.0;
     }
-  `,
-  });
+  `
+	});
 
 export const green = (gl) => {
-  const texture = new Texture(gl);
-  const img = new Image();
-  img.onload = () => (texture.image = img);
-  img.src = 'matcap_green.jpg';
-  return new Program(gl, {
-    vertex: `precision highp float;
+	const texture = new Texture(gl);
+	const img = new Image();
+	img.onload = () => (texture.image = img);
+	img.src = 'matcap_green.jpg';
+	return new Program(gl, {
+		vertex: `precision highp float;
 precision highp int;
 
 attribute vec2 uv;
@@ -113,7 +113,7 @@ void main() {
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }      `,
-    fragment: `
+		fragment: `
     precision highp float;
     precision highp int;
 
@@ -133,16 +133,16 @@ void main() {
 
     }
     `,
-    uniforms: {
-      tMap: { value: texture },
-    },
-    cullFace: null,
-  });
+		uniforms: {
+			tMap: { value: texture }
+		},
+		cullFace: null
+	});
 };
 
 export const test = (gl) =>
-  new Program(gl, {
-    vertex: /* glsl */ `
+	new Program(gl, {
+		vertex: /* glsl */ `
                 attribute vec3 position;
                 attribute vec3 normal;
                 uniform mat3 normalMatrix;
@@ -155,7 +155,7 @@ export const test = (gl) =>
   }
   `,
 
-    fragment: /* glsl */ `
+		fragment: /* glsl */ `
                 precision highp float;
                 varying vec3 vNormal;
   void main() {
@@ -163,13 +163,12 @@ export const test = (gl) =>
     gl_FragColor.a = 1.0;
   }
   `,
-    cullFace: null,
-  })
-
+		cullFace: null
+	});
 
 export const particle = (gl) =>
-  new Program(gl, {
-    vertex: `
+	new Program(gl, {
+		vertex: `
       attribute vec3 position;
       uniform mat4 modelMatrix;
       uniform mat4 viewMatrix;
@@ -184,7 +183,7 @@ export const particle = (gl) =>
     gl_PointSize = 300.0 / length(mvPos.xyz);
     gl_Position = projectionMatrix * mvPos;
   } `,
-    fragment: `
+		fragment: `
       precision highp float;
       float pointSize = 0.2;
   void main() {
@@ -195,18 +194,17 @@ export const particle = (gl) =>
     gl_FragColor.rgb = vec3(0.0, 0.0, 0.0);
     gl_FragColor.a = circle;
   } `,
-    transparent: true,
-    depthTest: false,
-  });
-
+		transparent: true,
+		depthTest: false
+	});
 
 export const NormalShader = (gl) => {
-  const texture = new Texture(gl);
-  const img = new Image();
-  img.onload = () => (texture.image = img);
-  img.src = 'matcap_green.jpg';
-  return new Program(gl, {
-    vertex: `attribute vec3 position;
+	const texture = new Texture(gl);
+	const img = new Image();
+	img.onload = () => (texture.image = img);
+	img.src = 'matcap_green.jpg';
+	return new Program(gl, {
+		vertex: `attribute vec3 position;
 attribute vec3 normal;
 
 uniform mat4 modelViewMatrix;
@@ -221,7 +219,7 @@ varying vec4 vMVPos;
     vMVPos = modelViewMatrix * vec4(position, 1.0);
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   } `,
-    fragment: `precision highp float;
+		fragment: `precision highp float;
 
 varying vec3 vNormal;
 varying vec4 vMVPos;
@@ -243,15 +241,15 @@ vec2 matcap(vec3 eye, vec3 normal) {
     gl_FragColor.rgb = mat;
     gl_FragColor.a = 1.0;
   } `,
-    uniforms: {
-      tMap: { value: texture },
-    },
-    cullFace: null,
-  });
-}
+		uniforms: {
+			tMap: { value: texture }
+		},
+		cullFace: null
+	});
+};
 
 export const Lines = {
-  vertex: `attribute vec3 position;
+	vertex: `attribute vec3 position;
                 attribute vec3 normal;
                 uniform mat3 normalMatrix;
                 uniform mat4 modelViewMatrix;
@@ -261,10 +259,10 @@ export const Lines = {
                     vNormal = normalize(normalMatrix * normal);
                     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
                 }`,
-  fragment: `precision highp float;
+	fragment: `precision highp float;
                 varying vec3 vNormal;
                 void main() {
                     gl_FragColor.rgb = normalize(vNormal);
                     gl_FragColor.a = 1.0;
                 }`
-}
+};

@@ -25,7 +25,4 @@ user.getUserInfo().then((res) => {
   } else {
     store.token = undefined;
   }
-}).catch(err => {
-  console.error(err)
-  console.log({ err })
 })

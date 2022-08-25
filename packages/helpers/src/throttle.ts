@@ -1,7 +1,7 @@
 export default function throttle<T>(_func: T, wait: number): T {
   let context: (() => unknown) | null;
-  let args;
-  let result;
+  let args: IArguments;
+  let result: unknown;
 
   let timeout: number | null = null;
   let previous = 0;
@@ -15,13 +15,13 @@ export default function throttle<T>(_func: T, wait: number): T {
     if (!timeout) context = args = null;
   };
 
-  const f = function () {
+  const f = function(...args: unknown[]) {
     const now = Date.now();
     if (!previous) previous = now;
     const remaining = wait - (now - previous);
+    //eslint-disable-next-line
     context = this;
     // eslint-disable-next-line prefer-rest-params
-    args = arguments;
     if (remaining <= 0 || remaining > wait) {
       if (timeout) {
         clearTimeout(timeout);

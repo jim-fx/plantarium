@@ -1,45 +1,45 @@
 .node-state-single-wrapper {
   position: relative;
   padding: 5px 5px;
-	--width: 100%;
+  --width: 100%;
 }
 
-.node-state-single-wrapper.state-error::before{
-  position:absolute;
-  content:"";
-  width:10px;
-  height:10px;
-  left:-1px;
-  top:7px;
-  z-index:-1;
+.node-state-single-wrapper.state-error::before {
+  position: absolute;
+  content: '';
+  width: 10px;
+  height: 10px;
+  left: -1px;
+  top: 7px;
+  z-index: -1;
   // box-shadow: 0px 0px 5px 5px var(--alert-color,yellow);
   border-radius: 10px;
-  opacity:0.5;
+  opacity: 0.5;
 }
 
 .node-state-hideable {
-  display:none;
+  display: none;
 }
 
-.node-state-hideable.node-state-visible{
-  display:block;
+.node-state-hideable.node-state-visible {
+  display: block;
 }
 
-.node-stateselect .node-state-hideable{
-  display:block;
+.node-stateselect .node-state-hideable {
+  display: block;
 }
 
-.node-stateselect .node-state-single-wrapper > input[type=checkbox]{
-  display:block;
+.node-stateselect .node-state-single-wrapper > input[type='checkbox'] {
+  display: block;
 }
 
-.node-state-single-wrapper > input[type=checkbox]{
-  width: 10px ;
-  height: 10px ;
-  position: absolute ;
-  right: 5px ;
-  display:none;
-  top: 10px ;
+.node-state-single-wrapper > input[type='checkbox'] {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  right: 5px;
+  display: none;
+  top: 10px;
 }
 
 .node-state-single-wrapper.disabled > .node-state-input {
@@ -53,35 +53,32 @@
   opacity: 0.3;
 }
 
-.node-state-single-wrapper.hide-label > .state-label{
-	display:none;
+.node-state-single-wrapper.hide-label > .state-label {
+  display: none;
 }
 
 .node-state-single-wrapper.disabled {
-	
-	> .node-state-input {
-		display:none;
-	}
+  > .node-state-input {
+    display: none;
+  }
 
-	> .state-label{
-		display:block;
-	}
-
+  > .state-label {
+    display: block;
+  }
 }
 
-.state-label{
-  pointer-events:none;
+.state-label {
+  pointer-events: none;
 }
 
-.nodesystem-state-help  .node-state-single-wrapper:hover{
-   > .nodeview-help-wrapper{
+.nodesystem-state-help .node-state-single-wrapper:hover {
+  > .nodeview-help-wrapper {
     transform: translateX(10px);
     opacity: 0.9 !important;
     backdrop-filter: blur(10px);
-    pointer-events:all;
+    pointer-events: all;
   }
 }
-.tooltip-right  .nodestate-help-wrapper{
+.tooltip-right .nodestate-help-wrapper {
   right: -192px;
 }
-

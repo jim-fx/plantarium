@@ -1,4 +1,4 @@
-import type { Rect } from "../types";
+import type { Rect } from '../types';
 
 export default function rectanglesIntersect(rectA: Rect, rectB: Rect): boolean {
   const aLeftOfB = rectA.x2 < rectB.x1;

@@ -8,12 +8,12 @@
   import { parseStackTrace } from '@plantarium/helpers';
 
   export let type: 'warning' | 'error' | 'info' | 'success' = 'info';
-  export let title: string = undefined;
+  export let title: string | undefined = undefined;
   export let message: string | string[] | Error;
   export let icon: string | boolean = false;
-  export let values: string[] = undefined;
-  export let timeout: number = 0;
-  export let resolve: (v: string) => void = undefined;
+  export let values: string[] = [];
+  export let timeout = 0;
+  export let resolve: ((v: string) => void) | undefined = undefined;
 
   let animateProgress = false;
 
@@ -21,7 +21,7 @@
 
   $: iconName = icon && getIcon();
 
-  function getIcon(): IconType {
+  function getIcon(): IconType | undefined {
     if (type === 'error') {
       return 'warning';
     }
@@ -96,7 +96,7 @@
                   --height="fit-content"
                   --white-space="break-spaces"
                   --margin="5px 10px 5px 0"
-                  on:click={() => resolve(v)}
+                  on:click={() => resolve?.(v)}
                   name={v}
                 />
               </div>

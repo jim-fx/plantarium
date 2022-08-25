@@ -41,7 +41,7 @@ export class AppModule implements OnModuleInit {
       const migrator = this.orm.getMigrator();
 
       await migrator.up();
-    };
+    }
 
     await this.userService.init()
 

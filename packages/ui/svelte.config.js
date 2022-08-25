@@ -17,7 +17,6 @@ export default {
 
     paths: { base: BASE_PATH },
 
-    prerender: { default: true, enabled: true },
-
+    prerender: { default: true, enabled: true }
   }
 };

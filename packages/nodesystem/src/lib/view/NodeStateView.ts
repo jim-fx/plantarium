@@ -18,26 +18,29 @@ export default class NodeStateView {
 
     const template = nodeState.template;
 
-    if ("hidden" in template) {
+    if ('hidden' in template) {
       this.hideable = true;
-      this.wrapper.classList.add("node-state-hideable");
-      this.visibleInput = document.createElement("input")
-      this.visibleInput.type = "checkbox";
+      this.wrapper.classList.add('node-state-hideable');
+      this.visibleInput = document.createElement('input');
+      this.visibleInput.type = 'checkbox';
       // Bruuuuuh, dis be one long asss line
-      const visible = !!this.nodeState?.node?.attributes?.visible?.includes(this.nodeState.key);
+      const visible = !!this.nodeState?.node?.attributes?.visible?.includes(
+        this.nodeState.key,
+      );
       this.visibleInput.checked = visible;
-      this.setVisible(visible)
-      this.visibleInput.addEventListener("input", () => this.setVisible(this.visibleInput.checked))
-      this.wrapper.appendChild(this.visibleInput)
+      this.setVisible(visible);
+      this.visibleInput.addEventListener('input', () =>
+        this.setVisible(this.visibleInput.checked),
+      );
+      this.wrapper.appendChild(this.visibleInput);
 
       setTimeout(() => {
         if (this.nodeState.getInput()?.connection) {
-          this.setVisible(true)
-          this.updatePosition()
+          this.setVisible(true);
+          this.updatePosition();
         }
-      }, 20)
+      }, 20);
     }
-
 
     const label = template.label || nodeState.key;
     if (typeof label === 'string') {
@@ -51,8 +54,7 @@ export default class NodeStateView {
       this.wrapper.classList.add('hide-label');
     }
 
-
-    if (!template.external && template.type !== "*") {
+    if (!template.external && template.type !== '*') {
       this.element = stateToElement({
         target: this.input,
         template,
@@ -69,12 +71,17 @@ export default class NodeStateView {
     }
 
     if (template.description) {
-      this.helpWrapper = document.createElement("div");
-      this.helpWrapper.classList.add("nodeview-help-wrapper", "nodestate-help-wrapper");
+      this.helpWrapper = document.createElement('div');
+      this.helpWrapper.classList.add(
+        'nodeview-help-wrapper',
+        'nodestate-help-wrapper',
+      );
 
-      this.helpWrapper.innerHTML = `<i>${template.label || this.nodeState.key}</i><br><p>${template.description}</p>`
+      this.helpWrapper.innerHTML = `<i>${
+        template.label || this.nodeState.key
+      }</i><br><p>${template.description}</p>`;
 
-      this.wrapper.appendChild(this.helpWrapper)
+      this.wrapper.appendChild(this.helpWrapper);
     }
 
     nodeState.node.view.stateWrapper.appendChild(this.wrapper);
@@ -96,12 +103,12 @@ export default class NodeStateView {
       this.visible = visible;
       if (this.visibleInput) this.visibleInput.checked = visible;
       if (visible) {
-        this.wrapper.classList.add("node-state-visible")
+        this.wrapper.classList.add('node-state-visible');
       } else {
-        this.wrapper.classList.remove("node-state-visible")
+        this.wrapper.classList.remove('node-state-visible');
       }
     }
-    this.nodeState.node.save()
+    this.nodeState.node.save();
   }
 
   updatePosition() {
@@ -111,9 +118,9 @@ export default class NodeStateView {
 
   setErrorState(err: boolean) {
     if (err) {
-      this.wrapper.classList.add("state-error")
+      this.wrapper.classList.add('state-error');
     } else {
-      this.wrapper.classList.remove("state-error")
+      this.wrapper.classList.remove('state-error');
     }
   }
 
@@ -126,8 +133,8 @@ export default class NodeStateView {
   }
 
   setActive(isActive: boolean) {
-    if (this.nodeState.node.view.state === "stateselect") this.setVisible(true);
+    if (this.nodeState.node.view.state === 'stateselect') this.setVisible(true);
     this.wrapper.classList[isActive ? 'remove' : 'add']('disabled');
-    this.nodeState.node.getInputs().forEach(s => s.view.updatePosition())
+    this.nodeState.node.getInputs().forEach((s) => s.view.updatePosition());
   }
 }

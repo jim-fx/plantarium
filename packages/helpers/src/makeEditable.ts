@@ -2,7 +2,7 @@ let activeElement: HTMLElement;
 let callback: (value: string) => unknown;
 let value: string;
 
-function setCursorPos(el) {
+function setCursorPos(el: HTMLElement) {
   el.focus();
   if (
     typeof window.getSelection != 'undefined' &&
@@ -17,8 +17,8 @@ function setCursorPos(el) {
   }
 }
 
-function stopEditing(ev) {
-  if (ev.type === 'blur' || ev.keyCode === 13) {
+function stopEditing(ev: KeyboardEvent | FocusEvent) {
+  if (ev.type === 'blur' || ev["key"] === "Enter") {
     if (activeElement.getAttribute('contenteditable')) {
       activeElement.removeAttribute('contenteditable');
 
@@ -34,7 +34,7 @@ function stopEditing(ev) {
   }
 }
 
-export default function (el: HTMLElement, cb: (value: string) => unknown) {
+export default function(el: HTMLElement, cb: (value: string) => unknown) {
   activeElement = el;
   callback = cb;
   value = el.innerText;

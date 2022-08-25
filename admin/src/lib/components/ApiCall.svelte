@@ -6,7 +6,7 @@
 
   const dispatch = createEventDispatcher();
 
-  export let promise: Promise<any> = undefined;
+  export let promise: ReturnType<typeof get> = undefined;
   export let path: string = undefined;
 
   const _prom = promise || get(path);

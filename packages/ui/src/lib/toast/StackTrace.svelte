@@ -21,7 +21,7 @@
 
 <style>
   .wrapper {
-    background-color: var(--foreground-color,#303030);
+    background-color: var(--foreground-color, #303030);
     color: var(--text-color, white);
     padding: 10px;
     margin: 0px;

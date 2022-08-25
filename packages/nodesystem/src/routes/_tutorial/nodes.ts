@@ -28,13 +28,13 @@ const boolops = {
 //Compare numbers
 const compare = {
   title: 'compare',
-  type: "compare",
+  type: 'compare',
   outputs: ['boolean'],
   parameters: {
     mode: {
       type: 'select',
       values: ['>', '<', '='],
-      value: "=",
+      value: '=',
       internal: true,
     },
     a: {
@@ -46,7 +46,7 @@ const compare = {
       value: 0,
     },
   },
-  compute: function({ a, b, mode }) {
+  compute: function ({ a, b, mode }) {
     switch (mode) {
       case '=':
         return a === b;
@@ -74,7 +74,7 @@ const picker = {
       type: 'number',
     },
   },
-  compute: function({ selectFirst = true, inputA = 0, inputB = 0 }) {
+  compute: function ({ selectFirst = true, inputA = 0, inputB = 0 }) {
     return selectFirst ? inputA : inputB;
   },
 };

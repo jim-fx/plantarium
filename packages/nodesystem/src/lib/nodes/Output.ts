@@ -8,7 +8,7 @@ class OutputNode extends Node {
   constructor(system: NodeSystem, props: NodeProps) {
     super(system, props);
 
-    this.attributes.type = "output"
+    this.attributes.type = 'output';
 
     this.states = {
       input: new NodeState(this, 'input', {
@@ -46,7 +46,7 @@ class OutputView extends NodeView {
 
 export default {
   title: 'Output',
-  type: "output",
+  type: 'output',
   meta: {
     description: 'Outputs the final value',
   },

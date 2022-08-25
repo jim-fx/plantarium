@@ -22,7 +22,6 @@ const config = {
     paths: {
       base: BASE_PATH,
     },
-
   },
 };
 
