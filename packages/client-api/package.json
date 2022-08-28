@@ -10,7 +10,7 @@
   "dependencies": {
     "@plantarium/backend": "workspace:*",
     "@plantarium/helpers": "workspace:*",
-    "svelte": "^3.49.0"
+    "svelte": "3.49.0"
   },
   "devDependencies": {
     "@plantarium/types": "workspace:*"

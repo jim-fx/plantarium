@@ -11,9 +11,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "typescript-json-schema": "^0.54.0"
+    "typescript-json-schema": "0.54.0"
   },
   "dependencies": {
-    "ajv-formats": "^2.1.1"
+    "ajv-formats": "2.1.1"
   }
 }
