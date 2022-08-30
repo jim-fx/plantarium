@@ -25,7 +25,7 @@
     "@plantarium/types": "workspace:*",
     "@sveltejs/adapter-static": "1.0.0-next.39",
     "@sveltejs/kit": "1.0.0-next.445",
-    "@sveltejs/vite-plugin-svelte": "1.0.2",
+    "@sveltejs/vite-plugin-svelte": "1.0.3",
     "@testing-library/svelte": "3.2.1",
     "@typescript-eslint/eslint-plugin": "5.35.1",
     "@typescript-eslint/parser": "5.35.1",
