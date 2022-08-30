@@ -32,7 +32,7 @@ importers:
       cookie: 0.5.0
       css-vars-from-json: 1.1.0
       devalue: 3.1.2
-      dotenv: 16.0.1
+      dotenv: 16.0.2
       eslint: 8.23.0
       eslint-config-prettier: 8.5.0
       eslint-plugin-svelte3: 4.0.0
@@ -66,7 +66,7 @@ importers:
       cookie: 0.5.0
       css-vars-from-json: 1.1.0
       devalue: 3.1.2
-      dotenv: 16.0.1
+      dotenv: 16.0.2
       file-saver: 2.0.5
       nanoid: 4.0.0
       ogl-typescript: 0.1.40
@@ -4802,6 +4802,11 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
+  /dotenv/16.0.2:
+    resolution: {integrity: sha512-JvpYKUmzQhYoIFgK2MOnF3bciIZoItIIoryihy0rIA+H4Jy0FmgyKYAHCTN98P5ybGSJcIFbh6QKeJdtZd1qhA==}
+    engines: {node: '>=12'}
+    dev: false
+
   /duplexify/3.7.1:
     resolution: {integrity: sha512-07z8uv2wMyS51kKhD1KsdXJg5WQ6t93RneqRxUHnskXVtlYYkLqM0gqStQZ3pj073g687jPCHrqNfCzawLYh5g==}
     dependencies:
@@ -7469,6 +7474,7 @@ packages:
       chalk: 2.4.2
       diff-match-patch: 1.0.5
     dev: false
+    bundledDependencies: []
 
   /jsonfile/6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
