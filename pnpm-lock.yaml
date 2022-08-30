@@ -537,7 +537,7 @@ importers:
       svelte: 3.49.0
       svelte-check: 2.8.1
       svelte-preprocess: 4.10.7
-      svelte2tsx: 0.5.14
+      svelte2tsx: 0.5.16
       tslib: 2.4.0
       typescript: 4.8.2
       vite: 3.0.9
@@ -571,7 +571,7 @@ importers:
       svelte: 3.49.0
       svelte-check: 2.8.1_svelte@3.49.0
       svelte-preprocess: 4.10.7_k5n4uipe6734vn7334tf7n5ml4
-      svelte2tsx: 0.5.14_k5n4uipe6734vn7334tf7n5ml4
+      svelte2tsx: 0.5.16_k5n4uipe6734vn7334tf7n5ml4
       tslib: 2.4.0
       typescript: 4.8.2
       vite: 3.0.9
@@ -7469,6 +7469,7 @@ packages:
       chalk: 2.4.2
       diff-match-patch: 1.0.5
     dev: false
+    bundledDependencies: []
 
   /jsonfile/6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
@@ -10019,8 +10020,8 @@ packages:
     resolution: {integrity: sha512-+lmjic1pApJWDfPCpUUTc1m8azDqYCG1JN9YEngrx/hUyIcFJo6VZhj0A1Ai0wqoHcEIuQy+e9tk+4uDgdtsFA==}
     engines: {node: '>= 8'}
 
-  /svelte2tsx/0.5.14_k5n4uipe6734vn7334tf7n5ml4:
-    resolution: {integrity: sha512-/9hGkIUMVwZDJoERS6k1x+y6Ir+PpkxbL/UWQ2+RhK/PwUoIaDTCfw79/H1bgYNUTr/7ZaYanJGPuaWARNbbyQ==}
+  /svelte2tsx/0.5.16_k5n4uipe6734vn7334tf7n5ml4:
+    resolution: {integrity: sha512-MwgpeRHfzP8T7NkFNT1JPhe9pCF4Dml2oSdjL2zNqvSprjA2BFgQuCNUg4R5qSz7AxVDJsiL/2hciCtVbXAT3A==}
     peerDependencies:
       svelte: ^3.24
       typescript: ^4.1.2
