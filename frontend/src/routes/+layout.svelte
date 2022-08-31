@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { browser } from '$app/env';
+	import { browser } from '$app/environment';
 	import { logger } from '@plantarium/helpers';
 
 	if (!browser) {

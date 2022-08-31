@@ -1,4 +1,4 @@
-import { browser } from '$app/env';
+import { browser } from '$app/environment';
 import { throttle } from '@plantarium/helpers';
 
 import { openDB } from 'idb';

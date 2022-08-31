@@ -1,4 +1,4 @@
-import { browser } from '$app/env';
+import { browser } from '$app/environment';
 import type { PlantariumSettings } from '$lib/types';
 import { logger } from '@plantarium/helpers';
 import Nodes from '@plantarium/nodes';

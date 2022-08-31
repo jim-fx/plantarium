@@ -15,7 +15,6 @@ const config = {
   kit: {
     adapter: adapter(),
     paths: { base: BASE_PATH },
-    prerender: { default: true, enabled: true },
   },
 };
 

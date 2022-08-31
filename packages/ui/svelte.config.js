@@ -14,9 +14,6 @@ export default {
 
   kit: {
     adapter: adapter(),
-
     paths: { base: BASE_PATH },
-
-    prerender: { default: true, enabled: true }
   }
 };

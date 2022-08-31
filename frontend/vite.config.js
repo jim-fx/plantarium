@@ -1,6 +1,4 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import path from 'path';
-import { visualizer } from 'rollup-plugin-visualizer';
 import glsl from "vite-plugin-glsl";
 
 /** @type {import('vite').UserConfig} */
@@ -21,10 +19,6 @@ export default {
   },
   plugins: [
     sveltekit(),
-    glsl(),
-    visualizer({
-      filename: 'build/stats.html',
-      projectRoot: path.resolve('./')
-    })
+    glsl()
   ]
 };

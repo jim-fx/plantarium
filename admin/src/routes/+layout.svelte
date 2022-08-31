@@ -1,6 +1,6 @@
 <script>
   import 'virtual:windi.css';
-  import { browser } from '$app/env';
+  import { browser } from '$app/environment';
   import NavBar from '$lib/NavBar.svelte';
   if (browser) import('virtual:windi-devtools');
   import { AlertWrapper } from '@plantarium/ui';

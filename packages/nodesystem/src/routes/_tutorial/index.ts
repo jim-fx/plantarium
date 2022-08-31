@@ -1,4 +1,3 @@
-import { browser } from '$app/env';
 import type { NodeSystem } from '$lib';
 import { createAlert, createToast } from '@plantarium/ui';
 import { readable, type Readable } from 'svelte/store';
@@ -234,5 +233,5 @@ of the universe, they should be powdered by then.`,
     this.isRunning = false;
   }
 
-  end() {}
+  end() { }
 }

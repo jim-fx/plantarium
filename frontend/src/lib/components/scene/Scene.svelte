@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { browser } from '$app/env';
-	import type { PlantProject } from '@plantarium/types';
-	import { Button } from '@plantarium/ui';
-
+	import type { Project } from '@plantarium/types';
 	import type { Writable } from 'svelte/store';
 	import Scene from '.';
 	import { projectManager, settingsManager } from '..';
@@ -15,7 +12,7 @@
 	let canvas: HTMLCanvasElement;
 
 	let scene: Scene;
-	let pd: PlantProject;
+	let pd: Project;
 
 	$: isLoading = scene && scene.isLoading;
 

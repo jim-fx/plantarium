@@ -1,4 +1,4 @@
-import { browser } from '$app/env';
+import { browser } from '$app/environment';
 import * as storage from '$lib/storage';
 import type { PlantariumSettings } from '$lib/types';
 import { cloneObject, EventEmitter, logger, validator } from '@plantarium/helpers';
