@@ -42,7 +42,7 @@
     "stacktrace-parser": "^0.1.10",
     "svelte-click-outside": "^1.0.0",
     "svelte-json-tree": "^1.0.0",
-    "svelte-multiselect": "^5.0.6",
+    "svelte-multiselect": "6.1.0",
     "svelte-resize-observer": "2.0.0"
   },
   "devDependencies": {
