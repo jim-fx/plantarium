@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "css-vars-from-json": "1.1.0",
-    "svelte": "3.49.0"
+    "svelte": "3.52.0"
   },
   "devDependencies": {
     "@tsconfig/svelte": "3.0.0",
