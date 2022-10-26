@@ -29,7 +29,7 @@
     "@testing-library/svelte": "^3.2.1",
     "@typescript-eslint/eslint-plugin": "5.36.1",
     "@typescript-eslint/parser": "5.36.1",
-    "@vitest/ui": "^0.22.1",
+    "@vitest/ui": "^0.24.0",
     "@yr/monotone-cubic-spline": "1.0.3",
     "c8": "7.12.0",
     "eslint": "8.23.0",
