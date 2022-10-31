@@ -4,7 +4,6 @@ import glsl from "vite-plugin-glsl";
 /** @type {import('vite').UserConfig} */
 export default {
   clearScreen: true,
-  legacy: { buildSsrCjsExternalHeuristics: true },
   ssr: { noExternal: ['ogl-typescript', '@plantarium/ui', '@plantarium/helpers'] },
   logLevel: 'silent',
   build: {
