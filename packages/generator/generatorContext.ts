@@ -1,22 +1,20 @@
-import type { Project } from "@plantarium/types";
+import type { PlantariumSettings, Project } from "@plantarium/types";
+import createContext from "./context";
 import nodeMap from "./nodeMap";
 import type { WrappedNode } from "./types";
 
-import createContext from "./context";
 export type GeneratorContext = ReturnType<typeof createGeneratorContext>;
 
-export default function createGeneratorContext({ nodes: _nodes }: Project, settings: Partial<PlantariumSettings>) {
+export default function createGeneratorContext({ nodes: _nodes }: Project, settings: Partial<typeof PlantariumSettings>) {
   const ctx = createContext(settings);
-
-  globalThis["ctx"] = ctx;
 
   const timings: Record<string, { amount: number, time: number }> = {};
 
   const nodeIdMap = new Map<string, WrappedNode>();
   const nodeRefMap = new Map<string, { n: WrappedNode, in: string, out: number }[]>();
 
-  const getNodeRef = (id: string) => nodeRefMap.get(id) ?? []
-  const getNode = (id: string) => nodeIdMap.get(id) ?? []
+  const getNodeRef = (id: string) => nodeRefMap.get(id) ?? [];
+  const getNode = (id: string) => nodeIdMap.get(id) ?? [];
 
   const nodes = [];
 
@@ -28,6 +26,7 @@ export default function createGeneratorContext({ nodes: _nodes }: Project, setti
         errors: ["Missing NodeType " + attributes.type]
       };
     }
+
     nodes.push({
       attributes,
       state,

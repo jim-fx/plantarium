@@ -1,4 +1,5 @@
-import type { NodeProps } from "./nodesystem";
+import type { NodeProps } from "./nodesystem"
+export { default as PlantariumSettings } from "./settings"
 
 /**
  * Geometry which gets passed directly to the render engine
