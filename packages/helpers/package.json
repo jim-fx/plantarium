@@ -22,12 +22,12 @@
   },
   "devDependencies": {
     "@plantarium/types": "workspace:*",
-    "@sveltejs/vite-plugin-svelte": "^1.0.4",
-    "@testing-library/svelte": "^3.2.1",
+    "@sveltejs/vite-plugin-svelte": "^1.1.0",
+    "@testing-library/svelte": "^3.2.2",
     "c8": "7.12.0",
-    "svelte": "3.49.0",
+    "svelte": "3.52.0",
     "ts-eager": "2.0.2",
-    "vite": "3.0.9",
-    "vitest": "0.22.1"
+    "vite": "3.2.2",
+    "vitest": "0.24.4"
   }
 }
