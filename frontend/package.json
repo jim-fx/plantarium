@@ -46,7 +46,7 @@
     "svelte-resize-observer": "2.0.0"
   },
   "devDependencies": {
-    "@sveltejs/adapter-static": "1.0.0-next.47",
+    "@sveltejs/adapter-static": "1.0.6",
     "@sveltejs/kit": "1.0.0-next.529",
     "@tsconfig/svelte": "3.0.0",
     "@types/shortid": "^0.0.29",

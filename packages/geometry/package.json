@@ -20,7 +20,7 @@
     "@codemirror/state": "6.1.2",
     "@codemirror/view": "6.4.0",
     "@plantarium/types": "link:../types",
-    "@sveltejs/adapter-static": "1.0.0-next.47",
+    "@sveltejs/adapter-static": "1.0.6",
     "@sveltejs/kit": "1.0.0-next.529",
     "@typescript-eslint/eslint-plugin": "5.41.0",
     "@typescript-eslint/parser": "^5.41.0",

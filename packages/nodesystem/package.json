@@ -42,7 +42,7 @@
     "@plantarium/helpers": "workspace:*",
     "@plantarium/theme": "workspace:*",
     "@plantarium/ui": "workspace:*",
-    "@sveltejs/adapter-static": "1.0.0-next.47",
+    "@sveltejs/adapter-static": "1.0.6",
     "@yr/monotone-cubic-spline": "^1.0.3",
     "ajv": "^8.11.0",
     "ajv-formats": "^2.1.1",
