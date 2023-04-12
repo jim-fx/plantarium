@@ -33,6 +33,7 @@ jobs:
         uses: macbre/push-to-ghcr@master
         with:
           image_name: jimfx/plantarium-backend  # it will be lowercased internally
+          dockerfile: backend/Dockerfile
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
         # Temp fix
