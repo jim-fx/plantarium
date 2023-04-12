@@ -10,11 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "css-vars-from-json": "1.1.0",
-    "svelte": "3.52.0"
+    "svelte": "3.55.1"
   },
   "devDependencies": {
     "@tsconfig/svelte": "3.0.0",
-    "esbuild": "0.15.12",
+    "esbuild": "0.17.5",
     "esbuild-plugin-sass": "1.0.1"
   }
 }
