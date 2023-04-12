@@ -11,9 +11,6 @@ permissions:
   id-token: write
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
   deploy_backend_image:
     # run only when code is compiling and tests are passing
     runs-on: ubuntu-latest
