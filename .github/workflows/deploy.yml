@@ -29,19 +29,11 @@ jobs:
         # This is where you will update the PAT to GITHUB_TOKEN
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Build image and push to Docker Hub and GitHub Container Registry
-        uses: docker/build-push-action@v4
+      - name: Build and publish a Docker image for ${{ github.repository }}
+        uses: macbre/push-to-ghcr@master
         with:
-          # relative path to the place where source code with Dockerfile is located
-          context: .
-          file: backend/Dockerfile
-          # Note: tags has to be all lower-case
-          tags: |
-            ghcr.io/jim-fx/plantarium-backend:latest
-          # build on feature branches, push only on main branch
-          push: ${{ github.ref == 'refs/heads/main' }}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+          image_name: jimfx/plantarium-backend@latest  # it will be lowercased internally
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
         # Temp fix
         # https://github.com/docker/build-push-action/issues/252
