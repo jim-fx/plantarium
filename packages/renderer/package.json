@@ -12,6 +12,6 @@
     "@plantarium/helpers": "workspace:*",
     "ogl-typescript": "0.1.40",
     "resize-observer-polyfill": "1.5.1",
-    "svelte": "3.55.1"
+    "svelte": "3.58.0"
   }
 }
