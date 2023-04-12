@@ -5,7 +5,15 @@ on:
     branches:
       - 'main'
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
+  build:
+    runs-on: ubuntu-latest
+
   deploy_backend_image:
     # run only when code is compiling and tests are passing
     runs-on: ubuntu-latest
@@ -94,8 +102,10 @@ jobs:
       - run: 'cp -r packages/nodesystem/build frontend/build/nodes'
       - run: 'cp -r packages/geometry/build frontend/build/geometry'
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4.4.0
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: frontend/build # The folder the action should deploy.
+          path: ./frontend/build
+
+      - name: Deploy 🚀
+        uses: actions/deploy-pages@v1
