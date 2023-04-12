@@ -153,7 +153,6 @@
     <br />
     <details>
       <summary>Code</summary>
-      <Highlight code={`<InputCheckbox on:click={handleClick}/>`} />
     </details>
   </section>
 
