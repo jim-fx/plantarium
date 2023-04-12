@@ -39,6 +39,11 @@
   },
   "homepage": "https://github.com/jim-fx/plantarium#readme",
   "description": "",
+  "pnpm": {
+    "overrides": {
+      "vite": "4.3.0-beta.2"
+    }
+  },
   "devDependencies": {
     "istanbul-lib-coverage": "3.2.0",
     "istanbul-lib-report": "3.0.0",
