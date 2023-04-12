@@ -209,6 +209,9 @@ importers:
       '@plantarium/helpers':
         specifier: workspace:*
         version: link:../packages/helpers
+      '@plantarium/ui':
+        specifier: workspace:*
+        version: link:../packages/ui
       bcrypt:
         specifier: 5.1.0
         version: 5.1.0
@@ -859,6 +862,9 @@ importers:
 
   packages/types:
     dependencies:
+      '@plantarium/ui':
+        specifier: workspace:*
+        version: link:../ui
       ajv-formats:
         specifier: 2.1.1
         version: 2.1.1(ajv@8.12.0)

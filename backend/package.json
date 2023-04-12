@@ -44,6 +44,7 @@
     "@nestjs/terminus": "9.2.2",
     "@nestjs/throttler": "4.0.0",
     "@plantarium/helpers": "workspace:*",
+    "@plantarium/ui": "workspace:*",
     "bcrypt": "5.1.0",
     "class-transformer": "0.5.1",
     "class-validator": "0.14.0",

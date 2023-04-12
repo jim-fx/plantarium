@@ -28,7 +28,7 @@ import LikeButton from './LikeButton.svelte';
 import Section from './Section.svelte';
 import StackTrace from './toast/StackTrace.svelte';
 import type { ValueTemplate } from './types';
-;
+
 export { default as Form } from './Form.svelte';
 export { default as Gallery } from './Gallery.svelte';
 export { default as GalleryItem } from './GalleryItem.svelte';

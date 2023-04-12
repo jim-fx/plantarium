@@ -14,6 +14,7 @@
     "typescript-json-schema": "0.56.0"
   },
   "dependencies": {
-    "ajv-formats": "2.1.1"
+    "ajv-formats": "2.1.1",
+    "@plantarium/ui": "workspace:*"
   }
 }
