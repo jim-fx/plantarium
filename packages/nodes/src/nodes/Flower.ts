@@ -2,7 +2,7 @@ import { convertInstancedGeometry, instanceGeometry, join, leaf, rotate2D } from
 import { quat } from 'gl-matrix';
 import { typeCheckNode } from '../types';
 
-const defaultValue = [
+const defaultPetal = [
   {
     x: 0.8,
     y: 1,
@@ -51,7 +51,7 @@ export default typeCheckNode({
     shape: {
       type: 'shape',
       external: true,
-      value: defaultValue,
+      value: defaultPetal,
       description: "Shape of the indivual flower leaf, you can connect a shape node here"
     },
     curvature: {
@@ -72,9 +72,9 @@ export default typeCheckNode({
       value: 8
     },
     scale: {
-      type: "vec2",
+      type: "vec3",
       inputType: "float",
-      value: { x: 1, y: 1 }
+      value: { x: 1, y: 1, z: 1 }
     },
     angle: {
       type: "vec3",
@@ -121,12 +121,13 @@ export default typeCheckNode({
 
       const _scale = params.scale(alpha)
       scale[i * 3 + 0] = _scale.x;
-      scale[i * 3 + 1] = 1;
-      scale[i * 3 + 2] = _scale.y;
+      scale[i * 3 + 1] = _scale.y;
+      scale[i * 3 + 2] = _scale.z;
 
       const angle = params.angle(alpha);
       const rot = params.rotation(alpha)
       const q = quat.create()
+
       quat.rotateY(q, q, rot.y + angle.y * alpha * Math.PI * 2);
       quat.rotateX(q, q, rot.x + angle.x);
       quat.rotateZ(q, q, angle.z);

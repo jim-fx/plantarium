@@ -16,7 +16,7 @@ type EventMap = {
 
 interface FloatingConnectionView
   extends ConnectionView,
-    EventEmitter<EventMap> {}
+  EventEmitter<EventMap> { }
 
 class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
   socket: NodeInput | NodeOutput;
@@ -103,6 +103,7 @@ class FloatingConnectionView extends aggregate(ConnectionView, EventEmitter) {
     if (connections && !!connections.length) {
       // get all the sockets of the connection
       const connectedSockets = connections
+        .filter(Boolean)
         .map((c) => [c.input, c.output])
         .flat();
       // filter out all the sockets which are already connected
