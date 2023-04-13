@@ -71,7 +71,7 @@
 	>
 {:else if parsed}
 	<p>Seems all right</p>
-	<button on:click={handleFinishImport}>Finish Import</button>
+	<button on:click={() => handleFinishImport()}>Finish Import</button>
 {/if}
 
 <style>
