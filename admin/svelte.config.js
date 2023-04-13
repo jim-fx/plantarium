@@ -12,7 +12,7 @@ const config = {
   preprocess: preprocess(),
 
   kit: {
-    adapter: adapter(),
+    adapter: adapter({ fallback: "index.html" }),
 
     paths: {
       base: BASE_PATH,
