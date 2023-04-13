@@ -73,6 +73,7 @@ jobs:
 
       - run: 'pnpm i && pnpm build'
         env:
+          IS_GH_PAGES: true
           VITE_API_URL: ${{ secrets.API_URL }}
 
       - run: 'cp -r admin/build frontend/build/admin'

@@ -1,6 +1,10 @@
 import adapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
 
+let { BASE_PATH = '', IS_GH_PAGES = false } = process.env;
+if (IS_GH_PAGES) {
+  BASE_PATH = '/admin';
+}
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   // Consult https://github.com/sveltejs/svelte-preprocess
@@ -8,9 +12,11 @@ const config = {
   preprocess: preprocess(),
 
   kit: {
-    adapter: adapter({
-      fallback: "200.html"
-    }),
+    adapter: adapter(),
+
+    paths: {
+      base: BASE_PATH,
+    },
   },
 };
 
