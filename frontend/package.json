@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "2.0.2",
-    "@sveltejs/kit": "1.15.4",
+    "@sveltejs/kit": "1.15.5",
     "@tsconfig/svelte": "4.0.1",
     "@types/shortid": "^0.0.29",
     "@typescript-eslint/eslint-plugin": "5.58.0",
