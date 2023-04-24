@@ -22,6 +22,12 @@ export default typeCheckNode({
       required: true,
       external: true,
     },
+    curviness: {
+      hidden: true,
+      type: "number",
+      inputType: "float",
+      value: 1,
+    },
     type: {
       internal: true,
       hidden: true,
@@ -86,10 +92,10 @@ export default typeCheckNode({
           const normalizedEndpoint = subtract3D(endPoint, startPoint);
 
           const _alpha = (i + 1) / (amountPoints);
-          const strength = parameters.strength(_alpha)
+          const strength = (parameters.strength(_alpha) / Math.max(parameters.curviness(_alpha), 0.0001)) * parameters.strength(_alpha);
           const downPoint = [0, -length * strength, 0];
 
-          let midPoint = lerp3D(normalizedEndpoint, downPoint, (i / amountPoints));
+          let midPoint = lerp3D(normalizedEndpoint, downPoint, parameters.curviness(_alpha) * Math.sqrt(i / amountPoints));
 
           if (midPoint[0] === 0 && midPoint[2] === 0) {
             midPoint[0] += 0.0001;
