@@ -30,7 +30,7 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-svelte3": "^4.0.0",
     "file-saver": "^2.0.5",
-    "ogl": "^0.0.116",
+    "ogl": "^0.0.117",
     "prettier": "^2.8.8",
     "prettier-plugin-svelte": "^2.10.0",
     "svelte": "^3.59.1",
