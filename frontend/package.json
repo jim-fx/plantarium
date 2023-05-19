@@ -29,7 +29,7 @@
     "ajv-formats": "^2.1.1",
     "cookie": "^0.5.0",
     "css-vars-from-json": "^1.1.0",
-    "devalue": "^4.3.0",
+    "devalue": "^4.3.1",
     "file-saver": "^2.0.5",
     "gl-matrix": "^3.4.3",
     "idb": "^7.1.1",
@@ -41,7 +41,7 @@
     "stacktrace-parser": "^0.1.10",
     "svelte-click-outside": "^1.0.0",
     "svelte-json-tree": "^1.0.0",
-    "svelte-multiselect": "^8.6.0",
+    "svelte-multiselect": "^8.6.2",
     "svelte-resize-observer": "2.0.0"
   },
   "devDependencies": {
@@ -50,7 +50,7 @@
     "@tsconfig/svelte": "4.0.1",
     "@types/shortid": "^0.0.29",
     "@typescript-eslint/eslint-plugin": "5.58.0",
-    "@typescript-eslint/parser": "^5.58.0",
+    "@typescript-eslint/parser": "^5.59.6",
     "comlink": "^4.4.1",
     "eslint": "8.38.0",
     "eslint-config-prettier": "8.8.0",
@@ -63,7 +63,7 @@
     "svelte-preprocess": "5.0.3",
     "tslib": "2.5.0",
     "typescript": "5.0.4",
-    "vite": "4.2.1",
+    "vite": "4.3.0-beta.2",
     "vite-plugin-comlink": "3.0.5",
     "vite-plugin-glsl": "^1.1.2"
   },

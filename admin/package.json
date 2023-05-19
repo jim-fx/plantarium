@@ -26,7 +26,7 @@
     "svelte-preprocess": "5.0.3",
     "tslib": "2.5.0",
     "typescript": "5.0.4",
-    "vite": "4.2.1",
+    "vite": "4.3.0-beta.2",
     "vite-plugin-windicss": "1.8.10",
     "windicss": "3.5.6"
   },
@@ -42,7 +42,7 @@
     "ajv-formats": "^2.1.1",
     "cookie": "^0.5.0",
     "css-vars-from-json": "^1.1.0",
-    "devalue": "^4.3.0",
+    "devalue": "^4.3.1",
     "dotenv": "16.0.3",
     "file-saver": "2.0.5",
     "nanoid": "4.0.2",
