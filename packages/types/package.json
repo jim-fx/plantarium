@@ -11,10 +11,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "typescript-json-schema": "0.56.0"
+    "typescript-json-schema": "0.62.0"
   },
   "dependencies": {
-    "ajv-formats": "2.1.1",
-    "@plantarium/ui": "workspace:*"
+    "@plantarium/ui": "workspace:*",
+    "ajv-formats": "2.1.1"
   }
 }
