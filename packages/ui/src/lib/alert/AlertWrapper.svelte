@@ -20,9 +20,9 @@
       : '';
   }
 
-  function handleKeyDown(ev) {
+  function handleKeyDown(ev: KeyboardEvent) {
     if (ev.key === 'Escape' && $store?.length) {
-      $store[$store.length - 1].reject();
+      $store[$store.length - 1].reject?.();
     }
   }
 </script>
@@ -40,7 +40,7 @@
             icon="cross"
             --foreground-color="transparent"
             on:click={() => {
-              alert.reject();
+              alert.reject?.();
             }}
           />
         </div>
@@ -55,7 +55,7 @@
           <svelte:component
             this={alert.content}
             {...alert.props}
-            on:close={() => alert.resolve(false)}
+            on:close={() => alert.resolve?.(false)}
           />
         {/if}
 

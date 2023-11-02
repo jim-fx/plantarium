@@ -37,7 +37,8 @@
   </div>
   {#if els.length > 1}
     <div class="button">
-      {#each els as _, index}
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      {#each els as _n, index}
         <button class:active={$activeIndex === index} on:click={() => ($activeIndex = index)} />
       {/each}
     </div>

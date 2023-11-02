@@ -1,0 +1,13 @@
+// vite.config.js
+import { sveltekit } from "file:///home/max/Projects/plantarium/node_modules/.pnpm/@sveltejs+kit@1.27.2_svelte@4.2.2_vite@4.5.0/node_modules/@sveltejs/kit/src/exports/vite/index.js";
+import WindiCSS from "file:///home/max/Projects/plantarium/node_modules/.pnpm/vite-plugin-windicss@1.9.1_vite@4.5.0/node_modules/vite-plugin-windicss/dist/index.mjs";
+var vite_config_default = {
+  ssr: {
+    noExternal: ["ogl", "@plantarium/helpers"]
+  },
+  plugins: [sveltekit(), WindiCSS()]
+};
+export {
+  vite_config_default as default
+};
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsidml0ZS5jb25maWcuanMiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImNvbnN0IF9fdml0ZV9pbmplY3RlZF9vcmlnaW5hbF9kaXJuYW1lID0gXCIvaG9tZS9tYXgvUHJvamVjdHMvcGxhbnRhcml1bS9hZG1pblwiO2NvbnN0IF9fdml0ZV9pbmplY3RlZF9vcmlnaW5hbF9maWxlbmFtZSA9IFwiL2hvbWUvbWF4L1Byb2plY3RzL3BsYW50YXJpdW0vYWRtaW4vdml0ZS5jb25maWcuanNcIjtjb25zdCBfX3ZpdGVfaW5qZWN0ZWRfb3JpZ2luYWxfaW1wb3J0X21ldGFfdXJsID0gXCJmaWxlOi8vL2hvbWUvbWF4L1Byb2plY3RzL3BsYW50YXJpdW0vYWRtaW4vdml0ZS5jb25maWcuanNcIjtpbXBvcnQgeyBzdmVsdGVraXQgfSBmcm9tICdAc3ZlbHRlanMva2l0L3ZpdGUnO1xuaW1wb3J0IFdpbmRpQ1NTIGZyb20gJ3ZpdGUtcGx1Z2luLXdpbmRpY3NzJztcblxuZXhwb3J0IGRlZmF1bHQge1xuICBzc3I6IHtcbiAgICBub0V4dGVybmFsOiBbJ29nbC10eXBlc2NyaXB0JywgJ0BwbGFudGFyaXVtL2hlbHBlcnMnXSxcbiAgfSxcbiAgcGx1Z2luczogW3N2ZWx0ZWtpdCgpLCBXaW5kaUNTUygpXSxcbn07XG4iXSwKICAibWFwcGluZ3MiOiAiO0FBQTJSLFNBQVMsaUJBQWlCO0FBQ3JULE9BQU8sY0FBYztBQUVyQixJQUFPLHNCQUFRO0FBQUEsRUFDYixLQUFLO0FBQUEsSUFDSCxZQUFZLENBQUMsa0JBQWtCLHFCQUFxQjtBQUFBLEVBQ3REO0FBQUEsRUFDQSxTQUFTLENBQUMsVUFBVSxHQUFHLFNBQVMsQ0FBQztBQUNuQzsiLAogICJuYW1lcyI6IFtdCn0K

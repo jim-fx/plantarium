@@ -1,7 +1,6 @@
-import { box } from "@plantarium/geometry";
-import { Vec3 } from "ogl-typescript";
-import { typeCheckNode } from "../types";
-
+import { box } from '@plantarium/geometry';
+import { Vec3 } from 'ogl';
+import { typeCheckNode } from '../types';
 
 export default typeCheckNode({
   title: 'Model',
@@ -9,15 +8,15 @@ export default typeCheckNode({
   outputs: ['model'],
 
   meta: {
-    description: `Creates a 3D model`
+    description: `Creates a 3D model`,
   },
 
   parameters: {
     type: {
       internal: true,
-      type: "select",
-      values: ["sphere", "box"],
-      value: "sphere"
+      type: 'select',
+      values: ['sphere', 'box'],
+      value: 'sphere',
     },
     size: {
       type: 'number',
@@ -29,13 +28,10 @@ export default typeCheckNode({
   },
 
   compute(parameters, _, alpha) {
-
     const type = parameters.type;
-    const radius = parameters.size(alpha)
+    const radius = parameters.size(alpha);
 
-    if (type === "sphere") {
-
-
+    if (type === 'sphere') {
       const wSegs = 16;
       const hSegs = Math.ceil(wSegs * 0.5);
       const pStart = 0;
@@ -49,24 +45,31 @@ export default typeCheckNode({
       const position = new Float32Array(num * 3);
       const normal = new Float32Array(num * 3);
       const uv = new Float32Array(num * 2);
-      const index = num > 65536 ? new Uint32Array(numIndices) : new Uint16Array(numIndices);
+      const index =
+        num > 65536 ? new Uint32Array(numIndices) : new Uint16Array(numIndices);
 
       let i = 0;
       let iv = 0;
       let ii = 0;
-      let te = tStart + tLength;
-      const grid = [];
+      const te = tStart + tLength;
+      const grid: number[][] = [];
 
-      let n = new Vec3();
+      const n = new Vec3();
 
       for (let iy = 0; iy <= hSegs; iy++) {
-        let vRow = [];
-        let v = iy / hSegs;
+        const vRow: number[] = [];
+        const v = iy / hSegs;
         for (let ix = 0; ix <= wSegs; ix++, i++) {
-          let u = ix / wSegs;
-          let x = -radius * Math.cos(pStart + u * pLength) * Math.sin(tStart + v * tLength);
-          let y = radius * Math.cos(tStart + v * tLength);
-          let z = radius * Math.sin(pStart + u * pLength) * Math.sin(tStart + v * tLength);
+          const u = ix / wSegs;
+          const x =
+            -radius *
+            Math.cos(pStart + u * pLength) *
+            Math.sin(tStart + v * tLength);
+          const y = radius * Math.cos(tStart + v * tLength);
+          const z =
+            radius *
+            Math.sin(pStart + u * pLength) *
+            Math.sin(tStart + v * tLength);
 
           position[i * 3] = x;
           position[i * 3 + 1] = y;
@@ -88,10 +91,10 @@ export default typeCheckNode({
 
       for (let iy = 0; iy < hSegs; iy++) {
         for (let ix = 0; ix < wSegs; ix++) {
-          let a = grid[iy][ix + 1];
-          let b = grid[iy][ix];
-          let c = grid[iy + 1][ix];
-          let d = grid[iy + 1][ix + 1];
+          const a = grid[iy][ix + 1];
+          const b = grid[iy][ix];
+          const c = grid[iy + 1][ix];
+          const d = grid[iy + 1][ix + 1];
 
           if (iy !== 0 || tStart > 0) {
             index[ii * 3] = a;
@@ -108,13 +111,9 @@ export default typeCheckNode({
         }
       }
 
-      return { uv, normal, index, position }
-
+      return { uv, normal, index, position };
     }
 
-
-
-    return box(radius)
-  }
-}
-)
+    return box(radius);
+  },
+});

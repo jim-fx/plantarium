@@ -50,8 +50,6 @@
 </button>
 
 <style lang="scss">
-  @use '~@plantarium/theme/src/themes.module.scss';
-
   button {
     position: relative;
     display: flex;

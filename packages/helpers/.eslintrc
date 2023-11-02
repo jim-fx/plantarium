@@ -1,0 +1,12 @@
+{
+  "extends": "../../.eslintrc.js",
+  "ignorePatterns": [
+    "dist",
+    "build"
+  ],
+  "settings": {
+    "svelte3/compiler-options": {
+      "customElement": true
+    }
+  }
+}

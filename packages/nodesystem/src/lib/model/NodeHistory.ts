@@ -1,7 +1,7 @@
-import { logger } from '@plantarium/helpers/src';
 import { DiffPatcher } from 'jsondiffpatch/dist/jsondiffpatch.umd.js';
 import type { HistoryData, NodeProps } from '../types';
 import type NodeSystem from './NodeSystem';
+import { logger } from '@plantarium/helpers';
 
 const log = logger('NodeHistory');
 

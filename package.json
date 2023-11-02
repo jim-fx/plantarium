@@ -3,30 +3,27 @@
   "version": "0.0.1",
   "published": "true",
   "scripts": {
-    "commit:log": "echo \"[$(git log --pretty=format:'{\"id\":\"%h\",\"subject\":\"%s\",\"date\":\"%cD\"},')]\" | sed 's/,]/]/g' > frontend/static/commits.json",
-    "admin:build": "pnpm --filter=./admin build",
-    "admin": "pnpm --filter=./admin dev",
-    "frontend": "pnpm --filter=./frontend dev",
+    "commit:log": "echo \"[$(git log --pretty=format:'{\"id\":\"%h\",\"subject\":\"%s\",\"date\":\"%cD\"},')]\" | sed 's/,]/]/g' > apps/frontend/static/commits.json",
+    "admin:build": "pnpm --filter=./apps/admin build",
+    "admin": "pnpm --filter=./apps/admin dev",
+    "frontend": "pnpm --filter=./apps/frontend dev",
     "ui": "pnpm --filter=./packages/ui dev",
     "pub": "pnpm -r publish --filter=@plantarium/nodesystem --filter=@plantarium/helpers --filter=@plantarium/ui --filter=@plantarium/theme",
     "nodes": "pnpm --filter=./packages/nodesystem dev",
     "geometry": "pnpm --filter=./packages/geometry dev",
-    "frontend:build": "pnpm --filter=./frontend build",
-    "backend": "pnpm --filter=backend dev",
-    "backend:start": "pnpm --filter=./backend start",
-    "backend:build": "pnpm --filter=./backend build",
+    "frontend:build": "pnpm --filter=./apps/frontend build",
+    "backend": "pnpm --filter=./apps/backend dev",
+    "backend:start": "pnpm --filter=./apps/backend start",
+    "backend:build": "pnpm --filter=./apps/backend build",
     "nodes:build": "pnpm --filter=./packages/nodesystem build",
     "ui:build": "pnpm --filter=@plantarium/ui build",
-    "build": "pnpm ui:build && pnpm --filter=!./backend --filter=!./packages/ui -r build",
+    "build": "pnpm ui:build && pnpm --filter=!./apps/backend --filter=!./packages/ui -r build",
     "dev": "pnpm -r --parallel --filter=./* dev ",
     "start": "pnpm -r build && pnpm backend:start",
     "test": "pnpm -r test",
     "coverage": "pnpm -r coverage && node bin/combine_coverage.js",
     "clean": "pnpm -r clean && rimraf coverage .nyc_output",
     "lint": "pnpm -r lint"
-  },
-  "engines": {
-    "node": "^18.4.0"
   },
   "repository": {
     "type": "git",
@@ -39,15 +36,11 @@
   },
   "homepage": "https://github.com/jim-fx/plantarium#readme",
   "description": "",
-  "pnpm": {
-    "overrides": {
-      "vite": "4.3.0-beta.2"
-    }
-  },
   "devDependencies": {
     "istanbul-lib-coverage": "3.2.0",
     "istanbul-lib-report": "3.0.1",
     "istanbul-reporter-html-monorepo": "1.1.3",
-    "istanbul-reports": "3.1.6"
+    "istanbul-reports": "3.1.6",
+    "rimraf": "5.0.5"
   }
 }

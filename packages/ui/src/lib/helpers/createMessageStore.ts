@@ -31,7 +31,7 @@ const createMessageFactory =
 
     // Find out type
 
-    if (options && 'type' in options) {
+    if (options?.type) {
       const t = options.type.toLowerCase();
       Object.values(MessageType).forEach((v) => {
         if (t === v) message.type = v;
@@ -43,7 +43,7 @@ const createMessageFactory =
     }
 
     if (typeof message.timeout === 'undefined') {
-      let timeout: number;
+      let timeout = 0;
 
       if (message.type === MessageType.SUCCESS) {
         timeout = 3000;
@@ -68,7 +68,7 @@ const createMessageFactory =
 
     store.update((messages) => [...messages, message]);
 
-    if (message.timeout) {
+    if (message.timeout && message.resolve) {
       setTimeout(message.resolve, message.timeout);
     }
 

@@ -161,7 +161,6 @@
 </div>
 
 <style lang="scss">
-  @use '~@plantarium/theme/src/themes.module.scss';
   @import './global.scss';
 
   svg {
@@ -180,7 +179,7 @@
   }
 
   svg > circle:hover {
-    fill: var(--accent, themes.$green-light);
+    fill: var(--accent, var(--green-light));
     cursor: pointer;
   }
 

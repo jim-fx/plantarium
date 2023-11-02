@@ -11,6 +11,6 @@ export default {
 
   kit: {
     adapter: adapter(),
-    paths: { base: BASE_PATH },
+    paths: { base: BASE_PATH }
   }
 };

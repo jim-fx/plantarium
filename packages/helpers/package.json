@@ -2,8 +2,15 @@
   "name": "@plantarium/helpers",
   "version": "1.0.0",
   "type": "module",
-  "main": "./src/index.ts",
   "types": "./src/index.ts",
+  "main": "./src/index.ts",
+  "svelte": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "svelte": "./src/index.ts"
+    }
+  },
   "license": "MIT",
   "scripts": {
     "test": "vitest run",
@@ -15,7 +22,7 @@
     "ajv": "^8.12.0",
     "ajv-formats": "^2.1.1",
     "file-saver": "^2.0.5",
-    "ogl-typescript": "^0.1.40",
+    "ogl": "^1.0.3",
     "stacktrace-parser": "^0.1.10"
   },
   "peerDependencies": {

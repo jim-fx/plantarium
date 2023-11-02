@@ -115,8 +115,6 @@
 </div>
 
 <style lang="scss">
-  @use '~@plantarium/theme/src/themes.module.scss';
-
   .search-wrapper {
     padding: 5px;
     z-index: 2;
@@ -130,7 +128,7 @@
     input {
       color: var(--outline-color);
       width: 100%;
-      background-color: rgba(themes.$light-gray, 0.4);
+      background-color: rgba(var(--light-gray), 0.4);
       box-sizing: border-box;
       font-size: 1.5em;
       border-radius: 3px;
@@ -153,8 +151,8 @@
     border-radius: 5px;
     box-sizing: border-box;
     &.focused {
-      background: themes.$green-gradient;
-      color: themes.$dark-gray;
+      background: var(--green-gradient);
+      color: var(--dark-gray);
     }
   }
 </style>
