@@ -6,6 +6,7 @@
   "scripts": {
     "prepublish": "npm run package",
     "dev": "vite dev",
+    "prepare": "svelte-kit sync",
     "build": "vite build",
     "package": "svelte-kit package && pnpm i --filter=./package",
     "preview": "vite preview",
