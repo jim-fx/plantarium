@@ -18,7 +18,6 @@
 	"types": "./src/lib/index.ts",
 	"exports": {
 		".": {
-			"types": "./src/lib/index.ts",
 			"svelte": "./src/lib/index.ts"
 		}
 	},

@@ -14,6 +14,7 @@
     "postpublish": "rm -r ./package",
     "dev": "vite dev --host",
     "build": "vite build",
+    "prepare": "svelte-kit sync",
     "package": "svelte-kit package && pnpm i --filter=./package",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
