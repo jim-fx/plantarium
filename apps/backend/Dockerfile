@@ -11,23 +11,22 @@ WORKDIR /app
 
 COPY package.json ./ 
 COPY pnpm-* ./
-COPY backend backend
+COPY apps/backend apps/backend
 COPY packages packages
 
-RUN pnpm i -r --frozen-lockfile --filter="./backend" && pnpm backend:build
+RUN pnpm i -r --frozen-lockfile --filter="@plantarium/backend" && pnpm backend:build
 
 FROM base AS final
 
 WORKDIR /app
 
-RUN mkdir /app/backend
+RUN mkdir -p /app/apps/backend
 COPY package.json ./
 COPY pnpm-* ./
-COPY backend/package.json ./backend/package.json
-COPY --from=build /app/backend/dist ./backend/dist
+COPY apps/backend/package.json ./apps/backend/package.json
+COPY --from=build /app/apps/backend/dist ./apps/backend/dist
 
-RUN pnpm i -r -P --frozen-lockfile --filter="./backend" 
-
+RUN pnpm i -r -P --frozen-lockfile --filter="@plantarium/backend" 
 
 EXPOSE 8081
 
