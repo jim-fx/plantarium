@@ -1,5 +1,5 @@
 import type { TransferGeometry } from '@plantarium/types';
-import type { Vec3 } from 'ogl-typescript';
+import type { Vec3 } from 'ogl';
 import rotate3D from './rotate3D';
 
 export default function (

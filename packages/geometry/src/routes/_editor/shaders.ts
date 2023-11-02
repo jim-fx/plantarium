@@ -1,4 +1,4 @@
-import { Program, Texture } from 'ogl-typescript';
+import { Program, Texture } from 'ogl';
 
 export const wireframe = (gl) =>
 	new Program(gl, {

@@ -1,2 +1,3 @@
 export { default as ThemeProvider } from './ThemeProvider.svelte';
-export { setTheme, ThemeStore } from './ThemeStore';
+export { setTheme, ThemeStore,currentTheme } from './ThemeStore';
+

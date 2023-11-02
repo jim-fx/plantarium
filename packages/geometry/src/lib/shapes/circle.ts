@@ -1,4 +1,4 @@
-import type { Vec3 } from 'ogl-typescript';
+import type { Vec3 } from 'ogl';
 
 export default function (
 	origin: Vec3 | [number, number, number] = [0, 0, 0],

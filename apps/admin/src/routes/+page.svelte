@@ -1,5 +1,5 @@
 <script>
-  import Icon from '@plantarium/ui/src/lib/Icon.svelte';
+  import { Icon } from '@plantarium/ui';
 </script>
 
 <Icon name="branch" --width="50px" />

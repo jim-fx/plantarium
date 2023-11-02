@@ -1,5 +1,5 @@
 import type { TransferGeometry } from '@plantarium/types';
-import type { Vec3 } from 'ogl-typescript';
+import type { Vec3 } from 'ogl';
 
 export default function (mesh: TransferGeometry, offset: Vec3): TransferGeometry {
 	const amount = mesh.position.length / 3;

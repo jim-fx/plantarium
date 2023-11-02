@@ -1,15 +1,13 @@
 <script lang="ts">
-  import { Button } from '@plantarium/ui';
-  import { ThemeProvider, currentTheme, setTheme } from '@plantarium/theme';
-  import AlertWrapper from '@plantarium/ui/src/lib/alert/AlertWrapper.svelte';
-  import ToastWrapper from '@plantarium/ui/src/lib/toast/ToastWrapper.svelte';
+  import { Button,AlertWrapper,ToastWrapper } from '@plantarium/ui';
+  import { ThemeProvider, ThemeStore, setTheme } from '@plantarium/theme';
 </script>
 
 <header>
   <Button
     icon="bulb"
-    active={$currentTheme === 'dark'}
-    on:click={() => setTheme($currentTheme === 'dark' ? 'light' : 'dark')}
+    active={$ThemeStore === 'dark'}
+    on:click={() => setTheme($ThemeStore === 'dark' ? 'light' : 'dark')}
   />
   <slot />
 </header>

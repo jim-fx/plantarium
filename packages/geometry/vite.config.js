@@ -5,6 +5,6 @@ export default {
 	server: { host: '0.0.0.0', port: 8082 },
 	plugins: [sveltekit()],
 	ssr: {
-		noExternal: ['@plantarium/ui', '@plantarium/helpers', '@plantarium/types', 'ogl-typescript']
+		noExternal: ['@plantarium/ui', '@plantarium/helpers', '@plantarium/types']
 	}
 };

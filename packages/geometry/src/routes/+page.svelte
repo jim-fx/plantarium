@@ -5,7 +5,7 @@
 	import debug from './_editor/debug';
 	import * as scene from './_editor/scene';
 	import store from './_editor/store';
-	import * as ogl from 'ogl-typescript';
+	import * as ogl from 'ogl';
 	import { onMount } from 'svelte';
 
 	let value = store.get('code');

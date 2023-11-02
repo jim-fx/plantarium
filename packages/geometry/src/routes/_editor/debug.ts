@@ -1,4 +1,4 @@
-import { Camera, Mesh, Vec3 } from 'ogl-typescript';
+import { Camera, Mesh, Vec3 } from 'ogl';
 import store from './store.js';
 
 let canvas: HTMLCanvasElement;
