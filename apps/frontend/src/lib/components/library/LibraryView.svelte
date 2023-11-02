@@ -74,8 +74,6 @@
 
 		<InputText placeholder="Search" --width="100%" bind:value={filter.search} />
 
-		<br />
-
 		{#if isRemote && !offline}
 			<div class="filter-types">
 				<InputCheckbox label="Official" bind:value={filter.official} />
@@ -154,11 +152,14 @@
 	}
 
 	aside {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 		position: relative;
 		overflow: hidden;
 		overflow-y: auto;
 		box-sizing: content-box;
-		padding: 15px;
+		padding: 20px;
 		opacity: 1;
 		background-color: var(--midground-color);
 		transition: opacity 0.3s ease, padding 0.3s ease, max-width 0.3s ease, opacity 0.3s ease;

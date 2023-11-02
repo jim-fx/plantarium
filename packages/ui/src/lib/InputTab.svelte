@@ -42,7 +42,7 @@
 
   .component-wrapper {
     overflow: hidden;
-    border-radius: 3px;
+    border-radius: var(--border-radius, 3px);
   }
 
   #main {

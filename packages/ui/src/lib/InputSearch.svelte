@@ -120,7 +120,7 @@
     z-index: 2;
     width: 100px;
     background-color: var(--foreground-color);
-    border-radius: 5px;
+    border-radius: var(--border-radius, 3px);
     color: #707070;
     box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.13), 1px 2px 2px rgba(0, 0, 0, 0.1),
       -1px -2px 2px rgba(0, 0, 0, 0.05);
@@ -131,11 +131,9 @@
       background-color: rgba(var(--light-gray), 0.4);
       box-sizing: border-box;
       font-size: 1.5em;
-      border-radius: 3px;
-      padding: 3px 5px;
+      padding: 3px 10px;
       margin: 0;
       font-weight: lighter;
-      margin-bottom: 5px;
       outline: none !important;
       border: none;
 

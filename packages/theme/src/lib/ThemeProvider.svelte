@@ -3,7 +3,7 @@
 		--dark-gray: #303030;
 		--medium-gray: #4b4b4b;
 		--light-gray: #cccccc;
-		--border-radius: 2px;
+		--border-radius: 4px;
 
 		--yellow: #fffd7b;
 
@@ -47,5 +47,10 @@
 		--outline-color: #b9b9b9;
 		--text-color: #484848;
 		--shadow: 0px 0px 5px rgba(0, 0, 0, 0.144);
+	}
+
+	:global(body) {
+		color: var(--text-color);
+		background-color: var(--background-color);
 	}
 </style>

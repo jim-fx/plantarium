@@ -54,7 +54,9 @@
 		border-radius: 10px;
 		margin: 0px 20px 20px 0px;
 		box-shadow: 0px 0px 0px transparent;
-		transition: box-shadow 0.3s ease, outline 0.3s ease;
+		transition:
+			box-shadow 0.3s ease,
+			outline 0.3s ease;
 		outline: solid thin transparent;
 		cursor: pointer;
 	}
@@ -96,7 +98,9 @@
 		font-weight: medium;
 		text-align: center;
 		white-space: nowrap;
-		transition: text-shadow 0.3 ease, box-shadow 0.3s ease;
+		transition:
+			text-shadow 0.3 ease,
+			box-shadow 0.3s ease;
 	}
 
 	.wrapper:hover h3 {
@@ -109,7 +113,9 @@
 		width: 100%;
 		height: 100%;
 		transform: scale(1);
-		transition: transform 0.8s ease, filter 0.8s ease;
+		transition:
+			transform 0.8s ease,
+			filter 0.8s ease;
 		filter: drop-shadow(0px 0px 10px transparent);
 	}
 
@@ -119,6 +125,9 @@
 		border-radius: 0px 0px 10px 10px;
 		transition: max-height 0.7s ease;
 		display: flex;
+		justify-content: center;
+		gap: 5px;
+    margin-bottom: 5px;
 	}
 
 	.wrapper:hover .actions {

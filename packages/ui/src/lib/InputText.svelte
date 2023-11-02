@@ -129,15 +129,15 @@
   }
 </script>
 
-{#if _placeholder}
-  <div class="spacer" />
-  <span class="placeholder" class:empty={!_value && !focused}>{_placeholder}</span>
-{/if}
 <div
   class="component-wrapper"
   class:has-placeholder={_placeholder}
   class:has-errors={errors?.length}
 >
+  {#if _placeholder}
+    <span class="placeholder" class:empty={!_value && !focused}>{_placeholder}</span>
+  {/if}
+
   {#if type === 'area'}
     <textarea
       on:input={handleInput}
@@ -223,7 +223,7 @@
 
   .placeholder.empty {
     opacity: 0.5;
-    transform: translateY(0.6em) translateX(7px);
+    transform: translateY(0.6em) translateX(12px);
   }
 
   .has-errors.component-wrapper {
@@ -232,17 +232,18 @@
 
   input,
   textarea {
-    z-index: -1;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
     border: none;
     font-size: 1.1em;
     border-radius: 5px;
     background-color: var(--foreground-color);
     color: var(--text-color);
-    padding: 10px;
+    padding: 8px;
   }
 
   .component-wrapper {
-    overflow: hidden;
     position: relative;
     border-radius: var(--border-radius, 5px);
   }
