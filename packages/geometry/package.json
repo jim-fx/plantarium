@@ -19,7 +19,7 @@
 		"@codemirror/commands": "6.3.0",
 		"@codemirror/language": "6.9.2",
 		"@codemirror/state": "6.3.1",
-		"@codemirror/view": "6.21.4",
+		"@codemirror/view": "6.22.0",
 		"@plantarium/types": "link:../types",
 		"@sveltejs/adapter-static": "2.0.3",
 		"@sveltejs/kit": "1.27.2",
