@@ -62,6 +62,15 @@
 		visibility: hidden;
 	}
 
+  @media (max-width: 800px) {
+    main > div {
+    grid-template-rows: minmax(70vw, 25%) 1fr;
+      grid-template-columns: 1fr;
+    }
+  }
+
+
+
 	main > div.visible {
 		opacity: 1;
 		visibility: visible;

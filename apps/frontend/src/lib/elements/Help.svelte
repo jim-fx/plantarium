@@ -9,7 +9,6 @@
 
 <div>
 	<Button
-		name="Report Bug"
 		icon="bug"
 		--bg="#303030"
 		--text="white"
@@ -20,86 +19,75 @@
 				title: 'Report Bug',
 				type: 'error',
 				props: { mode: 'bug' }
-			})}
-	/>
+			})}>Report Bug</Button
+	>
 
 	<Button
-		name="Submit Idea"
 		icon="bulb"
 		--bg="#303030"
 		--width="100%"
 		--text="white"
 		on:click={() =>
-			createAlert(Report, {
-				timeout: 0,
-				title: 'Submit Idea',
-				props: { mode: 'feat' }
-			})}
-	/>
+			createAlert(Report, { timeout: 0, title: 'Submit Idea', props: { mode: 'feat' } })}
+		>Submit Idea</Button
+	>
 	<Button
-		name="Changelog"
 		--bg="#303030"
 		--width="100%"
 		--text="white"
-		on:click={() => createAlert(Changelog, { timeout: 0 })}
-	/>
+		on:click={() => createAlert(Changelog, { timeout: 0 })}>Changelog</Button
+	>
 	<Button
-		name="Bug Reports"
 		icon="bug"
 		--bg="#303030"
 		--width="100%"
 		--text="white"
-		on:click={() => createAlert(ReportDashboard, { timeout: 0 })}
-	/>
+		on:click={() => createAlert(ReportDashboard, { timeout: 0 })}>Bug Reports</Button
+	>
 
 	<Button
-		name="Github"
 		icon="github"
 		--bg="#303030"
 		--width="100%"
 		--text="white"
-		on:click={() => goto('https://github.com/jim-fx/plantarium')}
-	/>
+		on:click={() => goto('https://github.com/jim-fx/plantarium')}>Github</Button
+	>
 
 	<Section name="Tutorials" dark>
 		<Button
-			name="Interface"
 			icon="hand"
 			--margin="0px 0px 10px 0px"
 			--bg="#303030"
 			--text="white"
 			--width="100%"
-			on:click={() => Tutor.start()}
-		/>
+			on:click={() => Tutor.start()}>Interface</Button
+		>
 
 		<Button
-			name="Video Tutorial"
 			icon="link"
 			--bg="#303030"
 			--margin="0px 0px 10px 0px"
 			--text="white"
 			--width="100%"
-			on:click={() => goto('https://youtu.be/BO5a_Av9cwo')}
-		/>
+			on:click={() => goto('https://youtu.be/BO5a_Av9cwo')}>Video Tutorial</Button
+		>
 
 		<Button
-			name="Node Basics"
 			icon="node"
 			--bg="#303030"
 			--margin="0px 0px 10px 0px"
 			--text="white"
 			--width="100%"
-			on:click={() => goto('nodes/tutorial')}
-		/>
+			on:click={() => goto('nodes/tutorial')}>Node Basics</Button
+		>
 
 		<Button
-			name="Node Intermediate"
 			icon="node"
 			--bg="#303030"
 			--text="white"
 			--width="100%"
-			on:click={() => Tutor.start('level-plantnodes-0')}
-		/>
+			on:click={() => Tutor.start('level-plantnodes-0')}>Node Intermediate</Button
+		>
 	</Section>
 </div>
 

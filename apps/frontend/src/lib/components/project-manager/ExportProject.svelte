@@ -46,12 +46,9 @@
 
 <div id="wrapper">
 	<div id="header">
-		<Button name="copy" on:click={handleCopy} />
-		<Button
-			name="download"
-			on:click={() => download.json(cleaned, project.meta.name ?? `plant-${project.id}`)}
-		/>
-		<Button name="download obj" on:click={handleObjDownload} />
+		<Button on:click={handleCopy} >copy</Button>
+		<Button on:click={() => download.json(cleaned, project.meta.name ?? `plant-${project.id}`)} >download</Button>
+		<Button on:click={handleObjDownload} >download obj</Button>
 	</div>
 </div>
 

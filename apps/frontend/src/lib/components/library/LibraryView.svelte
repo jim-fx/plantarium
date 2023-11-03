@@ -35,7 +35,7 @@
 		projectStore.setFilter(filter);
 	}
 
-	let transitionImages = [];
+	let transitionImages: HTMLImageElement[] = [];
 	let aside: HTMLElement;
 
 	transitionImage.subscribe((img) => {
@@ -46,6 +46,10 @@
 			}, 1200);
 		}
 	});
+
+	function setState(s: string) {
+		$state = s as 'local';
+	}
 
 	onMount(() => {
 		projectStore.setFilter(filter);
@@ -67,7 +71,7 @@
 			value={$state}
 			--width="100%"
 			on:change={({ detail }) => {
-				$state = detail;
+				setState(detail);
 				$activeProject = null;
 			}}
 		/>
@@ -86,10 +90,9 @@
 			{#if !isRemote}
 				<Button
 					icon="import"
-					name="import"
 					--foreground-color="var(--background-color)"
-					on:click={() => createAlert(ImportProject, { timeout: 0 })}
-				/>
+					on:click={() => createAlert(ImportProject, { timeout: 0 })}>import</Button
+				>
 			{/if}
 		</div>
 	</aside>
@@ -152,9 +155,9 @@
 	}
 
 	aside {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
 		position: relative;
 		overflow: hidden;
 		overflow-y: auto;
@@ -162,7 +165,11 @@
 		padding: 20px;
 		opacity: 1;
 		background-color: var(--midground-color);
-		transition: opacity 0.3s ease, padding 0.3s ease, max-width 0.3s ease, opacity 0.3s ease;
+		transition:
+			opacity 0.3s ease,
+			padding 0.3s ease,
+			max-width 0.3s ease,
+			opacity 0.3s ease;
 	}
 
 	aside:first-child {

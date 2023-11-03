@@ -1,8 +1,7 @@
 <script lang="ts">
 	import * as api from '@plantarium/client-api';
 	import { validator } from '@plantarium/helpers';
-	import { slide } from 'svelte/transition';
-	import { Button, InputText, InputCheckbox, createToast, Form } from '@plantarium/ui';
+	import { Button, createToast, Form } from '@plantarium/ui';
 
 	import { Icon } from '@plantarium/ui';
 
@@ -107,7 +106,7 @@
 	{#each errors as err}
 		<p>{err}</p>
 	{/each}
-	<Button name="← Go Back" on:click={() => (errors = [])} />
+	<Button on:click={() => (errors = [])}>← Go Back</Button>
 {:else if isLoading}
 	<Icon name="branch" animated />
 {:else if $userStore?._id}
@@ -121,26 +120,22 @@
 	</div>
 	<br />
 	<Button
-		name="logout"
 		on:click={() => {
 			api.logout();
 			createToast('Logged Out', { type: 'success' });
-		}}
-	/>
+		}}>logout</Button
+	>
 {:else}
-	<Button
-		icon="github"
-		on:click={() => api.oauth('github')}
-		name="Login with GitHub"
-		--width="100%"
-	/>
+	<Button icon="github" on:click={() => api.oauth('github')} --width="100%"
+		>Login with GitHub</Button
+	>
 	<br />
 
 	<Form
 		title="Login / Register"
 		fields={formFields}
 		bind:data={formData}
-		on:submit={(ev) => handleSubmit(ev)}
+		on:submit={() => handleSubmit()}
 	/>
 {/if}
 

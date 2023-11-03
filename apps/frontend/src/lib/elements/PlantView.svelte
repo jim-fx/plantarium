@@ -26,6 +26,8 @@
 			stemResY: 4
 		});
 
+		if (!result?.geometry) return;
+
 		return transferToGeometry(renderer.gl, result.geometry);
 	}
 
@@ -44,7 +46,9 @@
 		mesh.setParent(renderer.scene);
 
 		setTimeout(async () => {
-			mesh.geometry = await generatePlant(project);
+			const newGeometry = await generatePlant(project);
+			if (!newGeometry) return;
+			mesh.geometry = newGeometry;
 			loaded = true;
 		}, 500);
 	});
@@ -95,7 +99,9 @@
 		bottom: 20px;
 		opacity: 0;
 		transform: scale(0);
-		transition: transform 0.3s ease, opacity 0.3s ease;
+		transition:
+			transform 0.3s ease,
+			opacity 0.3s ease;
 	}
 
 	.showHint span {

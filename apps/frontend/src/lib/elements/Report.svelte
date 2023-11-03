@@ -123,8 +123,8 @@
 						the bug.
 					</p>
 					<ul>
-						<li>OS <i>({info.os})</i></li>
-						<li>Browser <i>({info.name} / {info.version})</i></li>
+						<li>OS <i>({info?.os})</i></li>
+						<li>Browser <i>({info?.name} / {info?.version})</i></li>
 						<li>
 							Screen Resolution <i>({window.innerWidth}x{window.innerHeight})</i>
 						</li>
@@ -154,7 +154,7 @@
 		</section>
 	{/if}
 	<br />
-	<Button name="Submit" on:click={submit} />
+	<Button on:click={submit}>Submit</Button>
 {/if}
 
 <style>
@@ -164,28 +164,6 @@
 
 	.info :global(*) {
 		font-size: 0.9em !important;
-	}
-
-	label {
-		font-size: 1em;
-		color: var(--text-color);
-	}
-
-	textarea,
-	input[type='text'] {
-		box-sizing: border-box;
-		color: var(--text-color);
-		font-size: 0.8em;
-		background-color: rgba(255, 255, 255, 0.2);
-		border-radius: 5px;
-		border: solid 2px rgba(255, 255, 255, 0.8);
-		width: 100% !important;
-		min-width: 100%;
-		padding: 10px !important;
-	}
-
-	input[type='text'] {
-		font-weight: bolder;
 	}
 
 	section :global(.multiselect) {

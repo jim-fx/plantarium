@@ -4,7 +4,7 @@
 	import { deleteProject, downloadProject, openProject, setActiveProject } from './common';
 	import { newIDS, state, transitionImage } from './stores';
 
-	export let project: Project | undefined = undefined;
+	export let project: Project;
 
 	$: isRemote = $state === 'remote';
 	$: newProject = !isRemote && $newIDS.includes(project.id);
@@ -12,7 +12,14 @@
 	let img: HTMLImageElement;
 </script>
 
-<div class="wrapper" class:newProject>
+<div
+	role="button"
+	tabindex="0"
+	class="wrapper"
+	class:newProject
+	on:keydown={() => setActiveProject(project?.id)}
+	on:click={() => setActiveProject(project?.id)}
+>
 	<div class="bottom">
 		<h3>{project.meta.name}</h3>
 		<div class="actions">
@@ -22,26 +29,20 @@
 						? downloadProject(project.id).then(() => ($transitionImage = img))
 						: openProject(project.id)}
 				icon={isRemote ? 'import' : 'link'}
-				name={isRemote ? '' : 'open'}
 				--foreground-color="var(--midground-color)"
-			/>
+			>
+				{isRemote ? '' : 'open'}
+			</Button>
 
 			{#if !isRemote}
-				<Button
-					on:click={() => deleteProject(project.id)}
-					name="delete"
-					--foreground-color="var(--error)"
-				/>
+				<Button on:click={() => deleteProject(project.id)} --foreground-color="var(--error)"
+					>delete</Button
+				>
 			{/if}
 		</div>
 	</div>
-	{#if project.meta.thumbnail}
-		<img
-			src={project.meta.thumbnail}
-			bind:this={img}
-			alt=""
-			on:click={() => setActiveProject(project.id)}
-		/>
+	{#if project?.meta.thumbnail}
+		<img src={project?.meta.thumbnail} bind:this={img} alt="" />
 	{/if}
 </div>
 
@@ -127,7 +128,7 @@
 		display: flex;
 		justify-content: center;
 		gap: 5px;
-    margin-bottom: 5px;
+		margin-bottom: 5px;
 	}
 
 	.wrapper:hover .actions {

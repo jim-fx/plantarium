@@ -18,23 +18,23 @@
 			const err = validator.isPlantProject(parsed);
 
 			if (err?.length) return [null, err];
+
+			return [parsed, []];
 		} catch (err) {
 			if (err) {
 				return [null, ['Not valid JSON', err?.message]];
 			}
 		}
-
-		//TODO: Check if valid json
-
-		return [parsed, []];
 	}
 
 	function handleFileChange(e: Event) {
-		const text = e.target.files[0];
+		const target = e.target as HTMLInputElement;
+		const text = target.files?.[0];
+		if (!text) return;
 		let reader = new FileReader();
 		reader.readAsText(text);
 		reader.onload = (e) => {
-			inputText = e.target.result as string;
+			inputText = e.target?.result as string;
 		};
 	}
 

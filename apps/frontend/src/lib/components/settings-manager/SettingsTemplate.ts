@@ -33,6 +33,11 @@ export default settingsType({
   debug: {
     onlyDev: true,
     options: {
+      showLogs: {
+        type: 'boolean',
+        label: 'Show Node Timings',
+        value: false
+      },
       nodeTimings: {
         type: 'boolean',
         label: 'Show Node Timings',

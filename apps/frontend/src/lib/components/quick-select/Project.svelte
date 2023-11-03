@@ -36,9 +36,15 @@
 </script>
 
 <div
+	role="button"
+	tabindex="0"
 	class="project-wrapper"
 	class:active={project.id === projectManager.activeProjectId || active}
 	on:resize={alert}
+	on:keydown={() => {
+		fakeActive();
+		projectManager.setActiveProject(project.id);
+	}}
 	on:click={() => {
 		fakeActive();
 		projectManager.setActiveProject(project.id);
@@ -62,7 +68,7 @@
 				on:keydown={function (ev) {
 					if (ev.key === 'Enter') {
 						const value = this.value.split('\n').join('').trim();
-						this.blur();
+						ev.target.blur();
 						ev.preventDefault();
 						projectManager.updateProjectMeta(project?.id, { name: value });
 					}

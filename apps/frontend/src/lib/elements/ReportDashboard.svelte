@@ -8,8 +8,8 @@
 
 	let loading = true;
 
-	let openReports: Report[] = [];
-	let closedReports: Report[] = [];
+	let openReports: (Report & { _expanded?: boolean })[] = [];
+	let closedReports: (Report & { _expanded?: boolean })[] = [];
 
 	getReports().then((res) => {
 		if (res.ok) {
@@ -37,8 +37,11 @@
 		<div class="reports-wrapper">
 			{#each openReports as report}
 				<div
+					role="button"
+					tabindex="0"
 					class="report"
 					class:expanded={report._expanded}
+					on:keydown={() => (report._expanded = !report._expanded)}
 					on:click={() => (report._expanded = !report._expanded)}
 				>
 					<div class="report-header">
@@ -68,8 +71,11 @@
 		<div class="reports-wrapper">
 			{#each closedReports as report}
 				<div
+					role="button"
+					tabindex="0"
 					class="report"
 					class:expanded={report._expanded}
+					on:keydown={() => (report._expanded = !report._expanded)}
 					on:click={() => (report._expanded = !report._expanded)}
 				>
 					<div class="report-header">

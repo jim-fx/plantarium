@@ -28,21 +28,19 @@
 	<div class="center">
 		<Button
 			icon="branch"
-			name="Plant"
 			invert={$activeView === 'plant'}
 			--min-height={'35px'}
 			--height={'35px'}
-			on:click={() => ($activeView = 'plant')}
-		/>
+			on:click={() => ($activeView = 'plant')}>Plant</Button
+		>
 
 		<Button
 			icon="library"
-			name="Library"
 			invert={$activeView === 'library'}
 			--min-height={'35px'}
 			--height={'35px'}
-			on:click={() => ($activeView = 'library')}
-		/>
+			on:click={() => ($activeView = 'library')}>Library</Button
+		>
 	</div>
 
 	<div class="right">

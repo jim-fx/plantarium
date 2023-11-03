@@ -19,7 +19,7 @@
 
 	$: isRemote = $state === 'remote';
 
-	$: isOwnProject = $isLoggedIn && project?.public && $userStore['_id'] === project.author;
+	$: isOwnProject = $isLoggedIn && project?.public && $userStore?.['_id'] === project.author;
 
 	export let project: Project;
 
@@ -30,8 +30,7 @@
 
 <Button
 	icon="arrow"
-	name=""
-	on:click={() => setActiveProject(null)}
+	on:click={() => setActiveProject(undefined)}
 	--foreground-color="transparent"
 />
 {#if isRemote}
@@ -75,7 +74,7 @@
 		on:click={(ev) => handleLike(project.id, ev.detail)}
 		disabled={!$isLoggedIn}
 		likeAmount={project?.likes?.length}
-		active={project?.likes?.includes($userStore?._id)}
+		active={$userStore?._id ? project.likes.includes($userStore?._id) : false}
 	/>
 {/if}
 
@@ -88,8 +87,8 @@
 <div class="actions">
 	<ButtonGroup direction={isRemote ? 'horizontal' : 'vertical'}>
 		{#if isRemote}
-			<Button name="open" icon="link" on:click={() => openProject(project.id)} />
-			<Button name="download" icon="import" on:click={() => downloadProject(project.id)} />
+			<Button icon="link" on:click={() => openProject(project.id)}>open</Button>
+			<Button icon="import" on:click={() => downloadProject(project.id)}>download</Button>
 
 			{#if isOwnProject}
 				<p>This is yoours</p>
@@ -97,32 +96,29 @@
 		{:else}
 			{#if isOwnProject}
 				<Button
-					name="published"
 					--opacity={$isLoggedIn ? 1 : 0.2}
 					icon="checkmark"
-					on:click={() => publishProject(project.id)}
-				/>
+					on:click={() => publishProject(project.id)}>published</Button
+				>
 			{:else}
 				<Button
-					name="publish"
 					--opacity={$isLoggedIn ? 1 : 0.2}
 					icon="export"
-					on:click={() => publishProject(project.id)}
-				/>
+					on:click={() => publishProject(project.id)}>publish</Button
+				>
 			{/if}
 			<Button
-				name="export"
 				icon="export"
 				on:click={() => createAlert(ExportProject, { props: { project }, timeout: 0 })}
-			/>
+				>export</Button
+			>
 
-			<Button name="open" icon="link" on:click={() => openProject(project.id)} />
+			<Button icon="link" on:click={() => openProject(project.id)}>open</Button>
 			<Button
-				name="delete"
 				icon="cross"
 				--foreground-color="var(--error)"
-				on:click={() => deleteProject(project.id)}
-			/>
+				on:click={() => deleteProject(project.id)}>delete</Button
+			>
 		{/if}
 	</ButtonGroup>
 </div>

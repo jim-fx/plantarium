@@ -68,21 +68,10 @@
 				<div class="next-wrapper">
 					{#if $store?.values?.length}
 						{#each $store?.values as v}
-							<Button
-								on:click={() => $store?.resolve?.(v)}
-								--margin="0px 0px 10px 0px"
-								name={v}
-								--text="white"
-								--bg="#303030"
-							/>
+							<Button on:click={() => $store?.resolve?.(v)} --margin="0px 0px 10px 0px" --text="white" --bg="#303030" >{v}</Button>
 						{/each}
 					{:else}
-						<Button
-							on:click={() => $store?.resolve?.()}
-							name="next"
-							--text="white"
-							--bg="#303030"
-						/>
+						<Button on:click={() => $store?.resolve?.()} --text="white" --bg="#303030" >next</Button>
 					{/if}
 				</div>
 			{/if}
@@ -149,26 +138,8 @@
 		transform: rotate(50deg) translateX(-10px);
 	}
 
-	.checks-wrapper {
-		margin-top: 10px;
-	}
-
 	.next-wrapper {
 		padding-top: 25px;
-	}
-
-	.check-wrapper {
-		display: flex;
-		padding-top: 10px;
-
-		> p {
-			margin-left: 10px;
-		}
-
-		&.is-completed {
-			text-decoration: line-through;
-			text-decoration-color: #303030;
-		}
 	}
 
 	.hasClick > .wrapper {
