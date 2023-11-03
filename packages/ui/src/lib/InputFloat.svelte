@@ -132,12 +132,14 @@
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
     appearance: textfield;
+    font-family: var(--font-family);
+    font-variant-numeric: tabular-nums;
     cursor: pointer;
     color: var(--text-color);
     background-color: transparent;
-    padding: 2px;
-    width: 100%;
+    padding: 6px;
     font-size: 1em;
+    padding-inline: 10px;
     text-align: center;
     border: none;
     border-style: none;

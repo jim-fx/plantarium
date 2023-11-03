@@ -83,12 +83,9 @@
 
 <Header>
   {#if $state === 'playing'}
-    <Button
-      name="Start Tutorial"
-      on:click={() => tutorialManager.setState('level-0')}
-    />
+    <Button on:click={() => tutorialManager.setState('level-0')} >Start Tutorial</Button>
   {/if}
-  <Button name="exit" icon="cross" on:click={() => goto(backRef || '/')} />
+  <Button icon="cross" on:click={() => goto(backRef || '/')} >exit</Button>
 </Header>
 
 <div id="node-system" bind:this={wrapper} />

@@ -2,7 +2,7 @@ import { noise } from '../helpers';
 
 export function noiseSkeleton(
 	skeleton: Float32Array,
-	strength = 1,
+	strength: ((a: number) => number) | number = 1,
 	scale: [number, number, number] | number = 1,
 	offset: [number, number, number] | number = 0,
 	fixateBottom = true
@@ -21,6 +21,7 @@ export function noiseSkeleton(
 
 	const lastVec = [skeleton[0], skeleton[1], skeleton[2]];
 	let distance = 0;
+const getStrength = typeof strength === "function" ? strength : () => strength;
 
 	for (let i = 0; i < pathLength; i++) {
 		const a = i / pathLength;
@@ -35,7 +36,7 @@ export function noiseSkeleton(
 		lastVec[1] = skeleton[i * 4 + 1];
 		lastVec[2] = skeleton[i * 4 + 2];
 
-		const _s = fixateBottom ? strength * a : strength;
+		const _s = fixateBottom ? getStrength(a) * a : getStrength(a);
 
 		const [x, y, z] = skeleton.slice(i * 4, i * 4 + 3);
 

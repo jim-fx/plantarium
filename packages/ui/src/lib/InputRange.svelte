@@ -79,6 +79,9 @@
 <div
   class="component-wrapper"
   class:is-down={isMouseDown}
+  role="slider"
+  aria-valuenow={value.y}
+  tabindex="0"
   on:mousedown={handleMouseDown}
   bind:this={wrapper}
 >
@@ -93,8 +96,8 @@
 
   .component-wrapper {
     overflow: hidden;
-    min-height: 24px;
-    min-width: 50px;
+    min-height: 34px;
+    min-width: 80px;
     border-radius: var(--border-radius, 2px);
   }
 

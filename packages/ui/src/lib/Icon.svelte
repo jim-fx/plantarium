@@ -33,9 +33,6 @@
     align-items: center;
     box-sizing: border-box;
 
-    min-width: 20px;
-    min-height: 20px;
-
     &.circle {
       border-radius: 50%;
       padding: 5px;

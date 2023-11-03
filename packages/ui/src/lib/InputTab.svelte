@@ -1,19 +1,19 @@
 <svelte:options accessors />
 
-<script lang="ts">
+<script lang="ts" generics="T extends string[]">
   import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher<{ change: typeof values[number] }>();
+  const dispatch = createEventDispatcher<{ change: T[number] }>();
 
-  export let value = '';
-  export let values: string[] = [];
+  export let value: T[number] = '';
+  export let values: T;
 
-  $: value && dispatch('change', value as typeof values[number]);
+  $: value && dispatch('change', value);
 
   function setSelected(v: string) {
     value = v;
   }
 
-  export function setItems(_items: string[]) {
+  export function setItems(_items: T) {
     values = _items;
   }
 
@@ -25,14 +25,14 @@
 <div class="component-wrapper">
   <div id="main">
     {#each values as item}
-      <p
+      <button
         style={`opacity: ${item === value ? 0.5 : 1}`}
         class="item"
         class:selected={value === item}
         on:click={() => setSelected(item)}
       >
         {item}
-      </p>
+      </button>
     {/each}
   </div>
 </div>
@@ -61,6 +61,9 @@
     padding: 6px;
     margin: 0;
     cursor: pointer;
+    border: none;
+    font-family: var(--font-family);
+    font-size: 1em;
     color: var(--text-color);
     background-color: var(--foreground-color);
     transition: background-color 0.2s ease;

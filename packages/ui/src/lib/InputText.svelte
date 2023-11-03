@@ -69,7 +69,7 @@
     }
   };
   let isAsyncRunning = false;
-  let errorCheckTimeout: NodeJS.Timeout | null;
+  let errorCheckTimeout:  number |null;
   const getErrors = () => {
     if (!_validators?.length) return [];
     const err = _validators
@@ -109,7 +109,7 @@
           errorCheckTimeout = null;
           _errors = getErrors();
           mergeErrors();
-        }, 1000);
+        }, 1000) as unknown as number;
       }
     }
   }
@@ -155,7 +155,7 @@
   {/if}
 
   {#if type === 'password' && _value}
-    <span class="icon" on:click={() => (showPassword = !showPassword)} transition:scale>
+    <span class="icon" on:keydown={() => (showPassword = !showPassword)} on:click={() => (showPassword = !showPassword)} transition:scale role="button" tabindex="0">
       {#if showPassword}
         <Icon name="eye_closed" />
       {:else}
@@ -182,10 +182,6 @@
     right: 10px;
     top: 0.55em;
     width: 25px;
-  }
-
-  .spacer {
-    height: 1.7em;
   }
 
   .placeholder {

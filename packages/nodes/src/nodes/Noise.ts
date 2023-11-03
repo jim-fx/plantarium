@@ -10,7 +10,7 @@ export default typeCheckNode({
   outputs: ['plant'],
 
   meta: {
-    description: `The noise node applies noise to input branches.`
+    description: `The noise node applies noise to input branches.`,
   },
 
   parameters: {
@@ -18,7 +18,7 @@ export default typeCheckNode({
       type: 'plant',
       label: 'plant',
       external: true,
-      required: true
+      required: true,
     },
     size: {
       type: 'number',
@@ -37,25 +37,25 @@ export default typeCheckNode({
   },
 
   compute(parameters) {
-    log("computeSkeleton", parameters);
+    log('computeSkeleton', parameters);
 
     const { stems, instances } = parameters.input();
 
     const size = parameters.size();
     const strength = parameters.strength();
+    console.log({ strength });
 
-    const maxDepth = Math.max(...stems.map(s => s.depth));
+    const maxDepth = Math.max(...stems.map((s) => s.depth));
 
     stems.forEach((stem: PlantStem, i) => {
       if (stem.depth === maxDepth) {
-        noiseSkeleton(stem.skeleton, strength, size, i * 200)
+        noiseSkeleton(stem.skeleton, parameters.strength, size, i * 200,false);
       }
     });
 
     return {
       stems,
-      instances
+      instances,
     };
-  }
+  },
 });
-

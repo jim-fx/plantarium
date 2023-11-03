@@ -9,7 +9,13 @@
 <div id="toast-wrapper">
   {#each $store as toast (toast.id)}
     <div transition:slide={{ easing: backInOut }} style="position: relative; width:fit-content;">
-      <div class="toast-close" on:click={() => toast?.reject?.()}>
+      <div
+        role="button"
+        tabindex="0"
+        class="toast-close"
+        on:keydown={() => toast?.reject?.()}
+        on:click={() => toast?.reject?.()}
+      >
         <Icon
           dark={['warning', 'error', 'success'].includes(toast?.type)}
           name="cross"

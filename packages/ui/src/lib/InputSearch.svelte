@@ -102,9 +102,13 @@
   {#each filteredItems as v, i}
     {#if i < limitAmount}
       <div
+        role="option"
+        tabindex="0"
+        aria-selected={v.value === selectedValue}
         class="search-entry"
         on:focus={() => setActive(v)}
         on:mouseover={() => setActive(v)}
+        on:keydown={() => setActive(v)}
         on:click={() => handleSelect(v)}
         class:focused={v.value === selectedValue}
       >

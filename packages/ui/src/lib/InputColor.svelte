@@ -54,20 +54,15 @@
     updateHuePicker();
   }
 
-  function removeEventListenerFromElement(
+
+type EventListener<T extends Event> = (event: T) => void;
+  function removeEventListenerFromElement<T extends Event>(
     elementId: string,
     eventName: string,
-    listenerCallback: {
-      (event: any): void;
-      (event: any): void;
-      (event: any): void;
-      (event: any): void;
-      (event: any): void;
-      (event: any): void;
-    }
+    listenerCallback: EventListener<T>
   ) {
-    let element = document.querySelector(elementId);
-    if (element) element.removeEventListener(eventName, listenerCallback);
+    let element = document.querySelector(elementId) as EventTarget;
+    if (element) element.removeEventListener(eventName, listenerCallback as EventListener<Event>);
   }
 
   function killMouseEvents() {
@@ -398,21 +393,21 @@
       <div class="saturation-gradient">
         <div class="value-gradient">
           <div id="colorsquare-picker" bind:this={colorSquarePicker} />
-          <div id="colorsquare-event" on:mousedown={csDown} on:touchstart={csDownTouch} />
+          <div id="colorsquare-event" on:mousedown={csDown} on:touchstart={csDownTouch} role="button" tabindex="0"/>
         </div>
       </div>
     </div>
 
     <div class="hue-selector">
       <div id="hue-picker" bind:this={huePicker} />
-      <div id="hue-event" on:mousedown={hueDown} on:touchstart={hueDownTouch} />
+      <div id="hue-event" on:mousedown={hueDown} on:touchstart={hueDownTouch} role="button" tabindex="0"/>
     </div>
 
     {#if showAlpha}
       <div class="alpha-selector">
         <div class="alpha-value" />
         <div id="alpha-picker" bind:this={alphaPicker} />
-        <div id="alpha-event" on:mousedown={alphaDown} on:touchstart={alphaDownTouch} />
+        <div id="alpha-event" on:mousedown={alphaDown} on:touchstart={alphaDownTouch} role="button" tabindex="0" />
       </div>
     {/if}
 

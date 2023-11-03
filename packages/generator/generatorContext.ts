@@ -124,7 +124,7 @@ export default function createGeneratorContext({ nodes: _nodes }: Project, setti
         }
       } else {
         if (inputNode.exec?.compute) {
-          parameters[input.in] = (alpha: number) => {
+          parameters[input.in] = (alpha: number = 0) => {
             const parameters = constructParametersForNode(input.n);
             if (!(inputNode.id in timings)) timings[inputNode.id] = { time: 0, amount: 0 };
             const a = performance.now();

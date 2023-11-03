@@ -84,9 +84,8 @@
               --bg="transparent"
               on:click={() => {
                 showStackTrace = !showStackTrace;
-              }}
-              name="> StackTrace"
-            />
+              }}>&lt; StackTrace</Button
+            >
           {/if}
 
           {#if values}
@@ -96,9 +95,8 @@
                   --height="fit-content"
                   --white-space="break-spaces"
                   --margin="5px 10px 5px 0"
-                  on:click={() => resolve?.(v)}
-                  name={v}
-                />
+                  on:click={() => resolve?.(v)}>{v}</Button
+                >
               </div>
             {/each}
           {/if}

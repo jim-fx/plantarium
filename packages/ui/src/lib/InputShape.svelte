@@ -127,6 +127,8 @@
     viewBox="0 0 100 100"
     width="50"
     height="100"
+    aria-label="input shape"
+    role="graph"
     on:mousedown={handleMouseDown}
     on:mousemove={handleMouseMove}
     on:mouseover={handleMouseOver}
@@ -139,6 +141,7 @@
 
     {#each points as p}
       <circle
+        role="point"
         cx={p.x * 100}
         cy={p.y * 200 - 50}
         r="4"

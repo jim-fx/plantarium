@@ -1,4 +1,4 @@
-import type { SvelteComponent } from 'svelte';
+import type { ComponentType, SvelteComponent } from 'svelte';
 
 export enum MessageType {
   INFO = 'info',
@@ -10,7 +10,7 @@ export enum MessageType {
 export interface Message {
   id: string | Error | unknown;
   type: MessageType;
-  content: string | Error | typeof SvelteComponent;
+  content: string | Error | ComponentType;
   title?: string;
   props?: Record<string, unknown>;
   styleVars?: Record<string, string>;

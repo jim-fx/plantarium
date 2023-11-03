@@ -5,8 +5,8 @@
   const dispatch = createEventDispatcher();
 
   // Styling
-  export let min = -Infinity;
-  export let max = Infinity;
+  export let min: number | undefined = undefined;
+  export let max: number | undefined = undefined;
   export let step = 1;
   export let value = 0;
 
@@ -29,7 +29,7 @@
     : '20px';
 
   function handleChange(change: number) {
-    value = Math.max(min, Math.min(+value + change, max));
+    value = Math.max(min ?? -Infinity, Math.min(+value + change, max ?? Infinity));
   }
 
   let downX = 0;
@@ -62,7 +62,7 @@
   }
 
   function handleMouseMove(ev: MouseEvent) {
-    if (!ev.ctrlKey) {
+    if (!ev.ctrlKey && typeof min === 'number' && typeof max === 'number') {
       const vx = (ev.clientX - rect.left) / rect.width;
       value = Math.max(Math.min(Math.floor(min + (max - min) * vx), max), min);
     } else {
@@ -98,6 +98,7 @@
   .component-wrapper {
     overflow: hidden;
     border-radius: var(--border-radius, 2px);
+    display: flex;
   }
 
   input[type='number'] {
@@ -105,6 +106,11 @@
     -moz-appearance: textfield;
     appearance: textfield;
     cursor: pointer;
+    font-size: 1em;
+    font-family: var(--font-family);
+    padding-top: 8px;
+    flex: 1;
+    width: 72%;
   }
 
   input[type='number']::-webkit-inner-spin-button,
@@ -122,29 +128,21 @@
     pointer-events: none;
   }
 
-  div {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    border-radius: 2px;
-  }
-
-  div button {
+  button {
     background-color: transparent;
     border: none;
     cursor: pointer;
     line-height: 0px;
     margin: 0;
     color: var(--text-color);
+    margin-inline: 6px;
   }
 
   div input[type='number'] {
     color: var(--text-color);
     background-color: transparent;
-    padding: 2px;
-    width: 72%;
-    font-size: 1em;
+    padding: 6px;
+    padding-inline: 0px;
     text-align: center;
     border: none;
     border-style: none;

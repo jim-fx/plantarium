@@ -6,7 +6,6 @@ import nodeMap from "./nodeMap";
 
 export async function executeNodeSystem(project: Project, settings: Partial<PlantariumSettings>) {
 
-
   const startTime = performance.now();
 
   const gctx = createGeneratorContext(project, settings);
@@ -16,7 +15,6 @@ export async function executeNodeSystem(project: Project, settings: Partial<Plan
       errors: gctx.errors
     }
   }
-
 
   const ctx = gctx.ctx;
 

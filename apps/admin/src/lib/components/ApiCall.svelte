@@ -28,13 +28,7 @@
   {:else}
     <slot name="error" error={response}>
       <ApiError error={response} />
-      <Button
-        icon="arrow"
-        name="okay"
-        on:click={() => {
-          promise = undefined;
-        }}
-      />
+      <Button icon="arrow" on:click={() => { promise = undefined; }} >okay</Button>
     </slot>
   {/if}
 {/await}

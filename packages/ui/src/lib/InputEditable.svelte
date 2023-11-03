@@ -73,7 +73,7 @@
       <Button icon="edit" on:click={enableEdit} />
     {/if}
   </ButtonGroup>
-  <h2
+  <input
     bind:this={el}
     on:click={enableEdit}
     on:change={tryToPreventNewLines}
@@ -83,18 +83,22 @@
     on:blur={() => {
       isFocused = false;
     }}
-  >
-    {value}
-  </h2>
+    bind:value
+  />
 </div>
 
 <style>
-  h2 {
+  input {
     display: inline;
     margin: 0;
     margin-left: 10px;
     margin-right: 10px;
     outline: none !important;
+    background-color: transparent;
+    font-family: var(--font-family);
+    font-size: 1.2em;
+    color: var(--text-color);
+    border: none;
   }
   div {
     display: flex;

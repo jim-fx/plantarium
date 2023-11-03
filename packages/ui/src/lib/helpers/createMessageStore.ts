@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import type { SvelteComponent } from 'svelte';
+import type { ComponentType } from 'svelte';
 import type { Writable } from 'svelte/store';
 import { writable } from 'svelte/store';
 import type { Message, MessageOptions } from './IMessage.js';
@@ -7,73 +7,73 @@ import { MessageType } from './IMessage.js';
 
 const createMessageFactory =
   (store: Writable<Message[]>) =>
-  (content: string | Error | typeof SvelteComponent, options: Partial<MessageOptions> = {}) => {
-    if (!content && !options) return;
+    (content: string | Error | ComponentType, options: Partial<MessageOptions> = {}) => {
+      if (!content && !options) return;
 
-    const hasValues = Array.isArray(options?.values);
+      const hasValues = Array.isArray(options?.values);
 
-    const message: Message = {
-      id: nanoid(),
-      type: MessageType.INFO,
-      content,
-      props: options.props,
-      styleVars: options.styleVars ?? {},
-      title: options?.title ?? options?.type,
-      values: options?.values,
-      timeout: options?.timeout
-    };
+      const message: Message = {
+        id: nanoid(),
+        type: MessageType.INFO,
+        content,
+        props: options.props,
+        styleVars: options.styleVars ?? {},
+        title: options?.title ?? options?.type,
+        values: options?.values,
+        timeout: options?.timeout
+      };
 
-    const p = new Promise((_res) => {
-      message.resolve = _res;
-      message.reject = () => _res(undefined);
-    });
-    p.finally(() => store.update((msgs) => msgs.filter((m) => m.id !== message.id)));
-
-    // Find out type
-
-    if (options?.type) {
-      const t = options.type.toLowerCase();
-      Object.values(MessageType).forEach((v) => {
-        if (t === v) message.type = v;
+      const p = new Promise((_res) => {
+        message.resolve = _res;
+        message.reject = () => _res(undefined);
       });
-    }
+      p.finally(() => store.update((msgs) => msgs.filter((m) => m.id !== message.id)));
 
-    if (content instanceof Error) {
-      message.type = MessageType.ERROR;
-    }
+      // Find out type
 
-    if (typeof message.timeout === 'undefined') {
-      let timeout = 0;
-
-      if (message.type === MessageType.SUCCESS) {
-        timeout = 3000;
+      if (options?.type) {
+        const t = options.type.toLowerCase();
+        Object.values(MessageType).forEach((v) => {
+          if (t === v) message.type = v;
+        });
       }
 
-      if (message.type === MessageType.INFO) {
-        timeout = 2000;
+      if (content instanceof Error) {
+        message.type = MessageType.ERROR;
       }
 
-      if (message.type === MessageType.WARNING) {
-        timeout = 7000;
+      if (typeof message.timeout === 'undefined') {
+        let timeout = 0;
+
+        if (message.type === MessageType.SUCCESS) {
+          timeout = 3000;
+        }
+
+        if (message.type === MessageType.INFO) {
+          timeout = 2000;
+        }
+
+        if (message.type === MessageType.WARNING) {
+          timeout = 7000;
+        }
+
+        if (timeout && !hasValues) {
+          message.timeout = timeout;
+        }
       }
 
-      if (timeout && !hasValues) {
-        message.timeout = timeout;
+      if (!('title' in message)) {
+        message.title = message.type.toUpperCase().slice(0, 1) + message.type.slice(1);
       }
-    }
 
-    if (!('title' in message)) {
-      message.title = message.type.toUpperCase().slice(0, 1) + message.type.slice(1);
-    }
+      store.update((messages) => [...messages, message]);
 
-    store.update((messages) => [...messages, message]);
+      if (message.timeout && message.resolve) {
+        setTimeout(message.resolve, message.timeout);
+      }
 
-    if (message.timeout && message.resolve) {
-      setTimeout(message.resolve, message.timeout);
-    }
-
-    return p;
-  };
+      return p;
+    };
 
 export default () => {
   const store: Writable<Message[]> = writable([]);

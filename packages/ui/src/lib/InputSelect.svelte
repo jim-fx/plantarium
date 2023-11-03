@@ -43,21 +43,22 @@
 <div class="component-wrapper" class:open>
   <div id="main">
     {#if value !== undefined}
-      <div id="selected-value" on:click={handleOpen}>{value}</div>
+      <button id="selected-value" on:click={handleOpen} on:keydown={handleOpen}>{value}</button>
     {:else}
-      <div id="selected-value" on:click={handleOpen}>none</div>
+      <button id="selected-value" on:click={handleOpen} on:keydown={handleOpen}>none</button>
     {/if}
 
     <div id="item-wrapper">
       {#each values as item}
         {#if item !== value}
-          <p
+          <button
             style={`opacity: ${item === value ? 0.5 : 1}`}
             class="item"
+            on:keydown={() => setSelected(item)}
             on:click={() => setSelected(item)}
           >
             {item}
-          </p>
+          </button>
         {/if}
       {/each}
     </div>
@@ -68,7 +69,21 @@
   @import './global.scss';
 
   .component-wrapper {
+    border-radius: var(--border-radius, 2px);
     height: 30px;
+  }
+
+  button {
+    color: var(--text-color);
+    font-family: Nunito Sans, sans-serif;
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    display: block;
+    width: 100%;
+    font-size: 1em;
+    padding: 6px;
+    padding-inline: 10px;
   }
 
   .open.component-wrapper {
@@ -79,7 +94,7 @@
   #main {
     color: var(--text-color);
     min-width: 100%;
-    border-radius: 2px;
+    border-radius: var(--border-radius, 2px);
     width: fit-content;
     box-sizing: border-box;
     background-color: var(--foreground-color);
@@ -89,16 +104,10 @@
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.4);
   }
 
-  #selected-value {
-    padding: 4px 10px;
-    padding-left: 6px;
-    height: auto;
-  }
-
   #item-wrapper {
     width: fit-content;
     min-width: 100%;
-    border-radius: 2px;
+    border-radius: var(--border-radius);
 
     overflow: hidden;
     top: 0;
@@ -116,7 +125,6 @@
     padding: 6px;
     margin: 0;
     cursor: pointer;
-    color: var(--text-color);
     transition: background-color 0.2s ease;
   }
 

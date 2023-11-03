@@ -37,7 +37,6 @@
     ]
   };
 
-  import { Highlight } from 'svelte-highlight';
   import atomOneDark from 'svelte-highlight/styles/atom-one-dark';
   import { setTheme, ThemeProvider } from '@plantarium/theme';
   export const prerender = true;
@@ -83,7 +82,7 @@
     }
   };
 
-  const handleThemeChange = (e: CustomEvent<string>) => setTheme(e.detail);
+  const handleThemeChange = (e: CustomEvent<string>) => setTheme(e.detail as "dark");
   const handleSearchInput = (e: CustomEvent<string>) => createToast('You selected ' + e.detail);
   const handleEditableChange = (e: CustomEvent<string>) => {
     editableValue = e.detail;
@@ -99,11 +98,11 @@
 <main>
   <section>
     <h3>Button</h3>
-    <Button icon="cog" name="Projects" />
+    <Button icon="cog">Projects</Button>
     <br />
-    <Button name="Projects" />
+    <Button>Projects</Button>
     <br />
-    <Button name="Primary" invert />
+    <Button invert>Primary</Button>
     <br />
     <LikeButton />
   </section>
@@ -112,18 +111,18 @@
     <h3>ButtonGroup</h3>
     <i>Vertical:</i>
     <ButtonGroup>
-      <Button icon="cog" name="Projects" />
-      <Button name="Projects" />
-      <Button name="Primary" />
+      <Button icon="cog">Projects</Button>
+      <Button>Projects</Button>
+      <Button>Primary</Button>
     </ButtonGroup>
 
     <br />
 
     <i>Horizontal:</i>
     <ButtonGroup direction="horizontal">
-      <Button icon="cog" name="Projects" />
-      <Button name="Projects" />
-      <Button name="Primary" />
+      <Button icon="cog">Projects</Button>
+      <Button>Projects</Button>
+      <Button>Primary</Button>
     </ButtonGroup>
   </section>
 
@@ -250,43 +249,44 @@
 
   <section>
     <h3>Toasts</h3>
-    <Button name="Info Toast" on:click={() => createToast('Short informativ message')} />
+    <Button on:click={() => createToast('Short informativ message')}>Info Toast</Button>
+    <br />
+    <Button on:click={() => createToast('Short happy message', { type: 'success', timeout: 0 })}>
+      Success Toast
+    </Button>
     <br />
     <Button
-      name="Success Toast"
-      on:click={() => createToast('Short happy message', { type: 'success', timeout: 0 })}
-    />
-    <br />
-    <Button
-      name="Select Toast"
       on:click={async () => {
         const result = await createToast('Select one:', { values: ['A', 'B', 'C'] });
         createToast(`You selected: ${result}`);
       }}
-    />
+    >
+      Select Toast
+    </Button>
+    <br />
+    <Button on:click={() => createToast('Warning Message', { type: 'warning' })}>
+      Warning Toast
+    </Button>
     <br />
     <Button
-      name="Warning Toast"
-      on:click={() => createToast('Warning Message', { type: 'warning' })}
-    />
-    <br />
-    <Button
-      name="Error Toast"
       on:click={() =>
         createToast(new Error('Something went wrong'), {
           values: ['Help', 'Me', 'Recover', 'This', 'Error']
         })}
-    />
+    >
+      Error Toast
+    </Button>
     <br />
 
     <h3>Alerts</h3>
     <Button
-      name="Alert"
       on:click={() =>
         createAlert('Something so important its worth interrupting the user for', {
           values: ['Help', 'Me', 'Recover', 'This', 'Error']
         })}
-    />
+    >
+      Alert
+    </Button>
   </section>
 
   <section>

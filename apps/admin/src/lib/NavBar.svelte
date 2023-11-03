@@ -32,15 +32,7 @@
 
   <br />
   {#if isLoggedIn}
-    <Button
-      name="logout"
-      invert
-      on:click={() => {
-        logout();
-        goto('/');
-        createToast('Logged Out', { type: 'success' });
-      }}
-    />
+    <Button invert on:click={() => { logout(); goto('/'); createToast('Logged Out', { type: 'success' }); }} >logout</Button>
   {/if}
   <br />
 
