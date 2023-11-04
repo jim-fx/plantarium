@@ -28,7 +28,7 @@
 		dispatch('close');
 		createToast('Export started', { type: 'success' });
 		await wait(100);
-		exportModel(project, settingsManager.getSettings(), 'obj');
+		exportModel(project, settingsManager.getSettings());
 	}
 
 	async function handleCopy() {
@@ -46,9 +46,11 @@
 
 <div id="wrapper">
 	<div id="header">
-		<Button on:click={handleCopy} >copy</Button>
-		<Button on:click={() => download.json(cleaned, project.meta.name ?? `plant-${project.id}`)} >download</Button>
-		<Button on:click={handleObjDownload} >download obj</Button>
+		<Button on:click={handleCopy}>copy</Button>
+		<Button on:click={() => download.json(cleaned, project.meta.name ?? `plant-${project.id}`)}
+			>download</Button
+		>
+		<Button on:click={handleObjDownload}>download obj</Button>
 	</div>
 </div>
 

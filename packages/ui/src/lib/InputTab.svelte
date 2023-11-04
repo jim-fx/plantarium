@@ -1,6 +1,10 @@
 <svelte:options accessors />
 
-<script lang="ts" generics="T extends string[]">
+<script context="module" lang="ts">
+  type Generic = string[];
+</script>
+
+<script lang="ts" generics="T extends Generic">
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher<{ change: T[number] }>();
 

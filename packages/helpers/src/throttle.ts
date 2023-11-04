@@ -1,20 +1,20 @@
-export default (fn: (...args: unknown[]) => unknown, wait = 300) => {
-  let inThrottle: boolean,
-    lastFn: ReturnType<typeof setTimeout>,
-    lastTime: number;
-  return function(...args: unknown[]) {
-    if (!inThrottle) {
-      fn(...args);
-      lastTime = Date.now();
-      inThrottle = true;
-    } else {
-      clearTimeout(lastFn);
-      lastFn = setTimeout(() => {
-        if (Date.now() - lastTime >= wait) {
-          fn(...args);
-          lastTime = Date.now();
-        }
-      }, Math.max(wait - (Date.now() - lastTime), 0));
-    }
-  };
+export default <R, A extends any[]>(
+  fn: (...args: A) => R,
+  delay: number
+): ((...args: A) => R) => {
+  let wait = false;
+
+  return (...args: A) => {
+    if (wait) return undefined;
+
+    const val = fn(...args);
+
+    wait = true;
+
+    setTimeout(() => {
+      wait = false;
+    }, delay);
+
+    return val;
+  }
 };

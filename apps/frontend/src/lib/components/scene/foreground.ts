@@ -160,15 +160,15 @@ export default class ForegroundScene extends EventEmitter {
         this.mesh.visible = !this?.settings?.debug?.hideMesh;
       }
 
-      updateThumbnail(this.plant.id, join(...result.geometries));
+      if (this.plant) {
+        updateThumbnail(this.plant?.id, join(...result.geometries));
+      }
 
       this.dbg.setPlant(result);
 
-      console.log;
-
       this.mesh.geometry = transferToGeometry(this.gl, result.geometry);
 
-      this.mesh.geometry.computeBoundingBox();
+      this.mesh.geometry.computeBoundingBox({});
 
       this.boundingBox.geometry = new Box(this.gl, {
         width: this.mesh.geometry.bounds.max.x - this.mesh.geometry.bounds.min.x,

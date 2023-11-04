@@ -146,6 +146,7 @@
 	}
 	.user p {
 		margin-left: 10px;
+		margin: 0px;
 	}
 	.user img {
 		border-radius: 100%;

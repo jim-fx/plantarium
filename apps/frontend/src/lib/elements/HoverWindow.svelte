@@ -22,11 +22,13 @@
 	<Button
 		useActive
 		{icon}
-		{name}
+		--border-radius="5px 5px 0px 0px"
 		--bg="transparent"
 		--text={'var(--text-color)'}
 		bind:active={visible}
-	/>
+	>
+		{name}
+	</Button>
 
 	<div class="wrapper" class:visible class:right>
 		<slot {visible} />
@@ -47,7 +49,7 @@
 
 		border-radius: 5px;
 		padding: 10px;
-		margin-top: -5px;
+		margin-top: 0px;
 
 		overflow: auto;
 
@@ -58,6 +60,7 @@
 
 	.wrapper.right {
 		right: 0px;
+		border-top-right-radius: 0px;
 	}
 
 	.visible {

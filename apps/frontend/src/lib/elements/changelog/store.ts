@@ -6,35 +6,35 @@ export const commits = writable<ICommit[]>([]);
 
 let lastUpdated = localState.get('lastUpdated', Date.now());
 
-function parseCommit(c) {
-	const date = Date.parse(c.date);
+function parseCommit(c: { date: string }) {
+  const date = Date.parse(c.date);
 
-	return {
-		...c,
-		date,
-		new: lastUpdated < date
-	};
+  return {
+    ...c,
+    date,
+    new: lastUpdated < date
+  };
 }
 
-let commitPromise;
+let commitPromise: Promise<ICommit[]>;
 async function _fetchCommits() {
-	const response = await fetch('commits.json');
-	const json = await response.json();
+  const response = await fetch('commits.json');
+  const json = await response.json();
 
-	lastUpdated = Date.now();
-	localState.set('lastUpdated', lastUpdated);
+  lastUpdated = Date.now();
+  localState.set('lastUpdated', lastUpdated);
 
-	return json.map((c) => parseCommit(c));
+  return json.map((c: { date: string }) => parseCommit(c));
 }
 
 export const fetchCommits = async () => {
-	if (commitPromise) {
-		return commitPromise;
-	}
+  if (commitPromise) {
+    return commitPromise;
+  }
 
-	commitPromise = _fetchCommits();
+  commitPromise = _fetchCommits();
 
-	const _commits = await commitPromise;
+  const _commits = await commitPromise;
 
-	commits.set(_commits);
+  commits.set(_commits);
 };

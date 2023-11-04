@@ -10,6 +10,7 @@ import * as performance from '../helpers/performance';
 import { ProjectManager } from './project-manager';
 import { SettingsManager } from './settings-manager';
 import Tutor from './tutor';
+import type { NodeSystemData, NodeTypeData } from '@plantarium/nodesystem/src/lib/types';
 
 const settingsManager = new SettingsManager();
 const projectManager = new ProjectManager();
@@ -26,13 +27,13 @@ settingsManager.on('debug.logLevel.update', (logLevel) => {
 });
 
 settingsManager.on('theme.update', (v) => {
-  setTheme(v as string);
+  setTheme(v as "light");
 });
 
 const nodeSystem = new NodeSystem({
   view: browser,
   defaultNodes: false,
-  registerNodes: Nodes,
+  registerNodes: Nodes as NodeTypeData[],
   enableDrawing: true,
   connectionColors: {
     boolean: '#f00',
@@ -47,7 +48,7 @@ settingsManager.on('debug.showNodeUpdates.update', (v) => {
   nodeSystem.options.showUpdates = v as boolean;
 });
 
-projectManager.on('load', (project) => nodeSystem.load(project), 100);
+projectManager.on('load', (project) => nodeSystem.load(project as NodeSystemData), 100);
 
 nodeSystem.on(
   'result',

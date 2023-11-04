@@ -20,11 +20,11 @@
 
 	const isOpen = sectionOpen();
 
-	function cleanTemplate<T>(_template: T) {
+	function cleanTemplate<T extends object>(_template: T) {
 		const c = cloneObject(_template);
-		delete c['label'];
-		delete c['type'];
-		delete c['onlyDev'];
+		'label' in c && delete c['label'];
+		'type' in c && delete c['type'];
+		'onlyDev' in c && delete c['onlyDev'];
 		return c;
 	}
 </script>
@@ -56,16 +56,14 @@
 
 <style>
 	.wrapper {
-		margin-left: 20px;
-		width: calc(100% - 20px);
+		margin-left: 10px;
+		width: calc(100% - 10px);
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		flex-wrap: wrap;
 
-		margin-bottom: 5px;
 		padding-bottom: 10px;
-		margin-top: 5px;
 		padding-top: 10px;
 
 		border-bottom: solid thin #30303055;

@@ -32,6 +32,8 @@ export async function publishProject(id: string) {
 
   const p = await loadProject(id);
 
+  if (!p) return;
+
   const r = await api.publishProject(p);
 
 
@@ -44,7 +46,7 @@ export async function publishProject(id: string) {
   }
 }
 
-export async function deleteRemoteProject(id: string) {
+export async function deleteRemoteProject() {
 
 }
 
@@ -63,7 +65,7 @@ export async function setActiveProject(id?: string) {
   const projectPromise = loadProject(id);
   const t = setTimeout(() => isLoading.set(true), 500);
   projectPromise.then((project) => {
-    activeProject.set(project);
+    activeProject.set(project ?? null);
     clearTimeout(t);
   });
 }
@@ -76,7 +78,7 @@ export async function downloadProject(id: string) {
   try {
     const project = await projectStore.loadProject(id);
     const p = await projectManager.createNew(project);
-    createToast('Downloaded ' + project.meta.name, { type: 'success' });
+    createToast('Downloaded ' + project?.meta.name, { type: 'success' });
 
     newIDS.update((ids) => {
       ids.push(p.id);
@@ -131,8 +133,10 @@ export async function openProject(id: string) {
     const project = await downloadProject(id);
     isLoading.set(false);
     clearTimeout(t);
-    projectManager.setActiveProject(project.id);
-    activeView.set('plant');
+    if (project) {
+      projectManager.setActiveProject(project?.id);
+      activeView.set('plant');
+    }
   } else {
     projectManager.setActiveProject(id);
     activeView.set('plant');

@@ -28,7 +28,7 @@ export default class DebugScene {
 
   private gl: OGLRenderingContext;
 
-  private m: { [key: string]: Transform } = {};
+  private m: { [key: string]: Transform | Mesh } = {};
 
   constructor(private scene: Scene) {
     this.gl = scene.renderer.gl;
@@ -130,9 +130,9 @@ export default class DebugScene {
 
       let positions = new Float32Array(amountPos);
 
-      let offset = 0;
+      const offset = 0;
       this.m.skeleton.children = [];
-      stems.forEach(({ skeleton: skelly, depth }) => {
+      stems.forEach(({ skeleton: skelly }) => {
         const amount = skelly.length / 4;
         const polyline = new Polyline(this.gl, {
           points: groupArray(skelly, 4).map((v) => new Vec3(...v)),

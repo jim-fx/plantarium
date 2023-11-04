@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Commit from './Commit.svelte';
 	import { commits, fetchCommits } from './store';
 
@@ -6,7 +6,7 @@
 
 	let day = $commits.length && new Date($commits[0].date).getDay();
 
-	const checkDate = (commit) => {
+	const checkDate = (commit: { date: Date }) => {
 		const d = new Date(commit.date);
 		if (d.getDay() != day) {
 			day = d.getDay();
@@ -15,7 +15,7 @@
 		return false;
 	};
 
-	const prettyDate = (date) => {
+	const prettyDate = (date: Date) => {
 		return new Date(date).toLocaleDateString();
 	};
 </script>

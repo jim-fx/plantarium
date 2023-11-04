@@ -128,7 +128,8 @@
     width="50"
     height="100"
     aria-label="input shape"
-    role="graph"
+    role="button"
+    tabindex="0"
     on:mousedown={handleMouseDown}
     on:mousemove={handleMouseMove}
     on:mouseover={handleMouseOver}
@@ -141,7 +142,8 @@
 
     {#each points as p}
       <circle
-        role="point"
+        role="button"
+        tabindex="0"
         cx={p.x * 100}
         cy={p.y * 200 - 50}
         r="4"

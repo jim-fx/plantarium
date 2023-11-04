@@ -108,6 +108,8 @@
     viewBox="0 0 100 100"
     width="100"
     height="100"
+    role="button"
+    tabindex="0"
     on:mousedown={handleMouseDown}
     on:mousemove={handleMouseMove}
     on:mouseover={handleMouseOver}
@@ -121,6 +123,8 @@
     <path d={path} fill="none" stroke="grey" />
     {#each points as p}
       <circle
+        role="button"
+        tabindex="0"
         cx={p.x * 100}
         cy={p.y * 100}
         r="2"

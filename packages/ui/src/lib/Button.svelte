@@ -44,7 +44,7 @@
     height: var(--height, auto);
     width: var(--width, auto);
     font-size: 1em;
-    border-radius: 5px;
+    border-radius: var(--border-radius, 5px);
     border: none;
     background-color: transparent;
     outline: none;

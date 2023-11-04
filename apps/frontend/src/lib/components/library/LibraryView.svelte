@@ -35,6 +35,10 @@
 		projectStore.setFilter(filter);
 	}
 
+	$: if ($state) {
+		$activeProject = null;
+	}
+
 	let transitionImages: HTMLImageElement[] = [];
 	let aside: HTMLElement;
 
@@ -46,10 +50,6 @@
 			}, 1200);
 		}
 	});
-
-	function setState(s: string) {
-		$state = s as 'local';
-	}
 
 	onMount(() => {
 		projectStore.setFilter(filter);
@@ -66,15 +66,7 @@
 			<span class="hint" transition:scale>{$newIDS.length}</span>
 		{/if}
 
-		<InputTab
-			values={['local', 'remote']}
-			value={$state}
-			--width="100%"
-			on:change={({ detail }) => {
-				setState(detail);
-				$activeProject = null;
-			}}
-		/>
+		<InputTab values={['local', 'remote']} --width="100%" bind:value={$state} />
 
 		<InputText placeholder="Search" --width="100%" bind:value={filter.search} />
 
