@@ -82,7 +82,7 @@ jobs:
       - run: 'cp -r packages/geometry/build apps/frontend/build/geometry'
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v2
         with:
           path: ./apps/frontend/build
 
