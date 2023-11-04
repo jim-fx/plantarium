@@ -39,7 +39,6 @@
 
   import atomOneDark from 'svelte-highlight/styles/atom-one-dark';
   import { setTheme, ThemeProvider } from '@plantarium/theme';
-  export const prerender = true;
 
   const searchItems = [
     { value: 'number', group: 'input' },
@@ -82,7 +81,7 @@
     }
   };
 
-  const handleThemeChange = (e: CustomEvent<string>) => setTheme(e.detail as "dark");
+  const handleThemeChange = (e: CustomEvent<string>) => setTheme(e.detail as 'dark');
   const handleSearchInput = (e: CustomEvent<string>) => createToast('You selected ' + e.detail);
   const handleEditableChange = (e: CustomEvent<string>) => {
     editableValue = e.detail;

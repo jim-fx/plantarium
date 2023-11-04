@@ -91,9 +91,7 @@
   />
 </div>
 
-<style lang="scss">
-  @import './global.scss';
-
+<style>
   .component-wrapper {
     overflow: hidden;
     min-height: 34px;

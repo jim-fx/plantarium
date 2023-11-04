@@ -798,10 +798,10 @@ importers:
         version: 4.2.2
       svelte-check:
         specifier: ^3.5.2
-        version: 3.5.2(sass@1.69.5)(svelte@4.2.2)
+        version: 3.5.2(postcss@8.4.31)(svelte@4.2.2)
       svelte-preprocess:
         specifier: ^5.0.4
-        version: 5.0.4(sass@1.69.5)(svelte@4.2.2)(typescript@5.2.2)
+        version: 5.0.4(postcss@8.4.31)(svelte@4.2.2)(typescript@5.2.2)
       svelte2tsx:
         specifier: ^0.6.23
         version: 0.6.23(svelte@4.2.2)(typescript@5.2.2)
@@ -7409,6 +7409,7 @@ packages:
       chalk: 3.0.0
       diff-match-patch: 1.0.5
     dev: false
+    bundledDependencies: []
 
   /jsonfile@6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
