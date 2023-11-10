@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="frontend/static/favicon/favicon.svg" width="30%"/>
+<img src="apps/frontend/static/favicon/favicon.svg" width="30%"/>
 
 <a href="https://plant.jim-fx.com/"><h2 align="center">Plantarium</h2></a>
 
