@@ -39,11 +39,13 @@
   {/if}
   {#each Object.entries(fields) as [key, field] (key)}
     {#if field.type === 'submit'}
-      <div class="spacer" />
       <Button
-        name={field.label || 'submit'}
+        --margin="0px 0px 0px 0px"
+        --width="fit-content"
         disabled={Object.values(errors).flat().length > 0 || Object.keys(data).length < 0}
-      />
+      >
+        {field.label || 'submit'}
+      </Button>
     {:else if field.type === 'checkbox'}
       <br />
       <InputCheckbox label={field.label} bind:value={data[key]} />
@@ -61,9 +63,6 @@
 </form>
 
 <style>
-  .spacer {
-    height: 1.5em;
-  }
   h3 {
     margin: 0;
   }
@@ -72,5 +71,8 @@
     background-color: var(--background, var(--midground-color));
     width: fit-content;
     padding: 20px 20px;
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
   }
 </style>

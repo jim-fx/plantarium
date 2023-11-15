@@ -67,8 +67,9 @@
                 --text={'white'}
                 --margin="0 10px 0 0"
                 on:click={() => alert.resolve?.(value)}
-                name={value}
-              />
+              >
+                {value}
+              </Button>
             {/each}
           </div>
         {/if}

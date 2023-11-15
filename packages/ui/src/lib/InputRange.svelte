@@ -96,7 +96,10 @@
     overflow: hidden;
     min-height: 34px;
     min-width: 80px;
+    width: var(--width, 100%);
     border-radius: var(--border-radius, 2px);
+    position: relative;
+    background-color: var(--foreground-color);
   }
 
   .overlay::before,

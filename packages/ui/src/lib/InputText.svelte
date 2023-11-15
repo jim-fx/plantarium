@@ -69,7 +69,7 @@
     }
   };
   let isAsyncRunning = false;
-  let errorCheckTimeout:  number |null;
+  let errorCheckTimeout: number | null;
   const getErrors = () => {
     if (!_validators?.length) return [];
     const err = _validators
@@ -155,7 +155,14 @@
   {/if}
 
   {#if type === 'password' && _value}
-    <span class="icon" on:keydown={() => (showPassword = !showPassword)} on:click={() => (showPassword = !showPassword)} transition:scale role="button" tabindex="0">
+    <span
+      class="icon"
+      on:keydown={() => (showPassword = !showPassword)}
+      on:click={() => (showPassword = !showPassword)}
+      transition:scale
+      role="button"
+      tabindex="0"
+    >
       {#if showPassword}
         <Icon name="eye_closed" />
       {:else}
@@ -163,15 +170,15 @@
       {/if}
     </span>
   {/if}
-</div>
 
-{#if errors?.length}
-  <div class="error-wrapper">
-    {#each errors as err}
-      <p class="error" transition:slide>{err}</p>
-    {/each}
-  </div>
-{/if}
+  {#if errors?.length}
+    <div class="error-wrapper">
+      {#each errors as err}
+        <p class="error" transition:slide>{err}</p>
+      {/each}
+    </div>
+  {/if}
+</div>
 
 <style lang="scss">
   @import './global.scss';
@@ -241,6 +248,7 @@
 
   .component-wrapper {
     position: relative;
+    width: auto;
     border-radius: var(--border-radius, 5px);
   }
 </style>

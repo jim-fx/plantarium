@@ -205,7 +205,7 @@
 
   <section>
     <h3>Range</h3>
-    <InputRange />
+    <InputRange --width="50%" value={{ x: 0.2, y: 0.7 }} />
   </section>
 
   <section class="deprecated">
