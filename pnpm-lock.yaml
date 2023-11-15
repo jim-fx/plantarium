@@ -305,8 +305,8 @@ importers:
         specifier: 29.5.7
         version: 29.5.7
       '@types/morgan':
-        specifier: 1.9.7
-        version: 1.9.7
+        specifier: 1.9.9
+        version: 1.9.9
       '@types/node':
         specifier: 20.8.10
         version: 20.8.10
@@ -798,10 +798,10 @@ importers:
         version: 4.2.2
       svelte-check:
         specifier: ^3.5.2
-        version: 3.5.2(postcss@8.4.31)(svelte@4.2.2)
+        version: 3.5.2(sass@1.69.5)(svelte@4.2.2)
       svelte-preprocess:
         specifier: ^5.0.4
-        version: 5.0.4(postcss@8.4.31)(svelte@4.2.2)(typescript@5.2.2)
+        version: 5.0.4(sass@1.69.5)(svelte@4.2.2)(typescript@5.2.2)
       svelte2tsx:
         specifier: ^0.6.23
         version: 0.6.23(svelte@4.2.2)(typescript@5.2.2)
@@ -3534,8 +3534,8 @@ packages:
     resolution: {integrity: sha512-i8MBln35l856k5iOhKk2XJ4SeAWg75mLIpZB4v6imOagKL6twsukBZGDMNhdOVk7yRFTMPpfILocMos59Q1otQ==}
     dev: true
 
-  /@types/morgan@1.9.7:
-    resolution: {integrity: sha512-4sJFBUBrIZkP5EvMm1L6VCXp3SQe8dnXqlVpe1jsmTjS1JQVmSjnpMNs8DosQd6omBi/K7BSKJ6z/Mc3ki0K9g==}
+  /@types/morgan@1.9.9:
+    resolution: {integrity: sha512-iRYSDKVaC6FkGSpEVVIvrRGw0DfJMiQzIn3qr2G5B3C//AWkulhXgaBd7tS9/J79GWSYMTHGs7PfI5b3Y8m+RQ==}
     dependencies:
       '@types/node': 20.8.10
     dev: true
