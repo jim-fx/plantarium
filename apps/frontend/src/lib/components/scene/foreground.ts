@@ -168,7 +168,7 @@ export default class ForegroundScene extends EventEmitter {
 
       this.mesh.geometry = transferToGeometry(this.gl, result.geometry);
 
-      this.mesh.geometry.computeBoundingBox({});
+      this.mesh.geometry.computeBoundingBox(this.mesh.geometry.getPosition());
 
       this.boundingBox.geometry = new Box(this.gl, {
         width: this.mesh.geometry.bounds.max.x - this.mesh.geometry.bounds.min.x,
