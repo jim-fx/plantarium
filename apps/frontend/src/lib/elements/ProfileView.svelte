@@ -100,8 +100,6 @@
 	}
 </script>
 
-<div style="min-width: 200px;" />
-
 {#if errors?.length}
 	{#each errors as err}
 		<p>{err}</p>
@@ -110,15 +108,12 @@
 {:else if isLoading}
 	<Icon name="branch" animated />
 {:else if $userStore?._id}
-	<br />
-
 	<div class="user">
 		{#if $userStore?.profilePic}
 			<img src={$userStore.profilePic} alt="" />
 		{/if}
 		<p>Hi, <b>{$userStore.username}</b></p>
 	</div>
-	<br />
 	<Button
 		on:click={() => {
 			api.logout();
@@ -129,10 +124,10 @@
 	<Button icon="github" on:click={() => api.oauth('github')} --width="100%"
 		>Login with GitHub</Button
 	>
-	<br />
 
 	<Form
-		title="Login / Register"
+		--min-width="180px"
+		title={register ? 'Register' : 'Login'}
 		fields={formFields}
 		bind:data={formData}
 		on:submit={() => handleSubmit()}
@@ -143,6 +138,7 @@
 	.user {
 		display: flex;
 		align-items: center;
+		gap: 10px;
 	}
 	.user p {
 		margin-left: 10px;

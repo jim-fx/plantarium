@@ -3,7 +3,7 @@
   import { createToast, Form } from '@plantarium/ui';
   import ApiCall from '$lib/components/ApiCall.svelte';
 
-  let prom: ReturnType<typeof api['login']>;
+  let prom: ReturnType<(typeof api)['login']>;
 
   const formField = {
     username: { label: 'Username/Email', placeholder: 'Username/Email' },
@@ -33,6 +33,11 @@
       }}
     />
   {:else}
-    <Form title="Login" fields={formField} on:submit={handleSubmit} />
+    <Form
+      --width="300px"
+      title="Login"
+      fields={formField}
+      on:submit={handleSubmit}
+    />
   {/if}
 </div>

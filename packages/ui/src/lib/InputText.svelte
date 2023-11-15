@@ -164,9 +164,9 @@
       tabindex="0"
     >
       {#if showPassword}
-        <Icon name="eye_closed" />
+        <Icon --width="100%" name="eye_closed" />
       {:else}
-        <Icon name="eye_open" />
+        <Icon --width="100%" name="eye_open" />
       {/if}
     </span>
   {/if}
@@ -187,7 +187,7 @@
     position: absolute;
     cursor: pointer;
     right: 10px;
-    top: 0.55em;
+    top: 0.45em;
     width: 25px;
   }
 
@@ -199,7 +199,7 @@
     transform-origin: left center;
     transition: transform 0.1s ease, opacity 0.1s ease;
     opacity: 0.6;
-    transform: translateY(-1.3em) translateX(0px) scale(0.9);
+    transform: translateY(-1.5em) translateX(0px) scale(0.9);
   }
 
   .error-wrapper {
@@ -226,7 +226,7 @@
 
   .placeholder.empty {
     opacity: 0.5;
-    transform: translateY(0.6em) translateX(12px);
+    transform: translateY(0.4em) translateX(10px);
   }
 
   .has-errors.component-wrapper {

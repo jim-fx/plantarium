@@ -47,7 +47,6 @@
         {field.label || 'submit'}
       </Button>
     {:else if field.type === 'checkbox'}
-      <br />
       <InputCheckbox label={field.label} bind:value={data[key]} />
     {:else}
       <InputText
@@ -67,9 +66,10 @@
     margin: 0;
   }
   form {
-    border-radius: 10px;
+    border-radius: var(--border-radius, 10px);
     background-color: var(--background, var(--midground-color));
-    width: fit-content;
+    width: var(--width, fit-content);
+    min-width: var(--min-width, auto);
     padding: 20px 20px;
     display: flex;
     gap: 30px;

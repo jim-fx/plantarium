@@ -50,7 +50,7 @@
   }
 
   p {
-    margin-left: 25px;
+    margin-left: 30px;
   }
 
   svg {

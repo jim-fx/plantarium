@@ -30,10 +30,10 @@
   },
   "devDependencies": {
     "@plantarium/types": "workspace:*",
-    "@sveltejs/vite-plugin-svelte": "^2.4.6",
-    "@testing-library/svelte": "^4.0.4",
+    "@sveltejs/vite-plugin-svelte": "^2.5.2",
+    "@testing-library/svelte": "^4.0.5",
     "c8": "8.0.1",
-    "svelte": "4.2.2",
+    "svelte": "4.2.3",
     "ts-eager": "2.0.2",
     "vite": "4.5.0",
     "vitest": "0.34.6"

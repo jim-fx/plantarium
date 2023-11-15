@@ -10,8 +10,8 @@ export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
     private authService: AuthService,
     private userService: UserService,
   ) {
-    const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
-    const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
+    const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET || "asdasdJ";
+    const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID || "asdasdasd";
     const { OAUTH_CALLBACK } = process.env;
 
     super({

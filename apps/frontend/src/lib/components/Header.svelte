@@ -46,7 +46,9 @@
 	<div class="right">
 		<HoverWindow icon="user" right>
 			<ApiWrapper>
-				<ProfileView />
+				<div class="grid">
+					<ProfileView />
+				</div>
 			</ApiWrapper>
 		</HoverWindow>
 		<HoverWindow icon="question" right><HelpView /></HoverWindow>
@@ -74,6 +76,12 @@
 	.center {
 		display: flex;
 		align-items: center;
+	}
+
+	.grid {
+		display: flex;
+		gap: 10px;
+		flex-direction: column;
 	}
 
 	.right {
