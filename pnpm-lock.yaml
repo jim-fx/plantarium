@@ -293,8 +293,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/types
       '@types/bcrypt':
-        specifier: 5.0.1
-        version: 5.0.1
+        specifier: 5.0.2
+        version: 5.0.2
       '@types/cookie-parser':
         specifier: 1.4.5
         version: 1.4.5
@@ -798,10 +798,10 @@ importers:
         version: 4.2.2
       svelte-check:
         specifier: ^3.5.2
-        version: 3.5.2(postcss@8.4.31)(svelte@4.2.2)
+        version: 3.5.2(sass@1.69.5)(svelte@4.2.2)
       svelte-preprocess:
         specifier: ^5.0.4
-        version: 5.0.4(postcss@8.4.31)(svelte@4.2.2)(typescript@5.2.2)
+        version: 5.0.4(sass@1.69.5)(svelte@4.2.2)(typescript@5.2.2)
       svelte2tsx:
         specifier: ^0.6.23
         version: 0.6.23(svelte@4.2.2)(typescript@5.2.2)
@@ -3397,8 +3397,8 @@ packages:
       '@babel/types': 7.23.0
     dev: true
 
-  /@types/bcrypt@5.0.1:
-    resolution: {integrity: sha512-dIIrEsLV1/v0AUNI8oHMaRRTSeVjoy5ID8oclJavtPj8CwPJoD1eFoNXEypuu6k091brEzBeOo3LlxeAH9zRZg==}
+  /@types/bcrypt@5.0.2:
+    resolution: {integrity: sha512-6atioO8Y75fNcbmj0G7UjI9lXN2pQ/IGJ2FWT4a/btd0Lk9lQalHLKhkgKVZ3r+spnmWUKfbMi1GEe9wyHQfNQ==}
     dependencies:
       '@types/node': 20.8.10
     dev: true
