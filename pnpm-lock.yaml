@@ -296,8 +296,8 @@ importers:
         specifier: 5.0.1
         version: 5.0.1
       '@types/cookie-parser':
-        specifier: 1.4.5
-        version: 1.4.5
+        specifier: 1.4.6
+        version: 1.4.6
       '@types/express':
         specifier: ^4.17.20
         version: 4.17.20
@@ -798,10 +798,10 @@ importers:
         version: 4.2.2
       svelte-check:
         specifier: ^3.5.2
-        version: 3.5.2(postcss@8.4.31)(svelte@4.2.2)
+        version: 3.5.2(sass@1.69.5)(svelte@4.2.2)
       svelte-preprocess:
         specifier: ^5.0.4
-        version: 5.0.4(postcss@8.4.31)(svelte@4.2.2)(typescript@5.2.2)
+        version: 5.0.4(sass@1.69.5)(svelte@4.2.2)(typescript@5.2.2)
       svelte2tsx:
         specifier: ^0.6.23
         version: 0.6.23(svelte@4.2.2)(typescript@5.2.2)
@@ -3430,8 +3430,8 @@ packages:
       '@types/node': 20.8.10
     dev: true
 
-  /@types/cookie-parser@1.4.5:
-    resolution: {integrity: sha512-cbpH1NldYslPt7WRHXZFm+G7DTfUg57dQSCf1qrHwT8wtGX41JHLYf3Cieiqg7waPWjorVgcSSllZov+A1PJbg==}
+  /@types/cookie-parser@1.4.6:
+    resolution: {integrity: sha512-KoooCrD56qlLskXPLGUiJxOMnv5l/8m7cQD2OxJ73NPMhuSz9PmvwRD6EpjDyKBVrdJDdQ4bQK7JFNHnNmax0w==}
     dependencies:
       '@types/express': 4.17.20
     dev: true
