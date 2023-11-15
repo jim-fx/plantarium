@@ -66,8 +66,8 @@ importers:
         specifier: 2.0.5
         version: 2.0.5
       nanoid:
-        specifier: 5.0.2
-        version: 5.0.2
+        specifier: 5.0.3
+        version: 5.0.3
       set-cookie-parser:
         specifier: 2.6.0
         version: 2.6.0
@@ -798,10 +798,10 @@ importers:
         version: 4.2.2
       svelte-check:
         specifier: ^3.5.2
-        version: 3.5.2(postcss@8.4.31)(svelte@4.2.2)
+        version: 3.5.2(sass@1.69.5)(svelte@4.2.2)
       svelte-preprocess:
         specifier: ^5.0.4
-        version: 5.0.4(postcss@8.4.31)(svelte@4.2.2)(typescript@5.2.2)
+        version: 5.0.4(sass@1.69.5)(svelte@4.2.2)(typescript@5.2.2)
       svelte2tsx:
         specifier: ^0.6.23
         version: 0.6.23(svelte@4.2.2)(typescript@5.2.2)
@@ -909,8 +909,8 @@ importers:
         specifier: 1.1.0
         version: 1.1.0
       nanoid:
-        specifier: 5.0.2
-        version: 5.0.2
+        specifier: 5.0.3
+        version: 5.0.3
       ogl:
         specifier: ^1.0.3
         version: 1.0.3
@@ -8167,6 +8167,12 @@ packages:
 
   /nanoid@5.0.2:
     resolution: {integrity: sha512-2ustYUX1R2rL/Br5B/FMhi8d5/QzvkJ912rBYxskcpu0myTHzSZfTr1LAS2Sm7jxRUObRrSBFoyzwAhL49aVSg==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
+    dev: false
+
+  /nanoid@5.0.3:
+    resolution: {integrity: sha512-I7X2b22cxA4LIHXPSqbBCEQSL+1wv8TuoefejsX4HFWyC6jc5JG7CEaxOltiKjc1M+YCS2YkrZZcj4+dytw9GA==}
     engines: {node: ^18 || >=20}
     hasBin: true
     dev: false
