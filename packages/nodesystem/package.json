@@ -19,7 +19,7 @@
   "devDependencies": {
     "@playwright/test": "^1.39.0",
     "@sveltejs/adapter-auto": "2.1.1",
-    "@sveltejs/kit": "1.27.3",
+    "@sveltejs/kit": "1.27.6",
     "@types/cookie": "^0.5.3",
     "@typescript-eslint/eslint-plugin": "6.9.1",
     "@typescript-eslint/parser": "^6.9.1",

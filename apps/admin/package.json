@@ -13,7 +13,7 @@
   "devDependencies": {
     "@plantarium/types": "workspace:*",
     "@sveltejs/adapter-static": "2.0.3",
-    "@sveltejs/kit": "1.27.3",
+    "@sveltejs/kit": "1.27.6",
     "@typescript-eslint/eslint-plugin": "6.9.1",
     "@typescript-eslint/parser": "6.9.1",
     "eslint": "8.53.0",
