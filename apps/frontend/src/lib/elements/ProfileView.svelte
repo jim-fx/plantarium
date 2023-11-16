@@ -127,6 +127,7 @@
 
 	<Form
 		--min-width="180px"
+		--padding="5px"
 		title={register ? 'Register' : 'Login'}
 		fields={formFields}
 		bind:data={formData}

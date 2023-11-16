@@ -94,6 +94,10 @@ export class ProjectsService {
       p.nodes = updateProjectDto.nodes;
     }
 
+    if(updateProjectDto.type){
+      p.type = updateProjectDto.type
+    }
+
     if (updateProjectDto.meta) {
       p.meta = updateProjectDto.meta;
     }

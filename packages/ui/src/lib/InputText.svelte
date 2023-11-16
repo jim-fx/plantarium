@@ -243,7 +243,7 @@
     border-radius: 5px;
     background-color: var(--foreground-color);
     color: var(--text-color);
-    padding: 8px;
+    padding: var(--padding, 8px);
   }
 
   .component-wrapper {

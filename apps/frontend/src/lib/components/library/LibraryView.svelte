@@ -68,7 +68,7 @@
 
 		<InputTab values={['local', 'remote']} --width="100%" bind:value={$state} />
 
-		<InputText placeholder="Search" --width="100%" bind:value={filter.search} />
+		<InputText placeholder="Search" --padding="5px" --width="100%" bind:value={filter.search} />
 
 		{#if isRemote && !offline}
 			<div class="filter-types">

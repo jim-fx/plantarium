@@ -43,13 +43,12 @@ export default typeCheckNode({
 
     const size = parameters.size();
     const strength = parameters.strength();
-    console.log({ strength });
 
     const maxDepth = Math.max(...stems.map((s) => s.depth));
 
     stems.forEach((stem: PlantStem, i) => {
       if (stem.depth === maxDepth) {
-        noiseSkeleton(stem.skeleton, parameters.strength, size, i * 200,false);
+        noiseSkeleton(stem.skeleton, parameters.strength, size, i * 200, false);
       }
     });
 

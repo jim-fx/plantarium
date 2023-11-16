@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import type { PageData } from './$types';
   import api, { permissions } from '@plantarium/client-api';
-  import { createAlert, JSONView } from '@plantarium/ui';
+  import { createAlert, Icon, JSONView } from '@plantarium/ui';
   const { VITE_API_URL } = import.meta.env;
 
   export let data: PageData;
@@ -23,6 +23,17 @@
     }
   }
 
+  let updatingProjectType = false;
+  async function updateProjectType(type = project.type) {
+    if (updatingProjectType) return;
+    updatingProjectType = true;
+
+    try {
+      const res = await api.updateProject(project.id, { type });
+    } catch (error) {}
+    updatingProjectType = false;
+  }
+
   onMount(async () => {
     await api.getPermission();
   });
@@ -34,7 +45,19 @@
       <b>{project.meta.name}</b>
     </h2>
 
-    <div>
+    <div class="flex gap-2 items-center">
+      {#if updatingProjectType}
+        <Icon --width="16px" name="loading" animated />
+      {/if}
+      <select
+        disabled={updatingProjectType}
+        bind:value={project.type}
+        on:input={(ev) => updateProjectType(ev.target.value)}
+      >
+        <option value="2">official</option>
+        <option value="1">approved</option>
+        <option value="0">user-submitted</option>
+      </select>
       <a href={`${VITE_API_URL}/api/project/${project.id}`}>api</a>
     </div>
   </header>
@@ -70,6 +93,9 @@
 {/if}
 
 <style>
+  select {
+    background: var(--background-color);
+  }
   :global(.multiselect) {
     margin: 0px;
   }

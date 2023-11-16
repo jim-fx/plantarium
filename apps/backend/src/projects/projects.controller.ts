@@ -86,6 +86,10 @@ export class ProjectsController {
       throw new UnauthorizedException()
     }
 
+    if(user.role !== Role.ADMIN && "type" in updateProjectDto) {
+      throw new UnauthorizedException()
+    }
+
     return this.projectsService.update(id, updateProjectDto);
   }
 

@@ -29,3 +29,7 @@ export function setReportLabels(reportId: string, labels: string[]) {
 export function updateReport(reportId: string, data: Partial<Report>) {
   return send({ method: "PUT", path: `api/report/${reportId}`, data })
 }
+
+export function updateProject(projectId:string, data:Partial<Project>){
+  return send({method:"PATCH", path:`api/project/${projectId}`, data})
+}
