@@ -29,7 +29,7 @@
     updatingProjectType = true;
 
     try {
-      const res = await api.updateProject(project.id, { type });
+      const res = await api.updateProject(project.id, { type: parseInt(type) });
     } catch (error) {}
     updatingProjectType = false;
   }
