@@ -20,7 +20,7 @@
 	let title: string;
 	let description: string;
 	let includeBrowserInfo = false;
-	let includeLogs = false;
+	let includeLogs = true;
 	const logs = logger.getHistory();
 	export let error: Error;
 	$: stackTrace = error && parseStackTrace(error);
@@ -86,80 +86,69 @@
 		<button on:click={() => (submitPromise = undefined)}>go back</button>
 	{/await}
 {:else}
-	<InputText placeholder="Title" bind:value={title} />
+	<div class="wrapper">
+		<InputText placeholder="Title" bind:value={title} />
 
-	<InputText
-		type="area"
-		bind:value={description}
-		placeholder={mode === 'bug' ? 'Description of what happened.' : 'Please describe the idea.'}
-	/>
+		<InputText
+			type="area"
+			bind:value={description}
+			placeholder={mode === 'bug' ? 'Description of what happened.' : 'Please describe the idea.'}
+		/>
 
-	{#if mode === 'bug'}
-		{#if stackTrace}
+		{#if mode === 'bug'}
+			{#if stackTrace}
+				<section>
+					<div style="display:flex; align-items: center">
+						<InputCheckbox bind:value={includeStacktrace} />
+						<p style="margin-left: 5px;">Include StackTrace</p>
+					</div>
+
+					<div class="info">
+						<Section name="What is that?">
+							<StackTrace stacktrace={stackTrace} />
+						</Section>
+					</div>
+				</section>
+			{/if}
+
 			<section>
 				<div style="display:flex; align-items: center">
-					<InputCheckbox bind:value={includeStacktrace} />
-					<p style="margin-left: 5px;">Include StackTrace</p>
+					<InputCheckbox bind:value={includeBrowserInfo} />
+					<p style="margin-left: 5px;">Include Browser Info</p>
 				</div>
 
 				<div class="info">
 					<Section name="What is that?">
-						<StackTrace stacktrace={stackTrace} />
+						<p>
+							This information makes it easier for a developer to track down what might have caused
+							the bug.
+						</p>
+						<ul>
+							<li>OS <i>({info?.os})</i></li>
+							<li>Browser <i>({info?.name} / {info?.version})</i></li>
+							<li>
+								Screen Resolution <i>({window.innerWidth}x{window.innerHeight})</i>
+							</li>
+							<li>
+								Screen DPI <i>({window.devicePixelRatio})</i>
+							</li>
+						</ul>
 					</Section>
 				</div>
 			</section>
 		{/if}
-
-		<section>
-			<div style="display:flex; align-items: center">
-				<InputCheckbox bind:value={includeBrowserInfo} />
-				<p style="margin-left: 5px;">Include Browser Info</p>
-			</div>
-
-			<div class="info">
-				<Section name="What is that?">
-					<p>
-						This information makes it easier for a developer to track down what might have caused
-						the bug.
-					</p>
-					<ul>
-						<li>OS <i>({info?.os})</i></li>
-						<li>Browser <i>({info?.name} / {info?.version})</i></li>
-						<li>
-							Screen Resolution <i>({window.innerWidth}x{window.innerHeight})</i>
-						</li>
-						<li>
-							Screen DPI <i>({window.devicePixelRatio})</i>
-						</li>
-					</ul>
-				</Section>
-			</div>
-		</section>
-
-		<section>
-			<div style="display:flex; align-items: center">
-				<InputCheckbox bind:value={includeLogs} />
-				<p style="margin-left: 5px;">Include Logs</p>
-			</div>
-
-			<div class="info">
-				<Section name="What is that?">
-					<p>
-						This information makes it easier for a developer to track down what might have caused
-						the bug.
-					</p>
-					<LogViewer {logs} />
-				</Section>
-			</div>
-		</section>
-	{/if}
-	<br />
-	<Button on:click={submit}>Submit</Button>
+		<Button --width="fit-content" on:click={submit}>Submit</Button>
+	</div>
 {/if}
 
 <style>
+	.wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: 30px;
+	}
 	section {
-		margin: 1em 0px;
+		/* margin: 1em 0px; */
 	}
 
 	.info :global(*) {

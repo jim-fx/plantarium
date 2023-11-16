@@ -100,7 +100,7 @@
   }
 
   h2 {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
   }
 
   .alert-wrapper {

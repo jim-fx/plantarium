@@ -199,7 +199,7 @@
     transform-origin: left center;
     transition: transform 0.1s ease, opacity 0.1s ease;
     opacity: 0.6;
-    transform: translateY(-1.5em) translateX(0px) scale(0.9);
+    transform: translateY(-1.5em) translateX(0px) scale(0.75);
   }
 
   .error-wrapper {

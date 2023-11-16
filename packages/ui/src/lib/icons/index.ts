@@ -28,3 +28,7 @@ export { default as triangle } from './triangle.svg?raw';
 export { default as user } from './user.svelte';
 export { default as warning } from './warning.svg?raw';
 export { default as world } from './world.svelte';
+export { default as loading } from "./loading.svelte"
+export { default as online } from "./online.svelte"
+export { default as offline } from "./offline.svelte"
+export { default as pin } from "./pin.svelte"

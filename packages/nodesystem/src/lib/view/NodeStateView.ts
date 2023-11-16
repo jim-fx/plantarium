@@ -1,4 +1,4 @@
-import { stateToElement } from '@plantarium/ui';
+import { Icon, stateToElement } from '@plantarium/ui';
 import type { SvelteComponent } from 'svelte';
 import type NodeState from '../model/NodeState';
 import './NodeStateView.scss';
@@ -6,7 +6,7 @@ import './NodeStateView.scss';
 export default class NodeStateView {
   wrapper = document.createElement('div');
   input = document.createElement('div');
-  private visibleInput?: HTMLInputElement;
+  private visibleInput?: HTMLSpanElement;
   helpWrapper: HTMLDivElement;
   element: SvelteComponent;
   hideable = false;
@@ -18,21 +18,29 @@ export default class NodeStateView {
 
     const template = nodeState.template;
 
+    const stateHeader = document.createElement('div');
+    stateHeader.classList.add('node-state-header');
+
     if ('hidden' in template) {
       this.hideable = true;
       this.wrapper.classList.add('node-state-hideable');
-      this.visibleInput = document.createElement('input');
-      this.visibleInput.type = 'checkbox';
+      this.visibleInput = document.createElement('span');
+      const icon = new Icon({
+        target: this.visibleInput,
+        props: { name: 'pin', active: true }
+      })
       // Bruuuuuh, dis be one long asss line
-      const visible = !!this.nodeState?.node?.attributes?.visible?.includes(
+      let visible = !!this.nodeState?.node?.attributes?.visible?.includes(
         this.nodeState.key,
       );
-      this.visibleInput.checked = visible;
+      icon.$set({ active: visible });
       this.setVisible(visible);
-      this.visibleInput.addEventListener('input', () =>
-        this.setVisible(this.visibleInput.checked),
-      );
-      this.wrapper.appendChild(this.visibleInput);
+      this.visibleInput.addEventListener('click', () => {
+        visible = !visible;
+        icon.$set({ active: visible })
+        this.setVisible(visible)
+      });
+      stateHeader.appendChild(this.visibleInput);
 
       setTimeout(() => {
         if (this.nodeState.getInput()?.connection) {
@@ -47,7 +55,7 @@ export default class NodeStateView {
       const labelEl = document.createElement('p');
       labelEl.className = 'state-label';
       labelEl.innerHTML = label;
-      this.wrapper.appendChild(labelEl);
+      stateHeader.appendChild(labelEl);
     }
 
     if (template?.label === false) {
@@ -77,13 +85,13 @@ export default class NodeStateView {
         'nodestate-help-wrapper',
       );
 
-      this.helpWrapper.innerHTML = `<i>${
-        template.label || this.nodeState.key
-      }</i><br><p>${template.description}</p>`;
+      this.helpWrapper.innerHTML = `<i>${template.label || this.nodeState.key
+        }</i><br><p>${template.description}</p>`;
 
       this.wrapper.appendChild(this.helpWrapper);
     }
 
+    this.wrapper.appendChild(stateHeader);
     nodeState.node.view.stateWrapper.appendChild(this.wrapper);
     this.wrapper.appendChild(this.input);
   }
@@ -101,7 +109,6 @@ export default class NodeStateView {
   setVisible(visible = false) {
     if (this.hideable) {
       this.visible = visible;
-      if (this.visibleInput) this.visibleInput.checked = visible;
       if (visible) {
         this.wrapper.classList.add('node-state-visible');
       } else {

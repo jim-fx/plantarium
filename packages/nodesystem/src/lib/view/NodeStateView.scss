@@ -1,10 +1,34 @@
+
+.node-stateselect .node-state-single-wrapper .icon-wrapper {
+  --width: 16px;
+  --height: 16px;
+}
+
 .node-state-single-wrapper {
   position: relative;
   padding: 5px 5px;
   padding-top: 2px;
   --width: 100%;
   --padding: 2px;
+
+  .icon-wrapper{
+  --width: 0px;
+  --height: 0px;
+    transition: width 0.3s ease, height 0.3s ease;
+    transform: translateY(-1px);
+    cursor: pointer;
+    opacity: 0.8;
+  }
+
+  .node-state-header {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-bottom: 2px;
+  }
+
 }
+
 
 .node-state-single-wrapper.state-error::before {
   position: absolute;
@@ -72,6 +96,7 @@
 
 .state-label {
   pointer-events: none;
+  margin-top: -2px;
 }
 
 .nodesystem-state-help .node-state-single-wrapper:hover {

@@ -56,9 +56,11 @@
   import GalleryItem from '$lib/GalleryItem.svelte';
   import Message from '$lib/Message.svelte';
   import ButtonGroup from '$lib/ButtonGroup.svelte';
+  import InputText from '$lib/InputText.svelte';
   let animateIcons = false;
   let activeIcon = false;
   let editableValue = 'Cheeckthis';
+  let textValue: string;
   const icons = Object.keys(_icons) as unknown as keyof typeof _icons;
 
   let formData = {};
@@ -178,11 +180,19 @@
   </section>
 
   <section>
-    <h3>Integer</h3>
+    <h3>InputInteger</h3>
     <InputInteger />
     <br />
     <i>With min/max</i>
     <InputInteger min={0} max={100} />
+  </section>
+
+  <section>
+    <h3>InputText</h3>
+    <InputText bind:value={textValue} placeholder="InputText Placeholder" />
+    <p>
+      Value: {textValue}
+    </p>
   </section>
 
   <section>
