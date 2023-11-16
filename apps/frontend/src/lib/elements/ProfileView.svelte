@@ -144,6 +144,7 @@
 	.user p {
 		margin-left: 10px;
 		margin: 0px;
+		white-space: nowrap;
 	}
 	.user img {
 		border-radius: 100%;
