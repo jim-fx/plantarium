@@ -147,6 +147,7 @@
 					border-radius: 6px;
 					margin: 0;
 					margin-right: 5px;
+					background-color: var(--accent);
 
 					&.delete {
 						background-color: var(--error);

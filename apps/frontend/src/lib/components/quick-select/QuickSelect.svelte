@@ -38,10 +38,8 @@
 				projectManager.createNew().then((p) => {
 					projectManager.setActiveProject(p.id);
 				});
-			}}
+			}}>new</button
 		>
-			<p>new</p>
-		</button>
 
 		{#if $store.length > 3}
 			<input type="text" class="search" placeholder="Search" bind:value={searchTerm} />
@@ -88,14 +86,14 @@
 			height: 100%;
 			border-radius: 5px;
 			padding: 0px 10px;
-			// background-color: var(--accent-dark, themes.$green-dark);
+			background-color: var(--accent-dark);
 			color: white;
 			font-size: 1em;
 			border: none;
 		}
 
 		> :global(#main > *) {
-			// background-color: var(--accent-dark, themes.$green-dark);
+			background-color: var(--accent-dark);
 			font-size: 1em;
 		}
 
