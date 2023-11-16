@@ -15,6 +15,8 @@
 		const time = Date.now();
 
 		if (time - lastCheck > 10000) {
+			const oldApiState = get(apiState);
+
 			const t = setTimeout(() => {
 				apiState.set('loading');
 			}, 500);
@@ -25,6 +27,9 @@
 				clearTimeout(t);
 
 				if (res.ok) {
+					if (oldApiState !== 'offline') {
+						createToast('Api is back online', { type: 'success' });
+					}
 					apiState.set('online');
 				} else {
 					apiState.set('offline');
@@ -41,10 +46,10 @@
 
 <script lang="ts">
 	import clientApi from '@plantarium/client-api';
-	import { Icon, Message } from '@plantarium/ui';
+	import { Icon, Message, createToast } from '@plantarium/ui';
 
 	import { onMount } from 'svelte';
-	import { writable } from 'svelte/store';
+	import { get } from 'svelte/store';
 
 	export let offline = $apiState === 'offline';
 	$: offline = $apiState === 'offline';
