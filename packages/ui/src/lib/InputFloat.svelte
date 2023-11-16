@@ -137,7 +137,7 @@
     cursor: pointer;
     color: var(--text-color);
     background-color: transparent;
-    padding: 6px;
+    padding: var(--padding, 6px);
     font-size: 1em;
     padding-inline: 10px;
     text-align: center;

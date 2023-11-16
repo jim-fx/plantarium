@@ -94,7 +94,7 @@
 <style>
   .component-wrapper {
     overflow: hidden;
-    min-height: 34px;
+    min-height: 26px;
     min-width: 80px;
     width: var(--width, 100%);
     border-radius: var(--border-radius, 2px);

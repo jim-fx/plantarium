@@ -306,6 +306,7 @@
     margin: 0 auto;
     max-width: 600px;
     background-color: var(--background-color);
+    --padding: 2px;
   }
 
   section {

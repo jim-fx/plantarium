@@ -1,7 +1,9 @@
 .node-state-single-wrapper {
   position: relative;
   padding: 5px 5px;
+  padding-top: 2px;
   --width: 100%;
+  --padding: 2px;
 }
 
 .node-state-single-wrapper.state-error::before {
@@ -49,7 +51,8 @@
 
 .node-state-single-wrapper > .state-label {
   font-size: smaller;
-  margin: 2px 0px;
+  margin: 0px;
+  margin-bottom: 2px;
   opacity: 0.3;
 }
 

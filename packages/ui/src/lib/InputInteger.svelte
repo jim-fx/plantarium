@@ -15,6 +15,7 @@
   }
 
   let inputEl: HTMLInputElement;
+  let wrapper: HTMLDivElement;
   $: value !== undefined && update();
 
   let prev = -1;
@@ -41,7 +42,7 @@
 
     downV = value;
     downX = ev.clientX;
-    rect = inputEl.getBoundingClientRect();
+    rect = wrapper.getBoundingClientRect();
 
     window.removeEventListener('mousemove', handleMouseMove);
     window.addEventListener('mousemove', handleMouseMove);
@@ -72,7 +73,12 @@
   }
 </script>
 
-<div class="component-wrapper">
+<div
+  class="component-wrapper"
+  bind:this={wrapper}
+  on:mousedown={handleMouseDown}
+  on:mouseup={handleMouseUp}
+>
   {#if typeof min !== 'undefined' && typeof max !== 'undefined'}
     <span class="overlay" style={`width: ${Math.min((value - min) / (max - min), 1) * 100}%`} />
   {/if}
@@ -83,8 +89,6 @@
     {step}
     {max}
     {min}
-    on:mousedown={handleMouseDown}
-    on:mouseup={handleMouseUp}
     type="number"
     style={`width:${width};`}
   />
@@ -141,7 +145,7 @@
   div input[type='number'] {
     color: var(--text-color);
     background-color: transparent;
-    padding: 6px;
+    padding: var(--padding, 6px);
     padding-inline: 0px;
     text-align: center;
     border: none;

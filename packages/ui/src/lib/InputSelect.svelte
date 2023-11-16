@@ -70,7 +70,7 @@
 
   .component-wrapper {
     border-radius: var(--border-radius, 2px);
-    height: 30px;
+    height: 27px;
   }
 
   button {
@@ -82,7 +82,7 @@
     display: block;
     width: 100%;
     font-size: 1em;
-    padding: 6px;
+    padding: var(--padding, 6px);
     padding-inline: 10px;
   }
 
@@ -122,7 +122,7 @@
   }
 
   .item {
-    padding: 6px;
+    padding: var(--padding, 6px);
     margin: 0;
     cursor: pointer;
     transition: background-color 0.2s ease;
