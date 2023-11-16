@@ -17,6 +17,10 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { GetUser, UserRaw } from './user.decorator';
 import { UserService } from './user.service';
 
+function stripUser(u:UserRaw){
+      return { id: u._id, username: u.username, createdAt: u.createdAt, updatedAt: u.updatedAt, role: u.role }
+}
+
 @Controller('api/user')
 @UseInterceptors(ClassSerializerInterceptor)
 export class UserController {
@@ -33,7 +37,7 @@ export class UserController {
     const users = await this.userService.findAll();
     if (user.role === Role.ADMIN) return users;
     return users.filter(u => u.role !== Role.ADMIN).map(u => {
-      return { id: u._id, username: u.username, createdAt: u.createdAt, updatedAt: u.updatedAt, role: u.role }
+      return stipUser(u)
     })
   }
 
@@ -80,8 +84,10 @@ export class UserController {
 
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findById(id);
+  async findOne(@Param('id') id: string, @GetUser() user:UserRaw) {
+    if(user.role === Role.ADMIN) return this.userService.findById(id);
+    const u = await this.userService.findById(id);
+    return stripUser(u);
   }
 
   @Patch(':id')
