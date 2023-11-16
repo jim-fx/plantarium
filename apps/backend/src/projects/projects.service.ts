@@ -86,6 +86,8 @@ export class ProjectsService {
 
     const p = await this.findOne(id)
 
+    console.log({ p, updateProjectDto });
+
     if (!p) {
       throw new NotFoundException()
     }
@@ -94,7 +96,7 @@ export class ProjectsService {
       p.nodes = updateProjectDto.nodes;
     }
 
-    if(updateProjectDto.type){
+    if ("type" in updateProjectDto) {
       p.type = updateProjectDto.type
     }
 
@@ -102,7 +104,7 @@ export class ProjectsService {
       p.meta = updateProjectDto.meta;
     }
 
-    await this.repository.persistAndFlush(p);
+    this.repository.getEntityManager().flush()
 
     return p;
   }
