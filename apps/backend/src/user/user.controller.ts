@@ -16,9 +16,10 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { GetUser, UserRaw } from './user.decorator';
 import { UserService } from './user.service';
+import { User } from './user.entity';
 
-function stripUser(u:UserRaw){
-      return { id: u._id, username: u.username, createdAt: u.createdAt, updatedAt: u.updatedAt, role: u.role }
+function stripUser(u: User) {
+  return { id: u._id, username: u.username, createdAt: u.createdAt, updatedAt: u.updatedAt, role: u.role }
 }
 
 @Controller('api/user')
@@ -37,7 +38,7 @@ export class UserController {
     const users = await this.userService.findAll();
     if (user.role === Role.ADMIN) return users;
     return users.filter(u => u.role !== Role.ADMIN).map(u => {
-      return stipUser(u)
+      return stripUser(u)
     })
   }
 
@@ -84,8 +85,8 @@ export class UserController {
 
 
   @Get(':id')
-  async findOne(@Param('id') id: string, @GetUser() user:UserRaw) {
-    if(user.role === Role.ADMIN) return this.userService.findById(id);
+  async findOne(@Param('id') id: string, @GetUser() user: UserRaw) {
+    if (user.role === Role.ADMIN) return this.userService.findById(id);
     const u = await this.userService.findById(id);
     return stripUser(u);
   }
