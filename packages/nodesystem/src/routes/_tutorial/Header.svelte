@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button,AlertWrapper,ToastWrapper } from '@plantarium/ui';
+  import { Button, AlertWrapper, ToastWrapper } from '@plantarium/ui';
   import { ThemeProvider, ThemeStore, setTheme } from '@plantarium/theme';
 </script>
 
@@ -28,6 +28,7 @@
     top: 10px;
     left: 10px;
     display: flex;
+    gap: 10px;
   }
 
   header > :global(.component-wrapper) {

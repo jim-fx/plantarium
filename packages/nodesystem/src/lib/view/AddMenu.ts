@@ -34,6 +34,9 @@ export default class RightClickMenu {
   rej!: () => void;
 
   constructor(view: NodeSystemView) {
+
+    log('init');
+
     this.view = view;
     this.system = view.system;
 
@@ -47,20 +50,14 @@ export default class RightClickMenu {
 
     this.view.wrapper.append(this.wrapper);
 
-    this.view.system.store.on(
-      'types',
-      (types: NodeType[]) => this.updateTypes(types),
-      20,
-    );
-
     this.wrapper.classList.add('cl-' + Math.floor(Math.random() * 1000));
 
     this.view.on('keydown', ({ key }) => key === 'Escape' && this.hide());
   }
 
-  updateTypes(types = this.types) {
-    this.types = types;
-    log('register types', types);
+  updateTypes(types = this.system.store.types) {
+
+    log('updateTypes', types);
 
     const availableTypes = types
       .map((t) => {
@@ -89,6 +86,7 @@ export default class RightClickMenu {
           );
         }
       });
+
     if (availableTypes.length === 1 && this.res) {
       setTimeout(() => {
         this.resolve(availableTypes[0].value);

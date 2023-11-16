@@ -128,21 +128,25 @@
     color: #707070;
     box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.13), 1px 2px 2px rgba(0, 0, 0, 0.1),
       -1px -2px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
 
     input {
-      color: var(--outline-color);
+      background: var(--outline-color);
+      color: white;
       width: 100%;
-      background-color: rgba(var(--light-gray), 0.4);
       box-sizing: border-box;
-      font-size: 1.5em;
-      padding: 3px 10px;
+      font-family: var(--font-family);
+      font-size: 1.1em;
+      padding: 4px 6px;
+      border-radius: 4px;
       margin: 0;
+      margin-bottom: 5px;
       font-weight: lighter;
       outline: none !important;
       border: none;
 
       &::placeholder {
-        color: var(--outline-color);
+        color: white;
       }
     }
   }
