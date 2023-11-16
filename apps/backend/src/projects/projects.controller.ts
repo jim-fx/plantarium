@@ -56,6 +56,13 @@ export class ProjectsController {
     return this.projectsService.findOne(id);
   }
 
+  @Get("debug")
+  test() {
+    return {
+      "blue": "cheese"
+    }
+  }
+
   private gbifMediaCache: Record<string, any> = {};
   @Get("/gbif/media/:gbifId")
   async getGbifImages(@Param("gbifId") id: number) {
@@ -86,7 +93,7 @@ export class ProjectsController {
       throw new UnauthorizedException()
     }
 
-    if(user.role !== Role.ADMIN && "type" in updateProjectDto) {
+    if (user.role !== Role.ADMIN && "type" in updateProjectDto) {
       throw new UnauthorizedException()
     }
 
