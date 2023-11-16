@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-	let apiState = writable('online');
+	import { apiState } from '../stores';
 
 	let tryAgainTimeout: NodeJS.Timeout | undefined;
 	function tryAgain() {
@@ -7,7 +7,7 @@
 		tryAgainTimeout = setTimeout(() => {
 			tryAgainTimeout = undefined;
 			checkOnline();
-		}, 5001);
+		}, 10001);
 	}
 
 	let lastCheck = 0;
@@ -60,5 +60,5 @@
 	<Icon name="branch" animated />
 	<p>Contacting Api...</p>
 {:else}
-	<Message type="warning" icon={true} message="Server offline" />
+	<Message type="warning" icon="offline" message="Server offline" />
 {/if}

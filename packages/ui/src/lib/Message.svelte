@@ -22,6 +22,10 @@
   $: iconName = icon && getIcon();
 
   function getIcon(): IconType | undefined {
+    if (typeof icon === 'string') {
+      return icon as IconType;
+    }
+
     if (type === 'error') {
       return 'warning';
     }

@@ -1,15 +1,23 @@
 <script>
-	import { Button, createAlert, Section } from '@plantarium/ui';
+	import { Button, createAlert, Icon, Section } from '@plantarium/ui';
 	import { Changelog } from '.';
 	import { goto } from '$app/navigation';
 	import Report from './Report.svelte';
 	import ReportDashboard from './ReportDashboard.svelte';
 	import Tutor from '../components/tutor';
+	import { apiState } from '../stores';
 </script>
 
 <div>
+	{#if $apiState !== 'online'}
+		<span style="display: flex; align-items: center; gap: 5px">
+			<Icon name="offline" --width="1.2em" />
+			api is offline
+		</span>
+	{/if}
 	<Button
-		icon="bug"
+		icon={$apiState === 'online' ? 'bug' : 'offline'}
+		disabled={$apiState !== 'online'}
 		--bg="#303030"
 		--text="white"
 		--width="100%"
@@ -23,7 +31,8 @@
 	>
 
 	<Button
-		icon="bulb"
+		icon={$apiState === 'online' ? 'bulb' : 'offline'}
+		disabled={$apiState !== 'online'}
 		--bg="#303030"
 		--width="100%"
 		--text="white"
@@ -37,13 +46,15 @@
 		--text="white"
 		on:click={() => createAlert(Changelog, { timeout: 0 })}>Changelog</Button
 	>
-	<Button
-		icon="bug"
-		--bg="#303030"
-		--width="100%"
-		--text="white"
-		on:click={() => createAlert(ReportDashboard, { timeout: 0 })}>Bug Reports</Button
-	>
+	{#if $apiState === 'online'}
+		<Button
+			icon="bug"
+			--bg="#303030"
+			--width="100%"
+			--text="white"
+			on:click={() => createAlert(ReportDashboard, { timeout: 0 })}>Bug Reports</Button
+		>
+	{/if}
 
 	<Button
 		icon="github"
