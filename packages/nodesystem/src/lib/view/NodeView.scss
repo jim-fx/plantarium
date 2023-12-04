@@ -49,7 +49,7 @@
 
   &.node-active {
     z-index: 99;
-    outline: solid min(calc(0.8px / var(--scale)), 5px) #fffa;
+    outline: solid min(calc(0.4px / var(--scale)), 4px) #fffa;
   }
 
   &.node-dragging {
