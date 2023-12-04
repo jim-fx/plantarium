@@ -106,8 +106,8 @@ importers:
         specifier: 9.0.0
         version: 9.0.0(eslint@8.53.0)
       eslint-plugin-svelte:
-        specifier: 2.35.0
-        version: 2.35.0(eslint@8.53.0)(svelte@4.2.3)(ts-node@10.9.1)
+        specifier: 2.35.1
+        version: 2.35.1(eslint@8.53.0)(svelte@4.2.3)(ts-node@10.9.1)
       prettier:
         specifier: 3.1.0
         version: 3.1.0
@@ -341,8 +341,8 @@ importers:
         specifier: 5.0.1
         version: 5.0.1(eslint-config-prettier@9.0.0)(eslint@8.53.0)(prettier@3.1.0)
       eslint-plugin-svelte:
-        specifier: 2.35.0
-        version: 2.35.0(eslint@8.53.0)(svelte@4.2.3)(ts-node@10.9.1)
+        specifier: 2.35.1
+        version: 2.35.1(eslint@8.53.0)(svelte@4.2.3)(ts-node@10.9.1)
       jest:
         specifier: 29.7.0
         version: 29.7.0(@types/node@20.9.0)(ts-node@10.9.1)
@@ -490,7 +490,7 @@ importers:
         version: 9.0.0(eslint@8.53.0)
       eslint-plugin-svelte:
         specifier: ^2.35.0
-        version: 2.35.0(eslint@8.53.0)(svelte@4.2.3)(ts-node@10.9.1)
+        version: 2.35.0(eslint@8.53.0)(svelte@4.2.3)
       prettier:
         specifier: ^3.1.0
         version: 3.1.0
@@ -618,8 +618,8 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0(eslint@8.53.0)
       eslint-plugin-svelte:
-        specifier: 2.35.0
-        version: 2.35.0(eslint@8.53.0)(svelte@4.2.3)(ts-node@10.9.1)
+        specifier: 2.35.1
+        version: 2.35.1(eslint@8.53.0)(svelte@4.2.3)(ts-node@10.9.1)
       file-saver:
         specifier: ^2.0.5
         version: 2.0.5
@@ -855,7 +855,7 @@ importers:
         version: 9.0.0(eslint@8.53.0)
       eslint-plugin-svelte:
         specifier: ^2.35.0
-        version: 2.35.0(eslint@8.53.0)(svelte@4.2.3)(ts-node@10.9.1)
+        version: 2.35.0(eslint@8.53.0)(svelte@4.2.3)
       prettier:
         specifier: ^3.1.0
         version: 3.1.0
@@ -5492,8 +5492,37 @@ packages:
       synckit: 0.8.5
     dev: true
 
-  /eslint-plugin-svelte@2.35.0(eslint@8.53.0)(svelte@4.2.3)(ts-node@10.9.1):
+  /eslint-plugin-svelte@2.35.0(eslint@8.53.0)(svelte@4.2.3):
     resolution: {integrity: sha512-3WDFxNrkXaMlpqoNo3M1ZOQuoFLMO9+bdnN6oVVXaydXC7nzCJuGy9a0zqoNDHMSRPYt0Rqo6hIdHMEaI5sQnw==}
+    engines: {node: ^14.17.0 || >=16.0.0}
+    peerDependencies:
+      eslint: ^7.0.0 || ^8.0.0-0
+      svelte: ^3.37.0 || ^4.0.0
+    peerDependenciesMeta:
+      svelte:
+        optional: true
+    dependencies:
+      '@eslint-community/eslint-utils': 4.4.0(eslint@8.53.0)
+      '@jridgewell/sourcemap-codec': 1.4.15
+      debug: 4.3.4
+      eslint: 8.53.0
+      eslint-compat-utils: 0.1.2(eslint@8.53.0)
+      esutils: 2.0.3
+      known-css-properties: 0.29.0
+      postcss: 8.4.31
+      postcss-load-config: 3.1.4(postcss@8.4.31)(ts-node@10.9.1)
+      postcss-safe-parser: 6.0.0(postcss@8.4.31)
+      postcss-selector-parser: 6.0.13
+      semver: 7.5.4
+      svelte: 4.2.3
+      svelte-eslint-parser: 0.33.1(svelte@4.2.3)
+    transitivePeerDependencies:
+      - supports-color
+      - ts-node
+    dev: true
+
+  /eslint-plugin-svelte@2.35.1(eslint@8.53.0)(svelte@4.2.3)(ts-node@10.9.1):
+    resolution: {integrity: sha512-IF8TpLnROSGy98Z3NrsKXWDSCbNY2ReHDcrYTuXZMbfX7VmESISR78TWgO9zdg4Dht1X8coub5jKwHzP0ExRug==}
     engines: {node: ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0-0
@@ -7409,6 +7438,7 @@ packages:
       chalk: 3.0.0
       diff-match-patch: 1.0.5
     dev: false
+    bundledDependencies: []
 
   /jsonfile@6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
