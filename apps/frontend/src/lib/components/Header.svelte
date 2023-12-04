@@ -13,7 +13,7 @@
 <header>
 	<div class="left" style="z-index: 2;">
 		<span class:hidden={$activeView !== 'plant'}>
-			<HoverWindow icon="folder" name="" let:visible>
+			<HoverWindow icon="folder" name="" let:visible --border-radius="0px 10px 10px 10px">
 				<QuickSelect {visible} />
 			</HoverWindow>
 		</span>

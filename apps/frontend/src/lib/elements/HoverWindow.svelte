@@ -56,11 +56,13 @@
 		min-width: var(--min-width, unset);
 		max-height: 70vh;
 		max-width: 500px;
+		border-top-left-radius: 0px;
 	}
 
 	.wrapper.right {
 		right: 0px;
 		border-top-right-radius: 0px;
+		border-top-left-radius: 5px;
 	}
 
 	.visible {
