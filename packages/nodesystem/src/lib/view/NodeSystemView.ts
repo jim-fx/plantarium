@@ -159,9 +159,8 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
           const node = this.system.findNodeById(err.id);
           if (node) {
             node?.view.showErrors(err.err);
-            return `<p>${err.err} in ${
-              node.attributes.name || node.attributes.type
-            }</p>`;
+            return `<p>${err.err} in ${node.attributes.name || node.attributes.type
+              }</p>`;
           }
         }
       })
@@ -326,7 +325,7 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
   bindEventListeners() {
     window.addEventListener('keydown', (ev) => this.handleKeyDown(ev));
     window.addEventListener('keyup', (ev) => this.handleKeyUp(ev));
-    this.wrapper.addEventListener('mousemove', (ev) =>
+    window.addEventListener('mousemove', (ev) =>
       this.handleMouseMove(ev),
     );
 
@@ -341,7 +340,7 @@ export default class NodeSystemView extends EventEmitter<EventMap> {
     this.wrapper.addEventListener('touchdown', (ev: MouseEvent) =>
       this.handleMouseDown(ev),
     );
-    this.wrapper.addEventListener('mouseup', (ev) => this.handleMouseUp(ev));
+    window.addEventListener('mouseup', (ev) => this.handleMouseUp(ev));
 
     window.addEventListener(
       'resize',

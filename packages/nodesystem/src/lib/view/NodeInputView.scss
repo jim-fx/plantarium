@@ -2,11 +2,11 @@
 
 .node-input-wrapper {
   position: absolute;
-  top: 8.5px;
+  top: 7px;
 
-  left: -3.5px;
-  width: 3.5px;
-  height: 7px;
+  left: -5px;
+  width: 5px;
+  height: 10px;
   box-sizing: border-box;
   border-radius: 7px 0px 0px 7px;
 
@@ -14,6 +14,7 @@
 }
 
 .socket-state-highlight {
+
   // outline: solid thick hotpink;
   // box-shadow: 0px 0px 5px hotpink;
   &::after {
@@ -40,7 +41,7 @@
   transition: opacity 0.3s ease, transform 0.3s ease;
   opacity: 0;
   z-index: -1;
-  left: -7px;
-  top: -7px;
+  left: -5px;
+  top: -5.5px;
   border-radius: 20px;
 }
