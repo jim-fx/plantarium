@@ -92,7 +92,7 @@ export default class BoxSelectionView extends EventEmitter {
       ({ mx, my, x, y }) => {
         const { mDownX, mDownY, downX, downY, isShiftKey } = this;
 
-        // UnProjected box for updateing html elemeent
+        // UnProjected box for updating html elemeent
         const box: Rect = {
           x1: Math.min(mx, mDownX),
           x2: Math.max(mx, mDownX),
