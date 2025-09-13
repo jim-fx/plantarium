@@ -32,7 +32,7 @@
     "file-saver": "^2.0.5",
     "gl-matrix": "^3.4.3",
     "idb": "^8.0.0",
-    "jsondiffpatch": "^0.5.0",
+    "jsondiffpatch": "^0.7.0",
     "nanoid": "^5.0.4",
     "ogl": "^1.0.3",
     "open-simplex-noise": "^2.5.0",
